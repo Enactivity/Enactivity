@@ -59,6 +59,8 @@ class User extends CActiveRecord
 		array('username, password, firstName, lastName', 'required', 'on' => 'create, update'),
 
 		array('username', 'length', 'min'=>3, 'max'=>50),
+		array('username, email', 'unique', 'allowEmpty' => true, 
+			'caseSensitive'=>false),
 
 		array('email', 'length', 'min'=>3, 'max'=>50),
 		array('email', 'email'),
@@ -153,7 +155,9 @@ class User extends CActiveRecord
 		if(parent::beforeValidate()) {
 			//lowercase unique values
 			$this->email = strtolower($this->email);
-			$this->username = strtolower($this->username);
+			if(isset($this->username)) { //to prevent nulls turning into ""
+				$this->username = strtolower($this->username);	
+			}
 			return true;
 		}
 		return false;
