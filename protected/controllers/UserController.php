@@ -27,11 +27,11 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow', // allow only authenticated user to perform actions
-				'actions'=>array('index','view','create','update'),		
+				'actions'=>array('index','view','invite','update'),		
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','create'),
 				'users'=>array('ajsharma'),
 			),
 			array('deny',  // deny all users

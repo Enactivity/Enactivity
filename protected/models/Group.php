@@ -45,7 +45,8 @@ class Group extends CActiveRecord
 		array('name, slug', 'required'),
 		array('name', 'length', 'max'=>255),
 		array('slug', 'length', 'max'=>50),
-		array('created, modified', 'safe'),
+		array('name, slug', 'unique', 'allowEmpty' => false, 
+			'caseSensitive'=>false),
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
 		array('id, name, slug, created, modified', 'safe', 'on'=>'search'),

@@ -29,7 +29,9 @@ $this->menu=array(
 
 <!-- List of users in group -->
 <div id="users">
-    <?php if($model->usersCount>=1): ?>
+    <?php
+    //TODO: only show for registered users 
+    if($model->usersCount>=1): ?>
         <h3>
             <?php echo $model->usersCount . ' User(s)'; ?>
         </h3>
@@ -38,5 +40,10 @@ $this->menu=array(
             'group'=>$model,
             'users'=>$model->users,
         )); ?>
+    <?php //better to swap contents instead of headers, but this is an example 
+    else: ?>
+    	<h3>
+            <?php echo 'No Users'; ?>
+        </h3>
     <?php endif; ?>
 </div>
