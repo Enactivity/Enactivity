@@ -26,21 +26,21 @@ class GroupController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+		array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update'),
+		),
+		array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('update', 'invite'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		),
+		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('create', 'admin', 'delete'),
 				'users'=>array('ajsharma'), //FIXME: better controls
-			),
-			array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+		),
 		);
 	}
 
@@ -175,5 +175,42 @@ class GroupController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionInvite()
+	{
+		$model = new GroupUser;
+
+		// uncomment the following code to enable ajax-based validation
+		/*
+		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
+		{
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+		}
+		*/
+
+		if(isset($_POST['GroupUser']))
+		{
+			$model->attributes=$_POST['GroupUser'];
+			//if email does not exist, create user
+			if(isset($_POST['User'])) {
+				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
+				if(!isset($user)) {
+					$user = new User;
+					$user->attributes = $_POST['User'];
+					$user->save();
+				}
+				$model->userId = $user->id;
+			}
+			
+			//Validate and save
+			if($model->validate())
+			{
+				if($model->save())
+				$this->redirect(array('view','id'=>$model->groupId));
+			}
+		}
+		$this->render('invite', array('model'=>$model));
 	}
 }

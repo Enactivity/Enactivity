@@ -80,7 +80,7 @@ class Group extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Group',
 			'name' => 'Name',
 			'slug' => 'Slug',
 			'created' => 'Created',

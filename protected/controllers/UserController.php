@@ -26,17 +26,17 @@ class UserController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow only authenticated user to perform actions
+		array('allow', // allow only authenticated user to perform actions
 				'actions'=>array('index','view','invite','update'),		
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		),
+		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create'),
 				'users'=>array('ajsharma'),
-			),
-			array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+		),
 		);
 	}
 
@@ -51,56 +51,30 @@ class UserController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionInvite()
-	{
-		//TODO: support multiple emails
-		$model=new User('invite');
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			$model->status = User::STATUS_PENDING;
-			if($model->save()) {
-				//TODO: redirect to some 'invites sent' page or flash at group page
-				$this->redirect(array('view','id'=>$model->id));
-			}
-		}
-
-		$this->render('invite', array(
-			'model'=>$model,
-		));
-	}
-
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new User('create');
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->save())
-			$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+	//Users are created via Group Invites
+//	/**
+//	 * Creates a new model.
+//	 * If creation is successful, the browser will be redirected to the 'view' page.
+//	 */
+//	public function actionCreate()
+//	{
+//		$model = new User('create');
+//		$groupUser = $this->newGroupUser($model);
+//
+//		// Uncomment the following line if AJAX validation is needed
+//		// $this->performAjaxValidation($model);
+//
+//		if(isset($_POST['User']))
+//		{
+//			$model->attributes=$_POST['User'];
+//			if($model->save())
+//			$this->redirect(array('view','id'=>$model->id));
+//		}
+//
+//		$this->render('create',array(
+//			'model'=>$model,
+//		));
+//	}
 
 	/**
 	 * Updates a particular model.

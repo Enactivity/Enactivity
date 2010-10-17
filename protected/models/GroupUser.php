@@ -57,15 +57,11 @@ class GroupUser extends CActiveRecord
 		array('status', 'length', 'max'=>15),
 		array('created, modified', 'safe'),
 
+		// TODO: default to pending after adding user confirmation
 		array('status', 'default',
-		 'value'=>self::STATUS_PENDING,
+		 'value'=>self::STATUS_ACTIVE,
 		 'setOnEmpty'=>false, 'on'=>'insert'),
-		array('status', 'in', 'range'=>array(
-		self::STATUS_PENDING,
-		self::STATUS_ACTIVE,
-		self::STATUS_INACTIVE,
-		)
-		),
+		array('status', 'in', 'range'=>$this->getStatuses()),
 
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
@@ -166,39 +162,39 @@ class GroupUser extends CActiveRecord
 		self::STATUS_INACTIVE,
 		self::STATUS_PENDING);
 	}
-
-	/**
-	 * Returns the groups for the specified user.
-	 * @param string item type (e.g. 'PostStatus').
-	 * @return array item names indexed by item code. The items are order by their position values.
-	 * An empty array is returned if the item type does not exist.
-	 */
-	public static function groups($userId)
-	{
-		if(!isset(self::$_groups[$userId])) {
-			self::loadGroups($userId);
-		}
-		return self::$_groups[$userId];
-	}
-	
-/**
-	 * Loads the lookup items for the specified type from the database.
-	 * @param int the user id
-	 */
-	private static function loadGroups($userId)
-	{
-		self::$_groups[$userId] = array();
-		
-		$models = self::model()->findAll(array(
-			'condition'=>'userId=:userId',
-			'params'=>array(':userId'=>$userId),
-			//TODO: order groups by name
-			//'order'=>'position',
-		));
-		
-		foreach($models as $model) {
-			//TODO: want the group name, not group ID
-			self::$_groups[$userId][$model->groupId] = $model->groupId;
-		}
-	}
+//
+//	/**
+//	 * Returns the groups for the specified user.
+//	 * @param string item type (e.g. 'PostStatus').
+//	 * @return array item names indexed by item code. The items are order by their position values.
+//	 * An empty array is returned if the item type does not exist.
+//	 */
+//	public static function groups($userId)
+//	{
+//		if(!isset(self::$_groups[$userId])) {
+//			self::loadGroups($userId);
+//		}
+//		return self::$_groups[$userId];
+//	}
+//
+//	/**
+//	 * Loads the lookup items for the specified type from the database.
+//	 * @param int the user id
+//	 */
+//	private static function loadGroups($userId)
+//	{
+//		self::$_groups[$userId] = array();
+//
+//		$models = self::model()->findAll(array(
+//			'condition'=>'userId=:userId',
+//			'params'=>array(':userId'=>$userId),
+//			//TODO: order groups by name
+//			//'order'=>'position',
+//		));
+//
+//		foreach($models as $model) {
+//			//TODO: want the group name, not group ID
+//			self::$_groups[$userId][$model->groupId] = $model->groupId;
+//		}
+//	}
 }

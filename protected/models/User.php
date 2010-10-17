@@ -79,6 +79,7 @@ class User extends CActiveRecord
 		self::STATUS_INACTIVE
 		)
 		),
+		
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
 		array('id, username, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
@@ -230,14 +231,6 @@ class User extends CActiveRecord
             'id'=>$this->id,
             'username'=>$this->username,
 		));
-	}
-	
-	public function getGroupsList() {
-		$list = array();
-		foreach($this->groups as $group) {
-			$list[$group->id] = $group->name;
-		}
-		return $list;
 	}
 	
 	/**
