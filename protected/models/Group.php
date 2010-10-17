@@ -13,6 +13,7 @@
  * The followings are the available model relations:
  * @property Event[] $events
  * @property GroupUser[] $groupUsers
+ * @property User[] $users
  */
 class Group extends CActiveRecord
 {
@@ -62,9 +63,13 @@ class Group extends CActiveRecord
 		return array(
 			'events' => array(self::HAS_MANY, 'Event', 'groupId'),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'groupId',
-				'condition' => 'groupUsers.status=' . GroupUser::STATUS_ACTIVE),
+				'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'),
 			'usersCount' => array(self::STAT, 'GroupUser', 'groupId', 
-				'condition' => 'groupUsers.status=' . GroupUser::STATUS_ACTIVE),
+				'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'),
+			'users' => array(self::MANY_MANY, 'User', 
+				'group_user(groupId, userId)',
+				//'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'
+				),
 		);
 	}
 

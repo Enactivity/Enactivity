@@ -29,10 +29,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groupId'); ?>
-		<?php echo $form->dropDownList($model,'groupId', GroupUser::groups(Yii::app()->user->id)); ?>
+		<?php echo $form->dropDownList($model,'groupId',Yii::app()->user->model->getGroupsList()); ?>
 		<?php echo $form->error($model,'groupId'); ?>
 	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'starts'); ?>
 		<?php echo $form->textField($model,'starts'); ?>

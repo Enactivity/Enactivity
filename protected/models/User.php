@@ -96,7 +96,7 @@ class User extends CActiveRecord
 			'eventUsers' => array(self::HAS_MANY, 'EventUser', 'userId'),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 			'groups' => array(self::MANY_MANY, 'Group', 
-				'groupUser(userId, groupId)'),
+				'group_user(userId, groupId)'),
 		);
 		//TODO: stats: # future events 
 	}
@@ -226,6 +226,14 @@ class User extends CActiveRecord
             'id'=>$this->id,
             'username'=>$this->username,
 		));
+	}
+	
+	public function getGroupsList() {
+		$list = array();
+		foreach($this->groups as $group) {
+			$list[$group->id] = $group->name;
+		}
+		return $list;
 	}
 	
 	/**

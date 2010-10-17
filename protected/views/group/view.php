@@ -23,5 +23,20 @@ $this->menu=array(
 		'slug',
 		'created',
 		'modified',
+		'usersCount',
 	),
 )); ?>
+
+<!-- List of users in group -->
+<div id="users">
+    <?php if($model->usersCount>=1): ?>
+        <h3>
+            <?php echo $model->usersCount . ' User(s)'; ?>
+        </h3>
+ 
+        <?php $this->renderPartial('_users', array(
+            'group'=>$model,
+            'users'=>$model->users,
+        )); ?>
+    <?php endif; ?>
+</div>
