@@ -31,6 +31,8 @@ return array(
 	// application components
 	'components'=>array(
 		'user'=>array(
+			// Map current user to our custom class
+			'class' => 'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),

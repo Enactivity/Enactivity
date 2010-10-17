@@ -20,6 +20,7 @@
  * @property Event[] $events
  * @property EventUser[] $eventUsers
  * @property GroupUser[] $groupUsers
+ * @property Group[] $groups
  */
 class User extends CActiveRecord
 {
@@ -94,6 +95,8 @@ class User extends CActiveRecord
 			'events' => array(self::HAS_MANY, 'Event', 'creatorId'),
 			'eventUsers' => array(self::HAS_MANY, 'EventUser', 'userId'),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+			'groups' => array(self::MANY_MANY, 'Group', 
+				'groupUser(userId, groupId)'),
 		);
 		//TODO: stats: # future events 
 	}
