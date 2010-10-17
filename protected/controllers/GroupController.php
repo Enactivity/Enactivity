@@ -31,11 +31,11 @@ class GroupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('create', 'admin', 'delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -70,7 +70,7 @@ class GroupController extends Controller
 		{
 			$model->attributes=$_POST['Group'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -94,7 +94,7 @@ class GroupController extends Controller
 		{
 			$model->attributes=$_POST['Group'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -116,10 +116,10 @@ class GroupController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -127,8 +127,9 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
+		//TODO: only show groups user is a member of
 		$dataProvider=new CActiveDataProvider('Group');
-		$this->render('index',array(
+		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -140,8 +141,9 @@ class GroupController extends Controller
 	{
 		$model=new Group('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Group']))
+		if(isset($_GET['Group'])) {
 			$model->attributes=$_GET['Group'];
+		}
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -156,8 +158,9 @@ class GroupController extends Controller
 	public function loadModel($id)
 	{
 		$model=Group::model()->findByPk((int)$id);
-		if($model===null)
+		if($model===null) {
 			throw new CHttpException(404,'The requested page does not exist.');
+		}
 		return $model;
 	}
 
