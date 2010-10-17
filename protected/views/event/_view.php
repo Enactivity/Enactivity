@@ -13,11 +13,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creatorId')); ?>:</b>
-	<?php echo CHtml::encode($data->creatorId); ?>
+	<?php echo CHtml::encode($data->creator->fullName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
-	<?php echo CHtml::encode($data->groupId); ?>
+	<?php echo CHtml::encode($data->group->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('starts')); ?>:</b>

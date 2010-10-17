@@ -21,15 +21,15 @@
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-	<div class="row">
+	<?php /*<div class="row">
 		<?php echo $form->labelEx($model,'creatorId'); ?>
 		<?php echo $form->textField($model,'creatorId'); ?>
 		<?php echo $form->error($model,'creatorId'); ?>
-	</div>
+	</div> */ ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groupId'); ?>
-		<?php echo $form->textField($model,'groupId'); ?>
+		<?php echo $form->dropDownList($model,'groupId', GroupUser::groups(Yii::app()->user->id)); ?>
 		<?php echo $form->error($model,'groupId'); ?>
 	</div>
 
@@ -49,18 +49,6 @@
 		<?php echo $form->labelEx($model,'location'); ?>
 		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'location'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
 	</div>
 
 	<div class="row buttons">
