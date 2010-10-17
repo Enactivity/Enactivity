@@ -80,6 +80,7 @@ class User extends CActiveRecord
 		// Please remove those attributes that should not be searched.
 		array('id, username, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
+		//FIXME: users can use restricted words for username
 	}
 
 	/**
@@ -207,6 +208,13 @@ class User extends CActiveRecord
 	}
 
 	/**
+	 * Get the full name of the user (i.e. First Last)
+	 */
+	public function fullName() {
+		return $this->firstName . ' ' . $this->lastName;
+	}
+	
+	/**
 	 * Get the url for viewing this user
 	 */
 	public function getUrl()
@@ -215,5 +223,14 @@ class User extends CActiveRecord
             'id'=>$this->id,
             'username'=>$this->username,
 		));
+	}
+	
+	/**
+	 * Return a list of the available statuses
+	 */
+	public static function getStatuses() {
+		return array(self::STATUS_ACTIVE,
+			self::STATUS_INACTIVE, 
+			self::STATUS_PENDING);
 	}
 }

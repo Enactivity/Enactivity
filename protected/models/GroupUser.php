@@ -22,6 +22,12 @@ class GroupUser extends CActiveRecord
 	const STATUS_INACTIVE = 'Inactive';
 
 	/**
+	 * Store of group maps
+	 * @var unknown_type
+	 */
+	private static $_groups = array();
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * @return GroupUser the static model class
 	 */
@@ -149,6 +155,50 @@ class GroupUser extends CActiveRecord
 		}
 		else {
 			return false;
+		}
+	}
+
+	/**
+	 * Return a list of the available statuses
+	 */
+	public static function getStatuses() {
+		return array(self::STATUS_ACTIVE,
+		self::STATUS_INACTIVE,
+		self::STATUS_PENDING);
+	}
+
+	/**
+	 * Returns the groups for the specified user.
+	 * @param string item type (e.g. 'PostStatus').
+	 * @return array item names indexed by item code. The items are order by their position values.
+	 * An empty array is returned if the item type does not exist.
+	 */
+	public static function groups($userId)
+	{
+		if(!isset(self::$_groups[$userId])) {
+			self::loadGroups($userId);
+		}
+		return self::$_groups[$userId];
+	}
+	
+/**
+	 * Loads the lookup items for the specified type from the database.
+	 * @param int the user id
+	 */
+	private static function loadGroups($userId)
+	{
+		self::$_groups[$userId] = array();
+		
+		$models = self::model()->findAll(array(
+			'condition'=>'userId=:userId',
+			'params'=>array(':userId'=>$userId),
+			//TODO: order groups by name
+			//'order'=>'position',
+		));
+		
+		foreach($models as $model) {
+			//TODO: want the group name, not group ID
+			self::$_groups[$userId][$model->groupId] = $model->groupId;
 		}
 	}
 }

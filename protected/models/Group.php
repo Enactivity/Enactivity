@@ -49,6 +49,7 @@ class Group extends CActiveRecord
 		// Please remove those attributes that should not be searched.
 		array('id, name, slug, created, modified', 'safe', 'on'=>'search'),
 		);
+		//FIXME: users can use restricted words for slug
 	}
 
 	/**

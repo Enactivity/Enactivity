@@ -47,7 +47,7 @@ class Event extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-		array('name, creatorId, groupId, starts, ends', 'required'),
+		array('name, groupId, starts, ends', 'required'),
 		array('creatorId, groupId', 'numerical', 'integerOnly'=>true),
 		array('name, location', 'length', 'max'=>255),
 		array('description', 'length', 'max'=>4000),
@@ -124,8 +124,7 @@ class Event extends CActiveRecord
 	}
 
 	protected function beforeValidate() {
-		if(parent::beforeValidate()) {
-			//lowercase unique values
+		if(parent::beforeValidate()) {			
 			return true;
 		}
 		return false;
@@ -144,6 +143,8 @@ class Event extends CActiveRecord
 		{
 			if($this->isNewRecord)
 			{
+				// Set current user as 
+				$this->creatorId = Yii::app()->user->id;
 				$this->created = new CDbExpression('NOW()');
 				$this->modified = new CDbExpression('NOW()');
 			}

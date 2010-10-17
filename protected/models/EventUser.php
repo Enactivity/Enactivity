@@ -146,4 +146,12 @@ class EventUser extends CActiveRecord
 			return false;
 		}
 	}
+	
+/**
+	 * Return a list of the available statuses
+	 */
+	public static function getStatuses() {
+		return array(self::STATUS_ATTENDING,
+			self::STATUS_NOT_ATTENDING);
+	}
 }
