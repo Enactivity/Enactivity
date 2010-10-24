@@ -19,6 +19,10 @@
  * @property User $creator
  * @property Group $group
  * @property EventUser[] $eventUsers
+ * @property EventUser[] $eventUsersAttending
+ * @property int $eventUsersAttendingCount
+ * @property EventUser[] $eventUsersNotAttending
+ * @property int $eventUsersNotAttendingCount
  */
 class Event extends CActiveRecord
 {
