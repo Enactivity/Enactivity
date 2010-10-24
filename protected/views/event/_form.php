@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groupId'); ?>
-		<?php echo $form->dropDownList($model,'groupId',Yii::app()->user->model->getGroupsList()); ?>
+		<?php echo $form->dropDownList($model,'groupId', CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); ?>
 		<?php echo $form->error($model,'groupId'); ?>
 	</div>
 	
