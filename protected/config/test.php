@@ -12,6 +12,21 @@ return CMap::mergeArray(
 				'connectionString'=>'DSN for test database',
 			),
 			*/
+			'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
+				array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'error, warning',
+				),
+				// un/comment the following to show/hide log messages on web pages
+				
+				array(
+					'class'=>'CWebLogRoute',
+				),
+				
+			),
+		),
 		),
 	)
 );

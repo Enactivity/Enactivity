@@ -73,9 +73,9 @@ return array(
 				),
 				// un/comment the following to show/hide log messages on web pages
 				
-				array(
-					'class'=>'CWebLogRoute',
-				),
+//				array(
+//					'class'=>'CWebLogRoute',
+//				),
 				
 			),
 		),
