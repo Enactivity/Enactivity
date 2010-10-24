@@ -28,11 +28,11 @@
 	<?php echo CHtml::encode($data->ends); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('location')); ?>:</b>
 	<?php echo CHtml::encode($data->location); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
 	<?php echo CHtml::encode($data->created); ?>
 	<br />
