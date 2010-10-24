@@ -43,7 +43,7 @@ $this->menu=array(
     <?php //better to swap contents instead of headers, but this is an example 
     else: ?>
     	<h3>
-            <?php echo 'No Pending Users'; ?>
+            <?php echo 'No Active Users'; ?>
         </h3>
     <?php endif; ?>
      <?php
@@ -60,7 +60,7 @@ $this->menu=array(
     <?php //better to swap contents instead of headers, but this is an example 
     else: ?>
     	<h3>
-            <?php echo 'No Users'; ?>
+            <?php echo 'No Pending Users'; ?>
         </h3>
     <?php endif; ?>
 </div>
