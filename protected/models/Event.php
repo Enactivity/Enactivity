@@ -70,10 +70,14 @@ class Event extends CActiveRecord
 			'creator' => array(self::BELONGS_TO, 'User', 'creatorId'),
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'eventUsers' => array(self::HAS_MANY, 'EventUser', 'eventId'),
+			'eventUsersAttending' => array(self::HAS_MANY, 'EventUser', 'eventId',
+				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'),
 			'eventUsersAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
-				'condition' => 'EventUser.status=' . EventUser::STATUS_ATTENDING),
+				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'),
+			'eventUsersNotAttending' => array(self::HAS_MANY, 'EventUser', 'eventId',
+				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'),
 			'eventUsersNotAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
-				'condition' => 'EventUser.status=' . EventUser::STATUS_NOT_ATTENDING),
+				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'),
 		);
 	}
 

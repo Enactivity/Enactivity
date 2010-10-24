@@ -29,4 +29,19 @@ $this->menu=array(
 		'created',
 		'modified',
 	),
-)); ?>
+)); 
+
+//TODO: add attending button
+?>
+
+<!-- List of users in event -->
+<div id="users">
+	<h3>
+		<?php echo $model->eventUsersAttendingCount . ' Attending'; ?>
+	</h3>
+ 
+        <?php $this->renderPartial('_users', array(
+            'group'=>$model,
+            'users'=>$model->eventUsersAttending,
+        )); ?>
+</div>

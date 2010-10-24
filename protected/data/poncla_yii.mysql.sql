@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 17, 2010 at 03:12 PM
+-- Generation Time: Oct 23, 2010 at 08:58 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -29,14 +29,16 @@ CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(4000) DEFAULT NULL,
-  `creatorId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (creatorId) REFERENCES User(id)',
-  `groupId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (groupId) REFERENCES Group(id)',
+  `creatorId` int(11) DEFAULT NULL,
+  `groupId` int(11) NOT NULL,
   `starts` datetime NOT NULL,
   `ends` datetime NOT NULL,
   `location` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `creatorId` (`creatorId`),
+  KEY `groupId` (`groupId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -55,13 +57,14 @@ INSERT INTO `event` (`id`, `name`, `description`, `creatorId`, `groupId`, `start
 
 CREATE TABLE IF NOT EXISTS `event_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eventId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (eventId) REFERENCES Event(id)',
-  `userId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (userId) REFERENCES User(id)',
+  `eventId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'Pending',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `eventuser` (`eventId`,`userId`)
+  KEY `eventId` (`eventId`),
+  KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -103,13 +106,14 @@ INSERT INTO `group` (`id`, `name`, `slug`, `created`, `modified`) VALUES
 
 CREATE TABLE IF NOT EXISTS `group_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (groupId) REFERENCES Group(id)',
-  `userId` int(11) NOT NULL COMMENT 'CONSTRAINT FOREIGN KEY (userId) REFERENCES User(id)',
+  `groupId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'Pending',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `groupuser` (`groupId`,`userId`)
+  KEY `groupId` (`groupId`),
+  KEY `userId` (`userId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
@@ -145,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastLogin` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `token` (`token`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
@@ -170,3 +175,28 @@ INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`,
 (23, NULL, 'test98@test.com', '35c5e4a1d0d9e6ba791c478fb2b7f704f1a9abd4', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 00:22:14', '2010-10-17 00:22:14', NULL),
 (24, NULL, '', '9c885ee906ee29993e3ea1db0434c3d5ead1f3dc', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 14:52:13', '2010-10-17 14:52:13', NULL),
 (25, NULL, 'newuser@poncla.com', '15739124e6aa9f603e5ca46a9b7ef2ff9ca160d0', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 14:55:25', '2010-10-17 14:55:25', NULL);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `event`
+--
+ALTER TABLE `event`
+  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `event_user`
+--
+ALTER TABLE `event_user`
+  ADD CONSTRAINT `event_user_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_user_ibfk_3` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `group_user`
+--
+ALTER TABLE `group_user`
+  ADD CONSTRAINT `group_user_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_user_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE;

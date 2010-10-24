@@ -63,14 +63,15 @@ class Group extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'events' => array(self::HAS_MANY, 'Event', 'groupId'),
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'groupId',
-				'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'),
-			'usersCount' => array(self::STAT, 'GroupUser', 'groupId', 
-				'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'),
-			'users' => array(self::MANY_MANY, 'User', 
-				'group_user(groupId, userId)',
-				//'condition' => 'group_user.status="' . GroupUser::STATUS_ACTIVE .'"'
-				),
+			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'groupId'),
+			'groupUsersActive' => array(self::HAS_MANY, 'GroupUser', 'groupId',
+				'condition' => 'status="' . GroupUser::STATUS_ACTIVE .'"'),
+			'groupUsersActiveCount' => array(self::STAT, 'GroupUser', 'groupId', 
+				'condition' => 'status="' . GroupUser::STATUS_ACTIVE .'"'),
+			'groupUsersPending' => array(self::HAS_MANY, 'GroupUser', 'groupId',
+				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
+			'groupUsersPendingCount' => array(self::STAT, 'GroupUser', 'groupId', 
+				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
 		);
 	}
 

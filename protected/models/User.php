@@ -217,9 +217,16 @@ class User extends CActiveRecord
 
 	/**
 	 * Get the full name of the user (i.e. First Last)
+	 * @return String FirstName LastName or NULL if neither is set
 	 */
 	public function fullName() {
-		return $this->firstName . ' ' . $this->lastName;
+		if($this->firstName != NULL 
+		&& $this->lastName != NULL) {
+			return $this->firstName . ' ' . $this->lastName;
+		}
+		else {
+			return NULL;
+		}
 	}
 	
 	/**

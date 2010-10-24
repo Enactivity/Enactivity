@@ -26,7 +26,6 @@ $this->breadcrumbs=array(
 	<div class="row">
 		<?php echo $form->labelEx(User::model(),'email'); ?>
 		<?php echo $form->textField(User::model(),'email'); ?>
-		<?php //echo $form->dropDownList(User::model(),'email', CHtml::listData(User::model()->findAll(), 'id', 'email')); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
