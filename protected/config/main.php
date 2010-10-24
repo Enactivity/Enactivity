@@ -88,6 +88,8 @@ return array(
 		'adminEmail'=>'ajsharma@poncla.com',
 	),
 	
+	'theme'=>'lizard',
+	
 	// uncomment to set the default controller
 	//'defaultController' => 'login',
 );
