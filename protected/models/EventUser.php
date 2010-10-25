@@ -85,8 +85,8 @@ class EventUser extends CActiveRecord
 			'eventId' => 'Event',
 			'userId' => 'User',
 			'status' => 'Status',
-			'created' => 'Created',
-			'modified' => 'Modified',
+			'created' => 'Initially Responded On',
+			'modified' => 'Last Responded On',
 		);
 	}
 

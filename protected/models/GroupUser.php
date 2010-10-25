@@ -92,8 +92,8 @@ class GroupUser extends CActiveRecord
 			'groupId' => 'Group',
 			'userId' => 'User',
 			'status' => 'Status',
-			'created' => 'Created',
-			'modified' => 'Modified',
+			'created' => 'Invited On',
+			'modified' => 'Invite Last Modified On',
 		);
 	}
 

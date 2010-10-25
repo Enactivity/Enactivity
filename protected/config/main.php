@@ -58,6 +58,7 @@ return array(
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
+			'enableParamLogging'=>true
 		),
 		
 		'errorHandler'=>array(

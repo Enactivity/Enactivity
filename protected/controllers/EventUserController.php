@@ -1,6 +1,6 @@
 <?php
 
-class EventController extends Controller
+class EventUserController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,12 +27,16 @@ class EventController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','update','my'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('ajsharma'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -57,14 +61,14 @@ class EventController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Event;
+		$model=new EventUser;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['EventUser']))
 		{
-			$model->attributes=$_POST['Event'];
+			$model->attributes=$_POST['EventUser'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -86,9 +90,9 @@ class EventController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['EventUser']))
 		{
-			$model->attributes=$_POST['Event'];
+			$model->attributes=$_POST['EventUser'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,31 +126,16 @@ class EventController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{		
-		$dataProvider=new CActiveDataProvider('Event');
-		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
-			'myevents'=>$mygroupsevents,
-		));
-	}
-	
-	/**
-	 * List all Events the user is potentially invited to
-	 */
-	public function actionMy() 
 	{
-		//TODO: load current users's events as DataProvider
-		$mygroups = Yii::app()->user->model->groups;
-		$mygroupsevents = array();
-		
-		foreach($mygroups as $group) {
-			$mygroupsevents = array_merge($mygroupsevents, $group->events);
-		}
-		
-		$dataProvider=new CActiveDataProvider('Event');
-		$this->render('my', array(
-//			'dataProvider'=>$dataProvider,
-			'events'=>$mygroupsevents,
+		$dataProvider=new CActiveDataProvider('EventUser', array(
+			'criteria' => array(
+				'condition' => 'userId=' . Yii::app()->user->id,
+				'order' => 'event.name ASC',
+				'with' => array('event'), // get the groups' info now
+		    ),
+		));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -155,10 +144,10 @@ class EventController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Event('search');
+		$model=new EventUser('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Event']))
-			$model->attributes=$_GET['Event'];
+		if(isset($_GET['EventUser']))
+			$model->attributes=$_GET['EventUser'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -172,7 +161,7 @@ class EventController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Event::model()->findByPk((int)$id);
+		$model=EventUser::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -184,7 +173,7 @@ class EventController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='event-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='event-user-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
