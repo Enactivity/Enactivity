@@ -128,6 +128,8 @@ class EventController extends Controller
 		
 		$dataProvider= $model->search();
 		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='" . Yii::app()->user->id . "'))");
+		$dataProvider->criteria->addCondition("ends > NOW()");
+		$dataProvider->criteria->order = "starts ASC";
 		
 		$this->render('index', array(
 		        'model'=>$model,

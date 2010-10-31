@@ -132,6 +132,7 @@ class GroupController extends Controller
 		
 		$dataProvider = $model->search();
 		$dataProvider->criteria->addCondition("id IN (SELECT groupId AS id FROM group_user WHERE userId='" . Yii::app()->user->id . "')");
+		$dataProvider->criteria->order = "name ASC";
 		
 		$this->render('index', array(
 		        'model'=>$model,
