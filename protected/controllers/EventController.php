@@ -125,9 +125,6 @@ class EventController extends Controller
 	{		
 		$model=new Event('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Event'])) {
-			$model->attributes=$_GET['Event'];
-		}
 		
 		$dataProvider= $model->search();
 		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='" . Yii::app()->user->id . "'))");
