@@ -127,9 +127,15 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Group');
+		$model=new Group('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $model->search();
+		$dataProvider->criteria->addCondition("id IN (SELECT groupId AS id FROM group_user WHERE userId='" . Yii::app()->user->id . "')");
+		
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+		        'model'=>$model,
+		        'dataProvider'=>$dataProvider,
 		));
 	}
 	
