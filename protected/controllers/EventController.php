@@ -119,7 +119,7 @@ class EventController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists all event's that the are in the user's groups.
 	 */
 	public function actionIndex()
 	{		
@@ -128,25 +128,26 @@ class EventController extends Controller
 			'dataProvider'=>$dataProvider,
 			'myevents'=>$mygroupsevents,
 		));
+		
+				$model=new Event('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Event'])) {
+			$model->attributes=$_GET['Event'];
+		}
+		
+		$userId = Yii::app()->user->id;
+		$dataProvider= $model->search();
+		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='$userId'))");
 	}
 	
 	/**
-	 * List all Events the user is potentially invited to
+	 * List all events
 	 */
-	public function actionMy() 
+	public function actionViewAll() 
 	{
-		//TODO: load current users's events as DataProvider
-		$mygroups = Yii::app()->user->model->groups;
-		$mygroupsevents = array();
-		
-		foreach($mygroups as $group) {
-			$mygroupsevents = array_merge($mygroupsevents, $group->events);
-		}
-		
-		$dataProvider=new CActiveDataProvider('Event');
-		$this->render('my', array(
-//			'dataProvider'=>$dataProvider,
-			'events'=>$mygroupsevents,
+		$this->render('index', array(
+		        'model'=>$model,
+		        'dataProvider'=>$dataProvider,
 		));
 	}
 
