@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Overrides CWebUser to provide access to the User model
+ * @author Ajay Sharma
+ *
+ */
 class WebUser extends CWebUser {
 
 	/**
@@ -27,5 +31,14 @@ class WebUser extends CWebUser {
 			$this->_model=User::model()->findByPk($id);
 		}
 		return $this->_model;
+	}
+	
+	/**
+	 * @return boolean whether the current application user is a guest.
+	 */
+	public function getIsAdmin()
+	{
+		//TODO: implement admin in user
+		return $this->getModel()->username == "ajsharma";
 	}
 }

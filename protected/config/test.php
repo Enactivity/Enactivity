@@ -28,6 +28,6 @@ return CMap::mergeArray(
 			),
 		),
 		),
-		'theme'=>'classic',
+		'theme'=>'', //use yii-default
 	)
 );

@@ -27,16 +27,16 @@ class GroupController extends Controller
 	{
 		return array(
 		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('all','view'),
 				'users'=>array('*'),
 		),
 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update', 'invite'),
+				'actions'=>array('index', 'update', 'invite'),
 				'users'=>array('@'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('create', 'admin', 'delete'),
-				'users'=>array('ajsharma'), //FIXME: better controls
+				'expression'=>$user->isAdmin,
 		),
 		array('deny',  // deny all users
 				'users'=>array('*'),
@@ -123,11 +123,21 @@ class GroupController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists user's groups
 	 */
 	public function actionIndex()
 	{
-		//TODO: only show groups user is a member of
+		$dataProvider=new CActiveDataProvider('Group');
+		$this->render('index', array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	/**
+	 * Lists all models.
+	 */
+	public function actionAll()
+	{
 		$dataProvider=new CActiveDataProvider('Group');
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,

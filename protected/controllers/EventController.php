@@ -27,12 +27,12 @@ class EventController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','update','my'),
+				'actions'=>array('index','view','create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('ajsharma'),
+				'actions'=>array('admin','delete','all'),
+				'expression'=>$user->isAdmin,
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -123,31 +123,30 @@ class EventController extends Controller
 	 */
 	public function actionIndex()
 	{		
-		$dataProvider=new CActiveDataProvider('Event');
-		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
-			'myevents'=>$mygroupsevents,
-		));
-		
-				$model=new Event('search');
+		$model=new Event('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Event'])) {
 			$model->attributes=$_GET['Event'];
 		}
 		
-		$userId = Yii::app()->user->id;
 		$dataProvider= $model->search();
-		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='$userId'))");
+		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='" . Yii::app()->user->id . "'))");
+		
+		$this->render('index', array(
+		        'model'=>$model,
+		        'dataProvider'=>$dataProvider,
+		));
 	}
 	
 	/**
 	 * List all events
 	 */
-	public function actionViewAll() 
-	{
+	public function actionAll() 
+	{		
+		$dataProvider=new CActiveDataProvider('Event');
 		$this->render('index', array(
-		        'model'=>$model,
-		        'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider,
+			'myevents'=>$mygroupsevents,
 		));
 	}
 
