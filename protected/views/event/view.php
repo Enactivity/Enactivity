@@ -33,6 +33,32 @@ $this->menu=array(
 
 //TODO: add attending button
 ?>
+<!-- RSVP Button -->
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+    'id'=>'event-user-rsvp-form',
+    'enableAjaxValidation'=>false,
+)); ?>
+
+<?php if($eventuser->status != EventUser::STATUS_ATTENDING): ?>
+    <div class="row buttons">
+    	<?php echo CHtml::activeHiddenField($eventuser, 'status', array(value=>EventUser::STATUS_ATTENDING)); ?>
+        <?php echo CHtml::submitButton('I\'m Attending'); ?>
+    </div>
+<?php endif; ?>
+<?php if($eventuser->status != EventUser::STATUS_NOT_ATTENDING): ?>
+    <div class="row buttons">
+    	<?php echo CHtml::activeHiddenField($eventuser, 'status', array(value=>EventUser::STATUS_NOT_ATTENDING)); ?>
+        <?php echo CHtml::submitButton('I\'m Not Attending'); ?>
+    </div>
+<?php endif; ?>
+
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
+
 
 <!-- List of users in event -->
 <div id="users">
@@ -40,8 +66,8 @@ $this->menu=array(
 		<?php echo $model->eventUsersAttendingCount . ' Attending'; ?>
 	</h3>
  
-        <?php $this->renderPartial('_users', array(
+        <?php $this->renderPartial('_eventusers', array(
             'group'=>$model,
-            'users'=>$model->eventUsersAttending,
+            'eventUsers'=>$model->eventUsersAttending,
         )); ?>
 </div>

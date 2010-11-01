@@ -46,8 +46,18 @@ class EventController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$event = $this->loadModel($id);
+		if(isset($_POST['EventUser'])) {
+			$eventuser = $this->setEventUser($event);
+		}
+		else {
+			$eventuser = $this->getEventUser($event);
+			$eventuser = $eventuser != NULL ? $eventuser : new EventUser;
+		}
+				
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$event,
+			'eventuser'=>$eventuser,
 		));
 	}
 
@@ -188,5 +198,36 @@ class EventController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	/**
+	 * Set an event user status for the current event and user
+	 * @param unknown_type $event
+	 */
+	public function getEventUser($event) {
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("eventId = '" . $event->id . "'");
+		$criteria->addCondition("userId = '" . Yii::app()->user->id . "'");
+		$eventuser = EventUser::model()->find($criteria);
+		return $eventuser;
+	}
+	
+	/**
+	 * Set an event user status for the current event and user
+	 * @param unknown_type $event
+	 */
+	public function setEventUser($event) {
+		
+		$eventuser = new EventUser;
+		if(isset($_POST['EventUser']))
+		{
+			$eventuser->attributes = $_POST['EventUser'];
+			if($event->addEventUser($eventuser))
+			{
+				Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
+				$this->refresh();
+			}
+		}
+		return $eventuser;
 	}
 }

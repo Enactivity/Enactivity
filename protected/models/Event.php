@@ -165,4 +165,13 @@ class Event extends CActiveRecord
 			return false;
 		}
 	}
+	
+	/**
+	 * Add a new user to the event 
+	 */
+	public function addEventUser($eventuser) {
+		$eventuser->userId = Yii::app()->user->id;
+		$eventuser->eventId = $this->id;
+		return $eventuser->save();
+	}
 }
