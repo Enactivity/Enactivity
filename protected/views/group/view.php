@@ -13,12 +13,13 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Group: <?php echo $model->name; ?></h1>
+<h1>Viewing <?php echo $model->name; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+//FIXME: redirect to group profile page
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'name',
 		'slug',
 		'created',
@@ -26,7 +27,8 @@ $this->menu=array(
 		'groupUsersActiveCount',
 		'groupUsersPendingCount',
 	),
-)); ?>
+)); 
+?>
 
 <!-- List of users in group -->
 <div id="users">

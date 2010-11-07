@@ -13,16 +13,15 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Event #<?php echo $model->id; ?></h1>
+<h1>Viewing <?php echo $model->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'name',
 		'description',
-		'creatorId',
-		'groupId',
+		'creatorId', //FIXME: replace with link to user name
+		'groupId', //FIXME: replace with link to group
 		'starts',
 		'ends',
 		'location',
