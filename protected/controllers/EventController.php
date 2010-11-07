@@ -47,12 +47,12 @@ class EventController extends Controller
 	public function actionView($id)
 	{
 		$event = $this->loadModel($id);
-		if(isset($_POST['EventUser'])) {
-			$eventuser = $this->setEventUser($event);
+		if(isset($_POST['EventUser']['status'])) {
+			$eventuser = $this->setRSVP($event->id, $_POST['EventUser']['status']);
 		}
 		else {
-			$eventuser = $this->getEventUser($event);
-			$eventuser = $eventuser != NULL ? $eventuser : new EventUser;
+			$eventuser = $this->getRSVP($event->id);
+			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
 		}
 				
 		$this->render('view',array(
@@ -201,12 +201,12 @@ class EventController extends Controller
 	}
 	
 	/**
-	 * Set an event user status for the current event and user
-	 * @param unknown_type $event
+	 * Get the event user status for the current event and user
+	 * @param int $eventId
 	 */
-	public function getEventUser($event) {
+	public function getRSVP($eventId) {
 		$criteria = new CDbCriteria;
-		$criteria->addCondition("eventId = '" . $event->id . "'");
+		$criteria->addCondition("eventId = '" . $eventId . "'");
 		$criteria->addCondition("userId = '" . Yii::app()->user->id . "'");
 		$eventuser = EventUser::model()->find($criteria);
 		return $eventuser;
@@ -214,20 +214,27 @@ class EventController extends Controller
 	
 	/**
 	 * Set an event user status for the current event and user
-	 * @param unknown_type $event
+	 * @param int $eventId
+	 * @param String $status
 	 */
-	public function setEventUser($event) {
-		
-		$eventuser = new EventUser;
-		if(isset($_POST['EventUser']))
-		{
-			$eventuser->attributes = $_POST['EventUser'];
-			if($event->addEventUser($eventuser))
-			{
-				Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
-				$this->refresh();
-			}
+	public function setRSVP($eventId, $status) {
+		//look up if RSVP already exists
+		$eventuser = $this->getRSVP($eventId);
+		if($eventuser === null) { 
+			//if not exist, create new RSVP
+			$eventuser = new EventUser;
 		}
+		
+		//set RSVP status
+		$eventuser->eventId = $eventId;
+		$eventuser->userId = Yii::app()->user->id;
+		$eventuser->status = $status;
+		if(!$eventuser->save()) {
+			var_dump( $eventuser->getErrors());
+		}
+			
+		Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
+		$this->refresh();
 		return $eventuser;
 	}
 }
