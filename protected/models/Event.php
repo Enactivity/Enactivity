@@ -94,13 +94,13 @@ class Event extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'description' => 'Description',
-			'creatorId' => 'Creator',
+			'creatorId' => 'Created by',
 			'groupId' => 'Group',
 			'starts' => 'Starts',
 			'ends' => 'Ends',
 			'location' => 'Location',
 			'created' => 'Created',
-			'modified' => 'Modified',
+			'modified' => 'Last modified',
 		);
 	}
 

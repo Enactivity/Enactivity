@@ -85,7 +85,9 @@ class Group extends CActiveRecord
 			'name' => 'Name',
 			'slug' => 'Slug',
 			'created' => 'Created',
-			'modified' => 'Modified',
+			'modified' => 'Last modified',
+			'groupUsersActiveCount' => 'Number of Active Users',
+			'groupUsersPendingCount' => 'Number of Pending Users',
 		);
 	}
 

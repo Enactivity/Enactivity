@@ -119,12 +119,12 @@ class User extends CActiveRecord
 			'email' => 'Email',
 			'token' => 'Token',
 			'password' => 'Password',
-			'firstName' => 'First Name',
-			'lastName' => 'Last Name',
+			'firstName' => 'First name',
+			'lastName' => 'Last name',
 			'status' => 'Status',
 			'created' => 'Created',
-			'modified' => 'Modified',
-			'lastLogin' => 'Last Login',
+			'modified' => 'Last modified',
+			'lastLogin' => 'Last login',
 		);
 	}
 

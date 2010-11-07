@@ -46,7 +46,10 @@ class EventController extends Controller
 	 */
 	public function actionView($id)
 	{
+		// Get the event
 		$event = $this->loadModel($id);
+		
+		// check if the user RSVPed
 		if(isset($_POST['Attending_Button'])) {
 			$eventuser = $this->setRSVP($event->id, EventUser::STATUS_ATTENDING);
 		}
@@ -54,13 +57,22 @@ class EventController extends Controller
 			$eventuser = $this->setRSVP($event->id, EventUser::STATUS_NOT_ATTENDING);
 		} 
 		else {
+			// if the user did not post their RSVP, get their current RSVP
 			$eventuser = $this->getRSVP($event->id);
 			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
 		}
+		
+		// Get the list of the attending users
+		$attendees = $this->getAttendeesByStatus($event->id, EventUser::STATUS_ATTENDING);
+		
+		// Get the list of the not attending users
+		$notattendees = $this->getAttendeesByStatus($event->id, EventUser::STATUS_NOT_ATTENDING);
 				
 		$this->render('view',array(
 			'model'=>$event,
 			'eventuser'=>$eventuser,
+			'attendees'=>$attendees,
+			'notattendees'=>$notattendees,
 		));
 	}
 
@@ -239,5 +251,27 @@ class EventController extends Controller
 		Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
 		$this->refresh();
 		return $eventuser;
+	}
+	
+	/**
+	 * Get the list of users who have RSVPed with the given
+	 * status value
+	 * @param int $eventId
+	 * @param String $status
+	 * @return IDataProvider
+	 */
+	public function getAttendeesByStatus($eventId, $status) {
+		$model = new User('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider= $model->search();
+		$dataProvider->criteria->addCondition(
+			"id IN (SELECT userId AS id FROM event_user" 
+				. " WHERE eventId='" . $eventId . "'" 
+				. " AND status ='" . $status . "')"
+		);
+		$dataProvider->criteria->order = "firstName ASC";
+		
+		return $dataProvider;
 	}
 }

@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Event', 'url'=>array('index')),
-	array('label'=>'Manage Event', 'url'=>array('admin')),
+	array('label'=>'List Events', 'url'=>array('index')),
+	array('label'=>'Admin: Manage Events', 'url'=>array('admin')),
 );
 ?>
 

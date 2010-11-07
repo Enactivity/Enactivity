@@ -50,8 +50,19 @@ class GroupController extends Controller
 	 */
 	public function actionView($id)
 	{
+		// Get the group
+		$group = $this->loadModel($id);
+		
+		// Get the list of the active group users
+		$activemembers = $this->getMembersByStatus($group->id, GroupUser::STATUS_ACTIVE);
+		
+		// Get the list of the pending group users
+		$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
+				
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$group,
+			'activemembers'=>$activemembers,
+			'pendingmembers'=>$pendingmembers,
 		));
 	}
 
@@ -229,5 +240,26 @@ class GroupController extends Controller
 			}
 		}
 		$this->render('invite', array('model'=>$model));
+	}
+	
+	/**
+	 * Get the list of users in this group filtered by status
+	 * @param int $groupId
+	 * @param String $status
+	 * @return IDataProvider
+	 */
+	public function getMembersByStatus($groupId, $status) {
+		$model = new User('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider= $model->search();
+		$dataProvider->criteria->addCondition(
+			"id IN (SELECT userId AS id FROM group_user" 
+				. " WHERE groupId='" . $groupId . "'" 
+				. " AND status ='" . $status . "')"
+		);
+		$dataProvider->criteria->order = "firstName ASC";
+		
+		return $dataProvider;
 	}
 }

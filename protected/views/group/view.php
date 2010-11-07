@@ -24,43 +24,31 @@ $this->menu=array(
 		'created',
 		'modified',
 		'groupUsersActiveCount',
+		'groupUsersPendingCount',
 	),
 )); ?>
 
 <!-- List of users in group -->
 <div id="users">
-    <?php
-    //TODO: only show for registered users 
-    if($model->groupUsersActiveCount >= 1): ?>
-        <h3>
-            <?php echo $model->groupUsersActiveCount . ' Active User(s)'; ?>
-        </h3>
- 
-        <?php $this->renderPartial('_groupusers', array(
-            'group'=>$model,
-            'groupUsers'=>$model->groupUsersActive,
-        )); ?>
-    <?php //better to swap contents instead of headers, but this is an example 
-    else: ?>
-    	<h3>
-            <?php echo 'No Active Users'; ?>
-        </h3>
-    <?php endif; ?>
-     <?php
-    //TODO: only show for registered users 
-    if($model->groupUsersPendingCount >= 1): ?>
-        <h3>
-            <?php echo $model->groupUsersPendingCount . ' Invites Pending'; ?>
-        </h3>
- 
-        <?php $this->renderPartial('_groupusers', array(
-            'group'=>$model,
-            'groupUsers'=>$model->groupUsersPending,
-        )); ?>
-    <?php //better to swap contents instead of headers, but this is an example 
-    else: ?>
-    	<h3>
-            <?php echo 'No Pending Users'; ?>
-        </h3>
-    <?php endif; ?>
+	<h3>
+		<?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?>
+	</h3>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$activemembers,
+		'itemView'=>'_users',
+	)); 
+	?>
+	
+	<h3>
+		<?php echo $activemembers->getTotalItemCount() . ' Pending Members'; ?>
+	</h3>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$pendingmembers,
+		'itemView'=>'_users',
+	)); 
+	?>
 </div>

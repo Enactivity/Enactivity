@@ -5,8 +5,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Event', 'url'=>array('index')),
-	array('label'=>'Create Event', 'url'=>array('create')),
+	array('label'=>'List Events', 'url'=>array('index')),
+	array('label'=>'Create a New Event', 'url'=>array('create')),
+	array('label'=>'Admin: Manage Events', 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

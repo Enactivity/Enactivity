@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Event', 'url'=>array('index')),
-	array('label'=>'Create Event', 'url'=>array('create')),
-	array('label'=>'Update Event', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Event', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Event', 'url'=>array('admin')),
+	array('label'=>'List Events', 'url'=>array('index')),
+	array('label'=>'Create a New Event', 'url'=>array('create')),
+	array('label'=>'Update This Event', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete This Event', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Admin: Manage Events', 'url'=>array('admin')),
 );
 ?>
 
@@ -43,11 +43,13 @@ $this->renderPartial('_rsvp', array(
 <!-- List of users in event -->
 <div id="users">
 	<h3>
-		<?php echo $model->eventUsersAttendingCount . ' Attending'; ?>
+		<?php echo $attendees->getTotalItemCount() . ' Attending'; ?>
 	</h3>
- 
-        <?php $this->renderPartial('_eventusers', array(
-            'group'=>$model,
-            'eventUsers'=>$model->eventUsersAttending,
-        )); ?>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$attendees,
+		'itemView'=>'_users',
+	)); 
+	?>
 </div>
