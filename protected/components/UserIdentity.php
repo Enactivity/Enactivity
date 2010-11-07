@@ -11,7 +11,7 @@ class UserIdentity extends CUserIdentity
 		{
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		}
-		else if($user->validatePassword($this->password)) //valid log in
+		else if($user->isPassword($this->password)) //valid log in
 		{ 	// TODO: check user status, re-activate inactive user
 			
 			// Set useful current user values  

@@ -186,11 +186,12 @@ class User extends CActiveRecord
 				
 				//encrypt token and password
 				$this->token = $this->encrypt(time());
-				$this->password = $this->encrypt($this->password);
+				$this->password = $this->encrypt($this->password, $this->token);
 			}
 			else {
 				//TODO: move to controller so login updates won't change it
 				$this->modified = new CDbExpression('NOW()');
+				$this->password = $this->encrypt($this->password, $this->token);
 			}
 			return true;
 		}
@@ -204,7 +205,7 @@ class User extends CActiveRecord
 	 * @param string the password to be validated
 	 * @return boolean whether the password is valid
 	 */
-	public function validatePassword($password)
+	public function isPassword($password)
 	{
 		return $this->encrypt($password, $this->token) === $this->password;
 	}
@@ -215,7 +216,7 @@ class User extends CActiveRecord
 	 * @param string $token
 	 * @return encrypted value
 	 */
-	public function encrypt($value, $token = '') {
+	public function encrypt($value, $token) {
 		return sha1(self::SALT . $token . $value);
 	}
 
