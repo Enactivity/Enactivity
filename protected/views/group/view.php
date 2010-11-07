@@ -6,10 +6,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Invite a User', 'url'=>array('invite')),
-	array('label'=>'Admin: Create a Group', 'url'=>array('create')),
-	array('label'=>'Admin: Update This Group', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Admin: Delete This Group', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Admin: Manage Groups', 'url'=>array('admin')),
+	array('label'=>'Admin: Create a Group', 'url'=>array('create'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'Admin: Update This Group', 'url'=>array('update', 'id'=>$model->id), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'Admin: Delete This Group', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this group?'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'Admin: Manage Groups', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
 );
 ?>
 

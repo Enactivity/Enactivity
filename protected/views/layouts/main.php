@@ -32,10 +32,9 @@
 			'items'=>array(
 				//array('label'=>'Welcome', 'url'=>array('/site/page', 'view'=>'Welcome')),		
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				//array('label'=>'All Groups', 'url'=>array('/group/all'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Users', 'url'=>array('/user'), 'visible'=>Yii::app()->user->isAdmin),
 				array('label'=>'Groups', 'url'=>array('/group'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Events', 'url'=>array('/event'), 'visible'=>!Yii::app()->user->isGuest),
-				//array('label'=>'Contact Us', 'url'=>array('/site/contact')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Create a New Event', 'url'=>array('create')),
-	array('label'=>'Admin: Manage Events', 'url'=>array('admin')),
+	array('label'=>'Admin: Manage Events', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
 );
 ?>
 

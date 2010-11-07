@@ -9,7 +9,7 @@ $this->menu=array(
 	array('label'=>'Create a New Event', 'url'=>array('create')),
 	array('label'=>'Update This Event', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete This Event', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Admin: Manage Events', 'url'=>array('admin')),
+	array('label'=>'Admin: Manage Events', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
 );
 ?>
 
