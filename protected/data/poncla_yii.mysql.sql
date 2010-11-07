@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 23, 2010 at 08:58 PM
+-- Generation Time: Nov 06, 2010 at 06:25 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -39,15 +39,17 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `event`
 --
 
 INSERT INTO `event` (`id`, `name`, `description`, `creatorId`, `groupId`, `starts`, `ends`, `location`, `created`, `modified`) VALUES
-(1, 'MyEvent', 'The coolest thing ever!', 1, 5, '2011-10-16 18:00:01', '2011-11-16 18:00:01', 'Germany', '0000-00-00 00:00:00', '2010-10-17 13:58:03'),
-(2, 'SuperEvent', 'Superman in town', 1, 6, '2011-10-16 18:00:01', '2011-11-16 18:00:01', 'Metropolis', '2010-10-16 20:32:21', '2010-10-16 20:32:21');
+(1, 'MyEvent', 'The coolest thing ever!', 1, 5, '2011-10-16 18:00:01', '2011-11-16 18:00:01', 'Germany', '0000-00-00 00:00:00', '2010-10-31 14:16:04'),
+(2, 'SuperEvent', 'Superman in town', 1, 6, '2011-10-13 18:00:01', '2011-11-16 18:00:01', 'Metropolis', '2010-10-16 20:32:21', '2010-10-16 20:32:21'),
+(3, 'Another Testable Event', 'Just some filler for the awesomeness.', 1, 7, '2011-10-16 18:00:01', '2011-11-16 18:00:01', '', '2010-10-24 15:50:16', '2010-10-24 15:50:16'),
+(4, 'Old Event', 'This event has expired', 1, 5, '2009-10-16 18:00:01', '2009-11-16 18:00:04', 'Back in time!', '2009-10-31 15:25:48', '2009-10-31 15:25:48');
 
 -- --------------------------------------------------------
 
@@ -63,14 +65,17 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `event_user`
 --
 
+INSERT INTO `event_user` (`id`, `eventId`, `userId`, `status`, `created`, `modified`) VALUES
+(2, 1, 4, 'Attending', '2010-10-23 15:27:12', '2010-10-23 15:27:16');
 
 -- --------------------------------------------------------
 
@@ -112,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `groupId_2` (`groupId`,`userId`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
@@ -158,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`, `lastName`, `status`, `created`, `modified`, `lastLogin`) VALUES
-(1, 'ajsharma', 'ajsharma@poncla.com', '', '603985faa270737299d8fe094db4533e14d0a089', 'Ajay', 'Sharma', 'Pending', '2010-10-10 00:00:00', '2010-10-10 00:00:00', NULL),
+(1, 'ajsharma', 'ajsharma@poncla.com', '', '603985faa270737299d8fe094db4533e14d0a089', 'Ajay', 'Sharma', 'Active', '2010-10-10 00:00:00', '2010-10-10 00:00:00', NULL),
 (4, 'tester', 'test@poncla.com', '0865818293977c11289e0e0c33ccae70035399c3', 'test', 'Veronica', 'Jones', 'Active', '2010-10-16 18:07:59', '2010-10-16 19:43:15', NULL),
 (5, NULL, 'f5554@test.com', '5d7f3e28571af8824a910e81996f409b8a6f5bd9', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 18:11:32', '2010-10-16 18:11:32', NULL),
 (6, NULL, 'test7@poncla.com', '3026c7aba32f8ef1bc234f7e8d4ab932008e4ec4', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 23:10:27', '2010-10-16 23:10:27', NULL),
@@ -184,19 +190,19 @@ INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`,
 -- Constraints for table `event`
 --
 ALTER TABLE `event`
-  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event_user`
 --
 ALTER TABLE `event_user`
-  ADD CONSTRAINT `event_user_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_user_ibfk_3` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `event_user_ibfk_3` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_user_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_user`
 --
 ALTER TABLE `group_user`
-  ADD CONSTRAINT `group_user_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `group_user_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `group_user_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_user_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
