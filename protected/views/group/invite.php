@@ -1,7 +1,12 @@
 <?php 
 $this->breadcrumbs=array(
-	'Groups'=>array('Invite'),
 	'Invite',
+);
+
+$this->menu=array(
+	array('label'=>'Invite a User', 'url'=>array('invite')),
+	array('label'=>'Admin: Create a Group', 'url'=>array('create')),
+	array('label'=>'Admin: Manage Groups', 'url'=>array('admin')),
 );
 ?>
 <h1>Invite Users</h1>

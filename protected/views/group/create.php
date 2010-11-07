@@ -5,8 +5,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Group', 'url'=>array('index')),
-	array('label'=>'Manage Group', 'url'=>array('admin')),
+	array('label'=>'Invite a User', 'url'=>array('invite')),
+	array('label'=>'Admin: Create a Group', 'url'=>array('create')),
+	array('label'=>'Admin: Manage Groups', 'url'=>array('admin')),
 );
 ?>
 

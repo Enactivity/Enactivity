@@ -6,10 +6,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Group', 'url'=>array('index')),
-	array('label'=>'Create Group', 'url'=>array('create')),
-	array('label'=>'View Group', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Group', 'url'=>array('admin')),
+	array('label'=>'Invite a User', 'url'=>array('invite')),
+	array('label'=>'Admin: Create a Group', 'url'=>array('create')),
+	array('label'=>'Admin: Delete This Group', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Admin: Manage Groups', 'url'=>array('admin')),
 );
 ?>
 

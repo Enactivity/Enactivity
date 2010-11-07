@@ -186,7 +186,7 @@ class GroupController extends Controller
 	public function loadModel($id)
 	{
 		$model=Group::model()->findByPk((int)$id);
-		if($model===null) {
+		if($model === null) {
 			throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $model;
@@ -207,20 +207,20 @@ class GroupController extends Controller
 
 	public function actionInvite()
 	{
-		$model = new GroupUser;
+		$groupuser = new GroupUser;
 
 		// uncomment the following code to enable ajax-based validation
 		/*
 		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
 		{
-		echo CActiveForm::validate($model);
+		echo CActiveForm::validate($groupuser);
 		Yii::app()->end();
 		}
 		*/
 
 		if(isset($_POST['GroupUser']))
 		{
-			$model->attributes=$_POST['GroupUser'];
+			$groupuser->attributes=$_POST['GroupUser'];
 			//if email does not exist, create user
 			if(isset($_POST['User'])) {
 				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
@@ -229,17 +229,18 @@ class GroupController extends Controller
 					$user->attributes = $_POST['User'];
 					$user->save();
 				}
-				$model->userId = $user->id;
+				$groupuser->userId = $user->id;
 			}
 			
 			//Validate and save
-			if($model->validate())
+			if($groupuser->validate())
 			{
-				if($model->save())
-				$this->redirect(array('view','id'=>$model->groupId));
+				//FIXME: throws an exception if user is already invited
+				if($groupuser->save())
+				$this->redirect(array('view','id'=>$groupuser->groupId));
 			}
 		}
-		$this->render('invite', array('model'=>$model));
+		$this->render('invite', array('model'=>$groupuser));
 	}
 	
 	/**

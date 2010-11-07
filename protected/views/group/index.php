@@ -4,8 +4,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'Create Group', 'url'=>array('create'), 'visible'=>Yii::app()->user->isAdmin),
-array('label'=>'Manage Group', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'Invite a User', 'url'=>array('invite')),
+	array('label'=>'Admin: Create a Group', 'url'=>array('create')),
+	array('label'=>'Admin: Manage Groups', 'url'=>array('admin')),
 );
 ?>
 
