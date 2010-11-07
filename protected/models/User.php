@@ -185,8 +185,8 @@ class User extends CActiveRecord
 				$this->modified = new CDbExpression('NOW()');
 				
 				//encrypt token and password
-				$this->token = $this->encrypt(time());
-				$this->password = $this->encrypt($this->password, $this->token);
+				$this->token = $this->encrypt(time(), '');
+				//$this->password = $this->encrypt($this->password, $this->token);
 			}
 			else {
 				//TODO: move to controller so login updates won't change it
@@ -258,11 +258,11 @@ class User extends CActiveRecord
 	 * Invite a user to the web app
 	 * @param groupName the name of the group
 	 */
-	public function invite($groupName) {
+	public function invite($group) {
 		//send invite email
 		$from = "no-reply@poncla.com";
-		$subject = "Invitation from {$groupName} to join Poncla";
-		$body = "You have been invited to join the {$groupName} network at"
+		$subject = "Invitation from {$group->name} to join Poncla";
+		$body = "You have been invited to join the {$group->name} network at"
 		. " Poncla. To accept this invitation, go to"
 		. " http://www.poncla.com/user/register/?token=" . $this->token 
 		. " and complete your registration.";

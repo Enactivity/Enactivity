@@ -207,11 +207,10 @@ class GroupController extends Controller
 					if($user->validate()) {
 						if($user->save()) {
 							// Get group
-							Group::model()->findByPk($_POST['GroupUser']['id']);
-							
+							$group = Group::model()->findByPk($_POST['GroupUser']['groupId']);
 							
 							// Send email
-							$user->invite();
+							$user->invite($group);
 							Yii::app()->user->setFlash('invite', 'Your invitation has been sent.');
 							$this->refresh();
 						}
