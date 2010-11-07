@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 06, 2010 at 06:25 PM
+-- Generation Time: Nov 07, 2010 at 03:39 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -68,14 +68,17 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `event_user`
 --
 
 INSERT INTO `event_user` (`id`, `eventId`, `userId`, `status`, `created`, `modified`) VALUES
-(2, 1, 4, 'Attending', '2010-10-23 15:27:12', '2010-10-23 15:27:16');
+(2, 1, 4, 'Attending', '2010-10-23 15:27:12', '2010-10-23 15:27:16'),
+(11, 2, 1, 'Attending', '2010-11-06 19:51:00', '2010-11-07 12:28:37'),
+(12, 1, 1, 'Attending', '2010-11-06 21:51:12', '2010-11-06 22:11:19'),
+(13, 1, 25, 'Not Attending', '2010-11-07 14:50:58', '2010-11-07 14:51:04');
 
 -- --------------------------------------------------------
 
@@ -157,14 +160,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `token` (`token`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`, `lastName`, `status`, `created`, `modified`, `lastLogin`) VALUES
-(1, 'ajsharma', 'ajsharma@poncla.com', '', '603985faa270737299d8fe094db4533e14d0a089', 'Ajay', 'Sharma', 'Active', '2010-10-10 00:00:00', '2010-10-10 00:00:00', NULL),
+(1, 'admin', 'admin@poncla.com', '', '603985faa270737299d8fe094db4533e14d0a089', 'Poncla', 'Administrator', 'Active', '2010-10-10 00:00:00', '2010-10-10 00:00:00', NULL),
 (4, 'tester', 'test@poncla.com', '0865818293977c11289e0e0c33ccae70035399c3', 'test', 'Veronica', 'Jones', 'Active', '2010-10-16 18:07:59', '2010-10-16 19:43:15', NULL),
 (5, NULL, 'f5554@test.com', '5d7f3e28571af8824a910e81996f409b8a6f5bd9', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 18:11:32', '2010-10-16 18:11:32', NULL),
 (6, NULL, 'test7@poncla.com', '3026c7aba32f8ef1bc234f7e8d4ab932008e4ec4', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 23:10:27', '2010-10-16 23:10:27', NULL),
@@ -179,8 +182,9 @@ INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`,
 (21, NULL, 'test68@test.com', '0af9af731a7254ef16914c9bebe1147ed07b50ef', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 00:11:10', '2010-10-17 00:11:10', NULL),
 (22, NULL, 'test88@test.com', '9900327df5cfa9f4c0482482a171df0b0945311f', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 00:16:11', '2010-10-17 00:16:11', NULL),
 (23, NULL, 'test98@test.com', '35c5e4a1d0d9e6ba791c478fb2b7f704f1a9abd4', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 00:22:14', '2010-10-17 00:22:14', NULL),
-(24, NULL, '', '9c885ee906ee29993e3ea1db0434c3d5ead1f3dc', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 14:52:13', '2010-10-17 14:52:13', NULL),
-(25, NULL, 'newuser@poncla.com', '15739124e6aa9f603e5ca46a9b7ef2ff9ca160d0', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-17 14:55:25', '2010-10-17 14:55:25', NULL);
+(25, 'joethesmo', 'newuser@poncla.com', '15739124e6aa9f603e5ca46a9b7ef2ff9ca160d0', '9e5ee4077d11e2212d24f2c127399c5099fef578', 'Joe', 'Smo', 'Active', '2010-10-17 14:55:25', '2010-11-07 14:39:48', NULL),
+(35, NULL, 'ajsharma@poncla.com', '597ca79dcf019d90cac300e71f2bd4c5426cdf9c', NULL, NULL, NULL, 'Pending', '2010-11-07 14:56:29', '2010-11-07 14:56:29', NULL),
+(36, NULL, 'ajsharma@localhost.com', '7485382ac9c667fadf9f6e7fc61485dfbe5e6ac6', NULL, NULL, NULL, 'Pending', '2010-11-07 14:58:02', '2010-11-07 14:58:02', NULL);
 
 --
 -- Constraints for dumped tables
