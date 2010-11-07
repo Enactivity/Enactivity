@@ -56,7 +56,7 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => 'invite, create'),
-		array('username, password, firstName, lastName', 'required', 'on' => 'create, update'),
+		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'create, update'),
 
 		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
 		array('username', 'length', 'min'=>3, 'max'=>50),
@@ -251,5 +251,22 @@ class User extends CActiveRecord
 		return array(self::STATUS_ACTIVE,
 			self::STATUS_INACTIVE, 
 			self::STATUS_PENDING);
+	}
+	
+	/**
+	 * Invite a user to the web app
+	 * @param groupName the name of the group
+	 */
+	public function invite($groupName) {
+		//send invite email
+		$from = "no-reply@poncla.com";
+		$subject = "Invitation from {$groupName} to join Poncla";
+		$body = "You have been invited to join the {$groupName} network at"
+		. " Poncla. To accept this invitation, go to"
+		. " http://www.poncla.com/user/register/?token=" . $this->token 
+		. " and complete your registration.";
+		
+		$headers = "From: {$from}\r\nReply-To: {$this->email}";
+		mail(Yii::app()->params['adminEmail'], $subject, $body, $headers);
 	}
 }

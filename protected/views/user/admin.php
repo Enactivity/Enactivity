@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
+	array('label'=>'List Users', 'url'=>array('index'), 'visible'=>Yii::app()->user->isAdmin),
 );
 
 Yii::app()->clientScript->registerScript('search', "

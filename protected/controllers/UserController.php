@@ -26,12 +26,16 @@ class UserController extends Controller
 	public function accessRules()
 	{
 		return array(
+		array('allow', 
+				'actions'=>array('register'),		
+				'users'=>array('*')
+		),
 		array('allow', // allow only authenticated user to perform actions
-				'actions'=>array('view','invite','update'),		
+				'actions'=>array('view', 'invite', 'update'),		
 				'users'=>array('@'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index', 'admin','delete','create'),
+				'actions'=>array('index', 'admin', 'delete'),
 				'expression'=>$user->isAdmin,
 		),
 		array('deny',  // deny all users
@@ -52,29 +56,34 @@ class UserController extends Controller
 	}
 
 	//Users are created via Group Invites
-//	/**
-//	 * Creates a new model.
-//	 * If creation is successful, the browser will be redirected to the 'view' page.
-//	 */
-//	public function actionCreate()
-//	{
-//		$model = new User('create');
-//		$groupUser = $this->newGroupUser($model);
-//
-//		// Uncomment the following line if AJAX validation is needed
-//		// $this->performAjaxValidation($model);
-//
-//		if(isset($_POST['User']))
-//		{
-//			$model->attributes=$_POST['User'];
-//			if($model->save())
-//			$this->redirect(array('view','id'=>$model->id));
-//		}
-//
-//		$this->render('create',array(
-//			'model'=>$model,
-//		));
-//	}
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionRegister($token)
+	{
+		$model = $this->loadModelByToken($token);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+		
+		//if user is already registered, get them outta here
+		if($model->status != User::STATUS_PENDING) {
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
+
+		if(isset($_POST['User']))
+		{	
+			$model->attributes=$_POST['User'];
+			$model->status = User::STATUS_ACTIVE;
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('register',array(
+			'model'=>$model,
+		));
+	}
 
 	/**
 	 * Updates a particular model.
@@ -114,10 +123,10 @@ class UserController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -156,6 +165,20 @@ class UserController extends Controller
 		$model=User::model()->findByPk((int)$id);
 		if($model===null)
 		throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+	
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param token the token of the model to be loaded
+	 */
+	public function loadModelByToken($token)
+	{
+		$model=User::model()->findByAttributes(array('token'=>$token));
+		if($model === null) {
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
 		return $model;
 	}
 

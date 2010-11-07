@@ -200,10 +200,22 @@ class GroupController extends Controller
 			if(isset($_POST['User'])) {
 				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
 				if(!isset($user)) {
-					//FIXME: allows 
-					$user = new User;
+					//Create a new user with the email invited
+					//FIXME: allows blank email??
+					$user = new User('invite');
 					$user->attributes = $_POST['User'];
-					$user->save();
+					if($user->validate()) {
+						if($user->save()) {
+							// Get group
+							Group::model()->findByPk($_POST['GroupUser']['id']);
+							
+							
+							// Send email
+							$user->invite();
+							Yii::app()->user->setFlash('invite', 'Your invitation has been sent.');
+							$this->refresh();
+						}
+					}
 				}
 				$groupuser->userId = $user->id;
 			}
