@@ -177,6 +177,48 @@ class GroupController extends Controller
 			'model'=>$model,
 		));
 	}
+	
+	/**
+	 * Invite a user to the group
+	 */
+	public function actionInvite()
+	{
+		$groupuser = new GroupUser;
+
+		// un/comment the following code to enable/disable ajax-based validation
+//		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
+//		{
+//		echo CActiveForm::validate($groupuser);
+//		Yii::app()->end();
+//		}
+
+		// If form submitted
+		if(isset($_POST['GroupUser']))
+		{
+			$groupuser->attributes=$_POST['GroupUser'];
+			
+			if(isset($_POST['User'])) {
+				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
+				if(!isset($user)) {
+					//FIXME: allows 
+					$user = new User;
+					$user->attributes = $_POST['User'];
+					$user->save();
+				}
+				$groupuser->userId = $user->id;
+			}
+			
+			//Validate and save
+			if($groupuser->validate())
+			{
+				//FIXME: throws an exception if user is already invited
+				if($groupuser->save())
+				$this->redirect(array('view','id'=>$groupuser->groupId));
+			}
+		}
+		$this->render('invite', array('model'=>$groupuser));
+	}
+	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -205,44 +247,6 @@ class GroupController extends Controller
 		}
 	}
 
-	public function actionInvite()
-	{
-		$groupuser = new GroupUser;
-
-		// uncomment the following code to enable ajax-based validation
-		/*
-		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
-		{
-		echo CActiveForm::validate($groupuser);
-		Yii::app()->end();
-		}
-		*/
-
-		if(isset($_POST['GroupUser']))
-		{
-			$groupuser->attributes=$_POST['GroupUser'];
-			//if email does not exist, create user
-			if(isset($_POST['User'])) {
-				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
-				if(!isset($user)) {
-					$user = new User;
-					$user->attributes = $_POST['User'];
-					$user->save();
-				}
-				$groupuser->userId = $user->id;
-			}
-			
-			//Validate and save
-			if($groupuser->validate())
-			{
-				//FIXME: throws an exception if user is already invited
-				if($groupuser->save())
-				$this->redirect(array('view','id'=>$groupuser->groupId));
-			}
-		}
-		$this->render('invite', array('model'=>$groupuser));
-	}
-	
 	/**
 	 * Get the list of users in this group filtered by status
 	 * @param int $groupId
@@ -259,6 +263,7 @@ class GroupController extends Controller
 				. " WHERE groupId='" . $groupId . "'" 
 				. " AND status ='" . $status . "')"
 		);
+		$dataProvider->criteria->addCondition("status = '" . User::STATUS_ACTIVE .  "'");
 		$dataProvider->criteria->order = "firstName ASC";
 		
 		return $dataProvider;

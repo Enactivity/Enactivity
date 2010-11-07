@@ -270,6 +270,7 @@ class EventController extends Controller
 				. " WHERE eventId='" . $eventId . "'" 
 				. " AND status ='" . $status . "')"
 		);
+		$dataProvider->criteria->addCondition("status = '" . User::STATUS_ACTIVE .  "'");
 		$dataProvider->criteria->order = "firstName ASC";
 		
 		return $dataProvider;
