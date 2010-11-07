@@ -31,34 +31,14 @@ $this->menu=array(
 	),
 )); 
 
-//TODO: add attending button
 ?>
-<!-- RSVP Button -->
-<div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-    'id'=>'event-user-rsvp-form',
-    'enableAjaxValidation'=>false,
-)); ?>
-
-<?php if($eventuser->status != EventUser::STATUS_ATTENDING): ?>
-    <div class="row buttons">
-    	<?php echo CHtml::activeHiddenField($eventuser, 'status', array(value=>EventUser::STATUS_ATTENDING)); ?>
-        <?php echo CHtml::submitButton('I\'m Attending'); ?>
-    </div>
-<?php endif; ?>
-<?php if($eventuser->status != EventUser::STATUS_NOT_ATTENDING): ?>
-    <div class="row buttons">
-    	<?php echo CHtml::activeHiddenField($eventuser, 'status', array(value=>EventUser::STATUS_NOT_ATTENDING)); ?>
-        <?php echo CHtml::submitButton('I\'m Not Attending'); ?>
-    </div>
-<?php endif; ?>
-
-
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->
-
+<?php 
+//RSVP buttons
+$this->renderPartial('_rsvp', array(
+	'eventuser'=>$eventuser,
+)); 
+?>
 
 <!-- List of users in event -->
 <div id="users">

@@ -47,9 +47,12 @@ class EventController extends Controller
 	public function actionView($id)
 	{
 		$event = $this->loadModel($id);
-		if(isset($_POST['EventUser']['status'])) {
-			$eventuser = $this->setRSVP($event->id, $_POST['EventUser']['status']);
+		if(isset($_POST['Attending_Button'])) {
+			$eventuser = $this->setRSVP($event->id, EventUser::STATUS_ATTENDING);
 		}
+		else if(isset($_POST['Not_Attending_Button'])) {
+			$eventuser = $this->setRSVP($event->id, EventUser::STATUS_NOT_ATTENDING);
+		} 
 		else {
 			$eventuser = $this->getRSVP($event->id);
 			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
