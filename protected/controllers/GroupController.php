@@ -57,12 +57,12 @@ class GroupController extends Controller
 		$activemembers = $this->getMembersByStatus($group->id, GroupUser::STATUS_ACTIVE);
 		
 		// Get the list of the pending group users
-		$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
+		//$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
 				
 		$this->render('view',array(
 			'model'=>$group,
 			'activemembers'=>$activemembers,
-			'pendingmembers'=>$pendingmembers,
+			//'pendingmembers'=>$pendingmembers,
 		));
 	}
 

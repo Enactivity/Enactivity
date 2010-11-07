@@ -24,8 +24,6 @@ $this->widget('zii.widgets.CDetailView', array(
 		'slug',
 		'created',
 		'modified',
-		'groupUsersActiveCount',
-		'groupUsersPendingCount',
 	),
 )); 
 ?>
@@ -39,17 +37,6 @@ $this->widget('zii.widgets.CDetailView', array(
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$activemembers,
-		'itemView'=>'_users',
-	)); 
-	?>
-	
-	<h3>
-		<?php echo $activemembers->getTotalItemCount() . ' Pending Members'; ?>
-	</h3>
-	
-	<?php 
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$pendingmembers,
 		'itemView'=>'_users',
 	)); 
 	?>
