@@ -154,4 +154,42 @@ class EventUser extends CActiveRecord
 		return array(self::STATUS_ATTENDING,
 			self::STATUS_NOT_ATTENDING);
 	}
+	
+/**
+	 * Get the event user status for the current event and user
+	 * @param int $eventId
+	 */
+	public function getRSVP($eventId, $userId) {
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("eventId = '" . $eventId . "'");
+		$criteria->addCondition("userId = '" . $userId . "'");
+		$eventuser = $this->find($criteria);
+		return $eventuser;
+	}
+	
+	/**
+	 * Set an event user status for the current event and user
+	 * @param int $eventId
+	 * @param String $status
+	 */
+	public function setRSVP($eventId, $userId, $status) {
+		//look up if RSVP already exists
+		$eventuser = $this->getRSVP($eventId, $userId);
+		if($eventuser === null) { 
+			//if not exist, create new RSVP
+			$eventuser = new EventUser;
+		}
+		
+		//set RSVP status
+		$eventuser->eventId = $eventId;
+		$eventuser->userId = $userId;
+		$eventuser->status = $status;
+		if(!$eventuser->save()) {
+			var_dump( $eventuser->getErrors());
+		}
+			
+		Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
+		$this->refresh();
+		return $eventuser;
+	}
 }
