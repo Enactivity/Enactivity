@@ -6,17 +6,17 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List User', 
+	array('label'=>'Admin: List User', 
 		'url'=>array('index'), 
 		'linkOptions'=>array('id'=>'user_index_menu_item'),
 		'visible'=>Yii::app()->user->isAdmin
 	),
-	array('label'=>'View User', 
+	array('label'=>'Admin: View User', 
 		'url'=>array('view', 'id'=>$model->id), 
 		'linkOptions'=>array('id'=>'user_view_menu_item'),
 		'visible'=>Yii::app()->user->isAdmin
 	),
-	array('label'=>'Manage User', 
+	array('label'=>'Admin: Manage User', 
 		'url'=>array('admin'),
 		'linkOptions'=>array('id'=>'user_admin_menu_item'), 
 		'visible'=>Yii::app()->user->isAdmin

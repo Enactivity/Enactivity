@@ -5,17 +5,17 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List User', 
+	array('label'=>'Admin: List User', 
 		'url'=>array('index'),
 		'linkOptions'=>array('id'=>'user_index_menu_item'), 
 		'visible'=>Yii::app()->user->isAdmin
 	),
-	array('label'=>'Update User', 
+	array('label'=>'Admin: Update User', 
 		'url'=>array('update', 'id'=>$model->id),
 		'linkOptions'=>array('id'=>'user_update_menu_item'), 
 		'visible'=>Yii::app()->user->isAdmin
 	),
-	array('label'=>'Delete User', 
+	array('label'=>'Admin: Delete User', 
 		'url'=>'#', 
 		'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),
 			'confirm'=>'Are you sure you want to delete this item?',
@@ -23,7 +23,7 @@ $this->menu=array(
 		), 
 		'visible'=>Yii::app()->user->isAdmin
 	),
-	array('label'=>'Manage User', 
+	array('label'=>'Admin: Manage User', 
 		'url'=>array('admin'), 
 		'visible'=>Yii::app()->user->isAdmin
 	),

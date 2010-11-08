@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Users', 
+	array('label'=>'Admin: List Users', 
 		'url'=>array('index'),
 		'linkOptions'=>array('id'=>'user_index_menu_item'), 
 		'visible'=>Yii::app()->user->isAdmin
