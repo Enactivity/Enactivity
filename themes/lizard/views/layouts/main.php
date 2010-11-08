@@ -18,41 +18,38 @@
 </head>
 
 <body>
-
-<div class="container" id="page">
-
-	<div id="header">
-		<h1 id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Welcome', 'url'=>array('/site/page', 'view'=>'Welcome')),		
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Groups', 'url'=>array('/group'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Users', 'url'=>array('/user'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Events', 'url'=>array('/event'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Contact Us', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); 
-		?>
-	</div><!-- mainmenu -->
-
-	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-		'links'=>$this->breadcrumbs,
-	)); ?><!-- breadcrumbs -->
-
-	<?php echo $content; ?>
-
-	<div id="footer">
-		Poncla &copy; <?php echo date('Y'); ?><br/>
-		All Rights Reserved.<br/>
-	</div><!-- footer -->
-
-</div><!-- page -->
+<div id="bg">
+	<div class="container" id="page">
+	
+		<div id="header">
+			<h1 id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+		</div><!-- header -->
+	
+		<div id="mainmenu">
+			<?php $this->widget('zii.widgets.CMenu',array(
+				'items'=>array(
+					array('label'=>'Welcome', 'url'=>array('/site/page', 'view'=>'Welcome')),		
+					array('label'=>'Home', 'url'=>array('/site/index')),
+					array('label'=>'Groups', 'url'=>array('/group'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Users', 'url'=>array('/user'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Events', 'url'=>array('/event'), 'visible'=>!Yii::app()->user->isGuest),
+					//array('label'=>'Contact Us', 'url'=>array('/site/contact')),
+					array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+					array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				),
+			)); 
+			?>
+		</div><!-- mainmenu -->
+	
+		<?php echo $content; ?>
+	
+		<div id="footer">
+			Poncla &copy; <?php echo date('Y'); ?><br/>
+			All Rights Reserved.<br/>
+		</div><!-- footer -->
+	
+	</div><!-- page -->
+</div>
 
 </body>
 </html>
