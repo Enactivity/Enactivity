@@ -68,6 +68,7 @@ $this->renderPartial('_rsvp', array(
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$attendees,
 		'itemView'=>'_users',
+		'cssFile'=>false,
 	)); 
 	?>
 </div>

@@ -11,6 +11,7 @@
 		$data->getUrl($post), array(
 			'class'=>'cid',
 			'title'=>'Permalink to this user',
+			'cssFile'=>false,
 		)
 	);
 	?>

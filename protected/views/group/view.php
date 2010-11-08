@@ -59,6 +59,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$activemembers,
 		'itemView'=>'_users',
+		'cssFile'=>false,
 	)); 
 	?>
 </div>
