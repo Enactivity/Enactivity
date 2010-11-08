@@ -15,20 +15,14 @@ $this->menu=array(
 	),
 );
 ?>
-<div id="indexContainer">
-	<div id="title">
-		<div class="titleName">
-			<h1>Events</h1>
-		</div>
-	</div>
-	<div class = "contentMessage">
+<div class = "contentInfo">
+	<h1>Events</h1>
+
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_view',
-		'cssFile'=>false
+		'cssFile'=>false,
 	)); 
 	?>
-	</div>
 </div>
-

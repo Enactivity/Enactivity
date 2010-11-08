@@ -7,16 +7,14 @@
 
 <!-- RSVP here -->
 <div class="rsvp">
-	<span>
 		<?php 
 			if($eventuser->status) {
 				echo "You are currently " . CHtml::encode(strtolower($eventuser->status));
 			}
 			else {
-				echo "You have not yet responded.";
+				echo "You have not yet responded";
 			}
 		?>
-	</span>
 	<div class="form2">
 	<?php
 	$form=$this->beginWidget('CActiveForm', array(

@@ -1,28 +1,34 @@
 <div class="view">
-		<div class = "icon">
-			<img src="<?php echo Yii::app()->theme->baseUrl . '/images/1.jpg'?>"></img>
+	<div id = "picture">
+		<img src = "<?php echo Yii::app()->theme->baseUrl; ?>/images/1.jpg"></img>
+	</div>
+	<div id = "eventInfo">
+		<div class = "eventText">
+			<b><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></b>
+			<i><?php echo "starts on" ?></i>
+			<?php echo CHtml::encode($data->starts); ?>
+			<i><?php echo "ends on"?></i>
+			<?php echo CHtml::encode($data->ends); ?>
+			<i><?php echo "at"?></i>
+			<?php echo CHtml::encode($data->location); ?>
 		</div>
-		<div class = "listEvents">
-				<div class = "eventListText">
-				<b><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></b>
-				<?php echo on ?>
-				<i><?php echo CHtml::encode($data->starts); ?></i>
-				<?php echo to ?>
-				<i><?php echo CHtml::encode($data->ends); ?></i>
-				<?php echo at ?>
-				<i><?php echo CHtml::encode($data->location); ?></i>
-				<?php echo "for" ?>
-				<i><?php echo CHtml::encode($data->group->name); ?></i>
-			</div>
+	</div>
+	<div id = "status">
+	<?php 
+		$a = "to";
+		$b = CHtml::encode($data->group->name);
+		$c = $a . " ". $b
+	?>
+		<?php 
+		//RSVP buttons
+		$this->renderPartial('_rsvp', array(
+			'eventuser'=>$eventuser,
+		)); 
+		?>
+		
+		<div class = "respond">
+			<?php echo $c; ?>
 		</div>
-			<div class = "viewEvent">
-					<div class = "viewEventText">
-						<?php 
-							//RSVP buttons
-								$this->renderPartial('_rsvp', array(
-									'eventuser'=>$eventuser,
-									));
-						?>
-					</div>
-			</div>
+	</div>
+
 </div>
