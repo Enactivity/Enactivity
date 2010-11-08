@@ -5,9 +5,19 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Events', 'url'=>array('index')),
-	array('label'=>'Create a New Event', 'url'=>array('create')),
-	array('label'=>'Admin: Manage Events', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'List Events', 
+		'url'=>array('index'),
+		'linkOptions'=>array('id'=>'events_index_menu_item'),
+	),
+	array('label'=>'Create a New Event', 
+		'url'=>array('create'),
+		'linkOptions'=>array('id'=>'event_create_menu_item'),
+	),
+	array('label'=>'Admin: Manage Events', 
+		'url'=>array('admin'), 
+		'linkOptions'=>array('id'=>'event_admin_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
 );
 
 Yii::app()->clientScript->registerScript('search', "

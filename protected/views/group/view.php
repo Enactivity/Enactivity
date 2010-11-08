@@ -5,11 +5,32 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Invite a User', 'url'=>array('invite')),
-	array('label'=>'Admin: Create a Group', 'url'=>array('create'), 'visible'=>Yii::app()->user->isAdmin),
-	array('label'=>'Admin: Update This Group', 'url'=>array('update', 'id'=>$model->id), 'visible'=>Yii::app()->user->isAdmin),
-	array('label'=>'Admin: Delete This Group', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this group?'), 'visible'=>Yii::app()->user->isAdmin),
-	array('label'=>'Admin: Manage Groups', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'Invite a User', 
+		'url'=>array('invite'), 
+		'linkOptions'=>array('id'=>'user_invite_menu_item'),
+	),
+	array('label'=>'Admin: Create a Group', 
+		'url'=>array('create'), 
+		'linkOptions'=>array('id'=>'group_create_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
+	array('label'=>'Admin: Update This Group', 
+		'url'=>array('update', 'id'=>$model->id), 
+		'linkOptions'=>array('id'=>'group_update_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
+	array('label'=>'Admin: Delete This Group', 
+		'url'=>'#', 
+		'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),
+			'confirm'=>'Are you sure you want to delete this group?', 
+			'id'=>'group_delete_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin, 
+	),
+	array('label'=>'Admin: Manage Groups', 
+		'url'=>array('admin'), 
+		'linkOptions'=>array('id'=>'group_manage_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
 );
 ?>
 

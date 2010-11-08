@@ -6,9 +6,21 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index'), 'visible'=>Yii::app()->user->isAdmin),
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id, 'visible'=>Yii::app()->user->isAdmin)),
-	array('label'=>'Manage User', 'url'=>array('admin'), 'visible'=>Yii::app()->user->isAdmin),
+	array('label'=>'List User', 
+		'url'=>array('index'), 
+		'linkOptions'=>array('id'=>'user_index_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'View User', 
+		'url'=>array('view', 'id'=>$model->id), 
+		'linkOptions'=>array('id'=>'user_view_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'Manage User', 
+		'url'=>array('admin'),
+		'linkOptions'=>array('id'=>'user_admin_menu_item'), 
+		'visible'=>Yii::app()->user->isAdmin
+	),
 );
 ?>
 
