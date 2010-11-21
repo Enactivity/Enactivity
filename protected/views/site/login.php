@@ -28,9 +28,6 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <tt>admin/test</tt>.
-		</p>
 	</div>
 
 	<div class="row rememberMe">

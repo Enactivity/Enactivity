@@ -61,10 +61,13 @@ return array(
 			'enableParamLogging'=>true
 		),
 		
+		// Set the error handler
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
+        
+        // Log settings
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -79,6 +82,95 @@ return array(
 //				),
 				
 			),
+		),
+		
+		'widgetFactory'=>array(
+			'widgets'=>array(
+				'CBaseListView' => array(
+					'cssFile' => false,
+				),
+				'CBreadcrumbs' => array(
+					//'cssFile' => false,
+				),
+				'CDetailView' => array(
+					'cssFile' => false,
+				),
+				'CListView' => array(
+					'cssFile' => false,
+				),
+				'CMenu' => array(
+					//'cssFile' => false,
+				),
+				'CPortlet' => array(
+					//'cssFile' => false,
+				),
+				'CButtonColumn' => array(
+					'cssFile' => false,
+				),
+				'CCheckBoxColumn' => array(
+					'cssFile' => false,
+				),
+				'CDataColumn' => array(
+					'cssFile' => false,
+				),
+				'CGridColumn' => array(
+					'cssFile' => false,
+				),
+				'CGridView' => array(
+					'cssFile' => false,
+				),
+				'CLinkColumn' => array(
+					'cssFile' => false,
+				),
+				'CJuiAccordion' => array(
+					'cssFile' => false,
+				),
+				'CJuiAutoComplete' => array(
+					'cssFile' => false,
+				),
+				'CJuiButton' => array(
+					'cssFile' => false,
+				),
+				'CJuiDatePicker' => array(
+					'cssFile' => false,
+				),
+				'CJuiDialog' => array(
+					'cssFile' => false,
+				),
+				'CJuiDraggable' => array(
+					'cssFile' => false,
+				),
+				'CJuiDroppable' => array(
+					'cssFile' => false,
+				),
+				'CJuiInputWidget' => array(
+					'cssFile' => false,
+				),
+				'CJuiProgressBar' => array(
+					'cssFile' => false,
+				),
+				'CJuiResizable' => array(
+					'cssFile' => false,
+				),
+				'CJuiSelectable' => array(
+					'cssFile' => false,
+				),
+				'CJuiSlider' => array(
+					'cssFile' => false,
+				),
+				'CJuiSliderInput' => array(
+					'cssFile' => false,
+				),
+				'CJuiSortable' => array(
+					'cssFile' => false,
+				),
+				'CJuiTabs' => array(
+					'cssFile' => false,
+				),
+				'CJuiWidget' => array(
+					'cssFile' => false,
+				),
+    		),
 		),
 	),
 
