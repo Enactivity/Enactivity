@@ -42,6 +42,7 @@ body
 {
 	padding-top: 10px;
 	margin-left: 15px;
+	padding-bottom: 10px;
 }
 
 .form2
@@ -89,6 +90,7 @@ body
 	margin-top: -50px;
 	min-height: 600px;
 }
+
 #header
 {
 	margin: 0;
@@ -103,7 +105,33 @@ body
 
 #sidebar
 {
+	float: left;
+	margin-left: -780px;
+	margin-top: -40px;
 	padding: 20px 20px 20px 0;
+	font: 14px;
+}
+
+#sidebar ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#sidebar ul li a
+{
+	font-size: 14px;
+	text-decoration: none;
+	padding-right: 15px;
+	color: #000;
+}
+
+#sidebar ul li a:hover
+{
+	font-size: 14px;
+	text-decoration: underline;
+	padding-right: 15px;
+	color: #000;
 }
 
 #footer

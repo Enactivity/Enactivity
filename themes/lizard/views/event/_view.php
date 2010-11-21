@@ -14,21 +14,12 @@
 		</div>
 	</div>
 	<div id = "status">
-	<?php 
-		$a = "to";
-		$b = CHtml::encode($data->group->name);
-		$c = $a . " ". $b
-	?>
 		<?php 
 		//RSVP buttons
 		$this->renderPartial('_rsvp', array(
 			'eventuser'=>$eventuser,
 		)); 
 		?>
-		
-		<div class = "respond">
-			<?php echo $c; ?>
-		</div>
 	</div>
 
 </div>
