@@ -20,7 +20,7 @@ $this->menu=array(
 	),
 );
 ?>
-<h1>Invite Users</h1>
+<h1>Invite a User</h1>
 
 <div class="form">
 

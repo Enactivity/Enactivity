@@ -17,7 +17,6 @@
 			}
 		?>
 	</span>
-	<div class="form">
 	<?php
 	$form=$this->beginWidget('CActiveForm', array(
 		    'id'=>'event-user-rsvp-form',
@@ -33,7 +32,6 @@
 	endif;
 	$this->endWidget();
 	?>
-	</div>
 	<!-- end of rsvp form -->
 </div>
 <!-- rsvp -->

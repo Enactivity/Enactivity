@@ -5,6 +5,7 @@
 	<meta name="language" content="en" />
 
 	<!-- blueprint CSS framework -->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/print.css" media="print" />
 	<!--[if lt IE 8]>
@@ -16,17 +17,11 @@
 
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
-	
 </head>
 
 <body>
 
-<div id = "topBG">
-	<div class="container" id="page">
-	
-		<div id="header">
-			<h1 id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-		</div><!-- header -->
+	<div class="bodycontainer" id="page">
 	
 		<div id="mainmenu">
 			<?php $this->widget('zii.widgets.CMenu', array(
@@ -42,18 +37,15 @@
 			)); 
 			?>
 		</div><!-- mainmenu -->
-		<div id = "topBorder">
-			<div id = "contentBorder">
-				<?php echo $content; ?>
-			<div id="footer">
-				Poncla &copy; <?php echo date('Y'); ?><br/>
-				All Rights Reserved.<br/>
-			</div><!-- footer -->
-			</div>
-		</div>
+
+		<?php echo $content; ?>
+		
+		<div id="footer">
+			Poncla &copy; <?php echo date('Y'); ?><br/>
+			All Rights Reserved.<br/>
+		</div><!-- footer -->
 	
 	</div><!-- page -->
-</div>
 
 </body>
 </html>
