@@ -192,10 +192,24 @@ div.flash-success a
 	margin-top: 15px;
 }
 
+#content p
+{
+	margin-bottom: 15px;
+}
+
 #content .summary
 {
 	font-size: 14px;
 	margin-bottom: 10px;
+}
+
+/*
+	Content lists
+*/
+#content .list-view .items .view 
+{
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 /*
