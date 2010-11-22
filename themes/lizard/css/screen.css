@@ -16,7 +16,7 @@ a, a:hover, a:visited, a:active
 	text-decoration: none;
 }
 
-td, input, textarea { 
+td, input, textarea, select { 
 	font-size: 18px;
 	font-family: Arial, Helvetica, sans-serif; 
 }
@@ -196,6 +196,29 @@ div.flash-success a
 {
 	font-size: 14px;
 	margin-bottom: 10px;
+}
+
+/*
+	Content forms
+*/
+#content form .row
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#content form .row label
+{
+	position: absolute; 
+	text-align:right; 
+	width:130px;
+}
+
+#content form .row td, #content form .row input, 
+#content form .row textarea, #content form .row select 
+{ 
+	margin-left: 140px;
+	width: 70%;
 }
 
 /* 

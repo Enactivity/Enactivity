@@ -20,19 +20,7 @@
 		<?php echo $form->textField($model,'slug',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'slug'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
