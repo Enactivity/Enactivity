@@ -32,7 +32,6 @@ em {
 /*
 	Generic content settings
 */
-
 #page
 {
 	min-height: 100%;
@@ -44,7 +43,10 @@ em {
 #mainmenu
 {
 	background-color: #292929;
-	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 #mainmenu ul
@@ -74,7 +76,10 @@ em {
 #sidebar
 {
 	background-color: #3a3a3a;
-	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 #sidebar ul li
@@ -157,9 +162,9 @@ div.flash-success a
 {
 	font-size: 18pt;
 	overflow: auto;
+	padding-right: 20px;
+	padding-left: 20px;
 	padding-top: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
 	padding-bottom: 50px;
 }
 
