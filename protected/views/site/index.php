@@ -2,8 +2,7 @@
 
 <h1>Welcome to Poncla!</h1>
 
-<p>This page will be your portal once we here at Poncla HQ finish
-working out the kinks.  In the meantime, why don't you check out
-some of the other pages listed up above!</p>
+<p>Our site is currently invite only.  If you're not a member
+and you're interested in Poncla, you'll just have to wait.</p>
 
 <p>-The folks at Poncla.com</p>
