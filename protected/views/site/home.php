@@ -1,4 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name; ?>
+<?php 
+$this->pageTitle = 'Home - ' . Yii::app()->name; 
+?>
 
 <h1>Welcome to Poncla!</h1>
 

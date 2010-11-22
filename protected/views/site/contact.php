@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Contact Us';
+$this->pageTitle = 'Contact Us - ' . Yii::app()->name;
 $this->breadcrumbs=array(
 	'Contact',
 );

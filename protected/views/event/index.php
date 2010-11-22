@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = "Events - " . Yii::app()->name;
 $this->breadcrumbs=array(
 	'Events',
 );

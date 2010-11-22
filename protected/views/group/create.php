@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = 'Create a New Group - ' . Yii::app()->name;
 $this->breadcrumbs=array(
 	'Groups'=>array('index'),
 	'Create',
@@ -9,7 +10,7 @@ $this->menu=array(
 		'url'=>array('invite'),
 		'linkOptions'=>array('id'=>'group_invite_menu_item'),
 	),
-	array('label'=>'Admin: Create a Group', 
+	array('label'=>'Admin: Create a New Group', 
 		'url'=>array('create'), 
 		'linkOptions'=>array('id'=>'group_create_menu_item'),
 		'visible'=>Yii::app()->user->isAdmin

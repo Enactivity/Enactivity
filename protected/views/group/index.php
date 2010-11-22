@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = 'Groups - ' . Yii::app()->name;
 $this->breadcrumbs=array(
 	'Groups',
 );
