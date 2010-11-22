@@ -4,7 +4,9 @@
 body
 {
 	color: #555555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 10pt; 
+	font-style: normal;
 	height: 100%;
 }
 
@@ -12,6 +14,11 @@ a, a:hover, a:visited, a:active
 {
 	color: #555555;
 	text-decoration: none;
+}
+
+td, input, textarea { 
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif; 
 }
 
 strong 
@@ -140,7 +147,8 @@ div.flash-success a
 
 #content
 {
-	padding: 10px;	
+	padding: 10px;
+	font: normal 18pt Arial,Helvetica,sans-serif;
 }
 
 #content h1 
@@ -151,8 +159,25 @@ div.flash-success a
 	margin-top: 15px;
 }
 
+#content h2
+{
+	font-size: 50px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+#content h3 
+{
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
 #content .summary
 {
+	font-size: 14px;
 	margin-bottom: 10px;
 }
 

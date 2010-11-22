@@ -17,15 +17,9 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>4000)); ?>
+		<?php echo $form->textArea($model,'description',array('size'=>60,'maxlength'=>4000)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
-
-	<?php /*<div class="row">
-		<?php echo $form->labelEx($model,'creatorId'); ?>
-		<?php echo $form->textField($model,'creatorId'); ?>
-		<?php echo $form->error($model,'creatorId'); ?>
-	</div> */ ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groupId'); ?>
