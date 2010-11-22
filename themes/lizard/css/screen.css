@@ -261,6 +261,19 @@ div .errorMessage {
 	width: 70%;
 }
 
+/*
+	Content tables
+*/
+#content th 
+{
+	text-align: right;
+}
+
+#content td 
+{
+	padding-left: 15px;
+}
+
 /* 
 	Site styles
 */
