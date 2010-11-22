@@ -1,30 +1,30 @@
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</strong>
 	<?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</strong>
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('creatorId')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('creatorId')); ?>:</strong>
 	<?php echo CHtml::encode($data->creator->fullName()); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('groupId')); ?>:</strong>
 	<?php echo CHtml::encode($data->group->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('starts')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('starts')); ?>:</strong>
 	<?php echo CHtml::encode($data->starts); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ends')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('ends')); ?>:</strong>
 	<?php echo CHtml::encode($data->ends); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('location')); ?>:</b>
+	<strong><?php echo CHtml::encode($data->getAttributeLabel('location')); ?>:</strong>
 	<?php echo CHtml::encode($data->location); ?>
 	<br />
 
