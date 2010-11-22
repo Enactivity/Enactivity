@@ -39,13 +39,13 @@
 		</div><!-- mainmenu -->
 
 		<?php echo $content; ?>
-		
-		<div id="footer">
-			Poncla &copy; <?php echo date('Y'); ?><br/>
-			All Rights Reserved.<br/>
-		</div><!-- footer -->
 	
 	</div><!-- page -->
+	
+	<div id="footer">
+			Poncla &copy; <?php echo date('Y'); ?><br/>
+			All Rights Reserved.<br/>
+	</div><!-- footer -->
 
 </body>
 </html>

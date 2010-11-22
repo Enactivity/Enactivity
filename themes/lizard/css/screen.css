@@ -1,7 +1,7 @@
 /*
 	General settings
 */
-body
+html, body
 {
 	color: #555555;
 	font-family: Arial,Helvetica,sans-serif;
@@ -32,6 +32,11 @@ em {
 /*
 	Generic content settings
 */
+
+#page
+{
+	min-height: 100%;
+}
 
 /* 
 	Main layout styles
@@ -94,7 +99,10 @@ em {
 
 #footer
 {
+	clear: both;
 	font-size: 0.8em;
+	height: 50px;
+	margin-top: -50px;
 	text-align: center;
 }
 
@@ -147,8 +155,12 @@ div.flash-success a
 
 #content
 {
-	padding: 10px;
-	font: normal 18pt Arial,Helvetica,sans-serif;
+	font-size: 18pt;
+	overflow: auto;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 50px;
 }
 
 #content h1 
