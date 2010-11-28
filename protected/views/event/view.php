@@ -38,10 +38,31 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'name',
 		'description',
-		'creatorId', //FIXME: replace with link to user name
-		'groupId', //FIXME: replace with link to group
+		array( // creator displayed as a link
+            'label'=>$model->getAttributeLabel('creatorId'),
+            'type'=>'raw',
+            'value'=>CHtml::link(
+				CHtml::encode($model->creator->fullName() != "" ? $model->creator->fullName() : $model->creator->email), 
+				$model->creator->getUrl(), 
+				array(
+					'class'=>'cid',
+					'title'=>'Permalink to this user',
+				)
+			)
+		),
+		array( // group displayed as a link
+			'label'=>$model->getAttributeLabel('groupId'),
+            'type'=>'raw',
+            'value'=>CHtml::link(
+				CHtml::encode($model->group->name),
+				$model->group->getUrl(),
+				array(
+					'class'=>'cid',
+					'title'=>'Permalink to this group',
+				)
+			)
+		),
 		'starts',
 		'ends',
 		'location',

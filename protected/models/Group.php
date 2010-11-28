@@ -148,6 +148,16 @@ class Group extends CActiveRecord
 	}
 	
 	/**
+	 * Get the url for viewing this group
+	 */
+	public function getUrl()
+	{
+		return Yii::app()->createUrl('group/view', array(
+            'id'=>$this->id,
+		));
+	}
+	
+	/**
 	 * Get the groups that the user is a member of
 	 * @param int $userId
 	 * @return CActiveDataProvider of Groups

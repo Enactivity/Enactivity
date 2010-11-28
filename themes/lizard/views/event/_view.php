@@ -2,12 +2,16 @@
 	<p>
 		<span class="eventname"><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
 	</p><p>
-		<em><?php echo "Starts on" ?></em>
+		<em>Starts on</em>
 		<?php echo CHtml::encode($data->starts); ?>
-		<em><?php echo "ends on"?></em>
+		<em>ends on</em>
 		<?php echo CHtml::encode($data->ends); ?>
-		<em><?php echo "at"?></em>
+		<?php 
+			if(isset($data->location) && !empty($data->location)):
+		?>
+		<em>at</em>
 		<?php echo CHtml::encode($data->location); ?>
+		<?php endif; ?>
 	</p>
 	<div id = "status">
 		<?php 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 07, 2010 at 03:39 PM
+-- Generation Time: Nov 28, 2010 at 01:44 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -27,7 +27,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(75) NOT NULL,
   `description` varchar(4000) DEFAULT NULL,
   `creatorId` int(11) DEFAULT NULL,
   `groupId` int(11) NOT NULL,
@@ -39,17 +39,20 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `event`
 --
 
 INSERT INTO `event` (`id`, `name`, `description`, `creatorId`, `groupId`, `starts`, `ends`, `location`, `created`, `modified`) VALUES
-(1, 'MyEvent', 'The coolest thing ever!', 1, 5, '2011-10-16 18:00:01', '2011-11-16 18:00:01', 'Germany', '0000-00-00 00:00:00', '2010-10-31 14:16:04'),
-(2, 'SuperEvent', 'Superman in town', 1, 6, '2011-10-13 18:00:01', '2011-11-16 18:00:01', 'Metropolis', '2010-10-16 20:32:21', '2010-10-16 20:32:21'),
+(2, 'Alpha Phi Omega Founder''s 71st Day', 'Superman in town', 1, 6, '2011-10-13 18:00:01', '2011-11-16 18:00:01', 'Metropolis', '2010-10-16 20:32:21', '2010-11-21 15:42:57'),
 (3, 'Another Testable Event', 'Just some filler for the awesomeness.', 1, 7, '2011-10-16 18:00:01', '2011-11-16 18:00:01', '', '2010-10-24 15:50:16', '2010-10-24 15:50:16'),
-(4, 'Old Event', 'This event has expired', 1, 5, '2009-10-16 18:00:01', '2009-11-16 18:00:04', 'Back in time!', '2009-10-31 15:25:48', '2009-10-31 15:25:48');
+(4, 'Old Event', 'This event has expired', 1, 5, '2009-10-16 18:00:01', '2009-11-16 18:00:04', 'Back in time!', '2009-10-31 15:25:48', '2009-10-31 15:25:48'),
+(5, 'Who likes to write code?', 'I do!', 25, 5, '2011-10-16 18:00:01', '2010-11-16 18:00:04', 'Any where that has a computer and an internet connection and some sort of thingy for writing code, like a printer.', '2010-11-07 17:04:06', '2010-11-07 17:04:06'),
+(6, 'Another event yo', 'Needed more events', 1, 5, '2011-10-16 18:00:01', '2010-11-16 18:00:04', 'Any where that has a computer and an internet connection and some sort of thingy for writing code, like a printer.', '2010-11-21 15:05:28', '2010-11-21 15:05:28'),
+(7, 'Proin leo odio, aliquam vitae semper non, tempus sed risus. In hac volutpat', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend fermentum tortor nec lacinia. Mauris justo odio, posuere sit amet molestie in, vehicula sed nibh. \r\n\r\nSuspendisse porta nulla sagittis nisi lacinia a scelerisque metus iaculis. Vivamus eu massa gravida urna ultrices bibendum adipiscing ut purus. Ut vehicula placerat mi et euismod. Quisque pretium, leo in ullamcorper luctus, tortor sapien scelerisque risus, a ullamcorper mi ipsum quis sem. Nulla ac eros ipsum. Duis tincidunt tortor et diam tristique a commodo felis tempor. Nam bibendum sagittis tellus vitae tempor. Suspendisse ac turpis sed metus commodo consectetur in a nisi. Nulla vitae leo ac justo consectetur gravida. Maecenas placerat lobortis felis, quis tempus lectus viverra sit amet. Praesent nunc magna, commodo sit amet pulvinar quis, fringilla nec mi.  Quisque quis ipsum diam, nec pulvinar nisl. Cras in est est, et blandit massa. Morbi vitae turpis egestas mi consectetur vulputate. Morbi aliquam aliquam est, sed rutrum metus sollicitudin non. Nullam aliquet augue quis nibh malesuada et facilisis nisl pulvinar. Nunc mollis, quam ut commodo tempus, eros risus aliquam mi, nec fringilla diam felis et urna. Quisque risus ante, vestibulum eu dictum ut, tristique accumsan velit. In consectetur neque id nunc euismod feugiat. Duis eget tortor nunc. Suspendisse hendrerit lobortis consequat. Fusce eu dolor urna, quis rhoncus massa. Maecenas purus sapien, luctus ac vulputate nec, convallis at magna.  In luctus feugiat dolor, vel dictum ante sagittis non. Cras eu felis libero, vel elementum justo. Vivamus neque tellus, feugiat eu gravida bibendum, porttitor nec dolor. Suspendisse sit amet nisl nec diam pharetra volutpat. Proin lacinia, dui non vehicula porta, tellus libero aliquet tortor, at aliquet turpis odio non lacus. Cras consequat ornare nisi, eu dignissim augue ultricies ac. Ut cursus feugiat diam, ut pulvinar augue sagittis id. Etiam eleifend, libero posuere lobortis rhoncus, mauris diam adipiscing massa, quis tempor odio quam a leo. Cras purus justo, pharetra quis ultricies sit amet, pellentesque eu nisi. Vestibulum massa dolor, sagittis euismod venenatis ac, consectetur ac enim. Donec facilisis sem eget est porttitor sed dictum nisi sollicitudin. Nunc eu sapien eget elit elementum sollicitudin id laoreet velit. Nullam ullamcorper rutrum fringilla. Phasellus ante ipsum, aliquam sed molestie ut, lacinia ac felis. Quisque condimentum, nulla nec tempor accumsan, arcu metus sagittis urna, faucibus fringilla lorem orci et nisi. Cras ante ante, lacinia ullamcorper iaculis in, laoreet a erat. Vivamus vestibulum fringilla mollis.  Praesent dictum fermentum vestibulum. Vestibulum pretium erat sit amet sem molestie a viverra orci posuere. Fusce facilisis pulvinar gravida. Vivamus auctor gravida tincidunt. Proin hendrerit volutpat malesuada. Quisque volutpat, nisi eu pellentesque pharetra, ipsum ipsum faucibus felis, tristique tristique lacus quam ac turpis. Praesent laoreet suscipit enim quis sollicitudin. Nunc molestie augue nec massa congue lacinia. Nulla ut leo lacus, non sodales nulla. Nullam id vehicula tellus. Sed at nisl nec nisl feugiat rhoncus eu ut nisi. Etiam dui mi, eleifend in bibendum nec, pretium ut ipsum.  Donec ultrices gravida dui, et ornare dolor consequat et. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas pretium tellus id purus rutrum et mollis ipsum hendrerit. In eget elit vel urna ullamcorper semper. Donec auctor arcu ac felis consequat cursus. Aliquam erat volutpat. Vivamus accumsan massa nec urna bibendum eleifend. Aliquam quis vestibulum turpis. Suspendisse sed tellus non dui luctus fringilla. Mauris fringilla diam eu orci malesuada viverra. Suspendisse ac ipsum et magna tempor lacinia id non purus. Quisque in nibh et quam imperdiet venenatis. \r\n\r\nUt sit amet elit est, vitae gravida magna. Fusce adipiscing, neque id dapibus tincidunt, sem augue porta enim, at pulvinar massa tellus ac', 1, 6, '2011-11-16 18:00:01', '2011-11-16 19:00:04', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim, lectus vel bibendum porttitor, magna mauris tempus turpis, ac ornare nunc eros at est. Phasellus ullamcorper libero ut justo mattis semper. Sed faucibus viverra ultrices massa nunc.', '2010-11-21 15:07:13', '2010-11-28 13:40:30'),
+(8, 'Gonna drop some sweet YouTube up in this thing', 'You tooooooooooooob!!\r\n\r\n<object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/lBw1qqDyWVQ?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/lBw1qqDyWVQ?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>', 1, 5, '2011-11-16 18:00:01', '2011-11-19 18:00:01', '', '2010-11-28 13:42:41', '2010-11-28 13:42:41');
 
 -- --------------------------------------------------------
 
@@ -68,17 +71,15 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `event_user`
 --
 
 INSERT INTO `event_user` (`id`, `eventId`, `userId`, `status`, `created`, `modified`) VALUES
-(2, 1, 4, 'Attending', '2010-10-23 15:27:12', '2010-10-23 15:27:16'),
-(11, 2, 1, 'Attending', '2010-11-06 19:51:00', '2010-11-07 12:28:37'),
-(12, 1, 1, 'Attending', '2010-11-06 21:51:12', '2010-11-06 22:11:19'),
-(13, 1, 25, 'Not Attending', '2010-11-07 14:50:58', '2010-11-07 14:51:04');
+(11, 2, 1, 'Attending', '2010-11-06 19:51:00', '2010-11-07 17:16:49'),
+(14, 5, 25, 'Attending', '2010-11-07 17:31:06', '2010-11-07 17:31:12');
 
 -- --------------------------------------------------------
 

@@ -53,7 +53,7 @@ class Event extends CActiveRecord
 		return array(
 		array('name, groupId, starts, ends', 'required'),
 		array('creatorId, groupId', 'numerical', 'integerOnly'=>true),
-		array('name, location', 'length', 'max'=>255),
+		array('name, location', 'length', 'max'=>75),
 		array('description', 'length', 'max'=>4000),
 		array('created, modified', 'safe'),
 
@@ -92,8 +92,8 @@ class Event extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
+			'name' => 'Event',
+			'description' => 'Details',
 			'creatorId' => 'Created by',
 			'groupId' => 'Group',
 			'starts' => 'Starts',
