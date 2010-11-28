@@ -5,7 +5,7 @@ html, body
 {
 	color: #555555;
 	font-family: Arial,Helvetica,sans-serif;
-	font-size: 10pt; 
+	font-size: 18pt; 
 	font-style: normal;
 	height: 100%;
 }
@@ -16,7 +16,7 @@ a, a:hover, a:visited, a:active
 	text-decoration: none;
 }
 
-td, input, textarea, select { 
+input, textarea, select { 
 	font-size: 18px;
 	font-family: Arial, Helvetica, sans-serif; 
 }
@@ -29,6 +29,7 @@ strong
 em {
 	font-style: italic;
 }
+
 /*
 	Generic content settings
 */
@@ -105,12 +106,11 @@ em {
 #footer
 {
 	clear: both;
-	font-size: 0.8em;
+	font-size: 10px;
 	height: 50px;
 	margin-top: -50px;
 	text-align: center;
 }
-
 
 /*
 	Content styles
@@ -166,9 +166,7 @@ em {
 */ 
 div .errorSummary {
 	background-color: #E85C42;
-	border-color: #e8160c;
-	border-style: solid;
-	border-width: 2px;
+	border:2px solid #e8160c;
 	color: #ffffff;
 	font-size: 19px;
 	padding: 10px;
@@ -264,14 +262,25 @@ div .errorMessage {
 /*
 	Content tables
 */
+#content tr {
+	vertical-align: text-top;
+}
+
 #content th 
 {
+	border-bottom: 1px solid #bbbbbb;
+	min-width: 150px;
+	padding-bottom: 10px;
+	padding-top: 10px;
 	text-align: right;
 }
 
 #content td 
 {
+	border-bottom: 1px solid #bbbbbb;
+	padding-bottom: 10px;
 	padding-left: 15px;
+	padding-top: 10px;
 }
 
 /* 
