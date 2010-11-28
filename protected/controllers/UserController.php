@@ -74,13 +74,20 @@ class UserController extends Controller
 
 		if(isset($_POST['User']))
 		{	
-			$model->attributes=$_POST['User'];
+			$model->attributes = $_POST['User'];
 			$model->status = User::STATUS_ACTIVE;
-			if($model->save() && $model->login()) {
-				$this->redirect(array('site/index'));
-			}
-			else {
-				throw new CHttpException(500, 'There was an error during your registration.  Please try again later or contact us if this problem persists.');	
+			if($model->save()) {
+				// attempt to log user in
+				$loginform = new LoginForm;
+				$loginform->username = $model->username;
+				$loginform->password = $model->password;
+				
+				if($loginform->login()) {
+					$this->redirect(array('site/index'));
+				}
+				else {
+					throw new CHttpException(500, 'There was when attempting to log you in.  Please try again later or contact us if this problem persists.');	
+				}
 			}
 		}
 
