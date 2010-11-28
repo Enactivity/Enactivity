@@ -31,7 +31,7 @@ class EventController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','all'),
+				'actions'=>array('admin','delete'),
 				'expression'=>$user->isAdmin,
 			),
 			array('deny',  // deny all users
@@ -158,18 +158,6 @@ class EventController extends Controller
 		$this->render('index', array(
 		        'model'=>$model,
 		        'dataProvider'=>$dataProvider,
-		));
-	}
-	
-	/**
-	 * List all events
-	 */
-	public function actionAll() 
-	{		
-		$dataProvider=new CActiveDataProvider('Event');
-		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
-			'myevents'=>$mygroupsevents,
 		));
 	}
 
