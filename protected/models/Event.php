@@ -165,4 +165,56 @@ class Event extends CActiveRecord
 			return false;
 		}
 	}
+	
+	/**
+	 * Get the list of users who have RSVPed with the given
+	 * status value
+	 * @param String $status
+	 * @return CActiveDataProvider of User models
+	 */
+	public function getAttendeesByStatus($eventStatus) {
+		$model = new User('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $model->search();
+		
+		// search for users mapped to event with the status
+		$dataProvider->criteria->addCondition(
+			'id IN (SELECT userId AS id FROM ' . EventUser::model()->tableName()
+				. ' WHERE eventId=:eventId' 
+				. ' AND status =:eventStatus)'
+		);
+		$dataProvider->criteria->params[':eventId'] = $this->id;
+		$dataProvider->criteria->params[':eventStatus'] = $eventStatus;
+		
+		// ensure only active users are returned
+		$dataProvider->criteria->addCondition('status = :userStatus');
+		$dataProvider->criteria->params[':userStatus'] = User::STATUS_ACTIVE;
+		
+		// order by first name
+		$dataProvider->criteria->order = "firstName ASC";
+		
+		return $dataProvider;
+	}
+	
+	/**
+	 * Get a list of events that take place in the future for a given user
+	 * @param int $userId
+	 * @return CActiveDataProvider of Event models
+	 */
+	public function getFutureEventsForUser($userId) {
+		$this->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $this->search();
+		$dataProvider->criteria->addCondition("id IN (SELECT id FROM " . $this->tableName() 
+			.  " WHERE groupId IN (SELECT groupId FROM " . GroupUser::model()->tableName() 
+			. " WHERE userId=:userId))");
+		$dataProvider->criteria->params[':userId'] = $userId;
+		
+		$dataProvider->criteria->addCondition("ends > NOW()");
+		
+		$dataProvider->criteria->order = "starts ASC";
+		
+		return $dataProvider;
+	}
 }

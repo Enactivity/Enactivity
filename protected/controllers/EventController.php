@@ -63,12 +63,12 @@ class EventController extends Controller
 		}
 		
 		// Get the list of the attending users
-		$attendees = $this->getAttendeesByStatus($event->id, EventUser::STATUS_ATTENDING);
+		$attendees = $event->getAttendeesByStatus(EventUser::STATUS_ATTENDING);
 		
 		// Get the list of the not attending users
-		$notattendees = $this->getAttendeesByStatus($event->id, EventUser::STATUS_NOT_ATTENDING);
+		$notattendees = $event->getAttendeesByStatus(EventUser::STATUS_NOT_ATTENDING);
 				
-		$this->render('view',array(
+		$this->render('view', array(
 			'model'=>$event,
 			'eventuser'=>$eventuser,
 			'attendees'=>$attendees,
@@ -152,13 +152,8 @@ class EventController extends Controller
 	 */
 	public function actionIndex()
 	{		
-		$model=new Event('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$dataProvider= $model->search();
-		$dataProvider->criteria->addCondition("id IN (SELECT id FROM event WHERE groupId IN (SELECT groupId FROM group_user WHERE userId='" . Yii::app()->user->id . "'))");
-		$dataProvider->criteria->addCondition("ends > NOW()");
-		$dataProvider->criteria->order = "starts ASC";
+		$model = new Event('search');
+		$dataProvider = $model->getFutureEventsForUser(Yii::app()->user->id);
 		
 		$this->render('index', array(
 		        'model'=>$model,
@@ -217,28 +212,5 @@ class EventController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-	
-	/**
-	 * Get the list of users who have RSVPed with the given
-	 * status value
-	 * @param int $eventId
-	 * @param String $status
-	 * @return IDataProvider
-	 */
-	public function getAttendeesByStatus($eventId, $status) {
-		$model = new User('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$dataProvider= $model->search();
-		$dataProvider->criteria->addCondition(
-			"id IN (SELECT userId AS id FROM event_user" 
-				. " WHERE eventId='" . $eventId . "'" 
-				. " AND status ='" . $status . "')"
-		);
-		$dataProvider->criteria->addCondition("status = '" . User::STATUS_ACTIVE .  "'");
-		$dataProvider->criteria->order = "firstName ASC";
-		
-		return $dataProvider;
 	}
 }

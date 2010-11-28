@@ -47,9 +47,6 @@ return array(
 			),
 		),
 		
-/*		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),*/
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
@@ -58,7 +55,7 @@ return array(
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
-			'enableParamLogging'=>true
+			'enableParamLogging'=>false
 		),
 		
 		// Set the error handler
