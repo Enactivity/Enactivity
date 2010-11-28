@@ -7,7 +7,12 @@ class UserIdentity extends CUserIdentity
 	{
 		$username = strtolower($this->username);
 		$user = User::model()->find('LOWER(username) = ?', array($username));
-		if($user === null) //user does not exist
+		if($user === null) // user not found with email
+		{
+			$user = User::model()->find('LOWER(email) = ?', array($username));
+		}
+		
+		if($user === null) // user does not exist
 		{
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		}

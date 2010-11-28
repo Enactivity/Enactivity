@@ -60,12 +60,14 @@ class User extends CActiveRecord
 
 		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
 		array('username', 'length', 'min'=>3, 'max'=>50),
+		array('username', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/'),
 
 		array('email', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
 		array('email', 'length', 'min'=>3, 'max'=>50),
 		array('email', 'email'),
 
 		array('firstName, lastName', 'length', 'min'=>2, 'max'=>50),
+		array('firstName, lastName', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z]*$/'),
 			
 		array('password', 'length', 'min'=>4, 'max'=>40),
 
