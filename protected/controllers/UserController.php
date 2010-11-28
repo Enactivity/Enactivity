@@ -58,7 +58,7 @@ class UserController extends Controller
 	//Users are created via Group Invites
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser will be redirected to the home page.
 	 */
 	public function actionRegister($token)
 	{
@@ -69,15 +69,19 @@ class UserController extends Controller
 		
 		//if user is already registered, get them outta here
 		if($model->status != User::STATUS_PENDING) {
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 		}
 
 		if(isset($_POST['User']))
 		{	
 			$model->attributes=$_POST['User'];
 			$model->status = User::STATUS_ACTIVE;
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save() && $model->login()) {
+				$this->redirect(array('site/index'));
+			}
+			else {
+				throw new CHttpException(500, 'There was an error during your registration.  Please try again later or contact us if this problem persists.');	
+			}
 		}
 
 		$this->render('register',array(
