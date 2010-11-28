@@ -34,7 +34,11 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'description',
+		array(
+			'label'=>$model->getAttributeLabel('description'),
+			'type'=>'ntext',
+			'name'=>'description'
+		),
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
             'type'=>'raw',
