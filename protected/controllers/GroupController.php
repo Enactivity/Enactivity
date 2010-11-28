@@ -54,7 +54,7 @@ class GroupController extends Controller
 		$group = $this->loadModel($id);
 		
 		// Get the list of the active group users
-		$activemembers = $this->getMembersByStatus($group->id, GroupUser::STATUS_ACTIVE);
+		$activemembers = $group->getMembersByStatus(GroupUser::STATUS_ACTIVE);
 		
 		// Get the list of the pending group users
 		//$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
@@ -139,11 +139,7 @@ class GroupController extends Controller
 	public function actionIndex()
 	{
 		$model=new Group('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$dataProvider = $model->search();
-		$dataProvider->criteria->addCondition("id IN (SELECT groupId AS id FROM group_user WHERE userId='" . Yii::app()->user->id . "')");
-		$dataProvider->criteria->order = "name ASC";
+		$dataProvider = $model->getGroupsByUser(Yii::app()->user->id);
 		
 		$this->render('index', array(
 		        'model'=>$model,
@@ -169,6 +165,7 @@ class GroupController extends Controller
 	{
 		$model=new Group('search');
 		$model->unsetAttributes();  // clear any default values
+		
 		if(isset($_GET['Group'])) {
 			$model->attributes=$_GET['Group'];
 		}
@@ -200,7 +197,7 @@ class GroupController extends Controller
 			if(isset($_POST['User'])) {
 				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
 				if(!isset($user)) {
-					//Create a new user with the email invited
+					//Create a new user with the email invite
 					//FIXME: allows blank email??
 					$user = new User('invite');
 					$user->attributes = $_POST['User'];
@@ -256,27 +253,5 @@ class GroupController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-
-	/**
-	 * Get the list of users in this group filtered by status
-	 * @param int $groupId
-	 * @param String $status
-	 * @return IDataProvider
-	 */
-	public function getMembersByStatus($groupId, $status) {
-		$model = new User('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$dataProvider= $model->search();
-		$dataProvider->criteria->addCondition(
-			"id IN (SELECT userId AS id FROM group_user" 
-				. " WHERE groupId='" . $groupId . "'" 
-				. " AND status ='" . $status . "')"
-		);
-		$dataProvider->criteria->addCondition("status = '" . User::STATUS_ACTIVE .  "'");
-		$dataProvider->criteria->order = "firstName ASC";
-		
-		return $dataProvider;
 	}
 }

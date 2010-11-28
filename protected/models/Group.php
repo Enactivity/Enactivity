@@ -146,4 +146,50 @@ class Group extends CActiveRecord
 		}
 		return false;
 	}
+	
+	/**
+	 * Get the groups that the user is a member of
+	 * @param int $userId
+	 * @return CActiveDataProvider of Groups
+	 */
+	public function getGroupsByUser($userId) {
+		$this->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $this->search();
+		$dataProvider->criteria->addCondition('id IN (SELECT groupId AS id FROM group_user WHERE userId=:userId)');
+		$dataProvider->criteria->params[':userId'] = $userId;
+		
+		$dataProvider->criteria->order = 'name ASC';
+		
+		return $dataProvider;
+	}
+	
+	/**
+	 * Get the list of Active users in this group filtered by 
+	 * group status
+	 * @param int $groupId
+	 * @param String $status
+	 * @return IDataProvider
+	 */
+	public function getMembersByStatus($groupStatus) {
+		$model = new User('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider= $model->search();
+		$dataProvider->criteria->addCondition(
+			'id IN (SELECT userId AS id FROM group_user' 
+				. ' WHERE groupId=:groupId' 
+				. ' AND status = :groupStatus)'
+		);
+		$dataProvider->criteria->params[':groupId'] = $this->id;
+		$dataProvider->criteria->params[':groupStatus'] = $groupStatus;
+		
+		// ensure only active users are returned
+		$dataProvider->criteria->addCondition('status = :userStatus');
+		$dataProvider->criteria->params[':userStatus'] = User::STATUS_ACTIVE;
+		
+		$dataProvider->criteria->order = 'firstName ASC';
+		
+		return $dataProvider;
+	}
 }

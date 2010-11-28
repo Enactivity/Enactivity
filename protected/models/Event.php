@@ -192,7 +192,7 @@ class Event extends CActiveRecord
 		$dataProvider->criteria->params[':userStatus'] = User::STATUS_ACTIVE;
 		
 		// order by first name
-		$dataProvider->criteria->order = "firstName ASC";
+		$dataProvider->criteria->order = 'firstName ASC';
 		
 		return $dataProvider;
 	}
@@ -206,14 +206,14 @@ class Event extends CActiveRecord
 		$this->unsetAttributes();  // clear any default values
 		
 		$dataProvider = $this->search();
-		$dataProvider->criteria->addCondition("id IN (SELECT id FROM " . $this->tableName() 
-			.  " WHERE groupId IN (SELECT groupId FROM " . GroupUser::model()->tableName() 
-			. " WHERE userId=:userId))");
+		$dataProvider->criteria->addCondition('id IN (SELECT id FROM ' . $this->tableName() 
+			.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
+			. ' WHERE userId=:userId))');
 		$dataProvider->criteria->params[':userId'] = $userId;
 		
-		$dataProvider->criteria->addCondition("ends > NOW()");
+		$dataProvider->criteria->addCondition('ends > NOW()');
 		
-		$dataProvider->criteria->order = "starts ASC";
+		$dataProvider->criteria->order = 'starts ASC';
 		
 		return $dataProvider;
 	}
