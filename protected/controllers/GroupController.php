@@ -72,14 +72,14 @@ class GroupController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Group;
+		$model = new Group;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Group']))
 		{
-			$model->attributes=$_POST['Group'];
+			$model->attributes = $_POST['Group'];
 			if($model->save())
 			$this->redirect(array('view','id'=>$model->id));
 		}
@@ -185,42 +185,34 @@ class GroupController extends Controller
 		// un/comment the following code to enable/disable ajax-based validation
 //		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
 //		{
-//		echo CActiveForm::validate($groupuser);
-//		Yii::app()->end();
+//			echo CActiveForm::validate($groupuser);
+//			Yii::app()->end();
 //		}
 
 		// If form submitted
-		if(isset($_POST['GroupUser']))
-		{
-			$groupuser->attributes=$_POST['GroupUser'];
-			
-			if(isset($_POST['User'])) {
-				$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
-				if(!isset($user)) {
-					//Create a new user with the email invite
-					//FIXME: allows blank email??
-					$user = new User('invite');
-					$user->attributes = $_POST['User'];
-					if($user->validate()) {
-						if($user->save()) {
-							// Get group
-							$group = Group::model()->findByPk($_POST['GroupUser']['groupId']);
-							
-							// Send email
-							$user->invite($group);
-							Yii::app()->user->setFlash('invite', 'Your invitation has been sent.');
-							$this->refresh();
-						}
-					}
-				}
-				$groupuser->userId = $user->id;
+		if(isset($_POST['GroupUser']) && isset($_POST['User'])) {
+			$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
+			if(!isset($user)) {
+				//Create a new user with the email invite
+				//FIXME: allows blank email??
+				$user = new User('invite');
+				$user->email = $_POST['User']['email'];
+				$user->save();
+				Yii::trace('here?', $category);
 			}
 			
+			// Get group
+			$group = Group::model()->findByPk($_POST['GroupUser']['groupId']);
+			$groupuser->groupId = $group->id;
+			$groupuser->userId = $user->id;
+			
+			// Send email
+			$user->invite($group->name);
+			Yii::app()->user->setFlash('invite', 'Your invitation has been sent.');
+			//$this->refresh();
+			
 			//Validate and save
-			if($groupuser->validate())
-			{
-				//FIXME: throws an exception if user is already invited
-				if($groupuser->save())
+			if($groupuser->save()) {
 				$this->redirect(array('view','id'=>$groupuser->groupId));
 			}
 		}

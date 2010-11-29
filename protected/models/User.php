@@ -76,7 +76,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-		array('email', 'required', 'on' => 'invite, create'),
+		array('email', 'required', 'on' => 'invite'),
 		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'create, update'),
 
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
@@ -285,11 +285,11 @@ class User extends CActiveRecord
 	 * Invite a user to the web app
 	 * @param groupName the name of the group
 	 */
-	public function invite($group) {
+	public function invite($groupName) {
 		//send invite email
 		$from = "no-reply@poncla.com";
-		$subject = "Invitation from {$group->name} to join Poncla";
-		$body = "You have been invited to join the {$group->name} network at"
+		$subject = "Invitation from {$groupName} to join Poncla";
+		$body = "You have been invited to join the {$groupName} group on"
 		. " Poncla. To accept this invitation, go to"
 		. " http://www.poncla.com/user/register/?token=" . $this->token 
 		. " and complete your registration.";

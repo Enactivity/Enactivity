@@ -35,15 +35,15 @@ $this->menu=array(
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'groupId'); ?>	
-		<?php echo $form->dropDownList($model,'groupId', CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); ?>
-		<?php echo $form->error($model,'groupId'); ?>
+		<?php echo $form->labelEx($model, 'groupId'); ?>	
+		<?php echo $form->dropDownList($model, 'groupId', CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); ?>
+		<?php echo $form->error($model, 'groupId'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx(User::model(),'email'); ?>
-		<?php echo $form->textField(User::model(),'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
+		<?php echo $form->labelEx(User::model(), 'email'); ?>
+		<?php echo $form->textField(User::model() ,'email'); ?>
+		<?php echo $form->error(User::model() ,'email'); ?>
 	</div>
 
 	<div class="row buttons">
