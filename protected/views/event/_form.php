@@ -11,13 +11,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>Event::NAME_MAX_LENGTH)); ?>
+		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>Event::NAME_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('size'=>60,'maxlength'=>Event::DESCRIPTION_MAX_LENGTH)); ?>
+		<?php echo $form->textArea($model,'description',array('size'=>50,'maxlength'=>Event::DESCRIPTION_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
@@ -41,7 +41,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>Event::LOCATION_MAX_LENGTH)); ?>
+		<?php echo $form->textField($model,'location',array('size'=>50,'maxlength'=>Event::LOCATION_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'location'); ?>
 	</div>
 
