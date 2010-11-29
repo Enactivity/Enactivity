@@ -11,13 +11,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>Group::NAME_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'slug'); ?>
-		<?php echo $form->textField($model,'slug',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'slug',array('size'=>50,'maxlength'=>Group::SLUG_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'slug'); ?>
 	</div>
 	

@@ -17,6 +17,15 @@
  */
 class Group extends CActiveRecord
 {
+	const NAME_MAX_LENGTH = 255;
+	const NAME_MIN_LENGTH = 3;
+	
+	const SLUG_MAX_LENGTH = 255;
+	const SLUG_MIN_LENGTH = 3;
+	
+	const EMAIL_MAX_LENGTH = 50;
+	const EMAIL_MIN_LENGTH = 5;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Group the static model class
