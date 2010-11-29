@@ -31,8 +31,8 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->labelEx($model,'rememberMe'); ?>
+		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
 

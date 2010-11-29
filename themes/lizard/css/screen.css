@@ -62,7 +62,7 @@ em {
 
 #mainmenu ul li a, #mainmenu ul li a:visited 
 {
-	color: #eee;
+	color: #eeeeee;
 	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;
@@ -93,14 +93,13 @@ em {
 #sidebar ul li a, #sidebar ul li a:visited
 {
 	color: #dddddd;
-	font-size: 14px;
+	font-size: 18px;
 	text-decoration: none;
 }
 
 #sidebar ul li a:hover
 {
-	font-size: 14px;
-	text-decoration: underline;
+	color: #51e3fd;
 }
 
 #footer
@@ -290,9 +289,21 @@ div .errorMessage {
 /*
 	Site: login styles
 */
-div .form .rememberMe label
+#content #login-form .rememberMe label
 {
-	display: inline;
+	width: 270px;
+}
+
+#content #login-form #LoginForm_rememberMe
+{
+	margin-left: 280px;
+	margin-top: 5px;
+	width: 15px;
+}
+
+#content #login-form .buttons
+{
+	margin-top: 10px;
 }
 
 /*
