@@ -26,6 +26,15 @@
  */
 class Event extends CActiveRecord
 {
+	const NAME_MAX_LENGTH = 75;
+	const NAME_MIN_LENGTH = 3;
+	
+	const DESCRIPTION_MAX_LENGTH = 4000;
+	const DESCRIPTION_MIN_LENGTH = 0;
+	
+	const LOCATION_MAX_LENGTH = 255;
+	const LOCATION_MIN_LENGTH = 0;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Event the static model class
