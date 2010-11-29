@@ -24,10 +24,31 @@
  */
 class User extends CActiveRecord
 {
+	const EMAIL_MAX_LENGTH = 50;
+	const EMAIL_MIN_LENGTH = 3;
+	
+	const FIRSTNAME_MAX_LENGTH = 50;
+	const FIRSTNAME_MIN_LENGTH = 2;
+	
+	const PASSWORD_MAX_LENGTH = 40;
+	const PASSWORD_MIN_LENGTH = 4;
+	
+	const LASTNAME_MAX_LENGTH = 50;
+	const LASTNAME_MIN_LENGTH = 2;
+	
+	const TOKEN_MAX_LENGTH = 40;
+	
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
 	const STATUS_INACTIVE = 'Inactive';
+	const STATUS_MAX_LENGTH = 15;
+	
+	const USERNAME_MAX_LENGTH = 50;
+	const USERNAME_MIN_LENGTH = 3;
 
+	/******************************************************
+	 * DO NOT CHANGE THE SALT!  YOU WILL BREAK ALL SIGN-INS
+	 ******************************************************/
 	const SALT = 'yom0mm4wasap455w0rd';
 
 	/**
@@ -58,27 +79,31 @@ class User extends CActiveRecord
 		array('email', 'required', 'on' => 'invite, create'),
 		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'create, update'),
 
+		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
+		
 		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
-		array('username', 'length', 'min'=>3, 'max'=>50),
+		array('username', 'length', 'min'=>self::USERNAME_MIN_LENGTH, 'max'=>self::USERNAME_MAX_LENGTH),
 		array('username', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/'),
 
 		array('email', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
-		array('email', 'length', 'min'=>3, 'max'=>50),
+		array('email', 'length', 'min'=>self::EMAIL_MIN_LENGTH, 'max'=>self::EMAIL_MAX_LENGTH),
 		array('email', 'email'),
 
-		array('firstName, lastName', 'length', 'min'=>2, 'max'=>50),
+		array('firstName', 'length', 'min'=>self::FIRSTNAME_MIN_LENGTH, 'max'=>self::FIRSTNAME_MAX_LENGTH),
+		array('lastName', 'length', 'min'=>self::LASTNAME_MIN_LENGTH, 'max'=>LASTNAME_MAX_LENGTH),
 		array('firstName, lastName', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z]*$/'),
 			
-		array('password', 'length', 'min'=>4, 'max'=>40),
+		array('password', 'length', 'min'=>self::PASSWORD_MIN_LENGTH, 'max'=>self::PASSWORD_MAX_LENGTH),
 
-		array('status', 'length', 'max'=>15),
+		array('status', 'length', 'max'=>self::STATUS_MAX_LENGTH),
 		array('status', 'default',
-		 'value'=>self::STATUS_PENDING,
-		 'setOnEmpty'=>false, 'on'=>'insert'),
+			'value'=>self::STATUS_PENDING,
+			'setOnEmpty'=>false, 'on'=>'insert'
+		),
 		array('status', 'in', 'range'=>array(
-		self::STATUS_PENDING,
-		self::STATUS_ACTIVE,
-		self::STATUS_INACTIVE
+			self::STATUS_PENDING,
+			self::STATUS_ACTIVE,
+			self::STATUS_INACTIVE
 		)
 		),
 		
