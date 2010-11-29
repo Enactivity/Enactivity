@@ -44,8 +44,18 @@ $this->widget('zii.widgets.CDetailView', array(
 	'attributes'=>array(
 		'name',
 		'slug',
-		'created',
-		'modified',
+		array( //created
+			'label'=>$model->getAttributeLabel('created'),
+			'type'=>'datetime',
+			'name'=>'created',
+			'value'=>strtotime($model->created),
+		),
+		array( //modified
+			'label'=>$model->getAttributeLabel('modified'),
+			'type'=>'datetime',
+			'name'=>'modified',
+			'value'=>strtotime($model->modified),
+		),
 	),
 )); 
 ?>

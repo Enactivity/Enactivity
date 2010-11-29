@@ -34,11 +34,24 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		array( //ends
+			'label'=>$model->getAttributeLabel('starts'),
+			'type'=>'datetime',
+			'name'=>'starts',
+			'value'=>strtotime($model->starts),
+		),
+		array( //ends
+			'label'=>$model->getAttributeLabel('ends'),
+			'type'=>'datetime',
+			'name'=>'ends',
+			'value'=>strtotime($model->ends),
+		),
 		array(
 			'label'=>$model->getAttributeLabel('description'),
 			'type'=>'ntext',
 			'name'=>'description'
 		),
+		'location',
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
             'type'=>'raw',
@@ -63,11 +76,18 @@ $this->menu=array(
 				)
 			)
 		),
-		'starts',
-		'ends',
-		'location',
-		'created',
-		'modified',
+		array( //created
+			'label'=>$model->getAttributeLabel('created'),
+			'type'=>'datetime',
+			'name'=>'created',
+			'value'=>strtotime($model->created),
+		),
+		array( //modified
+			'label'=>$model->getAttributeLabel('modified'),
+			'type'=>'datetime',
+			'name'=>'modified',
+			'value'=>strtotime($model->modified),
+		),
 	),
 )); 
 
