@@ -30,25 +30,8 @@ return array(
 
 	// application components
 	'components'=>array(
-		'user'=>array(
-			// Map current user to our custom class
-			'class' => 'WebUser',
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-		),
-		// uncomment the following to enable URLs in path-format
-		
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
-		),
-		
-		// uncomment the following to use a MySQL database
-		
+
+		// MySQL database settings
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
 			'emulatePrepare' => true,
@@ -60,9 +43,13 @@ return array(
 		
 		// Set the error handler
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
-        ),
+			// use 'site/error' action to display error
+			'errorAction'=>'site/error',
+		),
+        
+		'format'=>array(
+        	'datetimeFormat' => 'l, M d, Y \a\t g:i a', 
+		),
         
         // Log settings
 		'log'=>array(
@@ -78,6 +65,23 @@ return array(
 //					'class'=>'CWebLogRoute',
 //				),
 				
+			),
+		),
+		
+		'user'=>array(
+			// Map current user to our custom class
+			'class' => 'WebUser',
+			// enable cookie-based authentication
+			'allowAutoLogin'=>true,
+		),
+		// uncomment the following to enable URLs in path-format
+		
+		'urlManager'=>array(
+			'urlFormat'=>'path',
+			'rules'=>array(
+				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
 		
