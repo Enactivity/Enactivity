@@ -3,7 +3,6 @@
 
 	<?php echo CHtml::link("#{$groupUser->user->id}", $groupUser->user->getUrl($post), array(
 		'class'=>'cid',
-		'title'=>'Permalink to this user',
 	)); ?>
 
 	<div class="name">

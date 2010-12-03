@@ -34,6 +34,6 @@ return CMap::mergeArray(
 			),
 		),
 		),
-		'theme'=>'', //use yii-default
+		//'theme'=>'', //use yii-default
 	)
 );

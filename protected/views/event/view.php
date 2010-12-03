@@ -31,6 +31,15 @@ $this->menu=array(
 
 <h1><?php echo $model->name; ?></h1>
 
+<div id="status">
+<?php 
+//RSVP buttons
+$this->renderPartial('_rsvp', array(
+	'eventuser'=>$eventuser,
+)); 
+?>
+</div>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -60,7 +69,6 @@ $this->menu=array(
 				$model->creator->getUrl(), 
 				array(
 					'class'=>'cid',
-					'title'=>'Permalink to this user',
 				)
 			)
 		),
@@ -72,7 +80,6 @@ $this->menu=array(
 				$model->group->getUrl(),
 				array(
 					'class'=>'cid',
-					'title'=>'Permalink to this group',
 				)
 			)
 		),
@@ -91,13 +98,6 @@ $this->menu=array(
 	),
 )); 
 
-?>
-
-<?php 
-//RSVP buttons
-$this->renderPartial('_rsvp', array(
-	'eventuser'=>$eventuser,
-)); 
 ?>
 
 <!-- List of users in event -->

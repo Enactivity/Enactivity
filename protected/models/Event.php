@@ -225,4 +225,13 @@ class Event extends CActiveRecord
 		
 		return $dataProvider;
 	}
+	
+	/**
+	 * Get the event user status for the event and user
+	 * @param int $eventId
+	 * @param int $userId
+	 */
+	public function getRSVP($userId) {
+		return EventUser::model()->getRSVP($this->id, $userId);
+	}
 }

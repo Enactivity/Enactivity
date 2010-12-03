@@ -3,9 +3,9 @@
 		<span class="eventname"><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
 	</p><p>
 		<em>Starts on</em>
-		<?php echo CHtml::encode($data->starts); ?>
+		<?php echo CHtml::encode(Yii::app()->dateFormatter->formatDateTime($data->starts)); ?>
 		<em>ends on</em>
-		<?php echo CHtml::encode($data->ends); ?>
+		<?php echo CHtml::encode(Yii::app()->dateFormatter->formatDateTime($data->ends)); ?>
 		<?php 
 			if(isset($data->location) && !empty($data->location)):
 		?>
@@ -17,7 +17,7 @@
 		<?php 
 		//RSVP buttons
 		$this->renderPartial('_rsvp', array(
-			'eventuser'=>$eventuser,
+			'eventuser'=>$data->getRSVP(Yii::app()->user->id),
 		)); 
 		?>
 	</div>

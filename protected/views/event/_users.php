@@ -10,7 +10,6 @@
 		$data->fullName() != "" ? $data->fullName() : $data->email, 
 		$data->getUrl(), array(
 			'class'=>'cid',
-			'title'=>'Permalink to this user',
 		)
 	);
 	?>

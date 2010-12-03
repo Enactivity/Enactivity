@@ -208,7 +208,7 @@ class GroupController extends Controller
 			
 			// Send email
 			$user->invite($group->name);
-			Yii::app()->user->setFlash('invite', 'Your invitation has been sent.');
+			Yii::app()->user->setFlash('success', 'Your invitation has been sent.');
 			//$this->refresh();
 			
 			//Validate and save

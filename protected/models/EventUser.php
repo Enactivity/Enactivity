@@ -155,9 +155,10 @@ class EventUser extends CActiveRecord
 			self::STATUS_NOT_ATTENDING);
 	}
 	
-/**
-	 * Get the event user status for the current event and user
+	/**
+	 * Get the event user status for the given event and user
 	 * @param int $eventId
+	 * @param int $userId
 	 */
 	public function getRSVP($eventId, $userId) {
 		$criteria = new CDbCriteria;
@@ -188,7 +189,7 @@ class EventUser extends CActiveRecord
 			var_dump( $eventuser->getErrors());
 		}
 			
-		Yii::app()->user->setFlash('Response Submitted', 'Thank you for your RSVP.');
+		Yii::app()->user->setFlash('success', 'You have replied that you are '. strtolower($status) . ' this event.');
 		$this->refresh();
 		return $eventuser;
 	}

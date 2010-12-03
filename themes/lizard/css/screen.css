@@ -44,14 +44,11 @@ em {
 #mainmenu
 {
 	background-color: #292929;
+	border-bottom: 1px solid #555555;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-}
-
-#mainmenu ul
-{
 }
 
 #mainmenu ul li
@@ -104,10 +101,13 @@ em {
 
 #footer
 {
+	background-color: #292929;
+	border-top: 1px solid #555;
 	clear: both;
 	font-size: 10px;
-	height: 50px;
-	margin-top: -50px;
+	height: 34px; /* -1 to accomodate the border */ 
+	margin-top: -40px;
+	padding-top: 5px;
 	text-align: center;
 }
 
@@ -211,7 +211,7 @@ div.flash-error a
 
 div.flash-notice a
 {
-	color:#514721;
+	color:#7f7b5f;
 }
 
 div.flash-success a
