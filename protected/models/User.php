@@ -41,6 +41,7 @@ class User extends CActiveRecord
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
 	const STATUS_INACTIVE = 'Inactive';
+	const STATUS_BANNED = 'Banned';
 	const STATUS_MAX_LENGTH = 15;
 	
 	const USERNAME_MAX_LENGTH = 50;
@@ -236,6 +237,32 @@ class User extends CActiveRecord
 	{
 		return $this->encrypt($password, $this->token) === $this->password;
 	}
+	
+	/**
+	 * Checks if the user has the given status
+	 * @param string the status to check
+	 * @return boolean whether the user is of the given status
+	 */
+	public function isStatus($status)
+	{
+		return $this->status === $status;
+	}
+	
+	/**
+	 * Is the user's status 'Active'?
+	 * @return boolean whether the user is active
+	 */
+	public function isActive() {
+		return $this->isStatus(self::STATUS_ACTIVE);
+	}
+	
+/**
+	 * Is the user's status 'Banned'?
+	 * @return boolean whether the user is banned
+	 */
+	public function isBanned() {
+		return $this->isStatus(self::STATUS_BANNED);
+	}
 
 	/**
 	 * Encrypt the given value
@@ -278,7 +305,8 @@ class User extends CActiveRecord
 	public static function getStatuses() {
 		return array(self::STATUS_ACTIVE,
 			self::STATUS_INACTIVE, 
-			self::STATUS_PENDING);
+			self::STATUS_PENDING,
+			self::STATUS_BANNED);
 	}
 	
 	/**
