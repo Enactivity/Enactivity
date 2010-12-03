@@ -39,7 +39,7 @@
 			?>
 		</div><!-- mainmenu -->
 
-		<!-- flash notices --><!--
+		<!-- flash notices -->
 		<?php /** if(Yii::app()->user->hasFlash('error')):?>
 		    <div class="flash-error">
 		        <?php echo Yii::app()->user->getFlash('error'); ?>
@@ -54,7 +54,7 @@
 		    <div class="flash-success">
 		        <?php echo Yii::app()->user->getFlash('success'); ?>
 		    </div>
-		<?php endif; */ ?>
+		<?php endif; **/ ?>
 
 		<?php echo $content; ?>
 	
