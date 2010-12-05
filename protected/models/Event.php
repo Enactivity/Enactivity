@@ -157,6 +157,11 @@ class Event extends CActiveRecord
 	{
 		if(parent::beforeSave())
 		{
+			// Format dates into SQL dates
+			$this->starts = date("Y-m-d H:i:s",  strtotime($this->starts));
+			$this->ends = date("Y-m-d H:i:s",  strtotime($this->ends));
+			
+			// Update create/mod time
 			if($this->isNewRecord)
 			{
 				// Set current user as 

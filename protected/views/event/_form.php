@@ -29,13 +29,27 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'starts'); ?>
-		<?php echo $form->textField($model,'starts'); ?>
+		<?php 
+			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
+				array(
+				    'model'=>$model,
+				    'attribute'=>'starts',
+				)
+			);  
+		?>
 		<?php echo $form->error($model,'starts'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ends'); ?>
-		<?php echo $form->textField($model,'ends'); ?>
+		<?php 
+			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
+				array(
+				    'model'=>$model,
+				    'attribute'=>'ends',
+				)
+			);  
+		?>
 		<?php echo $form->error($model,'ends'); ?>
 	</div>
 
