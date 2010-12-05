@@ -174,12 +174,6 @@ return array(
 				'CPortlet' => array(
 					//'cssFile' => false,
 				),
-				'application.extensions.timepicker.EJuiDateTimePicker' => array(
-					'options'=>array(
-						'ampm' => true,
-				        'timeFormat' => 'h:mm tt',
-					),
-				)
     		),
 		),
 	),

@@ -29,11 +29,18 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'starts'); ?>
-		<?php 
+		<?php
+			// preformat date before loading into widget 
+			$model->starts = date('m/d/Y g:i a', strtotime($model->starts));
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
 				array(
 				    'model'=>$model,
 				    'attribute'=>'starts',
+					'options'=>array(
+						'ampm' => true,
+						'minDate' => 0,
+				        'timeFormat' => 'h:mm tt',
+					),
 				)
 			);  
 		?>
@@ -43,10 +50,17 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'ends'); ?>
 		<?php 
+			// preformat date before loading into widget 
+			$model->ends = date('m/d/Y g:i a', strtotime($model->ends));
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
 				array(
 				    'model'=>$model,
 				    'attribute'=>'ends',
+					'options'=>array(
+						'ampm' => true,
+						'minDate' => 0,
+				        'timeFormat' => 'h:mm tt',
+					),
 				)
 			);  
 		?>
