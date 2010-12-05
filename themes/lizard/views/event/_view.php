@@ -2,9 +2,9 @@
 	<p>
 		<span class="eventname"><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
 	</p><p>
-		<?php echo CHtml::encode(Yii::app()->format->formatDateTime($data->starts)); ?>
+		<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->starts, 'full', 'short')); ?>
 		-
-		<?php echo CHtml::encode(Yii::app()->format->formatDateTime($data->ends)); ?>
+		<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->ends, 'long', 'short')); ?>
 	</p>
 	<div id = "status">
 		<?php 
