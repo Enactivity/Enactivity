@@ -283,6 +283,64 @@ div .errorMessage {
 	padding-top: 10px;
 }
 
+/*
+	Content pagination
+*/
+#content ul.yiiPager
+{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    display: inline;
+}
+
+#content ul.yiiPager li
+{
+    display: inline;
+}
+
+#content ul.yiiPager a:link,
+#content ul.yiiPager a:visited
+{
+    border: 1px solid #555555;
+    font-weight: bold;
+    padding: 1px 6px;
+    text-decoration: none;
+}
+
+#content ul.yiiPager .page a
+{
+    font-weight: normal;
+}
+
+#content ul.yiiPager a:hover
+{
+    border: solid 1px #0e509e;
+}
+
+#content ul.yiiPager .selected a
+{
+    background: #3a3a3a;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#content ul.yiiPager .hidden a
+{
+    border: solid 1px #dedede;
+    color: #888888;
+}
+
+/**
+ * Hide first and last buttons by default.
+ */
+#content ul.yiiPager .first,
+#content ul.yiiPager .last
+{
+    display: none;
+}
+
 /* 
 	Site styles
 */

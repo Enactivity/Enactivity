@@ -87,22 +87,10 @@ return array(
 		
 		'widgetFactory'=>array(
 			'widgets'=>array(
-				'CBaseListView' => array(
+								'CBaseListView' => array(
 					'cssFile' => false,
 				),
 				'CBreadcrumbs' => array(
-					//'cssFile' => false,
-				),
-				'CDetailView' => array(
-					'cssFile' => false,
-				),
-				'CListView' => array(
-					'cssFile' => false,
-				),
-				'CMenu' => array(
-					//'cssFile' => false,
-				),
-				'CPortlet' => array(
 					//'cssFile' => false,
 				),
 				'CButtonColumn' => array(
@@ -114,13 +102,13 @@ return array(
 				'CDataColumn' => array(
 					'cssFile' => false,
 				),
+				'CDetailView' => array(
+					'cssFile' => false,
+				),
 				'CGridColumn' => array(
 					'cssFile' => false,
 				),
 				'CGridView' => array(
-					'cssFile' => false,
-				),
-				'CLinkColumn' => array(
 					'cssFile' => false,
 				),
 				'CJuiAccordion' => array(
@@ -170,6 +158,21 @@ return array(
 				),
 				'CJuiWidget' => array(
 					'cssFile' => false,
+				),
+				'CLinkColumn' => array(
+					'cssFile' => false,
+				),
+				'CLinkPager' => array(
+					'cssFile' => false,
+				),
+				'CListView' => array(
+					'cssFile' => false,
+				),
+				'CMenu' => array(
+					//'cssFile' => false,
+				),
+				'CPortlet' => array(
+					//'cssFile' => false,
 				),
     		),
 		),
