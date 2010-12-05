@@ -64,6 +64,8 @@ class Event extends CActiveRecord
 		array('description', 'length', 'max'=>self::DESCRIPTION_MAX_LENGTH),
 		array('location', 'length', 'max'=>self::LOCATION_MAX_LENGTH),
 		array('created, modified', 'safe'),
+		
+		array('ends', 'validateDateAfter', 'beforeDate'=>'starts'),
 
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
@@ -71,6 +73,24 @@ class Event extends CActiveRecord
 		);
 	}
 
+	/**
+	 * Validate that the given date comes after the specified
+	 * 'beforeDate'
+	 * @param unknown_type $attribute
+	 * @param unknown_type $params
+	 */
+	public function validateDateAfter($attribute, $params) {
+		$ends = $this->$attribute;
+		$starts = $this->$params['beforeDate'];
+		
+		$ends = strtotime($ends);
+		$starts = strtotime($starts);
+		
+		if($ends < $starts) {
+			$this->addError($attribute, 'End time cannot be before start time.');
+		}
+	}
+	
 	/**
 	 * @return array relational rules.
 	 */
