@@ -9,13 +9,7 @@ return CMap::mergeArray(
 			),
 
 			'db'=>array(
-				'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
-				'emulatePrepare' => true,
-				'username' => 'root',
-				'password' => '',
-				'charset' => 'utf8',
 				'enableProfiling'=>true,
-				'enableParamLogging'=>true		
 			),
 
 			'log'=>array(
