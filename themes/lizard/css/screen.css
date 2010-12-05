@@ -292,12 +292,12 @@ div .errorMessage {
 */
 #content #login-form .rememberMe label
 {
-	width: 270px;
+	width: 160px;
 }
 
 #content #login-form #LoginForm_rememberMe
 {
-	margin-left: 280px;
+	margin-left: 170px;
 	margin-top: 5px;
 	width: 15px;
 }
