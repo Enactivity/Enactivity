@@ -180,43 +180,55 @@ class GroupController extends Controller
 	 */
 	public function actionInvite()
 	{
-		$groupuser = new GroupUser;
+		$inviteForm = new InviteForm;
 
 		// un/comment the following code to enable/disable ajax-based validation
-//		if(isset($_POST['ajax']) && $_POST['ajax']==='group-user-invite-form')
+//		if(isset($_POST['ajax']) && $_POST['ajax']==='invite-form-invite-form')
 //		{
-//			echo CActiveForm::validate($groupuser);
+//			echo CActiveForm::validate($inviteForm);
 //			Yii::app()->end();
 //		}
 
 		// If form submitted
-		if(isset($_POST['GroupUser']) && isset($_POST['User'])) {
-			$user = User::model()->findByAttributes(array('email' => $_POST['User']['email']));
-			if(!isset($user)) {
-				//Create a new user with the email invite
-				//FIXME: allows blank email??
-				$user = new User('invite');
-				$user->email = $_POST['User']['email'];
-				$user->save();
-				Yii::trace('here?', $category);
-			}
-			
-			// Get group
-			$group = Group::model()->findByPk($_POST['GroupUser']['groupId']);
-			$groupuser->groupId = $group->id;
-			$groupuser->userId = $user->id;
-			
-			// Send email
-			$user->invite($group->name);
-			Yii::app()->user->setFlash('success', 'Your invitation has been sent.');
-			//$this->refresh();
-			
-			//Validate and save
-			if($groupuser->save()) {
+		if(isset($_POST['InviteForm'])) {
+			$inviteForm->attributes = $_POST['InviteForm'];
+			if($inviteForm->validate()) {
+				foreach($inviteForm->emails as $email) {
+					$user = User::model()->findByAttributes(array('email' => $email));
+				
+					if(!isset($user)) {
+						//Create a new user with the email invite
+						$user = new User('invite');
+						$user->email = $email;
+						$user->save();
+					}
+					
+					// Get group
+					$groupuser = new GroupUser;
+					$group = Group::model()->findByPk($inviteForm->groupId);
+					$groupuser->groupId = $group->id;
+					$groupuser->userId = $user->id;
+					
+					// Send email
+					$user->invite($group->name);
+					Yii::app()->user->setFlash('success', 'Your invitation has been sent.');
+					
+					//Validate and save
+					$groupuser->save();
+				}
 				$this->redirect(array('view','id'=>$groupuser->groupId));
 			}
 		}
-		$this->render('invite', array('model'=>$groupuser));
+		
+		// get user's groups
+		$userGroups = Yii::app()->user->model->groups;
+		
+		$this->render('invite', 
+			array(
+				'model'=>$inviteForm,
+				'userGroups'=>$userGroups,
+			)
+		);
 	}
 	
 
