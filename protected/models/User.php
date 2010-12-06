@@ -91,7 +91,7 @@ class User extends CActiveRecord
 		array('email', 'email'),
 
 		array('firstName', 'length', 'min'=>self::FIRSTNAME_MIN_LENGTH, 'max'=>self::FIRSTNAME_MAX_LENGTH),
-		array('lastName', 'length', 'min'=>self::LASTNAME_MIN_LENGTH, 'max'=>LASTNAME_MAX_LENGTH),
+		array('lastName', 'length', 'min'=>self::LASTNAME_MIN_LENGTH, 'max'=>self::LASTNAME_MAX_LENGTH),
 		array('firstName, lastName', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z]*$/'),
 			
 		array('password', 'length', 'min'=>self::PASSWORD_MIN_LENGTH, 'max'=>self::PASSWORD_MAX_LENGTH),
@@ -311,15 +311,16 @@ class User extends CActiveRecord
 	
 	/**
 	 * Invite a user to the web app
-	 * @param groupName the name of the group
+	 * @param string userName the name of the user sending the invite
+	 * @param string groupName the name of the group
 	 */
-	public function invite($groupName) {
+	public function invite($userName, $groupName) {
 		//send invite email
 		$from = "no-reply@poncla.com";
-		$subject = "Invitation from {$groupName} to join Poncla";
-		$body = "You have been invited to join the {$groupName} group on"
-		. " Poncla. To accept this invitation, go to"
-		. " http://www.poncla.com/user/register/?token=" . $this->token 
+		$subject = "{$userName} invites you to join {$groupName} on Poncla";
+		$body = $userName . " has invited you to join the {$groupName} group on"
+		. " Poncla. To accept this invitation, go to "
+		. Yii::app()->request->hostInfo . "/index.php/user/register?token=" . $this->token 
 		. " and complete your registration.";
 		
 		$headers = 'From: no-reply@poncla.com';

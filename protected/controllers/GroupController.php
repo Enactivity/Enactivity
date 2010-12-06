@@ -219,7 +219,7 @@ class GroupController extends Controller
 					}
 					
 					// Send email
-					$user->invite($group->name);
+					$user->invite(Yii::app()->user->model->fullName(), $group->name);
 					Yii::app()->user->setFlash('success', 'Your invitation has been sent.');
 				}
 				$this->redirect(array('view','id'=>$groupuser->groupId));
