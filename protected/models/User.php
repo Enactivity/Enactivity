@@ -78,13 +78,13 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => 'invite'),
-		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'create, update'),
+		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'update'),
 
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
 		
-		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
-		array('username', 'length', 'min'=>self::USERNAME_MIN_LENGTH, 'max'=>self::USERNAME_MAX_LENGTH),
-		array('username', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/'),
+		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false, 'on' => 'update'),
+		array('username', 'length', 'min'=>self::USERNAME_MIN_LENGTH, 'max'=>self::USERNAME_MAX_LENGTH, 'on' => 'update'),
+		array('username', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/', 'on' => 'update'),
 
 		array('email', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
 		array('email', 'length', 'min'=>self::EMAIL_MIN_LENGTH, 'max'=>self::EMAIL_MAX_LENGTH),
@@ -322,7 +322,7 @@ class User extends CActiveRecord
 		. " http://www.poncla.com/user/register/?token=" . $this->token 
 		. " and complete your registration.";
 		
-		$headers = "From: {$from}\r\nReply-To: {$this->email}";
-		mail(Yii::app()->params['adminEmail'], $subject, $body, $headers);
+		$headers = 'From: no-reply@poncla.com';
+		mail($this->email, $subject, $body, $headers);
 	}
 }
