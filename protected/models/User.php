@@ -314,7 +314,7 @@ class User extends CActiveRecord
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
 	 */
-	public function invite($userName, $groupName) {
+	public function sendInvitation($userName, $groupName) {
 		//send invite email
 		$from = "no-reply@poncla.com";
 		$subject = "{$userName} invites you to join {$groupName} on Poncla";
