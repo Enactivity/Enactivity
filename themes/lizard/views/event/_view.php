@@ -10,6 +10,7 @@
 		<?php 
 		//RSVP buttons
 		$this->renderPartial('_rsvp', array(
+			'event'=>$data,
 			'eventuser'=>$data->getRSVP(Yii::app()->user->id),
 		)); 
 		?>

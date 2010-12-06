@@ -18,10 +18,12 @@
 		?>
 	</span>
 	<?php
-	$form=$this->beginWidget('CActiveForm', array(
+	$form = $this->beginWidget('CActiveForm', array(
 		    'id'=>'event-user-rsvp-form',
 		    'enableAjaxValidation'=>false,
-		));  
+		));
+		
+	echo $form->hiddenField($event, 'id');
 	
 	if($eventuser->status == EventUser::STATUS_ATTENDING) {
 		//can't use constants for button names b/c rendering removes spaces

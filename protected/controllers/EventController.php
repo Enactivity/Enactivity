@@ -50,17 +50,7 @@ class EventController extends Controller
 		$event = $this->loadModel($id);
 		
 		// check if the user RSVPed
-		if(isset($_POST['Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($event->id, Yii::app()->user->id, EventUser::STATUS_ATTENDING);
-		}
-		else if(isset($_POST['Not_Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($event->id, Yii::app()->user->id, EventUser::STATUS_NOT_ATTENDING);
-		} 
-		else {
-			// if the user did not post their RSVP, get their current RSVP
-			$eventuser = EventUser::model()->getRSVP($event->id, Yii::app()->user->id);
-			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
-		}
+		$eventuser = $this->checkRSVPForm($event->id);
 		
 		// Get the list of the attending users
 		$attendees = $event->getAttendeesByStatus(EventUser::STATUS_ATTENDING);
@@ -155,6 +145,8 @@ class EventController extends Controller
 		$model = new Event('search');
 		$dataProvider = $model->getFutureEventsForUser(Yii::app()->user->id);
 		
+		$this->checkRSVPForm($_POST['Event']['id']);
+		
 		$this->render('index', array(
 		        'model'=>$model,
 		        'dataProvider'=>$dataProvider,
@@ -205,17 +197,17 @@ class EventController extends Controller
 	/**
 	 * Check if the user RSVPed and update as necessary
 	 */
-	protected function checkRSVPForm() {
+	protected function checkRSVPForm($eventId) {
 		// check if the user RSVPed
 		if(isset($_POST['Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($event->id, Yii::app()->user->id, EventUser::STATUS_ATTENDING);
+			$eventuser = EventUser::model()->setRSVP($eventId, Yii::app()->user->id, EventUser::STATUS_ATTENDING);
 		}
 		else if(isset($_POST['Not_Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($event->id, Yii::app()->user->id, EventUser::STATUS_NOT_ATTENDING);
+			$eventuser = EventUser::model()->setRSVP($eventId, Yii::app()->user->id, EventUser::STATUS_NOT_ATTENDING);
 		} 
 		else {
 			// if the user did not post their RSVP, get their current RSVP
-			$eventuser = EventUser::model()->getRSVP($event->id, Yii::app()->user->id);
+			$eventuser = EventUser::model()->getRSVP($eventId, Yii::app()->user->id);
 			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
 		}
 		return $eventuser;

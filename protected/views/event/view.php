@@ -35,6 +35,7 @@ $this->menu=array(
 <?php 
 //RSVP buttons
 $this->renderPartial('_rsvp', array(
+	'event'=>$model,
 	'eventuser'=>$eventuser,
 )); 
 ?>
