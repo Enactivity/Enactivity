@@ -193,7 +193,7 @@ class GroupController extends Controller
 		if(isset($_POST['InviteForm'])) {
 			$inviteForm->attributes = $_POST['InviteForm'];
 			if($inviteForm->validate()) {
-				foreach($inviteForm->emails as $email) {
+				foreach($inviteForm->splitEmails($inviteForm->emails) as $email) {
 					$user = User::model()->findByAttributes(array('email' => $email));
 				
 					if(!isset($user)) {
