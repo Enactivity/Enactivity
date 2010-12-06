@@ -31,7 +31,7 @@
 		<?php echo $form->labelEx($model,'starts'); ?>
 		<?php
 			// preformat date before loading into widget 
-			$model->starts = date('m/d/Y g:i a', strtotime($model->starts));
+			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
 				array(
 				    'model'=>$model,
@@ -51,7 +51,7 @@
 		<?php echo $form->labelEx($model,'ends'); ?>
 		<?php 
 			// preformat date before loading into widget 
-			$model->ends = date('m/d/Y g:i a', strtotime($model->ends));
+			$model->ends = isset($model->ends) ? date('m/d/Y g:i a', strtotime($model->ends)) : null;
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
 				array(
 				    'model'=>$model,
