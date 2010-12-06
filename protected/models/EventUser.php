@@ -189,7 +189,7 @@ class EventUser extends CActiveRecord
 			var_dump( $eventuser->getErrors());
 		}
 			
-		Yii::app()->user->setFlash('success', 'You have replied that you are '. strtolower($status) . ' this event.');
+		Yii::app()->user->setFlash('success', 'You have replied that you are '. strtolower($status) . '.'');
 		$this->refresh();
 		return $eventuser;
 	}
