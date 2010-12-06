@@ -179,9 +179,8 @@ div .errorSummary {
 
 div.flash-error, div.flash-notice, div.flash-success
 {
-	padding:.8em;
-	margin-bottom:1em;
-	border:2px solid #ddd;
+	padding: .10px;
+	border: 2px solid #ddd;
 }
 
 div.flash-error
