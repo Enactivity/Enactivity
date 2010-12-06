@@ -61,15 +61,18 @@ class UserController extends Controller
 	 * If creation is successful, the browser will be redirected to the home page.
 	 */
 	public function actionRegister($token)
-	{
+	{		
 		$model = $this->loadModelByToken($token);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		
 		//if user is already registered, get them outta here
-		if($model->status != User::STATUS_PENDING) {
-			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+		if(!Yii::app()->user->isGuest) {
+			throw new CHttpException(400, 'Invalid request. You are currently logged in as a registered user.');
+		}
+		else if($model->status != User::STATUS_PENDING) {
+			throw new CHttpException(400, 'Invalid request. This account has already registered.');
 		}
 
 		if(isset($_POST['User']))
@@ -77,17 +80,8 @@ class UserController extends Controller
 			$model->attributes = $_POST['User'];
 			$model->status = User::STATUS_ACTIVE;
 			if($model->save()) {
-				// attempt to log user in
-				$loginform = new LoginForm;
-				$loginform->username = $model->username;
-				$loginform->password = $model->password;
-				
-				if($loginform->login()) {
-					$this->redirect(array('site/index'));
-				}
-				else {
-					throw new CHttpException(500, 'There was when attempting to log you in.  Please try again later or contact us if this problem persists.');	
-				}
+				Yii::app()->user->setFlash('success', 'Your registration is complete, please sign-in.');
+				$this->redirect(array('site/login'));
 			}
 		}
 
