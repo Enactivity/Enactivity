@@ -1,5 +1,6 @@
 <?php 
 $this->pageTitle = 'Home - ' . Yii::app()->name; 
+$this->menu=array();
 ?>
 
 <h1>Welcome to Poncla!</h1>

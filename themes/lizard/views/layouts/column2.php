@@ -1,12 +1,16 @@
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="container">
-	<div id="sidebar">
 	<?php
+	if(isset($this->menu) && !empty($this->menu)):?>
+		<div id="sidebar">
+		<?php 
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,
 		));
-	?>
-	</div><!-- end of sidebar -->
+		?>
+		</div><!-- end of sidebar -->
+	<?php endif; ?>
+	
 	
 	<!-- flash notices -->
 		<?php if(Yii::app()->user->hasFlash('error')):?>
