@@ -42,8 +42,6 @@ $this->menu=array(
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'name',
-		'slug',
 		array( //created
 			'label'=>$model->getAttributeLabel('created'),
 			'type'=>'datetime',
