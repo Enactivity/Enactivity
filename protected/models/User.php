@@ -291,12 +291,15 @@ class User extends CActiveRecord
 	/**
 	 * Get the url for viewing this user
 	 */
-	public function getUrl()
+	public function getPermalink()
 	{
-		return Yii::app()->createUrl('user/view', array(
-            'id'=>$this->id,
-            'username'=>$this->username,
-		));
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('user/view', 
+			array(
+            	'id'=>$this->id,
+            	'username'=>$this->username,
+			)
+		);
 	}
 	
 	/**

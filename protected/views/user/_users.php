@@ -8,7 +8,7 @@
 	<?php 
 	echo CHtml::link(
 		$data->fullName() != "" ? $data->fullName() : $data->email, 
-		$data->getUrl($post), array(
+		$data->permalink, array(
 			'class'=>'user permalink',
 		)
 	);

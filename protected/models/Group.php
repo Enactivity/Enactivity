@@ -159,11 +159,14 @@ class Group extends CActiveRecord
 	/**
 	 * Get the url for viewing this group
 	 */
-	public function getUrl()
+	public function getPermalink()
 	{
-		return Yii::app()->createUrl('group/view', array(
-            'id'=>$this->id,
-		));
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('group/view', 
+			array(
+            	'id'=>$this->id,
+			)
+		);
 	}
 	
 	/**

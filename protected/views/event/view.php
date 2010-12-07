@@ -67,7 +67,7 @@ $this->renderPartial('_rsvp', array(
             'type'=>'raw',
             'value'=>CHtml::link(
 				CHtml::encode($model->creator->fullName() != "" ? $model->creator->fullName() : $model->creator->email), 
-				$model->creator->getUrl(), 
+				$model->creator->permalink, 
 				array(
 					'class'=>'cid',
 				)
@@ -78,7 +78,7 @@ $this->renderPartial('_rsvp', array(
             'type'=>'raw',
             'value'=>CHtml::link(
 				CHtml::encode($model->group->name),
-				$model->group->getUrl(),
+				$model->group->permalink,
 				array(
 					'class'=>'cid',
 				)
