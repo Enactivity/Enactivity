@@ -252,7 +252,7 @@ class User extends CActiveRecord
 	 * Is the user's status 'Active'?
 	 * @return boolean whether the user is active
 	 */
-	public function isActive() {
+	public function getIsActive() {
 		return $this->isStatus(self::STATUS_ACTIVE);
 	}
 	
@@ -260,7 +260,7 @@ class User extends CActiveRecord
 	 * Is the user's status 'Banned'?
 	 * @return boolean whether the user is banned
 	 */
-	public function isBanned() {
+	public function getIsBanned() {
 		return $this->isStatus(self::STATUS_BANNED);
 	}
 

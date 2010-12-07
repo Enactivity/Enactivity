@@ -28,10 +28,10 @@ class UserIdentity extends CUserIdentity
 		}
 		else if($user->isPassword($this->password)) { //valid log in
 			// check user status, re-activate inactive user
-			if($user->isBanned()) {
+			if($user->isBanned) {
 				$this->errorCode = self::ERROR_STATUS_BANNED;
 			}
-			else if($user->isActive()) {
+			else if($user->isActive) {
 				// Set useful current user values  
 				$this->_id = $user->id;
 				$this->username = $user->username;
