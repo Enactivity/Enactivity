@@ -383,6 +383,7 @@ div .errorMessage {
 
 .event .eventname
 {
+	font-size: 32px;
 	font-weight: bold;
 }
 
