@@ -9,8 +9,7 @@
 	echo CHtml::link(
 		$data->fullName() != "" ? $data->fullName() : $data->email, 
 		$data->getUrl($post), array(
-			'class'=>'cid',
-			'cssFile'=>false,
+			'class'=>'user permalink',
 		)
 	);
 	?>
