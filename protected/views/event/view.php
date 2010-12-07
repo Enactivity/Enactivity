@@ -44,7 +44,7 @@ $this->renderPartial('_rsvp', array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		array( //ends
+		array( //starts
 			'label'=>$model->getAttributeLabel('starts'),
 			'type'=>'datetime',
 			'name'=>'starts',
@@ -56,11 +56,7 @@ $this->renderPartial('_rsvp', array(
 			'name'=>'ends',
 			'value'=>strtotime($model->ends),
 		),
-		array(
-			'label'=>$model->getAttributeLabel('description'),
-			'type'=>'ntext',
-			'name'=>'description'
-		),
+		'description:ntext',
 		'location',
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
