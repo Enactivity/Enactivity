@@ -7,7 +7,7 @@
 <div class="view">
 	<?php 
 	echo CHtml::link(
-		$data->fullName() != "" ? $data->fullName() : $data->email, 
+		$data->fullName != "" ? $data->fullName : $data->email, 
 		$data->permalink, array(
 			'class'=>'user permalink',
 		)

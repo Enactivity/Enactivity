@@ -66,7 +66,7 @@ $this->renderPartial('_rsvp', array(
             'label'=>$model->getAttributeLabel('creatorId'),
             'type'=>'raw',
             'value'=>CHtml::link(
-				CHtml::encode($model->creator->fullName() != "" ? $model->creator->fullName() : $model->creator->email), 
+				CHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
 				$model->creator->permalink, 
 				array(
 					'class'=>'cid',
