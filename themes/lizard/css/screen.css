@@ -52,6 +52,13 @@ em {
 	padding-bottom: 10px;
 }
 
+#mainmenu ul
+{
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #mainmenu ul li
 {
 	display: inline;
@@ -81,6 +88,13 @@ em {
 	padding-right: 20px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+#sidebar ul
+{
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #sidebar ul li
@@ -122,6 +136,9 @@ em {
 #content
 {
 	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1000px;
 	padding-right: 20px;
 	padding-left: 20px;
 	padding-top: 10px;
@@ -157,6 +174,7 @@ em {
 #content p
 {
 	margin-bottom: 15px;
+	max-width: 30em;
 }
 
 #content .summary
@@ -265,14 +283,9 @@ div .errorMessage {
 /*
 	Content tables
 */
-#content table {
-	table-layout: fixed;
-	width: 100%;
-}
-
 #content tr {
-	border-bottom: 1px solid #bbbbbb;
 	vertical-align: text-top;
+	border-bottom: 1px solid #bbbbbb;
 }
 
 #content th 
@@ -282,11 +295,12 @@ div .errorMessage {
 	padding-bottom: 10px;
 	padding-top: 10px;
 	text-align: right;
-	width: 160px;
+	min-width: 160px;
 }
 
 #content td 
 {
+	max-width: 30em;	
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
