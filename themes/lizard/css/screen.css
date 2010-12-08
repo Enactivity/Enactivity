@@ -4,7 +4,7 @@
 html, body
 {
 	color: #555555;
-	font-family: Arial,Helvetica,sans-serif;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
 	font-style: normal;
 	height: 100%;
@@ -18,7 +18,7 @@ a, a:hover, a:visited, a:active
 
 input, textarea, select { 
 	font-size: 16px;
-	font-family: Arial, Helvetica, sans-serif; 
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
 }
 
 strong 
