@@ -58,23 +58,23 @@ $this->renderPartial('_rsvp', array(
 		),
 		'location',
 		'description:ntext',
-		array( // creator displayed as a link
-            'label'=>$model->getAttributeLabel('creatorId'),
-            'type'=>'raw',
-            'value'=>CHtml::link(
-				CHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
-				$model->creator->permalink, 
-				array(
-					'class'=>'cid',
-				)
-			)
-		),
 		array( // group displayed as a link
 			'label'=>$model->getAttributeLabel('groupId'),
             'type'=>'raw',
             'value'=>CHtml::link(
 				CHtml::encode($model->group->name),
 				$model->group->permalink,
+				array(
+					'class'=>'cid',
+				)
+			)
+		),
+		array( // creator displayed as a link
+            'label'=>$model->getAttributeLabel('creatorId'),
+            'type'=>'raw',
+            'value'=>CHtml::link(
+				CHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
+				$model->creator->permalink, 
 				array(
 					'class'=>'cid',
 				)

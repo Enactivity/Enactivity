@@ -120,7 +120,7 @@ class Event extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Event',
+			'name' => 'Summary',
 			'description' => 'Details',
 			'creatorId' => 'Created by',
 			'groupId' => 'Group',
