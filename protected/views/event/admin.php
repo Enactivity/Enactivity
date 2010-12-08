@@ -52,12 +52,10 @@ or <strong>=</strong>) at the beginning of each of your search values to specify
 	'columns'=>array(
 		'id',
 		'name',
-		'description',
 		'creatorId',
 		'groupId',
 		'starts',
 		'ends',
-		'location',
 		array(
 			'class'=>'CButtonColumn',
 		),
