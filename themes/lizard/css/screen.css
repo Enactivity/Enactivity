@@ -263,13 +263,13 @@ div.flash-success a
 {
 	position: absolute; 
 	text-align:right; 
-	width:75px;
+	width:90px;
 }
 
 #content form .row input, #content form .row textarea, 
 #content form .row select 
 {
-	margin-left: 85px;
+	margin-left: 100px;
 	width: 70%;
 }
 
@@ -295,7 +295,7 @@ div .errorMessage {
 	padding-bottom: 10px;
 	padding-top: 10px;
 	text-align: right;
-	min-width: 160px;
+	min-width: 120px;
 }
 
 #content td 
