@@ -59,15 +59,16 @@ em {
 
 #mainmenu ul li a, #mainmenu ul li a:visited 
 {
-	color: #eeeeee;
+	color: #dddddd;
 	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;
+	text-transform: lowercase;
 }
 
 #mainmenu ul li a:hover
 {
-	color: #51e3fd;
+	color: #ffffff;
 	text-decoration:none;
 }
 
@@ -93,11 +94,12 @@ em {
 	font-size: 18px;
 	font-weight: bold;
 	text-decoration: none;
+	text-transform: lowercase;
 }
 
 #sidebar ul li a:hover
 {
-	color: #51e3fd;
+	color: #ffffff;
 }
 
 #footer
