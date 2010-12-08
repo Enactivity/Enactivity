@@ -183,7 +183,7 @@ div .errorSummary {
 
 div.flash-error, div.flash-notice, div.flash-success
 {
-	padding: .10px;
+	padding: 10px;
 	border: 2px solid #ddd;
 }
 
