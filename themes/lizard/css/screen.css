@@ -265,6 +265,11 @@ div .errorMessage {
 /*
 	Content tables
 */
+#content table {
+	table-layout: fixed;
+	width: 100%;
+}
+
 #content tr {
 	vertical-align: text-top;
 }
@@ -274,10 +279,10 @@ div .errorMessage {
 	border-bottom: 1px solid #bbbbbb;
 	color: #aaaaaa;
 	font-weight: bold;
-	min-width: 160px;
 	padding-bottom: 10px;
 	padding-top: 10px;
 	text-align: right;
+	width: 160px;
 }
 
 #content td 
