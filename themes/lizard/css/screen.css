@@ -271,7 +271,9 @@ div .errorMessage {
 #content th 
 {
 	border-bottom: 1px solid #bbbbbb;
-	min-width: 150px;
+	color: #aaaaaa;
+	font-weight: bold;
+	min-width: 160px;
 	padding-bottom: 10px;
 	padding-top: 10px;
 	text-align: right;
