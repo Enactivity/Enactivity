@@ -271,12 +271,12 @@ div .errorMessage {
 }
 
 #content tr {
+	border-bottom: 1px solid #bbbbbb;
 	vertical-align: text-top;
 }
 
 #content th 
 {
-	border-bottom: 1px solid #bbbbbb;
 	color: #aaaaaa;
 	font-weight: bold;
 	padding-bottom: 10px;
@@ -287,7 +287,6 @@ div .errorMessage {
 
 #content td 
 {
-	border-bottom: 1px solid #bbbbbb;
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
