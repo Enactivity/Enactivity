@@ -141,6 +141,13 @@ class GroupController extends Controller
 		$model=new Group('search');
 		$dataProvider = $model->getGroupsByUser(Yii::app()->user->id);
 		
+		// If user is only in one group, redirect them to view group
+		if($dataProvider->getItemCount() == 1) {
+			$data = $dataProvider->getData();
+			$id = reset($data)->id;
+			$this->redirect(array('view','id'=>$id));
+		}
+		
 		$this->render('index', array(
 		        'model'=>$model,
 		        'dataProvider'=>$dataProvider,
