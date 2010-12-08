@@ -1,12 +1,14 @@
 <div class="event">
-	<p>
-		<span class="eventname"><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
-	</p>
-	<p>
+	<div class="eventname">
+		<span><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
+	</div>
+	<div class="eventdate">
+		<span>
 		<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->starts, 'full', 'short')); ?>
 		-
 		<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->ends, 'long', 'short')); ?>
-	</p>
+		</span>
+	</div>
 	<div id = "status">
 		<?php 
 		//RSVP buttons

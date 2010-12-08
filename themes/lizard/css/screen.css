@@ -5,7 +5,7 @@ html, body
 {
 	color: #555555;
 	font-family: Arial,Helvetica,sans-serif;
-	font-size: 16pt; 
+	font-size: 16px; 
 	font-style: normal;
 	height: 100%;
 }
@@ -392,38 +392,38 @@ div .errorMessage {
 /*
 	Event styles
 */
-.event
+#content .event
 {
 	background-color: #ffffff;
 	margin-bottom: 10px;
 	padding: 10px;
 }
 
-.event p
-{
-	margin-bottom: 10px;
-	color: #666666;
-}
-
-.event .eventname
+#content .event .eventname
 {
 	font-size: 32px;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
-.rsvp
+#content .event .eventdate
+{
+	margin-bottom: 15px;
+}
+
+#content .rsvp
 {
 	font-size: 14px;
 	padding: 10px;
 }
 
-.rsvp form
+#content .rsvp form
 {
 	float: right;
 	margin-top: -6px;
 }
 
-.rsvp input
+#content .rsvp input
 {
 	padding-bottom: 0px;
 	padding-left: 10px;
@@ -431,7 +431,7 @@ div .errorMessage {
 	padding-top: 0px;
 }
 
-#status
+#content #status
 {
 	background-color: #eeeeee;
 	height: 35px;
