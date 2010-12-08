@@ -263,13 +263,13 @@ div.flash-success a
 {
 	position: absolute; 
 	text-align:right; 
-	width:130px;
+	width:75px;
 }
 
 #content form .row input, #content form .row textarea, 
 #content form .row select 
 {
-	margin-left: 140px;
+	margin-left: 85px;
 	width: 70%;
 }
 
