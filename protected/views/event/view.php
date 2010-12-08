@@ -56,8 +56,8 @@ $this->renderPartial('_rsvp', array(
 			'name'=>'ends',
 			'value'=>strtotime($model->ends),
 		),
-		'description:ntext',
 		'location',
+		'description:ntext',
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
             'type'=>'raw',
