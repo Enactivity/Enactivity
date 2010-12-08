@@ -5,7 +5,7 @@ html, body
 {
 	color: #555555;
 	font-family: Arial,Helvetica,sans-serif;
-	font-size: 18pt; 
+	font-size: 16pt; 
 	font-style: normal;
 	height: 100%;
 }
@@ -17,7 +17,7 @@ a, a:hover, a:visited, a:active
 }
 
 input, textarea, select { 
-	font-size: 18px;
+	font-size: 16px;
 	font-family: Arial, Helvetica, sans-serif; 
 }
 
@@ -45,6 +45,7 @@ em {
 {
 	background-color: #292929;
 	border-bottom: 1px solid #555555;
+	min-height: 30px;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 10px;
@@ -75,6 +76,7 @@ em {
 #sidebar
 {
 	background-color: #3a3a3a;
+	min-height: 30px;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 10px;
@@ -119,7 +121,6 @@ em {
 */
 #content
 {
-	font-size: 18pt;
 	overflow: hidden;
 	padding-right: 20px;
 	padding-left: 20px;
@@ -374,8 +375,7 @@ div .errorMessage {
 */
 .event
 {
-	background-color: #fff;
-	font-size: 18px;
+	background-color: #ffffff;
 	margin-bottom: 10px;
 	padding: 10px;
 }
