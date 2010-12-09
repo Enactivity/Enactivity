@@ -43,6 +43,9 @@ em {
 */
 #mainmenu
 {
+	-moz-box-shadow: #222 0px 2px 3px;
+	-webkit-box-shadow: #222 0px 2px 3px;
+	box-shadow: #222 0px 2px 3px;
 	background-color: #292929;
 	border-bottom: 1px solid #555555;
 	min-height: 30px;
@@ -63,6 +66,7 @@ em {
 {
 	display: inline;
 	margin-right: 55px;
+	white-space: nowrap
 }
 
 #mainmenu ul li a, #mainmenu ul li a:visited 
@@ -82,6 +86,9 @@ em {
 
 #sidebar
 {
+	-moz-box-shadow: #222 0px 2px 3px;
+	-webkit-box-shadow: #222 0px 2px 3px;
+	box-shadow: #222 0px 2px 3px;
 	background-color: #3a3a3a;
 	min-height: 30px;
 	padding-left: 20px;
@@ -102,6 +109,7 @@ em {
 	list-style-type: none;
 	display: inline;
 	margin-right: 35px;
+	white-space: nowrap
 }
 
 #sidebar ul li a, #sidebar ul li a:visited
