@@ -13,7 +13,6 @@ html, body
 a, a:hover, a:visited, a:active
 {
 	color: #555555;
-	text-decoration: underline;
 }
 
 input, textarea, select { 
@@ -171,6 +170,11 @@ em {
 	font-weight: bold;
 	margin-bottom: 15px;
 	margin-top: 15px;
+}
+
+#content a:hover
+{
+	text-decoration: underline;	
 }
 
 #content p
