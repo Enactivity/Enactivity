@@ -180,7 +180,7 @@ em {
 #content p
 {
 	margin-bottom: 15px;
-	max-width: 30em;
+	max-width: 32em;
 }
 
 #content .summary
@@ -306,7 +306,7 @@ div .errorMessage {
 
 #content td 
 {
-	max-width: 30em;	
+	max-width: 32em;	
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -419,28 +419,33 @@ div .errorMessage {
 
 #content .rsvp
 {
-	font-size: 14px;
-	padding: 10px;
+	background-color: #eeeeee;
+	height: 35px;
+	position: relative;
+	margin: auto;
 }
 
-#content .rsvp form
+#content .rsvp .status
 {
-	float: right;
-	margin-top: -6px;
+	padding: 10px;
+	font-size: 14px;
+}
+
+
+#content .rsvp .formblock {
+	height: 35px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
 }
 
 #content .rsvp input
 {
+	height: 35px;
 	padding-bottom: 0px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 0px;
-}
-
-#content #status
-{
-	background-color: #eeeeee;
-	height: 35px;
 }
 
 /*

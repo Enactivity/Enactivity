@@ -6,41 +6,33 @@
 ?>
 
 <!-- RSVP here -->
-<div class="rsvp">
-	<span>
-		<?php 
-			if($eventuser->status) {
-				echo "You are " . CHtml::encode(strtolower($eventuser->status));
-			}
-			else {
-				echo "You have not yet responded.";
-			}
-		?>
-	</span>
-	<?php
-	$form = $this->beginWidget('CActiveForm', array(
-		    'id'=>'event-user-rsvp-form',
-		    'enableAjaxValidation'=>false,
-		));
+<div class="item rsvp">
+	<div class="status"><span><?php echo $eventuser->status ? "You are " . CHtml::encode(strtolower($eventuser->status)) : "You have not yet responded.";?></span></div>
+	<div class="formblock">
+		<?php
+		$form = $this->beginWidget('CActiveForm', array(
+			    'enableAjaxValidation'=>false,
+			));
+			
+		echo $form->hiddenField($event, 'id');
 		
-	echo $form->hiddenField($event, 'id');
-	
-	if($eventuser->status == EventUser::STATUS_ATTENDING) {
-		//can't use constants for button names b/c rendering removes spaces
-	    echo CHtml::submitButton('I\'m attending', array('name'=>'Attending_Button', 'disabled'=>null));
-	}
-	else {
-		echo CHtml::submitButton('I\'m attending', array('name'=>'Attending_Button'));
-	}
-	
-	if($eventuser->status == EventUser::STATUS_NOT_ATTENDING) {
-		echo CHtml::submitButton('I\'m not attending', array('name'=>'Not_Attending_Button', 'disabled'=>null));
-	}
-	else {
-		echo CHtml::submitButton('I\'m not attending', array('name'=>'Not_Attending_Button'));
-	}
-	$this->endWidget();
-	?>
-	<!-- end of rsvp form -->
+		if($eventuser->status == EventUser::STATUS_ATTENDING) {
+			//can't use constants for button names b/c rendering removes spaces
+		    echo CHtml::submitButton('I\'m attending', array('name'=>'Attending_Button', 'disabled'=>null));
+		}
+		else {
+			echo CHtml::submitButton('I\'m attending', array('name'=>'Attending_Button'));
+		}
+		
+		if($eventuser->status == EventUser::STATUS_NOT_ATTENDING) {
+			echo CHtml::submitButton('I\'m not attending', array('name'=>'Not_Attending_Button', 'disabled'=>null));
+		}
+		else {
+			echo CHtml::submitButton('I\'m not attending', array('name'=>'Not_Attending_Button'));
+		}
+		$this->endWidget();
+		?>
+		<!-- end of rsvp form -->
+	</div>
 </div>
 <!-- rsvp -->

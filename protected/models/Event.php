@@ -129,6 +129,7 @@ class Event extends CActiveRecord
 			'location' => 'Location',
 			'created' => 'Created',
 			'modified' => 'Last modified',
+			'datesAsSentence' => 'When',
 		);
 	}
 
@@ -197,6 +198,18 @@ class Event extends CActiveRecord
 		else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Returns the dates in the form of a sentance 
+	 */
+	public function getDatesAsSentence() {
+		$date = Yii::app()->dateformatter->formatDateTime($this->starts, 
+			'full', 'short'); 
+		$date .= " - ";
+		$date .= Yii::app()->dateformatter->formatDateTime($this->ends, 
+			'long', 'short');
+		return $date;
 	}
 	
 	/**

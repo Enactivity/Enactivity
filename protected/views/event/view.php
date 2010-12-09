@@ -31,7 +31,6 @@ $this->menu=array(
 
 <h1><?php echo $model->name; ?></h1>
 
-<div id="status">
 <?php 
 //RSVP buttons
 $this->renderPartial('_rsvp', array(
@@ -39,23 +38,11 @@ $this->renderPartial('_rsvp', array(
 	'eventuser'=>$eventuser,
 )); 
 ?>
-</div>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		array( //starts
-			'label'=>$model->getAttributeLabel('starts'),
-			'type'=>'datetime',
-			'name'=>'starts',
-			'value'=>strtotime($model->starts),
-		),
-		array( //ends
-			'label'=>$model->getAttributeLabel('ends'),
-			'type'=>'datetime',
-			'name'=>'ends',
-			'value'=>strtotime($model->ends),
-		),
+		'datesAsSentence',
 		'location',
 		'description:ntext',
 		array( // group displayed as a link
@@ -99,9 +86,7 @@ $this->renderPartial('_rsvp', array(
 
 <!-- List of users in event -->
 <div id="users">
-	<h3>
-		<?php echo $attendees->getTotalItemCount() . ' Attending'; ?>
-	</h3>
+	<h3><?php echo $attendees->getTotalItemCount() . ' Attending'; ?></h3>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(

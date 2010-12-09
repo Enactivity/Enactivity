@@ -4,13 +4,12 @@
  * @param IDataProvider $data list of Users 
  */ 
 ?>
-<div class="view">
-	<?php 
+<div class="item user"><span><?php 
 	echo CHtml::link(
 		$data->fullName != "" ? $data->fullName : $data->email, 
 		$data->permalink, array(
-			'class'=>'user permalink',
+			'class'=>'permalink',
 		)
 	);
-	?>
+	?></span>
 </div>
