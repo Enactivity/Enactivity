@@ -68,6 +68,11 @@ return array(
 			),
 		),
 		
+		'request'=>array(
+			'enableCookieValidation'=>true,
+			'enableCsrfValidation'=>true,
+		),
+		
 		'user'=>array(
 			// Map current user to our custom class
 			'class' => 'WebUser',
