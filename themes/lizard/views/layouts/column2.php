@@ -1,7 +1,10 @@
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="container">
 	<?php
-	if(isset($this->menu) && !empty($this->menu)):?>
+	if(isset($this->menu) 
+		&& !empty($this->menu)
+		&& !Yii::app()->user->isGuest
+		):?>
 		<div id="sidebar">
 		<?php 
 		$this->widget('zii.widgets.CMenu', array(
