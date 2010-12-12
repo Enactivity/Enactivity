@@ -313,6 +313,28 @@ class User extends CActiveRecord
 	}
 	
 	/**
+	 * Find a user by their username or email
+	 * @param string $usernameOrEmail
+	 * @return CActiveRecord the record of the user if found. Null if no record is found. 
+	 */
+	public static function findByUsernameOrEmail($usernameOrEmail) {
+		$usernameOrEmail = strtolower($usernameOrEmail);	
+		
+		if(strpos($usernameOrEmail, '@')) { //user inputted email
+			$criteria = new CDbCriteria();
+			$criteria->addCondition('LOWER(email) = :usernameOrEmail');
+			$criteria->params[':usernameOrEmail'] = $usernameOrEmail;
+			return $user = User::model()->find($criteria);	
+		}		
+		else {// user did not input email, assume username
+			$criteria = new CDbCriteria();
+			$criteria->addCondition('LOWER(username) = :usernameOrEmail');
+			$criteria->params[':usernameOrEmail'] = $usernameOrEmail;
+			return $user = User::model()->find($criteria);	
+		}
+	}
+	
+	/**
 	 * Invite a user to the web app
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group

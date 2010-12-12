@@ -9,14 +9,8 @@ class UserIdentity extends CUserIdentity
 	private $_id;
 	
 	public function authenticate()
-	{
-		$username = strtolower($this->username);
-		if(strpos($this->username, '@')) { //user inputted email
-			$user = User::model()->find('LOWER(email) = ?', array($username));	
-		}		
-		else {// user did not input email, assume username
-			$user = User::model()->find('LOWER(username) = ?', array($username));
-		}
+	{		
+		$user = User::findByUsernameOrEmail($this->username);
 		
 		if(is_null($user)) { // user does not exist
 			if(strpos($this->username, '@')) { //user inputted email
