@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 )); 
 ?>
 
@@ -41,7 +41,7 @@ $this->breadcrumbs=array(
 	</div>
 	
 	<div class="row">
-		<?php echo CHtml::link('Forgot my password', array('user/passwordrecovery'))?>
+		<?php echo CHtml::link('Forgot my password', array('user/recoverpassword'))?>
 	</div>
 
 <?php $this->endWidget(); ?>

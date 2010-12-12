@@ -52,6 +52,10 @@ class User extends CActiveRecord
 	 ******************************************************/
 	const SALT = 'yom0mm4wasap455w0rd';
 
+	// Confirmaton vars
+	public $confirmPassword;
+	
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -78,25 +82,55 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => 'invite'),
-		array('email, token, username, password, firstName, lastName', 'required', 'on' => 'update'),
+		array('email, token, username, password, firstName, lastName', 'required', 
+			'on' => 'update'),
+		array('password, confirmPassword', 'required',
+			'on' => 'updatePassword'),
 
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
 		
-		array('username', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false, 'on' => 'update'),
-		array('username', 'length', 'min'=>self::USERNAME_MIN_LENGTH, 'max'=>self::USERNAME_MAX_LENGTH, 'on' => 'update'),
-		array('username', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/', 'on' => 'update'),
+		array('username', 'unique', 
+			'allowEmpty' => false, 
+			'caseSensitive'=>false, 
+			'on' => 'update'),
+		array('username', 'length', 
+			'min'=>self::USERNAME_MIN_LENGTH,
+			'max'=>self::USERNAME_MAX_LENGTH, 
+			'on' => 'update'),
+		array('username', 'match', 
+			'allowEmpty' => false, 
+			'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/', 
+			'on' => 'update'),
 
-		array('email', 'unique', 'allowEmpty' => false, 'caseSensitive'=>false),
-		array('email', 'length', 'min'=>self::EMAIL_MIN_LENGTH, 'max'=>self::EMAIL_MAX_LENGTH),
+		array('email', 'unique', 
+			'allowEmpty' => false, 
+			'caseSensitive'=>false),
+		array('email', 'length', 
+			'min'=>self::EMAIL_MIN_LENGTH, 
+			'max'=>self::EMAIL_MAX_LENGTH),
 		array('email', 'email'),
 
-		array('firstName', 'length', 'min'=>self::FIRSTNAME_MIN_LENGTH, 'max'=>self::FIRSTNAME_MAX_LENGTH),
-		array('lastName', 'length', 'min'=>self::LASTNAME_MIN_LENGTH, 'max'=>self::LASTNAME_MAX_LENGTH),
-		array('firstName, lastName', 'match', 'allowEmpty' => false, 'pattern' => '/^[a-zA-Z]*$/'),
+		array('firstName', 'length', 
+			'min'=>self::FIRSTNAME_MIN_LENGTH, 
+			'max'=>self::FIRSTNAME_MAX_LENGTH),
+		array('lastName', 'length', 
+			'min'=>self::LASTNAME_MIN_LENGTH, 
+			'max'=>self::LASTNAME_MAX_LENGTH),
+		array('firstName, lastName', 'match', 
+			'allowEmpty' => false, 
+			'pattern' => '/^[a-zA-Z]*$/'),
 			
-		array('password', 'length', 'min'=>self::PASSWORD_MIN_LENGTH, 'max'=>self::PASSWORD_MAX_LENGTH),
+		array('password', 
+			'length', 
+			'min'=>self::PASSWORD_MIN_LENGTH, 
+			'max'=>self::PASSWORD_MAX_LENGTH),
+		
+		array('confirmPassword', 'compare', 
+			'compareAttribute'=>'password', 
+			'message' => 'Passwords do not match'),
 
-		array('status', 'length', 'max'=>self::STATUS_MAX_LENGTH),
+		array('status', 'length', 
+			'max'=>self::STATUS_MAX_LENGTH),
 		array('status', 'default',
 			'value'=>self::STATUS_PENDING,
 			'setOnEmpty'=>false, 'on'=>'insert'

@@ -27,11 +27,11 @@ class UserController extends Controller
 	{
 		return array(
 		array('allow', 
-				'actions'=>array('register', 'passwordrecovery'),		
+				'actions'=>array('register', 'recoverpassword'),		
 				'users'=>array('*')
 		),
 		array('allow', // allow only authenticated user to perform actions
-				'actions'=>array('view', 'invite', 'update'),		
+				'actions'=>array('view', 'invite', 'update', 'updatepassword'),		
 				'users'=>array('@'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -93,7 +93,7 @@ class UserController extends Controller
 	/**
 	 * Form for recovering password
 	 */
-	public function actionPasswordRecovery() {
+	public function actionRecoverPassword() {
 		$form = new UserPasswordRecoveryForm();
 
 		// if it is ajax validation request
@@ -136,6 +136,31 @@ class UserController extends Controller
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+	
+/**
+	 * Updates a user's password
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdatePassword($id)
+	{
+		$model = $this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			if($model->save()) {
+				$this->redirect(array('view','id'=>$model->id));	
+			}
+		}
+
+		$this->render('updatepassword', array(
 			'model'=>$model,
 		));
 	}
