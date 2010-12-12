@@ -187,7 +187,7 @@ class GroupController extends Controller
 	 */
 	public function actionInvite()
 	{
-		$inviteForm = new InviteForm;
+		$inviteForm = new GroupInviteForm;
 
 		// un/comment the following code to enable/disable ajax-based validation
 //		if(isset($_POST['ajax']) && $_POST['ajax']==='invite-form-invite-form')
@@ -197,8 +197,8 @@ class GroupController extends Controller
 //		}
 
 		// If form submitted
-		if(isset($_POST['InviteForm'])) {
-			$inviteForm->attributes = $_POST['InviteForm'];
+		if(isset($_POST['GroupInviteForm'])) {
+			$inviteForm->attributes = $_POST['GroupInviteForm'];
 			if($inviteForm->validate()) {
 				foreach($inviteForm->splitEmails($inviteForm->emails) as $email) {
 					$user = User::model()->findByAttributes(array('email' => $email));
