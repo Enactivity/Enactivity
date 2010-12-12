@@ -1,4 +1,9 @@
 <?php
+/**
+ * UserIdentity represents the data needed to identify a user.
+ * @author Ajay Sharma
+ *
+ */
 class UserIdentity extends CUserIdentity
 {
 	// Additional error codes to CBaseUserIdentity
