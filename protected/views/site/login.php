@@ -20,13 +20,13 @@ $this->breadcrumbs=array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'usernameOrEmail'); ?>
-		<?php echo $form->textField($model,'usernameOrEmail', array('placeholder'=>'usernameOrEmail or username')); ?>
+		<?php echo $form->textField($model,'usernameOrEmail', array('placeholder'=>'Email or username')); ?>
 		<?php echo $form->error($model,'usernameOrEmail'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password', array('placeholder'=>'password')); ?>
+		<?php echo $form->passwordField($model,'password', array('placeholder'=>'Password')); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
