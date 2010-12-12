@@ -39,6 +39,10 @@ $this->breadcrumbs=array(
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo CHtml::link('Forgot my password', array('user/passwordrecovery'))?>
+	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->

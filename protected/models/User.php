@@ -105,7 +105,7 @@ class User extends CActiveRecord
 			self::STATUS_PENDING,
 			self::STATUS_ACTIVE,
 			self::STATUS_INACTIVE
-		)
+			)
 		),
 		
 		// The following rule is used by search().
@@ -350,5 +350,34 @@ class User extends CActiveRecord
 		
 		$headers = 'From: no-reply@poncla.com';
 		mail($this->email, $subject, $body, $headers);
+	}
+	
+	/**
+	 * Reset the user's password and send an email notifying them of the 
+	 * update.
+	 * Also sets flash for user.
+	 */
+	public function recoverPassword() {
+		$this->password = StringUtils::createRandomString(10);
+		if($this->save()) {
+			// email user
+			$from = 'no-reply@poncla.com';
+			$subject = 'Your Poncla password has been reset';
+			$body = 'Someone has requested that your password for your account'
+			. ' be reset.  We\'ve generated the new password: ' . $this->password
+			. ' for you.  You can change it once you log in.  If you didn\'t request'
+			. ' this new password please contact us at info@poncla.com';
+			
+			$headers = 'From: no-reply@poncla.com';
+			mail($this->email, $subject, $body, $headers);
+			
+			// notify end user
+			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
+		}
+		else {
+			$errors = $this->getErrors('password');
+			throw new CDbException('There was an error generating a new password.', 
+				500, $errors[0]);
+		}
 	}
 }

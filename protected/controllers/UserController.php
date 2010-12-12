@@ -27,7 +27,7 @@ class UserController extends Controller
 	{
 		return array(
 		array('allow', 
-				'actions'=>array('register'),		
+				'actions'=>array('register', 'passwordrecovery'),		
 				'users'=>array('*')
 		),
 		array('allow', // allow only authenticated user to perform actions
@@ -55,10 +55,10 @@ class UserController extends Controller
 		));
 	}
 
-	//Users are created via Group Invites
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the home page.
+	 * Users are created via Group Invites
 	 */
 	public function actionRegister($token)
 	{		
@@ -88,6 +88,32 @@ class UserController extends Controller
 		$this->render('register',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Form for recovering password
+	 */
+	public function actionPasswordRecovery() {
+		$form = new UserPasswordRecoveryForm();
+
+		// if it is ajax validation request
+//		if(isset($_POST['ajax']) && $_POST['ajax']==='password-recovery-form')
+//		{
+//			echo CActiveForm::validate($form);
+//			Yii::app()->end();
+//		}
+
+		// collect user input data
+		if(isset($_POST['UserPasswordRecoveryForm']))
+		{
+			$form->attributes = $_POST['UserPasswordRecoveryForm'];
+			// validate user input and redirect to the previous page if valid
+			if($form->validate()) {
+				$form->recoverPassword();
+			}
+		}
+		// display the login form
+		$this->render('passwordrecovery', array('model'=>$form));
 	}
 
 	/**
