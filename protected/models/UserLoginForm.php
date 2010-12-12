@@ -56,7 +56,7 @@ class UserLoginForm extends CFormModel
 				case UserIdentity::ERROR_NONE:
 					Yii::app()->user->login($identity, $duration);
 					break;
-				case UserIdentity::ERROR_usernameOrEmail_INVALID:
+				case UserIdentity::ERROR_EMAIL_INVALID:
 				case UserIdentity::ERROR_PASSWORD_INVALID:
 					$this->addError('usernameOrEmail', Yii::t('', 'Incorrect usernameOrEmail or password.'));
 					break;
