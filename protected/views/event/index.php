@@ -9,11 +9,6 @@ $this->menu=array(
 		'url'=>array('create'),
 		'linkOptions'=>array('id'=>'event_create_menu_item'),
 	),
-	array('label'=>'Admin: Manage Events', 
-		'url'=>array('admin'),
-		'linkOptions'=>array('id'=>'event_admin_menu_item'), 
-		'visible'=>Yii::app()->user->isAdmin,
-	),
 );
 ?>
 

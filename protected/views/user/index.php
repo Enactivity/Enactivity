@@ -4,11 +4,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Admin: Manage User', 
-		'url'=>array('admin'),
-		'linkOptions'=>array('id'=>'user_admin_menu_item'), 
-		'visible'=>Yii::app()->user->isAdmin,
-	),
 );
 ?>
 

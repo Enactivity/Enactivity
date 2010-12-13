@@ -5,10 +5,25 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Admin: List Users', 
-		'url'=>array('index'),
-		'linkOptions'=>array('id'=>'user_index_menu_item'), 
+	array('label'=>'Manage Events', 
+		'url'=>array('event/admin'), 
+		'linkOptions'=>array('id'=>'event_admin_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
+	array('label'=>'Manage Users', 
+		'url'=>array('user/admin'),
+		'linkOptions'=>array('id'=>'user_admin_menu_item'), 
 		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'Create Group', 
+		'url'=>array('group/create'),
+		'linkOptions'=>array('id'=>'group_create_menu_item'), 
+		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'Manage Groups', 
+		'url'=>array('group/admin'), 
+		'linkOptions'=>array('id'=>'group_manage_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
 	),
 );
 

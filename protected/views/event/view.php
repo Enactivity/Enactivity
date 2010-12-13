@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create a New Event', 
+	array('label'=>'Create an Event', 
 		'url'=>array('create'),
 		'linkOptions'=>array('id'=>'event_create_menu_item'),
 	),
@@ -20,11 +20,6 @@ $this->menu=array(
 			'confirm'=>'Are you sure you want to delete this item?',
 			'id'=>'event_delete_menu_item',
 		)
-	),
-	array('label'=>'Admin: Manage Events', 
-		'url'=>array('admin'),
-		'linkOptions'=>array('id'=>'event_admin_menu_item'), 
-		'visible'=>Yii::app()->user->isAdmin,
 	),
 );
 ?>
