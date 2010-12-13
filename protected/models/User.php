@@ -82,7 +82,9 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => 'invite'),
-		array('email, token, username, password, firstName, lastName', 'required', 
+		array('email, token, username, password, confirmPassword, firstName, lastName', 'required', 
+			'on' => 'register'),
+		array('email, username, firstName, lastName', 'required', 
 			'on' => 'update'),
 		array('password, confirmPassword', 'required',
 			'on' => 'updatePassword'),
@@ -91,16 +93,13 @@ class User extends CActiveRecord
 		
 		array('username', 'unique', 
 			'allowEmpty' => false, 
-			'caseSensitive'=>false, 
-			'on' => 'update'),
+			'caseSensitive'=>false),
 		array('username', 'length', 
 			'min'=>self::USERNAME_MIN_LENGTH,
-			'max'=>self::USERNAME_MAX_LENGTH, 
-			'on' => 'update'),
+			'max'=>self::USERNAME_MAX_LENGTH),
 		array('username', 'match', 
 			'allowEmpty' => false, 
-			'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/', 
-			'on' => 'update'),
+			'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/'),
 
 		array('email', 'unique', 
 			'allowEmpty' => false, 
@@ -127,13 +126,14 @@ class User extends CActiveRecord
 		
 		array('confirmPassword', 'compare', 
 			'compareAttribute'=>'password', 
-			'message' => 'Passwords do not match'),
+			'message' => 'Passwords do not match',
+			'on' => 'register, updatePassword'),
 
 		array('status', 'length', 
 			'max'=>self::STATUS_MAX_LENGTH),
 		array('status', 'default',
 			'value'=>self::STATUS_PENDING,
-			'setOnEmpty'=>false, 'on'=>'insert'
+			'setOnEmpty'=>false, 'on'=>'invite'
 		),
 		array('status', 'in', 'range'=>array(
 			self::STATUS_PENDING,

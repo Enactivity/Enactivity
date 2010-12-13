@@ -6,7 +6,7 @@
  * @property integer $groupId
  * @property string $emails
  */
-class InviteForm extends CFormModel {
+class GroupInviteForm extends CFormModel {
 	
 	public $groupId;
 	public $emails;
