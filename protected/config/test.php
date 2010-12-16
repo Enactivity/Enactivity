@@ -13,21 +13,31 @@ return CMap::mergeArray(
 			),
 
 			'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+				'class'=>'CLogRouter',
+				'routes'=>array(
+					array(
+						'class'=>'CFileLogRoute',
+						'levels'=>'error, warning',
+					),
+					// un/comment the following to show/hide log messages on web pages
+					array(
+						'class'=>'CWebLogRoute',
+					),
+					
 				),
-				// un/comment the following to show/hide log messages on web pages
-				
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				
 			),
 		),
+		
+		'modules'=>array(
+		// uncomment the following to enable the Gii tool
+		
+			'gii'=>array(
+				'class'=>'system.gii.GiiModule',
+				'password'=>'123456',
+			),
+			
 		),
+		
 		//'theme'=>'', //use yii-default
 	)
 );
