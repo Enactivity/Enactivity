@@ -73,7 +73,7 @@ return array(
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
-			'urlFormat'=>'path', //disabled to allow for slugs
+			'urlFormat'=>'path', //enabled to allow for slugs
 			'rules'=>array(
 				'<slug:[a-zA-Z0-9_ -]+>'=>'group/view/slug/<slug>',
 				//'<controller:\w+>/<id:\d+>'=>'<controller>/view',
