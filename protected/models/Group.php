@@ -157,10 +157,28 @@ class Group extends CActiveRecord
 	}
 	
 	/**
+	 * Find a group by its slug attribute
+	 * @param string $slug
+	 * @return group model or null if none is found
+	 */
+	public function findBySlug($slug) {
+		return Group::model()->findByAttributes(
+				array(
+					'slug'=>$slug,
+				)
+		);
+	}
+	
+	/**
 	 * Get the url for viewing this group
 	 */
 	public function getPermalink()
 	{
+		if(isset($this->slug)) {
+			return Yii::app()->request->hostInfo .
+			Yii::app()->getBaseUrl() .
+			"/" . $this->slug;
+		}
 		return Yii::app()->request->hostInfo .
 			Yii::app()->createUrl('group/view', 
 			array(

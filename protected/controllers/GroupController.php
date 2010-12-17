@@ -27,7 +27,7 @@ class GroupController extends Controller
 	{
 		return array(
 		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('all','view'),
+				'actions'=>array('all','view','slug'),
 				'users'=>array('*'),
 		),
 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -48,10 +48,15 @@ class GroupController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView($id = null, $slug = null)
 	{
 		// Get the group
-		$group = $this->loadModel($id);
+		if(isset($id)) {
+			$group = $this->loadModel($id);	
+		}
+		else {
+			$group = $this->loadModel($slug);
+		}
 		
 		// Get the list of the active group users
 		$activemembers = $group->getMembersByStatus(GroupUser::STATUS_ACTIVE);
@@ -248,15 +253,19 @@ class GroupController extends Controller
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
+	 * @param mixed the integer ID or string slug of the model to be loaded 
 	 */
-	public function loadModel($id)
+	public function loadModel($idOrSlug)
 	{
-		$model=Group::model()->findByPk((int)$id);
-		if($model === null) {
-			throw new CHttpException(404,'The requested page does not exist.');
+		$model = Group::model()->findByPk((int) $idOrSlug);
+		if(isset($model)) {
+			return $model;
 		}
-		return $model;
+		$model = Group::model()->findBySlug($idOrSlug);
+		if(isset($model)) {
+			return $model;
+		}
+		throw new CHttpException(404, 'The requested page does not exist.');
 	}
 
 	/**
