@@ -176,6 +176,16 @@ return array(
 		),
 	),
 
+	'modules'=>array(
+		// uncomment the following to enable the Gii tool
+		// custom url manager must also be disabled
+//		'gii'=>array(
+//			'class'=>'system.gii.GiiModule',
+//			'password'=>'123456',
+//		),
+			
+	),
+	
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
