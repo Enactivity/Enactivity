@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
-		'url'=>array('invite'),
+		'url'=>array('group/invite'),
 		'linkOptions'=>array('id'=>'group_invite_menu_item'),
 	),
 );

@@ -7,8 +7,12 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
-		'url'=>array('invite'), 
-		'linkOptions'=>array('id'=>'user_invite_menu_item'),
+		'url'=>array('group/invite'),
+		'linkOptions'=>array('id'=>'group_invite_menu_item'),
+	),
+	array('label'=>'Update Group Profile', 
+		'url'=>array('group/updateprofile','id'=>$model->id),
+		'linkOptions'=>array('id'=>'group_profile_menu_item'),
 	),
 );
 ?>
@@ -20,28 +24,18 @@ $this->menu=array(
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		'groupProfile.description:ntext',	
 		'permalink:url',
-		array( //created
-			'label'=>$model->getAttributeLabel('created'),
-			'type'=>'datetime',
-			'name'=>'created',
-			'value'=>strtotime($model->created),
-		),
-		array( //modified
-			'label'=>$model->getAttributeLabel('modified'),
-			'type'=>'datetime',
-			'name'=>'modified',
-			'value'=>strtotime($model->modified),
-		),
 	),
 )); 
 ?>
 
 <!-- List of users in group -->
+<?php if(!Yii::app()->user->isGuest):?>
 <div id="users">
-	<h3>
+	<h2>
 		<?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?>
-	</h3>
+	</h2>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
@@ -51,3 +45,4 @@ $this->widget('zii.widgets.CDetailView', array(
 	)); 
 	?>
 </div>
+<?php endif; ?>

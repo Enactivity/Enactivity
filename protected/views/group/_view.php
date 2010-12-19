@@ -1,7 +1,3 @@
 <div class="item group">
-
-<span><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'slug'=>$data->slug));
-// TODO: add group profile info  
-?></span>
-
+	<h2><span><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'slug'=>$data->slug)); ?></span></h2>
 </div>
