@@ -3,7 +3,7 @@
 */
 html, body
 {
-	color: #333333;
+	color: #111111;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
 	font-style: normal;
@@ -12,7 +12,7 @@ html, body
 
 a, a:hover, a:visited, a:active
 {
-	color: #333333;
+	color: #111111;
 }
 
 input, textarea, select { 
@@ -147,29 +147,28 @@ em {
 	word-wrap: break-word;
 }
 
-#content h1 
-{
-	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
-	font-size: 70px;
+#content h1, #content h2, #content h3, 
+#content h4, #content h5, #content h6 {
+	line-height: 1;
 	font-weight: bold;
 	margin-bottom: 15px;
 	margin-top: 15px;
+	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+#content h1 
+{
+	font-size: 70px;
 }
 
 #content h2
 {
 	font-size: 50px;
-	font-weight: bold;
-	margin-bottom: 15px;
-	margin-top: 15px;
 }
 
 #content h3 
 {
 	font-size: 30px;
-	font-weight: bold;
-	margin-bottom: 15px;
-	margin-top: 15px;
 }
 
 #content a:hover
@@ -318,48 +317,48 @@ div .errorMessage {
 */
 #content ul.yiiPager
 {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    line-height: 100%;
-    display: inline;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	line-height: 100%;
+	display: inline;
 }
 
 #content ul.yiiPager li
 {
-    display: inline;
+	display: inline;
 }
 
 #content ul.yiiPager a:link,
 #content ul.yiiPager a:visited
 {
-    border: 1px solid #555555;
-    font-weight: bold;
-    padding: 1px 6px;
-    text-decoration: none;
+	border: 1px solid #555555;
+	font-weight: bold;
+	padding: 1px 6px;
+	text-decoration: none;
 }
 
 #content ul.yiiPager .page a
 {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 #content ul.yiiPager a:hover
 {
-    border: solid 1px #0e509e;
+	border: solid 1px #0e509e;
 }
 
 #content ul.yiiPager .selected a
 {
-    background: #3a3a3a;
-    color: #ffffff;
-    font-weight: bold;
+	background: #3a3a3a;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 #content ul.yiiPager .hidden a
 {
-    border: solid 1px #dedede;
-    color: #888888;
+	border: solid 1px #dedede;
+	color: #888888;
 }
 
 /**
@@ -368,7 +367,7 @@ div .errorMessage {
 #content ul.yiiPager .first,
 #content ul.yiiPager .last
 {
-    display: none;
+	display: none;
 }
 
 /* 

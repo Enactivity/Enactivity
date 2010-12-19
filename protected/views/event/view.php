@@ -81,7 +81,7 @@ $this->renderPartial('_rsvp', array(
 
 <!-- List of users in event -->
 <div id="users">
-	<h3><?php echo $attendees->getTotalItemCount() . ' Attending'; ?></h3>
+	<h2><?php echo $attendees->getTotalItemCount() . ' Attending'; ?></h2>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
