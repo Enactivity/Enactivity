@@ -1,7 +1,5 @@
 <div class="item event">
-	<div class="eventname">
-		<span><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span>
-	</div>
+	<h2><span><?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id'=>$data->id)); ?></span></h2>
 	<div class="eventdate">
 		<span><?php echo CHtml::encode($data->datesAsSentence); ?></span>
 	</div>
