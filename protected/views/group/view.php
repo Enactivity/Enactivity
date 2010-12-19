@@ -27,9 +27,7 @@ $this->widget('zii.widgets.CDetailView', array(
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>
 <div id="users">
-	<h2>
-		<?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?>
-	</h2>
+	<h2><?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?></h2>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
