@@ -16,10 +16,14 @@ $this->menu=array(
 	),
 	array('label'=>'Delete This Event', 
 		'url'=>'#', 
-		'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),
+		'linkOptions'=>array('submit'=>array(
+				'delete',
+				'id'=>$model->id,
+			),
 			'confirm'=>'Are you sure you want to delete this item?',
+			'csrf' => true,
 			'id'=>'event_delete_menu_item',
-		)
+		),
 	),
 );
 ?>

@@ -13,9 +13,13 @@ $this->menu=array(
 	),
 	array('label'=>'Delete This Event', 
 		'url'=>'#', 
-		'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 
-			'id'=>'event_delete_menu_item',
+		'linkOptions'=>array('submit'=>array(
+				'delete',
+				'id'=>$model->id,
+			), 
 			'confirm'=>'Are you sure you want to delete this item?',
+			'csrf' => true,
+			'id'=>'event_delete_menu_item',
 		),
 	),
 );
