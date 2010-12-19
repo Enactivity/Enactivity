@@ -6,7 +6,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array(),
+	array('label'=>'Create an Event', 
+		'url'=>array('create'),
+		'linkOptions'=>array('id'=>'event_create_menu_item'),
+	),
 );
 ?>
 
