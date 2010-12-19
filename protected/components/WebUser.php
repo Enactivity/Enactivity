@@ -39,6 +39,8 @@ class WebUser extends CWebUser {
 	public function getIsAdmin()
 	{
 		//TODO: implement admin in user
-		return $this->getModel()->username == "admin";
+		return $this->getModel()->username == 'admin';
 	}
+	
+	
 }
