@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle = 'Error - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Error',
-);
 ?>
 
 <h2>Error <?php echo $code; ?></h2>

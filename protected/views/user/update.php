@@ -1,9 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
 
 $this->menu=array(
 	array('label'=>'Update Profile', 

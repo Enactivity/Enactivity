@@ -1,8 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Manage',
-);
 
 $this->menu=array(
 	array('label'=>'Manage Events', 

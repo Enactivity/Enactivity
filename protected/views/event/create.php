@@ -1,9 +1,5 @@
 <?php
 $this->pageTitle = "Create a New Event - " . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Events'=>array('index'),
-	'Create',
-);
 
 $this->menu=array(
 	array('label'=>'Create an Event', 

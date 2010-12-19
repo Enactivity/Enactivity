@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle = 'Login - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Login',
-);
 ?>
 
 <h1>Login</h1>

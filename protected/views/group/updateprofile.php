@@ -1,10 +1,5 @@
 <?php
 $this->pageTitle = 'Update - ' . $model->name . ' - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Groups'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
 
 $this->menu=array(
 	array('label'=>'Invite a User', 

@@ -1,9 +1,5 @@
 <?php
 $this->pageTitle = 'Create a New Group - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Groups'=>array('index'),
-	'Create',
-);
 
 $this->menu=array(
 	array('label'=>'Invite a User', 

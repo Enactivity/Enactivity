@@ -1,8 +1,5 @@
 <?php 
 $this->pageTitle = 'Invite a User - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Invite',
-);
 
 $this->menu=array(
 	array('label'=>'Invite a User', 

@@ -1,8 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->fullName,
-);
 
 $this->menu=array();
 ?>

@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - Welcome';
-$this->breadcrumbs=array(
-	'Welcome',
-);
 ?>
 <h1>Welcome to Poncla</h1>
 

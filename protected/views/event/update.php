@@ -1,10 +1,5 @@
 <?php
 $this->pageTitle = "Update - " . $model->name . ' - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Events'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
 
 $this->menu=array(
 	array('label'=>'Create an Event', 

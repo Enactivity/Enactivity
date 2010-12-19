@@ -5,14 +5,13 @@
 	<meta name="language" content="en" />
 
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
 
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
@@ -21,40 +20,32 @@
 
 <body>
 
-<div class="container" id="page">
+	<div class="bodycontainer" id="page">
+	
+		<div id="mainmenu">
+			<?php $this->widget('zii.widgets.CMenu', array(
+				'items'=>array(
+					//array('label'=>'Welcome', 'url'=>array('/site/page', 'view'=>'Welcome')),		
+					array('label'=>'Home', 'url'=>array('/site/index')),
+					array('label'=>'Groups', 'url'=>array('/group/index'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Events', 'url'=>array('/event/index'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Settings', 'url'=>array('/site/settings'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+					array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Admin', 'url'=>array('/user/admin'), 'visible'=>Yii::app()->user->isAdmin),
+				),
+			)); 
+			?>
+		</div><!-- mainmenu -->
 
-	<div id="header">
-		<h1 id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu', array(
-			'items'=>array(
-				//array('label'=>'Welcome', 'url'=>array('/site/page', 'view'=>'Welcome')),		
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Admin', 'url'=>array('/user/index'), 'visible'=>Yii::app()->user->isAdmin),
-				array('label'=>'Groups', 'url'=>array('/group/index'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Events', 'url'=>array('/event/index'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Settings', 'url'=>array('/site/settings'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); 
-		?>
-	</div><!-- mainmenu -->
-
-	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-		'links'=>$this->breadcrumbs,
-	)); ?><!-- breadcrumbs -->
-
-	<?php echo $content; ?>
-
+		<?php echo $content; ?>
+	
+	</div><!-- page -->
+	
 	<div id="footer">
-		Poncla &copy; <?php echo date('Y'); ?><br/>
-		All Rights Reserved.<br/>
+			Poncla &copy; <?php echo date('Y'); ?><br/>
+			All Rights Reserved.<br/>
 	</div><!-- footer -->
-
-</div><!-- page -->
 
 </body>
 </html>

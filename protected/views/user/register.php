@@ -1,7 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Register',
-);
 
 $this->menu=array(
 );

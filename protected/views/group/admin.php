@@ -1,9 +1,5 @@
 <?php
 $this->pageTitle = 'Manage Groups - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Groups'=>array('index'),
-	'Manage',
-);
 
 $this->menu=array(
 	array('label'=>'Manage Events', 

@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle = 'Contact Us - ' . Yii::app()->name;
-$this->breadcrumbs=array(
-	'Contact',
-);
 ?>
 
 <h1>Contact Us</h1>

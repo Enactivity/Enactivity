@@ -1,8 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Users',
-);
-
 $this->menu=array(
 );
 ?>
