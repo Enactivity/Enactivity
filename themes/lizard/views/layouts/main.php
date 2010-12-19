@@ -15,7 +15,7 @@
 
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
 </head>
 
 <body>

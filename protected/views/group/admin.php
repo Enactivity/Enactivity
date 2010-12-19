@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Manage Groups - ' . Yii::app()->name;
+$this->pageTitle = 'Manage Groups';
 
 $this->menu=array(
 	array('label'=>'Manage Events', 
@@ -37,8 +37,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Groups</h1>
 
 <p>
 You may optionally enter a comparison operator (<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;</strong>, <strong>&gt;=</strong>, <strong>&lt;&gt;</strong>

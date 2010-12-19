@@ -1,5 +1,5 @@
 <?php
-
+$this->pageTitle = $model->fullName;
 $this->menu=array(
 	array('label'=>'Update Profile', 
 		'url'=>array('update', 'id'=>$model->id),
@@ -13,8 +13,6 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1>Update Profile</h1>
 
 <div class="form">
 

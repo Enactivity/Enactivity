@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = "Events - " . Yii::app()->name;
+$this->pageTitle = 'Events';
 
 $this->menu=array(
 	array('label'=>'Create an Event', 
@@ -8,8 +8,6 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1>Events</h1>
 
 <?php 
 $this->widget('zii.widgets.CListView', array(

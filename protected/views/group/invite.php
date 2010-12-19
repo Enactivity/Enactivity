@@ -1,5 +1,5 @@
 <?php 
-$this->pageTitle = 'Invite a User - ' . Yii::app()->name;
+$this->pageTitle = 'Invite a User';
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
@@ -8,7 +8,6 @@ $this->menu=array(
 	),
 );
 ?>
-<h1>Invite a User</h1>
 
 <div class="form">
 

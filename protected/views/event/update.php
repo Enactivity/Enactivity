@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = "Update - " . $model->name . ' - ' . Yii::app()->name;
+$this->pageTitle = $model->name;
 
 $this->menu=array(
 	array('label'=>'Create an Event', 
@@ -19,7 +19,5 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1><?php echo $model->name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

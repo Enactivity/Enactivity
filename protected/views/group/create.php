@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Create a New Group - ' . Yii::app()->name;
+$this->pageTitle = 'Create a Group';
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
@@ -8,7 +8,5 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1>Create a Group</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

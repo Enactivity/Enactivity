@@ -33,6 +33,7 @@
 		<?php endif; ?>
 	
 	<div id="content">
+		<h1><?php echo $this->pageTitle; ?></h1>
 		<?php echo $content; ?>
 	</div><!-- end of content -->
 </div>

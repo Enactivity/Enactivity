@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->name . ' - ' . Yii::app()->name;
+$this->pageTitle = $model->name;
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
@@ -13,10 +13,8 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php echo $model->name; ?></h1>
-
 <?php 
-//FIXME: redirect to group profile page
+
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

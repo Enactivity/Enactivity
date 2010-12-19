@@ -1,8 +1,6 @@
 <?php
-$this->pageTitle = 'Contact Us - ' . Yii::app()->name;
+$this->pageTitle = 'Contact Us';
 ?>
-
-<h1>Contact Us</h1>
 
 <?php if(!Yii::app()->user->hasFlash('success')): ?>
 

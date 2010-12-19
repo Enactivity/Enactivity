@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->name . ' - ' . Yii::app()->name;
+$this->pageTitle = $model->name;
 
 $this->menu=array(
 	array('label'=>'Create an Event', 
@@ -23,8 +23,6 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1><?php echo $model->name; ?></h1>
 
 <?php 
 //RSVP buttons

@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = "Create a New Event - " . Yii::app()->name;
+$this->pageTitle = 'Create an Event';
 
 $this->menu=array(
 	array('label'=>'Create an Event', 
@@ -8,7 +8,5 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1>Create a New Event</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

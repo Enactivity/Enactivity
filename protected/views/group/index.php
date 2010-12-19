@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Groups - ' . Yii::app()->name;
+$this->pageTitle = 'Groups';
 
 $this->menu=array(
 	array('label'=>'Invite a User', 
@@ -8,8 +8,6 @@ $this->menu=array(
 	),
 );
 ?>
-
-<h1>Groups</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
