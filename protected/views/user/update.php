@@ -19,7 +19,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update <?php echo $model->fullName; ?></h1>
+<h1>Update Profile</h1>
 
 <div class="form">
 
