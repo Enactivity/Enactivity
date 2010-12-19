@@ -25,22 +25,31 @@ class GroupController extends Controller
 	 */
 	public function accessRules()
 	{
+	// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$group = $this->loadModel($_GET['id']);
+			$groupId = $group->id;
+		}
 		return array(
-		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('all','view','slug'),
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('view'),
 				'users'=>array('*'),
-		),
-		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index', 'update', 'updateprofile', 'invite'),
+			),
+			array('allow', // allow authenticated user to view lists
+				'actions'=>array('index', 'invite'),
 				'users'=>array('@'),
-		),
-		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create', 'admin', 'delete'),
+			),
+			array('allow',  // allow only group members to perform 'updateprofile' actions
+				'actions'=>array('updateprofile'),
+				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('create', 'admin', 'delete', 'update', 'updateprofile'),
 				'expression'=>'$user->isAdmin',
-		),
-		array('deny',  // deny all users
+			),
+			array('deny',  // deny all users
 				'users'=>array('*'),
-		),
+			),
 		);
 	}
 
@@ -248,10 +257,9 @@ class GroupController extends Controller
 					// Get group
 					$group = Group::model()->findByPk($inviteForm->groupId);
 					
-					if(is_null(GroupUser::model()->findByAttributes(array(
-						'groupId' => $group->id,
-						'userId' => $user->id,
-					)))) {
+					if(!GroupUser::model()->isGroupMember($group->id,
+						$user->id)) 
+						{
 						$groupuser = new GroupUser;
 						$groupuser->groupId = $group->id;
 						$groupuser->userId = $user->id;

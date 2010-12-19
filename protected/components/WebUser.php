@@ -27,8 +27,8 @@ class WebUser extends CWebUser {
 	{
 		if($this->_model === null)
 		{
-			if($id!==null)
-			$this->_model=User::model()->findByPk($id);
+			if($id !== null)
+			$this->_model = User::model()->findByPk($id);
 		}
 		return $this->_model;
 	}
@@ -42,5 +42,11 @@ class WebUser extends CWebUser {
 		return $this->getModel()->username == 'admin';
 	}
 	
-	
+	/**
+	 * @param int $groupId
+	 * @return boolean whether the current application user is in the group
+	 */
+	public function isGroupMember($groupId) {
+		return GroupUser::model()->isGroupMember($groupId, Yii::app()->user->id); 
+	}
 }

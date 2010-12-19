@@ -162,39 +162,20 @@ class GroupUser extends CActiveRecord
 		self::STATUS_INACTIVE,
 		self::STATUS_PENDING);
 	}
-//
-//	/**
-//	 * Returns the groups for the specified user.
-//	 * @param string item type (e.g. 'PostStatus').
-//	 * @return array item names indexed by item code. The items are order by their position values.
-//	 * An empty array is returned if the item type does not exist.
-//	 */
-//	public static function groups($userId)
-//	{
-//		if(!isset(self::$_groups[$userId])) {
-//			self::loadGroups($userId);
-//		}
-//		return self::$_groups[$userId];
-//	}
-//
-//	/**
-//	 * Loads the lookup items for the specified type from the database.
-//	 * @param int the user id
-//	 */
-//	private static function loadGroups($userId)
-//	{
-//		self::$_groups[$userId] = array();
-//
-//		$models = self::model()->findAll(array(
-//			'condition'=>'userId=:userId',
-//			'params'=>array(':userId'=>$userId),
-//			//TODO: order groups by name
-//			//'order'=>'position',
-//		));
-//
-//		foreach($models as $model) {
-//			//TODO: want the group name, not group ID
-//			self::$_groups[$userId][$model->groupId] = $model->groupId;
-//		}
-//	}
+	
+	/**
+	 * Get whether the user is a member of the group
+	 * @param int $groupId
+	 * @param int $userId
+	 */
+	public function isGroupMember($groupId, $userId) {
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('groupId = :groupId');
+		$criteria->params[':groupId'] = $groupId;
+		$criteria->addCondition('userId = :userId');
+		$criteria->params[':userId'] = $userId;
+		$groupuser = $this->find($criteria);
+		return isset($groupuser);
+	}
+	
 }
