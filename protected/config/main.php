@@ -21,7 +21,7 @@ return array(
 
 	// application components
 	'components'=>array(
-
+	
 		// MySQL database settings
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
@@ -193,7 +193,7 @@ return array(
 		'adminEmail'=>'ajsharma@poncla.com',
 	),
 	
-	'theme'=>'lizard',
+	'theme'=>'gecko5',
 	
 	// uncomment to set the default controller
 	//'defaultController' => 'login',
