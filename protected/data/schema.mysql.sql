@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.1.3.1
+-- version 3.3.7
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 18, 2010 at 03:58 PM
--- Server version: 5.1.33
--- PHP Version: 5.2.9
+-- Host: mysql.poncla.com
+-- Generation Time: Dec 19, 2010 at 06:27 PM
+-- Server version: 5.1.39
+-- PHP Version: 5.2.14
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `poncla_yii`
+-- Database: `poncla_live_dont_mess_with_me`
 --
 
 -- --------------------------------------------------------
@@ -41,6 +41,11 @@ CREATE TABLE IF NOT EXISTS `event` (
   KEY `groupId` (`groupId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
+--
+-- Dumping data for table `event`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +65,11 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
+--
+-- Dumping data for table `event_user`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +87,11 @@ CREATE TABLE IF NOT EXISTS `group` (
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
+--
+-- Dumping data for table `group`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +103,11 @@ CREATE TABLE IF NOT EXISTS `group_profile` (
   `description` varchar(4000) DEFAULT NULL,
   PRIMARY KEY (`groupId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `group_profile`
+--
+
 
 -- --------------------------------------------------------
 
@@ -107,6 +127,11 @@ CREATE TABLE IF NOT EXISTS `group_user` (
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `group_user`
+--
+
 
 -- --------------------------------------------------------
 
@@ -130,7 +155,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `token` (`token`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`, `lastName`, `status`, `created`, `modified`, `lastLogin`) VALUES
+(39, 'admin', 'admin@poncla.com', '5d7f3e28571af8824a910e81996f409b8a6f5bd9', 'ac3642003276203b8ad9ceb60856fd9f7c3c286c', 'Poncla', 'Administrator', 'Active', '2010-12-19 18:26:53', '2010-12-19 18:26:56', '2010-12-19 18:26:58');
 
 --
 -- Constraints for dumped tables
