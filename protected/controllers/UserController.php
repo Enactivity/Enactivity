@@ -67,6 +67,7 @@ class UserController extends Controller
 	public function actionRegister($token)
 	{		
 		$model = $this->loadModelByToken($token);
+		$model->setScenario('register');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

@@ -31,6 +31,12 @@
 		<?php echo $form->passwordField($model,'password',array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'confirmPassword'); ?>
+		<?php echo $form->passwordField($model,'confirmPassword',array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?>
+		<?php echo $form->error($model,'confirmPassword'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'firstName'); ?>
