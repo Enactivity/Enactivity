@@ -277,7 +277,12 @@ class GroupController extends Controller
 		}
 		
 		// get user's groups
-		$userGroups = Yii::app()->user->model->groups;
+		if(Yii::app()->user->isAdmin) {
+			$userGroups = Group::model()->findAll();
+		}
+		else {
+			$userGroups = Yii::app()->user->model->groups;	
+		}
 		
 		$this->render('invite', 
 			array(
