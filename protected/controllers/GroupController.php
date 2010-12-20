@@ -246,20 +246,22 @@ class GroupController extends Controller
 			if($inviteForm->validate()) {
 				foreach($inviteForm->splitEmails($inviteForm->emails) as $email) {
 					$user = User::model()->findByAttributes(array('email' => $email));
-				
-					if(!isset($user)) {
+					
+					if(is_null($user)) {
 						//Create a new user with the email invite
-						$user = new User('invite');
+						$user = new User;
+						$user->setScenario('invite');
 						$user->email = $email;
-						$user->save('email');
+						if(!$user->save()) {
+							throw new CHttpException(500, 'There was an error when trying to generate invites. Please try again later.');
+						}
 					}
 					
 					// Get group
 					$group = Group::model()->findByPk($inviteForm->groupId);
 					
 					if(!GroupUser::model()->isGroupMember($group->id,
-						$user->id)) 
-						{
+						$user->id)) {
 						$groupuser = new GroupUser;
 						$groupuser->groupId = $group->id;
 						$groupuser->userId = $user->id;
