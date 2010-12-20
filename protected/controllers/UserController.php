@@ -155,6 +155,7 @@ class UserController extends Controller
 	public function actionUpdatePassword($id)
 	{
 		$model = $this->loadModel($id);
+		$model->setScenario('updatePassword');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
