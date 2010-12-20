@@ -20,7 +20,7 @@ $this->pageTitle = 'Recover Password';
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton('Generate new password'); ?>
 	</div>
 	
 <?php $this->endWidget(); ?>
