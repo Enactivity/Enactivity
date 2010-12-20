@@ -3,6 +3,8 @@
 */
 html, body
 {
+	background-image: url("../images/stripes.png");
+	background-repeat: repeat;
 	color: #000000;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
@@ -119,10 +121,7 @@ em {
 
 #footer
 {
-	background-color: #292929;
-	border-top: 1px solid #555;
 	clear: both;
-	font-size: 10px;
 	height: 34px; /* -1 to accomodate the border */ 
 	margin-top: -40px;
 	padding-top: 5px;
@@ -134,6 +133,7 @@ em {
 */
 #content
 {
+	background-color: #ffffff;
 	overflow: hidden;
 	margin-left: auto;
 	margin-right: auto;
@@ -147,7 +147,7 @@ em {
 
 #content h1, #content h2, #content h3, 
 #content h4, #content h5, #content h6 {
-	line-height: 1;
+	line-height: 1.2;
 	font-weight: bold;
 	margin-bottom: 15px;
 	margin-top: 15px;
@@ -169,9 +169,14 @@ em {
 	font-size: 30px;
 }
 
+#content a
+{
+
+}
+
 #content a:hover
 {
-	text-decoration: underline;	
+	color: #ff6600;
 }
 
 #content p
@@ -397,7 +402,6 @@ div .errorMessage {
 */
 #content .event
 {
-	background-color: #ffffff;
 	margin-bottom: 10px;
 	padding: 10px;
 }
@@ -416,7 +420,7 @@ div .errorMessage {
 
 #content .rsvp
 {
-	background-color: #eeeeee;
+	border: 3px dashed #eeeeee;
 	height: 35px;
 	position: relative;
 	margin: auto;

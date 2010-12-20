@@ -87,4 +87,13 @@ $this->renderPartial('_rsvp', array(
 		'itemView'=>'/user/_users',
 	)); 
 	?>
+	
+	<h2><?php echo $notattendees->getTotalItemCount() . ' Not Attending'; ?></h2>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$notattendees,
+		'itemView'=>'/user/_users',
+	)); 
+	?>
 </div>

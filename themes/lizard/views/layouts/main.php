@@ -22,7 +22,7 @@
 <div id="mainnav">
 <?php $this->widget('zii.widgets.CMenu', array(
 	'items'=>array(
-		array('label'=>'Home', 'url'=>array('/site/index')),
+		array('label'=>'Home:Beta', 'url'=>array('/site/index')),
 		array('label'=>'Groups', 'url'=>array('/group/index'), 'visible'=>!Yii::app()->user->isGuest),
 		array('label'=>'Events', 'url'=>array('/event/index'), 'visible'=>!Yii::app()->user->isGuest),
 		array('label'=>'Settings', 'url'=>array('/site/settings'), 'visible'=>!Yii::app()->user->isGuest),
