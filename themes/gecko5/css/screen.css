@@ -59,8 +59,8 @@ em {
 #mainnav ul li
 {
 	display: inline;
-	margin: 0px 55px 0px 0px;
-	white-space: nowrap;
+	margin: 0px 35px 0px 0px;
+	#ffffff-space: nowrap;
 }
 
 #mainnav ul li a, #mainnav ul li a:visited 
@@ -100,7 +100,7 @@ em {
 	list-style-type: none;
 	display: inline;
 	margin-right: 35px;
-	white-space: nowrap
+	#ffffff-space: nowrap
 }
 
 #subnav ul li a, #subnav ul li a:visited
@@ -281,6 +281,47 @@ div.flash-success a
 	width: 70%;
 }
 
+#content form input[type=submit], 
+#content form input[type=button] {
+	background-color: #000000;
+	-moz-border-radius-bottomright: 10px 10px;
+	-o-border-bottom-right-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	border-bottom-right-radius: 10px 10px;
+	border: 3px solid #000000;
+	color: #ffffff;
+	font-weight: bold;
+	height: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: right;
+	text-shadow: none;
+}
+
+#content form input[type=submit]:hover, 
+#content form input[type=button]:hover {
+	background-color: #ff6600;
+	border: 3px solid #ff6600;
+}
+
+/* Overrides for disabled buttons */
+#content form input[type=submit].disabled ,
+#content form input[type=submit]:disabled, 
+#content form input[type=submit][disabled=disabled],
+#content form input[type=button]:disabled {
+	background-color: #ffffff;
+	border: 3px solid #000000;
+	color: #000000;
+}
+
+#content form input[type=submit].disabled:hover,
+#content form input[type=submit]:disabled:hover,
+#content form input[type=submit][disabled=disabled],
+#content form input[type=button]:disabled:hover {
+	background-color: #ffffff;
+	border: 3px solid #000000;
+}
+
 div .errorMessage {
 	margin-left: 140px;
 	color: #e82c0c;
@@ -429,24 +470,24 @@ div .errorMessage {
 #content .rsvp .status
 {
 	padding: 10px;
+	float: left;
 	font-size: 14px;
 }
 
-
 #content .rsvp .formblock {
 	height: 35px;
-	position: absolute;
-	right: 0px;
-	top: 0px;
+	float: right;
 }
 
-#content .rsvp input
-{
-	height: 35px;
-	padding-bottom: 0px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 0px;
+/* Reset main form fields */
+#content .rsvp form input[type=submit], 
+#content .rsvp form input[type=button] {
+	-moz-border-radius-bottomright: 0px 0px;
+	-o-border-bottom-right-radius: 0px 0px;
+	-webkit-border-bottom-right-radius: 0px 0px;
+	border-bottom-right-radius: 0px 0px;
+	text-align: center;
+	width: 210px;
 }
 
 /*
