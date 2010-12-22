@@ -33,7 +33,7 @@ If you have business inquiries or other questions, please fill out the following
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'body',array('rows'=>5, 'cols'=>50)); ?>
 	</div>
 
 	<?php if(extension_loaded('gd')): ?>

@@ -11,7 +11,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model->groupProfile, 'description'); ?>
-		<?php echo $form->textArea($model->groupProfile, 'description', array('maxlength'=>GroupProfile::DESCRIPTION_MAX_LENGTH)); ?>
+		<?php echo $form->textArea($model->groupProfile, 'description', 
+			array(
+				'maxlength'=>GroupProfile::DESCRIPTION_MAX_LENGTH,
+				'rows'=>5,
+			)); 
+		?>
 		<?php echo $form->error($model->groupProfile, 'description'); ?>
 	</div>
 

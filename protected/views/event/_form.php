@@ -69,7 +69,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('maxlength'=>Event::DESCRIPTION_MAX_LENGTH)); ?>
+		<?php echo $form->textArea($model,'description',
+			array(
+				'maxlength'=>Event::DESCRIPTION_MAX_LENGTH,
+				'rows'=>5,
+			)); 
+		?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
