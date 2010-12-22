@@ -7,7 +7,9 @@
 
 <!-- RSVP here -->
 <div class="item rsvp">
-	<div class="status"><span><?php echo $eventuser->status ? "You are " . CHtml::encode(strtolower($eventuser->status)) : "You have not yet responded.";?></span></div>
+	<div class="attendeecount"><span><?php echo $event->eventUsersAttendingCount == 1 
+		? $event->eventUsersAttendingCount . " person attending" 
+		: $event->eventUsersAttendingCount . " people attending";?></span></div>
 	<div class="formblock">
 		<?php
 		$form = $this->beginWidget('CActiveForm', array(
