@@ -60,7 +60,7 @@ em {
 {
 	display: inline;
 	margin: 0px 35px 0px 0px;
-	#ffffff-space: nowrap;
+	white-space: nowrap;
 }
 
 #mainnav ul li a, #mainnav ul li a:visited 
@@ -100,7 +100,7 @@ em {
 	list-style-type: none;
 	display: inline;
 	margin-right: 35px;
-	#ffffff-space: nowrap
+	white-space: nowrap
 }
 
 #subnav ul li a, #subnav ul li a:visited
