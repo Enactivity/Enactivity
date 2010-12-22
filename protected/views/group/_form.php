@@ -10,19 +10,23 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('maxlength'=>Group::NAME_MAX_LENGTH)); ?>
-		<?php echo $form->error($model,'name'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'name'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'name',
+			array('maxlength'=>Group::NAME_MAX_LENGTH)
+			); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'name'); ?></div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'slug'); ?>
-		<?php echo $form->textField($model,'slug',array('maxlength'=>Group::SLUG_MAX_LENGTH)); ?>
-		<?php echo $form->error($model,'slug'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'slug'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'slug',
+			array('maxlength'=>Group::SLUG_MAX_LENGTH)
+			); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'slug'); ?></div>
 	</div>
 	
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

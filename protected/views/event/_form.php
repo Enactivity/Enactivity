@@ -10,14 +10,16 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'groupId'); ?>
-		<?php echo $form->dropDownList($model,'groupId', CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); ?>
-		<?php echo $form->error($model,'groupId'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
+		<div class="forminput"><?php echo $form->dropDownList($model,'groupId', 
+			CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); 
+			?></div>
+		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
 	</div>
 	
 	<div class="row">
-		<?php echo $form->labelEx($model,'starts'); ?>
-		<?php
+		<div class="formlabel"><?php echo $form->labelEx($model,'starts'); ?></div>
+		<div class="forminput"><?php
 			// preformat date before loading into widget 
 			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
@@ -31,13 +33,13 @@
 					),
 				)
 			);  
-		?>
-		<?php echo $form->error($model,'starts'); ?>
+		?></div>
+		<div class="formerrors"><?php echo $form->error($model,'starts'); ?></div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ends'); ?>
-		<?php 
+		<div class="formlabel"><?php echo $form->labelEx($model,'ends'); ?></div>
+		<div class="forminput"><?php 
 			// preformat date before loading into widget 
 			$model->ends = isset($model->ends) ? date('m/d/Y g:i a', strtotime($model->ends)) : null;
 			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
@@ -51,35 +53,37 @@
 					),
 				)
 			);  
-		?>
-		<?php echo $form->error($model,'ends'); ?>
+		?></div>
+		<div class="formerrors"><?php echo $form->error($model,'ends'); ?></div>
 	</div>	
 	
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('maxlength'=>Event::NAME_MAX_LENGTH)); ?>
-		<?php echo $form->error($model,'name'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'name'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'name',
+			array('maxlength'=>Event::NAME_MAX_LENGTH)); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'name'); ?></div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location',array('maxlength'=>Event::LOCATION_MAX_LENGTH)); ?>
-		<?php echo $form->error($model,'location'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'location'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'location',
+			array('maxlength'=>Event::LOCATION_MAX_LENGTH)); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'location'); ?></div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',
+		<div class="formlabel"><?php echo $form->labelEx($model,'description'); ?></div>
+		<div class="forminput"><?php echo $form->textArea($model,'description',
 			array(
 				'maxlength'=>Event::DESCRIPTION_MAX_LENGTH,
 				'rows'=>5,
 			)); 
-		?>
-		<?php echo $form->error($model,'description'); ?>
+		?></div>
+		<div class="formerrors"><?php echo $form->error($model,'description'); ?></div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

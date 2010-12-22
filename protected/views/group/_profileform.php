@@ -10,18 +10,18 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model->groupProfile, 'description'); ?>
-		<?php echo $form->textArea($model->groupProfile, 'description', 
+		<div class="formlabel"><?php echo $form->labelEx($model->groupProfile, 'description'); ?></div>
+		<div class="forminput"><?php echo $form->textArea($model->groupProfile, 'description', 
 			array(
 				'maxlength'=>GroupProfile::DESCRIPTION_MAX_LENGTH,
 				'rows'=>5,
 			)); 
-		?>
-		<?php echo $form->error($model->groupProfile, 'description'); ?>
+		?></div>
+		<div class="formerrors"><?php echo $form->error($model->groupProfile, 'description'); ?></div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

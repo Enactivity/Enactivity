@@ -14,13 +14,14 @@ $this->pageTitle = 'Recover Password';
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'usernameOrEmail'); ?>
-		<?php echo $form->textField($model,'usernameOrEmail', array('placeholder'=>'Email or username')); ?>
-		<?php echo $form->error($model,'usernameOrEmail'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail',
+			 array('placeholder'=>'Email or username')); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'usernameOrEmail'); ?></div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Generate new password'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton('Generate new password'); ?></div>
 	</div>
 	
 <?php $this->endWidget(); ?>

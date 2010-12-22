@@ -14,29 +14,33 @@ $this->pageTitle = 'Login';
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'usernameOrEmail'); ?>
-		<?php echo $form->textField($model,'usernameOrEmail', array('placeholder'=>'Email or username')); ?>
-		<?php echo $form->error($model,'usernameOrEmail'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail', 
+			array('placeholder'=>'Email or username')); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'usernameOrEmail'); ?></div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password', array('placeholder'=>'Password')); ?>
-		<?php echo $form->error($model,'password'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'password'); ?></div>
+		<div class="forminput"><?php echo $form->passwordField($model,'password', 
+			array('placeholder'=>'Password')); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'password'); ?></div>
 	</div>
 
 	<div class="row rememberMe">
-		<?php echo $form->labelEx($model,'rememberMe'); ?>
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model,'rememberMe'); ?></div>
+		<div class="forminput"><?php echo $form->checkBox($model,'rememberMe'); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'rememberMe'); ?></div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton('Login'); ?></div>
 	</div>
 	
 	<div class="row">
-		<?php echo CHtml::link('Forgot my password', array('user/recoverpassword'))?>
+		<div class="formlink"><?php echo CHtml::link('Forgot my password', array(
+			'user/recoverpassword'
+		));?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

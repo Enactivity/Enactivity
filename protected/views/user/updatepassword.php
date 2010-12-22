@@ -26,21 +26,21 @@ $this->menu=array(
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model, 'password'); ?>
-		<?php echo $form->passwordField($model, 'password', 
-			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?>
-		<?php echo $form->error($model, 'password'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model, 'password'); ?></div>
+		<div class="forminput"><?php echo $form->passwordField($model, 'password', 
+			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?></div>
+		<div class="formerrors"><?php echo $form->error($model, 'password'); ?></div>
 	</div>
 	
 	<div class="row">
-		<?php echo $form->labelEx($model, 'confirmPassword'); ?>
-		<?php echo $form->passwordField($model, 'confirmPassword',
-			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?>
-		<?php echo $form->error($model, 'confirmPassword'); ?>
+		<div class="formlabel"><?php echo $form->labelEx($model, 'confirmPassword'); ?></div>
+		<div class="forminput"><?php echo $form->passwordField($model, 'confirmPassword',
+			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?></div>
+		<div class="formerrors"><?php echo $form->error($model, 'confirmPassword'); ?></div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="row">
+		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>
