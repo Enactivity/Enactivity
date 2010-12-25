@@ -15,6 +15,11 @@ html, body
 a, a:hover, a:visited, a:active
 {
 	color: #000000;
+	
+	-moz-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
 }
 
 input, textarea, select { 
@@ -29,6 +34,14 @@ strong
 
 em {
 	font-style: italic;
+}
+
+#content form input[type=submit]:hover, 
+#content form input[type=button]:hover {
+	-moz-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
 }
 
 /*
