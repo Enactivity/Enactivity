@@ -290,6 +290,7 @@ div.flash-success a
 	border-bottom-right-radius: 10px 10px;
 	border: 3px solid #000000;
 	color: #ffffff;
+	cursor: pointer;
 	font-weight: bold;
 	height: 35px;
 	padding-left: 15px;
@@ -312,6 +313,7 @@ div.flash-success a
 	background-color: #ffffff;
 	border: 3px solid #000000;
 	color: #000000;
+	cursor: default;
 }
 
 #content form input[type=submit].disabled:hover,
