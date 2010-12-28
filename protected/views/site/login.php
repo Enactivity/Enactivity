@@ -16,7 +16,10 @@ $this->pageTitle = 'Login';
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail', 
-			array('placeholder'=>'Email or username')); ?></div>
+			array(
+				'placeholder'=>'Email or username',
+				'autofocus'=>'autofocus',
+			)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'usernameOrEmail'); ?></div>
 	</div>
 

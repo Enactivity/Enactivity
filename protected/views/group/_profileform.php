@@ -15,6 +15,7 @@
 			array(
 				'maxlength'=>GroupProfile::DESCRIPTION_MAX_LENGTH,
 				'rows'=>5,
+				'autofocus'=>'autofocus',
 			)); 
 		?></div>
 		<div class="formerrors"><?php echo $form->error($model->groupProfile, 'description'); ?></div>

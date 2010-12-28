@@ -12,7 +12,10 @@
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'name'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'name',
-			array('maxlength'=>Group::NAME_MAX_LENGTH)
+			array(
+				'maxlength'=>Group::NAME_MAX_LENGTH, 
+				'autofocus'=>'autofocus'
+			)
 			); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'name'); ?></div>
 	</div>

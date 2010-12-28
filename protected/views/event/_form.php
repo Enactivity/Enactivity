@@ -32,7 +32,7 @@
 				        'timeFormat' => 'h:mm tt',
 					),
 				)
-			);  
+			);
 		?></div>
 		<div class="formerrors"><?php echo $form->error($model,'starts'); ?></div>
 	</div>

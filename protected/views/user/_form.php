@@ -18,7 +18,11 @@
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model, 'username'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model, 'username', 
-			array('maxlength'=>User::USERNAME_MAX_LENGTH)); ?></div>
+			array(
+				'maxlength'=>User::USERNAME_MAX_LENGTH,
+				'autofocus'=>'autofocus',
+			)); 
+			?></div>
 		<div class="formerrors"><?php echo $form->error($model, 'username'); ?></div>
 	</div>
 
