@@ -28,7 +28,10 @@ $this->menu=array(
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model, 'password'); ?></div>
 		<div class="forminput"><?php echo $form->passwordField($model, 'password', 
-			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?></div>
+			array(
+				'maxlength'=>User::PASSWORD_MAX_LENGTH,
+				'autofocus'=>'autofocus',
+			)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model, 'password'); ?></div>
 	</div>
 	
