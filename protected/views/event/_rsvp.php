@@ -12,7 +12,7 @@
 		: $event->eventUsersAttendingCount . " people attending";?></span></div>
 	<div class="formblock">
 		<?php
-		$form = $this->beginWidget('CActiveForm', array(
+		$form = $this->beginWidget('ext.pwidgets.PActiveForm', array(
 			    'enableAjaxValidation'=>false,
 			));
 			

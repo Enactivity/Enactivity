@@ -5,7 +5,7 @@ $this->pageTitle = 'Login';
 <p>Please fill out the following form with your login credentials:</p>
 
 <div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
 	'id'=>'login-form',
 	'enableAjaxValidation'=>false,
 )); 

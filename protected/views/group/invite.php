@@ -11,7 +11,7 @@ $this->menu=array(
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
 	'id'=>'invite-form-invite-form',
 	'enableAjaxValidation'=>false,
 )); ?>
