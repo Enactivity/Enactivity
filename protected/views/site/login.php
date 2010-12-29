@@ -37,11 +37,11 @@ $this->pageTitle = 'Login';
 	</div>
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton('Login'); ?></div>
+		<div class="buttons"><?php echo PHtml::submitButton('Login'); ?></div>
 	</div>
 	
 	<div class="row">
-		<div class="formlink"><?php echo CHtml::link('Forgot my password', array(
+		<div class="formlink"><?php echo PHtml::link('Forgot my password', array(
 			'user/recoverpassword'
 		));?></div>
 	</div>

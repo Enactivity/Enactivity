@@ -5,7 +5,7 @@
  */ 
 ?>
 <div class="item user"><span><?php 
-	echo CHtml::link(
+	echo PHtml::link(
 		$data->fullName != "" ? $data->fullName : $data->email, 
 		$data->permalink, array(
 			'class'=>'permalink',

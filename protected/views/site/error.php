@@ -3,5 +3,5 @@ $this->pageTitle = 'Error';
 ?>
 
 <div class="error">
-<?php echo CHtml::encode($message); ?>
+<?php echo PHtml::encode($message); ?>
 </div>

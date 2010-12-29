@@ -43,7 +43,7 @@ $this->menu=array(
 	</div>
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
+		<div class="buttons"><?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

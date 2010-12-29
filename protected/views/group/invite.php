@@ -23,7 +23,7 @@ $this->menu=array(
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
 		<div class="forminput"><?php echo $form->dropDownList($model, 'groupId', 
-			CHtml::listData($userGroups, 'id', 'name'),
+			PHtml::listData($userGroups, 'id', 'name'),
 			array('autofocus'=>'autofocus')); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
 	</div>
@@ -36,7 +36,7 @@ $this->menu=array(
 
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton('Submit'); ?></div>
+		<div class="buttons"><?php echo PHtml::submitButton('Submit'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

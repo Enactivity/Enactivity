@@ -41,8 +41,8 @@ $this->renderPartial('_rsvp', array(
 		array( // group displayed as a link
 			'label'=>$model->getAttributeLabel('groupId'),
             'type'=>'raw',
-            'value'=>CHtml::link(
-				CHtml::encode($model->group->name),
+            'value'=>PHtml::link(
+				PHtml::encode($model->group->name),
 				$model->group->permalink,
 				array(
 					'class'=>'cid',
@@ -52,8 +52,8 @@ $this->renderPartial('_rsvp', array(
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
             'type'=>'raw',
-            'value'=>CHtml::link(
-				CHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
+            'value'=>PHtml::link(
+				PHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
 				$model->creator->permalink, 
 				array(
 					'class'=>'cid',

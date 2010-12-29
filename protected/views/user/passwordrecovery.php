@@ -21,7 +21,7 @@ $this->pageTitle = 'Recover Password';
 	</div>
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton('Generate new password'); ?></div>
+		<div class="buttons"><?php echo PHtml::submitButton('Generate new password'); ?></div>
 	</div>
 	
 <?php $this->endWidget(); ?>

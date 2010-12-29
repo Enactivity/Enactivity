@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
 		<div class="forminput"><?php echo $form->dropDownList($model,'groupId', 
-			CHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); 
+			PHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); 
 			?></div>
 		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
 	</div>
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
+		<div class="buttons"><?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
 <?php $this->endWidget(); ?>

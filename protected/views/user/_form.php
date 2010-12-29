@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="row">
-		<div class="buttons"><?php echo CHtml::submitButton(
+		<div class="buttons"><?php echo PHtml::submitButton(
 			$model->isNewRecord ? 'Create' : 'Save'); ?></div>
 	</div>
 
