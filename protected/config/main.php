@@ -87,6 +87,7 @@ return array(
 			'widgets'=>array(
 				'CBaseListView' => array(
 					'cssFile' => false,
+					'summaryText' => false,
 				),
 				'CBreadcrumbs' => array(
 					//'cssFile' => false,
@@ -165,6 +166,7 @@ return array(
 				),
 				'CListView' => array(
 					'cssFile' => false,
+					'summaryText' => false,
 				),
 				'CMenu' => array(
 					//'cssFile' => false,
