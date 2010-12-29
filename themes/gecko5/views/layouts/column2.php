@@ -1,6 +1,8 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="content">
-	<h1><?php echo $this->pageTitle; ?></h1>
+<article id="content">
+	<header>
+		<h1><?php echo $this->pageTitle; ?></h1>
+	</header>
 	<?php echo $content; ?>
-</div><!-- end of content -->
+</article><!-- end of content -->
 <?php $this->endContent(); ?>

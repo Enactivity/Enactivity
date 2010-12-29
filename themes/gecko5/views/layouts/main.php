@@ -19,7 +19,8 @@
 </head>
 <body>
 <div class="bodycontainer" id="page">
-<div id="mainnav">
+<header>
+<nav id="mainnav">
 <?php $this->widget('zii.widgets.CMenu', array(
 	'items'=>array(
 		array('label'=>'Home:Beta', 'url'=>array('/site/index')),
@@ -32,44 +33,41 @@
 	),
 )); 
 ?>
-</div><!-- mainnav -->
+</nav><!-- mainnav -->
 		
-	<?php
-	if(isset($this->menu) 
-		&& !empty($this->menu)
-		&& !Yii::app()->user->isGuest
-	):?>
-		<div id="subnav">
-		<?php 
-		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-		));
-		?>
-		</div><!-- end of subnav -->
-	<?php endif; ?>
+<?php
+if(isset($this->menu) 
+	&& !empty($this->menu)
+	&& !Yii::app()->user->isGuest
+):?>
+<nav id="subnav">
+<?php 
+$this->widget('zii.widgets.CMenu', array(
+	'items'=>$this->menu,
+));
+?>
+</nav><!-- end of subnav -->
+<?php endif; ?>
 	
+<!-- flash notices -->
+<?php if(Yii::app()->user->hasFlash('error')):?>
+<div class="flash-error">
+<?php echo Yii::app()->user->getFlash('error'); ?>
+</div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('notice')):?>
+<div class="flash-notice">
+<?php echo Yii::app()->user->getFlash('notice'); ?>
+</div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('success')):?>
+<div class="flash-success">
+<?php echo Yii::app()->user->getFlash('success'); ?>
+</div>
+<?php endif; ?>
+</header>
 	
-	<!-- flash notices -->
-		<?php if(Yii::app()->user->hasFlash('error')):?>
-		    <div class="flash-error">
-		        <?php echo Yii::app()->user->getFlash('error'); ?>
-		    </div>
-		<?php endif; ?>
-		<?php if(Yii::app()->user->hasFlash('notice')):?>
-		    <div class="flash-notice">
-		        <?php echo Yii::app()->user->getFlash('notice'); ?>
-		    </div>
-		<?php endif; ?>
-		<?php if(Yii::app()->user->hasFlash('success')):?>
-		    <div class="flash-success">
-		        <?php echo Yii::app()->user->getFlash('success'); ?>
-		    </div>
-		<?php endif; ?>
-	</header>
-	
-	<article>
-		<?php echo $content; ?>
-	</article>
+	<?php echo $content; ?>
 	
 </div><!-- page -->
 	

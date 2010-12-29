@@ -3,8 +3,11 @@
 */
 html, body
 {
-	background-image: url("../images/stripes.png");
-	background-repeat: repeat;
+	background: transparent url('../images/poncla_impact.jpg') no-repeat center top;
+	-moz-background-size: 100% auto;
+	-o-background-size: 100% auto;
+	-webkit-background-size: 100% auto;
+	background-size: 100% auto;
 	color: #000000;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
@@ -25,6 +28,7 @@ a, a:hover, a:visited, a:active
 input, textarea, select { 
 	font-size: 16px;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	max-width: 32em;
 }
 
 strong 
@@ -146,13 +150,17 @@ em {
 */
 #content
 {
-	background-color: #ffffff;
+	background-color: rgba(255, 255, 255, .5);
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 	overflow: hidden;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 1000px;
-	padding-right: 20px;
-	padding-left: 20px;
+	padding-right: 15px;
+	padding-left: 15px;
 	padding-top: 10px;
 	padding-bottom: 50px;
 	word-wrap: break-word;
@@ -291,7 +299,7 @@ div.flash-success a
 #content form .row select 
 {
 	margin-left: 100px;
-	width: 70%;
+	width: 100%;
 }
 
 #content form input[type=submit], 
@@ -364,7 +372,7 @@ div .errorMessage {
 
 #content td 
 {
-	max-width: 32em;	
+	max-width: 32em;
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -458,8 +466,13 @@ div .errorMessage {
 */
 #content .event
 {
-	margin-bottom: 10px;
+	background-color: rgba(255, 255, 255, .5);
+	-moz-border-radius: 15px;
+	-o-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 	padding: 10px;
+	margin-bottom: 10px;
 }
 
 #content .event .eventname
@@ -501,6 +514,8 @@ div .errorMessage {
 	-o-border-bottom-right-radius: 0px 0px;
 	-webkit-border-bottom-right-radius: 0px 0px;
 	border-bottom-right-radius: 0px 0px;
+	padding-left: 5px;
+	padding-right: 5px;
 	text-align: center;
 	width: 210px;
 }
