@@ -250,7 +250,7 @@ class GroupController extends Controller
 					if(is_null($user)) {
 						//Create a new user with the email invite
 						$user = new User;
-						$user->setScenario('invite');
+						$user->setScenario(User::SCENARIO_INVITE);
 						$user->email = $email;
 						if(!$user->save()) {
 							throw new CHttpException(500, 'There was an error when trying to generate invites. Please try again later.');

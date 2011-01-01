@@ -67,7 +67,7 @@ class UserController extends Controller
 	public function actionRegister($token)
 	{		
 		$model = $this->loadModelByToken($token);
-		$model->setScenario('register');
+		$model->setScenario(User::SCENARIO_REGISTER);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -129,7 +129,7 @@ class UserController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->loadModel($id);
-		$model->setScenario('update');
+		$model->setScenario(User::SCENARIO_UPDATE);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -155,7 +155,7 @@ class UserController extends Controller
 	public function actionUpdatePassword($id)
 	{
 		$model = $this->loadModel($id);
-		$model->setScenario('updatePassword');
+		$model->setScenario(User::SCENARIO_UPDATE_PASSWORD);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -166,6 +166,10 @@ class UserController extends Controller
 			if($model->save()) {
 				$this->redirect(array('view','id'=>$model->id));	
 			}
+		}
+		else {
+			// if the user hasn't attempted an upload yet, clean out their password
+			$model->password = null;
 		}
 
 		$this->render('updatepassword', array(

@@ -46,6 +46,11 @@ class User extends CActiveRecord
 	
 	const USERNAME_MAX_LENGTH = 50;
 	const USERNAME_MIN_LENGTH = 3;
+	
+	const SCENARIO_INVITE = 'invite';
+	const SCENARIO_REGISTER = 'register';
+	const SCENARIO_UPDATE = 'update';
+	const SCENARIO_UPDATE_PASSWORD = 'updatePassword';
 
 	/******************************************************
 	 * DO NOT CHANGE THE SALT!  YOU WILL BREAK ALL SIGN-INS
@@ -254,11 +259,11 @@ class User extends CActiveRecord
 			if($this->isNewRecord)
 			{				
 				//encrypt token and password
-				$this->token = $this->encrypt(time(), '');
+				$this->token = self::generateToken();
 			}
-			else {
-				//TODO: move to controller so login updates won't change it
-				$this->password = $this->encrypt($this->password, $this->token);
+			elseif($this->getScenario() == self::SCENARIO_REGISTER
+				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
+				$this->password = self::encrypt($this->password, $this->token);
 			}
 			return true;
 		}
@@ -272,7 +277,7 @@ class User extends CActiveRecord
 	 */
 	public function isPassword($password)
 	{
-		return $this->encrypt($password, $this->token) === $this->password;
+		return self::encrypt($password, $this->token) === $this->password;
 	}
 	
 	/**
@@ -307,8 +312,15 @@ class User extends CActiveRecord
 	 * @param string $token
 	 * @return encrypted value
 	 */
-	public function encrypt($value, $token) {
+	public static function encrypt($value, $token) {
 		return sha1(self::SALT . $token . $value);
+	}
+	
+	/**
+	 * @return a new token object
+	 */
+	public static function generateToken() {
+		return self::encrypt(time(), '');
 	}
 
 	/**
