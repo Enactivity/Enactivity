@@ -50,8 +50,14 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+				array(
+                    'class'=>'CEmailLogRoute',
+                    'levels'=>'error, warning',
+                    'emails'=>'support-message-log@poncla.com',
+					'enabled'=>false,
+					'sentFrom'=>'support-message-log@poncla.com',
+                ),
 				// un/comment the following to show/hide log messages on web pages
-				
 //				array(
 //					'class'=>'CWebLogRoute',
 //				),
