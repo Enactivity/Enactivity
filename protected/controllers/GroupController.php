@@ -280,7 +280,7 @@ class GroupController extends Controller
 		
 		// get user's groups
 		if(Yii::app()->user->isAdmin) {
-			$userGroups = Group::model()->findAll();
+			$userGroups = Group::model()->findAll(array('order' => 'name'));
 		}
 		else {
 			$userGroups = Yii::app()->user->model->groups;	
