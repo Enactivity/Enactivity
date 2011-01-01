@@ -322,6 +322,13 @@ class User extends CActiveRecord
 	public static function generateToken() {
 		return self::encrypt(time(), '');
 	}
+	
+	/**
+	 * @return a new random password
+	 */
+	public static function generatePassword() {
+		return StringUtils::createRandomString(10);
+	}
 
 	/**
 	 * Get the full name of the user (i.e. First Last)
@@ -407,13 +414,14 @@ class User extends CActiveRecord
 	 * Also sets flash for user.
 	 */
 	public function recoverPassword() {
-		$this->password = StringUtils::createRandomString(10);
+		$newpassword = self::generatePassword();
+		$this->password = $newpassword;
 		if($this->save()) {
 			// email user
 			$from = 'no-reply@poncla.com';
 			$subject = 'Your Poncla password has been reset';
 			$body = 'Someone has requested that your password for your account'
-			. ' be reset.  We\'ve generated the new password: ' . $this->password
+			. ' be reset.  We\'ve generated the new password: ' . $newpassword
 			. ' for you.  You can change it once you log in.  If you didn\'t request'
 			. ' this new password please contact us at info@poncla.com';
 			
