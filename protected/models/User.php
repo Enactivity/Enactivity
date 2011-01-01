@@ -55,7 +55,6 @@ class User extends CActiveRecord
 	// Confirmaton vars
 	public $confirmPassword;
 	
-	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -71,6 +70,21 @@ class User extends CActiveRecord
 	public function tableName()
 	{
 		return 'user';
+	}
+	
+	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
 	}
 
 	/**
@@ -233,36 +247,22 @@ class User extends CActiveRecord
 		return false;
 	}
 
-	protected function afterValidate() {
-		if(parent::afterValidate()) {
-			return true;
-		}
-		return false;
-	}
-
 	protected function beforeSave()
 	{
 		if(parent::beforeSave())
 		{
 			if($this->isNewRecord)
-			{
-				$this->created = new CDbExpression('NOW()');
-				$this->modified = new CDbExpression('NOW()');
-				
+			{				
 				//encrypt token and password
 				$this->token = $this->encrypt(time(), '');
-				//$this->password = $this->encrypt($this->password, $this->token);
 			}
 			else {
 				//TODO: move to controller so login updates won't change it
-				$this->modified = new CDbExpression('NOW()');
 				$this->password = $this->encrypt($this->password, $this->token);
 			}
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 	/**

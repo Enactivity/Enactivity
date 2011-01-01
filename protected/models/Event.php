@@ -49,6 +49,21 @@ class Event extends CActiveRecord
 	{
 		return 'event';
 	}
+	
+	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -160,44 +175,22 @@ class Event extends CActiveRecord
 		));
 	}
 
-	protected function beforeValidate() {
-		if(parent::beforeValidate()) {			
-			return true;
-		}
-		return false;
-	}
-
-	protected function afterValidate() {
-		if(parent::afterValidate()) {
-			return true;
-		}
-		return false;
-	}
-
 	protected function beforeSave()
 	{
 		if(parent::beforeSave())
 		{
-			// Format dates into SQL dates
+			// Format start and end datetimes into SQL datetimes
 			$this->starts = date("Y-m-d H:i:s",  strtotime($this->starts));
 			$this->ends = date("Y-m-d H:i:s",  strtotime($this->ends));
 			
-			// Update create/mod time
 			if($this->isNewRecord)
 			{
-				// Set current user as 
+				// Set current user as creator 
 				$this->creatorId = Yii::app()->user->id;
-				$this->created = new CDbExpression('NOW()');
-				$this->modified = new CDbExpression('NOW()');
-			}
-			else {
-				$this->modified = new CDbExpression('NOW()');
 			}
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	/**

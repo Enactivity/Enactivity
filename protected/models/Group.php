@@ -43,6 +43,21 @@ class Group extends CActiveRecord
 	{
 		return 'group';
 	}
+	
+	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -130,30 +145,6 @@ class Group extends CActiveRecord
 			$this->slug = strtolower($this->slug);
 			return true;
 
-		}
-		return false;
-	}
-
-	protected function afterValidate() {
-		if(parent::afterValidate()) {
-			return true;
-		}
-		return false;
-	}
-
-	protected function beforeSave()
-	{
-		if(parent::beforeSave())
-		{
-			if($this->isNewRecord)
-			{
-				$this->created = new CDbExpression('NOW()');
-				$this->modified = new CDbExpression('NOW()');
-			}
-			else {
-				$this->modified = new CDbExpression('NOW()');
-			}
-			return true;
 		}
 		return false;
 	}

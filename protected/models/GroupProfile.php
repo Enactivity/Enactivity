@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'group_profile':
  * @property integer $groupId
  * @property string $description
+ * @property string $created
+ * @property string $modified
  *
  * The followings are the available model relations:
  * @property Group $group
@@ -32,6 +34,21 @@ class GroupProfile extends CActiveRecord
 	}
 
 	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
+	}
+	
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -42,9 +59,10 @@ class GroupProfile extends CActiveRecord
 			array('groupId', 'required'),
 			array('groupId', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>4000),
+			array('created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('groupId, description', 'safe', 'on'=>'search'),
+			array('groupId, description, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +86,8 @@ class GroupProfile extends CActiveRecord
 		return array(
 			'groupId' => 'Group',
 			'description' => 'Description',
+			'created' => 'Created',
+			'modified' => 'Last modified',
 		);
 	}
 

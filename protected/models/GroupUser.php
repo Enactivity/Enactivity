@@ -43,6 +43,21 @@ class GroupUser extends CActiveRecord
 	{
 		return 'group_user';
 	}
+	
+	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -118,40 +133,6 @@ class GroupUser extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	protected function beforeValidate() {
-		if(parent::beforeValidate()) {
-			//lowercase unique values
-			return true;
-		}
-		return false;
-	}
-
-	protected function afterValidate() {
-		if(parent::afterValidate()) {
-			return true;
-		}
-		return false;
-	}
-
-	protected function beforeSave()
-	{
-		if(parent::beforeSave())
-		{
-			if($this->isNewRecord)
-			{
-				$this->created = new CDbExpression('NOW()');
-				$this->modified = new CDbExpression('NOW()');
-			}
-			else {
-				$this->modified = new CDbExpression('NOW()');
-			}
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	/**
