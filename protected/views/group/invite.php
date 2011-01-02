@@ -30,7 +30,11 @@ $this->menu=array(
 
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'emails'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'emails'); ?></div>
+		<div class="forminput"><?php echo $form->emailField($model,'emails', 
+			array(
+				'multiple'=>'',
+				'placeholder'=>'One or more emails separated by spaces'
+			)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'emails'); ?></div>
 	</div>
 
