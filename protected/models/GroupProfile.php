@@ -114,6 +114,7 @@ class GroupProfile extends CActiveRecord
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param mixed the integer ID to be loaded 
+	 * @return GroupProfile the data model
 	 */
 	public function loadModel($id)
 	{

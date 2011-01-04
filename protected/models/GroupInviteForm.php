@@ -8,7 +8,14 @@
  */
 class GroupInviteForm extends CFormModel {
 	
+	/**
+	 * @var int
+	 */
 	public $groupId;
+	
+	/**
+	 * @var string
+	 */
 	public $emails;
 	
 	public function rules() {
@@ -34,8 +41,8 @@ class GroupInviteForm extends CFormModel {
 	
 	/**
 	 * Validate that the group id is an existing group
-	 * @param unknown_type $attribute
-	 * @param unknown_type $params
+	 * @param string $attribute
+	 * @param array $params
 	 */
 	public function validateGroupId($attribute, $params) {
 		if(is_null(Group::model()->findByPk($this->$attribute))) {
@@ -46,8 +53,8 @@ class GroupInviteForm extends CFormModel {
 	/**
 	 * Validate that each email in the emails list is a valid 
 	 * email.
-	 * @param unknown_type $attribute
-	 * @param unknown_type $params
+	 * @param string $attribute
+	 * @param array $params
 	 */
 	public function validateEmails($attribute, $params) {
 		$emails = $this->splitEmails($this->$attribute);

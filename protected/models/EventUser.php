@@ -130,6 +130,7 @@ class EventUser extends CActiveRecord
 	
 	/**
 	 * Return a list of the available statuses
+	 * @return array of status values
 	 */
 	public static function getStatuses() {
 		return array(self::STATUS_ATTENDING,
@@ -140,6 +141,7 @@ class EventUser extends CActiveRecord
 	 * Get the event user status for the given event and user
 	 * @param int $eventId
 	 * @param int $userId
+	 * @return EventUser
 	 */
 	public function getRSVP($eventId, $userId) {
 		$criteria = new CDbCriteria;
@@ -153,6 +155,7 @@ class EventUser extends CActiveRecord
 	 * Set an event user status for the current event and user
 	 * @param int $eventId
 	 * @param String $status
+	 * @return EventUser new or updated EventUser object
 	 */
 	public function setRSVP($eventId, $userId, $status) {
 		//look up if RSVP already exists

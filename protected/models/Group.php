@@ -139,6 +139,9 @@ class Group extends CActiveRecord
 		));
 	}
 
+	/**
+	 * @see CActiveRecord::beforeValidate()
+	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			//lowercase unique values

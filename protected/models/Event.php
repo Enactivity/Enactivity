@@ -91,8 +91,9 @@ class Event extends CActiveRecord
 	/**
 	 * Validate that the given date comes after the specified
 	 * 'beforeDate'
-	 * @param unknown_type $attribute
-	 * @param unknown_type $params
+	 * @param string $attribute the attribute to test
+	 * @param array $params
+	 * @return boolean true if date comes after parameter date, false otherwise
 	 */
 	public function validateDateAfter($attribute, $params) {
 		$ends = $this->$attribute;
@@ -194,7 +195,8 @@ class Event extends CActiveRecord
 	}
 	
 	/**
-	 * Returns the dates in the form of a sentance 
+	 * Returns the dates in the form of a sentence 
+	 * @return string the dates in the form of a sentence 
 	 */
 	public function getDatesAsSentence() {
 		$date = Yii::app()->dateformatter->formatDateTime($this->starts, 
@@ -259,8 +261,8 @@ class Event extends CActiveRecord
 	
 	/**
 	 * Get the event user status for the event and user
-	 * @param int $eventId
 	 * @param int $userId
+	 * @return EventUser 
 	 */
 	public function getRSVP($userId) {
 		return EventUser::model()->getRSVP($this->id, $userId);

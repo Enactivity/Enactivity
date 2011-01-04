@@ -57,7 +57,9 @@ class User extends CActiveRecord
 	 ******************************************************/
 	const SALT = 'yom0mm4wasap455w0rd';
 
-	// Confirmaton vars
+	/**
+	 * @var string
+	 */
 	public $confirmPassword;
 	
 	/**
@@ -240,6 +242,10 @@ class User extends CActiveRecord
 		));
 	}
 
+	/**
+	 * Convert email and username to lowercase
+	 * 
+	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			//lowercase unique values
@@ -252,6 +258,9 @@ class User extends CActiveRecord
 		return false;
 	}
 
+	/**
+	 * Generate new token on new record.  Encrypt password if needed.
+	 */
 	protected function beforeSave()
 	{
 		if(parent::beforeSave())
@@ -310,21 +319,21 @@ class User extends CActiveRecord
 	 * Encrypt the given value
 	 * @param string $value
 	 * @param string $token
-	 * @return encrypted value
+	 * @return string encrypted value
 	 */
 	public static function encrypt($value, $token) {
 		return sha1(self::SALT . $token . $value);
 	}
 	
 	/**
-	 * @return a new token object
+	 * @return string new encrypted token
 	 */
 	public static function generateToken() {
 		return self::encrypt(time(), '');
 	}
 	
 	/**
-	 * @return a new random password
+	 * @return string a new random password
 	 */
 	public static function generatePassword() {
 		return StringUtils::createRandomString(10);
@@ -332,7 +341,7 @@ class User extends CActiveRecord
 
 	/**
 	 * Get the full name of the user (i.e. First Last)
-	 * @return String FirstName LastName or NULL if neither is set
+	 * @return string FirstName LastName or NULL if neither is set
 	 */
 	public function getFullName() {
 		if($this->firstName != NULL 
@@ -346,6 +355,7 @@ class User extends CActiveRecord
 	
 	/**
 	 * Get the url for viewing this user
+	 * @return string url to user page
 	 */
 	public function getPermalink()
 	{
@@ -359,7 +369,7 @@ class User extends CActiveRecord
 	}
 	
 	/**
-	 * Return a list of the available statuses
+	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {
 		return array(self::STATUS_ACTIVE,
@@ -394,6 +404,7 @@ class User extends CActiveRecord
 	 * Invite a user to the web app
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
+	 * @return void
 	 */
 	public function sendInvitation($userName, $groupName) {
 		//send invite email
@@ -412,6 +423,7 @@ class User extends CActiveRecord
 	 * Reset the user's password and send an email notifying them of the 
 	 * update.
 	 * Also sets flash for user.
+	 * @return void
 	 */
 	public function recoverPassword() {
 		$newpassword = self::generatePassword();

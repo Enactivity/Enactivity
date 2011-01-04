@@ -7,10 +7,24 @@
  */
 class UserLoginForm extends CFormModel
 {
+	/**
+	 * @var string
+	 */
 	public $usernameOrEmail;
+	
+	/**
+	 * @var string
+	 */
 	public $password;
+	
+	/**
+	 * @var boolean
+	 */
 	public $rememberMe;
 
+	/**
+	 * @var UserIdentity
+	 */
 	private $_identity;
 
 	/**
@@ -44,6 +58,7 @@ class UserLoginForm extends CFormModel
 	/**
 	 * Authenticates the password.
 	 * This is the 'authenticate' validator as declared in rules().
+	 * @return void
 	 */
 	public function authenticate($attribute, $params)
 	{

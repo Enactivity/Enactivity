@@ -7,6 +7,9 @@
  */
 class UserPasswordRecoveryForm extends CFormModel
 {
+	/**
+	 * @var string
+	 */
 	public $usernameOrEmail;
 
 	/**
@@ -34,6 +37,7 @@ class UserPasswordRecoveryForm extends CFormModel
 	
 	/**
 	 * Reset the user's password
+	 * @return void
 	 */
 	public function recoverPassword() {
 		$user = User::findByUsernameOrEmail($this->usernameOrEmail);

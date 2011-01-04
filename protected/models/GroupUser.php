@@ -23,7 +23,7 @@ class GroupUser extends CActiveRecord
 
 	/**
 	 * Store of group maps
-	 * @var unknown_type
+	 * @var array
 	 */
 	private static $_groups = array();
 
@@ -136,7 +136,7 @@ class GroupUser extends CActiveRecord
 	}
 
 	/**
-	 * Return a list of the available statuses
+	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {
 		return array(self::STATUS_ACTIVE,
@@ -148,6 +148,7 @@ class GroupUser extends CActiveRecord
 	 * Get whether the user is a member of the group
 	 * @param int $groupId
 	 * @param int $userId
+	 * @return boolean true if group member else false
 	 */
 	public function isGroupMember($groupId, $userId) {
 		$criteria = new CDbCriteria;
