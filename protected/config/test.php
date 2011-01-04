@@ -26,6 +26,10 @@ return CMap::mergeArray(
 					
 				),
 			),
+			
+			'urlManager'=>array(
+				'showScriptName'=>true,
+			)
 		),
 		
 		//'theme'=>'', //use yii-default
