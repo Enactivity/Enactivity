@@ -137,18 +137,22 @@ class EventUser extends CActiveRecord
 			self::STATUS_NOT_ATTENDING);
 	}
 	
-	/**
-	 * Get the event user status for the given event and user
-	 * @param int $eventId
-	 * @param int $userId
-	 * @return EventUser
-	 */
-	public function getRSVP($eventId, $userId) {
-		$criteria = new CDbCriteria;
-		$criteria->addCondition("eventId = '" . $eventId . "'");
-		$criteria->addCondition("userId = '" . $userId . "'");
-		$eventuser = $this->find($criteria);
-		return $eventuser;
+	public function scopeEvent($eventId)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'eventId = :eventId',
+			'params' => array(':eventId' => $eventId),
+		));
+		return $this;
+	}
+	
+	public function scopeUser($userId)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'userId = :userId',
+			'params' => array(':userId' => $userId),
+		));
+		return $this;
 	}
 	
 	/**
@@ -159,8 +163,11 @@ class EventUser extends CActiveRecord
 	 */
 	public function setRSVP($eventId, $userId, $status) {
 		//look up if RSVP already exists
-		$eventuser = $this->getRSVP($eventId, $userId);
-		if($eventuser === null) { 
+		$eventuser = EventUser::model()
+			->scopeEvent($eventId)
+			->scopeUser($userId)
+			->find();
+		if(is_null($eventuser)) { 
 			//if not exist, create new RSVP
 			$eventuser = new EventUser;
 		}

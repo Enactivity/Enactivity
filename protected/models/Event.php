@@ -119,13 +119,17 @@ class Event extends CActiveRecord
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'eventUsers' => array(self::HAS_MANY, 'EventUser', 'eventId'),
 			'eventUsersAttending' => array(self::HAS_MANY, 'EventUser', 'eventId',
-				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'),
+				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'
+			),
 			'eventUsersAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
-				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'),
+				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'
+			),
 			'eventUsersNotAttending' => array(self::HAS_MANY, 'EventUser', 'eventId',
-				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'),
+				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
+			),
 			'eventUsersNotAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
-				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'),
+				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
+			),
 		);
 	}
 
@@ -176,6 +180,40 @@ class Event extends CActiveRecord
 		));
 	}
 
+	public function defaultScope() {
+		return array(
+			'order' => 'starts ASC',
+		);
+	}
+	
+	/**
+	 * Scope for future events
+	 * @return Event model(s)
+	 */
+	public function scopeFuture()
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'ends > NOW()',
+		));
+		return $this;
+	}
+	
+	/**
+	 * Scope definition for events that share group value with
+	 * the user's groups 
+	 * @param int $userId
+	 * @return Event
+	 */
+	public function scopeUsersGroups($userId) {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
+				. ' WHERE userId=:userId))',
+			'params' => array(':userId' => $userId)
+		));
+		return $this;
+	}
+	
 	protected function beforeSave()
 	{
 		if(parent::beforeSave())
@@ -238,46 +276,15 @@ class Event extends CActiveRecord
 		return $dataProvider;
 	}
 	
-	public function defaultScope() {
-		return array(
-			'order' => 'starts ASC',
-		);
-	}
-	
-	/**
-	 * Scope for future events
-	 * @return Event model(s)
-	 */
-	public function scopeFuture()
-	{
-		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>'ends > NOW()',
-		));
-		return $this;
-	}
-	
-	/**
-	 * Scope definition for events that share group value with
-	 * the user's groups 
-	 * @param int $userId
-	 * @return Event
-	 */
-	public function scopeUsersGroups($userId) {
-		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
-				. ' WHERE userId=:userId))',
-			'params' => array(':userId' => $userId)
-		));
-		return $this;
-	}
-	
 	/**
 	 * Get the event user status for the event and user
 	 * @param int $userId
 	 * @return EventUser 
 	 */
 	public function getRSVP($userId) {
-		return EventUser::model()->getRSVP($this->id, $userId);
+		return EventUser::model()
+			->scopeEvent($this->id)
+			->scopeUser($userId)
+			->find();
 	}
 }

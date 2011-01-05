@@ -222,7 +222,10 @@ class EventController extends Controller
 		} 
 		else {
 			// if the user did not post their RSVP, get their current RSVP
-			$eventuser = EventUser::model()->getRSVP($eventId, Yii::app()->user->id);
+			$eventuser = EventUser::model()
+				->scopeEvent($eventId)
+				->scopeUser(Yii::app()->user->id)
+				->find();
 			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
 		}
 		return $eventuser;
