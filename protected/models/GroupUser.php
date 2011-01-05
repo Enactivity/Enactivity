@@ -144,6 +144,24 @@ class GroupUser extends CActiveRecord
 		self::STATUS_PENDING);
 	}
 	
+	public function scopeGroup($groupId)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'groupId = :groupId',
+			'params' => array(':groupId' => $groupId),
+		));
+		return $this;
+	}
+	
+	public function scopeUser($userId)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'userId = :userId',
+			'params' => array(':userId' => $userId),
+		));
+		return $this;
+	}
+	
 	/**
 	 * Get whether the user is a member of the group
 	 * @param int $groupId
@@ -151,12 +169,10 @@ class GroupUser extends CActiveRecord
 	 * @return boolean true if group member else false
 	 */
 	public function isGroupMember($groupId, $userId) {
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('groupId = :groupId');
-		$criteria->params[':groupId'] = $groupId;
-		$criteria->addCondition('userId = :userId');
-		$criteria->params[':userId'] = $userId;
-		$groupuser = $this->find($criteria);
+		$groupuser = GroupUser::model()
+			->scopeGroup($groupId)
+			->scopeUser($userId)
+			->find();
 		return isset($groupuser);
 	}
 	
