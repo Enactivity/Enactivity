@@ -238,25 +238,38 @@ class Event extends CActiveRecord
 		return $dataProvider;
 	}
 	
+	public function defaultScope() {
+		return array(
+			'order' => 'starts ASC',
+		);
+	}
+	
 	/**
-	 * Get a list of events that take place in the future for a given user
-	 * @param int $userId
-	 * @return CActiveDataProvider of Event models
+	 * Scope for future events
+	 * @return Event model(s)
 	 */
-	public function getFutureEventsForUser($userId) {
-		$this->unsetAttributes();  // clear any default values
-		
-		$dataProvider = $this->search();
-		$dataProvider->criteria->addCondition('id IN (SELECT id FROM ' . $this->tableName() 
-			.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
-			. ' WHERE userId=:userId))');
-		$dataProvider->criteria->params[':userId'] = $userId;
-		
-		$dataProvider->criteria->addCondition('ends > NOW()');
-		
-		$dataProvider->criteria->order = 'starts ASC';
-		
-		return $dataProvider;
+	public function scopeFuture()
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'ends > NOW()',
+		));
+		return $this;
+	}
+	
+	/**
+	 * Scope definition for events that share group value with
+	 * the user's groups 
+	 * @param int $userId
+	 * @return Event
+	 */
+	public function scopeUsersGroups($userId) {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
+				. ' WHERE userId=:userId))',
+			'params' => array(':userId' => $userId)
+		));
+		return $this;
 	}
 	
 	/**

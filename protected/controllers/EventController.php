@@ -31,19 +31,23 @@ class EventController extends Controller
 			$groupId = $event->groupId;
 		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+			// allow registered users to perform 'index' and 'create' actions
+			array('allow',  
 				'actions'=>array('index','create'),
 				'users'=>array('@'),
 			),
-			array('allow',  // allow only group members to perform 'create' and 'update' actions
+			// allow only group members to perform 'view', 'create' and 'update' actions
+			array('allow',  
 				'actions'=>array('view','update','delete'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			// allow admin user to perform 'admin' and 'delete' actions
+			array('allow', 
 				'actions'=>array('admin','view','update','delete'),
 				'expression'=>'$user->isAdmin',
 			),
-			array('deny',  // deny all users
+			// deny all users
+			array('deny',  
 				'users'=>array('*'),
 			),
 		);
@@ -152,7 +156,9 @@ class EventController extends Controller
 	public function actionIndex()
 	{
 		$model = new Event('search');
-		$dataProvider = $model->getFutureEventsForUser(Yii::app()->user->id);
+		$dataProvider = new CActiveDataProvider(
+			Event::model()->scopeUsersGroups(Yii::app()->user->id)->scopeFuture()
+		);
 		
 		$this->checkRSVPForm($_POST['Event']['id']);
 		
