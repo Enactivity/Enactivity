@@ -241,6 +241,12 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function defaultScope() {
+		return array(
+			'order' => 'firstName ASC',
+		);
+	}
 
 	/**
 	 * Convert email and username to lowercase
