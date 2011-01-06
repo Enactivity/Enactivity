@@ -139,6 +139,12 @@ class Group extends CActiveRecord
 		));
 	}
 
+	public function defaultScope() {
+		return array(
+			'order' => 'name ASC',
+		);
+	}
+	
 	/**
 	 * @see CActiveRecord::beforeValidate()
 	 */
