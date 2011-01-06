@@ -130,6 +130,7 @@ class Event extends CActiveRecord
 			'eventUsersNotAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
 				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
 			),
+			//TODO: implement usersAttending and usersNotAttending when MANY_MANY link properties is added
 		);
 	}
 
@@ -277,7 +278,7 @@ class Event extends CActiveRecord
 	}
 	
 	/**
-	 * Get the event user status for the event and user
+	 * Get the event user for the event and user
 	 * @param int $userId
 	 * @return EventUser 
 	 */
