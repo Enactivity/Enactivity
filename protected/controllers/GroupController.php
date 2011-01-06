@@ -182,9 +182,10 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model=new Group('search');
-		$dataProvider = $model->getGroupsByUser(Yii::app()->user->id);
-		
+		$dataProvider = new CActiveDataProvider('Group', array(
+			'data' => Yii::app()->user->model->groups)
+		);
+				
 		// If user is only in one group, redirect them to view group
 		if($dataProvider->getItemCount() == 1) {
 			$data = $dataProvider->getData();
@@ -193,7 +194,6 @@ class GroupController extends Controller
 		}
 		
 		$this->render('index', array(
-		        'model'=>$model,
 		        'dataProvider'=>$dataProvider,
 		));
 	}
