@@ -21,5 +21,25 @@ class StringUtils {
 		
 		return $password;
 	} 
+	
+	/**
+	 * Truncates the given string to a set length, with the suffix if 
+	 * the initial string was longer than the length.
+	 * @param string $string
+	 * @param int $length
+	 * @param string $suffix
+	 * @return string of provided length
+	 */
+	public static function truncate($string, $length, $suffix = '...') {
+		if(strlen($suffix) > $length) {
+			throw new CHttpException("Truncation suffix is longer than length");
+		}
+		
+		if(strlen($string) > $length) {
+			$string = substr($string, 0, $length + strlen($suffix));
+			$string .= $suffix;
+		}
+		return $string;
+	}
 }
 ?>
