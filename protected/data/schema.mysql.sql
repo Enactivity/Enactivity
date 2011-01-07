@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2011 at 01:02 PM
+-- Generation Time: Jan 07, 2011 at 03:36 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -76,6 +76,26 @@ CREATE TABLE IF NOT EXISTS `group` (
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_banter`
+--
+
+CREATE TABLE IF NOT EXISTS `group_banter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creatorId` int(11) DEFAULT NULL,
+  `groupId` int(11) NOT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `content` varchar(4000) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creatorId` (`creatorId`),
+  KEY `groupId` (`groupId`),
+  KEY `parentId` (`parentId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -143,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event_user`
@@ -151,6 +171,14 @@ ALTER TABLE `event`
 ALTER TABLE `event_user`
   ADD CONSTRAINT `event_user_ibfk_3` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `event_user_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `group_banter`
+--
+ALTER TABLE `group_banter`
+  ADD CONSTRAINT `group_banter_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_banter_ibfk_2` FOREIGN KEY (`parentId`) REFERENCES `group_banter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_banter_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_profile`

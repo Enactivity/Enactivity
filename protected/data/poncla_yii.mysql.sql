@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2011 at 01:43 PM
+-- Generation Time: Jan 07, 2011 at 03:36 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `event_user`
@@ -91,10 +91,12 @@ CREATE TABLE IF NOT EXISTS `event_user` (
 INSERT INTO `event_user` (`id`, `eventId`, `userId`, `status`, `created`, `modified`) VALUES
 (14, 5, 25, 'Attending', '2010-11-07 17:31:06', '2010-11-07 17:31:12'),
 (15, 7, 1, 'Attending', '2010-11-28 14:17:52', '2010-12-05 19:15:46'),
-(16, 9, 1, 'Not Attending', '2010-12-07 23:22:10', '2010-12-25 21:43:14'),
+(16, 9, 1, 'Not Attending', '2010-12-07 23:22:10', '2011-01-05 14:28:59'),
 (17, 8, 1, 'Attending', '2010-12-08 23:30:34', '2010-12-08 23:30:34'),
 (18, 10, 1, 'Not Attending', '2010-12-08 23:32:17', '2010-12-12 12:55:01'),
-(19, 12, 1, 'Attending', '2010-12-21 19:02:49', '2010-12-21 19:02:49');
+(19, 12, 1, 'Attending', '2010-12-21 19:02:49', '2010-12-21 19:02:49'),
+(20, 16, 1, 'Not Attending', '2011-01-05 14:21:04', '2011-01-05 14:21:04'),
+(21, 17, 1, 'Attending', '2011-01-05 14:22:18', '2011-01-05 14:22:18');
 
 -- --------------------------------------------------------
 
@@ -124,6 +126,44 @@ INSERT INTO `group` (`id`, `name`, `slug`, `created`, `modified`) VALUES
 (8, 'Poncla', 'poncla', '2010-12-18 14:05:51', '2010-12-18 14:05:51'),
 (9, 'testgroup', 'test', '2010-12-18 15:33:13', '2011-01-01 13:33:38'),
 (10, 'alphagrouptest', 'agt', '2010-12-31 22:27:18', '2010-12-31 22:27:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_banter`
+--
+
+CREATE TABLE IF NOT EXISTS `group_banter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creatorId` int(11) DEFAULT NULL,
+  `groupId` int(11) NOT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `content` varchar(4000) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creatorId` (`creatorId`),
+  KEY `groupId` (`groupId`),
+  KEY `parentId` (`parentId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `group_banter`
+--
+
+INSERT INTO `group_banter` (`id`, `creatorId`, `groupId`, `parentId`, `content`, `created`, `modified`) VALUES
+(1, 1, 6, NULL, 'How''s it going folks?', '2011-01-06 15:06:46', '2011-01-06 15:06:46'),
+(2, 1, 6, 1, 'So far so good.  Yeeeeeeeeeeeah!', '2011-01-06 15:07:17', '2011-01-06 15:12:21'),
+(3, 1, 5, NULL, 'This is a new topic', '2011-01-06 15:10:15', '2011-01-06 15:10:15'),
+(4, 1, 6, NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis sollicitudin mauris, id laoreet elit pharetra non. Fusce eget vehicula est. Nulla blandit orci elit. Cras sem libero, consequat sed pretium ac, aliquam fringilla libero. Quisque sit amet leo lacus. Duis nulla nibh, posuere et aliquet in, tincidunt vel lectus. Nunc ut odio a lorem malesuada pellentesque sed quis leo. Duis congue varius sapien vel ornare. Curabitur porttitor risus et leo vulputate sit amet blandit neque interdum. Vestibulum id leo tempus turpis porttitor lobortis iaculis a lacus. Curabitur cursus mauris a nisl accumsan scelerisque aliquam mi mattis. Ut condimentum felis vitae ligula commodo sollicitudin. Quisque at nisl et ipsum feugiat rhoncus. Aliquam facilisis hendrerit ante, eget luctus nibh placerat vel. Aenean a mattis velit. Curabitur adipiscing dapibus neque, eget placerat ipsum accumsan id. Praesent sed diam eu lectus elementum porttitor eget id enim. Ut justo mauris, placerat sit amet aliquam vitae, egestas eget nulla. Duis porta tristique nisl, sed viverra massa elementum ut.\r\n\r\nSuspendisse ullamcorper condimentum molestie. Fusce consequat mauris et urna cursus mollis. Nam augue magna, gravida sed ornare sed, porta non urna. Maecenas ac tortor ac erat consectetur commodo quis ut arcu. Donec imperdiet ligula ut nulla suscipit a molestie mauris imperdiet. Aenean diam urna, tempus ac dictum non, condimentum ut massa. Quisque sollicitudin, enim vitae sollicitudin blandit, dui dui pulvinar tortor, nec lobortis felis nisl sit amet ligula. Quisque consectetur dui id mauris suscipit faucibus. Donec non commodo massa. Mauris nec purus elit, vel semper arcu. Nulla eget odio justo, in volutpat quam. Nulla nec purus risus, nec tincidunt odio.\r\n\r\nPhasellus interdum magna sed lorem ultrices quis tincidunt eros gravida. Sed eget tortor eu felis ultricies auctor. Maecenas aliquam congue scelerisque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas erat ante, gravida a lobortis eget, fermentum quis risus. Nullam lacinia fringilla lacus, vitae hendrerit nibh molestie quis. Nulla scelerisque est ut diam convallis laoreet. Curabitur mollis tempus luctus. Pellentesque in egestas quam. Fusce pellentesque mattis libero sit amet fermentum. Nulla cursus aliquam feugiat. In vitae vulputate enim. Nulla sit amet felis ac nibh egestas aliquam. Maecenas tincidunt adipiscing quam ut auctor. Vivamus tincidunt convallis felis vel euismod. Vestibulum non felis quis tellus fermentum molestie vel in tortor. Suspendisse eu luctus risus. Donec leo augue, feugiat id aliquam quis, aliquam a quam.\r\n\r\nMaecenas vulputate ornare sodales. Sed vitae tortor est. Maecenas odio nulla, scelerisque eget tincidunt eget, euismod et nibh. Maecenas rutrum, sem in aliquam blandit, est ante tincidunt sapien, vitae ornare turpis velit non enim. Praesent lorem magna, interdum eget auctor commodo, placerat vestibulum mi. Etiam adipiscing arcu dictum tellus fermentum convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce felis lorem, viverra sed dictum interdum, tempor cursus ante. Cras diam tellus, accumsan sed lobortis vitae, tempor eu ipsum. Etiam lorem nisl, imperdiet venenatis volutpat eu, volutpat eget dolor. Pellentesque sit amet tortor sit amet orci varius lacinia ut at lectus. Integer imperdiet pretium ligula, at vehicula massa vulputate vitae. Phasellus quis nunc augue. Integer eget ornare lorem. Cras a dui nisl. Suspendisse facilisis dui et purus euismod et luctus ipsum cursus. Vivamus facilisis urna ac velit feugiat ultricies vehicula eros luctus.\r\n', '2011-01-06 15:15:56', '2011-01-06 15:15:56'),
+(5, 1, 6, NULL, 'Hi Brothers, \r\n\r\nHope you all are having a fabulous winter break! \r\nJust wanted to inform you guys that some service projects are posted on the month of January. \r\n\r\nThe upcoming one is SJSU Hockey vs. Maryland Hockey Service on Jan. 7, 2011. \r\n\r\n**For more information regarding the upcoming projects in January, please visit apogb.org calender. \r\n\r\nNote: It is also a good idea to start looking for a service project to \r\nsubmit. \r\n\r\nP.S. If you have any question please email us at service@apogb.org \r\n\r\nHappy Holidays! :] \r\n\r\nIn LFS, ', '2011-01-06 16:09:55', '2011-01-06 16:12:06'),
+(6, 1, 6, 1, 'This is another reply!', '2011-01-06 16:27:08', '2011-01-06 16:27:08'),
+(7, 1, 6, NULL, 'Attached is the list of the nominations that we came up with during tonight’s chapter meeting for the Spring 2009 Executive Committee. Everyone on the list has accepted unless further informed. \r\n\r\nThe open floor nominations are done for now, but nominations through email will be open until Saturday Nov. 22 @ 11:59PM. To nominate yourself or others, email me at president@apogb.org. \r\n\r\nTo decline any nominations, you can decline from the ballot but the deadline is also until Saturday @ 11:59PM. To decline, also email me at president@apogb.org. \r\n\r\nSpring 2009 Executive Committee Nominations \r\n\r\nPublic Relations Officer \r\nMarianne Mendezona \r\n\r\nHistorian \r\nShelsy Bass \r\nJason Punzalan & Kari Yamamoto \r\nEffie Aguila & Jason Punzalan \r\n\r\nSergeant-At-Arms \r\nMelly Sawatdee & Shelsy Bass \r\nMegan Smith & Tobi Richards \r\n\r\nTreasurer \r\nJason Punzalan & Shelsy Bass \r\n\r\nSecretary \r\nDavis Ngo & Jansey Lagdamen \r\nAmanda Soon & Effie Aguila \r\n\r\nVice President of Fellowship \r\nMaritza Martinez & Kevin Abella \r\nJennifer Gonzalez & Maritza Martinez \r\nMaria Makarian & Marianne Mendezona \r\nYuki Hagihara & Christine Tu \r\n\r\nVice President of Service \r\nJennifer Gonzalez & Melissa Urrutia \r\nDavis Ngo & Jason Punzalan \r\n\r\nVice President of Membership \r\nDat Phan \r\nChristine Tu \r\n\r\nPresident \r\nSean Corpus \r\nMarc Tellez \r\nTobi Richards \r\nJeff-Scott Tonel', '2011-01-06 16:53:30', '2011-01-06 16:53:30'),
+(8, 1, 6, NULL, 'This is from the index page', '2011-01-07 14:10:47', '2011-01-07 14:10:47'),
+(9, 1, 6, NULL, 'hi\r\n', '2011-01-07 14:38:55', '2011-01-07 14:38:55'),
+(10, 1, 5, 1, 'tets', '2011-01-07 15:20:10', '2011-01-07 15:21:58'),
+(11, 1, 6, 1, 'Trying to hack group id', '2011-01-07 15:21:42', '2011-01-07 15:21:42'),
+(12, 1, 6, 9, 'hello', '2011-01-07 15:34:58', '2011-01-07 15:34:58');
 
 -- --------------------------------------------------------
 
@@ -217,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`, `lastName`, `status`, `created`, `modified`, `lastLogin`) VALUES
-(1, 'admin', 'admin@poncla.com', '5d7f3e28571af8824a910e81996f409b8a6f5bd9', 'f7537a26d5f504d41e3c3586d32563cd8b47ef71', 'Poncla', 'Administrator', 'Active', '2010-10-10 00:00:00', '2011-01-01 12:54:46', NULL),
+(1, 'admin', 'admin@poncla.com', '5d7f3e28571af8824a910e81996f409b8a6f5bd9', 'ac3642003276203b8ad9ceb60856fd9f7c3c286c', 'Poncla', 'Administrator', 'Active', '2010-10-10 00:00:00', '2011-01-01 14:51:03', NULL),
 (4, 'tester', 'test@poncla.com', '0865818293977c11289e0e0c33ccae70035399c3', '1800b237666e34ff1ab4e09d7343db2365d2ef23', 'Veronica', 'Jones', 'Active', '2010-10-16 18:07:59', '2010-12-12 17:37:21', NULL),
 (6, NULL, 'test7@poncla.com', '3026c7aba32f8ef1bc234f7e8d4ab932008e4ec4', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 23:10:27', '2010-10-16 23:10:27', NULL),
 (7, NULL, 'test8@poncla.com', '736ee60eac821167231de24ba04b6a775ef9bb36', '05a9beae965ac78613309639f774eb92c10cb017', NULL, NULL, 'Pending', '2010-10-16 23:10:44', '2010-10-16 23:10:44', NULL),
@@ -248,7 +288,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`,
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event_user`
@@ -256,6 +296,14 @@ ALTER TABLE `event`
 ALTER TABLE `event_user`
   ADD CONSTRAINT `event_user_ibfk_3` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `event_user_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `group_banter`
+--
+ALTER TABLE `group_banter`
+  ADD CONSTRAINT `group_banter_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_banter_ibfk_2` FOREIGN KEY (`parentId`) REFERENCES `group_banter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_banter_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `group_profile`

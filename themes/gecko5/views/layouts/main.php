@@ -26,6 +26,7 @@
 		array('label'=>'Home:Beta', 'url'=>array('/site/index')),
 		array('label'=>'Groups', 'url'=>array('/group/index'), 'visible'=>!Yii::app()->user->isGuest),
 		array('label'=>'Events', 'url'=>array('/event/index'), 'visible'=>!Yii::app()->user->isGuest),
+		array('label'=>'Banter', 'url'=>array('/groupBanter/index'), 'visible'=>!Yii::app()->user->isGuest),
 		array('label'=>'Settings', 'url'=>array('/site/settings'), 'visible'=>!Yii::app()->user->isGuest),
 		array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 		array('label'=>'Logout ('.Yii::app()->user->model->firstName.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),

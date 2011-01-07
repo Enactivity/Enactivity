@@ -30,14 +30,15 @@ class StringUtils {
 	 * @param string $suffix defaults to '...' 
 	 * @return string of provided length
 	 */
-	public static function truncate($string, $length = 84, $suffix = '...') {
+	public static function truncate($string, $length = 64, $suffix = '...') {
 		if(strlen($suffix) > $length) {
 			throw new CHttpException("Truncation suffix is longer than length");
 		}
 		
 		if(strlen($string) > $length) {
-			$string = substr($string, 0, $length + strlen($suffix));
-			$string = trim($string) . $suffix;
+			$string = substr($string, 0, $length - strlen($suffix));
+			$string = trim($string);
+			$string .= $suffix;
 		}
 		return $string;
 	}
