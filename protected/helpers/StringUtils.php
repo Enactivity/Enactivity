@@ -27,17 +27,17 @@ class StringUtils {
 	 * the initial string was longer than the length.
 	 * @param string $string
 	 * @param int $length
-	 * @param string $suffix
+	 * @param string $suffix defaults to '...' 
 	 * @return string of provided length
 	 */
-	public static function truncate($string, $length, $suffix = '...') {
+	public static function truncate($string, $length = 84, $suffix = '...') {
 		if(strlen($suffix) > $length) {
 			throw new CHttpException("Truncation suffix is longer than length");
 		}
 		
 		if(strlen($string) > $length) {
 			$string = substr($string, 0, $length + strlen($suffix));
-			$string .= $suffix;
+			$string = trim($string) . $suffix;
 		}
 		return $string;
 	}
