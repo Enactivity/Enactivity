@@ -17,7 +17,8 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 				array(
 					'class'=>'cid',
 				)
-			)
+			),
+			'visible'=>Yii::app()->user->model->groupsCount > 1 ? true : false,
 		),
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
@@ -31,16 +32,15 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 			)
 		),
 		array( //created
-			'label'=>$model->getAttributeLabel('created'),
 			'type'=>'datetime',
 			'name'=>'created',
 			'value'=>strtotime($model->created),
 		),
 		array( //modified
-			'label'=>$model->getAttributeLabel('modified'),
 			'type'=>'datetime',
 			'name'=>'modified',
 			'value'=>strtotime($model->modified),
+			'visible'=>$model->modified != $model->created ? true : false,
 		),
 	),
 )); ?>

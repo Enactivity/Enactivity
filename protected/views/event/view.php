@@ -16,10 +16,17 @@ $this->renderPartial('_rsvp', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'datesAsSentence',
-		'location',
-		'description:ntext',
+		array(
+			'name' => 'location',
+			'visible' => strlen($model->location) > 0 ? true : false,
+		),
+		array( 
+			'name' => 'description',
+			'type' => 'ntext',
+			'visible' => strlen($model->description) > 0 ? true : false,
+		),
 		array( // group displayed as a link
-			'label'=>$model->getAttributeLabel('groupId'),
+			'label'=>$model->getAttributeLabel('group'),
             'type'=>'raw',
             'value'=>PHtml::link(
 				PHtml::encode($model->group->name),
@@ -27,7 +34,8 @@ $this->renderPartial('_rsvp', array(
 				array(
 					'class'=>'cid',
 				)
-			)
+			),
+			'visible'=>Yii::app()->user->model->groupsCount > 1 ? true : false,
 		),
 		array( // creator displayed as a link
             'label'=>$model->getAttributeLabel('creatorId'),
@@ -41,16 +49,15 @@ $this->renderPartial('_rsvp', array(
 			)
 		),
 		array( //created
-			'label'=>$model->getAttributeLabel('created'),
 			'type'=>'datetime',
 			'name'=>'created',
 			'value'=>strtotime($model->created),
 		),
 		array( //modified
-			'label'=>$model->getAttributeLabel('modified'),
 			'type'=>'datetime',
 			'name'=>'modified',
 			'value'=>strtotime($model->modified),
+			'visible'=>$model->modified != $model->created ? true : false,
 		),
 	),
 )); 

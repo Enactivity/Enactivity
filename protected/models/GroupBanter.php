@@ -103,12 +103,13 @@ class GroupBanter extends CActiveRecord
 	{
 		return array(
 			'id' => 'Id',
-			'creatorId' => 'Created by',
+			'creatorId' => 'Posted by',
 			'groupId' => 'Group',
 			'parentId' => 'Parent',
 			'content' => 'Thoughts',
-			'created' => 'Created',
-			'modified' => 'Modified',
+			'created' => 'Posted',
+			'modified' => 'Last modified',
+			'repliesCount' => 'Replies'
 		);
 	}
 
