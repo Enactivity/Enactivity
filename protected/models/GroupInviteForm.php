@@ -18,6 +18,18 @@ class GroupInviteForm extends CFormModel {
 	 */
 	public $emails;
 	
+/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Set the groupId automatically when user is in only one group
+			'DefaultGroupBehavior'=>array(
+				'class' => 'ext.behaviors.DefaultGroupBehavior',
+			), 
+		);
+	}
+	
 	public function rules() {
 		return array(
 			array('groupId, emails', 'required'),

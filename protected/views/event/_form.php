@@ -9,13 +9,13 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
-		<div class="forminput"><?php echo $form->dropDownList($model,'groupId', 
-			PHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); 
-			?></div>
-		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
-	</div>
+	<?php 
+	$this->widget('ext.widgets.group.GroupInputRow', array(
+		'form' => $form,
+		'model' => $model,
+		'groups' => Yii::app()->user->model->groups,
+	));
+	?>
 	
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'starts'); ?></div>

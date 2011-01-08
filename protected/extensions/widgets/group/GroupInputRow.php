@@ -7,7 +7,6 @@
 /**
  * GroupInputRow displays an input field matching the user's  
  * @author Ajay Sharma
- *
  */
 class GroupInputRow extends CWidget {
 	
@@ -16,7 +15,20 @@ class GroupInputRow extends CWidget {
 	 */
 	public $showAllGroupsOnAdmin = true;
 	
-	private $groups;
+	/**
+	 * @var CActiveForm widget
+	 */
+	public $form = null;
+	
+	/**
+	 * @var CModel model
+	 */
+	public $model = null;
+	
+	/**
+	 * @var User's groups
+	 */
+	public $groups = array();
 	
 	/**
 	 * This method is called by CController::beginWidget()
@@ -25,16 +37,34 @@ class GroupInputRow extends CWidget {
 	{
 		// get user's groups
 		if(Yii::app()->user->isAdmin) {
-			$groups = Group::model()->findAll();
-		}
-		else {
-			$groups = Yii::app()->user->model->groups;	
+			$this->groups = Group::model()->findAll();
 		}
 	}
  
 	public function run()
 	{
 		// this method is called by CController::endWidget()
-		$this->renderRow($this->$groups);
+		$this->renderRow();
+	}
+	
+	protected function renderRow() {
+		if(count($this->groups) != 1) {
+			echo CHtml::openTag('div', array('class' => 'row'));
+			
+			echo CHtml::openTag('div', array('class' => 'formlabel'));
+			echo $this->form->labelEx($this->model, 'groupId');
+			echo CHtml::closeTag('div');
+			
+			echo CHtml::openTag('div', array('class' => 'forminput'));
+			echo $this->form->dropDownList($this->model, 'groupId', 
+					PHtml::listData($this->groups, 'id', 'name'));
+			echo CHtml::closeTag('div');
+			
+			echo CHtml::openTag('div', array('class' => 'formerrors'));
+			echo $this->form->error($this->model,'groupId');
+			echo CHtml::closeTag('div');
+			
+			echo CHtml::closeTag('div');
+		}
 	}
 }

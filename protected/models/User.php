@@ -189,6 +189,9 @@ class User extends CActiveRecord
 			'groups' => array(self::MANY_MANY, 'Group', 
 				'group_user(userId, groupId)',
 				'order' => 'groups.name'),
+			'groupsCount' => array(self::STAT, 'Group', 
+				'group_user(userId, groupId)',
+			),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 		);
 		//TODO: stats: # future events 

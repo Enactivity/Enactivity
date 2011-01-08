@@ -62,6 +62,10 @@ class Event extends CActiveRecord
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
 			),
+			// Set the groupId automatically when user is in only one group
+			'DefaultGroupBehavior'=>array(
+				'class' => 'ext.behaviors.DefaultGroupBehavior',
+			),
 		);
 	}
 

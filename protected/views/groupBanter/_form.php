@@ -25,14 +25,13 @@
 	<?php 
 	// Only show group selection on non-replies
 	if($model->scenario != GroupBanter::SCENARIO_REPLY):
+		$this->widget('ext.widgets.group.GroupInputRow', array(
+			'form' => $form,
+			'model' => $model,
+			'groups' => Yii::app()->user->model->groups,
+		));
+	endif;
 	?>
-	<div class="row">
-		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
-		<div class="forminput"><?php echo $form->dropDownList($model, 'groupId', 
-			PHtml::listData(Yii::app()->user->model->groups, 'id', 'name')); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
-	</div>
-	<?php endif; ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

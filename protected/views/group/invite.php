@@ -15,13 +15,13 @@ $this->menu = MenuDefinitions::groupMenu();
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<div class="formlabel"><?php echo $form->labelEx($model,'groupId'); ?></div>
-		<div class="forminput"><?php echo $form->dropDownList($model, 'groupId', 
-			PHtml::listData($userGroups, 'id', 'name'),
-			array('autofocus'=>'autofocus')); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'groupId'); ?></div>
-	</div>
+	<?php 
+	$this->widget('ext.widgets.group.GroupInputRow', array(
+		'form' => $form,
+		'model' => $model,
+		'groups' => Yii::app()->user->model->groups,
+	));
+	?>
 
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'emails'); ?></div>
