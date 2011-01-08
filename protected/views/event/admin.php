@@ -22,6 +22,11 @@ $this->menu=array(
 		'linkOptions'=>array('id'=>'group_manage_menu_item'),
 		'visible'=>Yii::app()->user->isAdmin,
 	),
+	array('label'=>'Manage GroupBanter', 
+		'url'=>array('groupbanter/admin'), 
+		'linkOptions'=>array('id'=>'groupbanter_manage_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -1,10 +1,7 @@
 <?php
 $this->pageTitle = 'Banter';
 
-$this->menu=array(
-	array('label'=>'Create GroupBanter', 'url'=>array('groupbanter/create')),
-	array('label'=>'Manage GroupBanter', 'url'=>array('groupbanter/admin')),
-);
+$this->menu = null;
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

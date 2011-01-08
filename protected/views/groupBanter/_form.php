@@ -16,7 +16,6 @@
 			array(
 				'maxlength'=>GroupBanter::CONTENT_MAX_LENGTH,
 				'rows'=>5,
-				'autofocus'=>'autofocus',
 				'placeholder'=>'What\'s up?',
 			)); 
 		?></div>

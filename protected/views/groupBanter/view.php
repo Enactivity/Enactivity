@@ -2,11 +2,17 @@
 $this->pageTitle = StringUtils::truncate($model->content, 60);
 
 $this->menu=array(
-	array('label'=>'List GroupBanter', 'url'=>array('index')),
-	array('label'=>'Create GroupBanter', 'url'=>array('create')),
-	array('label'=>'Update GroupBanter', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete GroupBanter', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage GroupBanter', 'url'=>array('admin')),
+	array('label'=>'Update', 
+		'url'=>array('update', 'id'=>$model->id),
+		'visible'=>Yii::app()->user->id == $model->creatorId,
+	),
+	array('label'=>'Delete', 
+		'url'=>'#', 
+		'linkOptions'=>array(
+			'submit'=>array('delete','id'=>$model->id),
+			'confirm'=>'Are you sure you want to delete this item?'),
+		'visible'=>Yii::app()->user->id == $model->creatorId,
+	),
 );
 ?>
 
@@ -51,6 +57,7 @@ $this->menu=array(
 	),
 )); ?>
 
+<?php if($model->parent == null): ?>
 <!-- List of users in event -->
 <div id="replies">
 	<h2><?php echo $model->repliesCount() . ' Replies'; ?></h2>
@@ -65,8 +72,9 @@ $this->menu=array(
 
 <!-- Reply form -->
 <?php 
-echo $this->renderPartial('_form', array(
-	'model'=>$reply,
-	'action'=>array('reply', 'parentId' => $model->id),
-)); 
+	echo $this->renderPartial('_form', array(
+		'model'=>$reply,
+		'action'=>array('reply', 'parentId' => $model->id),
+	)); 
+endif;
 ?>

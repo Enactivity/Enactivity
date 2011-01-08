@@ -1,7 +1,32 @@
 <?php
+$this->pageTitle = 'Manage GroupBanter';
+
 $this->menu=array(
-	array('label'=>'List GroupBanter', 'url'=>array('index')),
-	array('label'=>'Create GroupBanter', 'url'=>array('create')),
+	array('label'=>'Manage Events', 
+		'url'=>array('event/admin'), 
+		'linkOptions'=>array('id'=>'event_admin_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
+	array('label'=>'Manage Users', 
+		'url'=>array('user/admin'),
+		'linkOptions'=>array('id'=>'user_admin_menu_item'), 
+		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'Create Group', 
+		'url'=>array('group/create'),
+		'linkOptions'=>array('id'=>'group_create_menu_item'), 
+		'visible'=>Yii::app()->user->isAdmin
+	),
+	array('label'=>'Manage Groups', 
+		'url'=>array('group/admin'), 
+		'linkOptions'=>array('id'=>'group_manage_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
+	array('label'=>'Manage GroupBanter', 
+		'url'=>array('groupbanter/admin'), 
+		'linkOptions'=>array('id'=>'group_manage_menu_item'),
+		'visible'=>Yii::app()->user->isAdmin,
+	),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -17,8 +42,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Group Banters</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
