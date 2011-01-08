@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = $model->name;
 
-$this->menu = MenuDefinitions::eventMenu($model->id);
+$this->menu = MenuDefinitions::eventMenu($model);
 
 ?>
 
