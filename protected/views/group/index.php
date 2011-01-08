@@ -1,12 +1,7 @@
 <?php
 $this->pageTitle = 'Groups';
 
-$this->menu=array(
-	array('label'=>'Invite a User', 
-		'url'=>array('group/invite'),
-		'linkOptions'=>array('id'=>'group_invite_menu_item'),
-	),
-);
+$this->menu = MenuDefinitions::groupMenu();
 ?>
 
 <?php $this->widget('zii.widgets.CListView', array(

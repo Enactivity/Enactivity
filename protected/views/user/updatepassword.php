@@ -1,17 +1,6 @@
 <?php
 $this->pageTitle = 'Update Password';
-$this->menu=array(
-	array('label'=>'Update Profile', 
-		'url'=>array('update', 'id'=>$model->id),
-		'linkOptions'=>array('id'=>'user_update_menu_item'), 
-		'visible'=>Yii::app()->user->id == $model->id,
-	),
-	array('label'=>'Update Password', 
-		'url'=>array('updatepassword', 'id'=>$model->id),
-		'linkOptions'=>array('id'=>'user_update_menu_item'), 
-		'visible'=>Yii::app()->user->id == $model->id,
-	),
-);
+$this->menu = MenuDefinitions::userMenu($model);
 ?>
 
 <div class="form">

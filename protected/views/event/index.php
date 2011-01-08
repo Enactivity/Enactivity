@@ -1,12 +1,7 @@
 <?php
 $this->pageTitle = 'Events';
 
-$this->menu=array(
-	array('label'=>'Create an Event', 
-		'url'=>array('create'),
-		'linkOptions'=>array('id'=>'event_create_menu_item'),
-	),
-);
+$this->menu = MenuDefinitions::eventMenu();
 ?>
 
 <?php 

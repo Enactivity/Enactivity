@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = $model->fullName;
-$this->menu=array();
+$this->menu = MenuDefinitions::userMenu($model);
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(

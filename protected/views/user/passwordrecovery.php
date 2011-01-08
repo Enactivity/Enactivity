@@ -1,5 +1,7 @@
 <?php
 $this->pageTitle = 'Recover Password';
+
+$this->menu = MenuDefinitions::userMenu();
 ?>
 
 <p>Please fill out the following form with your login credentials:</p>

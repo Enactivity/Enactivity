@@ -1,27 +1,7 @@
 <?php
 $this->pageTitle = $model->name;
 
-$this->menu=array(
-	array('label'=>'Create an Event', 
-		'url'=>array('create'),
-		'linkOptions'=>array('id'=>'event_create_menu_item'),
-	),
-	array('label'=>'Update This Event', 
-		'url'=>array('update', 'id'=>$model->id),
-		'linkOptions'=>array('id'=>'event_update_menu_item'),
-	),
-	array('label'=>'Delete This Event', 
-		'url'=>'#', 
-		'linkOptions'=>array('submit'=>array(
-				'delete',
-				'id'=>$model->id,
-			),
-			'confirm'=>'Are you sure you want to delete this item?',
-			'csrf' => true,
-			'id'=>'event_delete_menu_item',
-		),
-	),
-);
+$this->menu = MenuDefinitions::eventMenu($model->id);
 ?>
 
 <?php 
