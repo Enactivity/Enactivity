@@ -181,6 +181,11 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
+				'label'=>'Banter', 
+				'url'=>array('/groupbanter/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
 				'label'=>'Settings', 
 				'url'=>array('/site/settings'), 
 				'visible'=>!Yii::app()->user->isGuest
