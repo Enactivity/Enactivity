@@ -115,9 +115,12 @@ class MenuDefinitions extends CComponent {
 	 * @return array of menu items for GroupBanters
 	 */
 	public static function groupBanterMenu($model = null) {
-		$menu = array();
+		$menu = null;
 		
-		if(isset($model)) {
+		if(isset($model)
+			&& Yii::app()->user->id == $model->creatorId) {
+				
+			$menu = array();
 			$menu[] = array(
 				'label'=>'Update', 
 				'url'=>array('update', 'id'=>$model->id),
@@ -143,9 +146,12 @@ class MenuDefinitions extends CComponent {
 	 * @return array of menu items for user controller
 	 */
 	public static function userMenu($model = null) {
-		$menu = array();
+		$menu = null;
 		
-		if(isset($model)) {
+		if(isset($model)
+			&& Yii::app()->user->id == $model->id) {
+				
+			$menu = array();
 			$menu[] = array('label'=>'Update Profile', 
 				'url'=>array('update', 'id'=>$model->id),
 				'linkOptions'=>array('id'=>'user_update_menu_item'), 
