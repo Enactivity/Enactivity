@@ -106,7 +106,7 @@ class GroupBanter extends CActiveRecord
 			'creatorId' => 'Created by',
 			'groupId' => 'Group',
 			'parentId' => 'Parent',
-			'content' => 'Content',
+			'content' => 'Thoughts',
 			'created' => 'Created',
 			'modified' => 'Modified',
 		);
