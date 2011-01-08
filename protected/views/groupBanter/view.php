@@ -59,10 +59,14 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 </div>
 
 <!-- Reply form -->
-<?php 
-	echo $this->renderPartial('_form', array(
-		'model'=>$reply,
-		'action'=>array('reply', 'parentId' => $model->id),
-	)); 
-endif;
+<div id="reply">
+	<h2><?php echo 'Add Your Reply'; ?></h2>
+	
+	<?php 
+		echo $this->renderPartial('_form', array(
+			'model'=>$reply,
+			'action'=>array('reply', 'parentId' => $model->id),
+		)); 
+	endif;
 ?>
+</div>
