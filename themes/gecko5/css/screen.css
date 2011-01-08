@@ -290,9 +290,15 @@ div.flash-success a
 
 #content form .row label
 {
+	color: #777777;
 	position: absolute; 
 	text-align:right; 
 	width:90px;
+}
+
+#content form .row label.required
+{
+	color: #000000;
 }
 
 #content form .row input, #content form .row textarea, 

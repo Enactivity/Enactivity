@@ -11,8 +11,6 @@ $this->menu = MenuDefinitions::groupMenu();
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<?php echo $form->errorSummary($model); ?>
 
 	<?php 

@@ -6,6 +6,12 @@
  */
 class PActiveForm extends CActiveForm {
 
+	public function init()
+	{
+		parent::init();
+		CHtml::$afterRequiredLabel = '';
+	}
+	
 	/**
 	 * Renders a date field for a model attribute.
 	 * This method is a wrapper of {@link PHtml::activeDateField}.

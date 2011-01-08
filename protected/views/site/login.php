@@ -11,8 +11,6 @@ $this->pageTitle = 'Login';
 )); 
 ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail', 
