@@ -9,7 +9,13 @@ $this->menu = MenuDefinitions::groupMenu($model);
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'groupProfile.description:ntext',	
+		array(
+			'name' => 'About Us',
+			'value' => $model->groupProfile->description,
+			'type' => 'ntext',
+			'visible' => strlen($model->groupProfile->description) > 0 ? true : false,
+			
+		),
 		'permalink:url',
 	),
 )); 
