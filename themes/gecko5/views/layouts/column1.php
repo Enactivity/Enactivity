@@ -1,8 +1,8 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<article id="content">
+<div id="content">
 	<header>
 		<h1><?php echo CHtml::encode($this->pageTitle); ?></h1>
 	</header>
 	<?php echo $content; ?>
-</article><!-- end of content -->
+</div><!-- end of content -->
 <?php $this->endContent(); ?>

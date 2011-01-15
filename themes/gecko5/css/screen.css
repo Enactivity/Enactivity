@@ -4,10 +4,10 @@
 html, body
 {
 	background: transparent url('../images/poncla_impact.jpg') no-repeat center top;
-	-moz-background-size: 100% auto;
-	-o-background-size: 100% auto;
-	-webkit-background-size: 100% auto;
-	background-size: 100% auto;
+	-moz-background-size: 100%;
+	-o-background-size: 100%;
+	-webkit-background-size: 100%;
+	background-size: 100%;
 	color: #000000;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
@@ -18,7 +18,6 @@ html, body
 a, a:hover, a:visited, a:active
 {
 	color: #000000;
-	
 	-moz-transition: all 0.3s linear;
 	-o-transition: all 0.3s linear;
 	-webkit-transition: all 0.3s linear;
@@ -49,7 +48,7 @@ em {
 }
 
 /*
-	Generic content settings
+	Page wrapper
 */
 #page
 {
@@ -59,13 +58,13 @@ em {
 /* 
 	Main layout styles
 */
-#mainnav
+#primaryNavigation
 {
 	height: 30px;
 	margin-top: 10px;
 }
 
-#mainnav ul
+#primaryNavigation ul
 {
 	list-style-type: none;
 	max-width: 1000px;
@@ -73,14 +72,14 @@ em {
 	padding: 0px;
 }
 
-#mainnav ul li
+#primaryNavigation ul li
 {
 	display: inline;
 	margin: 0px 35px 0px 0px;
 	white-space: nowrap;
 }
 
-#mainnav ul li a, #mainnav ul li a:visited 
+#primaryNavigation ul li a, #primaryNavigation ul li a:visited 
 {
 	background-color: #000000;
 	color: #ffffff;
@@ -91,12 +90,12 @@ em {
 	text-transform: lowercase;
 }
 
-#mainnav ul li a:hover, #mainnav ul .active li a
+#primaryNavigation ul li a:hover, #primaryNavigation ul .active li a
 {
 	background-color: #ff6600;
 }
 
-#subnav
+#secondaryNavigation
 {
 	min-height: 30px;
 	padding-left: 20px;
@@ -105,14 +104,14 @@ em {
 	padding-bottom: 10px;
 }
 
-#subnav ul
+#secondaryNavigation ul
 {
 	max-width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-#subnav ul li
+#secondaryNavigation ul li
 {
 	list-style-type: none;
 	display: inline;
@@ -120,7 +119,7 @@ em {
 	white-space: nowrap
 }
 
-#subnav ul li a, #subnav ul li a:visited
+#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited
 {
 	background-color: #000000;
 	color: #ffffff;
@@ -131,7 +130,7 @@ em {
 	text-transform: lowercase;
 }
 
-#subnav ul li a:hover
+#secondaryNavigation ul li a:hover
 {
 	background-color: #ff6600;
 }

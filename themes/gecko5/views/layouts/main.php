@@ -5,7 +5,7 @@
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="only screen and (min-width: 1212px)" />
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
@@ -20,26 +20,26 @@
 <body>
 <div class="bodycontainer" id="page">
 <header>
-<nav id="mainnav">
+<nav id="primaryNavigation">
 <?php 
 $this->widget('zii.widgets.CMenu', array(
 	'items'=>MenuDefinitions::mainMenu()
 )); 
 ?>
-</nav><!-- mainnav -->
+</nav><!-- end of primaryNavigation -->
 		
 <?php
 if(isset($this->menu) 
 	&& !empty($this->menu)
 	&& !Yii::app()->user->isGuest
 ):?>
-<nav id="subnav">
+<nav id="secondaryNavigation">
 <?php 
 $this->widget('zii.widgets.CMenu', array(
 	'items'=>$this->menu,
 ));
 ?>
-</nav><!-- end of subnav -->
+</nav><!-- end of secondaryNavigation -->
 <?php endif; ?>
 	
 <!-- flash notices -->
