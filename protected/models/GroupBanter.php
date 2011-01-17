@@ -151,12 +151,6 @@ class GroupBanter extends CActiveRecord
 		);
 	}
 	
-	public function defaultScope() {
-		return array(
-			
-		);
-	}
-	
 	/**
 	 * Scope definition for banters that share group value with
 	 * the user's groups 
