@@ -1,6 +1,6 @@
 <?php
 
-class GroupBanterController extends Controller
+class EventbanterController extends Controller
 {
 	/**
 	 * @return array action filters
@@ -21,25 +21,21 @@ class GroupBanterController extends Controller
 	{
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
-			$groupBanter = $this->loadModel($_GET['id']);
-			$groupId = $groupBanter->groupId;
-			$creatorId = $groupBanter->creatorId;
+			$eventBanter = $this->loadModel($_GET['id']);
+			$groupId = $eventBanter->event->groupId;
+			$creatorId = $eventBanter->creatorId;
 		}
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','create', 'reply'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('view'),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update', 'delete'),
-				'expression'=>'$user->id == ' . $creatorId,
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -54,19 +50,8 @@ class GroupBanterController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$groupBanter = $this->loadModel($id);
-		
-		$replies = new CActiveDataProvider('Group', array(
-			'data' => $groupBanter->replies)
-		);
-		
-		$reply = new GroupBanter();
-		$reply->setScenario(GroupBanter::SCENARIO_REPLY);
-		
 		$this->render('view',array(
-			'model'=>$groupBanter,
-			'replies'=>$replies,
-			'reply'=>$reply,
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -76,47 +61,19 @@ class GroupBanterController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new GroupBanter;
+		$model=new EventBanter;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GroupBanter']))
+		if(isset($_POST['EventBanter']))
 		{
-			$model->attributes=$_POST['GroupBanter'];
+			$model->attributes=$_POST['EventBanter'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-	
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionReply($parentId)
-	{
-		$parentBanter = $this->loadModel($parentId);
-		
-		$model = new GroupBanter;
-		$model->setScenario(GroupBanter::SCENARIO_REPLY);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['GroupBanter']))
-		{
-			$model->attributes = $_POST['GroupBanter'];
-			$model->parentId = $parentBanter->id;
-			$model->groupId = $parentBanter->groupId;
-			if($model->save())
-				$this->redirect(array('view','id'=>$parentBanter->id));
-		}
-
-		$this->render('view',array(
 			'model'=>$model,
 		));
 	}
@@ -133,9 +90,9 @@ class GroupBanterController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GroupBanter']))
+		if(isset($_POST['EventBanter']))
 		{
-			$model->attributes=$_POST['GroupBanter'];
+			$model->attributes=$_POST['EventBanter'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -170,27 +127,8 @@ class GroupBanterController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// Handle creation actions
-		$model = new GroupBanter;
-		
-		if(isset($_POST['GroupBanter']))
-		{
-			$model->attributes=$_POST['GroupBanter'];
-			if($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));
-			}
-		}
-		
-		// Show list of current banters
-		$dataProvider = new CActiveDataProvider(
-			GroupBanter::model()
-				->scopeUsersGroups(Yii::app()->user->id)
-				->parentless()
-				->newestToOldest()
-		);
-		
+		$dataProvider=new CActiveDataProvider('EventBanter');
 		$this->render('index',array(
-			'model'=>$model,
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -200,11 +138,10 @@ class GroupBanterController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GroupBanter('search');
+		$model=new EventBanter('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GroupBanter'])) {
-			$model->attributes=$_GET['GroupBanter'];
-		}
+		if(isset($_GET['EventBanter']))
+			$model->attributes=$_GET['EventBanter'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -218,11 +155,9 @@ class GroupBanterController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GroupBanter::model()->findByPk((int)$id);
-		if($model===null) {
+		$model=EventBanter::model()->findByPk((int)$id);
+		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		
 		return $model;
 	}
 
@@ -232,7 +167,7 @@ class GroupBanterController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='group-banter-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='event-banter-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
