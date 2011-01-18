@@ -58,13 +58,14 @@ em {
 /* 
 	Main layout styles
 */
-#primaryNavigation
+#primaryNavigation, 
+#secondaryNavigation
 {
-	height: 30px;
-	margin-top: 10px;
+	clear: both;
 }
 
-#primaryNavigation ul
+#primaryNavigation ul, 
+#secondaryNavigation ul
 {
 	list-style-type: none;
 	max-width: 1000px;
@@ -72,65 +73,28 @@ em {
 	padding: 0px;
 }
 
-#primaryNavigation ul li
+#primaryNavigation ul li,
+#secondaryNavigation ul li
 {
-	display: inline;
-	margin: 0px 35px 0px 0px;
 	white-space: nowrap;
 }
 
-#primaryNavigation ul li a, #primaryNavigation ul li a:visited 
+#primaryNavigation ul li a, #primaryNavigation ul li a:visited,
+#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited 
 {
 	background-color: #000000;
 	color: #ffffff;
 	font-size: 16px;
 	font-weight: bold;
+	float: left;
+	margin: 5px 10px;
 	padding: 5px;
 	text-decoration: none;
 	text-transform: lowercase;
 }
 
-#primaryNavigation ul li a:hover, #primaryNavigation ul .active li a
-{
-	background-color: #ff6600;
-}
-
-#secondaryNavigation
-{
-	min-height: 30px;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-#secondaryNavigation ul
-{
-	max-width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#secondaryNavigation ul li
-{
-	list-style-type: none;
-	display: inline;
-	margin-right: 35px;
-	white-space: nowrap
-}
-
-#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited
-{
-	background-color: #000000;
-	color: #ffffff;
-	font-size: 18px;
-	font-weight: bold;
-	padding: 5px 10px;
-	text-decoration: none;
-	text-transform: lowercase;
-}
-
-#secondaryNavigation ul li a:hover
+#primaryNavigation ul li a:hover, #primaryNavigation ul .active li a,
+#secondaryNavigation ul li a:hover, #secondaryNavigation ul .active li a
 {
 	background-color: #ff6600;
 }
@@ -138,7 +102,7 @@ em {
 #footer
 {
 	clear: both;
-	height: 34px; /* -1 to accomodate the border */ 
+	height: 34px; /* -1 to accommodate the border */ 
 	margin-top: -40px;
 	padding-top: 5px;
 	text-align: center;
@@ -154,6 +118,7 @@ em {
 	-o-border-radius: 15px;
 	-webkit-border-radius: 15px;
 	border-radius: 15px;
+	clear: both;
 	overflow: hidden;
 	margin-left: auto;
 	margin-right: auto;

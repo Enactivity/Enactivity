@@ -2,6 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
+	<meta name="viewport" content="width=device-width; initial-scale=1"/>  
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
@@ -9,7 +11,6 @@
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
-
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
 
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
