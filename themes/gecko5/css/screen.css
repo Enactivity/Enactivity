@@ -1,17 +1,20 @@
 /*
 	General settings
 */
-html, body
+html {
+	color: #000000;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-size: 16px; 
+	font-style: normal;
+	height: 100%;
+}
+body
 {
 	background: transparent url('../images/poncla_impact.jpg') no-repeat center top;
 	-moz-background-size: 100%;
 	-o-background-size: 100%;
 	-webkit-background-size: 100%;
 	background-size: 100%;
-	color: #000000;
-	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
-	font-size: 16px; 
-	font-style: normal;
 	height: 100%;
 }
 
@@ -45,6 +48,7 @@ em {
 #globalWrapper
 {
 	min-height: 100%;
+	margin-bottom: 35px;
 }
 
 #globalFooter
@@ -114,11 +118,8 @@ em {
 	overflow: hidden;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 15px;
 	max-width: 1000px;
-	padding-right: 15px;
-	padding-left: 15px;
-	padding-top: 10px;
-	padding-bottom: 50px;
 	word-wrap: break-word;
 }
 
@@ -450,8 +451,9 @@ div .errorMessage {
 #content .rsvp
 {
 	border: 3px dashed #eeeeee;
-	overflow: auto;
+	height: 100%;
 	margin: auto;
+	overflow: hidden;
 	width: 100%
 }
 
@@ -467,7 +469,7 @@ div .errorMessage {
 	float: right;
 }
 
-/* Reset main form fields */
+/* Reset rsvp form inputs */
 #content .rsvp form input[type=submit], 
 #content .rsvp form input[type=button] {
 	-moz-border-radius-bottomright: 0px 0px;
