@@ -39,20 +39,21 @@ em {
 	font-style: italic;
 }
 
-#content form input[type=submit]:hover, 
-#content form input[type=button]:hover {
-	-moz-transition: all 0.3s linear;
-	-o-transition: all 0.3s linear;
-	-webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
-}
-
 /*
 	Page wrapper
 */
-#page
+#globalWrapper
 {
 	min-height: 100%;
+}
+
+#globalFooter
+{
+	clear: both;
+	height: 35px; 
+	margin-top: -40px;
+	padding-top: 5px;
+	text-align: center;
 }
 
 /* 
@@ -97,15 +98,6 @@ em {
 #secondaryNavigation ul li a:hover, #secondaryNavigation ul .active li a
 {
 	background-color: #ff6600;
-}
-
-#footer
-{
-	clear: both;
-	height: 34px; /* -1 to accommodate the border */ 
-	margin-top: -40px;
-	padding-top: 5px;
-	text-align: center;
 }
 
 /*
@@ -168,12 +160,6 @@ em {
 {
 	margin-bottom: 15px;
 	max-width: 32em;
-}
-
-#content .summary
-{
-	font-size: 14px;
-	margin-bottom: 10px;
 }
 
 /*
@@ -294,6 +280,10 @@ div.flash-success a
 #content form input[type=button]:hover {
 	background-color: #ff6600;
 	border: 3px solid #ff6600;
+	-moz-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
 }
 
 /* Overrides for disabled buttons */

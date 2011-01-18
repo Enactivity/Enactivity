@@ -19,7 +19,7 @@
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl() . '/js/libs/modernizr-1.6.min.js'); ?>	
 </head>
 <body>
-<div class="bodycontainer" id="page">
+<div id="globalWrapper">
 <header>
 <nav id="primaryNavigation">
 <?php 
@@ -63,11 +63,11 @@ $this->widget('zii.widgets.CMenu', array(
 	
 	<?php echo $content; ?>
 	
-</div><!-- page -->
+</div><!-- globalWrapper -->
 	
-<footer id="footer">
+<footer id="globalFooter">
 	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
-</footer><!-- footer -->
+</footer><!-- globalFooter -->
 
 </body>
 </html>
