@@ -2,15 +2,15 @@
 $this->pageTitle = 'Login';
 ?>
 
-<p>Please fill out the following form with your login credentials:</p>
-
 <div class="form">
 <?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
 	'id'=>'login-form',
 	'enableAjaxValidation'=>false,
 )); 
 ?>
-
+	<div class="row">
+		<p>Please fill out the following form with your login credentials:</p>
+	</div>
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail', 
