@@ -31,7 +31,8 @@ class DefaultGroupBehavior extends CActiveRecordBehavior {
 	}
 	
 	/**
-	 * Gets the approprate timestamp depending on the column type $attribute is
+	 * Returns the current user's single group, if the user
+	 * belongs to more than one group, and exception is thrown.
 	 * 
 	 * @return int id
 	 */
