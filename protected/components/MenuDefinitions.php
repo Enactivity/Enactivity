@@ -17,18 +17,6 @@ class MenuDefinitions extends CComponent {
 	public static function adminMenu() {
 		return array(
 			array(
-				'label'=>'Manage Events', 
-				'url'=>array('event/admin'), 
-				'linkOptions'=>array('id'=>'event_admin_menu_item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage Users', 
-				'url'=>array('user/admin'),
-				'linkOptions'=>array('id'=>'user_admin_menu_item'), 
-				'visible'=>Yii::app()->user->isAdmin
-			),
-			array(
 				'label'=>'Create Group', 
 				'url'=>array('group/create'),
 				'linkOptions'=>array('id'=>'group_create_menu_item'), 
@@ -38,6 +26,18 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Manage Groups', 
 				'url'=>array('group/admin'), 
 				'linkOptions'=>array('id'=>'group_manage_menu_item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
+			array(
+				'label'=>'Manage Users', 
+				'url'=>array('user/admin'),
+				'linkOptions'=>array('id'=>'user_admin_menu_item'), 
+				'visible'=>Yii::app()->user->isAdmin
+			),
+			array(
+				'label'=>'Manage Events', 
+				'url'=>array('event/admin'), 
+				'linkOptions'=>array('id'=>'event_admin_menu_item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
@@ -57,7 +57,7 @@ class MenuDefinitions extends CComponent {
 		$menu = array(
 			array(
 				'label'=>'Create an Event', 
-				'url'=>array('create'),
+				'url'=>array('event/create'),
 				'linkOptions'=>array('id'=>'event_create_menu_item'),
 			),
 		);
@@ -65,14 +65,14 @@ class MenuDefinitions extends CComponent {
 		if(isset($model)) {
 			$menu[] = array(
 				'label'=>'Update This Event', 
-				'url'=>array('update', 'id'=>$model->id),
+				'url'=>array('event/update', 'id'=>$model->id),
 				'linkOptions'=>array('id'=>'event_update_menu_item'),
 			);
 			$menu[] = array(
 				'label'=>'Delete This Event', 
 				'url'=>'#', 
 				'linkOptions'=>array('submit'=>array(
-					'delete',
+					'event/delete',
 					'id'=>$model->id,
 				),
 				'confirm'=>'Are you sure you want to delete this item?',
@@ -123,7 +123,7 @@ class MenuDefinitions extends CComponent {
 			$menu = array();
 			$menu[] = array(
 				'label'=>'Update', 
-				'url'=>array('update', 'id'=>$model->id),
+				'url'=>array('groupbanter/update', 'id'=>$model->id),
 				'visible'=>Yii::app()->user->id == $model->creatorId,
 			);
 			
@@ -131,7 +131,7 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Delete', 
 				'url'=>'#', 
 				'linkOptions'=>array(
-					'submit'=>array('delete','id'=>$model->id),
+					'submit'=>array('groupbanter/delete','id'=>$model->id),
 					'confirm'=>'Are you sure you want to delete this item?'
 				),
 				'visible'=>Yii::app()->user->id == $model->creatorId,
@@ -153,12 +153,12 @@ class MenuDefinitions extends CComponent {
 				
 			$menu = array();
 			$menu[] = array('label'=>'Update Profile', 
-				'url'=>array('update', 'id'=>$model->id),
+				'url'=>array('user/update', 'id'=>$model->id),
 				'linkOptions'=>array('id'=>'user_update_menu_item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
 			$menu[] = array('label'=>'Update Password', 
-				'url'=>array('updatepassword', 'id'=>$model->id),
+				'url'=>array('user/updatepassword', 'id'=>$model->id),
 				'linkOptions'=>array('id'=>'user_update_menu_item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
