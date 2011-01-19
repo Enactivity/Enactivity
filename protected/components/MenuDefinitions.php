@@ -208,7 +208,7 @@ class MenuDefinitions extends CComponent {
 			),
 			array(
 				'label'=>'Admin', 
-				'url'=>array('/user/admin'), 
+				'url'=>array('/group/create'), 
 				'visible'=>Yii::app()->user->isAdmin
 			),
 		);
