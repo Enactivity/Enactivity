@@ -18,18 +18,6 @@ class GroupInviteForm extends CFormModel {
 	 */
 	public $emails;
 	
-/**
-	 * @return array behaviors that this model should behave as
-	 */
-	public function behaviors() {
-		return array(
-			// Set the groupId automatically when user is in only one group
-			'DefaultGroupBehavior'=>array(
-				'class' => 'ext.behaviors.DefaultGroupBehavior',
-			), 
-		);
-	}
-	
 	public function rules() {
 		return array(
 			array('groupId, emails', 'required'),
@@ -93,5 +81,30 @@ class GroupInviteForm extends CFormModel {
 			}
 		}
 		return $checkedEmails;
+	}
+	
+	/**
+	 * Sets the values of the group id to be the user's current 
+	 * group if the user is only in one group
+	 * 
+	 * @param CModelEvent event parameter
+	 */
+	public function onBeforeValidate($event) {
+		if (($this->groupId == null)
+		&& (Yii::app()->user->model->groupsCount == 1)) {
+			
+			$this->groupId = $this->getUserGroupId();
+		}
+	}
+	
+	/**
+	 * Returns the user's one user group
+	 * @return int id
+	 */
+	protected function getUserGroupId() {
+		if(Yii::app()->user->model->groupsCount == 1) {
+			return Yii::app()->user->model->groups[0]->id;
+		}
+		throw new Exception("Error when attempting to set user group.");
 	}
 }
