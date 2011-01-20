@@ -20,25 +20,29 @@ class EventbanterController extends Controller
 	public function accessRules()
 	{
 		// get the group assigned to the event
-		if(!empty($_GET['id'])) {
+	if(!empty($_GET['id'])) {
 			$eventBanter = $this->loadModel($_GET['id']);
 			$groupId = $eventBanter->event->groupId;
 			$creatorId = $eventBanter->creatorId;
 		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+			// allow registered users to perform 'index' and 'create' actions
+			array('allow',  
+				'actions'=>array('index','create'),
+				'expression'=>'$user->isAdmin',
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+			// allow only group members to perform 'view', 'create' and 'update' actions
+			array('allow',  
+				'actions'=>array('view','update','delete'),
+				'expression'=>'$user->isAdmin',
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+			// allow admin user to perform 'admin' and 'delete' actions
+			array('allow', 
+				'actions'=>array('admin','view','update','delete'),
+				'expression'=>'$user->isAdmin',
 			),
-			array('deny',  // deny all users
+			// deny all users
+			array('deny',  
 				'users'=>array('*'),
 			),
 		);
