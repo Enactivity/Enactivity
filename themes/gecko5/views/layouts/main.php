@@ -19,8 +19,8 @@
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl() . '/js/libs/modernizr-1.6.min.js'); ?>	
 </head>
 <body>
-<div id="globalWrapper">
-<header>
+
+<header id="globalHeader">
 <nav id="primaryNavigation">
 <?php 
 $this->widget('zii.widgets.CMenu', array(
@@ -42,25 +42,26 @@ $this->widget('zii.widgets.CMenu', array(
 ?>
 </nav><!-- end of secondaryNavigation -->
 <?php endif; ?>
-	
+</header>
+
 <!-- flash notices -->
 <?php if(Yii::app()->user->hasFlash('error')):?>
-<div class="flash-error">
+<aside class="flash-error">
 <?php echo Yii::app()->user->getFlash('error'); ?>
-</div>
+</aside>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('notice')):?>
-<div class="flash-notice">
+<aside class="flash-notice">
 <?php echo Yii::app()->user->getFlash('notice'); ?>
-</div>
+</aside>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
-<div class="flash-success">
+<aside class="flash-success">
 <?php echo Yii::app()->user->getFlash('success'); ?>
-</div>
+</aside>
 <?php endif; ?>
-</header>
-	
+
+<div id="globalWrapper">
 	<?php echo $content; ?>
 	
 </div><!-- globalWrapper -->

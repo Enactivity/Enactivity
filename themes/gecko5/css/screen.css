@@ -1,3 +1,9 @@
+/**
+	Max readability = 32 em
+	Max readability @ 16 px = 512 px ~ 9 col  = 520 px 
+	Max readability @ 18 px = 576 px ~ 10 col = 580 px 
+**/
+
 /*
 	General settings
 */
@@ -10,27 +16,19 @@ html {
 }
 body
 {
-	background: transparent url('../images/poncla_impact.jpg') no-repeat center top;
-	-moz-background-size: 100%;
-	-o-background-size: 100%;
-	-webkit-background-size: 100%;
-	background-size: 100%;
+	background: transparent url('../images/grid.png') repeat left top;
 	height: 100%;
 }
 
 a, a:hover, a:visited, a:active
 {
 	color: #000000;
-	-moz-transition: all 0.3s linear;
-	-o-transition: all 0.3s linear;
-	-webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
 }
 
-input, textarea, select { 
+input, textarea, select {
+	border: none; 
 	font-size: 16px;
 	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
-	max-width: 32em;
 }
 
 strong 
@@ -43,8 +41,13 @@ em {
 }
 
 /*
-	Page wrapper
+	Global wrappers
 */
+#globalHeader 
+{
+	overflow: hidden;
+}
+
 #globalWrapper
 {
 	min-height: 100%;
@@ -73,7 +76,6 @@ em {
 #secondaryNavigation ul
 {
 	list-style-type: none;
-	max-width: 1000px;
 	margin: 0px auto;
 	padding: 0px;
 }
@@ -87,21 +89,21 @@ em {
 #primaryNavigation ul li a, #primaryNavigation ul li a:visited,
 #secondaryNavigation ul li a, #secondaryNavigation ul li a:visited 
 {
-	background-color: #000000;
-	color: #ffffff;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	float: left;
-	margin: 5px 10px;
-	padding: 5px;
+	padding: .5em 10px;
 	text-decoration: none;
 	text-transform: lowercase;
 }
 
-#primaryNavigation ul li a:hover, #primaryNavigation ul .active li a,
-#secondaryNavigation ul li a:hover, #secondaryNavigation ul .active li a
+#primaryNavigation ul li a:hover, 
+#secondaryNavigation ul li a:hover, 
+#primaryNavigation ul li.active a,
+#secondaryNavigation ul li.active a
 {
 	background-color: #ff6600;
+	color: #ffffff;
 }
 
 /*
@@ -109,17 +111,9 @@ em {
 */
 #content
 {
-	background-color: rgba(255, 255, 255, .5);
-	-moz-border-radius: 15px;
-	-o-border-radius: 15px;
-	-webkit-border-radius: 15px;
-	border-radius: 15px;
+	background: transparent url('../images/grid.png') repeat left top;
 	clear: both;
 	overflow: hidden;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 15px;
-	max-width: 1000px;
 	word-wrap: break-word;
 }
 
@@ -127,24 +121,26 @@ em {
 #content h4, #content h5, #content h6 {
 	line-height: 1.2;
 	font-weight: bold;
-	margin-bottom: 15px;
-	margin-top: 15px;
+	margin: 0px 10px 10px 10px;
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 #content h1 
 {
 	font-size: 70px;
+	max-width: 32em;
 }
 
 #content h2
 {
-	font-size: 50px;
+	font-size: 18px;
+	max-width: 32em;
 }
 
 #content h3 
 {
-	font-size: 30px;
+	font-size: 16px;
+	max-width: 32em;
 }
 
 #content a
@@ -155,68 +151,57 @@ em {
 #content a:hover
 {
 	color: #ff6600;
+	text-decoration: underline;
 }
 
 #content p
 {
-	margin-bottom: 15px;
+	margin: 0px 10px 1.25em 10px;
 	max-width: 32em;
 }
 
 /*
 	Content flashes and errors
 */ 
-div .errorSummary {
-	background-color: #E85C42;
-	border:2px solid #e8160c;
-	color: #ffffff;
-	font-size: 19px;
-	padding: 10px;
-	margin-bottom: 15px;
-}
-
-.errorSummary ul {
-	margin-left: 15px;
-}
-
-div.flash-error, div.flash-notice, div.flash-success
+aside.flash-error, aside.flash-notice, aside.flash-success
 {
 	padding: 10px;
-	border: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	border-top: 2px solid #ddd;
 }
 
-div.flash-error
+aside.flash-error
 {
 	background:#FBE3E4;
 	color:#8a1f11;
 	border-color:#FBC2C4;
 }
 
-div.flash-notice
+aside.flash-notice
 {
 	background:#FFF6BF;
 	color:#514721;
 	border-color:#FFD324;
 }
 
-div.flash-success
+aside.flash-success
 {
 	background:#E6EFC2;
 	color:#264409;
 	border-color:#C6D880;
 }
 
-div.flash-error a
+aside.flash-error a
 {
 	color:#8a1f11;
 }
 
-div.flash-notice a
+aside.flash-notice a
 {
 	color:#7f7b5f;
 }
 
-div.flash-success a
+aside.flash-success a
 {
 	color:#264409;
 }
@@ -233,18 +218,43 @@ div.flash-success a
 /*
 	Content forms
 */
+#content form
+{
+	background-color: #eeeeee;
+	clear: both;
+	overflow: hidden;
+	padding: 10px;
+	max-width: 520px;
+}
+
+#content form .errorSummary {
+	background-color: #E85C42;
+	border:2px solid #e8160c;
+	color: #ffffff;
+	padding: 10px;
+	margin-bottom: 1em;
+}
+
+#content form .errorSummary p {
+	margin: 0px;
+}
+
+#content form .errorSummary ul {
+	margin-left: 15px;
+}
+
 #content form .row
 {
-	padding-top: 5px;
-	padding-bottom: 5px;
+	clear: both;
+	overflow: hidden;
+	padding-bottom: 1em;
 }
 
 #content form .row label
 {
 	color: #777777;
-	position: absolute; 
-	text-align:right; 
-	width:90px;
+	cursor: text;
+	text-align: right;
 }
 
 #content form .row label.required
@@ -255,7 +265,6 @@ div.flash-success a
 #content form .row input, #content form .row textarea, 
 #content form .row select 
 {
-	margin-left: 100px;
 	width: 100%;
 }
 
@@ -306,11 +315,9 @@ div.flash-success a
 	border: 3px solid #000000;
 }
 
-div .errorMessage {
-	margin-left: 140px;
+#content form .errorMessage {
 	color: #e82c0c;
 	font-size: 12px;
-	width: 70%;
 }
 
 /*
@@ -333,11 +340,11 @@ div .errorMessage {
 
 #content td 
 {
+	padding-bottom: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 12px;
 	max-width: 32em;
-	padding-bottom: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-top: 10px;
 }
 
 /*
@@ -407,13 +414,10 @@ div .errorMessage {
 */
 #content #login-form .rememberMe label
 {
-	width: 160px;
 }
 
 #content #login-form #UserLoginForm_rememberMe
 {
-	margin-left: 170px;
-	margin-top: 5px;
 	width: 15px;
 }
 
@@ -427,18 +431,11 @@ div .errorMessage {
 */
 #content .event
 {
-	background-color: rgba(255, 255, 255, .5);
-	-moz-border-radius: 15px;
-	-o-border-radius: 15px;
-	-webkit-border-radius: 15px;
-	border-radius: 15px;
-	padding: 10px;
 	margin-bottom: 10px;
 }
 
 #content .event .eventname
 {
-	font-size: 32px;
 	font-weight: bold;
 	margin-bottom: 10px;
 }
@@ -450,23 +447,9 @@ div .errorMessage {
 
 #content .rsvp
 {
-	border: 3px dashed #eeeeee;
 	height: 100%;
-	margin: auto;
 	overflow: hidden;
 	width: 100%
-}
-
-#content .rsvp .attendeecount
-{
-	padding: 10px;
-	float: left;
-	font-size: 14px;
-}
-
-#content .rsvp .formblock {
-	height: 35px;
-	float: right;
 }
 
 /* Reset rsvp form inputs */
