@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 07, 2011 at 03:36 PM
+-- Generation Time: Jan 19, 2011 at 10:49 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `event`
@@ -63,7 +63,36 @@ INSERT INTO `event` (`id`, `name`, `description`, `creatorId`, `groupId`, `start
 (17, 'April event tests', '', 1, 6, '2011-04-09 09:26:00', '2011-04-09 13:26:00', '', '2010-12-29 15:02:42', '2010-12-29 15:02:42'),
 (18, 'Summer', '', 1, 6, '2011-07-16 07:00:00', '2011-07-16 07:00:00', 'the beach', '2010-12-29 15:03:44', '2010-12-29 15:03:44'),
 (19, 'Autumn times', '', 1, 6, '2011-10-14 09:00:00', '2011-10-14 10:00:00', '', '2010-12-29 15:04:14', '2010-12-29 15:04:14'),
-(20, 'Student Organization Leadership Conference', 'Approved by Service VP Ashley \r\nName of Event: Student Organization Leadership Conference \r\nWhat "C" does it fall under: Campus \r\nDate: 9/25/2010 \r\nTime: 8am-4:30pm \r\nMeeting Location and Time: Meet at Clark Hall by 8am \r\nDress Code: Letters \r\nDrivers Credit: No \r\nNumber of people needed: :) lots \r\nLocation: \r\nClark Hall @ SJSU \r\n\r\nALSO: A huge part of the success of the conference depends on our volunteers! Volunteers with get the chance to meet and network with hundreds of student leaders on campus, get a free lunch, free t-shirt, and a fun experience! This opportunity is open to all San Jose State Students. This is a great opportunity if there are more than two members in your organization that would like to be a part of this year’s conference! \r\n\r\nRegister on this link if you would like to volunteer. \r\nhttp://www.sjsu.edu/getinvolved/soal/student_orgs/org_conference/volunteer_info/ \r\n\r\nContact Person and information: \r\nKaren Malm \r\nKaren.Malm@sjsu.edu \r\n\r\nProject Description: \r\n\r\nThe Student Organization Leadership Conference is held every Fall on campus for campus organizations. Two members of each organization must attend in order to gain recognition by the university. There are over 200 organizations on campus so this event will need help! \r\n\r\nWe will help with set up for the event, registration tables, set up for lunch and also be floaters for the event. There may be other tasks not listed, but essentially, we will support the coordinators of the event. \r\n\r\nRegister on this link if you would like to volunteer. \r\nhttp://www.sjsu.edu/getinvolved/soal/student_orgs/org_conference/volunteer_info/ \r\n', 1, 6, '2011-08-05 11:34:00', '2011-08-05 11:34:00', '', '2010-12-29 15:04:53', '2010-12-29 15:15:31');
+(20, 'Student Organization Leadership Conference', 'Approved by Service VP Ashley \r\nName of Event: Student Organization Leadership Conference \r\nWhat "C" does it fall under: Campus \r\nDate: 9/25/2010 \r\nTime: 8am-4:30pm \r\nMeeting Location and Time: Meet at Clark Hall by 8am \r\nDress Code: Letters \r\nDrivers Credit: No \r\nNumber of people needed: :) lots \r\nLocation: \r\nClark Hall @ SJSU \r\n\r\nALSO: A huge part of the success of the conference depends on our volunteers! Volunteers with get the chance to meet and network with hundreds of student leaders on campus, get a free lunch, free t-shirt, and a fun experience! This opportunity is open to all San Jose State Students. This is a great opportunity if there are more than two members in your organization that would like to be a part of this year’s conference! \r\n\r\nRegister on this link if you would like to volunteer. \r\nhttp://www.sjsu.edu/getinvolved/soal/student_orgs/org_conference/volunteer_info/ \r\n\r\nContact Person and information: \r\nKaren Malm \r\nKaren.Malm@sjsu.edu \r\n\r\nProject Description: \r\n\r\nThe Student Organization Leadership Conference is held every Fall on campus for campus organizations. Two members of each organization must attend in order to gain recognition by the university. There are over 200 organizations on campus so this event will need help! \r\n\r\nWe will help with set up for the event, registration tables, set up for lunch and also be floaters for the event. There may be other tasks not listed, but essentially, we will support the coordinators of the event. \r\n\r\nRegister on this link if you would like to volunteer. \r\nhttp://www.sjsu.edu/getinvolved/soal/student_orgs/org_conference/volunteer_info/ \r\n', 1, 6, '2011-08-05 11:34:00', '2011-08-05 11:34:00', '', '2010-12-29 15:04:53', '2010-12-29 15:15:31'),
+(21, 'Testing events with default behaviors', '', 25, 5, '2011-01-12 00:00:00', '2011-01-27 00:00:00', '', '2011-01-07 18:22:04', '2011-01-07 18:22:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_banter`
+--
+
+CREATE TABLE IF NOT EXISTS `event_banter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creatorId` int(11) DEFAULT NULL,
+  `eventId` int(11) NOT NULL COMMENT 'The event that this banter refers to',
+  `content` varchar(4000) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creatorId` (`creatorId`),
+  KEY `parentId` (`eventId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `event_banter`
+--
+
+INSERT INTO `event_banter` (`id`, `creatorId`, `eventId`, `content`, `created`, `modified`) VALUES
+(1, 1, 21, 'This looks like a cool event', '2011-01-16 18:47:44', '2011-01-16 18:47:44'),
+(2, 1, 21, 'Yeah, pretty cool', '2011-01-19 22:30:18', '2011-01-19 22:30:18'),
+(3, 1, 21, 'totally.', '2011-01-19 22:31:30', '2011-01-19 22:31:30'),
+(4, 1, 21, 'Time for a lorem ipsum!\r\n\r\nMorbi nec sem elit, consequat porttitor velit. Praesent sed dolor nec dui interdum fringilla non ut lectus. Morbi auctor nisi id lectus mattis id aliquet orci blandit. Maecenas et ante diam, et lacinia neque. Sed auctor, risus a ullamcorper ornare, ligula ipsum dapibus orci, vel posuere est nibh id est. Fusce quis sem ut nibh convallis molestie. Sed egestas egestas lectus, sit amet varius tortor ullamcorper eu. Nullam sed molestie augue. Nunc pharetra vehicula lacus, id porttitor turpis sodales et. Praesent at neque tortor, in gravida magna. Curabitur quis orci nibh, a viverra nunc. Integer id metus at est sollicitudin elementum. In porta turpis eu quam dignissim ultrices commodo sapien tristique. Pellentesque ullamcorper, ipsum vel gravida egestas, dolor massa dignissim lacus, quis dictum dui dolor vel leo. Fusce blandit vestibulum nunc quis blandit. Etiam elit lacus, porta lobortis pulvinar a, tincidunt nec quam. Aliquam quis quam nibh.\r\n\r\nFusce porttitor magna nec nisi ultricies rhoncus eu laoreet ante. Integer ut volutpat odio. Etiam tempus mollis metus sed condimentum. Praesent consectetur eros mauris, in porta nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam vitae viverra tortor. Morbi mattis fringilla lacus sed eleifend. Praesent eu erat orci, quis aliquam sapien. Phasellus in nunc consequat erat sodales rutrum non vitae mi. Curabitur adipiscing odio vitae enim adipiscing in condimentum massa condimentum. Nullam faucibus, libero ac hendrerit blandit, erat erat molestie nunc, in convallis arcu neque a elit. Nullam varius ante ac nisl dignissim vehicula. Aenean congue neque in dui tempus vehicula. Ut at lorem in tortor facilisis adipiscing ut quis libero.\r\n\r\nNunc et dolor nisl. Donec nisi erat, scelerisque sed dignissim et, tristique ac libero. Morbi feugiat tortor ante. Cras arcu tellus, aliquam vitae molestie eget, tempus non justo. Vivamus sit amet nibh vel ligula cursus vestibulum. In egestas malesuada gravida. Nulla interdum massa accumsan nisl euismod id sagittis nibh ornare. Aenean tincidunt metus blandit nisi hendrerit venenatis. Donec sit amet volutpat dolor. Pellentesque sit amet lacus odio, quis pretium nunc.\r\n\r\nPraesent sodales nibh sodales massa tempor consequat. Suspendisse malesuada leo a urna rutrum sodales. Suspendisse at felis sed leo posuere porttitor nec quis elit. Vivamus venenatis est porttitor lorem semper ac pulvinar nulla malesuada. Fusce faucibus hendrerit tincidunt. Ut faucibus vestibulum placerat. Pellentesque condimentum tortor at tellus mollis euismod. Nam vel ornare lectus. Maecenas ut vestibulum nunc. Etiam at ultrices nibh. In at felis viverra risus vulputate cursus. In tempor orci tellus, ut feugiat ligula. Praesent ultricies aliquet odio nec euismod. Quisque luctus ipsum in odio laoreet quis mattis nulla interdum. Donec dui purus, volutpat nec eleifend sed, suscipit sit amet purus. Nam interdum eleifend risus, facilisis mattis tellus tincidunt vitae. Nam in lacus nullam.', '2011-01-19 22:44:21', '2011-01-19 22:44:21');
 
 -- --------------------------------------------------------
 
@@ -82,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   UNIQUE KEY `eventId_2` (`eventId`,`userId`),
   KEY `eventId` (`eventId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `event_user`
@@ -96,7 +125,9 @@ INSERT INTO `event_user` (`id`, `eventId`, `userId`, `status`, `created`, `modif
 (18, 10, 1, 'Not Attending', '2010-12-08 23:32:17', '2010-12-12 12:55:01'),
 (19, 12, 1, 'Attending', '2010-12-21 19:02:49', '2010-12-21 19:02:49'),
 (20, 16, 1, 'Not Attending', '2011-01-05 14:21:04', '2011-01-05 14:21:04'),
-(21, 17, 1, 'Attending', '2011-01-05 14:22:18', '2011-01-05 14:22:18');
+(21, 17, 1, 'Attending', '2011-01-05 14:22:18', '2011-01-05 14:22:18'),
+(22, 21, 1, 'Not Attending', '2011-01-07 20:29:27', '2011-01-19 21:37:01'),
+(23, 8, 25, 'Attending', '2011-01-07 20:36:33', '2011-01-07 20:36:33');
 
 -- --------------------------------------------------------
 
@@ -145,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `group_banter` (
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`),
   KEY `parentId` (`parentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `group_banter`
@@ -160,10 +191,13 @@ INSERT INTO `group_banter` (`id`, `creatorId`, `groupId`, `parentId`, `content`,
 (6, 1, 6, 1, 'This is another reply!', '2011-01-06 16:27:08', '2011-01-06 16:27:08'),
 (7, 1, 6, NULL, 'Attached is the list of the nominations that we came up with during tonight’s chapter meeting for the Spring 2009 Executive Committee. Everyone on the list has accepted unless further informed. \r\n\r\nThe open floor nominations are done for now, but nominations through email will be open until Saturday Nov. 22 @ 11:59PM. To nominate yourself or others, email me at president@apogb.org. \r\n\r\nTo decline any nominations, you can decline from the ballot but the deadline is also until Saturday @ 11:59PM. To decline, also email me at president@apogb.org. \r\n\r\nSpring 2009 Executive Committee Nominations \r\n\r\nPublic Relations Officer \r\nMarianne Mendezona \r\n\r\nHistorian \r\nShelsy Bass \r\nJason Punzalan & Kari Yamamoto \r\nEffie Aguila & Jason Punzalan \r\n\r\nSergeant-At-Arms \r\nMelly Sawatdee & Shelsy Bass \r\nMegan Smith & Tobi Richards \r\n\r\nTreasurer \r\nJason Punzalan & Shelsy Bass \r\n\r\nSecretary \r\nDavis Ngo & Jansey Lagdamen \r\nAmanda Soon & Effie Aguila \r\n\r\nVice President of Fellowship \r\nMaritza Martinez & Kevin Abella \r\nJennifer Gonzalez & Maritza Martinez \r\nMaria Makarian & Marianne Mendezona \r\nYuki Hagihara & Christine Tu \r\n\r\nVice President of Service \r\nJennifer Gonzalez & Melissa Urrutia \r\nDavis Ngo & Jason Punzalan \r\n\r\nVice President of Membership \r\nDat Phan \r\nChristine Tu \r\n\r\nPresident \r\nSean Corpus \r\nMarc Tellez \r\nTobi Richards \r\nJeff-Scott Tonel', '2011-01-06 16:53:30', '2011-01-06 16:53:30'),
 (8, 1, 6, NULL, 'This is from the index page', '2011-01-07 14:10:47', '2011-01-07 14:10:47'),
-(9, 1, 6, NULL, 'hi\r\n', '2011-01-07 14:38:55', '2011-01-07 14:38:55'),
+(9, 1, 6, NULL, 'hi', '2011-01-07 14:38:55', '2011-01-07 15:53:16'),
 (10, 1, 5, 1, 'tets', '2011-01-07 15:20:10', '2011-01-07 15:21:58'),
 (11, 1, 6, 1, 'Trying to hack group id', '2011-01-07 15:21:42', '2011-01-07 15:21:42'),
-(12, 1, 6, 9, 'hello', '2011-01-07 15:34:58', '2011-01-07 15:34:58');
+(12, 1, 6, 9, 'hello', '2011-01-07 15:34:58', '2011-01-07 15:34:58'),
+(13, 25, 5, NULL, 'testssss', '2011-01-07 17:44:49', '2011-01-07 18:38:00'),
+(14, 25, 5, 3, 'Sah-weet', '2011-01-07 18:25:47', '2011-01-07 18:25:47'),
+(15, 25, 5, 3, 'Still awesome', '2011-01-07 20:42:05', '2011-01-07 20:42:05');
 
 -- --------------------------------------------------------
 
@@ -184,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `group_profile` (
 --
 
 INSERT INTO `group_profile` (`groupId`, `description`, `created`, `modified`) VALUES
-(5, 'About Us\r\n\r\nAlpha Phi Omega National Service Fraternity is an inclusive, coed, college-based organization with active chapters on over 350+ campuses across the United States. Members provide service to their communities and youth, the nation, their campuses, and each other. The organization is staffed by volunteers at all levels, including governance, advising, and program delivery.\r\n\r\nIn Alpha Phi Omega’s 75+ years of existence, more than 310,000 college men and women have dedicated themselves to the fraternity’s three cardinal principles: Leadership , Friendship and Service.\r\n\r\nOur chapter at San Jose State University strives to improve and grow by re-evaluating our goals and objectives after every college semester. Come and stay awhile to read about who we are and what we are about. If you have any comments or questions for us about the fraternity, chapter operations, or the website, please feel free to contact us.\r\n\r\nDeveloping Leadership, Promoting Friendship, and Providing Service\r\n\r\nRealistically, leadership is a matter of development. Alpha Phi Omega develops leaders, and we are very proud of that. As we grow, we seek qualities of leadership, and throughout our lives, we pursue the development of those qualities and the development of other ‘well-rounding’ qualities. Through our leadership development program in Alpha Phi Omega, we are able to develop ourselves. And, as we aspire to greater things in life, we become aware of limiting factors - which we can’t control, the external forces that shape our destiny until we control and develop what we have inside of us. We discover our own talents and strive to better our skills. We study, we learn, we practice.\r\n\r\nBrotherhood is the spirit of friendship. It implies respect, honesty and dependability. It means that we overlook differences and emphasize similarities as we join together in unselfish service. It means listening to Brothers whose views on issues might differ from our own. It means working closely with people whom under other circumstances we might not choose as our friends.\r\n\r\nOur Chapter service program provides many opportunities for the development of social awareness, friendships and leadership skills. Participation in our service program helps make Alpha Phi Omega the unique fraternal organization that it is.', NULL, NULL),
+(5, 'Alpha Phi Omega National Service Fraternity is an inclusive, coed, college-based organization with active chapters on over 350+ campuses across the United States. Members provide service to their communities and youth, the nation, their campuses, and each other. The organization is staffed by volunteers at all levels, including governance, advising, and program delivery.\r\n\r\nIn Alpha Phi Omega’s 75+ years of existence, more than 310,000 college men and women have dedicated themselves to the fraternity’s three cardinal principles: Leadership , Friendship and Service.\r\n\r\nOur chapter at San Jose State University strives to improve and grow by re-evaluating our goals and objectives after every college semester. Come and stay awhile to read about who we are and what we are about. If you have any comments or questions for us about the fraternity, chapter operations, or the website, please feel free to contact us.\r\n\r\nDeveloping Leadership, Promoting Friendship, and Providing Service\r\n\r\nRealistically, leadership is a matter of development. Alpha Phi Omega develops leaders, and we are very proud of that. As we grow, we seek qualities of leadership, and throughout our lives, we pursue the development of those qualities and the development of other ‘well-rounding’ qualities. Through our leadership development program in Alpha Phi Omega, we are able to develop ourselves. And, as we aspire to greater things in life, we become aware of limiting factors - which we can’t control, the external forces that shape our destiny until we control and develop what we have inside of us. We discover our own talents and strive to better our skills. We study, we learn, we practice.\r\n\r\nBrotherhood is the spirit of friendship. It implies respect, honesty and dependability. It means that we overlook differences and emphasize similarities as we join together in unselfish service. It means listening to Brothers whose views on issues might differ from our own. It means working closely with people whom under other circumstances we might not choose as our friends.\r\n\r\nOur Chapter service program provides many opportunities for the development of social awareness, friendships and leadership skills. Participation in our service program helps make Alpha Phi Omega the unique fraternal organization that it is.', NULL, '2011-01-13 22:25:39'),
 (6, 'Gaaaaamma Beeeeeetaaa clap clap - clap clap clap', NULL, NULL),
 (7, NULL, NULL, NULL),
 (8, NULL, NULL, NULL),
@@ -289,6 +323,13 @@ INSERT INTO `user` (`id`, `username`, `email`, `token`, `password`, `firstName`,
 ALTER TABLE `event`
   ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `event_ibfk_4` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `event_banter`
+--
+ALTER TABLE `event_banter`
+  ADD CONSTRAINT `event_banter_ibfk_1` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_banter_ibfk_2` FOREIGN KEY (`eventId`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event_user`

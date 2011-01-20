@@ -64,8 +64,28 @@ $this->renderPartial('_rsvp', array(
 
 ?>
 
+<section id="banter">
+	<h2><?php echo $model->banterCount . ' Thoughts'; ?></h1>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$eventBanters,
+		'itemView'=>'/eventbanter/_view',
+	)); 
+	?>
+
+	<?php 
+	//Event banter form
+	$this->renderPartial('/eventbanter/_form', array(
+		'event'=>$model,
+		'model'=>$eventBanter,
+	)); 
+	?>
+	
+</section>
+
 <!-- List of users in event -->
-<div id="users">
+<section id="users">
 	<h2><?php echo $attendees->getTotalItemCount() . ' Attending'; ?></h2>
 	
 	<?php 
@@ -83,4 +103,4 @@ $this->renderPartial('_rsvp', array(
 		'itemView'=>'/user/_users',
 	)); 
 	?>
-</div>
+</section>

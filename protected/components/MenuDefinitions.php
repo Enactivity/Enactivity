@@ -41,6 +41,12 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
+				'label'=>'Manage EventBanter', 
+				'url'=>array('eventbanter/admin'), 
+				'linkOptions'=>array('id'=>'event_manage_menu_item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
+			array(
 				'label'=>'Manage GroupBanter', 
 				'url'=>array('groupbanter/admin'), 
 				'linkOptions'=>array('id'=>'group_manage_menu_item'),

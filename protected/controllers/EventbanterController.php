@@ -50,8 +50,10 @@ class EventbanterController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 
@@ -61,7 +63,7 @@ class EventbanterController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new EventBanter;
+		$model = new EventBanter;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -109,8 +111,7 @@ class EventbanterController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
+		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 

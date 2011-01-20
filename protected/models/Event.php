@@ -128,13 +128,15 @@ class Event extends CActiveRecord
 			'eventUsersAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
 				'condition' => 'status="' . EventUser::STATUS_ATTENDING . '"'
 			),
+			//TODO: implement usersAttending and usersNotAttending when MANY_MANY link properties is added
 			'eventUsersNotAttending' => array(self::HAS_MANY, 'EventUser', 'eventId',
 				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
 			),
 			'eventUsersNotAttendingCount' => array(self::STAT, 'EventUser', 'eventId',
 				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
 			),
-			//TODO: implement usersAttending and usersNotAttending when MANY_MANY link properties is added
+			'eventBanter' => array(self::HAS_MANY, 'EventBanter', 'eventId'),
+			'banterCount' => array(self::STAT, 'EventBanter', 'eventId'),
 		);
 	}
 

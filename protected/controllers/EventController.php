@@ -59,17 +59,26 @@ class EventController extends Controller
 		// check if the user RSVPed
 		$eventuser = $this->checkRSVPForm($event->id);
 		
+		// check if the user bantered
+		$eventBanter = $this->checkBanterForm($event->id);
+		
 		// Get the list of the attending users
 		$attendees = $event->getAttendeesByStatus(EventUser::STATUS_ATTENDING);
 		
 		// Get the list of the not attending users
 		$notattendees = $event->getAttendeesByStatus(EventUser::STATUS_NOT_ATTENDING);
-				
+
+		$eventBanters = new CActiveDataProvider('EventBanter', array(
+			'data' => $model->eventBanter)
+		);
+		
 		$this->render('view', array(
 			'model'=>$event,
 			'eventuser'=>$eventuser,
 			'attendees'=>$attendees,
 			'notattendees'=>$notattendees,
+			'eventBanter'=>$eventBanter,
+			'eventBanters'=>$eventBanters,
 		));
 	}
 
@@ -79,7 +88,7 @@ class EventController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Event;
+		$model = new Event;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -205,23 +214,46 @@ class EventController extends Controller
 	
 	/**
 	 * Check if the user RSVPed and update as necessary
+	 * @return EventUser link with updated status or null if none was created
 	 */
 	protected function checkRSVPForm($eventId) {
 		// check if the user RSVPed
 		if(isset($_POST['Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($eventId, Yii::app()->user->id, EventUser::STATUS_ATTENDING);
+			$model = EventUser::model()->setRSVP($eventId, 
+				Yii::app()->user->id, EventUser::STATUS_ATTENDING);
 		}
 		else if(isset($_POST['Not_Attending_Button'])) {
-			$eventuser = EventUser::model()->setRSVP($eventId, Yii::app()->user->id, EventUser::STATUS_NOT_ATTENDING);
+			$model = EventUser::model()->setRSVP($eventId, 
+				Yii::app()->user->id, EventUser::STATUS_NOT_ATTENDING);
 		} 
 		else {
 			// if the user did not post their RSVP, get their current RSVP
-			$eventuser = EventUser::model()
+			$model = EventUser::model()
 				->scopeEvent($eventId)
 				->scopeUser(Yii::app()->user->id)
 				->find();
-			$eventuser = $eventuser !== null ? $eventuser : new EventUser;
+			$model = $model !== null ? $model : new EventUser;
 		}
-		return $eventuser;
+		return $model;
+	}
+	
+	protected function checkBanterForm($eventId) {
+		
+		$model = new EventBanter;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['EventBanter']))
+		{
+			$model->attributes = $_POST['EventBanter'];
+			$model->eventId = $eventId;
+			if($model->save()) {
+				//we reset the model to avoid reposting it into the form
+				$model = new EventBanter;
+			}
+		}
+		
+		return $model;	
 	}
 }

@@ -1,9 +1,9 @@
-<div class="view">
-	<h2><?php 
-		echo CHtml::link(StringUtils::truncate(CHtml::encode($data->content), 80), 
-			array('groupbanter/view', 'id'=>$data->id)); 
-	?></h2>
+<article class="view">
+	<section><p><?php 
+		echo CFormatter::formatNtext($data->content); 
+	?></p></section>
 	
+	<footer>
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creatorId')); ?>:</b>
 	<?php echo CHtml::encode($data->creator->fullName); ?>
 	<br />
@@ -19,5 +19,5 @@
 		'full', 'short')); ?>
 	<br />
 	<?php endif; ?>
-
-</div>
+	</footer>
+</article>
