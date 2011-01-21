@@ -13,6 +13,12 @@ class UserIdentity extends CUserIdentity
 
 	private $_id;
 	
+	/**
+	 * Authenticates a user based on {@link username} (which could be 
+	 * an email in this case) and {@link password}.
+	 * This method is required by {@link IUserIdentity}.
+	 * @return boolean whether authentication succeeds.
+	 */
 	public function authenticate()
 	{		
 		$user = User::findByUsernameOrEmail($this->username);
