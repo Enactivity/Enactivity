@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
+<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'event-form',
 	'enableAjaxValidation'=>false,
 )); ?>

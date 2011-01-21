@@ -6,7 +6,7 @@ $this->menu = MenuDefinitions::groupMenu();
 
 <div class="form">
 
-<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
+<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'invite-form-invite-form',
 	'enableAjaxValidation'=>false,
 )); ?>

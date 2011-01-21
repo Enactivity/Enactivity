@@ -8,7 +8,7 @@
 <!-- RSVP here -->
 <div class="item rsvp">
 	<?php
-	$form = $this->beginWidget('ext.pwidgets.PActiveForm', array(
+	$form = $this->beginWidget('ext.widgets.ActiveForm', array(
 		    'enableAjaxValidation'=>false,
 		));
 	

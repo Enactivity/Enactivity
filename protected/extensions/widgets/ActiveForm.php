@@ -4,7 +4,7 @@
  * redirects to {@link PHtml} instead of {@link CHtml} 
  * @author Ajay Sharma
  */
-class PActiveForm extends CActiveForm {
+class ActiveForm extends CActiveForm {
 
 	public function init()
 	{

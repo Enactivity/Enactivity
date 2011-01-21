@@ -5,7 +5,7 @@ $this->menu = MenuDefinitions::userMenu($model);
 
 <div class="form">
 
-<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
+<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'update-password-form',
 	'enableAjaxValidation'=>false,
 )); ?>

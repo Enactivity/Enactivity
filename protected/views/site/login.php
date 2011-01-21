@@ -3,7 +3,7 @@ $this->pageTitle = 'Login';
 ?>
 
 <div class="form">
-<?php $form=$this->beginWidget('ext.pwidgets.PActiveForm', array(
+<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'login-form',
 	'enableAjaxValidation'=>false,
 )); 
