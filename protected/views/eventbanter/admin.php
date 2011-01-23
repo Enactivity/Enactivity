@@ -1,8 +1,7 @@
 <?php
-$this->menu=array(
-	array('label'=>'List EventBanter', 'url'=>array('index')),
-	array('label'=>'Create EventBanter', 'url'=>array('create')),
-);
+$this->pageTitle = 'Manage EventBanter';
+
+$this->menu = MenuDefinitions::adminMenu();
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -17,8 +16,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Event Banters</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
