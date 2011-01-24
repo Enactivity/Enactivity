@@ -20,14 +20,15 @@
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
 			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
-			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
+			$this->widget('ext.widgets.jui.JuiDatePicker', 
 				array(
-				    'model'=>$model,
-				    'attribute'=>'starts',
+					'model'=>$model,
+					'attribute'=>'starts',
+					'flat' => true,
+					// additional javascript options for the date picker plugin
 					'options'=>array(
-						'ampm' => true,
+						'showAnim'=>'fold',
 						'minDate' => 0,
-				        'timeFormat' => 'h:mm tt',
 					),
 				)
 			);
@@ -40,10 +41,11 @@
 		<div class="forminput"><?php 
 			// preformat date before loading into widget 
 			$model->ends = isset($model->ends) ? date('m/d/Y g:i a', strtotime($model->ends)) : null;
-			$this->widget('application.extensions.timepicker.EJuiDateTimePicker',
+			$this->widget('ext.widgets.jui.JuiDatePicker', 
 				array(
 				    'model'=>$model,
 				    'attribute'=>'ends',
+					'flat' => true,
 					'options'=>array(
 						'ampm' => true,
 						'minDate' => 0,
