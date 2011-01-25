@@ -136,7 +136,7 @@ class Event extends CActiveRecord
 				'condition' => 'status="' . EventUser::STATUS_NOT_ATTENDING . '"'
 			),
 			'eventBanter' => array(self::HAS_MANY, 'EventBanter', 'eventId'),
-			'banterCount' => array(self::STAT, 'EventBanter', 'eventId'),
+			'eventBanterCount' => array(self::STAT, 'EventBanter', 'eventId'),
 		);
 	}
 
