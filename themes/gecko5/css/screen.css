@@ -132,7 +132,7 @@ em {
 
 #content h2
 {
-	font-size: 18px;
+	font-size: 24px;
 	max-width: 32em;
 }
 
@@ -144,7 +144,10 @@ em {
 
 #content section
 {
-	clear: both;
+	float: left;
+	max-width: 520px;
+	padding: 10px;
+	width: 100%;
 }
 
 #content a
@@ -160,7 +163,7 @@ em {
 
 #content p
 {
-	margin: 0px 10px 1.25em 10px;
+	margin-bottom: 1.25em;
 	max-width: 32em;
 }
 

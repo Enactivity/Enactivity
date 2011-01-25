@@ -11,7 +11,6 @@ $this->renderPartial('_rsvp', array(
 	'eventuser'=>$eventuser,
 )); 
 ?>
-
 <?php $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -61,7 +60,6 @@ $this->renderPartial('_rsvp', array(
 		),
 	),
 )); 
-
 ?>
 
 <section id="banter">
@@ -84,7 +82,7 @@ $this->renderPartial('_rsvp', array(
 </section>
 
 <!-- List of users in event -->
-<section id="users">
+<section id="users-attending">
 	<h2><?php echo $attendees->getTotalItemCount() . ' Attending'; ?></h2>
 	
 	<?php 
@@ -93,7 +91,9 @@ $this->renderPartial('_rsvp', array(
 		'itemView'=>'/user/_users',
 	)); 
 	?>
+</section>
 	
+<section id="users-not-attending">
 	<h2><?php echo $notattendees->getTotalItemCount() . ' Not Attending'; ?></h2>
 	
 	<?php 

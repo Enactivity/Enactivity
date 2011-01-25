@@ -114,6 +114,7 @@ return array(
 				'CBaseListView' => array(
 					'cssFile' => false,
 					'summaryText' => false,
+					'tagName' => 'section',
 				),
 				'CBreadcrumbs' => array(
 					//'cssFile' => false,
@@ -193,6 +194,7 @@ return array(
 				'CListView' => array(
 					'cssFile' => false,
 					'summaryText' => false,
+					'tagName' => 'section',
 				),
 				'CMenu' => array(
 					//'cssFile' => false,
