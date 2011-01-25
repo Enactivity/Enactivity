@@ -1,23 +1,25 @@
 <article class="view">
-	<section><p><?php 
+<dl>
+	<dt><p><?php 
 		echo CFormatter::formatNtext($data->content); 
-	?></p></section>
+	?></p></dt>
 	
-	<footer>
-	<b><?php echo CHtml::encode($data->getAttributeLabel('creatorId')); ?>:</b>
-	<?php echo CHtml::encode($data->creator->fullName); ?>
-	<br />
+	<dd><span><?php $this->widget('ext.widgets.UserLink', array(
+		'userModel' => $data->creator,
+	)); ?></span></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->created, 
-		'full', 'short')); ?>
-	<br />
+	<dd><span><?php echo CHtml::encode(Yii::app()
+		->dateformatter
+		->formatDateTime($data->created, 'full', 'short')); 
+	?></span></dd>
 	
 	<?php if($model->modified != $model->created): ?>
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode(Yii::app()->dateformatter->formatDateTime($data->modified, 
-		'full', 'short')); ?>
-	<br />
+	<dd><span><b><?php 
+		echo CHtml::encode($data->getAttributeLabel('modified')); 
+	?>:</b>
+	<?php echo CHtml::encode(Yii::app()
+		->dateformatter
+		->formatDateTime($data->modified, 'full', 'short')); ?></span></dd>
 	<?php endif; ?>
-	</footer>
+</dl>
 </article>

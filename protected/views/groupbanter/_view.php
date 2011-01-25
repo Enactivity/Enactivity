@@ -1,25 +1,21 @@
-<div class="view">
+<article class="view">
 <dl>
 	<dt><h2><?php 
 		echo PHtml::link(StringUtils::truncate(PHtml::encode($data->content), 80), 
 			array('groupbanter/view', 'id'=>$data->id)); 
 	?></h2></dt>
 	
-	<dd><b><?php echo PHtml::encode($data->getAttributeLabel('creatorId')); ?>:</b>
-	<?php $this->widget('ext.widgets.UserLink', array(
+	<dd><span><?php $this->widget('ext.widgets.UserLink', array(
 		'userModel' => $data->creator,
-	)); 
-	?></dd>
+	)); ?></span></dd>
 
-	<dd><b><?php echo PHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo PHtml::encode(Yii::app()->dateformatter->formatDateTime($data->created, 
-		'full', 'short')); ?></dd>
+	<dd><span><?php echo PHtml::encode(Yii::app()->dateformatter->formatDateTime($data->created, 
+		'full', 'short')); ?></span></dd>
 	
 	<?php if($model->modified != $model->created): ?>
-	<dd><b><?php echo PHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
+	<dd><span><b><?php echo PHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
 	<?php echo PHtml::encode(Yii::app()->dateformatter->formatDateTime($data->modified, 
-		'full', 'short')); ?></dd>
+		'full', 'short')); ?></span></dd>
 	<?php endif; ?>
-	
 </dl>
-</div>
+</article>
