@@ -63,15 +63,79 @@ class JuiDatePicker extends CJuiInputWidget
 	 * @var boolean If true, shows the widget as an inline calendar and the input as a hidden field. Use the onSelect event to update the hidden field
 	 */
 	public $flat = false;
+
+	public $baseScriptUrl;
+	
+	public $dateAttribute;
+	public $timeAttribute;
+			
+	public function init()
+	{
+		parent::init();
+		
+		if($this->baseScriptUrl === null) {
+			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathofAlias('ext.widgets')) . '/jui';
+		}
+	}
 	
 	/**
 	 * Run this widget.
 	 * This method registers necessary javascript and renders the needed HTML code.
 	 */
+	public function run()
+	{
+		
+		list($name,$id)=$this->resolveNameID();
+
+		if(isset($this->htmlOptions['id']))
+			$id=$this->htmlOptions['id'];
+		else
+			$this->htmlOptions['id']=$id;
+		if(isset($this->htmlOptions['name']))
+			$name=$this->htmlOptions['name'];
+
+		if ($this->flat===false)
+		{
+			if($this->hasModel()){
+				echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
+			}	
+			else{
+				echo CHtml::textField($name,$this->value,$this->htmlOptions);
+			}
+		}
+		else
+		{
+			if($this->hasModel())
+			{
+				$da = $this->dateAttribute;
+				Yii::trace("Attributes: " . $this->dateAttribute . " is: " . $this->model->$da);
+				echo CHtml::activeTextField($this->model, $this->dateAttribute, $this->htmlOptions);
+				echo CHtml::activeDropDownList($this->model, $this->timeAttribute, $this->getTimes(), $this->htmlOptions);
+			}
+			else
+			{
+				echo CHtml::textField($name,$this->value, $this->htmlOptions);
+				$this->options['defaultDate'] = $this->value;
+			}
+			
+			if (!isset($this->options['onSelect']))
+				$this->options['onSelect']="js:function( selectedDate ) { jQuery('#{$id}').val(selectedDate);}";
+			
+			$this->htmlOptions['id'] = $id =  $this->htmlOptions['id'].'_container';
+			$this->htmlOptions['name']= $name = $this->htmlOptions['name'].'_container';
+			$this->htmlOptions['style']= $style = $this->htmlOptions['style'].'display: none;';
+			echo CHtml::tag('div', $this->htmlOptions);
+		}
+
+		$options=CJavaScript::encode($this->options);
+		$js = "jQuery('#{$id}').datepicker($options);";
+		$cs = Yii::app()->getClientScript();
+		$cs->registerScript(__CLASS__.'#'.$id, $js);
+		$cs->registerScriptFile($this->baseScriptUrl . "/jquery.datepickerhider.js", CClientScript::POS_END);
+
+	}
 	
-	public $baseScriptUrl;
-	
-	public function getTimes(){
+	protected function getTimes(){
 		$timeArray = array();
 		$timeArray["0000"] = "12:00am";
 		$timeArray["0015"] = "12:15am";
@@ -170,66 +234,5 @@ class JuiDatePicker extends CJuiInputWidget
 		$timeArray["2330"] = "11:30pm";
 		$timeArray["2345"] = "11:45pm";
 		return $timeArray;
-	}
-	
-	public function init()
-	{
-		parent::init();
-		
-		if($this->baseScriptUrl === null) {
-			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathofAlias('ext.widgets')) . '/jui';
-		}
-	}
-	public function run()
-	{
-		
-		list($name,$id)=$this->resolveNameID();
-
-		if(isset($this->htmlOptions['id']))
-			$id=$this->htmlOptions['id'];
-		else
-			$this->htmlOptions['id']=$id;
-		if(isset($this->htmlOptions['name']))
-			$name=$this->htmlOptions['name'];
-
-		if ($this->flat===false)
-		{
-			if($this->hasModel()){
-				echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
-			}	
-			else{
-				echo CHtml::textField($name,$this->value,$this->htmlOptions);
-			}
-		}
-		else
-		{
-			if($this->hasModel())
-			{
-				echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
-				$attribute = $this->attribute;
-				$this->options['defaultDate'] = $this->model->$attribute;
-				echo Chtml::activeDropDownList($this->model, $this->attribute, $this->getTimes(), $this->htmlOptions);
-			}
-			else
-			{
-				echo CHtml::textField($name,$this->value,$this->htmlOptions);
-				$this->options['defaultDate'] = $this->value;
-			}
-			
-			if (!isset($this->options['onSelect']))
-				$this->options['onSelect']="js:function( selectedDate ) { jQuery('#{$id}').val(selectedDate);}";
-			
-			$this->htmlOptions['id'] = $id =  $this->htmlOptions['id'].'_container';
-			$this->htmlOptions['name']= $name = $this->htmlOptions['name'].'_container';
-			$this->htmlOptions['style']= $style = $this->htmlOptions['style'].'display: none;';
-			echo CHtml::tag('div', $this->htmlOptions);
-		}
-
-		$options=CJavaScript::encode($this->options);
-		$js = "jQuery('#{$id}').datepicker($options);";
-		$cs = Yii::app()->getClientScript();
-		$cs->registerScript(__CLASS__.'#'.$id, $js);
-		$cs->registerScriptFile($this->baseScriptUrl . "/jquery.datepickerhider.js", CClientScript::POS_END);
-
 	}
 }
