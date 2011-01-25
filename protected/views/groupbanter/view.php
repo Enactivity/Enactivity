@@ -4,7 +4,7 @@ $this->pageTitle = StringUtils::truncate($model->content, 60);
 $this->menu = MenuDefinitions::groupBanterMenu($model);
 ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'content:ntext',
@@ -47,7 +47,7 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 
 <?php if($model->parent == null): ?>
 <!-- List of users in event -->
-<div id="replies">
+<section id="replies">
 	<h2><?php echo $model->repliesCount() . ' Replies'; ?></h2>
 	
 	<?php 
@@ -56,10 +56,10 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 		'itemView'=>'_view',
 	)); 
 	?>	
-</div>
+</section>
 
 <!-- Reply form -->
-<div id="reply">
+<section id="reply">
 	<h2><?php echo 'Add Your Reply'; ?></h2>
 	
 	<?php 
@@ -69,4 +69,4 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 		)); 
 	endif;
 ?>
-</div>
+</section>

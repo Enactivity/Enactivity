@@ -12,7 +12,7 @@ $this->renderPartial('_rsvp', array(
 )); 
 ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'datesAsSentence',
@@ -81,7 +81,6 @@ $this->renderPartial('_rsvp', array(
 		'model'=>$eventBanter,
 	)); 
 	?>
-	
 </section>
 
 <!-- List of users in event -->

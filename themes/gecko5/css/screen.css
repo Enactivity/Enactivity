@@ -142,6 +142,11 @@ em {
 	max-width: 32em;
 }
 
+#content section
+{
+	clear: both;
+}
+
 #content a
 {
 
@@ -217,18 +222,23 @@ aside.flash-success a
 	overflow: hidden;
 }
 
-#content .list-view .items .view dl
+#content .detail-view dl,
+#content .list-view dl
 {
 	overflow: hidden;
 }
 
-#content .list-view .items .view dt
+#content .detail-view dt,
+#content .list-view dt
 {
+	clear: both;
 	float: left;
 	margin: auto;
+	font-weight: bold;
 }
 
-#content .list-view .items .view dd
+#content .detail-view dd,
+#content .list-view dd
 {
 	clear: right;
 	float: right;

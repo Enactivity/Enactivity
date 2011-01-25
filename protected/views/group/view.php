@@ -6,7 +6,7 @@ $this->menu = MenuDefinitions::groupMenu($model);
 
 <?php 
 
-$this->widget('zii.widgets.CDetailView', array(
+$this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(
@@ -23,7 +23,7 @@ $this->widget('zii.widgets.CDetailView', array(
 
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>
-<div id="users">
+<section id="users">
 	<h2><?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?></h2>
 	
 	<?php 
@@ -33,5 +33,5 @@ $this->widget('zii.widgets.CDetailView', array(
 		'cssFile'=>false,
 	)); 
 	?>
-</div>
+</section>
 <?php endif; ?>
