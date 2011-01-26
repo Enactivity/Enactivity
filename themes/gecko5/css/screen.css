@@ -163,6 +163,7 @@ em {
 
 #content p
 {
+	font-weight: normal;
 	margin-bottom: 1.25em;
 	max-width: 32em;
 }
