@@ -21,5 +21,23 @@
 		->dateformatter
 		->formatDateTime($data->modified, 'full', 'short')); ?></span></dd>
 	<?php endif; ?>
+	
+	<?php if($data->creatorId == Yii::app()->user->id):?>
+	<dd><span><?php 
+		echo CHtml::link('Update', array('eventbanter/update', 'id' => $data->id) ); ?></span></dd>
+	<dd><span><?php 
+		echo CHtml::link('Delete', 
+			'#',
+			array(
+				'confirm'=>'Are you sure you want to delete this item?',
+				'csrf' => true,
+				'id'=>'event_banter_delete_banter_item_' . $data->id, //unique id required or last instance is deleted
+				'submit' => array(
+					'eventbanter/delete',
+					'id'=>$data->id,
+				),
+			)
+		); ?></span></dd>
+	<?php endif; ?>
 </dl>
 </article>
