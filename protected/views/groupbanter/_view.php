@@ -1,9 +1,18 @@
 <article class="view">
 <dl>
-	<dt><h2><?php 
-		echo PHtml::link(StringUtils::truncate(PHtml::encode($data->content), 80), 
-			array('groupbanter/view', 'id'=>$data->id)); 
-	?></h2></dt>
+	<dt><?php
+		//truncate parentless banters
+		if($data->parentId === null) { 
+			echo '<h2>';
+			echo PHtml::link(StringUtils::truncate(PHtml::encode($data->content), 80), 
+			array('groupbanter/view', 'id'=>$data->id));
+			echo '</h2>';	
+		} 
+		//if it has a parent, it's a reply, so show it all
+		else {
+			echo  Yii::app()->format->formatStyledText($data->content);
+		}
+	?></dt>
 	
 	<dd><span><?php $this->widget('ext.widgets.UserLink', array(
 		'userModel' => $data->creator,
