@@ -366,18 +366,10 @@ aside.flash-success a
 {
 	color: #aaaaaa;
 	font-weight: bold;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	text-align: right;
-	min-width: 120px;
 }
 
 #content td 
 {
-	padding-bottom: 12px;
-	padding-left: 12px;
-	padding-right: 12px;
-	padding-top: 12px;
 	max-width: 32em;
 }
 
