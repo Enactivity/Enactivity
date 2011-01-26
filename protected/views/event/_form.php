@@ -24,6 +24,7 @@
 				array(
 					'model'=>$model,
 					'attribute'=>'starts',
+					'timeAttribute'=>'starts',
 					'flat' => true,
 					// additional javascript options for the date picker plugin
 					'options'=>array(
@@ -45,6 +46,7 @@
 				array(
 				    'model'=>$model,
 				    'attribute'=>'ends',
+					'timeAttribute'=>'ends',
 					'flat' => true,
 					'options'=>array(
 						'ampm' => true,
