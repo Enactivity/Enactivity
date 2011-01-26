@@ -69,7 +69,7 @@ class EventController extends Controller
 		$notattendees = $event->getAttendeesByStatus(EventUser::STATUS_NOT_ATTENDING);
 
 		$eventBanters = new CActiveDataProvider('EventBanter', array(
-			'data' => $model->eventBanter)
+			'data' => $event->eventBanter)
 		);
 		
 		$this->render('view', array(
