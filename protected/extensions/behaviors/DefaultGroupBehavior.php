@@ -25,7 +25,7 @@ class DefaultGroupBehavior extends CActiveRecordBehavior {
 	 * @param CModelEvent event parameter
 	 */
 	public function beforeValidate($event) {
-		if ($this->getOwner()->getIsNewRecord() && ($this->groupId !== null)) {
+		if ($this->getOwner()->getIsNewRecord() && ($this->getOwner()->groupId == null)) {
 			$this->getOwner()->{$this->groupId} = $this->getUserGroupId();
 		}
 	}
