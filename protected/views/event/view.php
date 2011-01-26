@@ -21,7 +21,7 @@ $this->renderPartial('_rsvp', array(
 		),
 		array( 
 			'name' => 'description',
-			'type' => 'ntext',
+			'type' => 'styledtext',
 			'visible' => strlen($model->description) > 0 ? true : false,
 		),
 		array( // group displayed as a link

@@ -59,6 +59,7 @@ return array(
 		),
         
 		'format'=>array(
+			'class' => 'application.components.utils.Formatter',
         	'datetimeFormat' => 'l, M d, Y \a\t g:i a', 
 		),
         

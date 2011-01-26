@@ -7,7 +7,7 @@ $this->menu = MenuDefinitions::groupBanterMenu($model);
 <?php $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'content:ntext',
+		'content:styledtext',
 		array( // group displayed as a link
 			'label'=>$model->getAttributeLabel('groupId'),
             'type'=>'raw',

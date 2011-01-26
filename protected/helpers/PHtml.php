@@ -175,4 +175,30 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('time',$model,$attribute,$htmlOptions);
 	}
+	
+	/**
+	 * Provides an alternative to nl2br, and returns a string with
+	 * newlines replaced with <p> tags
+	 * @param mixed $value
+	 * @return string $string
+	 */
+	public static function nl2p($value) {
+		// Remove existing HTML formatting to avoid double-wrapping things
+		$value = str_replace(array('<p>', '</p>', '<br>', '<br />'), '', $value);
+		
+        return '<p>'.preg_replace("/([\n]{1,})/i", "</p>\n<p>", trim($value)).'</p>';
+	}
+	
+	/**
+	 * Replaces plain text links with formatted that contains 
+	 * <a hrefs>.
+	 * @param string $string
+	 * @return string 
+	 */
+	public static function makeClickable($string) {
+		$urlHtml = preg_replace(
+			'/(?<!S)((http(s?):\/\/)|(www.))+([\w.1-9\&=#?\-~%;\/]+)/',
+			'<a href="http$3://$4$5">http$3://$4$5</a>', $string);
+		return ($urlHtml);
+	}
 }

@@ -12,7 +12,7 @@ $this->widget('ext.widgets.DetailView', array(
 		array(
 			'name' => 'About Us',
 			'value' => $model->groupProfile->description,
-			'type' => 'ntext',
+			'type' => 'styledtext',
 			'visible' => strlen($model->groupProfile->description) > 0 ? true : false,
 			
 		),

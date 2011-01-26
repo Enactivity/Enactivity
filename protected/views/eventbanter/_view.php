@@ -1,7 +1,7 @@
 <article class="view">
 <dl>
 	<dt><p><?php 
-		echo CFormatter::formatNtext($data->content); 
+		echo  Yii::app()->format->formatStyledText($data->content); 
 	?></p></dt>
 	
 	<dd><span><?php $this->widget('ext.widgets.UserLink', array(
