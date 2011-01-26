@@ -66,7 +66,7 @@ class JuiDatePicker extends CJuiInputWidget
 
 	public $baseScriptUrl;
 	
-	public $dateAttribute;
+	public $attribute;
 	public $timeAttribute;
 			
 	public function init()
@@ -74,7 +74,7 @@ class JuiDatePicker extends CJuiInputWidget
 		parent::init();
 		
 		if($this->baseScriptUrl === null) {
-			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathofAlias('ext.widgets')) . '/jui';
+			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathofAlias('ext.widgets') . '/jui/jquery.datepickerhider.js');
 		}
 	}
 	
@@ -107,9 +107,8 @@ class JuiDatePicker extends CJuiInputWidget
 		{
 			if($this->hasModel())
 			{
-				$da = $this->dateAttribute;
-				Yii::trace("Attributes: " . $this->dateAttribute . " is: " . $this->model->$da);
-				echo CHtml::activeTextField($this->model, $this->dateAttribute, $this->htmlOptions);
+				$da = $this->attribute;
+				echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
 				echo CHtml::activeDropDownList($this->model, $this->timeAttribute, $this->getTimes(), $this->htmlOptions);
 			}
 			else
@@ -118,8 +117,15 @@ class JuiDatePicker extends CJuiInputWidget
 				$this->options['defaultDate'] = $this->value;
 			}
 			
-			if (!isset($this->options['onSelect']))
-				$this->options['onSelect']="js:function( selectedDate ) { jQuery('#{$id}').val(selectedDate);}";
+			if (!isset($this->options['onSelect'])) {
+				// add 'onSelect' event handler to datepicker
+				// handler sets the value of the date to its parent & hides the picker
+				$this->options['onSelect']=
+					"js:function( selectedDate ) { 
+						jQuery('#{$id}').val(selectedDate);
+						$(this).hide('slow');
+					}";
+			}
 			
 			$this->htmlOptions['id'] = $id =  $this->htmlOptions['id'].'_container';
 			$this->htmlOptions['name']= $name = $this->htmlOptions['name'].'_container';
@@ -131,7 +137,7 @@ class JuiDatePicker extends CJuiInputWidget
 		$js = "jQuery('#{$id}').datepicker($options);";
 		$cs = Yii::app()->getClientScript();
 		$cs->registerScript(__CLASS__.'#'.$id, $js);
-		$cs->registerScriptFile($this->baseScriptUrl . "/jquery.datepickerhider.js", CClientScript::POS_END);
+		$cs->registerScriptFile($this->baseScriptUrl, CClientScript::POS_END);
 
 	}
 	
