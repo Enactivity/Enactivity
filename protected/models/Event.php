@@ -33,6 +33,12 @@ class Event extends CActiveRecord
 	
 	const LOCATION_MAX_LENGTH = 255;
 	
+	public $startDate;
+	public $startTime;
+	
+	public $endDate;
+	public $endTime;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Event the static model class
