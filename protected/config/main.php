@@ -194,6 +194,7 @@ return array(
 				),
 				'CListView' => array(
 					'cssFile' => false,
+					'emptyText' => 'None yet',
 					'summaryText' => false,
 					'tagName' => 'section',
 				),
