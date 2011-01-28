@@ -471,6 +471,17 @@ aside.flash-success a
 	margin-bottom: 15px;
 }
 
+#content input#Event_startDate,
+#content input#Event_endDate {
+	width: 65%;
+}
+
+#content select#Event_startTime,
+#content select#Event_endTime {
+	width: 35%;
+}
+
+/* Reset rsvp form inputs */
 #content .rsvp
 {
 	height: 100%;
@@ -478,7 +489,6 @@ aside.flash-success a
 	width: 100%
 }
 
-/* Reset rsvp form inputs */
 #content .rsvp form input[type=submit], 
 #content .rsvp form input[type=button] {
 	-moz-border-radius-bottomright: 0px 0px;
