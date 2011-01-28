@@ -91,7 +91,7 @@ class EventbanterController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -100,7 +100,7 @@ class EventbanterController extends Controller
 		{
 			$model->attributes=$_POST['EventBanter'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('event/view', 'id'=>$model->eventId));
 		}
 
 		$this->render('update',array(
@@ -117,11 +117,14 @@ class EventbanterController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$banter = $this->loadModel($id);
+			$eventId = $banter->eventId;
+			$banter->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			if(!isset($_GET['ajax'])) {
+				$this->redirect(array('event/view', "id" => $eventId));
+			}
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

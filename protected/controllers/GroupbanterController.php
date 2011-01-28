@@ -137,7 +137,9 @@ class GroupbanterController extends Controller
 		{
 			$model->attributes=$_POST['GroupBanter'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(isset($model->parentId) 
+					? array('groupbanter/view', 'id'=>$model->parentId) 
+					: array('groupbanter/view', 'id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -155,11 +157,15 @@ class GroupbanterController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$banter = $this->loadModel($id);
+			$parentId = $banter->parentId;
+			$banter->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(!is_null($parentId) 
+					? array('groupbanter/view', 'id'=>$banter->parentId) 
+					: array('groupbanter/index'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
