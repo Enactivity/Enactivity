@@ -89,6 +89,7 @@ class Event extends CActiveRecord
 		array('description', 'length', 'max'=>self::DESCRIPTION_MAX_LENGTH),
 		array('location', 'length', 'max'=>self::LOCATION_MAX_LENGTH),
 		array('created, modified', 'safe'),
+		array('startDate, startTime, endDate, endTime', 'safe'),
 		
 		array('ends', 'validateDateAfter', 'beforeDate'=>'starts'),
 
@@ -225,6 +226,37 @@ class Event extends CActiveRecord
 			'params' => array(':userId' => $userId)
 		));
 		return $this;
+	}
+	
+	protected function afterConstruct() {
+		parent::afterConstruct();
+		 
+		// default a new event to tomorrow noon
+		$tomorrow  = mktime(12, 0, 0, date("m"), date("d")+1, date("Y"));
+		$this->starts = date("m/d/Y H:00:00", $tomorrow);
+		$this->ends = date("m/d/Y H:00:00", $tomorrow);
+		
+		// convert database datetimes to dates and times
+		list($this->startDate, $this->startTime) = explode(' ', $this->starts);
+		list($this->endDate, $this->endTime) = explode(' ', $this->ends);
+	}
+	
+	protected function afterFind() {
+		parent::afterFind();
+		 
+		// convert database datetimes to dates and times
+		list($this->startDate, $this->startTime) = explode(' ', $this->starts);
+		list($this->endDate, $this->endTime) = explode(' ', $this->ends);
+	}
+	
+	protected function beforeValidate() {
+		if(parent::beforeValidate()) {
+			$this->starts = $this->startDate . " " . $this->startTime;
+			$this->ends = $this->endDate . " " . $this->endTime;
+			
+			return true;
+		}
+		return false;
 	}
 	
 	protected function beforeSave()
