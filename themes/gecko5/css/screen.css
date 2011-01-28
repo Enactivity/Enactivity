@@ -16,7 +16,6 @@ html {
 }
 body
 {
-	background: transparent url('../images/grid.png') repeat left top;
 	height: 100%;
 }
 
@@ -111,7 +110,6 @@ em {
 */
 #content
 {
-	background: transparent url('../images/grid.png') repeat left top;
 	clear: both;
 	overflow: hidden;
 	word-wrap: break-word;
@@ -244,8 +242,8 @@ aside.flash-success a
 #content .detail-view dd,
 #content .list-view dd
 {
-	clear: right;
-	float: right;
+	clear: both;
+	float: left;
 	margin: auto;
 }
 
