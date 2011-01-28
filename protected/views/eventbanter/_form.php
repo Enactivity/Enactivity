@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Say it' : 'Update it'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

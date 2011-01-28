@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = "Create GroupBanter";
+$this->pageTitle = "Banter";
 
 $this->menu = MenuDefinitions::groupBanterMenu();
 ?>

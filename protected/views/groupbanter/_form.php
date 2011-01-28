@@ -32,7 +32,7 @@
 	?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Start a conversation' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Say it' : 'Update it'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
