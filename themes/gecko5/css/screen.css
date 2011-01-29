@@ -69,6 +69,7 @@ em {
 #secondaryNavigation
 {
 	clear: both;
+	overflow: hidden;
 }
 
 #primaryNavigation ul, 
