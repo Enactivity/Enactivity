@@ -136,9 +136,13 @@ class MenuDefinitions extends CComponent {
 			$menu[] = array(
 				'label'=>'Delete', 
 				'url'=>'#', 
-				'linkOptions'=>array(
-					'submit'=>array('groupbanter/delete','id'=>$model->id),
-					'confirm'=>'Are you sure you want to delete this item?'
+				'linkOptions'=>array('submit'=>array(
+					'groupbanter/delete',
+					'id'=>$model->id,
+				),
+				'confirm'=>'Are you sure you want to delete this item?',
+					'csrf' => true,
+					'id'=>'groupbanter_delete_menu_item',
 				),
 				'visible'=>Yii::app()->user->id == $model->creatorId,
 			);
