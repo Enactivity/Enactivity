@@ -8,11 +8,13 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<?php 
-	$this->widget('ext.widgets.group.GroupInputRow', array(
-		'form' => $form,
-		'model' => $model,
-		'groups' => Yii::app()->user->model->groups,
-	));
+	if($model->isNewRecord) { 
+		$this->widget('ext.widgets.group.GroupInputRow', array(
+			'form' => $form,
+			'model' => $model,
+			'groups' => Yii::app()->user->model->groups,
+		));
+	}
 	?>
 	
 	<div class="row">

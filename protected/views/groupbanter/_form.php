@@ -22,7 +22,8 @@
 	
 	<?php 
 	// Only show group selection on non-replies
-	if($model->scenario != GroupBanter::SCENARIO_REPLY):
+	if($model->scenario != GroupBanter::SCENARIO_REPLY
+		&& $model->isNewRecord):
 		$this->widget('ext.widgets.group.GroupInputRow', array(
 			'form' => $form,
 			'model' => $model,
