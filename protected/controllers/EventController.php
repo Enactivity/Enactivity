@@ -23,11 +23,13 @@ class EventController extends Controller
 		if(!empty($_GET['id'])) {
 			$event = $this->loadModel($_GET['id']);
 			$groupId = $event->groupId;
+			
+			//FIXME: what to do when id is expected but not present
 		}
 		return array(
 			// allow registered users to perform 'index' and 'create' actions
 			array('allow',  
-				'actions'=>array('index','create'),
+				'actions'=>array('index','calendar','create'),
 				'users'=>array('@'),
 			),
 			// allow only group members to perform 'view', 'create' and 'update' actions
@@ -168,6 +170,27 @@ class EventController extends Controller
 		$this->render('index', array(
 		        'model'=>$model,
 		        'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	/**
+	 * Lists all event's that the are in the user's groups.
+	 */
+	public function actionCalendar($month, $year)
+	{
+		$dataProvider = new CActiveDataProvider(
+			Event::model()
+				->scopeUsersGroups(Yii::app()->user->id)
+				->scopeByMonth($month, $year)
+		);
+		
+		//$this->checkRSVPForm($_POST['Event']['id']);
+		
+		$this->render('calendar', array(
+			'model'=>$model,
+			'dataProvider'=>$dataProvider,
+			'month' => $month,
+			'year' => $year,
 		));
 	}
 

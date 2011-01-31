@@ -66,6 +66,14 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('event/create'),
 				'linkOptions'=>array('id'=>'event_create_menu_item'),
 			),
+			array(
+				'label'=>'Calendar',
+				'url'=>array('event/calendar', 
+					'month' => date('m'), 
+					'year' => date('y'),
+				),
+				'linkOptions'=>array('id'=>'event_calendar_menu_item'),
+			),	
 		);
 		
 		if(isset($model)) {

@@ -213,6 +213,53 @@ class Event extends CActiveRecord
 	}
 	
 	/**
+	 * Scope for events taking place today
+	 */
+	public function scopeToday() {
+		return $this->scopeDay(new DateTime());
+	}
+	
+	/**
+	 * Scope for events taking place on a particular Date
+	 * @param DateTime $day the datetime of the day, time is ignored
+	 */
+	public function scopeDay(DateTime $day) {
+		$dayStarts = $day->format('Y-m-d 00:00:00');
+		$dayEnds = $day->format('Y-m-d 23:59:59');
+		
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'starts <= :dayEnds AND ends >= :dayStarts',
+			'params' => array(
+				':dayStarts' => $dayStarts,
+				':dayEnds' => $dayEnds,
+			),
+		));
+		return $this;
+	}
+	
+	/**
+	 * Scope for events taking place in a particular Month
+	 * @param int $month as integer (January = 1, Dec = 12)
+	 * @param int $year as integer  
+	 */
+	public function scopeByMonth($month, $year) {
+		$monthStartTime = mktime(0, 0, 0, $month, 1, $year);
+		$monthEndTime = mktime(0, 0, 0, $month + 1, 0, $year);
+		
+		$monthStarts = date('Y-m-d 00:00:00', $monthStartTime);
+		$monthEnds = date('Y-m-d 23:59:59', $monthEndTime);
+		
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'starts <= :monthEnds AND ends >= :monthStarts',
+			'params' => array(
+				':monthStarts' => $monthStarts,
+				':monthEnds' => $monthEnds,
+			),
+		));
+		return $this;
+	}
+	
+	/**
 	 * Scope definition for events that share group value with
 	 * the user's groups 
 	 * @param int $userId
