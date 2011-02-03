@@ -4,8 +4,8 @@ $this->pageTitle = 'Events';
 $this->pageMenu[] = array(
 	'label'=>'Previous Month', 
 	'url'=>array('event/calendar',
-		'month' => $month - 1,
-		'year' => $year,
+		'month' => $month - 1 < 1 ? 12 : $month - 1,
+		'year' => $month - 1 < 1 ? $year - 1 : $year,
 	),
 	'linkOptions'=>array('id'=>'event_next_month_menu_item'),
 ); 
@@ -13,8 +13,8 @@ $this->pageMenu[] = array(
 $this->pageMenu[] = array(
 	'label'=>'Next Month', 
 	'url'=>array('event/calendar',
-		'month' => $month + 1,
-		'year' => $year,
+		'month' => $month + 1 > 12 ? 1 : $month + 1,
+		'year' => $month + 1 > 12 ? $year + 1 : $year,
 	),
 	'linkOptions'=>array('id'=>'event_next_month_menu_item'),
 );
