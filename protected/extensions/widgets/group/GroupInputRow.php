@@ -13,7 +13,7 @@ class GroupInputRow extends CWidget {
 	/**
 	 * @var boolean should all the groups be show when the user is an admin
 	 */
-	public $showAllGroupsOnAdmin = true;
+	public $showAllGroupsOnAdmin = false;
 	
 	/**
 	 * @var CActiveForm widget
@@ -36,7 +36,7 @@ class GroupInputRow extends CWidget {
 	public function init()
 	{
 		// get user's groups
-		if(Yii::app()->user->isAdmin) {
+		if($this->showAllGroupsOnAdmin && Yii::app()->user->isAdmin) {
 			$this->groups = Group::model()->findAll();
 		}
 	}

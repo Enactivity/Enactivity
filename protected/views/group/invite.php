@@ -17,6 +17,7 @@ $this->pageTitle = 'Invite a User';
 		'form' => $form,
 		'model' => $model,
 		'groups' => Yii::app()->user->model->groups,
+		'showAllGroupsOnAdmin' => true,
 	));
 	?>
 
