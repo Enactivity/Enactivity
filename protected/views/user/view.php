@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = $model->fullName;
-$this->menu = MenuDefinitions::userMenu($model);
+$this->pageMenu = MenuDefinitions::userMenu($model);
 ?>
 
 <?php $this->widget('ext.widgets.DetailView', array(

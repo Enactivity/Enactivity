@@ -11,6 +11,10 @@
  */
 class MenuDefinitions extends CComponent {
 
+	public static function site() {
+		return null;
+	}
+	
 	/**
 	 * @return array of menu items for admins
 	 */
@@ -59,8 +63,8 @@ class MenuDefinitions extends CComponent {
 	 * @param Event $model Event currently under scrutiny
 	 * @return array of menu items for events
 	 */
-	public static function eventMenu($model = null) {
-		$menu = array(
+	public static function event() {
+		return array(
 			array(
 				'label'=>'Create an Event', 
 				'url'=>array('event/create'),
@@ -75,7 +79,20 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'event_calendar_menu_item'),
 			),	
 		);
-		
+	}
+	
+	/**
+	 * @return array of menu items for EventBanters
+	 */
+	public static function eventBanter() {
+		return null;
+	}
+	
+	/**
+	 * @param Event $model Event currently under scrutiny
+	 * @return array of menu items for events
+	 */
+	public static function eventMenu($model = null) {
 		if(isset($model)) {
 			$menu[] = array(
 				'label'=>'Update This Event', 
@@ -99,19 +116,25 @@ class MenuDefinitions extends CComponent {
 		return $menu;
 	}
 	
-	
 	/**
 	 * @param Group $model Group currently under scrutiny
 	 * @return array of menu items for groups
 	 */
-	public static function groupMenu($model = null) {
-		$menu = array(
+	public static function group() {
+		return array(
 			array(
 				'label'=>'Invite a User', 
 				'url'=>array('group/invite'),
 				'linkOptions'=>array('id'=>'group_invite_menu_item'),
 			),
 		);
+	}
+	
+/**
+	 * @param Group $model Group currently under scrutiny
+	 * @return array of menu items for groups
+	 */
+	public static function groupMenu($model = null) {
 		
 		if(isset($model->id)) {
 			$menu[] = array(
@@ -122,6 +145,14 @@ class MenuDefinitions extends CComponent {
 		}
 		
 		return $menu;
+	}
+	
+	/**
+	 * @param GroupBanter $model GroupBanter current under scrutiny
+	 * @return array of menu items for GroupBanters
+	 */
+	public static function groupBanter() {
+		return null;
 	}
 	
 	/**
@@ -163,6 +194,14 @@ class MenuDefinitions extends CComponent {
 	 * @param User $model User current under scrutiny
 	 * @return array of menu items for user controller
 	 */
+	public static function user() {
+		return null;
+	}
+	
+/**
+	 * @param User $model User current under scrutiny
+	 * @return array of menu items for user controller
+	 */
 	public static function userMenu($model = null) {
 		$menu = null;
 		
@@ -188,7 +227,7 @@ class MenuDefinitions extends CComponent {
 	/**
 	 * @return array main menu items
 	 */
-	public static function mainMenu() {
+	public static function globalMenu() {
 		return array(
 			array(
 				'label'=>'Home:Beta', 

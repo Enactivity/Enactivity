@@ -24,7 +24,7 @@
 <nav id="primaryNavigation">
 <?php 
 $this->widget('zii.widgets.CMenu', array(
-	'items'=>MenuDefinitions::mainMenu()
+	'items'=>MenuDefinitions::globalMenu()
 )); 
 ?>
 </nav><!-- end of primaryNavigation -->

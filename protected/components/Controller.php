@@ -12,8 +12,33 @@ class Controller extends CController
 	public $layout='//layouts/defaultlayout';
 	
 	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+	 * @var array controller level context menu items. This property will be assigned to {@link CMenu::items}.
 	 */
 	public $menu = array();
+	
+	/**
+	 * @var array action level context menu items. This property will be assigned to {@link CMenu::items}.
+	 */
+	public $pageMenu = array();
 
+	/**
+	 * override 
+	 * @param string the view to be rendered
+	 */
+	protected function beforeRender($view)
+	{
+		if(parent::beforeRender($view)) {
+			
+			// set the menu to MenuDefinitions::<Controller>()
+			if(empty($this->menu)) {
+				$this->menu = call_user_func_array(
+					array('MenuDefinitions', $this->getId()), 
+					array()
+				);
+			}
+			return true;
+		}
+
+		return false;
+	}
 }

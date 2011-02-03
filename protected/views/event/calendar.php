@@ -1,8 +1,7 @@
 <?php
 $this->pageTitle = 'Events';
 
-$this->menu = MenuDefinitions::eventMenu();
-$this->menu[] = array(
+$this->pageMenu[] = array(
 	'label'=>'Previous Month', 
 	'url'=>array('event/calendar',
 		'month' => $month - 1,
@@ -11,7 +10,7 @@ $this->menu[] = array(
 	'linkOptions'=>array('id'=>'event_next_month_menu_item'),
 ); 
 
-$this->menu[] = array(
+$this->pageMenu[] = array(
 	'label'=>'Next Month', 
 	'url'=>array('event/calendar',
 		'month' => $month + 1,

@@ -1,7 +1,6 @@
 <?php
 $this->pageTitle = 'Recover Password';
 
-$this->menu = MenuDefinitions::userMenu();
 ?>
 
 <div class="form">

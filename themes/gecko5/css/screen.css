@@ -66,14 +66,16 @@ em {
 	Main layout styles
 */
 #primaryNavigation, 
-#secondaryNavigation
+#secondaryNavigation,
+#tertiaryNavigation
 {
 	clear: both;
 	overflow: hidden;
 }
 
 #primaryNavigation ul, 
-#secondaryNavigation ul
+#secondaryNavigation ul,
+#tertiaryNavigation ul
 {
 	list-style-type: none;
 	margin: 0px auto;
@@ -81,13 +83,15 @@ em {
 }
 
 #primaryNavigation ul li,
-#secondaryNavigation ul li
+#secondaryNavigation ul li,
+#tertiaryNavigation ul li
 {
 	white-space: nowrap;
 }
 
 #primaryNavigation ul li a, #primaryNavigation ul li a:visited,
-#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited 
+#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited, 
+#tertiaryNavigation ul li a, #tertiaryNavigation ul li a:visited
 {
 	font-size: 18px;
 	font-weight: bold;
@@ -99,8 +103,10 @@ em {
 
 #primaryNavigation ul li a:hover, 
 #secondaryNavigation ul li a:hover, 
+#tertiaryNavigation ul li a:hover,
 #primaryNavigation ul li.active a,
-#secondaryNavigation ul li.active a
+#secondaryNavigation ul li.active a,
+#tertiaryNavigation ul li.active a
 {
 	background-color: #ff6600;
 	color: #ffffff;

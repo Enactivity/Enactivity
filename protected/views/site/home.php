@@ -1,6 +1,5 @@
 <?php 
 $this->pageTitle = 'Welcome';
-$this->menu=array();
 ?>
 <section>
 <p>This page will be your portal once we here at Poncla HQ finish

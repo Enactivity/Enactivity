@@ -1,6 +1,5 @@
 <?php
 $this->pageTitle = 'Users';
-$this->menu = MenuDefinitions::userMenu();
 ?>
 
 <?php $this->widget('zii.widgets.CListView', array(

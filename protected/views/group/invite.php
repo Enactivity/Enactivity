@@ -1,7 +1,6 @@
 <?php 
 $this->pageTitle = 'Invite a User';
 
-$this->menu = MenuDefinitions::groupMenu();
 ?>
 
 <div class="form">
