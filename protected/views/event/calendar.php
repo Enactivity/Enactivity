@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Events';
+$this->pageTitle = date('F', mktime(0, 0, 0, $month + 1, $day, $year));
 
 $this->pageMenu[] = array(
 	'label'=>'Previous Month', 
@@ -30,15 +30,16 @@ for($day = 1; $day <= $numDays; $day++) {
 	
 	echo PHtml::tag('dl', array('class' => 'day'));
 	echo PHtml::tag('dd');
-	echo date('m-d-Y', mktime(0, 0, 0, $month, $day, $year));
+	echo date('d', mktime(0, 0, 0, $month, $day, $year));
 	echo PHtml::closeTag('dd');
 	
 	foreach($events as $event) {
 		if((Date::MySQLDateOffset($event->starts) <= $currentDayEnd)
 		&& (Date::MySQLDateOffset($event->ends) >= $currentDayStart)) {
 			echo PHtml::tag('dt');
-			echo PHtml::link(PHtml::encode($event->name), 
-			array('view', 'id'=>$event->id)); 
+			echo PHtml::link(PHtml::encode($event->startTime) . " " . PHtml::encode($event->name), 
+				array('view', 'id'=>$event->id)
+				); 
 			echo PHtml::closeTag('dt');
 		}
 	}

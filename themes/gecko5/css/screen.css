@@ -507,5 +507,29 @@ aside.flash-success a
 }
 
 /*
+	Calendar styles
+*/
+#content.event.calendar .day {
+	border: 1px solid #eeeeee;
+	float: left;
+	height: 7em; /* em allows for # of events rather than fixed */
+	width: 13%;
+	overflow: hidden;
+}
+
+#content.event.calendar .day dd {
+	background-color: #eeeeee;
+	font-weight: bold;
+}
+
+#content.event.calendar .day dt {
+	margin: 5px;
+}
+
+#content.event.calendar .day a {
+	white-space: nowrap;
+}
+
+/*
 	Group styles
 */
