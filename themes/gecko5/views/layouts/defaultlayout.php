@@ -1,5 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<section id="content" class="<?php echo $this->id; ?>">
+<section id="content" class="<?php echo $this->id . " " . $this->action->id;?>">
 	<header>
 		<h1><?php echo CHtml::encode($this->pageTitle); ?></h1>
 	</header>
