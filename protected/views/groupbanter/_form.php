@@ -24,7 +24,7 @@
 	// Only show group selection on non-replies
 	if($model->scenario != GroupBanter::SCENARIO_REPLY
 		&& $model->isNewRecord):
-		$this->widget('ext.widgets.group.GroupInputRow', array(
+		$this->widget('ext.widgets.inputs.GroupInputRow', array(
 			'form' => $form,
 			'model' => $model,
 			'groups' => Yii::app()->user->model->groups,

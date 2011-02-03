@@ -13,7 +13,7 @@ $this->pageTitle = 'Invite a User';
 	<?php echo $form->errorSummary($model); ?>
 
 	<?php 
-	$this->widget('ext.widgets.group.GroupInputRow', array(
+	$this->widget('ext.widgets.inputs.GroupInputRow', array(
 		'form' => $form,
 		'model' => $model,
 		'groups' => Yii::app()->user->model->groups,
