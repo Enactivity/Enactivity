@@ -338,7 +338,7 @@ class User extends CActiveRecord
 	 * @return string new encrypted token
 	 */
 	public static function generateToken() {
-		return self::encrypt(time(), '');
+		return sha1( uniqid() );
 	}
 	
 	/**

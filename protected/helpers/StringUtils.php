@@ -9,17 +9,19 @@ class StringUtils {
 	 * @param int string length
 	 */
 	public static function createRandomString($length) { 
-		$chars = "abcdefghijkmnopqrstuvwxyz023456789";
-		srand((double)microtime()*1000000);
-		$password = '';
+		$chars = "abcdefghijkmnopqrstuvwxyz";
+		$chars .= "ABCDEFGHIJKMNOPQRSTUVWXYZ";
+		$chars .= "023456789";
+		srand((double) microtime() * 1000000);
+		$randomString = '';
 		
 		for($i = 0; $i <= $length; $i++) {
 			$index = rand() % 33;
 			$tmp = substr($chars, $index, 1);
-			$password = $password . $tmp;
+			$randomString = $randomString . $tmp;
 		}
 		
-		return $password;
+		return $randomString;
 	} 
 	
 	/**
