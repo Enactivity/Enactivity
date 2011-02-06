@@ -1,5 +1,8 @@
 <?php
 
+// This is the test Web application configuration. Any writable
+// CWebApplication properties can be configured here.
+// Overrides any settings from main.php
 return CMap::mergeArray(
 	require(dirname(__FILE__).'/main.php'),
 	array(
