@@ -517,18 +517,32 @@ aside.flash-success a
 	overflow: hidden;
 }
 
-#content.event.calendar .day dd {
+#content.event.calendar .day.notThisMonth {
+	opacity: .5;
+}
+
+#content.event.calendar .day dt {
 	background-color: #eeeeee;
 	font-weight: bold;
 }
 
-#content.event.calendar .day dt {
+#content.event.calendar .day dd {
 	margin: 5px;
 }
 
 #content.event.calendar .day a {
 	white-space: nowrap;
 }
+
+#content.event.calendar .daytitle{
+	border: 1px solid #eeeeee;
+	float: left;
+	height: 2em; /* em allows for # of events rather than fixed */
+	width: 13%;
+	overflow: hidden;
+	text-align:center
+}
+
 
 /*
 	Group styles
