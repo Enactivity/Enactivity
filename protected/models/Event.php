@@ -216,7 +216,8 @@ class Event extends CActiveRecord
 	 * Scope for events taking place today
 	 */
 	public function scopeToday() {
-		return $this->scopeDay(new DateTime());
+		//FIXME: set datetime with user's timezone
+		return $this->scopeDay(new DateTime(null, null));
 	}
 	
 	/**
@@ -224,36 +225,59 @@ class Event extends CActiveRecord
 	 * @param DateTime $day the datetime of the day, time is ignored
 	 */
 	public function scopeDay(DateTime $day) {
-		$dayStarts = $day->format('Y-m-d 00:00:00');
-		$dayEnds = $day->format('Y-m-d 23:59:59');
+		$dayStarts = $day;
+		$dayEnds = $day;
 		
-		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>'starts <= :dayEnds AND ends >= :dayStarts',
-			'params' => array(
-				':dayStarts' => $dayStarts,
-				':dayEnds' => $dayEnds,
-			),
-		));
-		return $this;
+		$dayStarts->setTime(0, 0, 0); //midnight
+		$dayEnds->setTime(23, 59, 59); //11:59:59 pm
+		
+		return $this->scopeBetween($dayStarts, $dayEnds);
 	}
 	
 	/**
 	 * Scope for events taking place in a particular Month
-	 * @param int $month as integer (January = 1, Dec = 12)
-	 * @param int $year as integer  
+	 * @param mixed $month as integer (January = 1, Dec = 12)
+	 * @param mixed $year as integer  
 	 */
-	public function scopeByMonth($month, $year) {
-		$monthStartTime = mktime(0, 0, 0, $month, 1, $year);
-		$monthEndTime = mktime(0, 0, 0, $month + 1, 0, $year);
+	public function scopeByCalendarMonth($month, $year) {
+	
+		// convert params to integers
+		$month = intval($month);
+		$year = intval($year);
 		
-		$monthStarts = date('Y-m-d 00:00:00', $monthStartTime);
-		$monthEnds = date('Y-m-d 23:59:59', $monthEndTime);
+		// FIXME: account for user timezone
+		$monthStarts = new DateTime($year . "-" . $month . "-1");
+		$monthStarts->setTime(0, 0, 0);
 		
+		$monthEnds = new DateTime($year . "-" . ($month + 1) . "-1");
+		$monthEnds->setTime(0, 0, 0);
+		
+		// calculate buffer dates before and after month
+		$dayOfWeekStarts = $monthStarts->format('w');
+		$bufferStart = new DateTime();
+		$bufferStart->setDate($year, $month, 1 - $dayOfWeekStarts);
+		$bufferStart->setTime(0, 0, 0);
+		
+		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		$dayOfWeekEnds = $monthEnds->format('w');
+		$bufferEnd = new DateTime();
+		$bufferEnd->setDate($year, $month, $daysInMonth + $dayOfWeekEnds);
+		$bufferEnd->setTime(23, 59, 59);
+		
+		return $this->scopeBetween($bufferStart, $bufferEnd);
+	}
+	
+	/**
+	 * Scope for events taking place in a particular Month
+	 * @param int $starts unix timestamp of start time
+	 * @param int $ends unix timestamp of end time
+	 */
+	public function scopeBetween(DateTime $starts, DateTime $ends) {
 		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>'starts <= :monthEnds AND ends >= :monthStarts',
+			'condition'=>'starts <= :ends AND ends >= :starts',
 			'params' => array(
-				':monthStarts' => $monthStarts,
-				':monthEnds' => $monthEnds,
+				':starts' => $starts->format("Y-m-d H:i:s"),
+				':ends' => $ends->format("Y-m-d H:i:s"),
 			),
 		));
 		return $this;

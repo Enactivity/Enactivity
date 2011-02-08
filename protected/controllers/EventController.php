@@ -181,7 +181,7 @@ class EventController extends Controller
 		$dataProvider = new CActiveDataProvider(
 			Event::model()
 				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeByMonth($month, $year)
+				->scopeByCalendarMonth($month, $year)
 		);
 		
 		//$this->checkRSVPForm($_POST['Event']['id']);

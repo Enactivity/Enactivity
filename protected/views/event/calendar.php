@@ -33,7 +33,6 @@ foreach ($daytitle as $title) {
 
 <?php
 $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-$events = $dataProvider->getData();
 
 $firstDayofMonth = getdate(mktime(0, 0, 0, $month, 1, $year));
 $dayoftheweek = $firstDayofMonth["wday"];
@@ -57,7 +56,7 @@ for($day = $i; $day <= $bufferDays; $day++) {
 	echo date('d', mktime(0, 0, 0, $month, $day, $year));
 	echo PHtml::closeTag('dt');
 	
-	foreach($events as $event) {
+	foreach($dataProvider->getData() as $event) {
 		if((Date::MySQLDateOffset($event->starts) <= $currentDayEnd)
 		&& (Date::MySQLDateOffset($event->ends) >= $currentDayStart)) {
 			echo PHtml::tag('dd');
@@ -67,12 +66,6 @@ for($day = $i; $day <= $bufferDays; $day++) {
 			echo PHtml::closeTag('dd');
 		}
 	}
-	
 	echo PHtml::closeTag('dl');
 }
-
-//$this->widget('zii.widgets.CListView', array(
-//	'dataProvider'=>$dataProvider,
-//	'itemView'=>'_calendar',
-//)); 
 ?>
