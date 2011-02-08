@@ -74,7 +74,7 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Calendar',
 				'url'=>array('event/calendar', 
 					'month' => date('m'), 
-					'year' => date('y'),
+					'year' => date('Y'),
 				),
 				'linkOptions'=>array('id'=>'event_calendar_menu_item'),
 			),	
