@@ -9,7 +9,7 @@
 */
 html {
 	color: #000000;
-	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-family: 'Coming Soon', 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
 	font-style: normal;
 	height: 100%;
@@ -27,7 +27,7 @@ a, a:hover, a:visited, a:active
 input, textarea, select {
 	border: none; 
 	font-size: 16px;
-	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	font-family: 'Coming Soon', 'Trebuchet MS', Arial, Helvetica, sans-serif; 
 }
 
 strong 
@@ -124,7 +124,7 @@ em {
 
 #content h1, #content h2, #content h3, 
 #content h4, #content h5, #content h6 {
-	line-height: 1.2;
+	line-height: 1.5;
 	font-weight: bold;
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
@@ -155,18 +155,18 @@ em {
 	width: 100%;
 }
 
-#content a
+#contentBody a
 {
 
 }
 
-#content a:hover
+#contentBody a:hover
 {
 	color: #ff6600;
 	text-decoration: underline;
 }
 
-#content p
+#contentBody p
 {
 	font-weight: normal;
 	margin-bottom: 1.25em;
@@ -527,7 +527,7 @@ aside.flash-success a
 }
 
 #content.event.calendar .day dd {
-	margin: 5px;
+	padding-left: .5em;
 }
 
 #content.event.calendar .day a {
