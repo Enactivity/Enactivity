@@ -537,7 +537,7 @@ aside.flash-success a
 #content.event.calendar .daytitle{
 	border: 1px solid #eeeeee;
 	float: left;
-	height: 2em; /* em allows for # of events rather than fixed */
+	font-weight: bold;
 	width: 13%;
 	overflow: hidden;
 	text-align:center
