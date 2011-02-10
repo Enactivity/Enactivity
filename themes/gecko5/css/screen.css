@@ -509,12 +509,28 @@ aside.flash-success a
 /*
 	Calendar styles
 */
+#content.event.calendar .daytitle{
+	border: 1px solid #eeeeee;
+	float: left;
+	font-weight: bold;
+	overflow: hidden;
+	text-align:center;
+	width: 13%;
+}
+
+#content.event.calendar .daytitle dt {
+	background-color: #eeeeee;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
 #content.event.calendar .day {
 	border: 1px solid #eeeeee;
 	float: left;
 	height: 6em; /* em allows for # of events rather than fixed */
-	width: 13%;
 	overflow: hidden;
+	white-space: nowrap;
+	width: 13%;
 }
 
 #content.event.calendar .day.notThisMonth {
@@ -533,16 +549,6 @@ aside.flash-success a
 #content.event.calendar .day a {
 	white-space: nowrap;
 }
-
-#content.event.calendar .daytitle{
-	border: 1px solid #eeeeee;
-	float: left;
-	font-weight: bold;
-	width: 13%;
-	overflow: hidden;
-	text-align:center
-}
-
 
 /*
 	Group styles
