@@ -157,7 +157,7 @@ em {
 
 #contentBody a
 {
-
+	font-weight: bold;
 }
 
 #contentBody a:hover
@@ -231,6 +231,12 @@ aside.flash-success a
 	overflow: hidden;
 }
 
+#content .list-view .items .view footer li
+{
+	float: left;
+	margin-right: 1em;
+}
+
 #content .detail-view dl,
 #content .list-view dl
 {
@@ -242,16 +248,16 @@ aside.flash-success a
 {
 	clear: both;
 	float: left;
-	margin: auto;
 	font-weight: bold;
+	margin: auto;
+	width: 100%;
 }
 
 #content .detail-view dd,
 #content .list-view dd
 {
-	clear: both;
 	float: left;
-	margin: auto;
+	margin-right: 1em;
 }
 
 /*
