@@ -9,7 +9,7 @@
 */
 html {
 	color: #000000;
-	font-family: 'Coming Soon', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
 	font-size: 16px; 
 	font-style: normal;
 	height: 100%;
@@ -27,7 +27,7 @@ a, a:hover, a:visited, a:active
 input, textarea, select {
 	border: none; 
 	font-size: 16px;
-	font-family: 'Coming Soon', 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
 }
 
 strong 
