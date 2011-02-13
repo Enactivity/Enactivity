@@ -116,6 +116,10 @@ class MenuDefinitions extends CComponent {
 		return $menu;
 	}
 	
+	public static function feed() {
+		return null;
+	}
+	
 	/**
 	 * @param Group $model Group currently under scrutiny
 	 * @return array of menu items for groups
@@ -232,6 +236,10 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Home:Beta', 
 				'url'=>array('/site/index')
+			),
+			array(
+				'label'=>'Feed', 
+				'url'=>array('/feed/index')
 			),
 			array(
 				'label'=>'Groups', 

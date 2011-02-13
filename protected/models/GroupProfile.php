@@ -45,6 +45,11 @@ class GroupProfile extends CActiveRecord
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
 			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'ignoreAttributes' => array('modified'),
+			),
 		);
 	}
 	

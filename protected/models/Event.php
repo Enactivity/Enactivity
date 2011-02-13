@@ -72,6 +72,11 @@ class Event extends CActiveRecord
 			'DefaultGroupBehavior'=>array(
 				'class' => 'ext.behaviors.DefaultGroupBehavior',
 			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'ignoreAttributes' => array('modified'),
+			)
 		);
 	}
 
