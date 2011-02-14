@@ -239,7 +239,8 @@ class MenuDefinitions extends CComponent {
 			),
 			array(
 				'label'=>'Feed', 
-				'url'=>array('/feed/index')
+				'url'=>array('/feed/index'),
+				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
 				'label'=>'Groups', 
