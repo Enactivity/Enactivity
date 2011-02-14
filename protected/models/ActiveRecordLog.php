@@ -138,7 +138,6 @@ class ActiveRecordLog extends CActiveRecord
     		),
     		'newestToOldest'=>array(
     			'order' => 'created DESC',
-    			'group' => 'model, action, modelAttribute'
     		),
 		);
 	}

@@ -123,8 +123,9 @@ class FeedController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider(
-			//ActiveRecordLog::model()->scopeUsersGroups(Yii::app()->user->id)->newestToOldest()
-			ActiveRecordLog::model()->newestToOldest()
+			ActiveRecordLog::model()
+				->scopeUsersGroups(Yii::app()->user->id)
+				->newestToOldest()
 		);
 		
 		$this->render('index',array(
