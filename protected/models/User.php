@@ -417,15 +417,15 @@ class User extends CActiveRecord
 	 */
 	public function sendInvitation($userName, $groupName) {
 		//send invite email
-		$from = "no-reply@poncla.com";
-		$subject = "{$userName} invites you to join {$groupName} on Poncla";
-		$body = $userName . " has invited you to join the {$groupName} group on"
-		. " Poncla. To accept this invitation, go to "
-		. Yii::app()->request->hostInfo . "/index.php/user/register?token=" . $this->token 
-		. " and complete your registration.";
-		
-		$headers = 'From: no-reply@poncla.com';
-		mail($this->email, $subject, $body, $headers);
+		$mailer = Yii::app()->mailer;
+		$mailer->to = $this->email;
+		$mailer->extraInfo = array(
+			'userName' => $userName,
+			'groupName' => $groupName,
+			'token' => $this->token,
+		);
+		$mailer->template = 'invitation';
+		$mailer->send();
 	}
 	
 	/**
@@ -439,15 +439,13 @@ class User extends CActiveRecord
 		$this->password = $newpassword;
 		if($this->save()) {
 			// email user
-			$from = 'no-reply@poncla.com';
-			$subject = 'Your Poncla password has been reset';
-			$body = 'Someone has requested that your password for your account'
-			. ' be reset.  We\'ve generated the new password: ' . $newpassword
-			. ' for you.  You can change it once you log in.  If you didn\'t request'
-			. ' this new password please contact us at info@poncla.com';
-			
-			$headers = 'From: no-reply@poncla.com';
-			mail($this->email, $subject, $body, $headers);
+			$mailer = Yii::app()->mailer;
+			$mailer->to = $this->email;
+			$mailer->extraInfo = array(
+				'newpassword' => $newpassword,
+			);
+			$mailer->template = 'password';
+			$mailer->send();
 			
 			// notify end user
 			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');

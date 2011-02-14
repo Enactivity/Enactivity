@@ -28,7 +28,7 @@ return CMap::mergeArray(
 				'routes'=>array(
 					array(
 						'class'=>'CFileLogRoute',
-						'levels'=>'error, warning',
+						'levels'=>'info, error, warning',
 					),
 					array(
 	                    'class'=>'CEmailLogRoute',
@@ -38,9 +38,9 @@ return CMap::mergeArray(
 						'sentFrom'=>'support-message-log@poncla.com',
 	                ),
 					// un/comment the following to show/hide log messages on web pages
-	//				array(
-	//					'class'=>'CWebLogRoute',
-	//				),
+			//		array(
+			//			'class'=>'CWebLogRoute',
+			//		),
 					
 				),
 			),
@@ -165,6 +165,11 @@ return CMap::mergeArray(
 					),
 	    		),
 			),
+			
+			'mailer'=>array(
+        		'class'=>'application.extensions.mailer.Mailer',
+        		'mta'=>'php',  
+		    ),
 		),
 	
 		'modules'=>array(
