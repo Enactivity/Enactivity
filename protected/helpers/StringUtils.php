@@ -15,7 +15,7 @@ class StringUtils {
 		srand((double) microtime() * 1000000);
 		$randomString = '';
 		
-		for($i = 0; $i <= $length; $i++) {
+		for($i = 0; $i < $length; $i++) {
 			$index = rand() % 33;
 			$tmp = substr($chars, $index, 1);
 			$randomString = $randomString . $tmp;
