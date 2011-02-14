@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = 'Recent Changes';
 
 ?>
 
