@@ -5,8 +5,8 @@
 class StringUtils {
 	
 	/**
-	 * Create a random string 
-	 * @param int string length
+	 * Create a random string of letters and numbers
+	 * @param integer $length number of characters in string
 	 */
 	public static function createRandomString($length) { 
 		$chars = "abcdefghijkmnopqrstuvwxyz";
