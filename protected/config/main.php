@@ -61,7 +61,7 @@ return CMap::mergeArray(
 			'urlManager'=>array(
 				'urlFormat'=>'path', //enabled to allow for slugs
 				'rules'=>array(
-					//'<slug:\w+>'=>'group/view/slug/<slug>',
+					'<slug:\w+>'=>'group/view/slug/<slug>',
 					//'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 					//'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 					//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -170,10 +170,10 @@ return CMap::mergeArray(
 		'modules'=>array(
 			// uncomment the following to enable the Gii tool
 			// custom url manager must also be disabled
-			'gii'=>array(
-				'class'=>'system.gii.GiiModule',
-				'password'=>'123456',
-			),
+//			'gii'=>array(
+//				'class'=>'system.gii.GiiModule',
+//				'password'=>'123456',
+//			),
 		),
 		
 		// application-level parameters that can be accessed
