@@ -14,6 +14,13 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	 */
 	public $ignoreAttributes = array();
 	
+	/**
+	 * The attribute that the feed should use to identify the model
+	 * to the user
+	 * @var string
+	 */
+	public $feedAttribute = '';
+	
 	private $_oldAttributes = array();
  
 	public function afterSave($event) {

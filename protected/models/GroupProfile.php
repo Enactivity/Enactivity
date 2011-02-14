@@ -48,6 +48,7 @@ class GroupProfile extends CActiveRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'feedAttribute' => 'description',
 				'ignoreAttributes' => array('modified'),
 			),
 		);

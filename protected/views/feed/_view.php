@@ -2,21 +2,7 @@
 <dl>
 	<dt>
 	<?php 
-	// hack to make feed names clearer
-	$description = '';
-	if(isset($data->modelObject->name)) {
-		$description = $data->modelObject->name;
-	}
-	elseif(isset($data->modelObject->description)) {
-		$description = $data->modelObject->description;
-	}
-	elseif(isset($data->modelObject->content)) {
-		$description = $data->modelObject->content;
-	}
-	else {
-		$description = $data->model;
-	}
-	
+	$description = isset($data->modelObject) ? $data->modelObject->{$data->modelObject->feedAttribute} : $data->model; 
 	?>
 	<?php $this->widget('ext.widgets.UserLink', array(
 		'userModel' => $data->user,
