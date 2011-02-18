@@ -500,6 +500,10 @@ aside.flash-success a
 }
 
 /* Reset rsvp form inputs */
+#content .rsvp form {
+	background-color: transparent;	
+}
+
 #content .rsvp
 {
 	height: 100%;
