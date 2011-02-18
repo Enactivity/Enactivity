@@ -9,8 +9,8 @@
 */
 html {
 	color: #000000;
-	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
-	font-size: 16px; 
+	font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Trebuchet MS', Verdana;
+	font-size: 18px; 
 	font-style: normal;
 	height: 100%;
 }
@@ -26,8 +26,8 @@ a, a:hover, a:visited, a:active
 
 input, textarea, select {
 	border: none; 
-	font-size: 16px;
-	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	font-size: 18px;
+	font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Trebuchet MS', Verdana; 
 }
 
 strong 
@@ -42,6 +42,15 @@ em {
 /*
 	Global wrappers
 */
+#globalHeader, 
+#globalWrapper,
+#globalFooter
+{
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #globalHeader 
 {
 	overflow: hidden;
@@ -50,16 +59,13 @@ em {
 #globalWrapper
 {
 	min-height: 100%;
-	margin-bottom: 35px;
 }
 
 #globalFooter
 {
 	clear: both;
-	height: 35px; 
-	margin-top: -40px;
-	padding-top: 5px;
-	text-align: center;
+	height: 2em; 
+	padding-top: 1em;
 }
 
 /* 
@@ -96,7 +102,11 @@ em {
 	font-size: 18px;
 	font-weight: bold;
 	float: left;
-	padding: .5em 10px;
+	padding-top: .5em;
+	padding-right: 1.25em;
+	padding-bottom: .25em;
+	padding-left: .25em;
+	margin-right: .25em;
 	text-decoration: none;
 	text-transform: lowercase;
 }
@@ -124,26 +134,25 @@ em {
 
 #content h1, #content h2, #content h3, 
 #content h4, #content h5, #content h6 {
-	line-height: 1.5;
 	font-weight: bold;
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 #content h1 
 {
-	font-size: 70px;
+	font-size: 3em;
 	max-width: 32em;
 }
 
 #content h2
 {
-	font-size: 24px;
+	font-size: 1.5em;
 	max-width: 32em;
 }
 
 #content h3 
 {
-	font-size: 16px;
+	font-size: 1em;
 	max-width: 32em;
 }
 
@@ -151,7 +160,6 @@ em {
 {
 	float: left;
 	max-width: 520px;
-	padding: 10px;
 	width: 100%;
 }
 
@@ -403,7 +411,6 @@ aside.flash-success a
 #content ul.yiiPager a:link,
 #content ul.yiiPager a:visited
 {
-	border: 1px solid #555555;
 	font-weight: bold;
 	padding: 1px 6px;
 	text-decoration: none;
@@ -411,24 +418,21 @@ aside.flash-success a
 
 #content ul.yiiPager .page a
 {
-	font-weight: normal;
 }
 
 #content ul.yiiPager a:hover
 {
-	border: solid 1px #0e509e;
 }
 
 #content ul.yiiPager .selected a
 {
-	background: #3a3a3a;
+	background: #ff6600;
 	color: #ffffff;
 	font-weight: bold;
 }
 
 #content ul.yiiPager .hidden a
 {
-	border: solid 1px #dedede;
 	color: #888888;
 }
 
@@ -505,10 +509,10 @@ aside.flash-success a
 	-o-border-bottom-right-radius: 0px 0px;
 	-webkit-border-bottom-right-radius: 0px 0px;
 	border-bottom-right-radius: 0px 0px;
-	padding-left: 5px;
-	padding-right: 5px;
+	font-size: 16px;
 	text-align: center;
-	width: 210px;
+	white-space: nowrap;
+	width: 220px;
 }
 
 /*
