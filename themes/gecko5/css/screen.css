@@ -233,7 +233,7 @@ aside.flash-success a
 */
 #content .list-view .items .view 
 {
-	border-bottom: 1px solid #eeeeee;
+	border-bottom: 2px dotted #eeeeee;
 	clear: both;
 	padding-bottom: 10px;
 	padding-top: 10px;
@@ -299,9 +299,10 @@ aside.flash-success a
 {
 	clear: both;
 	overflow: hidden;
-	padding-bottom: 1em;
+	padding-bottom: .5em;
 	padding-left: 1em;
 	padding-right: 1em;
+	padding-top: .5em;
 }
 
 #content form .row label
