@@ -320,7 +320,6 @@ aside.flash-success a
 #content form .row input, #content form .row textarea, 
 #content form .row select 
 {
-	white-space: nowrap;
 	width: 100%;
 }
 
