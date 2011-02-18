@@ -122,6 +122,7 @@ class JuiDateTimePicker extends CJuiWidget
 		$this->htmlOptions['name'] = $this->htmlOptions['name'] . '_container';
 		$this->htmlOptions['style']= $this->htmlOptions['style'].'display: none;';
 		echo CHtml::tag('div', $this->htmlOptions);
+		echo CHtml::closeTag('div');
 
 		$cs = Yii::app()->getClientScript();
 		
