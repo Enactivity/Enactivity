@@ -134,6 +134,7 @@ em {
 
 #content h1, #content h2, #content h3, 
 #content h4, #content h5, #content h6 {
+	clear: both;
 	font-weight: bold;
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
@@ -275,7 +276,6 @@ aside.flash-success a
 	background-color: #eeeeee;
 	clear: both;
 	overflow: hidden;
-	padding: 10px;
 	max-width: 520px;
 }
 
@@ -300,6 +300,8 @@ aside.flash-success a
 	clear: both;
 	overflow: hidden;
 	padding-bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 
 #content form .row label
@@ -317,6 +319,7 @@ aside.flash-success a
 #content form .row input, #content form .row textarea, 
 #content form .row select 
 {
+	white-space: nowrap;
 	width: 100%;
 }
 
