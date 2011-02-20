@@ -168,7 +168,7 @@ return CMap::mergeArray(
 			
 			'mailer'=>array(
         		'class'=>'application.extensions.mailer.Mailer',
-        		'mta'=>'php',  
+        		'mailTransferAgent'=>'php',  
 		    ),
 		),
 	

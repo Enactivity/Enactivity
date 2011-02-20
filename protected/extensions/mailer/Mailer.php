@@ -60,7 +60,7 @@ class Mailer extends CApplicationComponent {
 	 * @var string Declares what mail transfer agent to use to send the emails.
 	 * Only valid value right now is php.
 	 */
-	public $mta = 'php';
+	public $mailTransferAgent = 'php';
 	
 	/**
 	 * @var array Array of extra info to include in the email.
@@ -92,7 +92,7 @@ class Mailer extends CApplicationComponent {
 			$this->messageId = date('ymd.His\@') . Yii::app()->request->serverName;
 		}
 
-		$headers[] = "Message-Id: <{$this->messageId};>";
+		$headers[] = "Message-Id: <{$this->messageId}>";
 		$headers[] = "From: {$this->convertArrayToString($this->from)};";
 		$headers[] = "Content-Type: {$this->contentType};";
 		$headers[] = "MIME-Version: {$this->mime};";
@@ -151,7 +151,7 @@ class Mailer extends CApplicationComponent {
 	 * @return boolean Result of email transmission.
 	 */
 	private function transmit($to, $from, $subject, $body, $sendTest) {
-		switch ($this->mta) {
+		switch ($this->mailTransferAgent) {
 			case 'php':
 				$subject = wordwrap($subject, $this->maxLength);
 				$body = wordwrap($body, $this->maxLength);
@@ -173,7 +173,7 @@ class Mailer extends CApplicationComponent {
 				}
 				break;
 			default:
-				throw new Exception ("Unexpected MTA selected in Mailer");
+				throw new Exception ("Unexpected Mail Transfer Agent selected in Mailer");
 		}
 	}
 }
