@@ -46,7 +46,7 @@ em {
 #globalWrapper,
 #globalFooter
 {
-	width: 98%;
+	width: 95%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -102,10 +102,7 @@ em {
 	font-size: 18px;
 	font-weight: bold;
 	float: left;
-	padding-top: .5em;
-	padding-right: 1.25em;
-	padding-bottom: .25em;
-	padding-left: .25em;
+	padding: .5em;
 	margin-right: .25em;
 	text-decoration: none;
 	text-transform: lowercase;
@@ -300,10 +297,7 @@ aside.flash-success a
 {
 	clear: both;
 	overflow: hidden;
-	padding-bottom: .5em;
-	padding-left: 1em;
-	padding-right: 1em;
-	padding-top: .5em;
+	padding: .5em;
 }
 
 #content form .row label
