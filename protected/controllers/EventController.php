@@ -88,9 +88,16 @@ class EventController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($year = null, $month = null, $day = null)
 	{
 		$model = new Event;
+		
+		if(isset($year) 
+		&& isset($month)
+		&& isset($day)) {
+			$model->startDate = $month . "/" . $day . "/" . $year;
+			$model->endDate = $month . "/" . $day . "/" . $year;
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
