@@ -2,7 +2,7 @@
 
 require_once 'TestConstants.php';
 
-class CreateGroupTest extends CTestCase
+class CreateGroupTest extends DbTestCase
 {
 	public static function setUpBeforeClass()
 	{
