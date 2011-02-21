@@ -145,4 +145,17 @@ class EventBanter extends CActiveRecord
 		}
 		return false;
 	}
+	
+	protected function afterSave() {
+		parent::afterSave();
+		
+		$log = new ActiveRecordLog;
+		$log->groupId = $this->event->groupId;
+		$log->action = 'replied to';
+		$log->model = 'Event';
+		$log->modelId = $this->eventId;
+		$log->modelAttribute = '';
+		$log->userId = Yii::app()->user->id;
+		$log->save();
+	}
 }
