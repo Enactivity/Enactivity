@@ -153,7 +153,7 @@ return CMap::mergeArray(
 					),
 					'CListView' => array(
 						'cssFile' => false,
-						'emptyText' => 'None yet',
+						'emptyText' => 'No results yet',
 						'summaryText' => false,
 						'tagName' => 'section',
 					),

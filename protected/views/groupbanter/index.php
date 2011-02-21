@@ -8,4 +8,5 @@ $this->pageTitle = 'Banter';
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
+	'emptyText' => 'No one has posted anything yet.  What\'s on your mind?',
 )); ?>

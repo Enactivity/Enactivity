@@ -69,6 +69,7 @@ $this->renderPartial('_rsvp', array(
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$eventBanters,
 		'itemView'=>'/eventbanter/_view',
+		'emptyText' => 'No one has replied to this event yet',
 	)); 
 	?>
 
@@ -89,6 +90,7 @@ $this->renderPartial('_rsvp', array(
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$attendees,
 		'itemView'=>'/user/_users',
+		'emptyText' => 'No one has signed up to attend yet.',
 	)); 
 	?>
 </section>
@@ -100,6 +102,7 @@ $this->renderPartial('_rsvp', array(
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$notattendees,
 		'itemView'=>'/user/_users',
+		'emptyText' => 'No one\'s said no yet.  That\'s a good sign, right?',
 	)); 
 	?>
 </section>
