@@ -32,9 +32,8 @@ class SiteController extends Controller
 			$this->render('index');	
 		} 
 		else {
-			$this->render('home');
+			$this->redirect(array('feed/index'));
 		}
-		
 	}
 
 	/**

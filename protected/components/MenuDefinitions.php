@@ -235,10 +235,11 @@ class MenuDefinitions extends CComponent {
 		return array(
 			array(
 				'label'=>'Home:Beta', 
-				'url'=>array('/site/index')
+				'url'=>array('/site/index'),
+				'visible'=>Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Feed', 
+				'label'=>'Home:Beta', 
 				'url'=>array('/feed/index'),
 				'visible'=>!Yii::app()->user->isGuest
 			),
