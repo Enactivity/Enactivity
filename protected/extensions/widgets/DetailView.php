@@ -13,7 +13,7 @@ Yii::import('zii.widgets.CDetailView');
 class DetailView extends CDetailView
 {
 	public $tagName = 'dl';
-	public $itemTemplate = "<dt class=\"{class}\"><h2>{label}</h2></dt><dd>{value}</dd></tr>\n";
+	public $itemTemplate = "<dt class=\"{class}\">{label}</dt><dd>{value}</dd></tr>\n";
 	
 	
 	public function run() {

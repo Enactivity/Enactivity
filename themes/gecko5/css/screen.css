@@ -134,6 +134,7 @@ em {
 	clear: both;
 	font-weight: bold;
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+	width: 100%;
 }
 
 #content h1 
@@ -142,13 +143,20 @@ em {
 	max-width: 32em;
 }
 
-#content h2
+#contentBody h1 
 {
 	font-size: 1.5em;
 	max-width: 32em;
 }
 
-#content h3 
+#contentBody h2
+{
+	border-top: 3px solid #eee;
+	font-size: 1.25em;
+	max-width: 32em;
+}
+
+#contentBody h3 
 {
 	font-size: 1em;
 	max-width: 32em;
@@ -157,7 +165,7 @@ em {
 #content section
 {
 	margin-bottom: 1em;
-	max-width: 520px;
+	max-width: 32em;
 	overflow: hidden;
 	width: 100%;
 }
@@ -238,6 +246,11 @@ aside.flash-success a
 	overflow: hidden;
 }
 
+#content .list-view .items .view:last-child
+{
+	border-bottom: none;
+}
+
 #content .list-view .items .view footer li
 {
 	float: left;
@@ -259,6 +272,15 @@ aside.flash-success a
 	width: 100%;
 }
 
+#content .detail-view dt {
+	border-top: 1px dotted #eeeeee;
+	color: #aaaaaa;
+	font-size: 14px;
+	margin-top: 1em;
+	text-transform: uppercase;
+	width: 100%;
+}
+
 #content .detail-view dd,
 #content .list-view dd
 {
@@ -274,7 +296,7 @@ aside.flash-success a
 	background-color: #eeeeee;
 	clear: both;
 	overflow: hidden;
-	max-width: 520px;
+	max-width: 32em;
 }
 
 #content form .errorSummary {
