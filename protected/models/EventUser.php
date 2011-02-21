@@ -128,6 +128,19 @@ class EventUser extends CActiveRecord
 		));
 	}
 	
+	protected function afterSave() {
+		parent::afterSave();
+		
+		$log = new ActiveRecordLog;
+		$log->groupId = $this->event->groupId;
+		$log->action = $this->status == STATUS_ATTENDING ? 'is attending' : 'is not attending';  
+		$log->model = 'Event';
+		$log->modelId = $this->eventId;
+		$log->modelAttribute = '';
+		$log->userId = Yii::app()->user->id;
+		$log->save();
+	}
+	
 	/**
 	 * Return a list of the available statuses
 	 * @return array of status values

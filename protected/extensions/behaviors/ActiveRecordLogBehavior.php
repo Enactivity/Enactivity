@@ -48,7 +48,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	//											. get_class($this->Owner) 
 	//											. '[' . $this->Owner->getPrimaryKey() .'].';
 						$log->groupId = $this->Owner->groupId;
-						$log->action = 'Update';
+						$log->action = 'updated';
 						$log->model = get_class($this->Owner);
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
@@ -64,7 +64,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 //									. ' created ' . get_class($this->Owner) 
 //									. '[' . $this->Owner->getPrimaryKey() .'].';
 			$log->groupId = $this->Owner->groupId;
-			$log->action = 'Create';
+			$log->action = 'created';
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = '';
@@ -79,7 +79,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 //								. get_class($this->Owner) 
 //								. '[' . $this->Owner->getPrimaryKey() .'].';
 		$log->groupId = $this->Owner->groupId;
-		$log->action = 'Delete';
+		$log->action = 'deleted';
 		$log->model = get_class($this->Owner);
 		$log->modelId = $this->Owner->getPrimaryKey();
 		$log->modelAttribute = '';
