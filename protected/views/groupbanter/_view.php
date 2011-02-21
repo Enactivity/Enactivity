@@ -3,10 +3,10 @@
 	<dt><?php
 		//truncate parentless banters
 		if($data->parentId === null) { 
-			echo '<h2>';
+			echo '<h1>';
 			echo PHtml::link(StringUtils::truncate(PHtml::encode($data->content), 80), 
 			array('groupbanter/view', 'id'=>$data->id));
-			echo '</h2>';	
+			echo '</h1>';	
 		} 
 		//if it has a parent, it's a reply, so show it all
 		else {

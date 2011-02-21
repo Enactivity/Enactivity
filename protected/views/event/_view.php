@@ -1,9 +1,9 @@
 <article class="view">
 <dl>
-	<dt><h2><?php 
+	<dt><h1><?php 
 		echo PHtml::link(PHtml::encode($data->name), 
 			array('view', 'id'=>$data->id)); 
-	?></h2></dt>
+	?></h1></dt>
 	<dd><span class="eventdate"><?php echo PHtml::encode($data->datesAsSentence); ?></span></dd>
 	<dd><span class="attendeecount"><?php echo $data->eventUsersAttendingCount == 1 
 		? $data->eventUsersAttendingCount . " person attending" 

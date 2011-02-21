@@ -63,7 +63,7 @@ $this->renderPartial('_rsvp', array(
 ?>
 
 <section id="banter">
-	<h2><?php echo 'Thoughts'; ?></h1>
+	<h2><?php echo $eventBanters->itemCount .' Replies'; ?></h1>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
