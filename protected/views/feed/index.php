@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Recent Changes';
+$this->pageTitle = 'Recent Activity';
 
 ?>
 
