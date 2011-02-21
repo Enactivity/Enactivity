@@ -21,8 +21,9 @@
 		->dateformatter
 		->formatDateTime($data->modified, 'full', 'short')); ?></span></dd>
 	<?php endif; ?>
-	
-	<?php if($data->creatorId == Yii::app()->user->id):?>
+</dl>
+<?php if($data->creatorId == Yii::app()->user->id):?>
+<footer>
 	<dd><span><?php 
 		echo CHtml::link('Update', array('eventbanter/update', 'id' => $data->id) ); ?></span></dd>
 	<dd><span><?php 
@@ -38,6 +39,6 @@
 				),
 			)
 		); ?></span></dd>
-	<?php endif; ?>
-</dl>
+</footer>
+<?php endif; ?>
 </article>

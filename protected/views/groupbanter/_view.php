@@ -55,5 +55,4 @@ $this->widget('zii.widgets.CMenu', array(
 ?>
 </footer>
 <?php endif; ?>
-
 </article>
