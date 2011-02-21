@@ -56,6 +56,10 @@ class GroupbanterController extends Controller
 	{
 		$groupBanter = $this->loadModel($id);
 		
+		if(isset($groupBanter->parentId)) {
+			$this->redirect(array('groupbanter/view', 'id' => $groupBanter->parentId));
+		}
+		
 		$replies = new CActiveDataProvider('Group', array(
 			'data' => $groupBanter->replies)
 		);
