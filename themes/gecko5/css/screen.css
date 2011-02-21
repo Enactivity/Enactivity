@@ -172,7 +172,7 @@ em {
 
 #contentBody a
 {
-	font-weight: bold;
+	text-decoration: underline;
 }
 
 #contentBody a:hover
