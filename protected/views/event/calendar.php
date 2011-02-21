@@ -33,6 +33,7 @@ foreach ($daytitle as $title) {
 
 <?php
 $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+$events = $dataProvider->getData();
 
 $firstDayofMonth = getdate(mktime(0, 0, 0, $month, 1, $year));
 $dayoftheweek = $firstDayofMonth["wday"];
@@ -50,22 +51,33 @@ for($day = $i; $day <= $bufferDays; $day++) {
 	if(($day < 1) || ($day > $numDays)) {
 		$htmlOptions['class'] .= ' notThisMonth';
 	}
-	
 	echo PHtml::tag('dl', $htmlOptions);
 	echo PHtml::tag('dt');
-	echo date('d', mktime(0, 0, 0, $month, $day, $year));
+	echo CHtml::link(date('d', mktime(0, 0, 0, $month, $day, $year)), array('event/create/', 'year' => $year, 'month' => $month, 'day' =>$day));
 	echo PHtml::closeTag('dt');
-	
-	foreach($dataProvider->getData() as $event) {
+	foreach($events as $event) {
 		if((Date::MySQLDateOffset($event->starts) <= $currentDayEnd)
 		&& (Date::MySQLDateOffset($event->ends) >= $currentDayStart)) {
 			echo PHtml::tag('dd');
-			echo PHtml::link(PHtml::encode($event->startTime) . " " . PHtml::encode($event->name), 
-				array('view', 'id'=>$event->id)
-				); 
+			if ($currentDayStart == Date::MySQLDateOffset($event->starts)
+			){
+				echo PHtml::link(PHtml::encode(date('h:i A', strtotime($event->startTime))) . " " . PHtml::encode($event->name), 
+					array('view', 'id'=>$event->id)
+					); 
+			}else{
+				echo PHtml::link(PHtml::encode($event->name), 
+					array('view', 'id'=>$event->id)
+					); 
+			}
 			echo PHtml::closeTag('dd');
 		}
 	}
+	
 	echo PHtml::closeTag('dl');
 }
+
+//$this->widget('zii.widgets.CListView', array(
+//	'dataProvider'=>$dataProvider,
+//	'itemView'=>'_calendar',
+//)); 
 ?>
