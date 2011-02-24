@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = $model->fullName;
-$this->pageMenu = MenuDefinitions::userMenu($model);
+$this->menu = MenuDefinitions::userMenu($model);
 ?>
 
 <div class="form">
