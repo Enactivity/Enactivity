@@ -77,6 +77,9 @@ class GroupBanter extends CActiveRecord
 		return array(
 			array('creatorId, groupId, content', 'required'),
 			array('creatorId, groupId, parentId', 'numerical', 'integerOnly'=>true),
+			
+			// trim inputs
+			array('content', 'filter', 'filter'=>'trim'),
 			array('content', 'length', 'max'=>self::CONTENT_MAX_LENGTH),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

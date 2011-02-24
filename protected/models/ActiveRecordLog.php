@@ -66,6 +66,9 @@ class ActiveRecordLog extends CActiveRecord
 			array('groupId, modelId, userId', 'numerical', 'integerOnly'=>true),
 			array('model, modelAttribute', 'length', 'max'=>45),
 			
+			// trim inputs
+			array('action, model, modelAttribute', 'filter', 'filter'=>'trim'),
+			
 			array('action', 'length', 'max'=>20),
 			array('created, modified', 'safe'),
 			// The following rule is used by search().

@@ -62,13 +62,17 @@ class EventUser extends CActiveRecord
 		return array(
 		array('eventId, userId', 'required'),
 		array('eventId, userId', 'numerical', 'integerOnly'=>true),
+		
+		// trim inputs
+		array('status', 'filter', 'filter'=>'trim'),
 		array('status', 'length', 'max'=>15),
+		
 		array('created, modified', 'safe'),
 
 		array('status', 'in', 'range'=>array(
-		self::STATUS_ATTENDING,
-		self::STATUS_NOT_ATTENDING,
-		)
+			self::STATUS_ATTENDING,
+			self::STATUS_NOT_ATTENDING,
+			),
 		),
 			
 		// The following rule is used by search().

@@ -20,8 +20,11 @@ class UserPasswordRecoveryForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			// email and password are required
+			// email is required
 			array('email', 'required'),
+			
+			// trim inputs
+			array('email', 'filter', 'filter'=>'trim'),
 		);
 	}
 

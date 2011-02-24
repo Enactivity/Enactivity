@@ -91,10 +91,18 @@ class Event extends CActiveRecord
 		return array(
 		array('name, groupId, starts, ends', 'required'),
 		array('creatorId, groupId', 'numerical', 'integerOnly'=>true),
+		
+		// trim inputs
+		array('name, description, starts, ends, location, startDate, startTime, endDate, endTime', 'filter', 'filter'=>'trim'),
+
 		array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
+		
 		array('description', 'length', 'max'=>self::DESCRIPTION_MAX_LENGTH),
+		
 		array('location', 'length', 'max'=>self::LOCATION_MAX_LENGTH),
+		
 		array('created, modified', 'safe'),
+		
 		array('startDate, startTime, endDate, endTime', 'safe'),
 		
 		array('ends', 'validateDateAfter', 'beforeDate'=>'starts'),

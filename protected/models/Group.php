@@ -70,6 +70,9 @@ class Group extends CActiveRecord
 		array('name, slug', 'required'),
 		array('name', 'length', 'max'=>255),
 		array('slug', 'length', 'max'=>50),
+		
+		// trim inputs
+		array('name, slug', 'filter', 'filter'=>'trim'),
 		array('name, slug', 'unique', 'allowEmpty' => false, 
 			'caseSensitive'=>false),
 		// The following rule is used by search().

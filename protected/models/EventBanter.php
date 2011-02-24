@@ -63,7 +63,11 @@ class EventBanter extends CActiveRecord
 		return array(
 			array('creatorId, eventId, content', 'required'),
 			array('creatorId, eventId', 'numerical', 'integerOnly'=>true),
+			
+			// trim inputs
+			array('content', 'filter', 'filter'=>'trim'),
 			array('content', 'length', 'max'=>self::CONTENT_MAX_LENGTH),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, creatorId, eventId, content, created, modified', 'safe', 'on'=>'search'),

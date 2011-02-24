@@ -64,7 +64,11 @@ class GroupProfile extends CActiveRecord
 		return array(
 			array('groupId', 'required'),
 			array('groupId', 'numerical', 'integerOnly'=>true),
+			
+			// trim inputs
+			array('description', 'filter', 'filter'=>'trim'),
 			array('description', 'length', 'max'=>4000),
+			
 			array('created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

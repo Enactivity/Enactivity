@@ -69,7 +69,11 @@ class GroupUser extends CActiveRecord
 		return array(
 		array('groupId, userId', 'required'),
 		array('groupId, userId', 'numerical', 'integerOnly'=>true),
+		
+		// trim inputs
+		array('status', 'filter', 'filter'=>'trim'),
 		array('status', 'length', 'max'=>15),
+		
 		array('created, modified', 'safe'),
 
 		// TODO: default to pending after adding user confirmation

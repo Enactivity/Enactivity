@@ -21,6 +21,10 @@ class GroupInviteForm extends CFormModel {
 	public function rules() {
 		return array(
 			array('groupId, emails', 'required'),
+			
+			// trim inputs
+			array('emails', 'filter', 'filter'=>'trim'),
+			
 			array('groupId', 'validateGroupId'),
 			array('emails', 'validateEmails'),
 		);
