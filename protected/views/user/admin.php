@@ -35,7 +35,6 @@ or <strong>=</strong>) at the beginning of each of your search values to specify
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'username',
 		'email',
 		'firstName',
 		'lastName',

@@ -13,15 +13,6 @@ $this->pageMenu = MenuDefinitions::userMenu($model);
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<div class="formlabel"><?php echo $form->labelEx($model, 'username'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model, 'username', array(
-			'maxlength'=>User::USERNAME_MAX_LENGTH,
-			'autofocus'=>'autofocus',
-		)); ?></div>
-		<div class="formerrors"><?php echo $form->error($model, 'username'); ?></div>
-	</div>
-
-	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'email',array(
 			'maxlength'=>User::EMAIL_MAX_LENGTH

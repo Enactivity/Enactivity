@@ -7,6 +7,5 @@ $this->pageMenu = MenuDefinitions::userMenu($model);
 	'data'=>$model,
 	'attributes'=>array(
 		'email:email',
-		'username',
 	),
 )); ?>

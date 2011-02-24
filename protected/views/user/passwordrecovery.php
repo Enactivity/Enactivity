@@ -13,10 +13,10 @@ $this->pageTitle = 'Recover Password';
 		<p>Please fill out the following form with your login credentials:</p>
 	</div>
 	<div class="row">
-		<div class="formlabel"><?php echo $form->labelEx($model,'usernameOrEmail'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'usernameOrEmail',
-			 array('placeholder'=>'Email or username')); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'usernameOrEmail'); ?></div>
+		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
+		<div class="forminput"><?php echo $form->textField($model,'email',
+			 array('placeholder'=>'Email')); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
 	</div>
 
 	<div class="row">

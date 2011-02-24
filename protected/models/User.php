@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
- * @property string $username
  * @property string $email
  * @property string $token
  * @property string $password
@@ -43,9 +42,6 @@ class User extends CActiveRecord
 	const STATUS_INACTIVE = 'Inactive';
 	const STATUS_BANNED = 'Banned';
 	const STATUS_MAX_LENGTH = 15;
-	
-	const USERNAME_MAX_LENGTH = 50;
-	const USERNAME_MIN_LENGTH = 3;
 	
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_REGISTER = 'register';
@@ -103,27 +99,15 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => 'invite'),
-		array('email, token, username, password, confirmPassword, firstName, lastName', 'required', 
+		array('email, token, password, confirmPassword, firstName, lastName', 'required', 
 			'on' => 'register'),
-		array('email, username, firstName, lastName', 'required', 
+		array('email, firstName, lastName', 'required', 
 			'on' => 'update'),
 		array('password, confirmPassword', 'required',
 			'on' => 'updatePassword'),
 
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
 		
-		array('username', 'unique', 
-			'allowEmpty' => false, 
-			'caseSensitive'=>false,
-			'on' => 'register, update'),
-		array('username', 'length', 
-			'min'=>self::USERNAME_MIN_LENGTH,
-			'max'=>self::USERNAME_MAX_LENGTH,
-			'on' => 'register, update'),
-		array('username', 'match', 
-			'allowEmpty' => false, 
-			'pattern' => '/^[a-zA-Z][a-zA-Z0-9_]*\.?[a-zA-Z0-9_]*$/',
-			'on' => 'register, update'),
 		array('email', 'unique', 
 			'allowEmpty' => false, 
 			'caseSensitive'=>false),
@@ -167,9 +151,8 @@ class User extends CActiveRecord
 		
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
-		array('id, username, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
+		array('id, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
-		//FIXME: users can use restricted words for username
 	}
 
 	/**
@@ -204,7 +187,6 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
 			'email' => 'Email',
 			'token' => 'Token',
 			'password' => 'Password',
@@ -229,7 +211,6 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('password',$this->password,true);
@@ -252,16 +233,13 @@ class User extends CActiveRecord
 	}
 
 	/**
-	 * Convert email and username to lowercase
+	 * Convert email to lowercase
 	 * 
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			//lowercase unique values
 			$this->email = strtolower($this->email);
-			if(isset($this->username)) { //to prevent nulls turning into ""
-				$this->username = strtolower($this->username);	
-			}
 			return true;
 		}
 		return false;
@@ -372,7 +350,6 @@ class User extends CActiveRecord
 			Yii::app()->createUrl('user/view', 
 			array(
             	'id'=>$this->id,
-            	'username'=>$this->username,
 			)
 		);
 	}
@@ -385,28 +362,6 @@ class User extends CActiveRecord
 			self::STATUS_INACTIVE, 
 			self::STATUS_PENDING,
 			self::STATUS_BANNED);
-	}
-	
-	/**
-	 * Find a user by their username or email
-	 * @param string $usernameOrEmail
-	 * @return CActiveRecord the record of the user if found. Null if no record is found. 
-	 */
-	public static function findByUsernameOrEmail($usernameOrEmail) {
-		$usernameOrEmail = strtolower($usernameOrEmail);	
-		
-		if(strpos($usernameOrEmail, '@')) { //user inputted email
-			$criteria = new CDbCriteria();
-			$criteria->addCondition('LOWER(email) = :usernameOrEmail');
-			$criteria->params[':usernameOrEmail'] = $usernameOrEmail;
-			return $user = User::model()->find($criteria);	
-		}		
-		else {// user did not input email, assume username
-			$criteria = new CDbCriteria();
-			$criteria->addCondition('LOWER(username) = :usernameOrEmail');
-			$criteria->params[':usernameOrEmail'] = $usernameOrEmail;
-			return $user = User::model()->find($criteria);	
-		}
 	}
 	
 	/**

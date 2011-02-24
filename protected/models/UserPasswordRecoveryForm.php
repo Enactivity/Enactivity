@@ -10,18 +10,18 @@ class UserPasswordRecoveryForm extends CFormModel
 	/**
 	 * @var string
 	 */
-	public $usernameOrEmail;
+	public $email;
 
 	/**
 	 * Declares the validation rules.
-	 * The rules state that usernameOrEmail and password are required,
+	 * The rules state that email and password are required,
 	 * and password needs to be authenticated.
 	 */
 	public function rules()
 	{
 		return array(
-			// usernameOrEmail and password are required
-			array('usernameOrEmail', 'required'),
+			// email and password are required
+			array('email', 'required'),
 		);
 	}
 
@@ -31,7 +31,7 @@ class UserPasswordRecoveryForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'usernameOrEmail'=>'Email',
+			'email'=>'Email',
 		);
 	}
 	
@@ -40,12 +40,17 @@ class UserPasswordRecoveryForm extends CFormModel
 	 * @return void
 	 */
 	public function recoverPassword() {
-		$user = User::findByUsernameOrEmail($this->usernameOrEmail);
+		$user = User::model()->findByAttributes(
+			array(
+				'email' => $this->email,
+			)
+		);
+		
 		if(isset($user)) {
 			$user->recoverPassword();
 		}
 		else {
-			Yii::app()->user->setFlash('error', 'No user was found with that username or email');
+			Yii::app()->user->setFlash('error', 'No user was found with that email');
 		}
 	}
 }
