@@ -7,9 +7,8 @@
 class UserIdentity extends CUserIdentity
 {
 	// Additional error codes to CBaseUserIdentity
-	const ERROR_EMAIL_INVALID=3;
-	const ERROR_STATUS_NOT_ACTIVE=4;
-	const ERROR_STATUS_BANNED=5;
+	const ERROR_STATUS_NOT_ACTIVE=3;
+	const ERROR_STATUS_BANNED=4;
 	
 	private $_id;
 	
@@ -26,8 +25,9 @@ class UserIdentity extends CUserIdentity
 				'email' => $this->username,
 			)
 		);
+		
 		if(is_null($user)) { // user does not exist
-			$this->errorCode = self::ERROR_EMAIL_INVALID;	
+			$this->errorCode = self::ERROR_USERNAME_INVALID;	
 		}
 		else if($user->isPassword($this->password)) { //valid log in
 			// check user status, re-activate inactive user

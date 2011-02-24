@@ -52,7 +52,6 @@ class UserLoginForm extends CFormModel
 	{
 		return array(
 			'rememberMe'=>'Remember me',
-			'email'=>'Email',
 		);
 	}
 
@@ -63,25 +62,26 @@ class UserLoginForm extends CFormModel
 	 */
 	public function authenticate($attribute, $params)
 	{
-		if(!$this->hasErrors())  // we only want to authenticate when no input errors
+		// attempt to sign in
+		$identity = new UserIdentity($this->email, $this->password);
+		if($identity->authenticate()) {
+			return;
+		}
+		
+		switch($identity->errorCode)
 		{
-			$identity=new UserIdentity($this->email, $this->password);
-			$identity->authenticate();
-			switch($identity->errorCode)
-			{
-				case UserIdentity::ERROR_NONE:
-					break;
-				case UserIdentity::ERROR_EMAIL_INVALID:
-				case UserIdentity::ERROR_PASSWORD_INVALID:
-					$this->addError('email', Yii::t('', 'No user found with that email and password.'));
-					break;
-				case UserIdentity::ERROR_STATUS_NOT_ACTIVE:
-					$this->addError('status', Yii::t('', 'Your account has not been activated.  Please register first.'));
-					break;
-				case UserIdentity::ERROR_STATUS_BANNED:
-					$this->addError('status', Yii::t('', 'Your account has been banned.'));
-					break;
-			}
+			case UserIdentity::ERROR_USERNAME_INVALID:
+			case UserIdentity::ERROR_PASSWORD_INVALID:
+				$this->addError('email', Yii::t('', 'No user found with that email and password.'));
+				break;
+			case UserIdentity::ERROR_STATUS_NOT_ACTIVE:
+				$this->addError('status', Yii::t('', 'Your account has not been activated.  Please register first.'));
+				break;
+			case UserIdentity::ERROR_STATUS_BANNED:
+				$this->addError('status', Yii::t('', 'Your account has been banned.'));
+				break;
+			default:
+				throw new CHttpException(500, 'Something broke when you tried to login.  Please try again');
 		}
 	}
 
