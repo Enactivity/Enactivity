@@ -13,7 +13,7 @@ $this->pageTitle = 'Login';
 	</div>
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'email', 
+		<div class="forminput"><?php echo $form->emailField($model,'email', 
 			array(
 				'placeholder'=>'Email',
 				'autofocus'=>'autofocus',

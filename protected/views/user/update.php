@@ -14,7 +14,7 @@ $this->pageMenu = MenuDefinitions::userMenu($model);
 
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'email',array(
+		<div class="forminput"><?php echo $form->emailField($model,'email',array(
 			'maxlength'=>User::EMAIL_MAX_LENGTH
 		)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
