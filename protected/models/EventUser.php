@@ -133,7 +133,7 @@ class EventUser extends CActiveRecord
 		
 		$log = new ActiveRecordLog;
 		$log->groupId = $this->event->groupId;
-		$log->action = $this->status == STATUS_ATTENDING ? 'is attending' : 'is not attending';  
+		$log->action = strcasecmp($this->status, self::STATUS_ATTENDING) == 0 ? 'is attending' : 'is not attending';
 		$log->model = 'Event';
 		$log->modelId = $this->eventId;
 		$log->modelAttribute = '';
