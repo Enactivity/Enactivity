@@ -36,28 +36,6 @@ $this->renderPartial('_rsvp', array(
 			),
 			'visible'=>Yii::app()->user->model->groupsCount > 1 ? true : false,
 		),
-//		array( // creator displayed as a link
-//            'label'=>$model->getAttributeLabel('creatorId'),
-//            'type'=>'raw',
-//            'value'=>PHtml::link(
-//				PHtml::encode($model->creator->fullName != "" ? $model->creator->fullName : $model->creator->email), 
-//				$model->creator->permalink, 
-//				array(
-//					'class'=>'cid',
-//				)
-//			)
-//		),
-//		array( //created
-//			'type'=>'datetime',
-//			'name'=>'created',
-//			'value'=>strtotime($model->created),
-//		),
-//		array( //modified
-//			'type'=>'datetime',
-//			'name'=>'modified',
-//			'value'=>strtotime($model->modified),
-//			'visible'=>$model->modified != $model->created ? true : false,
-//		),
 	),
 )); 
 ?>
