@@ -28,7 +28,7 @@ class StringUtils {
 	 * Truncates the given string to a set length, with the suffix if 
 	 * the initial string was longer than the length.
 	 * @param string $string
-	 * @param int $length
+	 * @param int $length defaults to 64
 	 * @param string $suffix defaults to '...' 
 	 * @return string of provided length
 	 */
