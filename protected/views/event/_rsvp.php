@@ -14,7 +14,8 @@ $form = $this->beginWidget('ext.widgets.ActiveForm',
 	));
 	
 echo $form->hiddenField($event, 'id');
-	
+
+echo PHtml::openTag('li');
 if($eventuser->status == EventUser::STATUS_ATTENDING) {
 	//can't use constants for button names b/c rendering removes spaces
     echo PHtml::submitButton('You are attending', 
@@ -29,7 +30,10 @@ else {
 	echo PHtml::submitButton('I\'m attending', 
 		array('name'=>'Attending_Button'));
 }
-		
+echo PHtml::closeTag('li');
+
+
+echo PHtml::openTag('li');
 if($eventuser->status == EventUser::STATUS_NOT_ATTENDING) {
 	echo PHtml::submitButton('You are not attending', 
 		array(
@@ -43,5 +47,6 @@ else {
 	echo PHtml::submitButton('I\'m not attending', 
 		array('name'=>'Not_Attending_Button'));
 }
+echo PHtml::closeTag('li');
 $this->endWidget();
 // end of rsvp form

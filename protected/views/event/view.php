@@ -6,10 +6,12 @@ $this->pageMenu = MenuDefinitions::eventMenu($model);
 
 <?php 
 //RSVP buttons
+echo PHtml::openTag('menu');
 $this->renderPartial('_rsvp', array(
 	'event'=>$model,
 	'eventuser'=>$eventuser,
 )); 
+echo PHtml::closeTag('menu');
 ?>
 <?php $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,

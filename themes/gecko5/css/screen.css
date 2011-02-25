@@ -19,14 +19,14 @@ body
 	height: 100%;
 }
 
-a, a:hover, a:visited, a:active
+a, a:hover, a:visited, a:active, a:focus
 {
 	color: #000000;
 }
 
 input, textarea, select {
 	border: none; 
-	font-size: 18px;
+	font-size: 1em;
 	font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Trebuchet MS', Verdana; 
 }
 
@@ -81,7 +81,8 @@ em {
 
 #primaryNavigation ul, 
 #secondaryNavigation ul,
-#tertiaryNavigation ul
+#tertiaryNavigation ul,
+menu li
 {
 	list-style-type: none;
 	margin: 0px auto;
@@ -99,7 +100,6 @@ em {
 #secondaryNavigation ul li a, #secondaryNavigation ul li a:visited, 
 #tertiaryNavigation ul li a, #tertiaryNavigation ul li a:visited
 {
-	font-size: 18px;
 	font-weight: bold;
 	float: left;
 	padding: .5em;
@@ -111,6 +111,9 @@ em {
 #primaryNavigation ul li a:hover, 
 #secondaryNavigation ul li a:hover, 
 #tertiaryNavigation ul li a:hover,
+#primaryNavigation ul li a:focus, 
+#secondaryNavigation ul li a:focus, 
+#tertiaryNavigation ul li a:focus,
 #primaryNavigation ul li.active a,
 #secondaryNavigation ul li.active a,
 #tertiaryNavigation ul li.active a
@@ -151,21 +154,19 @@ em {
 
 #contentBody h2
 {
-	border-top: 3px solid #eee;
-	font-size: 1.25em;
+	font-size: 1.2em;
 	max-width: 32em;
 }
 
 #contentBody h3 
 {
-	font-size: 1em;
+	font-size: 1.1em;
 	max-width: 32em;
 }
 
 #content section
 {
 	margin-bottom: 1em;
-	max-width: 32em;
 	overflow: hidden;
 	width: 100%;
 }
@@ -175,7 +176,8 @@ em {
 	text-decoration: underline;
 }
 
-#contentBody a:hover
+#contentBody a:hover,
+#contentBody a:focus
 {
 	color: #ff6600;
 	text-decoration: underline;
@@ -254,7 +256,7 @@ aside.flash-success a
 #content .list-view .items .view footer li
 {
 	float: left;
-	margin-right: 1em;
+	margin-right: .25em;
 }
 
 #content .detail-view dl,
@@ -275,7 +277,7 @@ aside.flash-success a
 #content .detail-view dt {
 	border-top: 1px dotted #eeeeee;
 	color: #aaaaaa;
-	font-size: 14px;
+	font-size: .75em;
 	margin-top: 1em;
 	text-transform: uppercase;
 	width: 100%;
@@ -300,11 +302,9 @@ aside.flash-success a
 }
 
 #content form .errorSummary {
-	background-color: #E85C42;
-	border:2px solid #e8160c;
+	background-color: #e82c0c;
 	color: #ffffff;
 	padding: 10px;
-	margin-bottom: 1em;
 }
 
 #content form .errorSummary p {
@@ -315,6 +315,49 @@ aside.flash-success a
 	margin-left: 15px;
 }
 
+#content form .errorMessage {
+	color: #e82c0c;
+	font-size: .75em;
+}
+
+#content form input[type="submit"], 
+#content form input[type="button"] {
+	background-color: #000000;
+	color: #ffffff;
+	cursor: pointer;
+	font-weight: bold;
+	float: left;
+	padding: .5em;
+	text-shadow: none;
+	text-transform: lowercase;
+	white-space: nowrap;
+}
+
+#content form input[type="submit"]:hover,
+#content form input[type="submit"]:focus, 
+#content form input[type="button"]:hover,
+#content form input[type="button"]:focus {
+	background-color: #ff6600;
+}
+
+/* Overrides for disabled buttons */
+#content form input[type="submit"].disabled ,
+#content form input[type="submit"]:disabled, 
+#content form input[type="submit"][disabled="disabled"],
+#content form input[type="button"]:disabled {
+	background-color: #ffffff;
+	color: #000000;
+	cursor: default;
+}
+
+#content form input[type="submit"].disabled:hover,
+#content form input[type="submit"]:disabled:hover,
+#content form input[type="submit"][disabled="disabled"],
+#content form input[type="button"]:disabled:hover {
+	background-color: #ffffff;
+}
+
+/* form rows */
 #content form .row
 {
 	clear: both;
@@ -334,62 +377,38 @@ aside.flash-success a
 	color: #000000;
 }
 
-#content form .row input, #content form .row textarea, 
+#content form .row input, 
+#content form .row textarea, 
 #content form .row select 
 {
 	width: 100%;
 }
 
-#content form input[type=submit], 
-#content form input[type=button] {
-	background-color: #000000;
+#content form .row input[type="submit"], 
+#content form .row input[type="button"] {
 	-moz-border-radius-bottomright: 10px 10px;
 	-o-border-bottom-right-radius: 10px 10px;
 	-webkit-border-bottom-right-radius: 10px 10px;
 	border-bottom-right-radius: 10px 10px;
-	border: 3px solid #000000;
-	color: #ffffff;
-	cursor: pointer;
-	font-weight: bold;
-	height: 35px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 1em;
+	padding-right: 1em;
 	text-align: right;
-	text-shadow: none;
 }
 
-#content form input[type=submit]:hover, 
-#content form input[type=button]:hover {
+#content form .row input[type="submit"]:hover, 
+#content form .row input[type="button"]:hover {
 	background-color: #ff6600;
-	border: 3px solid #ff6600;
-	-moz-transition: all 0.3s linear;
-	-o-transition: all 0.3s linear;
-	-webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
 }
 
-/* Overrides for disabled buttons */
-#content form input[type=submit].disabled ,
-#content form input[type=submit]:disabled, 
-#content form input[type=submit][disabled=disabled],
-#content form input[type=button]:disabled {
-	background-color: #ffffff;
+#content form .row input[type="submit"].disabled,
+#content form .row input[type="submit"].disabled:hover,
+#content form .row input[type="submit"]:disabled, 
+#content form .row input[type="submit"]:disabled:hover,
+#content form .row input[type="submit"][disabled="disabled"],
+#content form .row input[type="submit"][disabled="disabled"]:hover,
+#content form .row input[type="button"]:disabled,
+#content form .row input[type="button"]:disabled:hover {
 	border: 3px solid #000000;
-	color: #000000;
-	cursor: default;
-}
-
-#content form input[type=submit].disabled:hover,
-#content form input[type=submit]:disabled:hover,
-#content form input[type=submit][disabled=disabled],
-#content form input[type=button]:disabled:hover {
-	background-color: #ffffff;
-	border: 3px solid #000000;
-}
-
-#content form .errorMessage {
-	color: #e82c0c;
-	font-size: 12px;
 }
 
 /*
@@ -516,26 +535,17 @@ aside.flash-success a
 }
 
 /* Reset rsvp form inputs */
-#content .rsvp form {
+#content form.rsvp {
 	background-color: transparent;	
-}
-
-#content .rsvp
-{
 	overflow: hidden;
 	width: 100%
 }
 
-#content .rsvp form input[type=submit], 
-#content .rsvp form input[type=button] {
-	-moz-border-radius-bottomright: 0px 0px;
-	-o-border-bottom-right-radius: 0px 0px;
-	-webkit-border-bottom-right-radius: 0px 0px;
-	border-bottom-right-radius: 0px 0px;
-	font-size: 16px;
+#content form.rsvp input[type="submit"], 
+#content form.rsvp input[type="button"] {
+	border: none;
 	text-align: center;
 	white-space: nowrap;
-	width: 220px;
 }
 
 /*

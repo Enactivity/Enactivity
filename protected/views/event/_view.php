@@ -39,9 +39,17 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 // body
+// summarized description
 echo StringUtils::truncate(
 	Yii::app()->format->formatStyledText($data->description),
 	250);
+// add a read more link
+if(strlen($data->description) > 250) {
+	echo ' ';
+	echo PHtml::link('Read more.', 
+		array('view', 'id'=>$data->id)
+	);
+}
 // end body
 
 // start footer
