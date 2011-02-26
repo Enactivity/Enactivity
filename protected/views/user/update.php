@@ -36,8 +36,8 @@ $this->menu = MenuDefinitions::userMenu($model);
 		<div class="formerrors"><?php echo $form->error($model,'lastName'); ?></div>
 	</div>
 
-	<div class="row">
-		<div class="buttons"><?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
+	<div class="row buttons">
+		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

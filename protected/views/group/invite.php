@@ -32,8 +32,8 @@ $this->pageTitle = 'Invite a User';
 	</div>
 
 
-	<div class="row">
-		<div class="buttons"><?php echo PHtml::submitButton('Submit'); ?></div>
+	<div class="row buttons">
+		<?php echo PHtml::submitButton('Invite'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

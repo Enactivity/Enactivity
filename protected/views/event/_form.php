@@ -84,8 +84,8 @@
 		<div class="formerrors"><?php echo $form->error($model,'description'); ?></div>
 	</div>
 
-	<div class="row">
-		<div class="buttons"><?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?></div>
+	<div class="row buttons">
+		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

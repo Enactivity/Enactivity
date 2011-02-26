@@ -19,8 +19,8 @@ $this->pageTitle = 'Recover Password';
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
 	</div>
 
-	<div class="row">
-		<div class="buttons"><?php echo PHtml::submitButton('Send me a new password'); ?></div>
+	<div class="row buttons">
+		<?php echo PHtml::submitButton('Send me a new password'); ?>
 	</div>
 	
 <?php $this->endWidget(); ?>

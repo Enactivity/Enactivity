@@ -34,8 +34,8 @@ $this->pageTitle = 'Login';
 		<div class="formerrors"><?php echo $form->error($model,'rememberMe'); ?></div>
 	</div>
 
-	<div class="row">
-		<div class="buttons"><?php echo PHtml::submitButton('Login'); ?></div>
+	<div class="row buttons">
+		<?php echo PHtml::submitButton('Login'); ?>
 	</div>
 	
 	<div class="row">
