@@ -366,12 +366,11 @@ aside.flash-success a
 {
 	clear: both;
 	overflow: hidden;
-	padding: 0 .5em;
+	padding: .25em .5em;
 }
 
 #content form .row.buttons
 {
-	padding: .5em;
 }
 
 #content form .row label
