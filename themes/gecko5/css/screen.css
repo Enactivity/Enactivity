@@ -564,7 +564,7 @@ aside.flash-success a
 .calendar th,
 .calendar td {
 	overflow: hidden;
-	padding: .5em;
+	padding: .1em;
 	white-space: nowrap;
 	width: 13%;
 }
