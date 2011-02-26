@@ -263,7 +263,8 @@ class Event extends CActiveRecord
 		$monthStarts = new DateTime($year . "-" . $month . "-1");
 		$monthStarts->setTime(0, 0, 0);
 		
-		$monthEnds = new DateTime($year . "-" . ($month + 1) . "-1");
+		$monthEnds = new DateTime($year . "-" . ($month) . "-1");
+		$monthEnds->modify('+1 month');
 		$monthEnds->setTime(0, 0, 0);
 		
 		// calculate buffer dates before and after month
