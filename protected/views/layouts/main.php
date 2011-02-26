@@ -1,42 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!doctype html> 
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+	<meta charset="utf-8">
+	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
+	<meta name="viewport" content="width=device-width; initial-scale=1"/>  
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen" />
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
-
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
-	<title><?php echo PHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl() . '/js/libs/modernizr-1.6.min.js'); ?>	
 </head>
-
 <body>
 
-	<div class="bodycontainer" id="page">
-	
-		<div id="mainmenu">
-			<?php $this->widget('zii.widgets.CMenu', array(
-				'items'=>MenuDefinitions::mainMenu()
-			)); 
-			?>
-		</div><!-- mainmenu -->
+<header id="globalHeader">
+<nav id="primaryNavigation">
+<?php 
+$this->widget('zii.widgets.CMenu', array(
+	'items'=>MenuDefinitions::globalMenu()
+)); 
+?>
+</nav><!-- end of primaryNavigation -->
+		
+<?php
+if(isset($this->menu) 
+	&& !empty($this->menu)
+	&& !Yii::app()->user->isGuest
+):?>
+<nav id="secondaryNavigation">
+<?php 
+$this->widget('zii.widgets.CMenu', array(
+	'items'=>$this->menu,
+));
+?>
+</nav><!-- end of secondaryNavigation -->
+<?php endif; ?>
+</header>
 
-		<?php echo $content; ?>
+<!-- flash notices -->
+<?php if(Yii::app()->user->hasFlash('error')):?>
+<aside class="flash-error">
+<?php echo Yii::app()->user->getFlash('error'); ?>
+</aside>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('notice')):?>
+<aside class="flash-notice">
+<?php echo Yii::app()->user->getFlash('notice'); ?>
+</aside>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('success')):?>
+<aside class="flash-success">
+<?php echo Yii::app()->user->getFlash('success'); ?>
+</aside>
+<?php endif; ?>
+
+<div id="globalWrapper">
+	<?php echo $content; ?>
 	
-	</div><!-- page -->
+</div><!-- globalWrapper -->
 	
-	<div id="footer">
-			Poncla &copy; <?php echo date('Y'); ?><br/>
-			All Rights Reserved.<br/>
-	</div><!-- footer -->
+<footer id="globalFooter">
+	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
+</footer><!-- globalFooter -->
 
 </body>
 </html>
