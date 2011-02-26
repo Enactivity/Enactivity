@@ -3,8 +3,6 @@ $this->pageTitle = 'Update Password';
 $this->menu = MenuDefinitions::userMenu($model);
 ?>
 
-<div class="form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'update-password-form',
 	'enableAjaxValidation'=>false,
@@ -34,5 +32,3 @@ $this->menu = MenuDefinitions::userMenu($model);
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

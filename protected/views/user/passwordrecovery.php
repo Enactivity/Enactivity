@@ -3,7 +3,6 @@ $this->pageTitle = 'Recover Password';
 
 ?>
 
-<div class="form">
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'password-recovery-form',
 	'enableAjaxValidation'=>false,
@@ -24,4 +23,3 @@ $this->pageTitle = 'Recover Password';
 	</div>
 	
 <?php $this->endWidget(); ?>
-</div><!-- form -->

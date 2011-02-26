@@ -1,5 +1,3 @@
-<div class="wide form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
@@ -60,5 +58,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

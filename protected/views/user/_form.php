@@ -1,5 +1,3 @@
-<div class="form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>false,
@@ -53,5 +51,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

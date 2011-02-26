@@ -3,8 +3,6 @@ $this->pageTitle = 'Invite a User';
 
 ?>
 
-<div class="form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'invite-form-invite-form',
 	'enableAjaxValidation'=>false,
@@ -37,5 +35,3 @@ $this->pageTitle = 'Invite a User';
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

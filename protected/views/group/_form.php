@@ -1,5 +1,3 @@
-<div class="form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'group-form',
 	'enableAjaxValidation'=>false,
@@ -31,5 +29,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
