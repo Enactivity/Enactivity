@@ -194,7 +194,6 @@ class EventController extends Controller
 		//$this->checkRSVPForm($_POST['Event']['id']);
 		
 		$this->render('calendar', array(
-			'model'=>$model,
 			'dataProvider'=>$dataProvider,
 			'month' => $month,
 			'year' => $year,

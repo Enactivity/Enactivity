@@ -418,20 +418,26 @@ aside.flash-success a
 /*
 	Content tables
 */
+#content table {
+	table-layout: fixed;
+	width: 100%;
+}
+
 #content tr {
 	vertical-align: text-top;
-	border-bottom: 1px solid #8A8581;
+}
+
+#content th, 
+#content td
+{
+	border: 1px solid #D9D4CC;
 }
 
 #content th 
 {
-	color: #8A8581;
+	background-color: #D9D4CC;
 	font-weight: bold;
-}
-
-#content td 
-{
-	max-width: 32em;
+	text-align: center;
 }
 
 /*
@@ -555,11 +561,10 @@ aside.flash-success a
 /*
 	Calendar styles
 */
-#content.event.calendar .daytitle,
-#content.event.calendar .day {
-	border: 1px solid #D9D4CC;
-	float: left;
+.calendar th,
+.calendar td {
 	overflow: hidden;
+	padding: .5em;
 	white-space: nowrap;
 	width: 13%;
 }
@@ -580,10 +585,6 @@ aside.flash-success a
 }
 
 #content.event.calendar .day dt {
-}
-
-#content.event.calendar .day dd {
-	padding-left: .5em;
 }
 
 #content.event.calendar .day a {
