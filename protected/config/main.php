@@ -171,7 +171,7 @@ return CMap::mergeArray(
         		'mailTransferAgent'=>'php',  
 		    ),
 		),
-	
+		
 		'modules'=>array(
 			// uncomment the following to enable the Gii tool
 			// custom url manager must also be disabled

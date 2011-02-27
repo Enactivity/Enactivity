@@ -369,21 +369,22 @@ class User extends CActiveRecord
 	
 	/**
 	 * Invite a user to the web app
+	 * 
+	 * 
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
 	 * @return void
 	 */
 	public function sendInvitation($userName, $groupName) {
 		//send invite email
-		$mailer = Yii::app()->mailer;
-		$mailer->to = $this->email;
-		$mailer->extraInfo = array(
-			'userName' => $userName,
-			'groupName' => $groupName,
-			'token' => $this->token,
-		);
-		$mailer->template = 'invitation';
-		$mailer->send();
+		Yii::import('application.extensions.mailer.InviteEmail');
+		$mail = new InviteEmail;
+		$mail->to = $this->email;
+		$mail->userName = $userName;
+		$mail->groupName = $groupName;
+		$mail->token = $this->token;
+		$mail->sendTest = true;
+		Yii::app()->mailer->send($mail);
 	}
 	
 	/**
@@ -397,13 +398,12 @@ class User extends CActiveRecord
 		$this->password = $newpassword;
 		if($this->save()) {
 			// email user
-			$mailer = Yii::app()->mailer;
-			$mailer->to = $this->email;
-			$mailer->extraInfo = array(
-				'newpassword' => $newpassword,
-			);
-			$mailer->template = 'password';
-			$mailer->send();
+			Yii::import('application.extensions.mailer.PasswordEmail');
+			$mail = new PasswordEmail;
+			$mail->to = $this->email;
+			$mail->newpassword = $newpassword;
+			$mail->sendTest = true;
+			Yii::app()->mailer->send($mail);
 			
 			// notify end user
 			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
