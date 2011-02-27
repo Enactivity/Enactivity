@@ -107,7 +107,9 @@ class User extends CActiveRecord
 			'on' => 'updatePassword'),
 
 		// trim inputs
-		array('email, token, firstName, LastName, status', 'filter', 'filter'=>'trim'),
+		array('email', 'filter', 'filter'=>'trim', 'on' => 'invite'),
+		array('email, token, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => 'register'),
+		array('email, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => 'update'),
 		
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
 		
