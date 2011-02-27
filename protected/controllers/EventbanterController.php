@@ -34,7 +34,7 @@ class EventbanterController extends Controller
 			// allow only group members to perform 'view', 'create' and 'update' actions
 			array('allow',  
 				'actions'=>array('view','update','delete'),
-				'expression'=>'$user->isAdmin',
+				'expression'=>'$user->id == ' . $creatorId,
 			),
 			// allow admin user to perform 'admin' and 'delete' actions
 			array('allow', 
