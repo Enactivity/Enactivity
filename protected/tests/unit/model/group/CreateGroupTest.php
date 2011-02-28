@@ -5,6 +5,31 @@ require_once 'TestConstants.php';
 class CreateGroupTest extends DbTestCase
 {
 
+	public static function setUpBeforeClass()
+	{
+		parent::setUpBeforeClass();
+		
+//		$_identity=new UserIdentity($login,$password);
+//		$return = $_identity->authenticate();
+//		$this->assertTrue($return);
+//		$this->assertEquals(1, Yii::app()->user->id);
+	}
+    
+	protected function setUp()
+	{
+		parent::setUp();
+	}
+	
+	protected function tearDown()
+	{
+		parent::tearDown();
+	}
+ 
+    public static function tearDownAfterClass()
+    {
+    	parent::tearDownAfterClass();
+    }
+    
 	/**
 	 * Create a valid group
 	 */
@@ -18,15 +43,51 @@ class CreateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertTrue($group->save(true), 'valid group was not saved');
-	 
+	    $this->assertTrue($group->save(), 'valid group was not saved');
 	    $this->assertNotNull($group->id, 'save did not set group id');
 	    
-	    // verify the comment is in pending status
+	    // verify the group can be found in db 
 	    $group = Group::model()->findByPk($group->id);
+	    
 	    $this->assertTrue($group instanceof Group, 'found group not a Group object');
-	    $this->assertEquals($name, $group->name);
-	    $this->assertEquals(strtolower($slug), $group->slug);
+	    
+	    $this->assertEquals($name, $group->name, 'group name was not saved');
+	    $this->assertEquals(strtolower($slug), $group->slug, 'group slug was not saved');
+	    
+	    $this->assertNotNull($group->created, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group created was not set');
+	}
+	
+	/**
+	 * Create a valid group and ensure entries are trimmed
+	 */
+    public function testCreateGroupTrimSpaces() {
+    	
+		$name = StringUtils::createRandomString(10);
+		$slug = StringUtils::createRandomString(10);
+		
+		$paddedName = ' ' . $name . ' ';
+		$paddedSlug = ' ' . $slug . ' ';
+		
+		$group = new Group;
+	    $group->setAttributes(array(
+	        'name' => $paddedName,
+	        'slug' => $paddedSlug,
+	    ));
+	    
+	    $this->assertTrue($group->save(), 'valid group was not saved');
+	    $this->assertNotNull($group->id, 'save did not set group id');
+	    
+	    // verify the group can be found in db 
+	    $group = Group::model()->findByPk($group->id);
+	    
+	    $this->assertTrue($group instanceof Group, 'found group not a Group object');
+	    
+	    $this->assertEquals($name, $group->name, 'name was not trimmed');
+	    $this->assertEquals(strtolower($slug), $group->slug, 'slug was not trimmed');
+	    
+	    $this->assertNotNull($group->created, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group created was not set');
 	}
 	
 	/**
@@ -42,15 +103,20 @@ class CreateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertTrue($group->save(true), 'valid group was not saved');
+	    $this->assertTrue($group->save(), 'valid group was not saved');
 	 
 	    $this->assertNotNull($group->id, 'save did not set group id');
 	    
-	    // verify the comment is in pending status
+	    // verify the group can be found in db 
 	    $group = Group::model()->findByPk($group->id);
+	    
 	    $this->assertTrue($group instanceof Group, 'found group not a Group object');
-	    $this->assertEquals($name, $group->name);
-	    $this->assertEquals(strtolower($slug), $group->slug);
+		
+	    $this->assertEquals($name, $group->name, 'group name was not saved');
+	    $this->assertEquals(strtolower($slug), $group->slug, 'group slug was not saved');
+	    
+	    $this->assertNotNull($group->created, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group created was not set');
 	}
 	
 	/**
@@ -66,7 +132,7 @@ class CreateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertFalse($group->save(true), 'invalid group was saved');
+	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
 	}
 	
@@ -83,7 +149,8 @@ class CreateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertFalse($group->save(true), 'invalid group was saved');
+	    
+	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
 	}
 	
@@ -100,7 +167,7 @@ class CreateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,	    
 	    ));
-	    $this->assertFalse($group->save(true), 'invalid group was saved');
+	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
 	}
 	
@@ -111,7 +178,7 @@ class CreateGroupTest extends DbTestCase
 
 		$group = new Group;
 	    $group->setAttributes(array());
-	    $this->assertFalse($group->save(true), 'invalid group was saved');
+	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
 	}
 }
