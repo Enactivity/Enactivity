@@ -36,6 +36,16 @@ return array(
 			'enableParamLogging'=>false
 		),
 		
+		// MySQL database settings for Macs
+//		'db'=>array(
+//			'connectionString' => 'mysql:host=127.0.0.1;dbname=poncla_yii',
+//			'emulatePrepare' => true,
+//			'username' => 'root',
+//			'password' => '',
+//			'charset' => 'utf8',
+//			'enableParamLogging'=>false
+//		),
+		
 		// MySQL database settings for alpha
 //		'db'=>array(
 //			'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
