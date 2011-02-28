@@ -4,29 +4,6 @@ require_once 'TestConstants.php';
 
 class CreateGroupTest extends DbTestCase
 {
-	public static function setUpBeforeClass()
-	{
-		parent::setUpBeforeClass();
-	}
-    
-	/**
-	 * Sets up before each test method runs.
-	 * This mainly sets the base URL for the test application.
-	 */
-	protected function setUp()
-	{
-		parent::setUp();
-	}
-	
-	protected function tearDown()
-	{
-		parent::tearDown();
-	}
- 
-    public static function tearDownAfterClass()
-    {
-    	parent::tearDownAfterClass();
-    }
 
 	/**
 	 * Create a valid group
