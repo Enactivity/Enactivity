@@ -55,7 +55,7 @@ class CreateGroupTest extends DbTestCase
 	    $this->assertEquals(strtolower($slug), $group->slug, 'group slug was not saved');
 	    
 	    $this->assertNotNull($group->created, 'group created was not set');
-	    $this->assertNotNull($group->modified, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group modified was not set');
 	}
 	
 	/**
@@ -87,7 +87,7 @@ class CreateGroupTest extends DbTestCase
 	    $this->assertEquals(strtolower($slug), $group->slug, 'slug was not trimmed');
 	    
 	    $this->assertNotNull($group->created, 'group created was not set');
-	    $this->assertNotNull($group->modified, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group modified was not set');
 	}
 	
 	/**
@@ -116,7 +116,7 @@ class CreateGroupTest extends DbTestCase
 	    $this->assertEquals(strtolower($slug), $group->slug, 'group slug was not saved');
 	    
 	    $this->assertNotNull($group->created, 'group created was not set');
-	    $this->assertNotNull($group->modified, 'group created was not set');
+	    $this->assertNotNull($group->modified, 'group modified was not set');
 	}
 	
 	/**
@@ -178,6 +178,40 @@ class CreateGroupTest extends DbTestCase
 
 		$group = new Group;
 	    $group->setAttributes(array());
+	    $this->assertFalse($group->save(), 'invalid group was saved');
+	    $this->assertNull($group->id, 'Unsaved group has an id');
+	}
+	
+	/**
+	 * Test group create when no inputs are set
+	 */
+	public function testCreateGroupNoName() {
+
+		$name = null;
+		$slug = StringUtils::createRandomString(10);
+		
+		$group = new Group;
+	    $group->setAttributes(array(
+	        'name' => $name,
+	        'slug' => $slug,	    
+	    ));
+	    $this->assertFalse($group->save(), 'invalid group was saved');
+	    $this->assertNull($group->id, 'Unsaved group has an id');
+	}
+	
+	/**
+	 * Test group create when no inputs are set
+	 */
+	public function testCreateGroupNoSlug() {
+
+		$name = StringUtils::createRandomString(10);
+		$slug = null;
+		
+		$group = new Group;
+	    $group->setAttributes(array(
+	        'name' => $name,
+	        'slug' => $slug,	    
+	    ));
 	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
 	}
