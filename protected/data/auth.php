@@ -1,43 +1,227 @@
 <?php
-// Include all security classes in security folder
-foreach (glob(dirname(__FILE__) . '/auth/*.php') as $filename) 
-{ 
-    require_once $filename; 
-} 
-
-$authManager = Yii::app()->getAuthManager();
-
-$authManager->createOperation('createEventBanter', 'create a ');
-$authManager->createOperation('readEventBanter', 'read a ');
-$authManager->createOperation('updateEventBanter', 'update a ');
-$authManager->createOperation('deleteEventBanter', 'delete a ');
-
-$authManager->createOperation('createEventUserOperation', 'create a ');
-$authManager->createOperation('readEventUserOperation', 'read a ');
-$authManager->createOperation('updateEventUserOperation', 'update a ');
-$authManager->createOperation('deleteEventUserOperation', 'delete a ');
-
-$authManager->createOperation('createGroupOperation', 'create a ');
-$authManager->createOperation('readGroupOperation', 'read a ');
-$authManager->createOperation('updateGroupOperation', 'update a ');
-$authManager->createOperation('deleteGroupOperation', 'delete a ');
-
-$authManager->createOperation('createGroupBanterOperation', 'create a ');
-$authManager->createOperation('readGroupBanterOperation', 'read a ');
-$authManager->createOperation('updateGroupBanterOperation', 'update a ');
-$authManager->createOperation('deleteGroupBanterOperation', 'delete a ');
-
-$authManager->createOperation('createGroupProfileOperation', 'create a ');
-$authManager->createOperation('readGroupProfileOperation', 'read a ');
-$authManager->createOperation('updateGroupProfileOperation', 'update a ');
-$authManager->createOperation('deleteGroupProfileOperation', 'delete a ');
-
-$authManager->createOperation('createGroupUserOperation', 'create a ');
-$authManager->createOperation('readGroupUserOperation', 'read a ');
-$authManager->createOperation('updateGroupUserOperation', 'update a ');
-$authManager->createOperation('deleteGroupUserOperation', 'delete a ');
-
-$authManager->createOperation('createUserOperation', 'create a ');
-$authManager->createOperation('readUserOperation', 'read a ');
-$authManager->createOperation('updateUserOperation', 'update a ');
-$authManager->createOperation('deleteUserOperation', 'delete a ');
+return array (
+  'readEvent' => 
+  array (
+    'type' => 0,
+    'description' => 'read an event',
+    'bizRule' => 'GroupUser::model()->isGroupMember($params["event"], Yii::app()->user->id;',
+    'data' => NULL,
+  ),
+  'createEvent' => 
+  array (
+    'type' => 0,
+    'description' => 'create an event',
+    'bizRule' => 'GroupUser::model()->isGroupMember($params["event"], Yii::app()->user->id;',
+    'data' => NULL,
+  ),
+  'updateEvent' => 
+  array (
+    'type' => 0,
+    'description' => 'update an event',
+    'bizRule' => 'GroupUser::model()->isGroupMember($params["event"], Yii::app()->user->id;',
+    'data' => NULL,
+  ),
+  'deleteEvent' => 
+  array (
+    'type' => 0,
+    'description' => 'delete an event',
+    'bizRule' => 'GroupUser::model()->isGroupMember($params["event"], Yii::app()->user->id;',
+    'data' => NULL,
+  ),
+  'createEventBanter' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readEventBanter' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateEventBanter' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteEventBanter' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createEventUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readEventUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateEventUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteEventUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createGroupOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readGroupOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateGroupOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteGroupOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createGroupBanterOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readGroupBanterOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateGroupBanterOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteGroupBanterOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createGroupProfileOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readGroupProfileOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateGroupProfileOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteGroupProfileOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createGroupUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readGroupUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateGroupUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteGroupUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'createUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'create a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'readUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'read a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'updateUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'update a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'deleteUserOperation' => 
+  array (
+    'type' => 0,
+    'description' => 'delete a ',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+);

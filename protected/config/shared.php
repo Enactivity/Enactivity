@@ -22,6 +22,10 @@ return array(
 	// application components
 	'components'=>array(
 	
+		'authManager'=>array(
+            'class' => 'CPhpAuthManager',
+        ),
+	
 		// MySQL database settings
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
