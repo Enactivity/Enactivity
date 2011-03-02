@@ -1,5 +1,9 @@
 <?php 
-// TODO: PHPDocs file info
+/**
+ * View for individual event models
+ * 
+ * @param Event $data model
+ */
 
 // start article
 echo PHtml::openTag('article', array(
@@ -40,16 +44,10 @@ echo PHtml::closeTag('header');
 
 // body
 // summarized description
-echo StringUtils::truncate(
-	Yii::app()->format->formatStyledText($data->description),
-	250);
-// add a read more link
-if(strlen($data->description) > 250) {
-	echo ' ';
-	echo PHtml::link('Read more.', 
-		array('view', 'id'=>$data->id)
-	);
-}
+$this->widget('ext.widgets.TextSummary', array(
+	'text' => $data->description,
+	'url' => array('view', 'id'=>$data->id),
+));
 // end body
 
 // start footer

@@ -256,10 +256,15 @@ aside.flash-success a
 	border-bottom: none;
 }
 
+#content .list-view .items .view footer
+{
+	font-size: .8em;	
+}
+
 #content .list-view .items .view footer li
 {
 	float: left;
-	margin-right: .25em;
+	margin-right: .5em;
 }
 
 #content .detail-view dl,

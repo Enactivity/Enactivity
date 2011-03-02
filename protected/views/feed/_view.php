@@ -1,33 +1,58 @@
 <?php 
+/**
+ * View for individual feed models
+ * 
+ * @param ActiveRecordLog $data model
+ */
+
 // start article
 echo PHtml::openTag('article', array(
 	'class' => 'view'
 ));
 
-// start definition list
-echo PHtml::openTag('dl');
-echo PHtml::openTag('dt');
+// start headers
+echo PHtml::openTag('header');
+echo PHtml::openTag('hgroup');
 
+echo PHtml::openTag('h1');
+
+// display <user> <action> <model> 
 $this->widget('ext.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
 echo ' ';
-echo strtolower($data->action);
+echo PHtml::encode(strtolower($data->action));
 echo ' '; 
-$description = isset($data->modelObject) ? $data->modelObject->feedAttribute : $data->model;
-echo CHtml::link(StringUtils::truncate(PHtml::encode($description), 80), array(strtolower($data->model) . '/view', 'id'=>$data->modelId));
+$description = isset($data->modelObject) 
+	? $data->modelObject->feedAttribute 
+	: $data->model;
+echo CHtml::link(StringUtils::truncate(PHtml::encode($description), 80), 
+	array(strtolower($data->model) . '/view', 'id'=>$data->modelId)
+);
 
-echo PHtml::closeTag('dt');
+echo PHtml::closeTag('h1');
 
-echo PHtml::openTag('dd');
-echo PHtml::openTag('span');
+// close headers
+echo PHtml::closeTag('hgroup');
+echo PHtml::closeTag('header');
 
+// start footer
+echo PHtml::openTag('footer');
+
+// show details
+echo PHtml::openTag('ul');
+
+// show created date
+echo PHtml::openTag('li');
+echo PHtml::openTag('date');
 echo PHtml::encode(
 	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
 );
+echo PHtml::closeTag('date');
+echo PHtml::closeTag('li');
 
-echo PHtml::closeTag('span');
-echo PHtml::closeTag('dd');
+echo PHtml::closeTag('ul');
 
-echo PHtml::closeTag('dl');
+echo PHtml::closeTag('footer');
+
 echo PHtml::closeTag('article');
