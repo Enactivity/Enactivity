@@ -137,7 +137,7 @@ class ActiveRecordLog extends CActiveRecord
 	public function scopes() {
 		return array(
 			'grouped' => array(
-				'group' => 'model, modelId, action, created'
+				'group' => 'model, modelId, action, HOUR(created)'
 			),
     		'oldestToNewest'=>array(
     			'order' => 'created ASC',
