@@ -36,7 +36,6 @@ for details
 			<directory suffix=".php">../../protected/extensions</directory>
 			<directory suffix=".php">../../protected/helpers</directory>
 			<directory suffix=".php">../../protected/models</directory>
-			<directory suffix=".php">../../protected/tests</directory>
 		</whitelist>
 	</filter>
 
