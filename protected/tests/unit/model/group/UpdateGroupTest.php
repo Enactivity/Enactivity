@@ -44,7 +44,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Create a valid group
 	 */
-    public function testCreateGroupValid() {
+    public function testUpdateGroupValid() {
     	
 		$name = StringUtils::createRandomString(10);
 		$slug = StringUtils::createRandomString(10);
@@ -71,7 +71,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Create a valid group and ensure entries are trimmed
 	 */
-    public function testCreateGroupTrimSpaces() {
+    public function testUpdateGroupTrimSpaces() {
     	
 		$name = StringUtils::createRandomString(10);
 		$slug = StringUtils::createRandomString(10);
@@ -102,7 +102,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Create a valid group
 	 */
-    public function testCreateGroupMaximumInputs() {
+    public function testUpdateGroupMaximumInputs() {
     	
 		$name = StringUtils::createRandomString(255);
 		$slug = StringUtils::createRandomString(50);
@@ -130,7 +130,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Set inputs over the acceptable lengths
 	 */
-    public function testCreateGroupExceedMaximumInputs() {
+    public function testUpdateGroupExceedMaximumInputs() {
     	
 		$name = StringUtils::createRandomString(255 + 1);
 		$slug = StringUtils::createRandomString(50 + 1);
@@ -145,7 +145,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Test group create when name and slug are blank
 	 */
-	public function testCreateGroupBlankInputs() {
+	public function testUpdateGroupBlankInputs() {
 
 		$name = '';
 		$slug = '';
@@ -161,7 +161,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNullInputs() {
+	public function testUpdateGroupNullInputs() {
 
 		$name = null;
 		$slug = null;
@@ -176,7 +176,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNoName() {
+	public function testUpdateGroupNoName() {
 
 		$name = null;
 		$slug = StringUtils::createRandomString(10);
@@ -191,7 +191,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNoSlug() {
+	public function testUpdateGroupNoSlug() {
 
 		$name = StringUtils::createRandomString(10);
 		$slug = null;
