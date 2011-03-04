@@ -13,6 +13,9 @@ for details
 >
 
 	<testsuites>
+		<testsuite name="Functional Test Suite">
+			<directory>functional</directory>
+		</testsuite>
 		<testsuite name="Unit Test Suite">
 			<directory>unit</directory>
 		</testsuite>
@@ -33,15 +36,16 @@ for details
 			<directory suffix=".php">../../protected/extensions</directory>
 			<directory suffix=".php">../../protected/helpers</directory>
 			<directory suffix=".php">../../protected/models</directory>
+			<directory suffix=".php">../../protected/tests</directory>
 		</whitelist>
 	</filter>
 
 	<logging>
-		<log type="coverage-html" target="./report" charset="UTF-8"
+		<log type="coverage-html" target="./report/coverage" charset="UTF-8"
 			yui="true" highlight="false"
 			lowUpperBound="35" highLowerBound="70"/>
-		<log type="coverage-xml" target="./report/coverage.xml"/>
-		<log type="json" target="./report/logfile.json"/>
+		<log type="junit" target="./report/logfile.xml" 
+			logIncompleteSkipped="false"/>
 		<log type="tap" target="./report/logfile.tap"/>
 	</logging>
 
