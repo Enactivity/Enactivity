@@ -566,8 +566,8 @@ aside.flash-success a
 /*
 	Calendar styles
 */
-.calendar th,
-.calendar td {
+#content.event.calendar th,
+#content.event.calendar td {
 	overflow: hidden;
 	padding: .1em;
 	white-space: nowrap;
