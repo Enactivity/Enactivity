@@ -13,9 +13,11 @@ for details
 >
 
 	<testsuites>
+		<!--
 		<testsuite name="Functional Test Suite">
 			<directory>functional</directory>
 		</testsuite>
+		-->
 		<testsuite name="Unit Test Suite">
 			<directory>unit</directory>
 		</testsuite>
