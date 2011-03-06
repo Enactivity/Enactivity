@@ -3,39 +3,38 @@ Yii::import('system.console.CConsoleCommand');
 
 class GenerateAuthCommand extends CConsoleCommand
 {
-	const DEFAULT_CONFIG = 'auth';
-
 	public function run($args) {
 		
 		$authManager = Yii::app()->authManager;
 		$authManager->clearAll(); //reset old auths
 		
 		// Event operations
-		echo "configuring group operations\n";
-		$isEventGroupMember = 'GroupUser::model()->isGroupMember($params["event"], Yii::app()->user->id;';
+		echo "configuring event operations\n";
+		$isEventGroupMemberFunction = 'GroupUser::model()->'
+			. 'isGroupMember($params["event"]->groupId, Yii::app()->user->id);';
 
 		$authManager->createOperation(
 			'readEvent', 
 			'read an event', 
-			$isEventGroupMember
+			$isEventGroupMemberFunction
 		);
 		
 		$authManager->createOperation(
 			'createEvent', 
 			'create an event', 
-			$isEventGroupMember
+			$isEventGroupMemberFunction
 		);
 		
 		$authManager->createOperation(
 			'updateEvent', 
 			'update an event', 
-			$isEventGroupMember
+			$isEventGroupMemberFunction
 		);
 		
 		$authManager->createOperation(
 			'deleteEvent', 
 			'delete an event',
-			$isEventGroupMember
+			$isEventGroupMemberFunction
 		);
 		
 		// Event banter operations
@@ -52,6 +51,7 @@ class GenerateAuthCommand extends CConsoleCommand
 		$authManager->createOperation('deleteEventUserOperation', 'delete a ');
 		
 		// Group operations
+		echo "configuring group operations\n";
 		$authManager->createOperation('createGroupOperation', 'create a ');
 		$authManager->createOperation('readGroupOperation', 'read a ');
 		$authManager->createOperation('updateGroupOperation', 'update a ');
@@ -80,6 +80,13 @@ class GenerateAuthCommand extends CConsoleCommand
 		$authManager->createOperation('readUserOperation', 'read a ');
 		$authManager->createOperation('updateUserOperation', 'update a ');
 		$authManager->createOperation('deleteUserOperation', 'delete a ');	
+		
+		
+		$authManager->createRole('groupmember');
+		
+		$authManager->createRole('creator');
+		
+		$authManager->createRole('admin');
 		
 		$authManager->save();
 		
