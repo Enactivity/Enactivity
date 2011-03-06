@@ -564,6 +564,17 @@ aside.flash-success a
 }
 
 /*
+	Home page styling
+*/
+#content.site.index h1 {
+	display: none;
+}
+
+#content.site.index img {
+	width: 100%;
+}
+
+/*
 	Calendar styles
 */
 #content.event.calendar th,
