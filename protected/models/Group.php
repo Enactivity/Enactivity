@@ -179,7 +179,7 @@ class Group extends CActiveRecord
 	 */
 	public function getPermalink()
 	{
-		if(isset($this->slug)) {
+		if(!empty($this->slug)) {
 			return Yii::app()->request->hostInfo .
 			Yii::app()->getBaseUrl() .
 			"/" . $this->slug;
