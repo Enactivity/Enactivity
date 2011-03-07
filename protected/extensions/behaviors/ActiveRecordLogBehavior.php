@@ -64,7 +64,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 //									. ' created ' . get_class($this->Owner) 
 //									. '[' . $this->Owner->getPrimaryKey() .'].';
 			$log->groupId = $this->Owner->groupId;
-			$log->action = 'created';
+			$log->action = 'posted';
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = '';
