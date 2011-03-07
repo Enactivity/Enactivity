@@ -193,23 +193,6 @@ class Group extends CActiveRecord
 	}
 	
 	/**
-	 * Get the groups that the user is a member of
-	 * @param int $userId
-	 * @return CActiveDataProvider of Groups
-	 */
-	public function getGroupsByUser($userId) {
-		$this->unsetAttributes();  // clear any default values
-		
-		$dataProvider = $this->search();
-		$dataProvider->criteria->addCondition('id IN (SELECT groupId AS id FROM group_user WHERE userId=:userId)');
-		$dataProvider->criteria->params[':userId'] = $userId;
-		
-		$dataProvider->criteria->order = 'name ASC';
-		
-		return $dataProvider;
-	}
-	
-	/**
 	 * Get the list of Active users in this group filtered by 
 	 * group status
 	 * @param int $groupId
