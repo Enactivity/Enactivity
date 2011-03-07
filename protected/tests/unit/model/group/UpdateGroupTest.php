@@ -6,6 +6,10 @@ class UpdateGroupTest extends DbTestCase
 {
 	public $group;
 	
+	public $fixtures = array(
+        'groups'=>'Group',
+    );
+	
 	public static function setUpBeforeClass()
 	{
 		parent::setUpBeforeClass();
@@ -14,16 +18,7 @@ class UpdateGroupTest extends DbTestCase
 	protected function setUp()
 	{
 		parent::setUp();
-		
-		$name = StringUtils::createRandomString(10);
-		$slug = StringUtils::createRandomString(10);
-		
 		$this->group = new Group;
-	    $this->group->setAttributes(array(
-	        'name' => $name,
-	        'slug' => $slug,
-	    ));
-	    $this->group->save();
 	}
 	
 	protected function tearDown()
@@ -196,5 +191,22 @@ class UpdateGroupTest extends DbTestCase
 	        'slug' => $slug,	    
 	    ));
 	    $this->assertFalse($this->group->save(), 'invalid group was saved');
+	}
+	
+	/**
+	 * Test that groups with duplicate names cannot be saved
+	 */
+	public function testUpdateGroupDuplicateName() {
+
+		$name = $this->groups['testgroup']['name'];
+		$slug = null;
+		
+	    $this->group->setAttributes(array(
+	        'name' => $name,
+	        'slug' => $slug,	    
+	    ));
+	    
+	    $this->assertFalse($this->group->validate(), 'group with duplicate name was marked valid');
+	    $this->assertFalse($this->group->save(), 'group with duplicate name was saved');
 	}
 }

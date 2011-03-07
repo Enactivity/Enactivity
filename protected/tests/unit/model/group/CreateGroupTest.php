@@ -4,6 +4,9 @@ require_once 'TestConstants.php';
 
 class CreateGroupTest extends DbTestCase
 {
+	public $fixtures = array(
+        'groups'=>'Group',
+    );
 
 	public static function setUpBeforeClass()
 	{
@@ -209,5 +212,23 @@ class CreateGroupTest extends DbTestCase
 	    ));
 	    $this->assertFalse($group->save(), 'invalid group was saved');
 	    $this->assertNull($group->id, 'Unsaved group has an id');
+	}
+	
+	/**
+	 * Test that groups with duplicate names cannot be saved
+	 */
+	public function testUpdateGroupDuplicateName() {
+
+		$name = $this->groups['testgroup']['name'];
+		$slug = null;
+		
+		$group = new Group;
+	    $group->setAttributes(array(
+	        'name' => $name,
+	        'slug' => $slug,	    
+	    ));
+	    
+	    $this->assertFalse($group->validate(), 'group with duplicate name was marked valid');
+	    $this->assertFalse($group->save(), 'group with duplicate name was saved');
 	}
 }

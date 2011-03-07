@@ -1,0 +1,31 @@
+<?php
+/**
+ * Fixtures for group
+ */
+return array(
+	// administrative user
+	'admin' => array(
+		'email' => 'admin@poncla.com',
+		'token' => '5d7f3e28571af8824a910e81996f409b8a6f5bd9', 
+		'password' => 'ac3642003276203b8ad9ceb60856fd9f7c3c286c', // "test"
+		'firstName' => 'Poncla',
+		'lastName' => 'Administrator',
+		'status' => 'Active',
+		'created' => date ("Y-m-d H:i:s"),
+		'modified' => date ("Y-m-d H:i:s"),
+		'lastLogin' => null,
+	),
+	
+	// registered user
+	'registered' => array(
+		'email' => 'user@poncla.com',
+		'token' => '0865818293977c11289e0e0c33ccae70035399c3',
+		'password' => '1800b237666e34ff1ab4e09d7343db2365d2ef23', // "test"
+		'firstName' => 'Test',
+		'lastName' => 'Registered',
+		'status' => 'Active',
+		'created' => date ("Y-m-d H:i:s"),
+		'modified' => date ("Y-m-d H:i:s"),
+		'lastLogin' => date ("Y-m-d H:i:s"),
+	),
+);
