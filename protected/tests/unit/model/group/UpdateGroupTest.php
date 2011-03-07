@@ -120,17 +120,29 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Set inputs over the acceptable lengths
 	 */
-    public function testUpdateGroupExceedMaximumInputs() {
+    public function testUpdateGroupNameExceedsMaximumInputs() {
     	
 		$name = StringUtils::createRandomString(255 + 1);
-		$slug = StringUtils::createRandomString(50 + 1);
 		
 	    $this->group->setAttributes(array(
 	        'name' => $name,
+	    ));
+	    $this->assertFalse($this->group->save(), 'invalid group was saved');
+	}
+
+	/**
+	 * Set inputs over the acceptable lengths
+	 */
+    public function testUpdateGroupNameExceedsMaximumInputs() {
+    	
+		$slug = StringUtils::createRandomString(50 + 1);
+		
+	    $this->group->setAttributes(array(
 	        'slug' => $slug,
 	    ));
 	    $this->assertFalse($this->group->save(), 'invalid group was saved');
 	}
+	
 	
 	/**
 	 * Test group create when name and slug are blank
