@@ -133,7 +133,7 @@ class UpdateGroupTest extends DbTestCase
 	/**
 	 * Set inputs over the acceptable lengths
 	 */
-    public function testUpdateGroupNameExceedsMaximumInputs() {
+    public function testUpdateGroupSlugExceedsMaximumInputs() {
     	
 		$slug = StringUtils::createRandomString(50 + 1);
 		
