@@ -9,11 +9,6 @@ class FindBySlugTest extends DbTestCase
 	public static function setUpBeforeClass()
 	{
 		parent::setUpBeforeClass();
-		
-//		$_identity=new UserIdentity($login,$password);
-//		$return = $_identity->authenticate();
-//		$this->assertTrue($return);
-//		$this->assertEquals(1, Yii::app()->user->id);
 	}
     
 	protected function setUp()
