@@ -11,8 +11,8 @@ return array(
 		'firstName' => 'Poncla',
 		'lastName' => 'Administrator',
 		'status' => 'Active',
-		'created' => date ("Y-m-d H:i:s"),
-		'modified' => date ("Y-m-d H:i:s"),
+		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
+		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 		'lastLogin' => null,
 	),
 	
@@ -24,8 +24,8 @@ return array(
 		'firstName' => 'Test',
 		'lastName' => 'Registered',
 		'status' => 'Active',
-		'created' => date ("Y-m-d H:i:s"),
-		'modified' => date ("Y-m-d H:i:s"),
-		'lastLogin' => date ("Y-m-d H:i:s"),
+		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
+		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
+		'lastLogin' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 	),
 );

@@ -12,14 +12,14 @@ return array(
 		'groupId' => $groups['testgroup']['id'],
 		'userId' => $users['admin']['id'],
 		'status' => User::STATUS_ACTIVE,
-		'created' => date ("Y-m-d H:i:s"),
-		'modified' => date ("Y-m-d H:i:s"),
+		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
+		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 	),
 	'testGroupRegisteredUser' => array(
 		'groupId' => $groups['testgroup']['id'],
 		'userId' => $users['registered']['id'],
 		'status' => User::STATUS_ACTIVE,
-		'created' => date ("Y-m-d H:i:s"),
-		'modified' => date ("Y-m-d H:i:s"),
+		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
+		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 	),
 );
