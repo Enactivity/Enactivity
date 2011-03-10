@@ -15,7 +15,17 @@
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
 	<title><?php echo CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
-	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl() . '/js/libs/modernizr-1.6.min.js'); ?>	
+	
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl() . '/js/libs/modernizr-1.6.min.js'); ?>
+	
+	
+<?php 
+// Include Google Analytics widget
+$this->widget('ext.analytics.AnalyticsWidget', array(
+	'on' => false
+)); 
+?>
+		
 </head>
 <body>
 
