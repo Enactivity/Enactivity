@@ -10,7 +10,6 @@
 		<div class="forminput"><?php echo $form->textArea($model,'content',
 			array(
 				'maxlength'=>EventBanter::CONTENT_MAX_LENGTH,
-				'rows'=>5,
 				'placeholder'=>'What\'s up?',
 			)); 
 		?></div>

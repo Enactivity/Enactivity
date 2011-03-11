@@ -76,7 +76,6 @@
 		<div class="forminput"><?php echo $form->textArea($model,'description',
 			array(
 				'maxlength'=>Event::DESCRIPTION_MAX_LENGTH,
-				'rows'=>5,
 			)); 
 		?></div>
 		<div class="formerrors"><?php echo $form->error($model,'description'); ?></div>

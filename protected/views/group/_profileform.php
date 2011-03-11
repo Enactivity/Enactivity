@@ -10,7 +10,6 @@
 		<div class="forminput"><?php echo $form->textArea($model->groupProfile, 'description', 
 			array(
 				'maxlength'=>GroupProfile::DESCRIPTION_MAX_LENGTH,
-				'rows'=>5,
 				'autofocus'=>'autofocus',
 			)); 
 		?></div>
