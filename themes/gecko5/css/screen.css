@@ -10,10 +10,11 @@
 html {
 	color: #232425;
 	font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Trebuchet MS', Verdana;
-	font-size: 18px; 
+	font-size: 18px;
 	font-style: normal;
 	height: 100%;
 }
+
 body
 {
 	background-color: #ffffff;
@@ -40,6 +41,14 @@ em {
 	font-style: italic;
 }
 
+/* Selection colours (easy to forget) */
+
+::selection 	 	{background: #F2EDE4;}
+::-moz-selection 	{background: #F2EDE4;}
+img::selection 		{background: transparent;}
+img::-moz-selection	{background: transparent;}
+body {-webkit-tap-highlight-color: #F2EDE4;}
+
 /*
 	Global wrappers
 */
@@ -47,9 +56,8 @@ em {
 #globalWrapper,
 #globalFooter
 {
-	width: 95%;
-	margin-left: auto;
-	margin-right: auto;
+	padding-left: 2.5%;
+	padding-right: 2.5%;
 }
 
 #globalHeader 
@@ -397,6 +405,14 @@ aside.flash-success a
 #content form .row select 
 {
 	width: 100%;
+}
+
+#content form .row textarea  {
+	height: 3em;
+}
+
+#content form .row textarea:focus  {
+	height: 6em;
 }
 
 #content form .row input[type="submit"], 
