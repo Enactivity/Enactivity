@@ -176,4 +176,31 @@ class GroupRulesTest extends DbTestCase
 	    $this->assertEquals(strtolower($slug), $this->groupUnderTest->slug, 
 	    	"Group slug was not converted to lowercase");
 	}
+	
+	/**
+	 * Test safe filters
+	 */
+	public function testSafeAttributes() {
+		$attribute = StringUtils::createRandomString(10);
+		
+		$this->groupUnderTest = new Group();
+	    $this->groupUnderTest->setAttributes(array(
+	    	'id' => $attribute,
+	    	'name' => $attribute,
+	    	'slug' => $attribute,
+	    	'created' => $attribute,
+	    	'modified' => $attribute,
+	    ));
+	    
+	    $this->assertNull($this->groupUnderTest->id, 
+	    	"Group id was set via set attributes");
+	    $this->assertNotNull($this->groupUnderTest->name, 
+	    	"Group name was not set via set attributes");
+	    $this->assertNotNull($this->groupUnderTest->slug, 
+	    	"Group slug was not set via set attributes");
+	    $this->assertNull($this->groupUnderTest->created, 
+	    	"Group created was set via set attributes");
+	    $this->assertNull($this->groupUnderTest->modified, 
+	    	"Group modified was set via set attributes");
+	}
 }
