@@ -587,7 +587,7 @@ aside.flash-success a
 }
 
 #content.site.index img {
-	width: 100%;
+	max-width: 100%;
 }
 
 /*
