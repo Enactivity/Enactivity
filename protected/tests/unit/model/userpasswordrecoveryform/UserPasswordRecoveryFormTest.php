@@ -4,6 +4,10 @@ require_once 'TestConstants.php';
 
 class UserPasswordRecoveryTest extends DbTestCase
 {
+	public $fixtures = array(
+		'users'=>'User',
+	);
+	
 	public function testEmpty() {
 		$email = '';
 		$formUnderTest = new UserPasswordRecoveryForm();
@@ -24,7 +28,7 @@ class UserPasswordRecoveryTest extends DbTestCase
 	}
 
 	public function testValidEmail() {
-		$email = 'admin@poncla.com';
+		$email = $this->users['registered']['email'];
 		$formUnderTest = new UserPasswordRecoveryForm();
 		$formUnderTest->setAttributes(array(
 			'email' => $email
