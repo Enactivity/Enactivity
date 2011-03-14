@@ -44,6 +44,7 @@ class User extends CActiveRecord
 	const STATUS_MAX_LENGTH = 15;
 	
 	const SCENARIO_INVITE = 'invite';
+	const SCENARIO_RECOVER_PASSWORD = 'recoverPassword';
 	const SCENARIO_REGISTER = 'register';
 	const SCENARIO_UPDATE = 'update';
 	const SCENARIO_UPDATE_PASSWORD = 'updatePassword';
@@ -98,18 +99,18 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-		array('email', 'required', 'on' => 'invite'),
+		array('email', 'required', 'on' => self::SCENARIO_INVITE),
 		array('email, token, password, confirmPassword, firstName, lastName', 'required', 
-			'on' => 'register'),
+			'on' => self::SCENARIO_REGISTER),
 		array('email, firstName, lastName', 'required', 
-			'on' => 'update'),
+			'on' => self::SCENARIO_UPDATE),
 		array('password, confirmPassword', 'required',
-			'on' => 'updatePassword'),
+			'on' => self::SCENARIO_UPDATE_PASSWORD),
 
 		// trim inputs
 		array('email', 'filter', 'filter'=>'trim', 'on' => 'invite'),
-		array('email, token, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => 'register'),
-		array('email, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => 'update'),
+		array('email, token, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => self::SCENARIO_REGISTER),
+		array('email, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => self::SCENARIO_UPDATE),
 		
 		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
 		
@@ -263,6 +264,7 @@ class User extends CActiveRecord
 				$this->token = self::generateToken();
 			}
 			elseif($this->getScenario() == self::SCENARIO_REGISTER
+				|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD	
 				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
 				$this->password = self::encrypt($this->password, $this->token);
 			}
@@ -396,8 +398,11 @@ class User extends CActiveRecord
 	 * @return void
 	 */
 	public function recoverPassword() {
-		$newpassword = self::generatePassword();
+		// set scenario to encrypt on save
+		$this->setScenario(self::SCENARIO_RECOVER_PASSWORD);
+		$newpassword = self::generatePassword(); // store unencrypted for email
 		$this->password = $newpassword;
+		
 		if($this->save()) {
 			// email user
 			Yii::import('application.extensions.mailer.PasswordEmail');
@@ -412,6 +417,7 @@ class User extends CActiveRecord
 		}
 		else {
 			$errors = $this->getErrors('password');
+			var_dump($this->getErrors());
 			throw new CDbException('There was an error generating a new password.', 
 				500, $errors[0]);
 		}
