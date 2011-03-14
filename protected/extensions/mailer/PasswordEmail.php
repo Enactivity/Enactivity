@@ -37,6 +37,6 @@ class PasswordEmail extends Mailer {
 			. '  If you didn\'t request this new password please contact us at'
 			. ' info@' . Yii::app()->request->serverName;
 
-		return $this->transmit($to, $from, $subject, $body, $this->sendTest);
+		return $this->transmit($to, $from, $subject, $body);
 	}
 }

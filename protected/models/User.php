@@ -385,7 +385,7 @@ class User extends CActiveRecord
 		$mail->userName = $userName;
 		$mail->groupName = $groupName;
 		$mail->token = $this->token;
-		$mail->sendTest = true;
+		$mail->shouldEmail = true;
 		Yii::app()->mailer->send($mail);
 	}
 	
@@ -404,7 +404,7 @@ class User extends CActiveRecord
 			$mail = new PasswordEmail;
 			$mail->to = $this->email;
 			$mail->newpassword = $newpassword;
-			$mail->sendTest = true;
+			$mail->shouldEmail = true;
 			Yii::app()->mailer->send($mail);
 			
 			// notify end user

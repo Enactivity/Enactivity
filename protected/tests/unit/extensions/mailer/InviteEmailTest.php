@@ -13,14 +13,14 @@ class InviteEmailTest extends PHPUnit_Framework_TestCase {
 		$userName = StringUtils::createRandomString(30);
 		$groupName = StringUtils::createRandomString(30);
 		$token = StringUtils::createRandomString(40);
-		$sendTest = true;
+		$shouldEmail = true;
 		
 		$testClass = new InviteEmail;
 		$testClass->to = $to;
 		$testClass->userName = $userName;
 		$testClass->groupName = $groupName;
 		$testClass->token = $token;
-		$testClass->sendTest = $sendTest;
+		$testClass->shouldEmail = $shouldEmail;
 		$testClass->send();
 	}
 	

@@ -49,6 +49,6 @@ class InviteEmail extends Mailer {
 			. Yii::app()->request->hostInfo . "/index.php/user/register?token="
 			. $this->token . " and complete your registration.";
 
-		return $this->transmit($to, $from, $subject, $body, $this->sendTest);
+		return $this->transmit($to, $from, $subject, $body);
 	}
 }

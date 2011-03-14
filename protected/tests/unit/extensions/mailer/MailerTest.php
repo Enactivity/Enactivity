@@ -27,12 +27,12 @@ class MailerTest extends PHPUnit_Framework_TestCase {
 	public function testTransmit() {
 		$to = StringUtils::createRandomString(30);
 		$newPassword = StringUtils::createRandomString(10);
-		$sendTest = false;
+		$shouldEmail = false;
 		
 		$testClass = new PasswordEmail;
 		$testClass->to = $to;
 		$testClass->newpassword = $newPassword;
-		$testClass->sendTest = $sendTest;
+		$testClass->shouldEmail = $shouldEmail;
 
 		//Commented out since this will generate an error
 		//when a mail transport has not be installed

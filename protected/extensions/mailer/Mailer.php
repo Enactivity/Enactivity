@@ -60,7 +60,7 @@ class Mailer extends CApplicationComponent {
 	/**
 	 * @var boolean Test flag.  Enable to print to screen instead of actually mailing.
 	 */
-	public $sendTest = false;
+	public $shouldEmail = false;
 	
 	/**
 	 * Converts an array to a comma delimited string
@@ -106,10 +106,10 @@ class Mailer extends CApplicationComponent {
 	 * @param string Message.
 	 * @return boolean Result of email transmission.
 	 */
-	protected function transmit($to, $from, $subject, $body, $sendTest) {
-		if ($this->sendTest) {	
+	protected function transmit($to, $from, $subject, $body) {
+		if ($this->shouldEmail) {	
 			//Temp fix while I learn about views
-			Yii::log("Mailer sendTest logged output\nHeaders: "
+			Yii::log("Mailer shouldEmail logged output\nHeaders: "
 				. implode("\r\n", $this->createHeaders()) . "\nTo: " . $to . "\n"
 				. "Subject: " . $subject . "\nBody: " . $body,
 				'info',
