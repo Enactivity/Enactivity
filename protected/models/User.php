@@ -417,7 +417,6 @@ class User extends CActiveRecord
 		}
 		else {
 			$errors = $this->getErrors('password');
-			var_dump($this->getErrors());
 			throw new CDbException('There was an error generating a new password.', 
 				500, $errors[0]);
 		}
