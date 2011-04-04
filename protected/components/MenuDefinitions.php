@@ -120,6 +120,10 @@ class MenuDefinitions extends CComponent {
 		return null;
 	}
 	
+	public static function goal() {
+		return null;
+	}
+	
 	/**
 	 * @param Group $model Group currently under scrutiny
 	 * @return array of menu items for groups
@@ -194,6 +198,10 @@ class MenuDefinitions extends CComponent {
 		return $menu;
 	}
 	
+	public static function task() {
+		
+	}
+	
 	/**
 	 * @param User $model User current under scrutiny
 	 * @return array of menu items for user controller
@@ -246,6 +254,11 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Groups', 
 				'url'=>array('/group/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'Goals', 
+				'url'=>array('/goal/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
