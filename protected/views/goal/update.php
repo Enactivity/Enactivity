@@ -1,18 +1,10 @@
 <?php
-$this->breadcrumbs=array(
-	'Goals'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Goal', 'url'=>array('index')),
-	array('label'=>'Create Goal', 'url'=>array('create')),
-	array('label'=>'View Goal', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Goal', 'url'=>array('admin')),
-);
+	$this->pageTitle = 'Update Goal' . $model->id;
 ?>
 
-<h1>Update Goal <?php echo $model->id; ?></h1>
+<p>
+	You may change the content of this page by modifying
+	the file <tt><?php echo __FILE__; ?></tt>.
+</p>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

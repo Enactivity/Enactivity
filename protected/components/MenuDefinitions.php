@@ -121,7 +121,13 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	public static function goal() {
-		return null;
+		return array(
+			array(
+				'label'=>'Create a Goal', 
+				'url'=>array('goal/create'),
+				'linkOptions'=>array('id'=>'goal_create_menu_item'),
+			),
+		);
 	}
 	
 	/**
@@ -199,7 +205,13 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	public static function task() {
-		
+		return array(
+			array(
+				'label'=>'Create a Task', 
+				'url'=>array('task/create'),
+				'linkOptions'=>array('id'=>'task_create_menu_item'),
+			),
+		);
 	}
 	
 	/**
@@ -210,7 +222,7 @@ class MenuDefinitions extends CComponent {
 		return null;
 	}
 	
-/**
+	/**
 	 * @param User $model User current under scrutiny
 	 * @return array of menu items for user controller
 	 */
