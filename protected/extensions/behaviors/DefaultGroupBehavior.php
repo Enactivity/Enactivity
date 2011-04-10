@@ -40,6 +40,9 @@ class DefaultGroupBehavior extends CActiveRecordBehavior {
 		if(Yii::app()->user->model->groupsCount == 1) {
 			return Yii::app()->user->model->groups[0]->id;
 		}
-		throw new Exception("Error when attempting to set user group.");
+		throw new Exception("Error when attempting to set user group."
+			. " User is a member of [" 
+			. Yii::app()->user->model->groupsCount 
+			. "] groups.");
 	}
 }
