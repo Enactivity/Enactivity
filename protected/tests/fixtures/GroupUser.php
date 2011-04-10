@@ -16,7 +16,7 @@ return array(
 		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 	),
 	'testGroupRegisteredUser' => array(
-		'groupId' => 2,
+		'groupId' => 1,
 		'userId' => 2,
 		'status' => User::STATUS_ACTIVE,
 		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),

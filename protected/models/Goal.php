@@ -20,6 +20,8 @@
  */
 class Goal extends CActiveRecord
 {
+	const NAME_MAX_LENGTH = 255;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Goal the static model class
@@ -38,6 +40,31 @@ class Goal extends CActiveRecord
 	}
 
 	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+			// Set the groupId automatically when user is in only one group
+			'DefaultGroupBehavior'=>array(
+				'class' => 'ext.behaviors.DefaultGroupBehavior',
+			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'feedAttribute' => $this->name,
+				'ignoreAttributes' => array('modified'),
+			)
+		);
+	}
+	
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -45,9 +72,13 @@ class Goal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, groupId, created, modified', 'required'),
+			array('name, groupId', 'required'),
 			array('groupId, ownerId, isCompleted, isTrash', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			
+			array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
+			array('name', 'filter', 'filter'=>'trim'),
+			
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, groupId, ownerId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
@@ -74,7 +105,7 @@ class Goal extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Id',
 			'name' => 'Name',
 			'groupId' => 'Group',
 			'ownerId' => 'Owner',
