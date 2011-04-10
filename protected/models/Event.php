@@ -383,7 +383,7 @@ class Event extends CActiveRecord
 	 * @return CActiveDataProvider of User models
 	 */
 	public function getAttendeesByStatus($eventStatus) {
-		$model = new User('search');
+		$model = new User();
 		$model->unsetAttributes();  // clear any default values
 		
 		$dataProvider = $model->search();
