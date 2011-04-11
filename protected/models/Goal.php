@@ -22,6 +22,17 @@ class Goal extends CActiveRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
+	const SCENARIO_CREATE = 'create';
+	const SCENARIO_READ = 'read';
+	const SCENARIO_UPDATE_NAME = 'update name';
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_COMPLETE = 'complete';
+	const SCENARIO_NOTCOMPLETE = 'uncomplete';
+	const SCENARIO_SET_OWNER = 'set ownership';
+	const SCENARIO_UNSET_OWNER = 'unset ownership';
+	const SCENARIO_DELETE = 'delete';
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Goal the static model class
@@ -73,11 +84,21 @@ class Goal extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, groupId', 'required'),
+			
+			// integer only values
 			array('groupId, ownerId, isCompleted, isTrash', 'numerical', 'integerOnly'=>true),
+			
+			// not/complete scenario
+			array('isCompleted', 'required', 'on' => array(self::SCENARIO_COMPLETE, self::SCENARIO_NOTCOMPLETE)),
+			
+			// un/set owner scenario
+			array('ownerId', 'required', 'on' => array(self::SCENARIO_SET_OWNER, self::SCENARIO_UNSET_OWNER)),
+			
+			// un/trash scenario
+			array('isTrash', 'required', 'on' => array(self::SCENARIO_TRASH, self::SCENARIO_UNTRASH)),
 			
 			array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
 			array('name', 'filter', 'filter'=>'trim'),
-			
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
