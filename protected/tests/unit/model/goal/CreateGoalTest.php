@@ -10,21 +10,12 @@ class CreateGoalTest extends DbTestCase
 	public $fixtures = array(
 		'groupFixtures'=>'Group',
 		'userFixtures'=>'User',
-		'groupUserFixtures'=>'GroupUser',
+		'groupUserFixtures'=>':group_user',
 	);
 			
 	public function setUp()
 	{
 		parent::setUp();
-		
-		// link registered user to test group
-		$gu = new GroupUser();
-		$gu->groupId = $this->groupFixtures['testgroup']['id'];;
-		$gu->userId = $this->userFixtures['registered']['id'];;
-		$gu->status = User::STATUS_ACTIVE;
-		$gu->created = date ("Y-m-d H:i:s", strtotime("-1 hours"));
-		$gu->modified =date ("Y-m-d H:i:s", strtotime("-1 hours")); 
-		$gu->save();
 		
 		// login as user
 		$loginForm = new UserLoginForm();
@@ -95,7 +86,9 @@ class CreateGoalTest extends DbTestCase
 	    	'name' => $name,
 			'groupId' => $this->groupFixtures['testgroup']->id,
 	    ));
-	 $this->assertFalse($goal->save(), 'invalid goal was saved');
+		
+	    $this->assertFalse($goal->validate(), 'goal with name of 256 characters was validated');
+	    $this->assertFalse($goal->save(), 'goal with name of 256 characters was saved');
 	}
 	
 	/**
@@ -132,5 +125,6 @@ class CreateGoalTest extends DbTestCase
 	    ));
 	    
 	    $this->assertNull($goal->groupId, 'unsaved goal has a groupid');
+	    $this->assertTrue($goal->validate(), 'goal groupId was not automatically set');
 	}
 }

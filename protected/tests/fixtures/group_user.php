@@ -3,10 +3,10 @@
  * Fixture class for GroupUser table
  */
 
-// get the groups and users
-$groups = $this->getRows('groups');
-$users = $this->getRows('users');
+$users = $this->getRows('User');
+$groups = $this->getRows('Group');
 
+// get the groups and users
 return array(
 	'testGroupAdminUser' => array(
 		'groupId' => 1,
