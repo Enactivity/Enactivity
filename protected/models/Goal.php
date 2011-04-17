@@ -22,16 +22,7 @@ class Goal extends CActiveRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
-	const SCENARIO_CREATE = 'create';
-	const SCENARIO_READ = 'read';
-	const SCENARIO_UPDATE_NAME = 'update name';
-	const SCENARIO_TRASH = 'trash';
-	const SCENARIO_UNTRASH = 'untrash';
-	const SCENARIO_COMPLETE = 'complete';
-	const SCENARIO_NOTCOMPLETE = 'uncomplete';
-	const SCENARIO_SET_OWNER = 'set ownership';
-	const SCENARIO_UNSET_OWNER = 'unset ownership';
-	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -83,26 +74,21 @@ class Goal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, groupId', 'required'),
+			array('name, groupId', 
+				'required', 
+				'on' => array(self::SCENARIO_INSERT)),
 			
 			// integer only values
-			array('groupId, ownerId, isCompleted, isTrash', 'numerical', 'integerOnly'=>true),
-			
-			// not/complete scenario
-			array('isCompleted', 'required', 'on' => array(self::SCENARIO_COMPLETE, self::SCENARIO_NOTCOMPLETE)),
-			
-			// un/set owner scenario
-			array('ownerId', 'required', 'on' => array(self::SCENARIO_SET_OWNER, self::SCENARIO_UNSET_OWNER)),
-			
-			// un/trash scenario
-			array('isTrash', 'required', 'on' => array(self::SCENARIO_TRASH, self::SCENARIO_UNTRASH)),
-			
+//			array('groupId, ownerId, isCompleted, isTrash', 
+//				'numerical', 
+//				'integerOnly'=>true),
+
 			array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
 			array('name', 'filter', 'filter'=>'trim'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, groupId, ownerId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
+			// array('id, name, groupId, ownerId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -160,5 +146,37 @@ class Goal extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * Mark the goal as completed, does not save
+	 * @return void
+	 */
+	public function complete() {
+		$this->isCompleted = 1;
+	}
+	
+	/**
+	 * Mark the goal as not completed, does not save
+	 * @return void
+	 */
+	public function uncomplete() {
+		$this->isCompleted = 0;
+	}
+	
+	/**
+	 * Mark the goal as trash, does not save
+	 * @return void
+	 */
+	public function trash() {
+		$this->isTrash = 1;
+	}
+	
+	/**
+	 * Mark the goal as not trash, does not save
+	 * @return void
+	 */
+	public function untrash() {
+		$this->isTrash = 0;
 	}
 }
