@@ -1,5 +1,7 @@
 <?php
 	$this->pageTitle = 'View Goal' . $model->id;
+	
+	$this->pageMenu = MenuDefinitions::goalMenu($model);
 ?>
 
 <p>

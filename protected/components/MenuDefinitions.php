@@ -137,6 +137,34 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
+	 * @param Goal $model Goal currently under scrutiny
+	 * @return array of menu items for goals
+	 */
+	public static function goalMenu($model = null) {
+		if(isset($model)) {
+			$menu[] = array(
+				'label'=>'Update This Goal', 
+				'url'=>array('goal/update', 'id'=>$model->id),
+				'linkOptions'=>array('id'=>'goal_update_menu_item'),
+			);
+			$menu[] = array(
+				'label'=>'Delete This Goal', 
+				'url'=>'#', 
+				'linkOptions'=>array('submit'=>array(
+					'goal/delete',
+					'id'=>$model->id,
+				),
+				'confirm'=>'Are you sure you want to delete this item?',
+					'csrf' => true,
+					'id'=>'goal_delete_menu_item',
+				),
+			);
+		}
+		
+		return $menu;
+	}
+	
+	/**
 	 * @param Group $model Group currently under scrutiny
 	 * @return array of menu items for groups
 	 */
