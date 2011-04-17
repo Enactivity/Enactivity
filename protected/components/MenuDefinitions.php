@@ -33,6 +33,12 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
+				'label'=>'Manage Goals', 
+				'url'=>array('goal/admin'), 
+				'linkOptions'=>array('id'=>'goal_manage_menu_item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
+			array(
 				'label'=>'Manage Users', 
 				'url'=>array('user/admin'),
 				'linkOptions'=>array('id'=>'user_admin_menu_item'), 
