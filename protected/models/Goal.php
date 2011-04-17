@@ -23,7 +23,6 @@ class Goal extends CActiveRecord
 	const NAME_MAX_LENGTH = 255;
 	
 	const SCENARIO_COMPLETE = 'complete';
-	const SCENARIO_CREATE = 'create';
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
 	const SCENARIO_NOTCOMPLETE = 'uncomplete';
