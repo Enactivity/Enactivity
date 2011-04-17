@@ -22,7 +22,7 @@ class GoalController extends Controller
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
 			$goal = $this->loadModel($_GET['id']);
-			$groupId = $goal->id;
+			$groupId = $goal->groupId;
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
