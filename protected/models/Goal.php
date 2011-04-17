@@ -22,7 +22,17 @@ class Goal extends CActiveRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
+	const SCENARIO_COMPLETE = 'complete';
+	const SCENARIO_CREATE = 'create';
+	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_NOTCOMPLETE = 'uncomplete';
+	const SCENARIO_READ = 'read';
+	const SCENARIO_SET_OWNER = 'set ownership';
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNSET_OWNER = 'unset ownership';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_UPDATE_NAME = 'update name';
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -74,9 +84,14 @@ class Goal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, groupId', 
+			array('name, groupId, isCompleted, isTrash', 
 				'required', 
 				'on' => array(self::SCENARIO_INSERT)),
+			
+			array('isCompleted, isTrash',
+				'default',
+				'value' => 0,
+			),
 			
 			// integer only values
 //			array('groupId, ownerId, isCompleted, isTrash', 
