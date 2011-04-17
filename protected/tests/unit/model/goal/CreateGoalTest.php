@@ -5,8 +5,6 @@ require_once 'TestConstants.php';
 class CreateGoalTest extends DbTestCase
 {
 
-	public $group;
-	
 	public $fixtures = array(
 		'groupFixtures'=>'Group',
 		'userFixtures'=>'User',
@@ -62,9 +60,8 @@ class CreateGoalTest extends DbTestCase
 		$this->assertNotNull($goal->name, 'goal name attribute was assigned in [' . $goal->getScenario() . ']');
 		$this->assertNotNull($goal->groupId, 'goal groupId attribute was not assigned in [' . $goal->getScenario() . ']');
 		$this->assertNull($goal->ownerId, 'goal ownerId attribute was assigned in [' . $goal->getScenario() . ']');
-		// TODO: find out root cause of failure 
-		//$this->assertNull($goal->isCompleted, 'goal isCompleted attribute was assigned in [' . $goal->getScenario() . ']');
-		//$this->assertNull($goal->isTrash, 'goal isTrash attribute was assigned in [' . $goal->getScenario() . ']');
+		$this->assertNotNull($goal->isCompleted, 'goal isCompleted attribute not was assigned in [' . $goal->getScenario() . ']');
+		$this->assertNotNull($goal->isTrash, 'goal isTrash attribute was not assigned in [' . $goal->getScenario() . ']');
 	    $this->assertNull($goal->created, 'goal created attribute was assigned in [' . $goal->getScenario() . ']');
 	    $this->assertNull($goal->modified, 'goal modified attribute was assigned in [' . $goal->getScenario() . ']');
 	    
@@ -161,4 +158,6 @@ class CreateGoalTest extends DbTestCase
 	    $this->assertNull($goal->groupId, 'unsaved goal has a groupid');
 	    $this->assertTrue($goal->validate(), 'goal groupId was not automatically set');
 	}
+	
+	
 }
