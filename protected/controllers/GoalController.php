@@ -19,14 +19,19 @@ class GoalController extends Controller
 	 */
 	public function accessRules()
 	{
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$goal = $this->loadModel($_GET['id']);
+			$groupId = $goal->id;
+		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete'),
+				'actions'=>array('index','view','create'),
 				'users'=>array('@'),
+			),
+			array('allow',  // allow only group members to perform 'updateprofile' actions
+				'actions'=>array('update','delete'),
+				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin'),
