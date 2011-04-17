@@ -26,11 +26,11 @@ class GoalController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create'),
+				'actions'=>array('index','create'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
-				'actions'=>array('update','delete'),
+				'actions'=>array('view','update','delete'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
