@@ -31,7 +31,7 @@ class Goal extends CActiveRecord
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNSET_OWNER = 'unset ownership';
 	const SCENARIO_UNTRASH = 'untrash';
-	const SCENARIO_UPDATE_NAME = 'update name';
+	const SCENARIO_UPDATE = 'update';
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -84,8 +84,7 @@ class Goal extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, groupId, isCompleted, isTrash', 
-				'required', 
-				'on' => array(self::SCENARIO_INSERT)),
+				'required'),
 			
 			array('isCompleted, isTrash',
 				'default',
@@ -93,12 +92,18 @@ class Goal extends CActiveRecord
 			),
 			
 			// integer only values
-//			array('groupId, ownerId, isCompleted, isTrash', 
-//				'numerical', 
-//				'integerOnly'=>true),
+			array('groupId, ownerId, isCompleted, isTrash', 
+				'numerical', 
+				'integerOnly'=>true),
 
-			array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
-			array('name', 'filter', 'filter'=>'trim'),
+			array('name', 
+				'length', 
+				'max'=>self::NAME_MAX_LENGTH
+			),
+			array('name', 
+				'filter', 
+				'filter'=>'trim'
+			),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
