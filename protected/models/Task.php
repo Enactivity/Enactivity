@@ -52,20 +52,30 @@ class Task extends CActiveRecord
 		return array(
 			array('goalId, name, priority, isCompleted, isTrash',
 				'required'),
+			
 			array('goalId, ownerId, priority, isCompleted, isTrash',
 				'numerical',
 				'integerOnly'=>true),
+			
 			array('isCompleted, isTrash',
 				'default',
 				'value' => 0),
+			
 			array('name',
 				'length', 
 				'max'=>self::NAME_MAX_LENGTH),
+			
+			array('name', 
+				'filter', 
+				'filter'=>'trim'),
+			
 			array('starts, ends',
 				'safe'),
+			
 			array('ends',
 				'validateDateAfter', 
 				'beforeDate'=>'starts'),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			//array('id, goalId, name, ownerId, priority, isCompleted, isTrash, starts, ends, created, modified',
@@ -153,5 +163,59 @@ class Task extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+		
+	/**
+	 * Mark the task as completed, does not save
+	 * @return void
+	 */
+	public function complete() {
+		$this->isCompleted = 1;
+		return $this;
+	}
+	
+	/**
+	 * Mark the task as not completed, does not save
+	 * @return void
+	 */
+	public function uncomplete() {
+		$this->isCompleted = 0;
+		return $this;
+	}
+	
+	/**
+	 * Mark the task as trash, does not save
+	 * @return void
+	 */
+	public function trash() {
+		$this->isTrash = 1;
+		return $this;
+	}
+	
+	/**
+	 * Mark the task as not trash, does not save
+	 * @return void
+	 */
+	public function untrash() {
+		$this->isTrash = 0;
+		return $this;
+	}
+	
+	/**
+	 * Make the user as the owner, does not save
+	 * @return void
+	 */
+	public function own() {
+		$this->ownerId = Yii::app()->user->id;
+		return $this;
+	}
+	
+	/**
+	 * Mark the task as not trash, does not save
+	 * @return void
+	 */
+	public function unown() {
+		$this->ownerId = '';
+		return $this;
 	}
 }
