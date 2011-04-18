@@ -79,7 +79,7 @@ class CreateGoalTest extends DbTestCase
 		$goal = new Goal();
 		$goal->setAttributes(array(
 	    	'name' => $name,
-			'groupId' => $this->groupFixtures['testgroup']->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 	    ));
 	    
 	   $this->assertNull($goal->name, 'save name is not null');
@@ -95,7 +95,7 @@ class CreateGoalTest extends DbTestCase
 		$goal = new Goal();
 		$goal->setAttributes(array(
 	    	'name' => $paddedName,
-			'groupId' => $this->groupFixtures['testgroup']->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 	    ));
 	    
 	   $this->assertTrue($goal instanceof Goal, 'found goal not a Goal object');
@@ -115,7 +115,7 @@ class CreateGoalTest extends DbTestCase
 		$goal = new Goal();
 		$goal->setAttributes(array(
 	    	'name' => $name,
-			'groupId' => $this->groupFixtures['testgroup']->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 	    ));
 		
 	    $this->assertFalse($goal->validate(), 'goal with name of 256 characters was validated');
