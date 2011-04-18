@@ -27,51 +27,19 @@ $goalOwner = $data->ownerId;
 $currentGoal = $data->id;
 
 echo "current user is: $currentUser";
-echo PHtml::openTag('ul');
 
 // checking for different scenarios of edit/delete
-if ($goalOwner == $currentUser){
-	echo Phtml::openTag('li');
-	echo PHtml::link(Edit, 
-		array('update', 'id'=>$data->id)
-	); 
-	echo Phtml::closeTag('li');
-	echo Phtml::openTag('li');
-	echo PHtml::link(Delete); 
-	echo Phtml::closeTag('li');
-} elseif (isset($goalOwner)){
-	echo "Sorry, there is an owner already, you can't edit.";
-} else {
-	echo Phtml::openTag('li');
-	echo PHtml::link(Edit, 
-		array('update', 'id'=>$data->id)
-	); 
-	echo Phtml::closeTag('li');
-	echo Phtml::openTag('li');
-	echo PHtml::link(Delete); 
-	echo Phtml::closeTag('li');
-}
+// start footer
+echo PHtml::openTag('footer');
 
-//shows current owner otherwise show take ownership button
-if (isset($goalOwner)){
-	echo PHtml::openTag('li');
-	echo "Goal Owner: ";
-	/*echo PHtml::link(PHtml::encode($data->ownerId), 
-		array('view', 'id'=>$data->ownerId)
-	); */
-	$this->widget('ext.widgets.UserLink', array(
-		'userModel' => $data->owner,
-	));
-	echo Phtml::closeTag('li');
-} else {
-	echo PHtml::openTag('li');
-	echo PHtml::link('Take Ownership'); 
-	echo PHtml::closeTag('li');
-	echo PHtml::openTag('li');
-	echo "Goal Owner: None ";
-	echo PHtml::closeTag('li');
-}
-echo PHtml::closeTag('ul');
+// RSVP menu
+echo PHtml::openTag('menu');
+
+$this->widget('zii.widgets.CMenu', array(
+	'items'=>MenuDefinitions::goalMenu($data),
+));
+echo PHtml::closeTag('menu');
+echo PHtml::closeTag('footer');
 
 // close article
 echo PHtml::closeTag('article');

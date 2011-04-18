@@ -147,43 +147,85 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('goal/update', 'id'=>$model->id),
 				'linkOptions'=>array('id'=>'goal_update_menu_item'),
 			);
-			$menu[] = array(
-				'label'=>'Take Ownership', 
-				'url'=>array('goal/own', 'id'=>$model->id),
-				'linkOptions'=>array(
-					'submit'=>array(
-						'goal/own',
-						'id'=>$model->id,
+			
+			// only show when there is no owner
+			if($model->ownerId == null) {
+				$menu[] = array(
+					'label'=>'Take Ownership', 
+					'url'=>array('goal/own', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'goal/own',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'goal_owner_menu_item',
 					),
-					'csrf' => true,
-					'id'=>'goal_owner_menu_item',
-				),
-			);
-			$menu[] = array(
-				'label'=>'Mark Done', 
-				'url'=>array('goal/complete', 'id'=>$model->id),
-				'linkOptions'=>array(
-					'submit'=>array(
-						'goal/complete',
-						'id'=>$model->id,
-					),
-					'csrf' => true,
-					'id'=>'goal_complete_menu_item',
-				),
-			);
-			$menu[] = array(
-				'label'=>'Trash', 
-				'url'=>array('goal/trash', 'id'=>$model->id),
-				'linkOptions'=>array(
-					'submit'=>array(
-						'goal/trash',
-						'id'=>$model->id,
-					),
-					'confirm'=>'Are you sure you want to trash this item?',
-					'csrf' => true,
-					'id'=>'goal_trash_menu_item',
-				),
-			);
+				);
+			}
+			
+			if($model->ownerId == null 
+			|| $model->ownerId == Yii::app()->user->id) {
+				if($model->isCompleted) {
+					$menu[] = array(
+						'label'=>'Mark Done', 
+						'url'=>array('goal/complete', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/complete',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'goal_complete_menu_item',
+						),
+					);
+				}
+				else {
+					$menu[] = array(
+						'label'=>'Mark Not Done', 
+						'url'=>array('goal/uncomplete', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/uncomplete',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'goal_uncomplete_menu_item',
+						),
+					);
+				}
+				
+				if($model->isTrash) {
+					$menu[] = array(
+						'label'=>'Trash', 
+						'url'=>array('goal/trash', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/trash',
+								'id'=>$model->id,
+							),
+							'confirm'=>'Are you sure you want to trash this item?',
+							'csrf' => true,
+							'id'=>'goal_trash_menu_item',
+						),
+					);
+				}
+				else {
+					$menu[] = array(
+						'label'=>'UnTrash', 
+						'url'=>array('goal/untrash', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/untrash',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'goal_untrash_menu_item',
+						),
+					);
+				}	
+			}
+
 		}
 		
 		return $menu;
