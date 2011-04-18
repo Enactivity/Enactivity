@@ -23,6 +23,8 @@
  */
 class Task extends CActiveRecord
 {
+	const NAME_MAX_LENGTH = 255;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Task the static model class
@@ -48,16 +50,49 @@ class Task extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('goalId, name, priority, created, modified', 'required'),
-			array('goalId, ownerId, priority, isCompleted, isTrash', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
-			array('starts, ends', 'safe'),
+			array('goalId, name, priority, isCompleted, isTrash',
+				'required'),
+			array('goalId, ownerId, priority, isCompleted, isTrash',
+				'numerical',
+				'integerOnly'=>true),
+			array('isCompleted, isTrash',
+				'default',
+				'value' => 0),
+			array('name',
+				'length', 
+				'max'=>self::NAME_MAX_LENGTH),
+			array('starts, ends',
+				'safe'),
+			array('ends',
+				'validateDateAfter', 
+				'beforeDate'=>'starts'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, goalId, name, ownerId, priority, isCompleted, isTrash, starts, ends, created, modified', 'safe', 'on'=>'search'),
+			array('id, goalId, name, ownerId, priority, isCompleted, isTrash, starts, ends, created, modified',
+				'safe',
+				'on'=>'search'),
 		);
 	}
 
+	/**
+	 * Validate that the given date comes after the specified
+	 * 'beforeDate'
+	 * @param string $attribute the attribute to test
+	 * @param array $params
+	 * @return boolean true if date comes after parameter date, false otherwise
+	 */
+	public function validateDateAfter($attribute, $params) {
+		$ends = $this->$attribute;
+		$starts = $this->$params['beforeDate'];
+		
+		$ends = strtotime($ends);
+		$starts = strtotime($starts);
+		
+		if($ends < $starts) {
+			$this->addError($attribute, 'End time cannot be before start time.');
+		}
+	}
+	
 	/**
 	 * @return array relational rules.
 	 */
