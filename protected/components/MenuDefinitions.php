@@ -163,24 +163,24 @@ class MenuDefinitions extends CComponent {
 					),
 				);
 			}
+			elseif($model->ownerId == Yii::app()->user->id) {
+				$menu[] = array(
+					'label'=>'Give Up Ownership', 
+					'url'=>array('goal/unown', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'goal/unown',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'goal_owner_menu_item',
+					),
+				);
+			}
 			
 			if($model->ownerId == null 
 			|| $model->ownerId == Yii::app()->user->id) {
 				if($model->isCompleted) {
-					$menu[] = array(
-						'label'=>'Mark Done', 
-						'url'=>array('goal/complete', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'goal/complete',
-								'id'=>$model->id,
-							),
-							'csrf' => true,
-							'id'=>'goal_complete_menu_item',
-						),
-					);
-				}
-				else {
 					$menu[] = array(
 						'label'=>'Mark Not Done', 
 						'url'=>array('goal/uncomplete', 'id'=>$model->id),
@@ -194,8 +194,36 @@ class MenuDefinitions extends CComponent {
 						),
 					);
 				}
+				else {
+					$menu[] = array(
+						'label'=>'Mark Done', 
+						'url'=>array('goal/complete', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/complete',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'goal_complete_menu_item',
+						),
+					);
+				}
 				
 				if($model->isTrash) {
+					$menu[] = array(
+						'label'=>'UnTrash', 
+						'url'=>array('goal/untrash', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'goal/untrash',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'goal_untrash_menu_item',
+						),
+					);
+				}
+				else {
 					$menu[] = array(
 						'label'=>'Trash', 
 						'url'=>array('goal/trash', 'id'=>$model->id),
@@ -207,20 +235,6 @@ class MenuDefinitions extends CComponent {
 							'confirm'=>'Are you sure you want to trash this item?',
 							'csrf' => true,
 							'id'=>'goal_trash_menu_item',
-						),
-					);
-				}
-				else {
-					$menu[] = array(
-						'label'=>'UnTrash', 
-						'url'=>array('goal/untrash', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'goal/untrash',
-								'id'=>$model->id,
-							),
-							'csrf' => true,
-							'id'=>'goal_untrash_menu_item',
 						),
 					);
 				}	
