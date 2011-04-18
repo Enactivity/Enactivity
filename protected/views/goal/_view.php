@@ -40,7 +40,7 @@ if ($goalOwner == $currentUser){
 	echo PHtml::link(Delete); 
 	echo Phtml::closeTag('li');
 } elseif (isset($goalOwner)){
-	echo "Sorry, there is a owner already, you can't edit.";
+	echo "Sorry, there is an owner already, you can't edit.";
 } else {
 	echo Phtml::openTag('li');
 	echo PHtml::link(Edit, 
