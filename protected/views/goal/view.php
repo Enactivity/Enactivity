@@ -34,6 +34,6 @@ echo $this->renderPartial('_form', array('model'=>new Goal(Goal::SCENARIO_INSERT
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$taskDataProvider,
-	'itemView'=>'_view',
+	'itemView'=>'/task/_view',
 )); ?>
 
