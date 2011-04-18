@@ -32,31 +32,23 @@ echo PHtml::openTag('ul');
 // checking for different scenarios of edit/delete
 if ($goalOwner == $currentUser){
 	echo Phtml::openTag('li');
-	echo PHtml::openTag('button');
 	echo PHtml::link(Edit, 
 		array('update', 'id'=>$data->id)
 	); 
-	echo Phtml::closeTag('button');
 	echo Phtml::closeTag('li');
 	echo Phtml::openTag('li');
-	echo PHtml::openTag('button');
-	echo Delete;
-	echo Phtml::closeTag('button');
+	echo PHtml::link(Delete); 
 	echo Phtml::closeTag('li');
 } elseif (isset($goalOwner)){
 	echo "Sorry, there is a owner already, you can't edit.";
 } else {
 	echo Phtml::openTag('li');
-	echo PHtml::openTag('button');
 	echo PHtml::link(Edit, 
 		array('update', 'id'=>$data->id)
 	); 
-	echo Phtml::closeTag('button');
 	echo Phtml::closeTag('li');
 	echo Phtml::openTag('li');
-	echo PHtml::openTag('button');
-	echo Delete;
-	echo Phtml::closeTag('button');
+	echo PHtml::link(Delete); 
 	echo Phtml::closeTag('li');
 }
 
@@ -73,9 +65,7 @@ if (isset($goalOwner)){
 	echo Phtml::closeTag('li');
 } else {
 	echo PHtml::openTag('li');
-	echo PHtml::openTag('button');
-	echo "Take Ownership";
-	echo Phtml::closeTag('button');
+	echo PHtml::link('Take Ownership'); 
 	echo PHtml::closeTag('li');
 	echo PHtml::openTag('li');
 	echo "Goal Owner: None ";
