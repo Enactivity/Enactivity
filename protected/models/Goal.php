@@ -92,9 +92,15 @@ class Goal extends CActiveRecord
 			),
 			
 			// integer only values
-			array('groupId, ownerId, isCompleted, isTrash', 
+			array('groupId, isCompleted, isTrash', 
 				'numerical', 
 				'integerOnly'=>true),
+			
+			// integer only values
+			array('ownerId', 
+				'numerical', 
+				'integerOnly'=>true,
+				'allowEmpty'=>true),
 
 			array('name', 
 				'length', 

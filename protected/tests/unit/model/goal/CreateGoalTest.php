@@ -59,7 +59,7 @@ class CreateGoalTest extends DbTestCase
 		$this->assertNull($goal->id, 'goal id attribute was assigned in [' . $goal->getScenario() . ']');
 		$this->assertNotNull($goal->name, 'goal name attribute was assigned in [' . $goal->getScenario() . ']');
 		$this->assertNotNull($goal->groupId, 'goal groupId attribute was not assigned in [' . $goal->getScenario() . ']');
-		$this->assertNull($goal->ownerId, 'goal ownerId attribute was assigned in [' . $goal->getScenario() . ']');
+		$this->assertNotNull($goal->ownerId, 'goal ownerId attribute not was assigned in [' . $goal->getScenario() . ']');
 		$this->assertNotNull($goal->isCompleted, 'goal isCompleted attribute not was assigned in [' . $goal->getScenario() . ']');
 		$this->assertNotNull($goal->isTrash, 'goal isTrash attribute was not assigned in [' . $goal->getScenario() . ']');
 	    $this->assertNull($goal->created, 'goal created attribute was assigned in [' . $goal->getScenario() . ']');
