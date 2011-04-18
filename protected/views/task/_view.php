@@ -1,4 +1,21 @@
 <div class="view">
+
+<?php $this->widget('ext.widgets.DetailView', array(
+	'data'=>$data,
+	'attributes'=>array(
+		array(
+			'name' => 'name',
+		),
+		array( 
+			'name' => 'starts',
+		),
+		array( 
+			'name' => 'ends',
+		),
+	),
+)); 
+?>
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('/task/view', 'id'=>$data->id)); ?>
 	<br />
