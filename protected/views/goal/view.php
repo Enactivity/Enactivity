@@ -21,9 +21,9 @@
 	),
 )); **/?>
 </p>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$taskDataProvider,
-	'itemView'=>'/task/_view',
-)); ?>
-
+<?php 
+	foreach ($model->tasks as $task) {
+		echo $this->renderPartial('/task/_view', array('data'=>$task));
+	}
+	
+?>

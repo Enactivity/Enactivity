@@ -1,5 +1,4 @@
 <div class="view">
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
@@ -28,7 +27,6 @@
 	<?php echo CHtml::encode($data->isTrash); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('starts')); ?>:</b>
 	<?php echo CHtml::encode($data->starts); ?>
 	<br />
@@ -43,8 +41,8 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
 	<?php echo CHtml::encode($data->modified); ?>
+	<br />	
 	<br />
 
-	*/ ?>
 
 </div>
