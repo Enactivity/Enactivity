@@ -68,9 +68,9 @@ class Task extends CActiveRecord
 				'beforeDate'=>'starts'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, goalId, name, ownerId, priority, isCompleted, isTrash, starts, ends, created, modified',
-				'safe',
-				'on'=>'search'),
+			//array('id, goalId, name, ownerId, priority, isCompleted, isTrash, starts, ends, created, modified',
+			//	'safe',
+			//	'on'=>'search'),
 		);
 	}
 
