@@ -49,8 +49,10 @@ class GoalController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$goal = $this->loadModel($id);
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $goal,
+			'taskDataProvider' => new CActiveDataProvider('Task'),
 		));
 	}
 
@@ -61,6 +63,7 @@ class GoalController extends Controller
 	public function actionCreate()
 	{
 		$model=new Goal;
+		$model->scenario = Goal::SCENARIO_INSERT;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -126,9 +129,20 @@ class GoalController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$model = new Goal(Goal::SCENARIO_INSERT);
+		
+		if(isset($_POST['Goal']))
+		{
+			$model->attributes=$_POST['Goal'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+		
+		
 		$dataProvider=new CActiveDataProvider('Goal');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
