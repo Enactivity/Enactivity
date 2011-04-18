@@ -35,24 +35,6 @@
 	</div>
 	<?php endif; ?>
 	<?php 
-	if($model->getScenario() == Goal::SCENARIO_UPDATE):
-	?>
-	<div class="row">
-		<?php echo $form->labelEx($model,'ownerId'); ?>
-		<?php echo $form->textField($model,'ownerId'); ?>
-		<?php echo $form->error($model,'ownerId'); ?>
-	</div>
-	<?php endif; ?>
-	<?php 
-	if($model->getScenario() == Goal::SCENARIO_UPDATE):
-	?>	
-	<div class="row">
-		<?php echo $form->labelEx($model,'isCompleted'); ?>
-		<?php echo $form->checkBox($model,'isCompleted'); ?>
-		<?php echo $form->error($model,'isCompleted'); ?>
-	</div>
-	<?php endif; ?>
-	<?php 
 	if($model->getScenario() == Goal::SCENARIO_TRASH
 	|| $model->getScenario() == Goal::SCENARIO_UNTRASH):
 	?>
