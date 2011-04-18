@@ -30,7 +30,11 @@ class GoalController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
-				'actions'=>array('view','update','trash','untrash','complete','uncomplete'),
+				'actions'=>array(
+					'view','update','trash',
+					'untrash','complete','uncomplete',
+					'own','unown'
+				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -146,7 +150,51 @@ class GoalController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}	
+	}
+	
+		/**
+	 * Owns a particular model.
+	 * If own is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionOwn($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$goal = $this->loadModel($id);
+			$goal->own();
+			$goal->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Unowns a particular model.
+	 * If unown is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUnown($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow uncompletion via POST request
+			$goal = $this->loadModel($id);
+			$goal->unown();
+			$goal->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
 	
 	/**
 	 * Trashes a particular model.

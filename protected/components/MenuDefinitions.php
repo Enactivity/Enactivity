@@ -148,13 +148,38 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'goal_update_menu_item'),
 			);
 			$menu[] = array(
-				'label'=>'Trash This Goal', 
-				'url'=>'#', 
-				'linkOptions'=>array('submit'=>array(
-					'goal/trash',
-					'id'=>$model->id,
+				'label'=>'Take Ownership', 
+				'url'=>array('goal/own', 'id'=>$model->id),
+				'linkOptions'=>array(
+					'submit'=>array(
+						'goal/own',
+						'id'=>$model->id,
+					),
+					'csrf' => true,
+					'id'=>'goal_owner_menu_item',
 				),
-				'confirm'=>'Are you sure you want to trash this item?',
+			);
+			$menu[] = array(
+				'label'=>'Mark Done', 
+				'url'=>array('goal/complete', 'id'=>$model->id),
+				'linkOptions'=>array(
+					'submit'=>array(
+						'goal/complete',
+						'id'=>$model->id,
+					),
+					'csrf' => true,
+					'id'=>'goal_complete_menu_item',
+				),
+			);
+			$menu[] = array(
+				'label'=>'Trash', 
+				'url'=>array('goal/trash', 'id'=>$model->id),
+				'linkOptions'=>array(
+					'submit'=>array(
+						'goal/trash',
+						'id'=>$model->id,
+					),
+					'confirm'=>'Are you sure you want to trash this item?',
 					'csrf' => true,
 					'id'=>'goal_trash_menu_item',
 				),

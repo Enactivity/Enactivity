@@ -179,6 +179,7 @@ class Goal extends CActiveRecord
 	 */
 	public function complete() {
 		$this->isCompleted = 1;
+		return $this;
 	}
 	
 	/**
@@ -187,6 +188,7 @@ class Goal extends CActiveRecord
 	 */
 	public function uncomplete() {
 		$this->isCompleted = 0;
+		return $this;
 	}
 	
 	/**
@@ -195,6 +197,7 @@ class Goal extends CActiveRecord
 	 */
 	public function trash() {
 		$this->isTrash = 1;
+		return $this;
 	}
 	
 	/**
@@ -203,5 +206,24 @@ class Goal extends CActiveRecord
 	 */
 	public function untrash() {
 		$this->isTrash = 0;
+		return $this;
+	}
+	
+	/**
+	 * Make the user as the owner, does not save
+	 * @return void
+	 */
+	public function own() {
+		$this->ownerId = Yii::app()->user->id;
+		return $this;
+	}
+	
+	/**
+	 * Mark the goal as not trash, does not save
+	 * @return void
+	 */
+	public function unown() {
+		$this->ownerId = '';
+		return $this;
 	}
 }
