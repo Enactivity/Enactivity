@@ -1,14 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Tasks'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Task', 'url'=>array('index')),
-	array('label'=>'Create Task', 'url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
