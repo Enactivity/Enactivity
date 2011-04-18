@@ -159,7 +159,7 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'goal_owner_menu_item',
+						'id'=>'goal_owner_menu_item' . $model->id,
 					),
 				);
 			}
@@ -173,7 +173,7 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'goal_owner_menu_item',
+						'id'=>'goal_owner_menu_item' . $model->id,
 					),
 				);
 			}
@@ -190,7 +190,7 @@ class MenuDefinitions extends CComponent {
 								'id'=>$model->id,
 							),
 							'csrf' => true,
-							'id'=>'goal_uncomplete_menu_item',
+							'id'=>'goal_uncomplete_menu_item' . $model->id,
 						),
 					);
 				}
@@ -204,7 +204,7 @@ class MenuDefinitions extends CComponent {
 								'id'=>$model->id,
 							),
 							'csrf' => true,
-							'id'=>'goal_complete_menu_item',
+							'id'=>'goal_complete_menu_item' . $model->id,
 						),
 					);
 				}
@@ -219,7 +219,7 @@ class MenuDefinitions extends CComponent {
 								'id'=>$model->id,
 							),
 							'csrf' => true,
-							'id'=>'goal_untrash_menu_item',
+							'id'=>'goal_untrash_menu_item' . $model->id,
 						),
 					);
 				}
@@ -234,7 +234,7 @@ class MenuDefinitions extends CComponent {
 							),
 							'confirm'=>'Are you sure you want to trash this item?',
 							'csrf' => true,
-							'id'=>'goal_trash_menu_item',
+							'id'=>'goal_trash_menu_item' . $model->id,
 						),
 					);
 				}	
