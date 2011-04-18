@@ -1,38 +1,87 @@
-<div class="view">
+<?php 
+/**
+ * View for individual event models
+ * 
+ * @param Event $data model
+ */
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+// start article
+echo PHtml::openTag('article', array(
+	'class' => 'view',		
+));
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
+// start headers
+echo PHtml::openTag('header');
+echo PHtml::openTag('hgroup');
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
-	<?php echo CHtml::encode($data->groupId); ?>
-	<br />
+// goal name
+echo PHtml::openTag('h1');
+echo PHtml::link(PHtml::encode($data->name), 
+	array('view', 'id'=>$data->id)
+); 
+echo PHtml::closeTag('h1');
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ownerId')); ?>:</b>
-	<?php echo CHtml::encode($data->ownerId); ?>
-	<br />
+//	goals toolbar
+$currentUser = Yii::app()->user->id;
+$goalOwner = $data->ownerId;
+$currentGoal = $data->id;
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('isCompleted')); ?>:</b>
-	<?php echo CHtml::encode($data->isCompleted); ?>
-	<br />
+echo "current user is: $currentUser";
+echo PHtml::openTag('ul');
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('isTrash')); ?>:</b>
-	<?php echo CHtml::encode($data->isTrash); ?>
-	<br />
+// checking for different scenarios of edit/delete
+if ($goalOwner == $currentUser){
+	echo Phtml::openTag('li');
+	echo PHtml::openTag('button');
+	echo PHtml::link(Edit, 
+		array('update', 'id'=>$data->id)
+	); 
+	echo Phtml::closeTag('button');
+	echo Phtml::closeTag('li');
+	echo Phtml::openTag('li');
+	echo PHtml::openTag('button');
+	echo Delete;
+	echo Phtml::closeTag('button');
+	echo Phtml::closeTag('li');
+} elseif (isset($goalOwner)){
+	echo "Sorry, there is a owner already, you can't edit.";
+} else {
+	echo Phtml::openTag('li');
+	echo PHtml::openTag('button');
+	echo PHtml::link(Edit, 
+		array('update', 'id'=>$data->id)
+	); 
+	echo Phtml::closeTag('button');
+	echo Phtml::closeTag('li');
+	echo Phtml::openTag('li');
+	echo PHtml::openTag('button');
+	echo Delete;
+	echo Phtml::closeTag('button');
+	echo Phtml::closeTag('li');
+}
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
+//shows current owner otherwise show take ownership button
+if (isset($goalOwner)){
+	echo PHtml::openTag('li');
+	echo "Goal Owner: ";
+	/*echo PHtml::link(PHtml::encode($data->ownerId), 
+		array('view', 'id'=>$data->ownerId)
+	); */
+	$this->widget('ext.widgets.UserLink', array(
+		'userModel' => $data->owner,
+	));
+	echo Phtml::closeTag('li');
+} else {
+	echo PHtml::openTag('li');
+	echo PHtml::openTag('button');
+	echo "Take Ownership";
+	echo Phtml::closeTag('button');
+	echo PHtml::closeTag('li');
+	echo PHtml::openTag('li');
+	echo "Goal Owner: None ";
+	echo PHtml::closeTag('li');
+}
+echo PHtml::closeTag('ul');
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
-</div>
+// close article
+echo PHtml::closeTag('article');

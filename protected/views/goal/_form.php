@@ -8,48 +8,61 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_INSERT
+	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
+	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
-
+	<?php endif; ?>
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_INSERT
+	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
+	?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'groupId'); ?>
-		<?php echo $form->textField($model,'groupId'); ?>
-		<?php echo $form->error($model,'groupId'); ?>
+	<?php 
+	if($model->isNewRecord) { 
+		$this->widget('ext.widgets.inputs.GroupInputRow', array(
+			'form' => $form,
+			'model' => $model,
+			'groups' => Yii::app()->user->model->groups,
+		));
+	}
+	?>
 	</div>
-
+	<?php endif; ?>
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_INSERT
+	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
+	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'ownerId'); ?>
 		<?php echo $form->textField($model,'ownerId'); ?>
 		<?php echo $form->error($model,'ownerId'); ?>
 	</div>
-
+	<?php endif; ?>
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_UPDATE):
+	?>	
 	<div class="row">
 		<?php echo $form->labelEx($model,'isCompleted'); ?>
-		<?php echo $form->textField($model,'isCompleted'); ?>
+		<?php echo $form->checkBox($model,'isCompleted'); ?>
 		<?php echo $form->error($model,'isCompleted'); ?>
 	</div>
-
+	<?php endif; ?>
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_TRASH
+	|| $model->getScenario() == Goal::SCENARIO_UNTRASH):
+	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'isTrash'); ?>
 		<?php echo $form->textField($model,'isTrash'); ?>
 		<?php echo $form->error($model,'isTrash'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
+	<?php endif; ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
