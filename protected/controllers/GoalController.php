@@ -30,11 +30,11 @@ class GoalController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
-				'actions'=>array('view','update','delete'),
+				'actions'=>array('view','update','trash','untrash','complete','uncomplete'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin', 'delete'),
 				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
@@ -104,6 +104,94 @@ class GoalController extends Controller
 		));
 	}
 
+	/**
+	 * Completes a particular model.
+	 * If complete is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionComplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$goal = $this->loadModel($id);
+			$goal->complete();
+			$goal->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Uncompletes a particular model.
+	 * If uncomplete is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUncomplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow uncompletion via POST request
+			$goal = $this->loadModel($id);
+			$goal->uncomplete();
+			$goal->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}	
+	
+	/**
+	 * Trashes a particular model.
+	 * If trash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionTrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$goal = $this->loadModel($id);
+			$goal->trash();
+			$goal->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Untrashes a particular model.
+	 * If untrash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUntrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow untrashing via POST request
+			$goal = $this->loadModel($id);
+			$goal->untrash();
+			$goal->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

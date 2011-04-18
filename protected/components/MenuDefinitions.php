@@ -148,15 +148,15 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'goal_update_menu_item'),
 			);
 			$menu[] = array(
-				'label'=>'Delete This Goal', 
+				'label'=>'Trash This Goal', 
 				'url'=>'#', 
 				'linkOptions'=>array('submit'=>array(
-					'goal/delete',
+					'goal/trash',
 					'id'=>$model->id,
 				),
-				'confirm'=>'Are you sure you want to delete this item?',
+				'confirm'=>'Are you sure you want to trash this item?',
 					'csrf' => true,
-					'id'=>'goal_delete_menu_item',
+					'id'=>'goal_trash_menu_item',
 				),
 			);
 		}
