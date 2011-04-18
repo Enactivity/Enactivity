@@ -35,8 +35,7 @@
 	</div>
 	<?php endif; ?>
 	<?php 
-	if($model->getScenario() == Goal::SCENARIO_INSERT
-	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
+	if($model->getScenario() == Goal::SCENARIO_UPDATE):
 	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'ownerId'); ?>
