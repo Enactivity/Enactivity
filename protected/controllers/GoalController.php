@@ -124,7 +124,7 @@ class GoalController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -147,7 +147,7 @@ class GoalController extends Controller
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -170,7 +170,7 @@ class GoalController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -193,7 +193,7 @@ class GoalController extends Controller
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -216,7 +216,7 @@ class GoalController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -239,7 +239,7 @@ class GoalController extends Controller
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirectReturnUrlOrView($goal);
 			}
 		}
 		else
@@ -280,7 +280,6 @@ class GoalController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-		
 		
 		$dataProvider=new CActiveDataProvider('Goal');
 		$this->render('index',array(
@@ -329,4 +328,17 @@ class GoalController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	/**
+	 * Redirect the current view to the return url value or
+	 * to the goal/view page if no return url is specified.
+	 * @param Goal $goal
+	 */
+	private function redirectReturnUrlOrView($goal) {
+		$this->redirect(
+			isset($_POST['returnUrl']) 
+			? $_POST['returnUrl'] 
+			: array('goal/view', 'id'=>$goal->id,));
+	}
+	
 }
