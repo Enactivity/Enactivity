@@ -152,6 +152,7 @@ return CMap::mergeArray(
 						'cssFile' => false,
 					),
 					'CListView' => array(
+						'ajaxUpdate' => false,
 						'cssFile' => false,
 						'emptyText' => 'No results yet',
 						'summaryText' => false,
