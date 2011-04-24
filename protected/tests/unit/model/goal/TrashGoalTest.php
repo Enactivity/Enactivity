@@ -6,8 +6,8 @@ class TrashTest extends DbTestCase
 {
 
 	public $fixtures = array(
-		'groupFixtures'=>'Group',
-		'userFixtures'=>'User',
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
 	);
 			
@@ -27,7 +27,13 @@ class TrashTest extends DbTestCase
 	 */
 	public function testTrashNewGoal() {
 		$goal = new Goal();
-		$goal->trash();
+		
+		try {
+			$goal->trash();
+		}
+		catch(Exception $e) {
+			$this->fail('Goal->trash() threw exception: ' . $e->getMessage());
+		}
 		
 		if($goal->isTrash) {
 			// test passes
@@ -42,7 +48,13 @@ class TrashTest extends DbTestCase
 	 */
 	public function testUnTrashNewGoal() {
 		$goal = new Goal();
-		$goal->untrash();
+		
+		try {
+			$goal->untrash();
+		}
+		catch(Exception $e) {
+			$this->fail('Goal->untrash() threw exception: ' . $e->getMessage());
+		}
 		
 		if($goal->isTrash) {
 			$this->fail('untrash call did not update isTrash value');

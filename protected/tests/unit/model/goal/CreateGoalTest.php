@@ -6,8 +6,8 @@ class CreateGoalTest extends DbTestCase
 {
 
 	public $fixtures = array(
-		'groupFixtures'=>'Group',
-		'userFixtures'=>'User',
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
 	);
 			

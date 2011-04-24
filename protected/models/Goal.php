@@ -223,7 +223,7 @@ class Goal extends CActiveRecord
 	 * @return void
 	 */
 	public function unown() {
-		$this->ownerId = '';
+		$this->ownerId = null;
 		return $this;
 	}
 }

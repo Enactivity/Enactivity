@@ -2,12 +2,12 @@
 
 require_once 'TestConstants.php';
 
-class CompleteTest extends DbTestCase
+class CompleteGoalTest extends DbTestCase
 {
 
 	public $fixtures = array(
-		'groupFixtures'=>'Group',
-		'userFixtures'=>'User',
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
 	);
 			
@@ -27,7 +27,14 @@ class CompleteTest extends DbTestCase
 	 */
 	public function testCompleteNewGoal() {
 		$goal = new Goal();
-		$goal->complete();
+		
+		try {
+			// complete goal
+			$goal->complete();
+		}
+		catch(Exception $e) {
+			$this->fail('Goal->complete() threw exception: ' . $e->getMessage());
+		}
 		
 		if($goal->isCompleted) {
 			// test passes
@@ -42,7 +49,14 @@ class CompleteTest extends DbTestCase
 	 */
 	public function testUnCompleteNewGoal() {
 		$goal = new Goal();
-		$goal->uncomplete();
+		
+		try {
+			// complete goal
+			$goal->uncomplete();
+		}
+		catch(Exception $e) {
+			$this->fail('Goal->uncomplete() threw exception: ' . $e->getMessage());
+		}
 		
 		if($goal->isCompleted) {
 			$this->fail('uncomplete call did not update isComplete value');
