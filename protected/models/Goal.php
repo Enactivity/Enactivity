@@ -128,6 +128,7 @@ class Goal extends CActiveRecord
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'tasks' => array(self::HAS_MANY, 'Task', 'goalId'),
+			'tasksCount' => array(self::STAT, 'Task', 'goalId'),
 		);
 	}
 
