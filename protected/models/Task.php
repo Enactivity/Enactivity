@@ -25,6 +25,17 @@ class Task extends CActiveRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
+	const SCENARIO_COMPLETE = 'complete';
+	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_NOTCOMPLETE = 'uncomplete';
+	const SCENARIO_READ = 'read';
+	const SCENARIO_SET_OWNER = 'set ownership';
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNSET_OWNER = 'unset ownership';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_UPDATE = 'update';
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Task the static model class
@@ -40,6 +51,21 @@ class Task extends CActiveRecord
 	public function tableName()
 	{
 		return 'task';
+	}
+	
+	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
 	}
 
 	/**
@@ -215,7 +241,24 @@ class Task extends CActiveRecord
 	 * @return void
 	 */
 	public function unown() {
-		$this->ownerId = '';
+		$this->ownerId = null;
 		return $this;
+	}
+	
+	/**
+	 * Convert email to lowercase
+	 * 
+	 */
+	protected function beforeValidate() {
+		if(parent::beforeValidate()) {
+			
+			if($this->isNewRecord)
+			{
+				// Set priority to be highest in rung
+				$this->priority = $this->goal->tasksCount + 1;
+			}
+			return true;
+		}
+		return false;
 	}
 }
