@@ -66,7 +66,7 @@ class CreateGoalTest extends DbTestCase
 	    $this->assertNull($goal->modified, 'goal modified attribute was assigned in [' . $goal->getScenario() . ']');
 	    
 	    // confirm validation & save works
-	    $this->assertTrue($goal->validate(), 'valid goal was not validated');
+	    $this->assertTrue($goal->validate(), 'valid goal was not validated: ' . print_r($goal->getErrors(null), true));
 	    $this->assertTrue($goal->save(), 'valid goal was not saved');
 	}
 	
@@ -83,7 +83,7 @@ class CreateGoalTest extends DbTestCase
 	    ));
 	    
 	   $this->assertNull($goal->name, 'save name is not null');
-	   $this->assertFalse($goal->validate(), 'goal without name was validated');
+	   $this->assertFalse($goal->validate(), 'goal without name was validated: ' . print_r($goal->getErrors(null), true));
 	}
 	
 	/**
@@ -156,7 +156,7 @@ class CreateGoalTest extends DbTestCase
 	    ));
 	    
 	    $this->assertNull($goal->groupId, 'unsaved goal has a groupid');
-	    $this->assertTrue($goal->validate(), 'goal groupId was not automatically set');
+	    $this->assertTrue($goal->validate(), 'goal groupId was not automatically set: ' . print_r($goal->getErrors(null), true));
 	}
 	
 	
