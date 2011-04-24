@@ -255,7 +255,7 @@ class Task extends CActiveRecord
 			if($this->isNewRecord)
 			{
 				// Set priority to be highest in rung
-				$this->priority = $this->goal->tasksCount + 1;
+				$this->priority = $this->goal->tasksCount;
 			}
 			return true;
 		}

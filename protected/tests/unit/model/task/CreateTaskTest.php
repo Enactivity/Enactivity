@@ -30,8 +30,8 @@ class CreateTaskTest extends DbTestCase
 		
 		// test parameters
 		$id = 42;
-		$name = "test task";
 		$goalId = $this->goalFixtures['testgoal']['id'];
+		$name = "test task";
 		$ownerId = $this->userFixtures['registered']['id'];
 		$isCompleted = 42;
 		$isTrash = 42;
@@ -58,10 +58,11 @@ class CreateTaskTest extends DbTestCase
 		
 		// confirm attribute assigned properly
 		$this->assertNull($task->id, 'task id attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->goalId, 'task goalId attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->name, 'task name attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->ownerId, 'task ownerId attribute not was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->isCompleted, 'task isCompleted attribute not was assigned in [' . $task->getScenario() . ']');
+		$this->assertNotNull($task->goalId, 'task goalId attribute was not assigned in [' . $task->getScenario() . ']');
+		$this->assertNotNull($task->name, 'task name attribute was not assigned in [' . $task->getScenario() . ']');
+		$this->assertNotNull($task->ownerId, 'task ownerId attribute was not assigned in [' . $task->getScenario() . ']');
+		$this->assertNull($task->priority, 'task priority attribute was assigned in [' . $task->getScenario() . ']');
+		$this->assertNotNull($task->isCompleted, 'task isCompleted attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNotNull($task->isTrash, 'task isTrash attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->created, 'task created attribute was assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->modified, 'task modified attribute was assigned in [' . $task->getScenario() . ']');
@@ -145,5 +146,24 @@ class CreateTaskTest extends DbTestCase
 		
 		$this->assertNull($task->name, 'unsaved task has a name');
 		$this->assertFalse($task->validate(), 'task with no inputs was saved');
+	}
+	
+	/**
+	 * Test that priority is auto-assigned on validate
+	 */
+	public function testPriorityAutoAssign() {
+		
+		$name = "test task";
+		$goalId = $this->goalFixtures['testgoal']['id'];
+		
+		$task = new Task();
+		$task->setAttributes(array(
+			'name' => $name,
+			'goalId' => $goalId,
+		));
+		
+		$this->assertNull($task->priority, 'Priority was set before validate');
+		$task->validate();
+		$this->assertNotNull($task->priority, 'Priority was not set before validation');
 	}
 }
