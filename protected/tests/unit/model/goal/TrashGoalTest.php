@@ -2,7 +2,7 @@
 
 require_once 'TestConstants.php';
 
-class TrashTest extends DbTestCase
+class TrashGoalTest extends DbTestCase
 {
 
 	public $fixtures = array(
