@@ -86,18 +86,21 @@ class Goal extends CActiveRecord
 			array('name, groupId, isCompleted, isTrash', 
 				'required'),
 			
+			// boolean ints default to 0 or 1
 			array('isCompleted, isTrash',
 				'default',
 				'value' => 0,
 			),
 			
-			// integer only values
-			array('groupId, isCompleted, isTrash', 
-				'numerical', 
+			// boolean ints can be 0 or 1
+			array('isCompleted, isTrash',
+				'numerical',
+				'min' => 0,
+				'max' => 1,
 				'integerOnly'=>true),
 			
 			// integer only values
-			array('ownerId', 
+			array('groupId, ownerId', 
 				'numerical', 
 				'integerOnly'=>true,
 				'allowEmpty'=>true),
@@ -106,6 +109,7 @@ class Goal extends CActiveRecord
 				'length', 
 				'max'=>self::NAME_MAX_LENGTH
 			),
+			
 			array('name', 
 				'filter', 
 				'filter'=>'trim'

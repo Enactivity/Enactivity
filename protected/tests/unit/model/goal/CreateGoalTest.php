@@ -32,8 +32,8 @@ class CreateGoalTest extends DbTestCase
 		$name = "test goal";
 		$groupId = $this->groupFixtures['testgroup']['id'];
 		$ownerId = $this->userFixtures['registered']['id'];
-		$isCompleted = 42;
-		$isTrash = 42;
+		$isCompleted = 0;
+		$isTrash = 0;
 		$created = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 		$modified = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 		
