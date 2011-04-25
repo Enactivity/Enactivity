@@ -21,8 +21,8 @@ return array(
 		'email' => 'user@poncla.com',
 		'token' => '0865818293977c11289e0e0c33ccae70035399c3',
 		'password' => 'c167541bb82fbdde5339fdf01308421608d57b10', // "test"
-		'firstName' => 'Test',
-		'lastName' => 'Registered',
+		'firstName' => 'Joey',
+		'lastName' => 'McTesttest',
 		'status' => 'Active',
 		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),

@@ -8,7 +8,7 @@ $groups = $this->getRows('Group');
 
 return array(
 	'testgoal' => array(
-		'name' => 'test goal',
+		'name' => 'this is a test goal',
 		'groupId' => 1,
 		'ownerId' => null,
 		'isCompleted' => '0',
