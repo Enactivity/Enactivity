@@ -79,10 +79,26 @@ class Task extends CActiveRecord
 			array('goalId, name, priority, isCompleted, isTrash',
 				'required'),
 			
-			array('goalId, ownerId, priority, isCompleted, isTrash',
+			// goal and owner can be any integer > 0
+			array('goalId, ownerId',
 				'numerical',
+				'min' => 0,
+				'integerOnly'=>true),
+						
+			// int >= 0
+			array('priority',
+				'numerical',
+				'min' => 0,
 				'integerOnly'=>true),
 			
+			// boolean ints can be 0 or 1
+			array('isCompleted, isTrash',
+				'numerical',
+				'min' => 0,
+				'max' => 1,
+				'integerOnly'=>true),
+			
+			// boolean ints defaults to 0
 			array('isCompleted, isTrash',
 				'default',
 				'value' => 0),
@@ -149,7 +165,7 @@ class Task extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Id',
 			'goalId' => 'Goal',
 			'name' => 'Name',
 			'ownerId' => 'Owner',
@@ -193,7 +209,7 @@ class Task extends CActiveRecord
 		
 	/**
 	 * Mark the task as completed, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function complete() {
 		$this->isCompleted = 1;
@@ -202,7 +218,7 @@ class Task extends CActiveRecord
 	
 	/**
 	 * Mark the task as not completed, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function uncomplete() {
 		$this->isCompleted = 0;
@@ -211,7 +227,7 @@ class Task extends CActiveRecord
 	
 	/**
 	 * Mark the task as trash, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function trash() {
 		$this->isTrash = 1;
@@ -220,7 +236,7 @@ class Task extends CActiveRecord
 	
 	/**
 	 * Mark the task as not trash, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function untrash() {
 		$this->isTrash = 0;
@@ -229,7 +245,7 @@ class Task extends CActiveRecord
 	
 	/**
 	 * Make the user as the owner, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function own() {
 		$this->ownerId = Yii::app()->user->id;
@@ -238,7 +254,7 @@ class Task extends CActiveRecord
 	
 	/**
 	 * Mark the task as not trash, does not save
-	 * @return void
+	 * @return Task
 	 */
 	public function unown() {
 		$this->ownerId = null;
@@ -246,9 +262,51 @@ class Task extends CActiveRecord
 	}
 	
 	/**
-	 * Convert email to lowercase
-	 * 
+	 * Set the task to have the highest priority.  Updates
+	 * sister tasks to compensate.
+	 * @return Task
 	 */
+	public function setToHighestPriority() {
+		// if already highest priority, ignore
+		if($this->priority <= 0) {
+			return $this;
+		}
+		
+		// start a transaction
+		$model = Task::model();
+		$transaction=$model->dbConnection->beginTransaction();
+		try {
+			// find sister tasks with higher priority (lower value)
+			$tasks = $model->findAllByAttributes(
+				array(
+					'goalId' => $this->goalId,
+				),
+				'priority < :priority',
+				array(
+					':priority' => $this->priority,
+				)
+			);
+			
+			// update each priority
+			foreach($tasks as $task) {
+				$task->priority++;
+				$task->save();
+			}
+			
+			// update this task to have highest priority
+			$this->priority = 0;
+			$this->save();
+			
+			$transaction->commit();
+		}
+		catch(Exception $e) {
+		    $transaction->rollBack();
+		    throw $e;
+		}
+		
+		return $this;
+	}
+	
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			
