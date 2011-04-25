@@ -149,6 +149,28 @@ class CreateTaskTest extends DbTestCase
 	}
 	
 	/**
+	 * Test task create when start date is after end date
+	 */
+	public function testCreateTaskStartDateAfterEndDate() {
+		
+		$name = $this->goalFixtures['testgoal']['name'];
+		$goalId = $this->goalFixtures['testgoal']['id'];
+		$starts = date ("Y-m-d H:i:s", strtotime("-1 hours"));
+		$ends = date ("Y-m-d H:i:s", strtotime("-2 hours"));
+		
+		$task = new Task();
+		$task->setAttributes(array(
+			'name' => $name,
+			'goalId' => $goalId,
+			'starts' => $starts,
+			'ends' => $ends,
+		));
+		
+		$this->assertFalse($task->validate(), 'task with start date after end date was validated');
+		$this->assertFalse($task->save(), 'task with start date after end date saved');
+	}
+	
+	/**
 	 * Test that priority is auto-assigned on validate
 	 */
 	public function testPriorityAutoAssign() {
