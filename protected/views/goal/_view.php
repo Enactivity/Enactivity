@@ -1,15 +1,20 @@
 <?php 
 /**
- * View for individual event models
+ * View for individual goal models
  * 
- * @param Event $data model
+ * @param Goal $data model
  */
+
+// calculate article class
+$articleClass = "view";
+$articleClass .= " goal";
+$articleClass .= " goal-" . $data->id;
+$articleClass .= $data->isCompleted ? " completed" : " not-completed";
+$articleClass .= $data->isTrash ? " trash" : " not-trash";
 
 // start article
 echo PHtml::openTag('article', array(
-	'class' => 'view' 
-		. ' goal'
-		. ' goal-' . $data->id,		
+	'class' => $articleClass,		
 ));
 
 // start headers
