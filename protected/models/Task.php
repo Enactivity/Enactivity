@@ -215,6 +215,87 @@ class Task extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	/**
+	 * Check if the current user is participating in the task
+	 * and hasn't stopped (deleted the connection)
+	 * @return true if user is a participant, false if not
+	 */
+	public function isUserParticipating() {
+		
+		$model = UserTask::model()->findByAttributes(
+			array(
+				'userId'=>Yii::app()->user->id,
+				'taskId'=>$this->id,
+				'isTrash'=>0,
+			)
+		);
+		
+		if(isset($model)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Marks the current user as participating in the task.
+	 * Saves UserTask
+	 * @return Task
+	 */
+	public function participate() {
+		
+		// look for the UserTask for this combination
+		$userTask = UserTask::model()->findByAttributes(
+			array(
+				'userId'=>Yii::app()->user->id,
+				'taskId'=>$this->id,
+			)
+		);
+
+		// if no UserTask linker exists, create one
+		if(is_null($userTask)) {
+			$userTask = new UserTask();
+			$userTask->userId = Yii::app()->user->id;
+			$userTask->taskId = $this->id;
+		}
+		
+		$userTask->unTrash();
+		
+		// save linker 
+		$userTask->save();
+		
+		return $this;
+	}
+	
+/**
+	 * Marks the current user as not participating in the task.
+	 * Saves UserTask
+	 * @return Task
+	 */
+	public function unparticipate() {
+			
+		// look for the UserTask for this combination
+		$userTask = UserTask::model()->findByAttributes(
+			array(
+				'userId'=>Yii::app()->user->id,
+				'taskId'=>$this->id,
+			)
+		);
+
+		// if no UserTask linker exists, create one
+		if(is_null($userTask)) {
+			$userTask = new UserTask();
+			$userTask->userId = Yii::app()->user->id;
+			$userTask->taskId = $this->id;
+		}
+		
+		$userTask->trash();
+		
+		// save linker 
+		$userTask->save();
+		
+		return $this;
+	}
 		
 	/**
 	 * Mark the task as completed, does not save

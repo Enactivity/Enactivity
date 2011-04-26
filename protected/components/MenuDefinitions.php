@@ -341,6 +341,36 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'task_update_menu_item'),
 			);
 			
+			// 'participate' button
+			if($model->isUserParticipating()) {
+				$menu[] = array(
+					'label'=>'I don\'t wanna!', 
+					'url'=>array('task/unparticipate', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/unparticipate',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'task_unparticipate_menu_item' . $model->id,
+					),
+				);
+			}
+			else {
+				$menu[] = array(
+					'label'=>'Sign me up!', 
+					'url'=>array('task/participate', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/participate',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'task_unparticipate_menu_item' . $model->id,
+					),
+				);
+			}
+			
 			// only show when there is no owner
 			if($model->ownerId == null) {
 				$menu[] = array(

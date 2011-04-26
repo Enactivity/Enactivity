@@ -256,10 +256,7 @@ class TaskController extends Controller
 		{
 			// we only allow participating via POST request
 			$task = $this->loadModel($id);
-			$userTask = new UserTask();
-			$userTask->userId = Yii::app()->user->id;
-			$userTask->taskId = $task->id;
-			$userTask->save();
+			$task->participate();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
@@ -282,12 +279,7 @@ class TaskController extends Controller
 			// we only allow unparticipating via POST request
 			// we only allow participating via POST request
 			$task = $this->loadModel($id);
-			$userTask = $this->loadUserTaskModel(
-				Yii::app()->user->id,
-				$task->id
-			);
-			$userTask->trash();
-			$userTask->save();
+			$task->unparticipate();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
@@ -357,24 +349,6 @@ class TaskController extends Controller
 		return $model;
 	}
 	
-/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadUserTaskModel($userId, $taskId)
-	{
-		$model=Task::model()->findByAttributes(
-			array(
-				'userId'=>$userId,
-				'taskId'=>$taskId,
-			)
-		);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
