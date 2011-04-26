@@ -158,9 +158,12 @@ class Task extends CActiveRecord
 			'goal' => array(self::BELONGS_TO, 'Goal', 'goalId'),
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
 			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId'),
-			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId'),
+			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId',
+				'condition' => '`t`.`isTrash` = 0',
+			),
 			'userTasksCompletedCount' => array(self::STAT, 'UserTask', 'taskId',
-				'condition' => '`t`.`isCompleted` = 1',
+				'condition' => '`t`.`isCompleted` = 1'
+					. ' AND `t`.`isTrash` = 0',
 			),
 		);
 	}
