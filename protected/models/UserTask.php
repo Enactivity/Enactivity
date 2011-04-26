@@ -8,7 +8,7 @@
  * @property integer $userId
  * @property integer $taskId
  * @property integer $isCompleted
- * @property integer $isTrash
+ * @property integer $isTrash is UserTask link still active
  * @property string $created
  * @property string $modified
  *
