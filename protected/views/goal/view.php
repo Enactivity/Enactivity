@@ -1,12 +1,11 @@
 <?php
-	#$this->pageTitle = 'View Goal ' . $model->id;
-	$this->pageTitle = $model->name;
+$this->pageTitle = $model->name;
+
+$this->pageMenu = MenuDefinitions::goalMenu($model);
 	
-	$this->pageMenu = MenuDefinitions::goalMenu($model);
-?>
-<?php 
-	foreach ($model->tasks as $task) {
-		echo $this->renderPartial('/task/_view', array('data'=>$task));
-	}
-	
-?>
+$this->widget('zii.widgets.CListView', 
+	array(
+		'dataProvider'=>$tasks,
+	'itemView'=>'/task/_view',
+	)
+); ?>

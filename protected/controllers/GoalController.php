@@ -54,9 +54,14 @@ class GoalController extends Controller
 	public function actionView($id)
 	{
 		$goal = $this->loadModel($id);
+		$tasks = new CActiveDataProvider(
+			'EventBanter', 
+			array('data' => $goal->tasks)
+		);
+		
 		$this->render('view',array(
 			'model'=> $goal,
-			'taskDataProvider' => new CActiveDataProvider('Task'),
+			'tasks' => $tasks,
 		));
 	}
 
