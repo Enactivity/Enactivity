@@ -20,6 +20,8 @@
  * @property Goal $goal
  * @property User $owner
  * @property UserTask[] $userTasks
+ * @property integer $userTasksCount number of users who have signed up for the task 
+ * @property integer $userTasksCompletedCount number of users who have signed up for the task and marked it complete
  */
 class Task extends CActiveRecord
 {
@@ -157,6 +159,9 @@ class Task extends CActiveRecord
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
 			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId'),
 			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId'),
+			'userTasksCompletedCount' => array(self::STAT, 'UserTask', 'taskId',
+				'condition' => '`t`.`isCompleted` = 1',
+			),
 		);
 	}
 
@@ -177,6 +182,9 @@ class Task extends CActiveRecord
 			'ends' => 'Ends',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'userTasks' => 'Participants',
+			'userTasksCount' => 'Number of Participants',
+			'userTasksCompletedCount' => 'Number of Participants Done',
 		);
 	}
 
