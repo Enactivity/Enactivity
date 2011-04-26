@@ -1,7 +1,8 @@
 <?php
 $this->pageTitle = $model->name;
-?>
-<?php $this->widget('ext.widgets.DetailView', array(
+$this->pageMenu = MenuDefinitions::taskMenu($model);
+
+$this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(
@@ -9,7 +10,7 @@ $this->pageTitle = $model->name;
 			'visible' => strlen($model->name) > 0 ? true : false,
 		),
 		array(
-			'name' => 'owner',
+			'name' => 'ownerId',
 			'visible' => strlen($model->name) > 0 ? true : false,
 		),
 		array( 
@@ -23,21 +24,3 @@ $this->pageTitle = $model->name;
 	),
 )); 
 ?>
-<!--
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'goalId',
-		'name',
-		'ownerId',
-		'priority',
-		'isCompleted',
-		'isTrash',
-		'starts',
-		'ends',
-		'created',
-		'modified',
-	),
-)); ?>
--->
