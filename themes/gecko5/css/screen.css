@@ -17,7 +17,8 @@ html {
 
 body
 {
-	background-color: #ffffff;
+	background-color: #ececec;
+	background-image: url(../images/background.jpg);
 	height: 100%;
 }
 
@@ -311,7 +312,7 @@ aside.flash-success a
 */
 #content form
 {
-	background-color: #D9D4CC;
+	background-color: transparent;
 	clear: both;
 	overflow: hidden;
 	max-width: 32em;
@@ -391,7 +392,7 @@ aside.flash-success a
 	color: #8A8581;
 	cursor: text;
 	font-size: .75em;
-	text-transform: uppercase;
+	text-transform: lowercase;
 	width: 100%;
 }
 
