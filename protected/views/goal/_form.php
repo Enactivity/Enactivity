@@ -3,22 +3,10 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
 	<?php 
 	if($model->getScenario() == Goal::SCENARIO_INSERT
 	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
 	?>
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
-	<?php endif; ?>
-	<?php 
-	if($model->getScenario() == Goal::SCENARIO_INSERT
-	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
-	?>
-	<div class="row">
 	<?php 
 	if($model->isNewRecord) { 
 		$this->widget('ext.widgets.inputs.GroupInputRow', array(
@@ -28,6 +16,18 @@
 		));
 	}
 	?>
+	<?php endif; ?>
+	<?php echo $form->errorSummary($model); ?>
+	<?php 
+	if($model->getScenario() == Goal::SCENARIO_INSERT
+	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
+	?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textArea($model,'name',array(
+			'maxlength'=>Goal::NAME_MAX_LENGTH,
+		)); ?>
+		<?php echo $form->error($model,'name'); ?>
 	</div>
 	<?php endif; ?>
 	<?php 
