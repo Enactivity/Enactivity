@@ -55,7 +55,7 @@ class GoalController extends Controller
 	{
 		$goal = $this->loadModel($id);
 		$tasks = new CActiveDataProvider(
-			'EventBanter', 
+			'Task', 
 			array('data' => $goal->tasks)
 		);
 		
