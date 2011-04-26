@@ -36,6 +36,21 @@ class UserTask extends CActiveRecord
 	}
 
 	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+		);
+	}
+	
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -43,11 +58,31 @@ class UserTask extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('taskId, created, modified', 'required'),
-			array('userId, taskId, isCompleted, isTrash', 'numerical', 'integerOnly'=>true),
+			array('userId, taskId, isCompleted, isTrash', 
+				'required'
+			),
+			
+			// goal and owner can be any integer > 0
+			array('userId, taskId',
+				'numerical',
+				'min' => 0,
+				'integerOnly'=>true),
+						
+			// boolean ints can be 0 or 1
+			array('isCompleted, isTrash',
+				'numerical',
+				'min' => 0,
+				'max' => 1,
+				'integerOnly'=>true),
+			
+			// boolean ints defaults to 0
+			array('isCompleted, isTrash',
+				'default',
+				'value' => 0),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, userId, taskId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
+			//array('id, userId, taskId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +105,7 @@ class UserTask extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Id',
 			'userId' => 'User',
 			'taskId' => 'Task',
 			'isCompleted' => 'Is Completed',
@@ -102,5 +137,41 @@ class UserTask extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * Mark the UserTask as completed, does not save
+	 * @return UserTask
+	 */
+	public function complete() {
+		$this->isCompleted = 1;
+		return $this;
+	}
+	
+	/**
+	 * Mark the UserTask as not completed, does not save
+	 * @return UserTask
+	 */
+	public function uncomplete() {
+		$this->isCompleted = 0;
+		return $this;
+	}
+	
+	/**
+	 * Mark the UserTask as trash, does not save
+	 * @return UserTask
+	 */
+	public function trash() {
+		$this->isTrash = 1;
+		return $this;
+	}
+	
+	/**
+	 * Mark the UserTask as not trash, does not save
+	 * @return UserTask
+	 */
+	public function untrash() {
+		$this->isTrash = 0;
+		return $this;
 	}
 }
