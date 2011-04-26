@@ -19,18 +19,28 @@ class TaskController extends Controller
 	 */
 	public function accessRules()
 	{
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$task = $this->loadModel($_GET['id']);
+			$goal = $task->goal;
+			$groupId = $goal->groupId;
+		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('index','create'),
 				'users'=>array('@'),
 			),
+			array('allow',  // allow only group members to perform 'updateprofile' actions
+				'actions'=>array(
+					'view','update','trash',
+					'untrash','complete','uncomplete',
+					'own','unown'
+				),
+				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin', 'delete'),
+				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -304,5 +314,17 @@ class TaskController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	/**
+	 * Redirect the current view to the return url value or
+	 * to the goal/view page if no return url is specified.
+	 * @param Goal $goal
+	 */
+	private function redirectReturnUrlOrView($goal) {
+		$this->redirect(
+			isset($_POST['returnUrl']) 
+			? $_POST['returnUrl'] 
+			: array('task/view', 'id'=>$goal->id,));
 	}
 }
