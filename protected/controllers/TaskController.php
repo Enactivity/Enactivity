@@ -34,7 +34,8 @@ class TaskController extends Controller
 				'actions'=>array(
 					'view','update','trash',
 					'untrash','complete','uncomplete',
-					'own','unown'
+					'own','unown',
+					'participate','unparticipate',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -243,6 +244,59 @@ class TaskController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+	
+	/**
+	 * Adds the current user to task
+	 * If add is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionParticipate($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow participating via POST request
+			$task = $this->loadModel($id);
+			$userTask = new UserTask();
+			$userTask->userId = Yii::app()->user->id;
+			$userTask->taskId = $task->id;
+			$userTask->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Removes current user from task
+	 * If remove is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUnparticipate($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow unparticipating via POST request
+			// we only allow participating via POST request
+			$task = $this->loadModel($id);
+			$userTask = $this->loadUserTaskModel(
+				Yii::app()->user->id,
+				$task->id
+			);
+			$userTask->trash();
+			$userTask->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
 
 	/**
 	 * Deletes a particular model.
@@ -298,6 +352,24 @@ class TaskController extends Controller
 	public function loadModel($id)
 	{
 		$model=Task::model()->findByPk((int)$id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+	
+/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadUserTaskModel($userId, $taskId)
+	{
+		$model=Task::model()->findByAttributes(
+			array(
+				'userId'=>$userId,
+				'taskId'=>$taskId,
+			)
+		);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
