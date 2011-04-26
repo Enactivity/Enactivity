@@ -145,7 +145,7 @@ class Goal extends CActiveRecord
 	{
 		return array(
 			'id' => 'Id',
-			'name' => 'Name',
+			'name' => 'What do you want to do?',
 			'groupId' => 'Group',
 			'ownerId' => 'Owner',
 			'isCompleted' => 'Is Completed',
