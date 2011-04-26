@@ -95,6 +95,144 @@ class TaskController extends Controller
 			'model'=>$model,
 		));
 	}
+	
+	/**
+	 * Completes a particular model.
+	 * If complete is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionComplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$task = $this->loadModel($id);
+			$task->complete();
+			$task->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Uncompletes a particular model.
+	 * If uncomplete is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUncomplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow uncompletion via POST request
+			$task = $this->loadModel($id);
+			$task->uncomplete();
+			$task->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+		/**
+	 * Owns a particular model.
+	 * If own is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionOwn($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$task = $this->loadModel($id);
+			$task->own();
+			$task->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Unowns a particular model.
+	 * If unown is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUnown($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow uncompletion via POST request
+			$task = $this->loadModel($id);
+			$task->unown();
+			$task->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Trashes a particular model.
+	 * If trash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionTrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$task = $this->loadModel($id);
+			$task->trash();
+			$task->save();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Untrashes a particular model.
+	 * If untrash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUntrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow untrashing via POST request
+			$task = $this->loadModel($id);
+			$task->untrash();
+			$task->save();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
 
 	/**
 	 * Deletes a particular model.
