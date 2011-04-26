@@ -330,6 +330,115 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
+	 * @param Task $model Task currently under scrutiny
+	 * @return array of menu items for tasks
+	 */
+	public static function taskMenu($model = null) {
+		if(isset($model)) {
+			$menu[] = array(
+				'label'=>'Update This Task', 
+				'url'=>array('task/update', 'id'=>$model->id),
+				'linkOptions'=>array('id'=>'task_update_menu_item'),
+			);
+			
+			// only show when there is no owner
+			if($model->ownerId == null) {
+				$menu[] = array(
+					'label'=>'Take Ownership', 
+					'url'=>array('task/own', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/own',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'task_owner_menu_item' . $model->id,
+					),
+				);
+			}
+			elseif($model->ownerId == Yii::app()->user->id) {
+				$menu[] = array(
+					'label'=>'Give Up Ownership', 
+					'url'=>array('task/unown', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/unown',
+							'id'=>$model->id,
+						),
+						'csrf' => true,
+						'id'=>'task_owner_menu_item' . $model->id,
+					),
+				);
+			}
+			
+			if($model->ownerId == null 
+			|| $model->ownerId == Yii::app()->user->id) {
+				if($model->isCompleted) {
+					$menu[] = array(
+						'label'=>'Mark Not Done', 
+						'url'=>array('task/uncomplete', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'task/uncomplete',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'task_uncomplete_menu_item' . $model->id,
+						),
+					);
+				}
+				else {
+					$menu[] = array(
+						'label'=>'Mark Done', 
+						'url'=>array('task/complete', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'task/complete',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'task_complete_menu_item' . $model->id,
+						),
+					);
+				}
+				
+				if($model->isTrash) {
+					$menu[] = array(
+						'label'=>'UnTrash', 
+						'url'=>array('task/untrash', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'task/untrash',
+								'id'=>$model->id,
+							),
+							'csrf' => true,
+							'id'=>'task_untrash_menu_item' . $model->id,
+						),
+					);
+				}
+				else {
+					$menu[] = array(
+						'label'=>'Trash', 
+						'url'=>array('task/trash', 'id'=>$model->id),
+						'linkOptions'=>array(
+							'submit'=>array(
+								'task/trash',
+								'id'=>$model->id,
+							),
+							'confirm'=>'Are you sure you want to trash this item?',
+							'csrf' => true,
+							'id'=>'task_trash_menu_item' . $model->id,
+						),
+					);
+				}	
+			}
+
+		}
+		
+		return $menu;
+	}
+	
+	/**
 	 * @param User $model User current under scrutiny
 	 * @return array of menu items for user controller
 	 */
