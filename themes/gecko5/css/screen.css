@@ -412,10 +412,6 @@ aside.flash-success a
 	height: 3em;
 }
 
-#content form .row textarea:focus  {
-	height: 6em;
-}
-
 #content form .row input[type="submit"], 
 #content form .row input[type="button"] {
 	text-align: left;
