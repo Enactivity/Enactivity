@@ -22,6 +22,7 @@
  * @property UserTask[] $userTasks
  * @property integer $userTasksCount number of users who have signed up for the task 
  * @property integer $userTasksCompletedCount number of users who have signed up for the task and marked it complete
+ * @property User[] $users
  */
 class Task extends CActiveRecord
 {
@@ -157,7 +158,9 @@ class Task extends CActiveRecord
 		return array(
 			'goal' => array(self::BELONGS_TO, 'Goal', 'goalId'),
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
-			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId'),
+			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId',
+				'condition' => '`t`.`isTrash` = 0',
+			),
 			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId',
 				'condition' => '`t`.`isTrash` = 0',
 			),
@@ -165,9 +168,43 @@ class Task extends CActiveRecord
 				'condition' => '`t`.`isCompleted` = 1'
 					. ' AND `t`.`isTrash` = 0',
 			),
+//			'participatingUsers' => array(self::HAS_MANY, 'User', 'taskId',
+//				'through' => 'userTasks',
+//			),
 		);
 	}
 
+	/**
+	 * Get the users who are participating in the task
+	 * Usage note: use $task->users so we can deprecate this method easily
+	 * @return CActiveDataProvider of participating Users
+	 */
+	public function getParticipatingUsers() {
+		// FIXME: replace with relation entry
+		$model = new User();
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $model->search();
+		
+		// search for users mapped to event with the status
+		$dataProvider->criteria->addCondition(
+			'id IN (SELECT userId AS id FROM ' . UserTask::model()->tableName()
+				. ' WHERE taskId=:taskId' 
+				. ' AND isTrash=:taskStatus)'
+		);
+		$dataProvider->criteria->params[':taskId'] = $this->id;
+		$dataProvider->criteria->params[':taskStatus'] = '0';
+		
+		// ensure only active users are returned
+		$dataProvider->criteria->addCondition('status = :userStatus');
+		$dataProvider->criteria->params[':userStatus'] = User::STATUS_ACTIVE;
+		
+		// order by first name
+		$dataProvider->criteria->order = 'firstName ASC';
+		
+		return $dataProvider;
+	}
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

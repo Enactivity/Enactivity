@@ -22,5 +22,20 @@ $this->widget('ext.widgets.DetailView', array(
 			'type' => 'styledtext',
 		),
 	),
-)); 
+));
+
 ?>
+
+<section id="users-participating">
+	<header>
+		<h1><?php echo PHtml::encode($users->totalItemCount) . ' Participating'; ?></h1>
+	</header>
+	
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$users,
+		'itemView'=>'/user/_users',
+		'emptyText' => 'No one has signed up to participate yet.',
+	)); 
+	?>
+</section>

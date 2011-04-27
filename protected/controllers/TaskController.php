@@ -55,9 +55,16 @@ class TaskController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$task = $this->loadModel($id);
+		$users = $task->participatingUsers;
+		
+		$this->render(
+			'view', 
+			array(
+				'model' => $task,
+				'users' => $users,
+			)
+		);
 	}
 
 	/**
