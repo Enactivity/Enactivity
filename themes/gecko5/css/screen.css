@@ -584,11 +584,7 @@ aside.flash-success a
 	Home page styling
 */
 #content.site.index h1 {
-	display: none;
-}
-
-#content.site.index img {
-	max-width: 100%;
+	font-size: 5em;
 }
 
 /*
