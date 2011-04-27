@@ -344,7 +344,7 @@ class MenuDefinitions extends CComponent {
 			// 'participate' button
 			if($model->isUserParticipating()) {
 				$menu[] = array(
-					'label'=>'I don\'t wanna!', 
+					'label'=>'Stop participating', 
 					'url'=>array('task/unparticipate', 'id'=>$model->id),
 					'linkOptions'=>array(
 						'submit'=>array(
@@ -358,7 +358,7 @@ class MenuDefinitions extends CComponent {
 			}
 			else {
 				$menu[] = array(
-					'label'=>'Sign me up!', 
+					'label'=>'Participate', 
 					'url'=>array('task/participate', 'id'=>$model->id),
 					'linkOptions'=>array(
 						'submit'=>array(
