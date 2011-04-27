@@ -20,6 +20,10 @@
  */
 class ActiveRecordLog extends CActiveRecord
 {
+	const ACTION_POSTED = 'posted';
+	const ACTION_DELETED = 'deleted';
+	const ACTION_UPDATED = 'updated';
+	
 	public $modelObject;
 	
 	/**
