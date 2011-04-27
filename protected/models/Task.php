@@ -68,6 +68,12 @@ class Task extends CActiveRecord
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
 			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'feedAttribute' => $this->name,
+				'ignoreAttributes' => array('modified'),
+			)
 		);
 	}
 
@@ -278,6 +284,14 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Get the group id of the group owning this task
+	 * @return integer the group id
+	 */
+	public function getGroupId() {
+		return $this->goal->groupId;
+	}
+	
+	/**
 	 * Marks the current user as participating in the task.
 	 * Saves UserTask
 	 * @return Task
@@ -439,11 +453,11 @@ class Task extends CActiveRecord
 	
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
-			
 			if($this->isNewRecord)
 			{
 				// Set priority to be highest in rung
-				$this->priority = $this->goal->tasksCount;
+				$goal = Goal::model()->findByPk($this->goalId);
+				$this->priority = $goal->tasksCount;
 			}
 			return true;
 		}
