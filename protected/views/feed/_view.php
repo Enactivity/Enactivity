@@ -7,7 +7,7 @@
 
 // start article
 echo PHtml::openTag('article', array(
-	'class' => 'view'
+	'class' => 'view feed'
 ));
 
 // start headers
@@ -16,17 +16,15 @@ echo PHtml::openTag('hgroup');
 
 echo PHtml::openTag('h1');
 
-// display <user> <action> <model> 
+// display <user> <action> <model> <attribute>
 $this->widget('ext.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
 echo ' ';
 echo PHtml::encode(strtolower($data->action));
 echo ' '; 
-$description = isset($data->modelObject) 
-	? $data->modelObject->feedAttribute 
-	: $data->model;
-echo CHtml::link(StringUtils::truncate(PHtml::encode($description), 80), 
+echo PHtml::link(
+	StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80), 
 	array(strtolower($data->model) . '/view', 'id'=>$data->modelId)
 );
 
