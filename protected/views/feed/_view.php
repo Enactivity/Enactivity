@@ -34,6 +34,18 @@ echo PHtml::closeTag('h1');
 echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
+if($data->action == ActiveRecordLog::ACTION_UPDATED) {
+	echo 'Changed ';
+	echo PHtml::encode($data->modelObject->getAttributeLabel($data->modelAttribute));
+	echo ' from ';
+	echo PHtml::openTag('strong');
+	echo PHtml::encode($data->oldAttributeValue);
+	echo PHtml::closeTag('strong');
+	echo PHtml::encode(' to ');
+	echo PHtml::openTag('strong');
+	echo PHtml::encode($data->newAttributeValue);
+	echo PHtml::closeTag('strong');
+}
 // start footer
 echo PHtml::openTag('footer');
 

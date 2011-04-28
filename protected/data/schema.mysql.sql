@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2011 at 11:39 PM
+-- Generation Time: Apr 27, 2011 at 11:40 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -32,13 +32,15 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   `modelId` int(11) DEFAULT NULL,
   `action` varchar(20) DEFAULT NULL,
   `modelAttribute` varchar(45) DEFAULT NULL,
+  `oldAttributeValue` mediumtext,
+  `newAttributeValue` mediumtext,
   `userId` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=477 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -60,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=118 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`id`),
   KEY `ownerId` (`ownerId`),
   KEY `goalId` (`goalId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
 
 -- --------------------------------------------------------
 
@@ -264,4 +266,4 @@ CREATE TABLE IF NOT EXISTS `user_task` (
   UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
   KEY `userId` (`userId`),
   KEY `taskId` (`taskId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;

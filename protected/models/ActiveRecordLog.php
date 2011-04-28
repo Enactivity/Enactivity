@@ -10,6 +10,8 @@
  * @property integer $modelId
  * @property string $action
  * @property string $modelAttribute
+ * @property string $oldAttributeValue
+ * @property string $newAttributeValue
  * @property integer $userId
  * @property string $created
  * @property string $modified
@@ -77,7 +79,7 @@ class ActiveRecordLog extends CActiveRecord
 			array('created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, groupId, model, modelId, action, modelAttribute, userId, created, modified', 'safe', 'on'=>'search'),
+			array('id, groupId, model, modelId, action, modelAttribute, oldAttributeValue, newAttributeValue, userId, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -106,6 +108,8 @@ class ActiveRecordLog extends CActiveRecord
 			'modelId' => 'Model',
 			'action' => 'Action',
 			'modelAttribute' => 'Model Attribute',
+			'oldAttributeValue' => 'Old Attribute Value',
+			'newAttributeValue' => 'New Attribute Value',
 			'userId' => 'User',
 			'created' => 'Created',
 			'modified' => 'Modified',
@@ -129,6 +133,8 @@ class ActiveRecordLog extends CActiveRecord
 		$criteria->compare('modelId',$this->modelId);
 		$criteria->compare('action',$this->action,true);
 		$criteria->compare('modelAttribute',$this->modelAttribute,true);
+		$criteria->compare('oldAttributeValue',$this->oldAttributeValue,true);
+		$criteria->compare('newAttributeValue',$this->newAttributeValue,true);		
 		$criteria->compare('userId',$this->userId);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
