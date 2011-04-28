@@ -117,7 +117,7 @@ class FeedController extends Controller
 		$dataProvider = new CActiveDataProvider(
 			ActiveRecordLog::model()
 				->scopeUsersGroups(Yii::app()->user->id)
-				->grouped()
+//				->grouped()
 				->newestToOldest()
 		);
 		
