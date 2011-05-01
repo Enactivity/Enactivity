@@ -411,52 +411,6 @@ class Task extends CActiveRecord
 		return $this;
 	}
 	
-	/**
-	 * Set the task to have the highest priority.  Updates
-	 * sister tasks to compensate.
-	 * @return Task
-	 */
-	public function setToHighestPriority() {
-		// if already highest priority, ignore
-		if($this->priority <= 0) {
-			return $this;
-		}
-		
-		// start a transaction
-		$model = Task::model();
-		$transaction=$model->dbConnection->beginTransaction();
-		try {
-			// find sister tasks with higher priority (lower value)
-			$tasks = $model->findAllByAttributes(
-				array(
-					'goalId' => $this->goalId,
-				),
-				'priority < :priority',
-				array(
-					':priority' => $this->priority,
-				)
-			);
-			
-			// update each priority
-			foreach($tasks as $task) {
-				$task->priority++;
-				$task->save();
-			}
-			
-			// update this task to have highest priority
-			$this->priority = 0;
-			$this->save();
-			
-			$transaction->commit();
-		}
-		catch(Exception $e) {
-		    $transaction->rollBack();
-		    throw $e;
-		}
-		
-		return $this;
-	}
-	
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			if($this->isNewRecord)
