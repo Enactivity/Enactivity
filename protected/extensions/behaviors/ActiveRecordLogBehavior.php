@@ -25,18 +25,15 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
  
 	/**
 	 * After the model saves, record the attributes
-	 * @param unknown_type $event
+	 * @param CEvent $event
 	 */
 	public function afterSave($event) {
 		// is new record?
 		if ($this->Owner->isNewRecord) {
 			
 			$log = new ActiveRecordLog;
-//			$log->description=  'User ' . Yii::app()->user->Name 
-//									. ' created ' . get_class($this->Owner) 
-//									. '[' . $this->Owner->getPrimaryKey() .'].';
 			$log->groupId = $this->Owner->groupId;
-			$log->action = ActiveRecordLog::ACTION_POSTED;
+			$log->action = $this->Owner->scenario;
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = '';
@@ -61,15 +58,9 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 					}
 	 
 					if ($value != $oldValue) {
-						//$changes = $name . ' ('.$oldValue.') => ('.$value.'), ';
-	 
 						$log = new ActiveRecordLog;
-	//					$log->description=  'User ' . Yii::app()->user->Name 
-	//											. ' changed ' . $name . ' for ' 
-	//											. get_class($this->Owner) 
-	//											. '[' . $this->Owner->getPrimaryKey() .'].';
 						$log->groupId = $this->Owner->groupId;
-						$log->action = ActiveRecordLog::ACTION_UPDATED;
+						$log->action = $this->Owner->scenario;
 						$log->model = get_class($this->Owner);
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
@@ -83,11 +74,12 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		}
 	}
  
+	/**
+	 * Record the deletion
+	 * @param CEvent $event
+	 */
 	public function afterDelete($event) {
 		$log = new ActiveRecordLog;
-//		$log->description =  'User ' . Yii::app()->user->Name . ' deleted ' 
-//								. get_class($this->Owner) 
-//								. '[' . $this->Owner->getPrimaryKey() .'].';
 		$log->groupId = $this->Owner->groupId;
 		$log->action = ActiveRecordLog::ACTION_DELETED;
 		$log->model = get_class($this->Owner);
@@ -99,7 +91,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
  
 	/**
 	 * Save old values
-	 * @param unknown_type $event
+	 * @param CEvent $event
 	 */
 	public function afterFind($event) {
 		$this->setOldAttributes($this->Owner->getAttributes());
