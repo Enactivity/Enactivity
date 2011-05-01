@@ -1,7 +1,10 @@
 <?php $this->beginContent('//layouts/main'); ?>
 <section id="content" class="<?php echo $this->id . " " . $this->action->id;?>">
 	<header>
-		<h1><?php echo PHtml::link(PHtml::encode($this->pageTitle)); ?></h1>
+		<h1><?php echo PHtml::link(
+			PHtml::encode($this->pageTitle),
+			Yii::app()->request->url
+		); ?></h1>
 	
 		<?php if(isset($this->pageMenu) 
 			&& !empty($this->pageMenu)
