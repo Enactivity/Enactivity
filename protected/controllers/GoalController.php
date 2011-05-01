@@ -63,16 +63,6 @@ class GoalController extends Controller
 		$task = new Task;
 		$task->goalId = $goal->id;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task']))
-		{
-			$task->attributes=$_POST['Task'];
-			if($task->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-		
 		$this->render('view', array(
 			'model'=> $goal,
 			'tasks' => $tasks,

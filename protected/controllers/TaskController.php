@@ -69,7 +69,8 @@ class TaskController extends Controller
 
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser 
+	 * will be redirected to the 'goal/view' page.
 	 */
 	public function actionCreate()
 	{
@@ -82,7 +83,7 @@ class TaskController extends Controller
 		{
 			$model->attributes=$_POST['Task'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('goal/view','id'=>$model->goalId));
 		}
 
 		$this->render('create',array(
