@@ -59,9 +59,24 @@ class GoalController extends Controller
 			array('data' => $goal->tasks)
 		);
 		
-		$this->render('view',array(
+		// handle new task form
+		$task = new Task;
+		$task->goalId = $goal->id;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Task']))
+		{
+			$task->attributes=$_POST['Task'];
+			if($task->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+		
+		$this->render('view', array(
 			'model'=> $goal,
 			'tasks' => $tasks,
+			'task' => $task,
 		));
 	}
 
@@ -304,6 +319,33 @@ class GoalController extends Controller
 			$model->attributes=$_GET['Goal'];
 
 		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+	
+	/**
+	 * Add a new task to goal.
+	 * If creation is successful, the browser will be 
+	 * redirected to the 'goal/view' page.
+	 */
+	public function actionAddTask($id)
+	{
+		$model = $this->loadModel($id);
+		
+		$task = new Task;
+		$task->goalId = $model->id;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Task']))
+		{
+			$model->attributes=$_POST['Task'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
