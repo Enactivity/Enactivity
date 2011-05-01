@@ -246,32 +246,28 @@ class Goal extends CActiveRecord
 	 * @return Task[] updated task list
 	 */
 	public function setTaskToHighestPriority($taskId) {
-		// TODO: if task is already highest priority, ignore
+		$model = Goal::model();
+		$tasks = $model->tasks;
+		
+		// if task is already highest priority, list remains the same
+		$task = Task::model()->findByPk($taskId);
+		if($task->priority <= 0) {
+			return $tasks;
+		}
 		
 		// start a transaction
-		$model = Task::model();
 		$transaction = $model->dbConnection->beginTransaction();
 		try {
-			// find sister tasks with higher priority (lower value)
-			$tasks = $model->findAllByAttributes(
-				array(
-					'goalId' => $this->goalId,
-				),
-				'priority < :priority',
-				array(
-					':priority' => $this->priority,
-				)
-			);
-			
 			// update each priority
-			foreach($tasks as $task) {
-				$task->priority++;
-				$task->save();
+			foreach($tasks as $listTask) {
+				if($listTask->priority < $task->priority)
+				$listTask->priority++;
+				$listTask->save();
 			}
 			
 			// update this task to have highest priority
-			$this->priority = 0;
-			$this->save();
+			$task->priority = 0;
+			$task->save();
 			
 			$transaction->commit();
 		}
