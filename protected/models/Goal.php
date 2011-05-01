@@ -25,11 +25,11 @@ class Goal extends CActiveRecord
 	const SCENARIO_COMPLETE = 'complete';
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
-	const SCENARIO_NOTCOMPLETE = 'uncomplete';
 	const SCENARIO_READ = 'read';
-	const SCENARIO_SET_OWNER = 'set ownership';
+	const SCENARIO_OWN = 'own';
 	const SCENARIO_TRASH = 'trash';
-	const SCENARIO_UNSET_OWNER = 'unset ownership';
+	const SCENARIO_UNCOMPLETE = 'uncomplete';
+	const SCENARIO_UNOWN = 'unown';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update';
 	
@@ -186,6 +186,7 @@ class Goal extends CActiveRecord
 	 */
 	public function complete() {
 		$this->isCompleted = 1;
+		$this->setScenario(self::SCENARIO_COMPLETE);
 		return $this;
 	}
 	
@@ -195,6 +196,7 @@ class Goal extends CActiveRecord
 	 */
 	public function uncomplete() {
 		$this->isCompleted = 0;
+		$this->setScenario(self::SCENARIO_UNCOMPLETE);
 		return $this;
 	}
 	
@@ -204,6 +206,7 @@ class Goal extends CActiveRecord
 	 */
 	public function trash() {
 		$this->isTrash = 1;
+		$this->setScenario(self::SCENARIO_TRASH);
 		return $this;
 	}
 	
@@ -213,6 +216,7 @@ class Goal extends CActiveRecord
 	 */
 	public function untrash() {
 		$this->isTrash = 0;
+		$this->setScenario(self::SCENARIO_UNTRASH);
 		return $this;
 	}
 	
@@ -222,6 +226,7 @@ class Goal extends CActiveRecord
 	 */
 	public function own() {
 		$this->ownerId = Yii::app()->user->id;
+		$this->setScenario(self::SCENARIO_OWN);
 		return $this;
 	}
 	
@@ -231,6 +236,7 @@ class Goal extends CActiveRecord
 	 */
 	public function unown() {
 		$this->ownerId = null;
+		$this->setScenario(self::SCENARIO_UNOWN);
 		return $this;
 	}
 }
