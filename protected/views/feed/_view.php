@@ -21,7 +21,12 @@ $this->widget('ext.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
 echo ' ';
-echo PHtml::encode(strtolower($data->action));
+if($data->modelObject) {
+	echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
+}
+else {
+	echo 'deleted something';
+}	
 echo ' '; 
 echo PHtml::link(
 	StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80), 

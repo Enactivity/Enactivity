@@ -219,7 +219,7 @@ class Task extends CActiveRecord
 		return array(
 			'id' => 'Id',
 			'goalId' => 'Goal',
-			'name' => 'What task is there to do?',
+			'name' => 'Name',
 			'ownerId' => 'Owner',
 			'priority' => 'Priority',
 			'isCompleted' => 'Is Completed',
@@ -231,6 +231,21 @@ class Task extends CActiveRecord
 			'userTasks' => 'Participants',
 			'userTasksCount' => 'Number of Participants',
 			'userTasksCompletedCount' => 'Number of Participants Done',
+		);
+	}
+	
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_COMPLETE => 'complete',
+			self::SCENARIO_DELETE => 'delete',
+			self::SCENARIO_INSERT => 'inserted', // default set by Yii
+			self::SCENARIO_READ => 'read',
+			self::SCENARIO_OWN => 'own',
+			self::SCENARIO_TRASH => 'trash',
+			self::SCENARIO_UNCOMPLETE => 'uncomplete',
+			self::SCENARIO_UNOWN => 'unown',
+			self::SCENARIO_UNTRASH => 'untrash',
+			self::SCENARIO_UPDATE => 'update',
 		);
 	}
 

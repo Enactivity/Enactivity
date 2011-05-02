@@ -154,6 +154,21 @@ class Goal extends CActiveRecord
 			'modified' => 'Modified',
 		);
 	}
+	
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_COMPLETE => 'complete',
+			self::SCENARIO_DELETE => 'delete',
+			self::SCENARIO_INSERT => 'inserted', // default set by Yii
+			self::SCENARIO_READ => 'read',
+			self::SCENARIO_OWN => 'own',
+			self::SCENARIO_TRASH => 'trash',
+			self::SCENARIO_UNCOMPLETE => 'uncomplete',
+			self::SCENARIO_UNOWN => 'unown',
+			self::SCENARIO_UNTRASH => 'untrash',
+			self::SCENARIO_UPDATE => 'update',
+		);
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
