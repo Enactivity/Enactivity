@@ -180,6 +180,11 @@ class Event extends CActiveRecord
 			'datesAsSentence' => 'When',
 		);
 	}
+	
+	public function scenarioLabels() {
+		return array(
+		);
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

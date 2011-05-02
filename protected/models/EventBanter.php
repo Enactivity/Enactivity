@@ -101,6 +101,12 @@ class EventBanter extends CActiveRecord
 			'modified' => 'Last modified',
 		);
 	}
+	
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_REPLY => 'replied',
+		);
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
