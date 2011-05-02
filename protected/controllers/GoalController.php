@@ -33,7 +33,8 @@ class GoalController extends Controller
 				'actions'=>array(
 					'view','update','trash',
 					'untrash','complete','uncomplete',
-					'own','unown'
+					'own','unown',
+					'createtask',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -59,14 +60,9 @@ class GoalController extends Controller
 			array('data' => $goal->tasks)
 		);
 		
-		// handle new task form
-		$task = new Task;
-		$task->goalId = $goal->id;
-
 		$this->render('view', array(
 			'model'=> $goal,
 			'tasks' => $tasks,
-			'task' => $task,
 		));
 	}
 
@@ -318,7 +314,7 @@ class GoalController extends Controller
 	 * If creation is successful, the browser will be 
 	 * redirected to the 'goal/view' page.
 	 */
-	public function actionAddTask($id)
+	public function actionCreateTask($id)
 	{
 		$model = $this->loadModel($id);
 		
@@ -330,13 +326,14 @@ class GoalController extends Controller
 
 		if(isset($_POST['Task']))
 		{
-			$model->attributes=$_POST['Task'];
-			if($model->save())
+			$task->attributes=$_POST['Task'];
+			if($task->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
+		$this->render('createtask',array(
+			'model'=> $model,
+			'task' => $task,
 		));
 	}
 

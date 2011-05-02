@@ -39,3 +39,15 @@ $this->widget('ext.widgets.DetailView', array(
 	)); 
 	?>
 </section>
+<section>
+	<header>
+		<h1><?php echo 'History'; ?></h1>
+	</header>
+	<?php 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$logs,
+		'itemView'=>'/feed/_view',
+		'emptyText' => 'Nothing new',
+	)); 
+	?>
+</section>

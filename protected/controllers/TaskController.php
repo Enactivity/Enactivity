@@ -27,7 +27,7 @@ class TaskController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','create'),
+				'actions'=>array('index'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -57,38 +57,16 @@ class TaskController extends Controller
 	{
 		$task = $this->loadModel($id);
 		$users = $task->participatingUsers;
+		$logs = $task->activeRecordLogs;
 		
 		$this->render(
 			'view', 
 			array(
 				'model' => $task,
 				'users' => $users,
+				'logs' => $logs,
 			)
 		);
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser 
-	 * will be redirected to the 'goal/view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Task;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task']))
-		{
-			$model->attributes=$_POST['Task'];
-			if($model->save())
-				$this->redirect(array('goal/view','id'=>$model->goalId));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
 	}
 
 	/**
@@ -98,7 +76,7 @@ class TaskController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

@@ -2,7 +2,7 @@
 
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'task-form',
-	'action'=>array('task/create'),
+	'action'=> isset($action) ? $action : '',
 	'enableAjaxValidation'=>false,
 )); ?>
 
