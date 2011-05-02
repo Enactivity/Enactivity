@@ -219,7 +219,7 @@ class Task extends CActiveRecord
 		return array(
 			'id' => 'Id',
 			'goalId' => 'Goal',
-			'name' => 'Name',
+			'name' => 'What task is there to do?',
 			'ownerId' => 'Owner',
 			'priority' => 'Priority',
 			'isCompleted' => 'Is Completed',
