@@ -44,10 +44,18 @@ $this->widget('ext.widgets.DetailView', array(
 		<h1><?php echo 'History'; ?></h1>
 	</header>
 	<?php 
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$logs,
-		'itemView'=>'/feed/_view',
-		'emptyText' => 'Nothing new',
-	)); 
+//	$this->widget('zii.widgets.CListView', array(
+//		'dataProvider'=>$logs,
+//		'itemView'=>'/feed/_view',
+//		'emptyText' => 'Nothing new',
+//	)); 
+
+	foreach($logs as $log) {
+		$this->renderPartial('_feed',
+			array(
+				'data' => $log
+			) 
+		);
+	}
 	?>
 </section>

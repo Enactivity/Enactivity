@@ -219,24 +219,14 @@ class Task extends CActiveRecord
 	 */
 	public function getActiveRecordLogs() {
 		// FIXME: replace with relation entry
-		$model = new ActiveRecordLog();
-		$model->unsetAttributes();  // clear any default values
-		
-		$dataProvider = $model->search();
-		
-		// search for users mapped to event with the status
-		$dataProvider->criteria->addCondition(
-			'id IN (SELECT userId AS id FROM ' . $model->tableName()
-				. ' WHERE model=:model' 
-				. ' AND modelId=:modelId)'
+		$logs = ActiveRecordLog::model()->findAllByAttributes(
+			array(
+				'model' => 'Task',
+				'modelId' => $this->id,
+			)
 		);
-		$dataProvider->criteria->params[':model'] = 'ActiveRecordLog';
-		$dataProvider->criteria->params[':modelId'] = $this->id;
 		
-		// order by first name
-		$dataProvider->criteria->order = 'created ASC';
-		
-		return $dataProvider;
+		return $logs;
 	}
 	
 	/**
@@ -273,7 +263,7 @@ class Task extends CActiveRecord
 			self::SCENARIO_UNCOMPLETE => 'uncomplete',
 			self::SCENARIO_UNOWN => 'unown',
 			self::SCENARIO_UNTRASH => 'untrash',
-			self::SCENARIO_UPDATE => 'update',
+			self::SCENARIO_UPDATE => 'updated',
 		);
 	}
 
