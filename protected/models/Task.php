@@ -212,6 +212,34 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Get the feed for the task
+	 * Usage note: use $task->activeRecordLogs so we can deprecate 
+	 * this method easily
+	 * @return CActiveDataProvider of active record logs
+	 */
+	public function getActiveRecordLogs() {
+		// FIXME: replace with relation entry
+		$model = new ActiveRecordLog();
+		$model->unsetAttributes();  // clear any default values
+		
+		$dataProvider = $model->search();
+		
+		// search for users mapped to event with the status
+		$dataProvider->criteria->addCondition(
+			'id IN (SELECT userId AS id FROM ' . $model->tableName()
+				. ' WHERE model=:model' 
+				. ' AND modelId=:modelId)'
+		);
+		$dataProvider->criteria->params[':model'] = 'ActiveRecordLog';
+		$dataProvider->criteria->params[':modelId'] = $this->id;
+		
+		// order by first name
+		$dataProvider->criteria->order = 'created ASC';
+		
+		return $dataProvider;
+	}
+	
+	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
