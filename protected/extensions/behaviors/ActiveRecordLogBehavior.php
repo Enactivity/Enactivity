@@ -98,15 +98,11 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	}
 	
 	/**
-	 * Returns the text label for the specified attribute.
-	 * This method overrides the parent implementation by supporting
-	 * returning the label defined in relational object.
+	 * Returns the text label for the specified scenario.
 	 * In particular, if the attribute name is in the form of "post.author.name",
 	 * then this method will derive the label from the "author" relation's "name" attribute.
 	 * @param string $attribute the attribute name
 	 * @return string the attribute label
-	 * @see generateAttributeLabel
-	 * @since 1.1.4
 	 */
 	public function getScenarioLabel($scenario)
 	{
