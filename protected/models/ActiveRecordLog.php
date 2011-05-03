@@ -175,6 +175,8 @@ class ActiveRecordLog extends CActiveRecord
 	}
 	
 	protected function afterFind() {
+		parent::afterFind();
+		
 		$model = new $this->model;
 		$this->modelObject = $model->findByPk($this->modelId);
 	}
