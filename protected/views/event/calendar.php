@@ -80,10 +80,10 @@ for($day = $i; $day <= $bufferDays; $day++) {
 	
 	// print the events of the day
 	foreach($events as $event) {
-		if((Date::MySQLDateOffset($event->starts) <= $currentDayEnd)
-		&& (Date::MySQLDateOffset($event->ends) >= $currentDayStart)) {
+		if((DateTime::MySQLDateOffset($event->starts) <= $currentDayEnd)
+		&& (DateTime::MySQLDateOffset($event->ends) >= $currentDayStart)) {
 			echo PHtml::tag('dd');
-			if ($currentDayStart == Date::MySQLDateOffset($event->starts)
+			if ($currentDayStart == DateTime::MySQLDateOffset($event->starts)
 			){
 				echo PHtml::link(
 					PHtml::encode(date('h:i A', strtotime($event->startTime))) . " " . PHtml::encode($event->name), 
