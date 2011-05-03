@@ -1,5 +1,5 @@
 <?php
-class Date {
+class DateTime {
 	
 	public static function MySQLDateOffset($dateTimeString, $year_offset='', $month_offset='', $day_offset='') { 
 		return mktime(0,
