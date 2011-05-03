@@ -20,9 +20,6 @@ class UserLink extends CWidget {
 	 */
 	public function init()
 	{
-		if($this->userModel === null) {
-			throw new Exception("No user specified for user link widget");
-		}
 	}
  
 	public function run()
@@ -32,12 +29,17 @@ class UserLink extends CWidget {
 	}
 	
 	protected function renderLink() {
-		echo PHtml::link(
-			PHtml::encode($this->userModel->fullName != "" ? $this->userModel->fullName : $this->userModel->email), 
-			$this->userModel->permalink, 
-			array(
-				'class'=>'userlink',
-			)
-		);
+		if(isset($this->userModel)) {
+			echo PHtml::link(
+				PHtml::encode($this->userModel->fullName != "" ? $this->userModel->fullName : $this->userModel->email), 
+				$this->userModel->permalink, 
+				array(
+					'class'=>'userlink',
+				)
+			);
+		}
+		else {
+			echo 'Deleted user account';
+		}
 	}
 }
