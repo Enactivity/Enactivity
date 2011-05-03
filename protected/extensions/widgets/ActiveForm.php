@@ -66,4 +66,14 @@ class ActiveForm extends CActiveForm {
 	{
 		return PHtml::activeTimeField($model,$attribute,$htmlOptions);
 	}
+	
+	/**
+	 * Renderrs a drop down list with the list of acceptable timezones
+	 * This method is a wrapper of {@link PHtml::activeTimeZoneDropDownList}.
+	 * Please check {@link PHtml::activeTimeZoneDropDownList} for detailed information
+	 * about the parameters for this method.
+	 */
+	public function timeZoneDropDownList($model, $attribute, $htmlOptions=array()) {
+		return PHtml::activeTimeZoneDropDownList($model, $attribute, $htmlOptions);
+	}
 }

@@ -66,7 +66,7 @@ class PHtml extends CHtml {
 	}
 	
 	/**
-	 * Generates an time field input.
+	 * Generates a time field input.
 	 * @param string the input name
 	 * @param string the input value
 	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
@@ -79,6 +79,18 @@ class PHtml extends CHtml {
 	{
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('time',$name,$value,$htmlOptions);
+	}
+	
+	
+	/**
+	 * Generates a drop down list with the list of acceptable timezones
+	 * @param string $name the input name
+	 * @param string $select the selected value
+	 * @param array $htmlOptions
+	 */
+	public static function timeZoneDropDownList(string $name, string $select, array $htmlOptions=array()) {
+		$data = PDateTime::timeZoneArray();
+		return self::dropDownList($name, $select, $data, $htmlOptions);
 	}
 	
 	/**
@@ -171,9 +183,20 @@ class PHtml extends CHtml {
 	 */
 	public static function activeTimeField($model,$attribute,$htmlOptions=array())
 	{
-		self::resolveNameID($model,$attribute,$htmlOptions);
-		self::clientChange('change',$htmlOptions);
-		return self::activeInputField('time',$model,$attribute,$htmlOptions);
+		self::resolveNameID($model, $attribute, $htmlOptions);
+		self::clientChange('change', $htmlOptions);
+		return self::activeInputField('time', $model, $attribute, $htmlOptions);
+	}
+	
+	/**
+	 * Generates a drop down list with the list of acceptable timezones
+	 * @param string $name the input name
+	 * @param string $select the selected value
+	 * @param array $htmlOptions
+	 */
+	public static function activeTimeZoneDropDownList($model, $attribute, $htmlOptions=array()) {
+		$data = PDateTime::timeZoneArray();
+		return self::activeDropDownList($model, $attribute, $data, $htmlOptions);
 	}
 	
 	/**
