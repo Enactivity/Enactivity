@@ -28,4 +28,11 @@ class PDateTime {
 			'Pacific/Wake'=>'Pacific/Wake Time (UTC+12)', 
 		); 
 	}
+	
+	/**
+	 * Get array of time zones values
+	 */
+	public static function timeZoneArrayValues() {
+		return array_keys(self::timeZoneArray());
+	}
 }

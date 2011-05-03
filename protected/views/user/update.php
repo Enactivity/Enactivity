@@ -33,6 +33,12 @@ $this->menu = MenuDefinitions::userMenu($model);
 		)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'lastName'); ?></div>
 	</div>
+	
+	<div class="row">
+		<div class="formlabel"><?php echo $form->labelEx($model,'timeZone'); ?></div>
+		<div class="forminput"><?php echo $form->timeZoneDropDownList($model,'timeZone'); ?></div>
+		<div class="formerrors"><?php echo $form->error($model,'timeZone'); ?></div>
+	</div>
 
 	<div class="row buttons">
 		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

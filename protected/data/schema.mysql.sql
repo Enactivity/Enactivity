@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2011 at 11:40 PM
+-- Generation Time: May 02, 2011 at 11:31 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=157 ;
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `group_banter` (
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`),
   KEY `parentId` (`parentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`id`),
   KEY `ownerId` (`ownerId`),
   KEY `goalId` (`goalId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=72 ;
 
 -- --------------------------------------------------------
 
@@ -239,6 +239,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(40) DEFAULT NULL,
   `firstName` varchar(50) DEFAULT NULL,
   `lastName` varchar(50) DEFAULT NULL,
+  `timeZone` varchar(20) NOT NULL DEFAULT 'America/Los_Angeles',
   `status` varchar(15) NOT NULL DEFAULT 'Pending',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,

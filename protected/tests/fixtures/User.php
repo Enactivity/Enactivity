@@ -10,6 +10,7 @@ return array(
 		'password' => 'ac3642003276203b8ad9ceb60856fd9f7c3c286c', // "test"
 		'firstName' => 'Poncla',
 		'lastName' => 'Administrator',
+		'timeZone' => 'America/Los_Angeles',
 		'status' => 'Active',
 		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
@@ -23,6 +24,7 @@ return array(
 		'password' => 'c167541bb82fbdde5339fdf01308421608d57b10', // "test"
 		'firstName' => 'Joey',
 		'lastName' => 'McTesttest',
+		'timeZone' => 'America/Los_Angeles',
 		'status' => 'Active',
 		'created' => date ("Y-m-d H:i:s", strtotime("-1 hours")),
 		'modified' => date ("Y-m-d H:i:s", strtotime("-1 hours")),

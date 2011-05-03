@@ -10,6 +10,7 @@
  * @property string $password
  * @property string $firstName
  * @property string $lastName
+ * @property string $timeZone
  * @property string $status
  * @property string $created
  * @property string $modified
@@ -142,11 +143,21 @@ class User extends CActiveRecord
 			'message' => 'Passwords do not match',
 			'on' => 'register, updatePassword'),
 
+		array('timeZone', 'default',
+			'value'=>'America/Los_Angeles',
+			'setOnEmpty'=>true, 'on'=>self::SCENARIO_INVITE
+		),
+		array(
+			'timeZone', 
+			'in', 
+			'range'=>PDateTime::timeZoneArrayValues()
+		),
+		
 		array('status', 'length', 
 			'max'=>self::STATUS_MAX_LENGTH),
 		array('status', 'default',
 			'value'=>self::STATUS_PENDING,
-			'setOnEmpty'=>false, 'on'=>'invite'
+			'setOnEmpty'=>false, 'on'=>self::SCENARIO_INVITE
 		),
 		array('status', 'in', 'range'=>array(
 			self::STATUS_PENDING,
@@ -198,6 +209,7 @@ class User extends CActiveRecord
 			'password' => 'Password',
 			'firstName' => 'First name',
 			'lastName' => 'Last name',
+			'timeZone' => 'Time zone',
 			'status' => 'Status',
 			'created' => 'Created',
 			'modified' => 'Last modified',
