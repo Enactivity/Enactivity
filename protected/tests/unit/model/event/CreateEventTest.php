@@ -5,22 +5,21 @@ require_once 'TestConstants.php';
 class CreateEventTest extends DbTestCase
 {
 
-	public $group;
+	public $fixtures = array(
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
+		'groupUserFixtures'=>':group_user',
+	);
 			
 	public function setUp()
 	{
 		parent::setUp();
-		
-		$name = StringUtils::createRandomString(10);
-		$slug = StringUtils::createRandomString(10);
-		
-		$this->group = new Group();
-		
-	    $this->group->setAttributes(array(
-	        'name' => $name,
-	        'slug' => $slug,
-	    ));
-	    $this->group->save();
+	    
+	    // login as user
+		$loginForm = new UserLoginForm();
+		$loginForm->email = $this->userFixtures['registered']['email'];
+		$loginForm->password = 'test';
+		$loginForm->login();
 	}
 	
 	/**
@@ -31,7 +30,7 @@ class CreateEventTest extends DbTestCase
 		$event = new Event();
 		$event->setAttributes(array(
 	    	'name' => "Test Event",
-			'groupId' => $this->group->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 			'starts' => "12/12/12 12:00:00",
 			'ends' => "12/20/13 12:00:00"    
 	    ));
@@ -49,7 +48,7 @@ class CreateEventTest extends DbTestCase
 		$event = new Event();
 		$event->setAttributes(array(
 	    	'name' => $name,
-			'groupId' => $this->group->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 			'starts' => "12/12/12 12:00:00",
 			'ends' => "12/20/13 12:00:00"    
 	    ));
@@ -67,7 +66,7 @@ class CreateEventTest extends DbTestCase
 		$event = new Event();
 		$event->setAttributes(array(
 	    	'name' => $paddedName,
-			'groupId' => $this->group->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 			'starts' => "12/12/12 12:00:00",
 			'ends' => "12/20/13 12:00:00"    
 	    ));
@@ -89,7 +88,7 @@ class CreateEventTest extends DbTestCase
 		$event = new Event();
 		$event->setAttributes(array(
 	    	'name' => $name,
-			'groupId' => $this->group->id,
+			'groupId' => $this->groupFixtures['testgroup']['id'],
 			'starts' => "12/12/12 12:00:00",
 			'ends' => "12/20/13 12:00:00"    
 	    ));
@@ -148,7 +147,7 @@ class CreateEventTest extends DbTestCase
 	public function testCreateEventNoStarts() {
 
 		$name = "Test Name";
-		$groupId = $this->group->id;
+		$groupId = $this->groupFixtures['testgroup']['id'];
 		$starts = null;
 		$ends = "12/12/12 12:00:00";
 		
@@ -170,7 +169,7 @@ class CreateEventTest extends DbTestCase
 	public function testCreateEventNoEnds() {
 
 		$name = "Test Name";
-		$groupId = $this->group->id;
+		$groupId = $this->groupFixtures['testgroup']['id'];
 		$starts = "12/12/12 12:00:00";
 		$ends = null;
 		
