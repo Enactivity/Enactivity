@@ -10,7 +10,7 @@ return array(
 	'name'=>'Poncla',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log', 'timezonekeeper'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -66,5 +66,8 @@ return array(
 //			'enableParamLogging'=>true
 //		),
 		
+		'timezonekeeper' => array(
+			'class' => 'TimeZoneKeeper'
+		),
 	),
 );

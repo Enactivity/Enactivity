@@ -56,6 +56,9 @@ class Group extends CActiveRecord
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
 			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
 		);
 	}
 

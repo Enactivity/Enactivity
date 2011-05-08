@@ -50,6 +50,9 @@ class EventBanter extends CActiveRecord
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
 			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
 		);
 	}
 	

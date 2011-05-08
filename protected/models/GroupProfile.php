@@ -51,6 +51,9 @@ class GroupProfile extends CActiveRecord
 				'feedAttribute' => $this->group->name,
 				'ignoreAttributes' => array('modified'),
 			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
 		);
 	}
 	

@@ -77,7 +77,10 @@ class Event extends CActiveRecord
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'feedAttribute' => $this->name,
 				'ignoreAttributes' => array('modified'),
-			)
+			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
 		);
 	}
 

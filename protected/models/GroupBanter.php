@@ -64,6 +64,9 @@ class GroupBanter extends CActiveRecord
 				'feedAttribute' => $this->content,
 				'ignoreAttributes' => array('modified'),
 			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
 		);
 	}
 	
