@@ -36,7 +36,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 			$log->action = $this->Owner->scenario;
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
-			$log->modelAttribute = '';
+			$log->modelAttribute = null;
 			$log->userId = Yii::app()->user->id;
 			$log->save();
 		} 

@@ -78,6 +78,12 @@ class ActiveRecordLog extends CActiveRecord
 			// trim inputs
 			array('action, model, modelAttribute', 'filter', 'filter'=>'trim'),
 			
+			array('modelAttribute, oldAttributeValue, newAttributeValue', 
+				'default', 
+				'setOnEmpty' => true, 
+				'value' => null
+			),
+			
 			array('action', 'length', 'max'=>20),
 			array('created, modified', 'safe'),
 			// The following rule is used by search().
