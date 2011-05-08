@@ -143,6 +143,7 @@ class JuiDateTimePicker extends CJuiWidget
 	
 	protected function getTimes(){
 		$timeArray = array();
+		$timeArray[""] = "";
 		$timeArray["00:00:00"] = "12:00am";
 		$timeArray["00:15:00"] = "12:15am";
 		$timeArray["00:30:00"] = "12:30am";		

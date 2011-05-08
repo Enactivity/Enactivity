@@ -47,6 +47,90 @@ class Task extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function getStartDate() {
+		if(empty($this->starts)) return null;
+		
+		$dateTimeArray = explode(' ', $this->starts);
+		return $dateTimeArray[0];
+	}
+	
+	public function getStartTime() {
+		if(empty($this->starts)) return null;
+		
+		$dateTimeArray = explode(' ', $this->starts);
+		return $dateTimeArray[1];
+	}
+	
+	public function setStartDate($date) {
+		if(!empty($date)) {
+			if(empty($this->starts)) {
+				$this->starts = date("Y-m-d H:i:s");
+			}
+			
+			$dateTimeArray = explode(' ', $this->starts);
+			$dateTimeArray[0] = $date;
+			$datetime = implode(' ', $dateTimeArray);
+			$this->starts = $datetime;
+		}
+		return $this;
+	}
+	
+	public function setStartTime($time) {
+		if(!empty($time)) {
+			if(empty($this->starts)) {
+				$this->starts = date("Y-m-d H:i:s");
+			}
+			
+			$dateTimeArray = explode(' ', $this->starts);
+			$dateTimeArray[1] = $time;
+			$datetime = implode(' ', $dateTimeArray);
+			$this->starts = $datetime;
+		}
+		return $this;
+	}
+	
+	public function getEndDate() {
+		if(empty($this->ends)) return null;
+		
+		$dateTimeArray = explode(' ', $this->ends);
+		return $dateTimeArray[0];
+	}
+	
+	public function getEndTime() {
+		if(empty($this->ends)) return null;
+		
+		$dateTimeArray = explode(' ', $this->ends);
+		return $dateTimeArray[1];
+	}
+	
+	public function setEndDate($date) {
+		if(!empty($date)) {
+			if(empty($this->ends)) {
+				$this->ends = date("Y-m-d H:i:s");
+			}
+			
+			$dateTimeArray = explode(' ', $this->ends);
+			$dateTimeArray[0] = $date;
+			$datetime = implode(' ', $dateTimeArray);
+			$this->ends = $datetime;
+		}
+		return $this;
+	}
+	
+	public function setEndTime($time) {
+		if(!empty($time)) {
+			if(empty($this->ends)) {
+				$this->ends = date("Y-m-d H:i:s");
+			}
+			
+			$dateTimeArray = explode(' ', $this->ends);
+			$dateTimeArray[1] = $time;
+			$datetime = implode(' ', $dateTimeArray);
+			$this->ends = $datetime;
+		}
+		return $this;
+	}
 
 	/**
 	 * @return string the associated database table name
@@ -123,7 +207,7 @@ class Task extends CActiveRecord
 				'filter', 
 				'filter'=>'trim'),
 			
-			array('starts, ends',
+			array('starts, ends, startDate, startTime, endDate, endTime',
 				'safe'),
 			
 			array('ends',
@@ -147,6 +231,10 @@ class Task extends CActiveRecord
 	 */
 	public function validateDateAfter($attribute, $params) {
 		$ends = $this->$attribute;
+		if(empty($ends)) {
+			return;	
+		}
+		
 		$starts = $this->$params['beforeDate'];
 		
 		$ends = strtotime($ends);
