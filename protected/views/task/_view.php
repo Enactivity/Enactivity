@@ -44,7 +44,7 @@ if(isset($data->starts)) {
 	
 	echo PHtml::openTag('dd');
 	echo PHtml::openTag('time');
-	echo PHtml::encode($data->starts);
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->starts), 'full');
 	echo PHtml::closeTag('time');
 	echo PHtml::closeTag('dd');
 }
@@ -56,7 +56,7 @@ if(isset($data->ends)) {
 	
 	echo PHtml::openTag('dd');
 	echo PHtml::openTag('time');
-	echo PHtml::encode($data->ends);
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->ends), 'full');
 	echo PHtml::closeTag('time');
 	echo PHtml::closeTag('dd');
 }
