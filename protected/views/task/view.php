@@ -1,6 +1,11 @@
 <?php
 $this->pageTitle = $model->name;
 $this->pageMenu = MenuDefinitions::taskMenu($model);
+$this->pageMenu[] = array(
+	'label'=>'Back to Goal', 
+	'url'=>array('goal/view', 'id'=>$model->goalId),
+	'linkOptions'=>array('id'=>'task_goal_menu_item'),
+);
 
 $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
