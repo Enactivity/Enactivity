@@ -26,7 +26,7 @@ class GoalController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','create'),
+				'actions'=>array('index','create','whatsnext'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -287,13 +287,37 @@ class GoalController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 		
-		$dataProvider=new CActiveDataProvider('Goal');
+		$dataProvider = new CActiveDataProvider(
+			Goal::model()->scopeUsersGroups(Yii::app()->user->id)
+		);
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 			'model'=>$model,
 		));
 	}
 
+	/**
+	 *	Displays a list of upcoming user goals and tasks
+	 */
+	public function actionWhatsNext() {
+		$model = new Goal(Goal::SCENARIO_INSERT);
+		
+		if(isset($_POST['Goal']))
+		{
+			$model->attributes=$_POST['Goal'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+		
+		$dataProvider = new CActiveDataProvider(
+			Goal::model()->scopeUsersGroups(Yii::app()->user->id)
+		);
+		$this->render('whatsnext',array(
+			'dataProvider'=>$dataProvider,
+			'model'=>$model,
+		));
+	}
+	
 	/**
 	 * Manages all models.
 	 */
