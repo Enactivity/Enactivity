@@ -518,8 +518,8 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Groups', 
-				'url'=>array('/group/index'), 
+				'label'=>'What\'s Next', 
+				'url'=>array('/goal/whatsnext'),
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
@@ -537,6 +537,11 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('/groupbanter/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
+			array(
+				'label'=>'Groups', 
+				'url'=>array('/group/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),			
 			array(
 				'label'=>'Settings', 
 				'url'=>array('/site/settings'), 

@@ -296,4 +296,45 @@ class Goal extends CActiveRecord
 		
 		return $this;
 	}
+	
+	/**
+	 * Scope definition for goal that share group value with
+	 * the user's groups 
+	 * @param int $userId
+	 * @return Goal
+	 */
+	public function scopeUsersGroups($userId) {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
+				. ' WHERE userId=:userId))',
+			'params' => array(':userId' => $userId)
+		));
+		return $this;
+	}
+	
+	/**
+	 * Scope definition for goal that share group value with
+	 * the user's groups 
+	 * @param int $userId
+	 * @return Goal
+	 */
+	public function scopeOwnedBy($ownerId) {
+		if(empty($ownerId)) {
+			return $this->scopeUnowned();
+		}
+		
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'ownerId = :ownerId',
+			'params' => array(':ownerId' => $ownerId)
+		));
+		return $this;
+	}
+	
+	public function scopeUnowned() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'ownerId IS NULL',
+		));
+		return $this;
+	}
 }
