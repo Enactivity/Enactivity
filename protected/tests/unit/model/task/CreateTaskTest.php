@@ -9,7 +9,7 @@ class CreateTaskTest extends DbTestCase
 		'groupFixtures'=>':group',
 		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
-		'goalFixtures'=>':goal',
+		'taskFixtures'=>':task',
 	);
 	
 	public function setUp()
@@ -30,17 +30,15 @@ class CreateTaskTest extends DbTestCase
 		
 		// test parameters
 		$id = 42;
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		$name = "test task";
-		$ownerId = $this->userFixtures['registered']['id'];
-		$isCompleted = 0;
 		$isTrash = 0;
 		$created = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 		$modified = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 		
 		$testdata = array(
 			'id' => $id,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 			'name' => $name,
 			'ownerId' => $ownerId,
 			'isCompleted' => $isCompleted,
@@ -58,11 +56,9 @@ class CreateTaskTest extends DbTestCase
 		
 		// confirm attribute assigned properly
 		$this->assertNull($task->id, 'task id attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->goalId, 'task goalId attribute was not assigned in [' . $task->getScenario() . ']');
+		$this->assertNotNull($task->parentId, 'task parentId attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNotNull($task->name, 'task name attribute was not assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->ownerId, 'task ownerId attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->priority, 'task priority attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->isCompleted, 'task isCompleted attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNotNull($task->isTrash, 'task isTrash attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->created, 'task created attribute was assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->modified, 'task modified attribute was assigned in [' . $task->getScenario() . ']');
@@ -78,12 +74,12 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskWithNullName() {
 		
 		$name = null;
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 		));
 		
 		$this->assertNull($task->name, 'save name is not null');
@@ -97,12 +93,12 @@ class CreateTaskTest extends DbTestCase
 		
 		$name = "Test Task";
 		$paddedName = ' ' . $name . ' ';
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $paddedName,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 		));
 		
 		$this->assertTrue($task instanceof Task, 'found task not a Task object');
@@ -118,12 +114,12 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskExceedMaximumNameInput() {
 		
 		$name = StringUtils::createRandomString(255 + 1);
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 		));
 		
 		$this->assertFalse($task->validate(), 'task with name of 256 characters was validated: ' . print_r($task->getErrors(null), true));
@@ -136,12 +132,12 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskNoInput() {
 
 		$name = null;
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 		));
 		
 		$this->assertNull($task->name, 'unsaved task has a name');
@@ -153,15 +149,15 @@ class CreateTaskTest extends DbTestCase
 	 */
 	public function testCreateTaskStartDateAfterEndDate() {
 		
-		$name = $this->goalFixtures['testgoal']['name'];
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$name = $this->taskFixtures['noparenttask']['name'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		$starts = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 		$ends = date ("Y-m-d H:i:s", strtotime("-2 hours"));
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 			'starts' => $starts,
 			'ends' => $ends,
 		));
@@ -176,12 +172,12 @@ class CreateTaskTest extends DbTestCase
 	public function testPriorityAutoAssign() {
 		
 		$name = "test task";
-		$goalId = $this->goalFixtures['testgoal']['id'];
+		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'goalId' => $goalId,
+			'parentId' => $parentId,
 		));
 		
 		$this->assertNull($task->priority, 'Priority was set before validate');

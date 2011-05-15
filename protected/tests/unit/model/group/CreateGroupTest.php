@@ -6,6 +6,9 @@ class CreateGroupTest extends DbTestCase
 {
 	public $fixtures = array(
         'groups'=>'Group',
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
+		'groupUserFixtures'=>':group_user',
     );
     
     public $groupUnderTest = null;
@@ -18,6 +21,12 @@ class CreateGroupTest extends DbTestCase
 	protected function setUp()
 	{
 		parent::setUp();
+		
+		 // login as user
+		$loginForm = new UserLoginForm();
+		$loginForm->email = $this->userFixtures['registered']['email'];
+		$loginForm->password = 'test';
+		$loginForm->login();
 		
 		// create a valid group
 		$name = StringUtils::createRandomString(10);
@@ -231,7 +240,7 @@ class CreateGroupTest extends DbTestCase
 	 */
 	public function testUpdateGroupDuplicateName() {
 
-		$name = $this->groups['testgroup']['name'];
+		$name = $this->groupFixtures['testgroup']['name'];
 		$slug = null;
 		
 		$this->groupUnderTest = new Group();
