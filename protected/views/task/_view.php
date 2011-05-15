@@ -42,11 +42,7 @@ if(isset($data->ends)) {
 
 // task name
 echo PHtml::openTag('h1');
-
-echo PHtml::link(
-	PHtml::encode($data->name), 
-	array('task/view', 'id'=>$data->id)
-); 
+echo PHtml::encode($data->name);
 echo PHtml::closeTag('h1');
 
 // close headers
@@ -54,6 +50,23 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 // body
+
+if($data->hasChildren) {
+	echo PHtml::link(
+		PHtml::encode('See subtasks'), 
+		array('task/view', 'id'=>$data->id)
+	); 
+}
+
+//	tasks toolbar
+echo PHtml::openTag('menu');
+
+$this->widget('zii.widgets.CMenu', array(
+	'items'=>MenuDefinitions::taskMenu($data),
+));
+
+echo PHtml::closeTag('menu');
+// end of toolbar
 
 // list participants
 echo PHtml::openTag('ol', array('class' => 'participants'));
@@ -67,15 +80,6 @@ foreach($data->participants as $user) {
 echo PHtml::closeTag('ol');
 
 // end body
-
-//	tasks toolbar
-echo PHtml::openTag('menu');
-
-$this->widget('zii.widgets.CMenu', array(
-	'items'=>MenuDefinitions::taskMenu($data),
-));
-echo PHtml::closeTag('menu');
-// end of toolbar
 
 // close article
 echo PHtml::closeTag('article');
