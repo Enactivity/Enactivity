@@ -355,9 +355,28 @@ class Task extends CActiveRecord
 		return $this;
 	}
 	
+	/**
+	 * Is the task completed?
+	 * @return boolean
+	 */
 	public function getIsCompleted() {
-		// FIXME: implement 
 		return false;
+	}
+	
+	/**
+	 * Does the Task have a parent Task?
+	 * @return boolean
+	 */
+	public function getHasParent() {
+		return isset($this->parentId);
+	}
+	
+	/**
+	 * Does the Task have any children?
+	 * @return boolean
+	 */
+	public function getHasChildren() {
+		return sizeof($this->children) > 0;
 	}
 	
 	/**
