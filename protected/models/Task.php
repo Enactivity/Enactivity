@@ -139,7 +139,7 @@ class Task extends CActiveRecord
 			
 			array('ends',
 				'validateDateAfter', 
-				'beforeDate'=>'starts'),
+				'beforeDateTime'=>'starts'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -162,7 +162,7 @@ class Task extends CActiveRecord
 			return;	
 		}
 		
-		$starts = $this->$params['beforeDate'];
+		$starts = $this->$params['beforeDateTime'];
 		
 		$ends = strtotime($ends);
 		$starts = strtotime($starts);
@@ -284,7 +284,8 @@ class Task extends CActiveRecord
 	public function setStartDate($date) {
 		if(!empty($date)) {
 			if(empty($this->starts)) {
-				$this->starts = date("Y-m-d H:i:s");
+				$soon = strtotime("+1 hour");
+				$this->starts = date("Y-m-d H:00:00", $soon);
 			}
 			
 			$dateTimeArray = explode(' ', $this->starts);
@@ -298,7 +299,8 @@ class Task extends CActiveRecord
 	public function setStartTime($time) {
 		if(!empty($time)) {
 			if(empty($this->starts)) {
-				$this->starts = date("Y-m-d H:i:s");
+				$soon = strtotime("+1 hour");
+				$this->starts = date("Y-m-d H:00:00", $soon);
 			}
 			
 			$dateTimeArray = explode(' ', $this->starts);
@@ -326,7 +328,8 @@ class Task extends CActiveRecord
 	public function setEndDate($date) {
 		if(!empty($date)) {
 			if(empty($this->ends)) {
-				$this->ends = date("Y-m-d H:i:s");
+				$soon = strtotime("+1 hour");
+				$this->ends = date("Y-m-d H:00:00", $soon);
 			}
 			
 			$dateTimeArray = explode(' ', $this->ends);
@@ -340,7 +343,8 @@ class Task extends CActiveRecord
 	public function setEndTime($time) {
 		if(!empty($time)) {
 			if(empty($this->ends)) {
-				$this->ends = date("Y-m-d H:i:s");
+				$soon = strtotime("+1 hour");
+				$this->ends = date("Y-m-d H:00:00", $soon);
 			}
 			
 			$dateTimeArray = explode(' ', $this->ends);
