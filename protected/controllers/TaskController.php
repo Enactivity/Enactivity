@@ -281,6 +281,9 @@ class TaskController extends Controller
 			}
 			
 			if($model->save()) {
+				if(isset($model->parentId)) {
+					$this->redirect(array('view','id'=>$model->parentId));
+				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
