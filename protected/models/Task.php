@@ -228,7 +228,7 @@ class Task extends CActiveRecord
 		return array(
 			self::SCENARIO_COMPLETE => 'complete',
 			self::SCENARIO_DELETE => 'delete',
-			self::SCENARIO_INSERT => 'inserted', // default set by Yii
+			self::SCENARIO_INSERT => 'posted', // default set by Yii
 			self::SCENARIO_READ => 'read',
 			self::SCENARIO_OWN => 'own',
 			self::SCENARIO_TRASH => 'trash',
