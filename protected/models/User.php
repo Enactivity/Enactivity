@@ -210,7 +210,6 @@ class User extends CActiveRecord
 				'condition' => 'taskUsers.isTrash=0',
 			),
 		);
-		//TODO: stats: # future events 
 	}
 
 	/**
