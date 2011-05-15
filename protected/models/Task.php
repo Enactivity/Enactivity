@@ -193,11 +193,12 @@ class Task extends CActiveRecord
 			
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
 				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0'
+				'condition' => 'taskUsers.isTrash=0',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'modelId',
-				'condition' => 'feed.model=\'Task\''
+				'condition' => 'feed.model=\'Task\'',
+				'order' => 'feed.created ASC',
 			),
 		);
 	}
