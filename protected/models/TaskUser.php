@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "user_task".
+ * This is the model class for table "task_user".
  *
- * The followings are the available columns in table 'user_task':
+ * The followings are the available columns in table 'task_user':
  * @property integer $id
  * @property integer $userId
  * @property integer $taskId
  * @property integer $isCompleted
- * @property integer $isTrash is UserTask link still active
+ * @property integer $isTrash is TaskUser link still active
  * @property string $created
  * @property string $modified
  *
@@ -16,11 +16,11 @@
  * @property Task $task
  * @property User $user
  */
-class UserTask extends CActiveRecord
+class TaskUser extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return UserTask the static model class
+	 * @return TaskUser the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -32,7 +32,7 @@ class UserTask extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_task';
+		return 'task_user';
 	}
 
 	/**
@@ -143,8 +143,8 @@ class UserTask extends CActiveRecord
 	}
 	
 	/**
-	 * Mark the UserTask as completed, does not save
-	 * @return UserTask
+	 * Mark the TaskUser as completed, does not save
+	 * @return TaskUser
 	 */
 	public function complete() {
 		$this->isCompleted = 1;
@@ -152,8 +152,8 @@ class UserTask extends CActiveRecord
 	}
 	
 	/**
-	 * Mark the UserTask as not completed, does not save
-	 * @return UserTask
+	 * Mark the TaskUser as not completed, does not save
+	 * @return TaskUser
 	 */
 	public function uncomplete() {
 		$this->isCompleted = 0;
@@ -161,8 +161,8 @@ class UserTask extends CActiveRecord
 	}
 	
 	/**
-	 * Mark the UserTask as trash, does not save
-	 * @return UserTask
+	 * Mark the TaskUser as trash, does not save
+	 * @return TaskUser
 	 */
 	public function trash() {
 		$this->isTrash = 1;
@@ -170,8 +170,8 @@ class UserTask extends CActiveRecord
 	}
 	
 	/**
-	 * Mark the UserTask as not trash, does not save
-	 * @return UserTask
+	 * Mark the TaskUser as not trash, does not save
+	 * @return TaskUser
 	 */
 	public function untrash() {
 		$this->isTrash = 0;

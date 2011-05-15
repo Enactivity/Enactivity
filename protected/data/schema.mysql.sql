@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 02, 2011 at 11:31 PM
+-- Generation Time: May 15, 2011 at 01:23 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -40,86 +40,7 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event`
---
-
-CREATE TABLE IF NOT EXISTS `event` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(75) NOT NULL,
-  `description` varchar(4000) DEFAULT NULL,
-  `creatorId` int(11) DEFAULT NULL,
-  `groupId` int(11) NOT NULL,
-  `starts` datetime NOT NULL,
-  `ends` datetime NOT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `creatorId` (`creatorId`),
-  KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=157 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_banter`
---
-
-CREATE TABLE IF NOT EXISTS `event_banter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `creatorId` int(11) DEFAULT NULL,
-  `eventId` int(11) NOT NULL COMMENT 'The event that this banter refers to',
-  `content` varchar(4000) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `creatorId` (`creatorId`),
-  KEY `parentId` (`eventId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_user`
---
-
-CREATE TABLE IF NOT EXISTS `event_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eventId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'Pending',
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `eventId_2` (`eventId`,`userId`),
-  KEY `eventId` (`eventId`),
-  KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `goal`
---
-
-CREATE TABLE IF NOT EXISTS `goal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `groupId` int(11) NOT NULL,
-  `ownerId` int(11) DEFAULT NULL,
-  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
-  `isTrash` tinyint(1) NOT NULL DEFAULT '0',
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `groupId` (`groupId`),
-  KEY `ownerId` (`ownerId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -137,26 +58,6 @@ CREATE TABLE IF NOT EXISTS `group` (
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `group_banter`
---
-
-CREATE TABLE IF NOT EXISTS `group_banter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `creatorId` int(11) DEFAULT NULL,
-  `groupId` int(11) NOT NULL,
-  `parentId` int(11) DEFAULT NULL,
-  `content` varchar(4000) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `creatorId` (`creatorId`),
-  KEY `groupId` (`groupId`),
-  KEY `parentId` (`parentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -199,32 +100,39 @@ CREATE TABLE IF NOT EXISTS `group_user` (
 
 CREATE TABLE IF NOT EXISTS `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `goalId` int(11) NOT NULL,
+  `groupId` int(11) NOT NULL,
+  `parentId` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `ownerId` int(11) DEFAULT NULL,
   `priority` int(11) NOT NULL,
-  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
   `isTrash` tinyint(1) NOT NULL DEFAULT '0',
   `starts` datetime DEFAULT NULL,
   `ends` datetime DEFAULT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ownerId` (`ownerId`),
-  KEY `goalId` (`goalId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=72 ;
+  KEY `parentId` (`parentId`),
+  KEY `groupId` (`groupId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_migration`
+-- Table structure for table `task_user`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_migration` (
-  `version` varchar(255) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `task_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL,
+  `taskId` int(11) NOT NULL,
+  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
+  `isTrash` tinyint(1) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
+  KEY `userId` (`userId`),
+  KEY `taskId` (`taskId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -249,22 +157,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `token` (`token`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `user_task`
+-- Constraints for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS `user_task` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) DEFAULT NULL,
-  `taskId` int(11) NOT NULL,
-  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
-  `isTrash` tinyint(1) NOT NULL DEFAULT '0',
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
-  KEY `userId` (`userId`),
-  KEY `taskId` (`taskId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+--
+-- Constraints for table `task`
+--
+ALTER TABLE `task`
+  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_ibfk_2` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task_user`
+--
+ALTER TABLE `task_user`
+  ADD CONSTRAINT `task_user_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_user_ibfk_2` FOREIGN KEY (`taskId`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

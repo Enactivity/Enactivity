@@ -22,12 +22,11 @@ class TaskController extends Controller
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
 			$task = $this->loadModel($_GET['id']);
-			$goal = $task->goal;
-			$groupId = $goal->groupId;
+			$groupId = $task->groupId;
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index'),
+				'actions'=>array('index', 'whatsnext'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -55,18 +54,31 @@ class TaskController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$task = $this->loadModel($id);
-		$users = $task->participatingUsers;
-		$logs = $task->activeRecordLogs;
+		// load model
+		$model = $this->loadModel($id);
+		
+		// handle new task
+		$newTask = $this->handleNewTaskForm($id);
 		
 		$this->render(
 			'view', 
 			array(
-				'model' => $task,
-				'users' => $users,
-				'logs' => $logs,
+				'model' => $model,
+				'newTask' => $newTask,
 			)
 		);
+	}
+	
+	/**
+	 *	Displays a list of upcoming user goals and tasks
+	 */
+	public function actionWhatsNext() {
+		$model = $this->handleNewTaskForm();
+		
+		$this->render('whatsnext',array(
+			'model'=>$model,
+			'tasks'=>Yii::app()->user->model->tasks, 
+		));
 	}
 
 	/**
@@ -91,98 +103,6 @@ class TaskController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
-	}
-	
-	/**
-	 * Completes a particular model.
-	 * If complete is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionComplete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow trashing via POST request
-			$task = $this->loadModel($id);
-			$task->complete();
-			$task->save();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
-			}
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-	
-	/**
-	 * Uncompletes a particular model.
-	 * If uncomplete is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionUncomplete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow uncompletion via POST request
-			$task = $this->loadModel($id);
-			$task->uncomplete();
-			$task->save();
-			
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
-			}
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-	
-		/**
-	 * Owns a particular model.
-	 * If own is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionOwn($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow trashing via POST request
-			$task = $this->loadModel($id);
-			$task->own();
-			$task->save();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
-			}
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-	
-	/**
-	 * Unowns a particular model.
-	 * If unown is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionUnown($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow uncompletion via POST request
-			$task = $this->loadModel($id);
-			$task->unown();
-			$task->save();
-			
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
-			}
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 	
 	/**
@@ -302,9 +222,18 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Task');
-		$this->render('index',array(
+		// FIXME: only get tasks in user's groups
+		$dataProvider = new CArrayDataProvider(
+			Yii::app()->user->model->groupsParentlessTasks,
+			array()
+		);
+		
+		// handle new task
+		$newTask = $this->handleNewTaskForm();
+		
+		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
+			'newTask'=>$newTask,
 		));
 	}
 
@@ -333,6 +262,29 @@ class TaskController extends Controller
 		$model=Task::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+	
+	/**
+	 * Return a new task based on POST data
+	 * @param int $parentId the id of the new task's parent
+	 * @return $model if not saved
+	 */
+	public function handleNewTaskForm($parentId = null) {
+		$model = new Task(Task::SCENARIO_INSERT);
+		
+		if(isset($_POST['Task'])) {
+			$model->attributes=$_POST['Task'];
+			
+			if(isset($parentId)) {
+				$model->parentId = $parentId;
+			}
+			
+			if($model->save()) {
+				$this->redirect(array('view','id'=>$model->id));
+			}
+		}
+		
 		return $model;
 	}
 	

@@ -1,23 +1,17 @@
 <?php
 $this->pageTitle = $model->name;
 $this->pageMenu = MenuDefinitions::taskMenu($model);
-$this->pageMenu[] = array(
-	'label'=>'Back to Goal', 
-	'url'=>array('goal/view', 'id'=>$model->goalId),
-	'linkOptions'=>array('id'=>'task_goal_menu_item'),
-);
+if(isset($model->parentId)) {
+	$this->pageMenu[] = array(
+		'label'=>'Back Up', 
+		'url'=>array('task/view', 'id'=>$model->parentId),
+		'linkOptions'=>array('id'=>'task_parent_menu_item'),
+	);
+}
 
 $this->widget('ext.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		array(
-			'name' => 'name',
-			'visible' => strlen($model->name) > 0 ? true : false,
-		),
-		array(
-			'name' => 'ownerId',
-			'visible' => strlen($model->name) > 0 ? true : false,
-		),
 		array( 
 			'name' => 'starts',
 			'type' => 'styledtext',
@@ -29,33 +23,51 @@ $this->widget('ext.widgets.DetailView', array(
 	),
 ));
 
-?>
 
+// show participants
+?>
 <section id="users-participating">
 	<header>
-		<h1><?php echo PHtml::encode($users->totalItemCount) . ' Participating'; ?></h1>
+		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Participating'; ?></h1>
 	</header>
 	
 	<?php 
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$users,
-		'itemView'=>'/user/_users',
-		'emptyText' => 'No one has signed up to participate yet.',
-	)); 
+	foreach($model->participants as $user) {
+		echo PHtml::openTag('li');	
+		$this->widget('ext.widgets.UserLink', array(
+			'userModel' => $user,
+		));
+		echo PHtml::closeTag('li');
+	}
 	?>
 </section>
+
+<?php 
+// Show children tasks
+?>
+<section id="child-tasks">
+	<ol>
+	<?php 
+	foreach($model->children as $task) {
+		echo PHtml::openTag('li');	
+		$this->renderPartial('/task/_view', array('data'=>$task));
+		echo PHtml::closeTag('li');
+	}
+	?>
+	</ol>
+</section>
+
+<?php // "what would you want to do input" box
+echo $this->renderPartial('_form', array('model'=>$newTask));
+
+// Show history
+?>
 <section>
 	<header>
 		<h1><?php echo 'History'; ?></h1>
 	</header>
 	<?php 
-//	$this->widget('zii.widgets.CListView', array(
-//		'dataProvider'=>$logs,
-//		'itemView'=>'/feed/_view',
-//		'emptyText' => 'Nothing new',
-//	)); 
-
-	foreach($logs as $log) {
+	foreach($model->feed as $log) {
 		$this->renderPartial('_feed',
 			array(
 				'data' => $log

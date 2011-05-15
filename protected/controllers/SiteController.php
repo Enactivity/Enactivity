@@ -32,7 +32,7 @@ class SiteController extends Controller
 			$this->render('index');	
 		} 
 		else {
-			$this->redirect(array('feed/index'));
+			$this->redirect(array('task/whatsnext'));
 		}
 	}
 
