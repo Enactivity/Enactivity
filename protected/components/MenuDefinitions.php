@@ -101,13 +101,7 @@ class MenuDefinitions extends CComponent {
 	}
 
 	public static function task() {
-		return array(
-			array(
-				'label'=>'Create a Task', 
-				'url'=>array('task/create'),
-				'linkOptions'=>array('id'=>'task_create_menu_item'),
-			),
-		);
+		return array();
 	}
 	
 	/**
