@@ -371,66 +371,66 @@ class MenuDefinitions extends CComponent {
 				);
 			}
 			
-			// only show when there is no owner
-			if($model->ownerId == null) {
-				$menu[] = array(
-					'label'=>'Take Ownership', 
-					'url'=>array('task/own', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/own',
-							'id'=>$model->id,
-						),
-						'csrf' => true,
-						'id'=>'task_owner_menu_item' . $model->id,
-					),
-				);
-			}
-			elseif($model->ownerId == Yii::app()->user->id) {
-				$menu[] = array(
-					'label'=>'Give Up Ownership', 
-					'url'=>array('task/unown', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/unown',
-							'id'=>$model->id,
-						),
-						'csrf' => true,
-						'id'=>'task_owner_menu_item' . $model->id,
-					),
-				);
-			}
-			
-			if($model->ownerId == null 
-			|| $model->ownerId == Yii::app()->user->id) {
-				if($model->isCompleted) {
-					$menu[] = array(
-						'label'=>'Mark Not Done', 
-						'url'=>array('task/uncomplete', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'task/uncomplete',
-								'id'=>$model->id,
-							),
-							'csrf' => true,
-							'id'=>'task_uncomplete_menu_item' . $model->id,
-						),
-					);
-				}
-				else {
-					$menu[] = array(
-						'label'=>'Mark Done', 
-						'url'=>array('task/complete', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'task/complete',
-								'id'=>$model->id,
-							),
-							'csrf' => true,
-							'id'=>'task_complete_menu_item' . $model->id,
-						),
-					);
-				}
+//			// only show when there is no owner
+//			if($model->ownerId == null) {
+//				$menu[] = array(
+//					'label'=>'Take Ownership', 
+//					'url'=>array('task/own', 'id'=>$model->id),
+//					'linkOptions'=>array(
+//						'submit'=>array(
+//							'task/own',
+//							'id'=>$model->id,
+//						),
+//						'csrf' => true,
+//						'id'=>'task_owner_menu_item' . $model->id,
+//					),
+//				);
+//			}
+//			elseif($model->ownerId == Yii::app()->user->id) {
+//				$menu[] = array(
+//					'label'=>'Give Up Ownership', 
+//					'url'=>array('task/unown', 'id'=>$model->id),
+//					'linkOptions'=>array(
+//						'submit'=>array(
+//							'task/unown',
+//							'id'=>$model->id,
+//						),
+//						'csrf' => true,
+//						'id'=>'task_owner_menu_item' . $model->id,
+//					),
+//				);
+//			}
+//			
+//			if($model->ownerId == null 
+//			|| $model->ownerId == Yii::app()->user->id) {
+//				if($model->isCompleted) {
+//					$menu[] = array(
+//						'label'=>'Mark Not Done', 
+//						'url'=>array('task/uncomplete', 'id'=>$model->id),
+//						'linkOptions'=>array(
+//							'submit'=>array(
+//								'task/uncomplete',
+//								'id'=>$model->id,
+//							),
+//							'csrf' => true,
+//							'id'=>'task_uncomplete_menu_item' . $model->id,
+//						),
+//					);
+//				}
+//				else {
+//					$menu[] = array(
+//						'label'=>'Mark Done', 
+//						'url'=>array('task/complete', 'id'=>$model->id),
+//						'linkOptions'=>array(
+//							'submit'=>array(
+//								'task/complete',
+//								'id'=>$model->id,
+//							),
+//							'csrf' => true,
+//							'id'=>'task_complete_menu_item' . $model->id,
+//						),
+//					);
+//				}
 				
 				if($model->isTrash) {
 					$menu[] = array(
@@ -463,7 +463,7 @@ class MenuDefinitions extends CComponent {
 				}	
 			}
 
-		}
+//		}
 		
 		return $menu;
 	}

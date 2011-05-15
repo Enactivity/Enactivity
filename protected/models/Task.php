@@ -255,19 +255,15 @@ class Task extends CActiveRecord
 		return array(
 			'goal' => array(self::BELONGS_TO, 'Goal', 'goalId'),
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
-			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId',
-				'condition' => '`t`.`isTrash` = 0',
+			
+			'userTasks' => array(self::HAS_MANY, 'UserTask', 'taskId'),
+			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId'),
+			'userTasksCompletedCount' => array(self::STAT, 'UserTask', 'taskId'),
+			
+			'participants' => array(self::HAS_MANY, 'User', 'userId',
+				'through' => 'userTasks',
+				'condition' => 'isTrash=0'
 			),
-			'userTasksCount' => array(self::STAT, 'UserTask', 'taskId',
-				'condition' => '`t`.`isTrash` = 0',
-			),
-			'userTasksCompletedCount' => array(self::STAT, 'UserTask', 'taskId',
-				'condition' => '`t`.`isCompleted` = 1'
-					. ' AND `t`.`isTrash` = 0',
-			),
-//			'participatingUsers' => array(self::HAS_MANY, 'User', 'taskId',
-//				'through' => 'userTasks',
-//			),
 		);
 	}
 
@@ -546,5 +542,36 @@ class Task extends CActiveRecord
 			return true;
 		}
 		return false;
+	}
+	
+	public function defaultScope() {
+		return array(
+			'order' => 'ISNULL(ends), ends ASC, ISNULL(starts), starts ASC',
+		);
+	}
+	
+	/**
+	 * Scope definition for goal that share group value with
+	 * the user's groups 
+	 * @param int $userId
+	 * @return Goal
+	 */
+	public function scopeOwnedBy($ownerId) {
+		if(empty($ownerId)) {
+			return $this->scopeUnowned();
+		}
+		
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'ownerId = :ownerId',
+			'params' => array(':ownerId' => $ownerId)
+		));
+		return $this;
+	}
+	
+	public function scopeUnowned() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'ownerId IS NULL',
+		));
+		return $this;
 	}
 }

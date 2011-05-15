@@ -309,15 +309,9 @@ class GoalController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 		
-		$ownedGoals = new CActiveDataProvider(
-			Goal::model()
-				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeOwnedBy(Yii::app()->user->id)
-		);
-		
 		$this->render('whatsnext',array(
-			'ownedGoals'=>$ownedGoals,
 			'model'=>$model,
+			'tasks'=>Yii::app()->user->model->tasks, 
 		));
 	}
 	

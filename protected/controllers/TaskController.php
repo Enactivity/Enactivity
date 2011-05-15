@@ -248,6 +248,7 @@ class TaskController extends Controller
 			if(!isset($_GET['ajax'])) {
 				$this->redirectReturnUrlOrView($task);
 			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

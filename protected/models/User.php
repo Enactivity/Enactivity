@@ -196,6 +196,12 @@ class User extends CActiveRecord
 				'group_user(userId, groupId)',
 			),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+			
+			'userTasks' => array(self::HAS_MANY, 'UserTask', 'userId'),
+			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
+				'through' => 'userTasks',
+				'condition' => 'userTasks.isTrash=0'
+			),
 		);
 		//TODO: stats: # future events 
 	}

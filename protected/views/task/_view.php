@@ -21,8 +21,28 @@ echo PHtml::openTag('article', array(
 echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
 
-// event name
+// event date
+if(isset($data->starts)) {
+	echo PHtml::openTag('h2');
+	echo 'Starts ';
+	echo PHtml::openTag('time');
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->starts), 'full');
+	echo PHtml::closeTag('time');
+	echo PHtml::closeTag('h2');
+}
+
+if(isset($data->ends)) {
+	echo PHtml::openTag('h2');
+	echo 'Ends ';
+	echo PHtml::openTag('time');
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->ends), 'full');
+	echo PHtml::closeTag('time');
+	echo PHtml::closeTag('h2');
+}
+
+// task name
 echo PHtml::openTag('h1');
+
 echo PHtml::link(
 	PHtml::encode($data->name), 
 	array('task/view', 'id'=>$data->id)
@@ -34,57 +54,19 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 // body
-echo PHtml::openTag('dl');
 
-// event date
-if(isset($data->starts)) {
-	echo PHtml::openTag('dt');
-	echo PHtml::encode($data->getAttributeLabel('starts'));
-	echo PHtml::closeTag('dt');
-	
-	echo PHtml::openTag('dd');
-	echo PHtml::openTag('time');
-	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->starts), 'full');
-	echo PHtml::closeTag('time');
-	echo PHtml::closeTag('dd');
+// list participants
+echo PHtml::openTag('ol', array('class' => 'participants'));
+foreach($data->participants as $user) {
+	echo PHtml::openTag('li');	
+	$this->widget('ext.widgets.UserLink', array(
+		'userModel' => $user,
+	));
+	echo PHtml::closeTag('li');
 }
+echo PHtml::closeTag('ol');
 
-if(isset($data->ends)) {
-	echo PHtml::openTag('dt');
-	echo PHtml::encode($data->getAttributeLabel('ends'));
-	echo PHtml::closeTag('dt');
-	
-	echo PHtml::openTag('dd');
-	echo PHtml::openTag('time');
-	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->ends), 'full');
-	echo PHtml::closeTag('time');
-	echo PHtml::closeTag('dd');
-}
-
-// user count
-echo PHtml::openTag('dt');
-echo PHtml::encode($data->getAttributeLabel('userTasksCount'));
-echo PHtml::closeTag('dt');
-
-echo PHtml::openTag('dd');
-echo PHtml::encode($data->userTasksCount);
-echo PHtml::closeTag('dd');
-
-// users completed count
-echo PHtml::openTag('dt');
-echo PHtml::encode($data->getAttributeLabel('userTasksCompletedCount'));
-echo PHtml::closeTag('dt');
-
-echo PHtml::openTag('dd');
-echo PHtml::encode($data->userTasksCompletedCount);
-echo PHtml::closeTag('dd');
-
-
-echo PHtml::closeTag('dl');
 // end body
-
-// start footer
-echo PHtml::openTag('footer');
 
 //	tasks toolbar
 echo PHtml::openTag('menu');
@@ -94,9 +76,6 @@ $this->widget('zii.widgets.CMenu', array(
 ));
 echo PHtml::closeTag('menu');
 // end of toolbar
-
-echo PHtml::closeTag('footer');
-// end of footer
 
 // close article
 echo PHtml::closeTag('article');
