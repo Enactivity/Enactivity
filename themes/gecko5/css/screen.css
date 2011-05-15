@@ -553,12 +553,16 @@ aside.flash-success a
 }
 
 #content input#Event_startDate,
-#content input#Event_endDate {
+#content input#Event_endDate,
+#content input#Task_startDate,
+#content input#Task_endDate{
 	width: 65%;
 }
 
 #content select#Event_startTime,
-#content select#Event_endTime {
+#content select#Event_endTime,
+#content select#Task_startTime,
+#content select#Task_endTime {
 	width: 35%;
 }
 
