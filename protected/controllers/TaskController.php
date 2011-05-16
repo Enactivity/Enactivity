@@ -33,8 +33,8 @@ class TaskController extends Controller
 				'actions'=>array(
 					'view','update','trash',
 					'untrash','complete','uncomplete',
-					'own','unown',
 					'participate','unparticipate',
+					'userComplete','userUncomplete',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -184,7 +184,6 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow unparticipating via POST request
-			// we only allow participating via POST request
 			$task = $this->loadModel($id);
 			$task->unparticipate();
 			
@@ -196,6 +195,53 @@ class TaskController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+	
+	/**
+	 * Marks the user as having completed the task 
+	 * If add is successful, the browser will be redirected to the parent's 'view' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUserComplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow participating via POST request
+			$task = $this->loadModel($id);
+			$task->userComplete();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * Marks the user as having completed the task 
+	 * If add is successful, the browser will be redirected to the parent's 'view' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUserUncomplete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow unparticipating via POST request
+			// we only allow participating via POST request
+			$task = $this->loadModel($id);
+			$task->userUncomplete();
+			
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax'])) {
+				$this->redirectReturnUrlOrView($task);
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
 
 	/**
 	 * Deletes a particular model.

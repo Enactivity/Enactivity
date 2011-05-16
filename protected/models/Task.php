@@ -360,6 +360,15 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsCompleted() {
+		if($this->hasChildren) {
+			foreach($this->children as $subtask) {
+				if(!$subtask->isTrash
+				&& !$subtask->isCompleted) {
+					return false;
+				}
+			}
+			return true;
+		}
 		return false;
 	}
 	
@@ -384,13 +393,35 @@ class Task extends CActiveRecord
 	 * and hasn't stopped (deleted the connection)
 	 * @return true if user is a participant, false if not
 	 */
-	public function isUserParticipating() {
+	public function getIsUserParticipating() {
 		
 		$model = TaskUser::model()->findByAttributes(
 			array(
 				'userId'=>Yii::app()->user->id,
 				'taskId'=>$this->id,
 				'isTrash'=>0,
+			)
+		);
+		
+		if(isset($model)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Check if the current user is participating in the task
+	 * and hasn't stopped (deleted the connection)
+	 * @return true if user is a participant, false if not
+	 */
+	public function getIsUserComplete() {
+		
+		$model = TaskUser::model()->findByAttributes(
+			array(
+				'userId'=>Yii::app()->user->id,
+				'taskId'=>$this->id,
+				'isTrash'=>0,
+				'isCompleted'=>1
 			)
 		);
 		
@@ -408,23 +439,9 @@ class Task extends CActiveRecord
 	public function participate() {
 		
 		// look for the TaskUser for this combination
-		$userTask = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>Yii::app()->user->id,
-				'taskId'=>$this->id,
-			)
-		);
-
-		// if no TaskUser linker exists, create one
-		if(is_null($userTask)) {
-			$userTask = new TaskUser();
-			$userTask->userId = Yii::app()->user->id;
-			$userTask->taskId = $this->id;
-		}
+		$userTask = $this->loadTaskUser();
 		
 		$userTask->unTrash();
-		
-		// save linker 
 		$userTask->save();
 		
 		return $this;
@@ -437,6 +454,53 @@ class Task extends CActiveRecord
 	 */
 	public function unparticipate() {
 			
+		// look for the TaskUser for this combination
+		$userTask = $this->loadTaskUser();
+		
+		$userTask->trash();
+		$userTask->save();
+		
+		return $this;
+	}
+	
+	/**
+	 * Marks the current user as done with the task.
+	 * Saves TaskUser
+	 * @return Task
+	 */
+	public function userComplete() {
+		
+		// look for the TaskUser for this combination
+		$userTask = $this->loadTaskUser();
+		
+		$userTask->complete();
+		$userTask->save();
+		
+		return $this;
+	}
+	
+	/**
+	 * Marks the current user as not done with the task.
+	 * Saves TaskUser
+	 * @return Task
+	 */
+	public function userUncomplete() {
+			
+		// look for the TaskUser for this combination
+		$userTask = $this->loadTaskUser();
+		
+		$userTask->uncomplete();
+		$userTask->save();
+		
+		return $this;
+	}
+	
+	/**
+	 * Loads the TaskUser for the model and current user.  If no TaskUser
+	 * exists yet, an unsaved new TaskUser is created. 
+	 * @return TaskUser model for linking task to current user
+	 */
+	private function loadTaskUser() {
 		// look for the TaskUser for this combination
 		$userTask = TaskUser::model()->findByAttributes(
 			array(
@@ -451,15 +515,9 @@ class Task extends CActiveRecord
 			$userTask->userId = Yii::app()->user->id;
 			$userTask->taskId = $this->id;
 		}
-		
-		$userTask->trash();
-		
-		// save linker 
-		$userTask->save();
-		
-		return $this;
+		return $userTask;
 	}
-		
+	
 	/**
 	 * Mark the task as trash, does not save
 	 * @return Task

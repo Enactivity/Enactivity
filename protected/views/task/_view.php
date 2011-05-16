@@ -50,16 +50,35 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 // body
-
 if($data->hasChildren) {
 	echo PHtml::link(
 		PHtml::encode('See subtasks'), 
-		array('task/view', 'id'=>$data->id)
+		array('/task/view', 'id'=>$data->id)
 	); 
 }
 
 //	tasks toolbar
 echo PHtml::openTag('menu');
+echo PHtml::openTag('ul');
+
+if($data->isUserParticipating) {
+	echo PHtml::openTag('li');
+	
+	if($data->isUserComplete) {
+		echo PHtml::link(
+			PHtml::encode('complete'), 
+			array('/task/usercomplete', 'id'=>$data->id)
+		); 
+	}
+	else {
+		echo PHtml::link(
+			PHtml::encode('uncomplete'), 
+			array('/task/useruncomplete', 'id'=>$data->id)
+		);
+	}
+	echo PHtml::closeTag('li');
+}
+echo PHtml::closeTag('ul');
 
 $this->widget('zii.widgets.CMenu', array(
 	'items'=>MenuDefinitions::taskMenu($data),

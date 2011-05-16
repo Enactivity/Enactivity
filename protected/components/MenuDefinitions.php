@@ -117,7 +117,7 @@ class MenuDefinitions extends CComponent {
 			);
 			
 			// 'participate' button
-			if($model->isUserParticipating()) {
+			if($model->isUserParticipating) {
 				$menu[] = array(
 					'label'=>'Stop participating', 
 					'url'=>array('task/unparticipate', 'id'=>$model->id),
