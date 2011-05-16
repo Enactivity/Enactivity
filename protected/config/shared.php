@@ -35,8 +35,18 @@ return array(
 			'charset' => 'utf8',
 			'enableParamLogging'=>false
 		),
-		
-		// MySQL database settings for Macs
+
+   		// MySQL database settings for bella
+//		'db'=>array(
+//			'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
+//			'emulatePrepare' => true,
+//			'username' => 'root',
+//			'password' => 'justr1d3',
+//			'charset' => 'utf8',
+//			'enableParamLogging'=>false
+//		),
+
+//		// MySQL database settings for Macs
 //		'db'=>array(
 //			'connectionString' => 'mysql:host=127.0.0.1;dbname=poncla_yii',
 //			'emulatePrepare' => true,
@@ -45,7 +55,7 @@ return array(
 //			'charset' => 'utf8',
 //			'enableParamLogging'=>false
 //		),
-		
+
 		// MySQL database settings for alpha
 //		'db'=>array(
 //			'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
@@ -65,7 +75,7 @@ return array(
 //			'charset' => 'utf8',
 //			'enableParamLogging'=>true
 //		),
-		
+
 		'timezonekeeper' => array(
 			'class' => 'TimeZoneKeeper'
 		),
