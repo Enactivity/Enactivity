@@ -50,40 +50,139 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 // body
-if($data->hasChildren) {
-	echo PHtml::link(
-		PHtml::encode('See subtasks'), 
-		array('/task/view', 'id'=>$data->id)
-	); 
-}
 
 //	tasks toolbar
 echo PHtml::openTag('menu');
 echo PHtml::openTag('ul');
 
+// view children link
+if($data->hasChildren) {
+	echo PHtml::openTag('li');
+	echo PHtml::link(
+		PHtml::encode('See subtasks'), 
+		array('/task/view', 'id'=>$data->id)
+	); 
+	echo PHtml::closeTag('li');
+}
+
+// update link
+echo PHtml::openTag('li');
+echo PHtml::link(
+	PHtml::encode('Update This Task'), 
+	array('task/update', 'id'=>$data->id),
+	array(
+		'id'=>'task-update-menu-item-' . $data->id,
+		'class'=>'task-update-menu-item',
+	)
+);
+echo PHtml::closeTag('li');
+
+// show complete/uncomplete buttons if user is participating
 if($data->isUserParticipating) {
 	echo PHtml::openTag('li');
 	
 	if($data->isUserComplete) {
 		echo PHtml::link(
-			PHtml::encode('complete'), 
-			array('/task/usercomplete', 'id'=>$data->id)
-		); 
+			PHtml::encode('Uncomplete'), 
+			array('/task/useruncomplete', 'id'=>$data->id),
+			array(
+				'submit'=>array(
+					'task/useruncomplete',
+					'id'=>$data->id,
+				),
+				'csrf' => true,
+				'id'=>'task-useruncomplete-menu-item-' . $data->id,
+				'class'=>'task-useruncomplete-menu-item',
+			)
+		);
 	}
 	else {
 		echo PHtml::link(
-			PHtml::encode('uncomplete'), 
-			array('/task/useruncomplete', 'id'=>$data->id)
-		);
+			PHtml::encode('Complete'), 
+			array('/task/usercomplete', 'id'=>$data->id),
+			array(
+				'submit'=>array(
+					'task/usercomplete',
+					'id'=>$data->id,
+				),
+				'csrf' => true,
+				'id'=>'task-usercomplete-menu-item-' . $data->id,
+				'class'=>'task-usercomplete-menu-item',
+			)
+		); 
 	}
 	echo PHtml::closeTag('li');
+	
+	// 'participate' button
+	echo PHtml::openTag('li');
+	echo PHtml::link(
+		PHtml::encode('Stop participating'), 
+		array('task/unparticipate', 'id'=>$data->id),
+		array(
+			'submit'=>array(
+				'task/unparticipate',
+				'id'=>$data->id,
+			),
+			'csrf' => true,
+			'id'=>'task-unparticipate-menu-item-' . $data->id,
+			'class'=>'task-unparticipate-menu-item',
+		)
+	);
+	echo PHtml::closeTag('li');
 }
+else {
+	echo PHtml::openTag('li');
+	echo PHtml::link(
+		PHtml::encode('Participate'), 
+		array('task/participate', 'id'=>$data->id),
+		array(
+			'submit'=>array(
+				'task/participate',
+				'id'=>$data->id,
+			),
+			'csrf' => true,
+			'id'=>'task-participate-menu-item-' . $data->id,
+			'class'=>'task-participate-menu-item',
+		)
+	);
+	echo PHtml::closeTag('li');
+}
+
+echo PHtml::openTag('li');
+if($model->isTrash) {
+	echo PHtml::link(
+		PHtml::encode('UnTrash'), 
+		array('task/untrash', 'id'=>$data->id),
+		array(
+			'submit'=>array(
+				'task/untrash',
+				'id'=>$data->id,
+			),
+			'csrf' => true,
+			'id'=>'task-untrash-menu-item-' . $data->id,
+			'class'=>'task-untrash-menu-item',
+		)
+	);
+}
+else {
+	echo PHtml::link(
+		PHtml::encode('Trash'), 
+		array('task/trash', 'id'=>$data->id),
+		array(
+			'submit'=>array(
+				'task/trash',
+				'id'=>$data->id,
+			),
+			'confirm'=>'Are you sure you want to trash this item?',
+			'csrf' => true,
+			'id'=>'task-trash-menu-item-' . $data->id,
+			'class'=>'task-trash-menu-item',
+		)
+	);
+}
+echo PHtml::closeTag('li');
+
 echo PHtml::closeTag('ul');
-
-$this->widget('zii.widgets.CMenu', array(
-	'items'=>MenuDefinitions::taskMenu($data),
-));
-
 echo PHtml::closeTag('menu');
 // end of toolbar
 
