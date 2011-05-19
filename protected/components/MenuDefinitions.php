@@ -280,7 +280,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Feed', 
+				'label'=>'Going\'s on', 
 				'url'=>array('/feed/index'),
 				'visible'=>!Yii::app()->user->isGuest
 			),
