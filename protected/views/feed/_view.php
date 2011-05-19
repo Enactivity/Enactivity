@@ -5,14 +5,28 @@
  * @param ActiveRecordLog $data model
  */
 
+// calculate article class
+$articleClass = "view";
+$articleClass .= " feed";
+$articleClass .= " feed-" . $data->id;
+
 // start article
 echo PHtml::openTag('article', array(
-	'class' => 'view feed'
+	'class' => 'feed'
 ));
 
 // start headers
 echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
+
+// created date
+echo PHtml::openTag('h2');
+echo PHtml::openTag('date');
+echo PHtml::encode(
+	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
+);
+echo PHtml::closeTag('date');
+echo PHtml::closeTag('h2');
 
 echo PHtml::openTag('h1');
 
@@ -51,23 +65,5 @@ if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 	echo PHtml::encode($data->newAttributeValue);
 	echo PHtml::closeTag('strong');
 }
-// start footer
-echo PHtml::openTag('footer');
-
-// show details
-echo PHtml::openTag('ul');
-
-// show created date
-echo PHtml::openTag('li');
-echo PHtml::openTag('date');
-echo PHtml::encode(
-	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
-);
-echo PHtml::closeTag('date');
-echo PHtml::closeTag('li');
-
-echo PHtml::closeTag('ul');
-
-echo PHtml::closeTag('footer');
 
 echo PHtml::closeTag('article');

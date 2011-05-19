@@ -59,7 +59,7 @@ echo PHtml::openTag('ul');
 if($data->hasChildren) {
 	echo PHtml::openTag('li');
 	echo PHtml::link(
-		PHtml::encode('See subtasks'), 
+		PHtml::encode('Details'), 
 		array('/task/view', 'id'=>$data->id)
 	); 
 	echo PHtml::closeTag('li');
@@ -68,7 +68,7 @@ if($data->hasChildren) {
 // update link
 echo PHtml::openTag('li');
 echo PHtml::link(
-	PHtml::encode('Update This Task'), 
+	PHtml::encode('Update'), 
 	array('task/update', 'id'=>$data->id),
 	array(
 		'id'=>'task-update-menu-item-' . $data->id,
@@ -116,7 +116,7 @@ if($data->isUserParticipating) {
 	// 'participate' button
 	echo PHtml::openTag('li');
 	echo PHtml::link(
-		PHtml::encode('Stop participating'), 
+		PHtml::encode('Quit'), 
 		array('task/unparticipate', 'id'=>$data->id),
 		array(
 			'submit'=>array(
@@ -133,7 +133,7 @@ if($data->isUserParticipating) {
 else {
 	echo PHtml::openTag('li');
 	echo PHtml::link(
-		PHtml::encode('Participate'), 
+		PHtml::encode('Sign up'), 
 		array('task/participate', 'id'=>$data->id),
 		array(
 			'submit'=>array(

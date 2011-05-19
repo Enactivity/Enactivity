@@ -26,7 +26,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array(
 </head>
 <body>
 
-<header id="globalHeader">
+<header>
 <nav id="primaryNavigation">
 <?php 
 $this->widget('zii.widgets.CMenu', array(
@@ -34,21 +34,35 @@ $this->widget('zii.widgets.CMenu', array(
 )); 
 ?>
 </nav><!-- end of primaryNavigation -->
-		
+
 <?php
 if(isset($this->menu) 
 	&& !empty($this->menu)
 	&& !Yii::app()->user->isGuest
 ):?>
-<nav id="secondaryNavigation">
-<?php 
-$this->widget('zii.widgets.CMenu', array(
-	'items'=>$this->menu,
-));
-?>
-</nav><!-- end of secondaryNavigation -->
+	<nav id="secondaryNavigation">
+	<?php 
+	$this->widget('zii.widgets.CMenu', array(
+		'items'=>$this->menu,
+	));
+	?>
+	</nav><!-- end of secondaryNavigation -->
 <?php endif; ?>
-</header>
+
+<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
+
+<?php if(isset($this->pageMenu) 
+		&& !empty($this->pageMenu)
+		&& !Yii::app()->user->isGuest
+	):?>
+	<nav id="tertiaryNavigation">
+	<?php 
+	$this->widget('zii.widgets.CMenu', array(
+		'items'=>$this->pageMenu,
+	));
+	?>
+	</nav><!-- end of tertiaryNavigation -->
+<?php endif; ?>
 
 <!-- flash notices -->
 <?php if(Yii::app()->user->hasFlash('error')):?>
@@ -67,14 +81,13 @@ $this->widget('zii.widgets.CMenu', array(
 </aside>
 <?php endif; ?>
 
-<div id="globalWrapper">
-	<?php echo $content; ?>
+</header>
+
+<?php echo $content; ?>
 	
-</div><!-- globalWrapper -->
-	
-<footer id="globalFooter">
+<footer>
 	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
-</footer><!-- globalFooter -->
+</footer>
 
 </body>
 </html>

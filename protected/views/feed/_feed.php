@@ -14,9 +14,18 @@ echo PHtml::openTag('article', array(
 echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
 
-echo PHtml::openTag('h1');
+// show created date
+echo PHtml::openTag('h2');
+echo PHtml::openTag('date');
+echo PHtml::encode(
+	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
+);
+echo PHtml::closeTag('date');
+echo PHtml::closeTag('h2');
 
 // display <user> <action> <model> <attribute>
+echo PHtml::openTag('h1');
+
 $this->widget('ext.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
@@ -43,24 +52,5 @@ echo PHtml::closeTag('h1');
 // close headers
 echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
-
-// start footer
-echo PHtml::openTag('footer');
-
-// show details
-echo PHtml::openTag('ul');
-
-// show created date
-echo PHtml::openTag('li');
-echo PHtml::openTag('date');
-echo PHtml::encode(
-	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
-);
-echo PHtml::closeTag('date');
-echo PHtml::closeTag('li');
-
-echo PHtml::closeTag('ul');
-
-echo PHtml::closeTag('footer');
 
 echo PHtml::closeTag('article');

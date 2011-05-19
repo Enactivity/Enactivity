@@ -1,7 +1,7 @@
 /**
-	Max readability = 32 em
-	Max readability @ 16 px = 512 px ~ 9 col  = 520 px 
-	Max readability @ 18 px = 576 px ~ 10 col = 580 px 
+ * Max readability = 32 em
+ * Max readability @ 16 px = 512 px ~ 9 col  = 520 px 
+ * Max readability @ 18 px = 576 px ~ 10 col = 580 px 
 **/
 
 /*
@@ -24,7 +24,14 @@ body
 
 a, a:hover, a:visited, a:active, a:focus
 {
-	color: #ff6600;
+	border-bottom: 1px solid #808080;
+	color: #808080;
+	font-weight: bold;
+}
+
+a:hover {
+	border-bottom: 1px solid #00b6d5;
+	color: #00b6d5;
 }
 
 input, textarea, select {
@@ -44,38 +51,37 @@ em {
 
 /* Selection colours (easy to forget) */
 
-::selection 	 	{background: #F2EDE4;}
-::-moz-selection 	{background: #F2EDE4;}
+::selection 	 	{background: #92ccd6;}
+::-moz-selection 	{background: #92ccd6;}
 img::selection 		{background: transparent;}
 img::-moz-selection	{background: transparent;}
-body {-webkit-tap-highlight-color: #F2EDE4;}
+body {-webkit-tap-highlight-color: #92ccd6;}
 
 /*
 	Global wrappers
 */
-#globalHeader, 
-#globalWrapper,
-#globalFooter
+body > header, 
+#content,
+body > footer
 {
 	padding-left: 2.5%;
 	padding-right: 2.5%;
 }
 
-#globalHeader 
+body > header 
 {
 	overflow: hidden;
 }
 
-#globalWrapper
+#content
 {
 	min-height: 100%;
 }
 
-#globalFooter
+body > footer
 {
 	clear: both;
 	height: 2em; 
-	padding-top: 1em;
 }
 
 /* 
@@ -91,8 +97,7 @@ body {-webkit-tap-highlight-color: #F2EDE4;}
 
 #primaryNavigation ul, 
 #secondaryNavigation ul,
-#tertiaryNavigation ul,
-menu li
+#tertiaryNavigation ul
 {
 	list-style-type: none;
 	margin: 0px auto;
@@ -113,7 +118,7 @@ menu li
 #tertiaryNavigation ul li a, 
 #tertiaryNavigation ul li a:visited
 {
-	font-weight: bold;
+	border: none;	
 	float: left;
 	padding: .5em;
 	margin-right: .25em;
@@ -131,86 +136,84 @@ menu li
 #secondaryNavigation ul li.active a,
 #tertiaryNavigation ul li.active a
 {
-	background-color: #ff6600;
+	background-color: #00b6d5;
 	color: #ffffff;
 }
 
 /*
 	Content styles
 */
-#content
+h1,
+h2,
+h3, 
+h4,
+h5,
+h6 
 {
 	clear: both;
-	overflow: hidden;
-	word-wrap: break-word;
-}
-
-#content h1,
-#content h2,
-#content h3, 
-#content h4,
-#content h5,
-#content h6 {
-	clear: both;
-	font-weight: bold;
-	text-shadow: 1px 1px 3px #D9D4CC;
 	width: 100%;
 }
 
-#content h1 
+h1 
 {
 	font-size: 3em;
 	max-width: 32em;
 }
 
-#contentBody h1 
+article h1 
 {
 	font-size: 1.5em;
 	max-width: 32em;
 }
 
-#contentBody h2
+article h2
 {
-	font-size: 1.2em;
+	font-size: .8em;
 	max-width: 32em;
 }
 
-#contentBody h3 
+article h3 
 {
-	font-size: 1.1em;
+	font-size: .5em;
 	max-width: 32em;
 }
 
-#content section
-{
-	margin-bottom: 1em;
-	overflow: hidden;
-	width: 100%;
-}
-
-#contentBody a
-{
-	color: #ff6600;
-}
-
-#contentBody a:hover,
-#contentBody a:focus
-{
-	color: #ff6600;
-	text-decoration: underline;
-}
-
-#contentBody p
+p
 {
 	font-weight: normal;
 	margin-bottom: .5em;
 	max-width: 32em;
 }
 
+article > header
+{
+	float: left;
+	max-width: 32em;
+}
+
+article > menu
+{
+	float: right;
+}
+
+article menu li
+{
+	float: left;
+	list-style-type: none;
+	margin: 0px 1em 0px 0px;
+	padding: 0px;
+}
+
+.participants {
+	clear: both;	
+}
+
 /*
 	Content flashes and errors
 */ 
-aside.flash-error, aside.flash-notice, aside.flash-success
+aside.flash-error, 
+aside.flash-notice, 
+aside.flash-success
 {
 	padding: 10px;
 }
@@ -251,39 +254,46 @@ aside.flash-success a
 /*
 	Content lists
 */
-#content .view 
+section
 {
-	border-bottom: 2px dotted #D9D4CC;
-	clear: both;
-	padding-bottom: 10px;
-	padding-top: 10px;
+	margin-bottom: 1em;
 	overflow: hidden;
 }
 
-#content .view:last-child
+article
+{
+	background-color: #ffffff;
+	border-radius: 2em;
+	clear: both;
+	margin-bottom: 1em;
+	overflow: hidden;
+	padding: 1.25em;
+}
+
+article:last-child
 {
 	border-bottom: none;
 }
 
-#content .view footer
+article > footer
 {
 	font-size: .8em;	
 }
 
-#content .view footer li
+article > footer li
 {
 	float: left;
 	margin-right: .5em;
 }
 
-#content .detail-view dl,
-#content .list-view dl
+.detail-view dl,
+.list-view dl
 {
 	overflow: hidden;
 }
 
-#content .detail-view dt,
-#content .list-view dt
+.detail-view dt,
+.list-view dt
 {
 	clear: both;
 	float: left;
@@ -291,8 +301,8 @@ aside.flash-success a
 	width: 100%;
 }
 
-#content .detail-view dt {
-	border-top: 1px dotted #D9D4CC;
+.detail-view dt {
+	border-top: 1px dotted #d9d4cc;
 	color: #8A8581;
 	font-size: .75em;
 	margin-top: 1em;
@@ -300,8 +310,8 @@ aside.flash-success a
 	width: 100%;
 }
 
-#content .detail-view dd,
-#content .list-view dd
+.detail-view dd,
+.list-view dd
 {
 	float: left;
 	margin-right: 1em;
@@ -310,7 +320,7 @@ aside.flash-success a
 /*
 	Content forms
 */
-#content form
+form
 {
 	background-color: transparent;
 	clear: both;
@@ -318,29 +328,29 @@ aside.flash-success a
 	max-width: 32em;
 }
 
-#content form .errorSummary {
+form .errorSummary {
 	background-color: #E82C0C;
 	color: #ffffff;
 	padding: 10px;
 }
 
-#content form .errorSummary p {
+form .errorSummary p {
 	margin: 0px;
 }
 
-#content form .errorSummary ul {
+form .errorSummary ul {
 	margin-left: 15px;
 }
 
-#content form .errorMessage {
+form .errorMessage {
 	color: #E82C0C;
 	font-size: .75em;
 }
 
-#content form input[type="submit"], 
-#content form input[type="button"] {
+form input[type="submit"], 
+form input[type="button"] {
 	background-color: transparent;
-	color: #ff6600;
+	color: #00b6d5;
 	cursor: pointer;
 	font-weight: bold;
 	float: left;
@@ -350,44 +360,44 @@ aside.flash-success a
 	white-space: nowrap;
 }
 
-#content form input[type="submit"]:hover,
-#content form input[type="submit"]:focus, 
-#content form input[type="button"]:hover,
-#content form input[type="button"]:focus {
-	background-color: #ff6600;
+form input[type="submit"]:hover,
+form input[type="submit"]:focus, 
+form input[type="button"]:hover,
+form input[type="button"]:focus {
+	background-color: #00b6d5;
 	color: #ffffff;
 }
 
 /* Overrides for disabled buttons */
-#content form input[type="submit"].disabled ,
-#content form input[type="submit"]:disabled, 
-#content form input[type="submit"][disabled="disabled"],
-#content form input[type="button"]:disabled {
+form input[type="submit"].disabled ,
+form input[type="submit"]:disabled, 
+form input[type="submit"][disabled="disabled"],
+form input[type="button"]:disabled {
 	background-color: transparent;
 	color: #232425;
 	cursor: default;
 }
 
-#content form input[type="submit"].disabled:hover,
-#content form input[type="submit"]:disabled:hover,
-#content form input[type="submit"][disabled="disabled"],
-#content form input[type="button"]:disabled:hover {
+form input[type="submit"].disabled:hover,
+form input[type="submit"]:disabled:hover,
+form input[type="submit"][disabled="disabled"],
+form input[type="button"]:disabled:hover {
 	background-color: transparent;
 }
 
 /* form rows */
-#content form .row
+form .row
 {
 	clear: both;
 	overflow: hidden;
 	padding: .25em .5em;
 }
 
-#content form .row.buttons
+form .row.buttons
 {
 }
 
-#content form .row label
+form .row label
 {
 	color: #8A8581;
 	cursor: text;
@@ -396,64 +406,64 @@ aside.flash-success a
 	width: 100%;
 }
 
-#content form .row label.required
+form .row label.required
 {
 	color: #232425;
 }
 
-#content form .row input, 
-#content form .row textarea, 
-#content form .row select 
+form .row input, 
+form .row textarea, 
+form .row select 
 {
 	width: 100%;
 }
 
-#content form .row textarea  {
+form .row textarea  {
 	height: 3em;
 }
 
-#content form .row input[type="submit"], 
-#content form .row input[type="button"] {
+form .row input[type="submit"], 
+form .row input[type="button"] {
 	text-align: left;
 }
 
-#content form .row input[type="submit"]:hover, 
-#content form .row input[type="button"]:hover {
-	background-color: #ff6600;
+form .row input[type="submit"]:hover, 
+form .row input[type="button"]:hover {
+	background-color: #00b6d5;
 }
 
-#content form .row input[type="submit"].disabled,
-#content form .row input[type="submit"].disabled:hover,
-#content form .row input[type="submit"]:disabled, 
-#content form .row input[type="submit"]:disabled:hover,
-#content form .row input[type="submit"][disabled="disabled"],
-#content form .row input[type="submit"][disabled="disabled"]:hover,
-#content form .row input[type="button"]:disabled,
-#content form .row input[type="button"]:disabled:hover {
+form .row input[type="submit"].disabled,
+form .row input[type="submit"].disabled:hover,
+form .row input[type="submit"]:disabled, 
+form .row input[type="submit"]:disabled:hover,
+form .row input[type="submit"][disabled="disabled"],
+form .row input[type="submit"][disabled="disabled"]:hover,
+form .row input[type="button"]:disabled,
+form .row input[type="button"]:disabled:hover {
 	border: 3px solid #232425;
 }
 
 /*
 	Content tables
 */
-#content table {
+table {
 	table-layout: fixed;
 	width: 100%;
 }
 
-#content tr {
+tr {
 	vertical-align: text-top;
 }
 
-#content th, 
-#content td
+th, 
+td
 {
-	border: 1px solid #D9D4CC;
+	border: 1px solid #d9d4cc;
 }
 
-#content th 
+th 
 {
-	background-color: #D9D4CC;
+	background-color: #d9d4cc;
 	font-weight: bold;
 	text-align: center;
 }
@@ -461,7 +471,7 @@ aside.flash-success a
 /*
 	Content pagination
 */
-#content ul.yiiPager
+ul.yiiPager
 {
 	border: 0;
 	margin: 0;
@@ -470,44 +480,36 @@ aside.flash-success a
 	display: inline;
 }
 
-#content ul.yiiPager li
+ul.yiiPager li
 {
 	display: inline;
 }
 
-#content ul.yiiPager a:link,
-#content ul.yiiPager a:visited
+ul.yiiPager a:link,
+ul.yiiPager a:visited
 {
 	font-weight: bold;
 	padding: 1px 6px;
 	text-decoration: none;
 }
 
-#content ul.yiiPager .page a
+ul.yiiPager .selected a
 {
-}
-
-#content ul.yiiPager a:hover
-{
-}
-
-#content ul.yiiPager .selected a
-{
-	background-color: #ff6600;
+	background-color: #00b6d5;
 	color: #ffffff;
 	font-weight: bold;
 }
 
-#content ul.yiiPager .hidden a
+ul.yiiPager .hidden a
 {
-	color: #D9D4CC;
+	color: #d9d4cc;
 }
 
 /**
  * Hide first and last buttons by default.
  */
-#content ul.yiiPager .first,
-#content ul.yiiPager .last
+ul.yiiPager .first,
+ul.yiiPager .last
 {
 	display: none;
 }
@@ -519,16 +521,16 @@ aside.flash-success a
 /*
 	Site: login styles
 */
-#content #login-form .rememberMe label
+#login-form .rememberMe label
 {
 }
 
-#content #login-form #UserLoginForm_rememberMe
+#login-form #UserLoginForm_rememberMe
 {
 	width: 15px;
 }
 
-#content #login-form .buttons
+#login-form .buttons
 {
 	margin-top: 10px;
 }
@@ -536,45 +538,45 @@ aside.flash-success a
 /*
 	Event styles
 */
-#content .event
+.event
 {
 	margin-bottom: 10px;
 }
 
-#content .event .eventname
+.event .eventname
 {
 	font-weight: bold;
 	margin-bottom: 10px;
 }
 
-#content .event .eventdate
+.event .eventdate
 {
 	margin-bottom: 15px;
 }
 
-#content input#Event_startDate,
-#content input#Event_endDate,
-#content input#Task_startDate,
-#content input#Task_endDate{
+input#Event_startDate,
+input#Event_endDate,
+input#Task_startDate,
+input#Task_endDate{
 	width: 65%;
 }
 
-#content select#Event_startTime,
-#content select#Event_endTime,
-#content select#Task_startTime,
-#content select#Task_endTime {
+select#Event_startTime,
+select#Event_endTime,
+select#Task_startTime,
+select#Task_endTime {
 	width: 35%;
 }
 
 /* Reset rsvp form inputs */
-#content form.rsvp {
+form.rsvp {
 	background-color: transparent;	
 	overflow: hidden;
 	width: 100%
 }
 
-#content form.rsvp input[type="submit"], 
-#content form.rsvp input[type="button"] {
+form.rsvp input[type="submit"], 
+form.rsvp input[type="button"] {
 	border: none;
 	text-align: center;
 	white-space: nowrap;
@@ -583,39 +585,39 @@ aside.flash-success a
 /*
 	Home page styling
 */
-#content.site.index {
+.site.index {
 }
 
 /*
 	Calendar styles
 */
-#content.event.calendar th,
-#content.event.calendar td {
+.event.calendar th,
+.event.calendar td {
 	overflow: hidden;
 	padding: .1em;
 	white-space: nowrap;
 	width: 13%;
 }
 
-#content.event.calendar .daytitle {
-	background-color: #D9D4CC;
+.event.calendar .daytitle {
+	background-color: #d9d4cc;
 	text-align: center;
 	white-space: nowrap;
 }
 
-#content.event.calendar .day {
+.event.calendar .day {
 	height: 6em; /* em allows for number of events rather than fixed */
 	white-space: nowrap;
 }
 
-#content.event.calendar .day.notThisMonth {
+.event.calendar .day.notThisMonth {
 	opacity: .5;
 }
 
-#content.event.calendar .day dt {
+.event.calendar .day dt {
 }
 
-#content.event.calendar .day a {
+.event.calendar .day a {
 	white-space: nowrap;
 }
 

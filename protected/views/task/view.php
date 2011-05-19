@@ -15,10 +15,12 @@ $this->widget('ext.widgets.DetailView', array(
 		array( 
 			'name' => 'starts',
 			'type' => 'styledtext',
+			'visible' => strlen($model->starts) > 0 ? true : false,
 		),
 		array( 
 			'name' => 'ends',
 			'type' => 'styledtext',
+			'visible' => strlen($model->ends) > 0 ? true : false,
 		),
 	),
 ));
@@ -26,21 +28,6 @@ $this->widget('ext.widgets.DetailView', array(
 
 // show participants
 ?>
-<section id="users-participating">
-	<header>
-		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Participating'; ?></h1>
-	</header>
-	
-	<?php 
-	foreach($model->participants as $user) {
-		echo PHtml::openTag('li');	
-		$this->widget('ext.widgets.UserLink', array(
-			'userModel' => $user,
-		));
-		echo PHtml::closeTag('li');
-	}
-	?>
-</section>
 
 <?php 
 // Show children tasks
@@ -68,7 +55,7 @@ echo $this->renderPartial('_form', array('model'=>$newTask));
 	</header>
 	<?php 
 	foreach($model->feed as $log) {
-		$this->renderPartial('_feed',
+		$this->renderPartial('/feed/_feed',
 			array(
 				'data' => $log
 			) 
