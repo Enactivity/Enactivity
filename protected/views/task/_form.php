@@ -1,5 +1,3 @@
-<div class="form">
-
 <?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'task-form',
 	'action'=> isset($action) ? $action : '',
@@ -7,16 +5,13 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
-	<?php 
-	if($model->getScenario() == Goal::SCENARIO_INSERT
-	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
-	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
-
+	
+	<?php if(!$model->isNewRecord): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'starts'); ?>
 		<div class="forminput"><?php
@@ -64,5 +59,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
