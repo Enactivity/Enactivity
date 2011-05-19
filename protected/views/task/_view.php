@@ -56,14 +56,11 @@ echo PHtml::openTag('menu');
 echo PHtml::openTag('ul');
 
 // view children link
-if($data->hasChildren) {
-	echo PHtml::openTag('li');
-	echo PHtml::link(
-		PHtml::encode('Details'), 
-		array('/task/view', 'id'=>$data->id)
-	); 
-	echo PHtml::closeTag('li');
-}
+echo PHtml::openTag('li');
+echo PHtml::link(
+	PHtml::encode('Details'), 
+	array('/task/view', 'id'=>$data->id)
+); 
 
 // update link
 echo PHtml::openTag('li');
