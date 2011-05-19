@@ -23,43 +23,25 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Create Group', 
 				'url'=>array('group/create'),
-				'linkOptions'=>array('id'=>'group_create_menu_item'), 
+				'linkOptions'=>array('id'=>'group-create-menu-item'), 
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
 				'label'=>'Manage Groups', 
 				'url'=>array('group/admin'), 
-				'linkOptions'=>array('id'=>'group_manage_menu_item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage Goals', 
-				'url'=>array('goal/admin'), 
-				'linkOptions'=>array('id'=>'goal_manage_menu_item'),
+				'linkOptions'=>array('id'=>'group-manage-menu-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
 				'label'=>'Manage Users', 
 				'url'=>array('user/admin'),
-				'linkOptions'=>array('id'=>'user_admin_menu_item'), 
+				'linkOptions'=>array('id'=>'user-admin-menu-item'), 
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
-				'label'=>'Manage Events', 
-				'url'=>array('event/admin'), 
-				'linkOptions'=>array('id'=>'event_admin_menu_item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage EventBanter', 
-				'url'=>array('eventbanter/admin'), 
-				'linkOptions'=>array('id'=>'event_manage_menu_item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage GroupBanter', 
-				'url'=>array('groupbanter/admin'), 
-				'linkOptions'=>array('id'=>'group_manage_menu_item'),
+				'label'=>'Manage Tasks', 
+				'url'=>array('task/admin'), 
+				'linkOptions'=>array('id'=>'task-admin-menu-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 		);
@@ -78,7 +60,7 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Invite a User', 
 				'url'=>array('group/invite'),
-				'linkOptions'=>array('id'=>'group_invite_menu_item'),
+				'linkOptions'=>array('id'=>'group-invite-menu-item'),
 			),
 		);
 	}
@@ -93,7 +75,7 @@ class MenuDefinitions extends CComponent {
 			$menu[] = array(
 				'label'=>'Update This Group', 
 				'url'=>array('group/updateprofile','id'=>$model->id),
-				'linkOptions'=>array('id'=>'group_profile_menu_item'),
+				'linkOptions'=>array('id'=>'group-profile-menu-item'),
 			);
 		}
 		
@@ -113,7 +95,7 @@ class MenuDefinitions extends CComponent {
 			$menu[] = array(
 				'label'=>'Update This Task', 
 				'url'=>array('task/update', 'id'=>$model->id),
-				'linkOptions'=>array('id'=>'task_update_menu_item'),
+				'linkOptions'=>array('id'=>'task-update-menu-item'),
 			);
 			
 			// 'participate' button
@@ -127,7 +109,7 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'task_unparticipate_menu_item' . $model->id,
+						'id'=>'task-unparticipate-menu-item' . $model->id,
 					),
 				);
 			}
@@ -141,7 +123,7 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'task_unparticipate_menu_item' . $model->id,
+						'id'=>'task-unparticipate-menu-item' . $model->id,
 					),
 				);
 			}
@@ -157,7 +139,7 @@ class MenuDefinitions extends CComponent {
 //							'id'=>$model->id,
 //						),
 //						'csrf' => true,
-//						'id'=>'task_owner_menu_item' . $model->id,
+//						'id'=>'task-owner-menu-item' . $model->id,
 //					),
 //				);
 //			}
@@ -171,7 +153,7 @@ class MenuDefinitions extends CComponent {
 //							'id'=>$model->id,
 //						),
 //						'csrf' => true,
-//						'id'=>'task_owner_menu_item' . $model->id,
+//						'id'=>'task-owner-menu-item' . $model->id,
 //					),
 //				);
 //			}
@@ -188,7 +170,7 @@ class MenuDefinitions extends CComponent {
 //								'id'=>$model->id,
 //							),
 //							'csrf' => true,
-//							'id'=>'task_uncomplete_menu_item' . $model->id,
+//							'id'=>'task-uncomplete-menu-item' . $model->id,
 //						),
 //					);
 //				}
@@ -202,7 +184,7 @@ class MenuDefinitions extends CComponent {
 //								'id'=>$model->id,
 //							),
 //							'csrf' => true,
-//							'id'=>'task_complete_menu_item' . $model->id,
+//							'id'=>'task-complete-menu-item' . $model->id,
 //						),
 //					);
 //				}
@@ -217,7 +199,7 @@ class MenuDefinitions extends CComponent {
 								'id'=>$model->id,
 							),
 							'csrf' => true,
-							'id'=>'task_untrash_menu_item' . $model->id,
+							'id'=>'task-untrash-menu-item' . $model->id,
 						),
 					);
 				}
@@ -232,7 +214,7 @@ class MenuDefinitions extends CComponent {
 							),
 							'confirm'=>'Are you sure you want to trash this item?',
 							'csrf' => true,
-							'id'=>'task_trash_menu_item' . $model->id,
+							'id'=>'task-trash-menu-item' . $model->id,
 						),
 					);
 				}	
@@ -264,12 +246,12 @@ class MenuDefinitions extends CComponent {
 			$menu = array();
 			$menu[] = array('label'=>'Update Profile', 
 				'url'=>array('user/update', 'id'=>$model->id),
-				'linkOptions'=>array('id'=>'user_update_menu_item'), 
+				'linkOptions'=>array('id'=>'user-update-menu-item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
 			$menu[] = array('label'=>'Update Password', 
 				'url'=>array('user/updatepassword', 'id'=>$model->id),
-				'linkOptions'=>array('id'=>'user_update_menu_item'), 
+				'linkOptions'=>array('id'=>'user-update-menu-item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
 		}
