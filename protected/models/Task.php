@@ -212,7 +212,7 @@ class Task extends CActiveRecord
 			'id' => 'Id',
 			'groupId' => 'Group',
 			'parentId' => 'Parent',
-			'name' => 'Name',
+			'name' => 'Description',
 			'priority' => 'Priority',
 			'isTrash' => 'Is Trash',
 			'starts' => 'Starts',

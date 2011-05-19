@@ -1,13 +1,29 @@
-<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
+<?php 
+
+$classForm = 'update-task';
+if($model->isNewRecord) {
+	$classForm = 'new-task';
+}
+
+$form=$this->beginWidget('ext.widgets.ActiveForm', array(
 	'id'=>'task-form',
 	'action'=> isset($action) ? $action : '',
 	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>$classForm,
+	),
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'name',
+			array(
+				'size'=>60,
+				'maxlength'=>255,
+				'placeholder'=>PHtml::encode("i.e. be the change we want to see in the world"),
+			)); 
+		?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 	

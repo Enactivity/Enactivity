@@ -152,6 +152,7 @@ h6
 {
 	clear: both;
 	width: 100%;
+	margin-bottom: .5em;
 }
 
 h1 
@@ -326,6 +327,7 @@ form
 	clear: both;
 	overflow: hidden;
 	max-width: 32em;
+	margin-bottom: 1em;
 }
 
 form .errorSummary {
@@ -568,18 +570,13 @@ select#Task_endTime {
 	width: 35%;
 }
 
-/* Reset rsvp form inputs */
-form.rsvp {
-	background-color: transparent;	
-	overflow: hidden;
-	width: 100%
+/* task form inputs */
+form#task-form.new-task {
+	max-width: none;
 }
 
-form.rsvp input[type="submit"], 
-form.rsvp input[type="button"] {
-	border: none;
-	text-align: center;
-	white-space: nowrap;
+form#task-form.new-task input[type="text"] {
+	font-size: 2em;
 }
 
 /*
