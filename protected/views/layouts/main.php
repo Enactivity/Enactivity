@@ -87,6 +87,13 @@ if(isset($this->menu)
 	
 <footer>
 	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
+	<nav>
+	<?php 
+	$this->widget('zii.widgets.CMenu', array(
+		'items'=>MenuDefinitions::footer()
+	)); 
+	?>
+	</nav>
 </footer>
 
 </body>

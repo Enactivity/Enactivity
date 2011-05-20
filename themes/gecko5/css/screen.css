@@ -78,10 +78,12 @@ body > header
 	min-height: 100%;
 }
 
-body > footer
-{
+body > footer {
 	clear: both;
-	height: 2em; 
+	height: 5em;
+	background-color: #232425;
+	padding: 1em;
+	color: white;
 }
 
 /* 
