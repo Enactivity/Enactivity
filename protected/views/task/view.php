@@ -28,6 +28,21 @@ $this->widget('ext.widgets.DetailView', array(
 
 // show participants
 ?>
+<section id="users-participating">
+	<header>
+		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
+	</header>
+	
+	<?php 
+	foreach($model->participants as $user) {
+		echo PHtml::openTag('li');	
+		$this->widget('ext.widgets.UserLink', array(
+			'userModel' => $user,
+		));
+		echo PHtml::closeTag('li');
+	}
+	?>
+</section>
 
 <?php 
 // Show children tasks
