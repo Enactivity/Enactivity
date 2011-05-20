@@ -4,7 +4,7 @@
 
 <?php 
 // render a form to add a new task
-$this->widget('ext.widgets.forms.TaskForm', 
+$this->widget('application.components.widgets.forms.TaskForm', 
 	array(
 		'goal' => $model,
 		'task' => $task, 

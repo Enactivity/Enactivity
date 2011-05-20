@@ -26,7 +26,7 @@ echo PHtml::closeTag('h2');
 // display <user> <action> <model> <attribute>
 echo PHtml::openTag('h1');
 
-$this->widget('ext.widgets.UserLink', array(
+$this->widget('application.components.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
 echo ' ';

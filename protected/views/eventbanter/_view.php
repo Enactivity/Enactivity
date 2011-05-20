@@ -4,7 +4,7 @@
 		echo  Yii::app()->format->formatStyledText($data->content); 
 	?></p></dt>
 	
-	<dd><span><?php $this->widget('ext.widgets.UserLink', array(
+	<dd><span><?php $this->widget('application.components.widgets.UserLink', array(
 		'userModel' => $data->creator,
 	)); ?></span></dd>
 

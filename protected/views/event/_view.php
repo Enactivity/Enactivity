@@ -44,7 +44,7 @@ echo PHtml::closeTag('header');
 
 // body
 // summarized description
-$this->widget('ext.widgets.TextSummary', array(
+$this->widget('application.components.widgets.TextSummary', array(
 	'text' => $data->description,
 	'url' => array('view', 'id'=>$data->id),
 ));

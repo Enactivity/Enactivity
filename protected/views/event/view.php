@@ -13,7 +13,7 @@ $this->renderPartial('_rsvp', array(
 )); 
 echo PHtml::closeTag('menu');
 ?>
-<?php $this->widget('ext.widgets.DetailView', array(
+<?php $this->widget('application.components.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'datesAsSentence',

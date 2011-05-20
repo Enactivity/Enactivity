@@ -6,7 +6,7 @@ $this->pageMenu = MenuDefinitions::groupMenu($model);
 
 <?php 
 
-$this->widget('ext.widgets.DetailView', array(
+$this->widget('application.components.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(

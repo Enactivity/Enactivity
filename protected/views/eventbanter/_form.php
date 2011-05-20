@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
+<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'event-banter-form',
 	'enableAjaxValidation'=>false,
 )); ?>

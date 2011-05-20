@@ -40,7 +40,7 @@ echo PHtml::openTag('ul');
 
 // show creator
 echo PHtml::openTag('li');
-$this->widget('ext.widgets.UserLink', array(
+$this->widget('application.components.widgets.UserLink', array(
 	'userModel' => $data->creator,
 )); 
 echo PHtml::closeTag('li');

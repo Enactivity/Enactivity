@@ -24,7 +24,7 @@ echo PHtml::closeTag('h1');
 
 // body
 // summarized description
-$this->widget('ext.widgets.TextSummary', array(
+$this->widget('application.components.widgets.TextSummary', array(
 	'text' => $data->groupProfile->description,
 	'url' => array('group/view', 'id'=>$data->id)
 ));

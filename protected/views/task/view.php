@@ -9,7 +9,7 @@ if(isset($model->parentId)) {
 	);
 }
 
-$this->widget('ext.widgets.DetailView', array(
+$this->widget('application.components.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array( 
@@ -36,7 +36,7 @@ $this->widget('ext.widgets.DetailView', array(
 	<?php 
 	foreach($model->participants as $user) {
 		echo PHtml::openTag('li');	
-		$this->widget('ext.widgets.UserLink', array(
+		$this->widget('application.components.widgets.UserLink', array(
 			'userModel' => $user,
 		));
 		echo PHtml::closeTag('li');

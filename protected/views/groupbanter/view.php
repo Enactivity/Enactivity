@@ -4,7 +4,7 @@ $this->pageTitle = StringUtils::truncate($model->content, 60);
 $this->pageMenu = MenuDefinitions::groupBanterMenu($model);
 ?>
 
-<?php $this->widget('ext.widgets.DetailView', array(
+<?php $this->widget('application.components.widgets.DetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'content:styledtext',

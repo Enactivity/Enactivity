@@ -4,7 +4,7 @@ $this->pageTitle = $model->name;
 $this->pageMenu = MenuDefinitions::goalMenu($model);
 
 // render a form to add a new task
-$this->widget('ext.widgets.forms.TaskForm', 
+$this->widget('application.components.widgets.forms.TaskForm', 
 	array(
 		'goal' => $model,
 	)

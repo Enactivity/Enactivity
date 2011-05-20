@@ -78,7 +78,7 @@ class AutoExpandableTextArea extends CWidget
 		parent::init();
 
 		if($this->baseScriptUrl === null) {
-			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.widgets.assets')) . '/autoexpandabletextarea';
+			$this->baseScriptUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.components.widgets.assets')) . '/autoexpandabletextarea';
 		}
 	}
 	

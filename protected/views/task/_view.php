@@ -197,7 +197,7 @@ echo PHtml::closeTag('menu');
 echo PHtml::openTag('ol', array('class' => 'participants'));
 foreach($data->participants as $user) {
 	echo PHtml::openTag('li');	
-	$this->widget('ext.widgets.UserLink', array(
+	$this->widget('application.components.widgets.UserLink', array(
 		'userModel' => $user,
 	));
 	echo PHtml::closeTag('li');

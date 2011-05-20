@@ -5,7 +5,7 @@
  */
 
 // start form
-$form = $this->beginWidget('ext.widgets.ActiveForm', 
+$form = $this->beginWidget('application.components.widgets.ActiveForm', 
 	array(
 	    'enableAjaxValidation' => false,
 		'htmlOptions' => array(

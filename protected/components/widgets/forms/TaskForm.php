@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('ext.widgets.ActiveForm');
+Yii::import('application.components.widgets.ActiveForm');
 
 /**
  *  

@@ -1,6 +1,6 @@
 <div class="wide form">
 
-<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
+<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>

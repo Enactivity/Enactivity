@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('ext.widgets.ActiveForm', array(
+<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'event-form',
 	'enableAjaxValidation'=>false,
 )); ?>
@@ -7,7 +7,7 @@
 
 	<?php 
 	if($model->isNewRecord) { 
-		$this->widget('ext.widgets.inputs.GroupInputRow', array(
+		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
 			'form' => $form,
 			'model' => $model,
 			'groups' => Yii::app()->user->model->groups,
@@ -20,7 +20,7 @@
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
 			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
-			$this->widget('ext.widgets.jui.JuiDateTimePicker', 
+			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 					'model'=>$model,
 					'dateAttribute'=>'startDate',
@@ -41,7 +41,7 @@
 		<div class="forminput"><?php 
 			// preformat date before loading into widget 
 			$model->ends = isset($model->ends) ? date('m/d/Y g:i a', strtotime($model->ends)) : null;
-			$this->widget('ext.widgets.jui.JuiDateTimePicker', 
+			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 				    'model'=>$model,
 				    'dateAttribute'=>'endDate',
