@@ -55,12 +55,22 @@ echo PHtml::closeTag('header');
 echo PHtml::openTag('menu');
 echo PHtml::openTag('ul');
 
-// view children link
 echo PHtml::openTag('li');
-echo PHtml::link(
-	PHtml::encode('Details'), 
-	array('/task/view', 'id'=>$data->id)
-); 
+if(sizeof($data->participants) > 0) {
+	echo PHtml::link(
+		PHtml::encode(sizeof($data->participants) . ' signed up'), 
+		array('/task/view', 'id'=>$data->id, '#'=>'users-participating'),
+		array()
+	);	
+}
+else {
+	// view children link
+	echo PHtml::link(
+		PHtml::encode('Add tasks'), 
+		array('/task/view', 'id'=>$data->id, '#'=>'task-form'),
+		array()
+	); 
+}
 
 // update link
 echo PHtml::openTag('li');
