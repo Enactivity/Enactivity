@@ -29,7 +29,7 @@ a, a:hover, a:visited, a:active, a:focus
 	font-weight: bold;
 }
 
-a:hover {
+a:hover, a:focus {
 	border-bottom: 1px solid #00b6d5;
 	color: #00b6d5;
 }
@@ -99,26 +99,31 @@ body > footer {
 
 #primaryNavigation ul, 
 #secondaryNavigation ul,
-#tertiaryNavigation ul
+#tertiaryNavigation ul,
+body > footer > nav ul
 {
 	list-style-type: none;
 	margin: 0px auto;
 	padding: 0px;
 }
 
-#primaryNavigation ul li,
-#secondaryNavigation ul li,
-#tertiaryNavigation ul li
+#primaryNavigation li,
+#secondaryNavigation li,
+#tertiaryNavigation li,
+body > footer > nav li
+
 {
 	white-space: nowrap;
 }
 
-#primaryNavigation ul li a, 
-#primaryNavigation ul li a:visited,
-#secondaryNavigation ul li a, 
-#secondaryNavigation ul li a:visited, 
-#tertiaryNavigation ul li a, 
-#tertiaryNavigation ul li a:visited
+#primaryNavigation li a, 
+#primaryNavigation li a:visited,
+#secondaryNavigation li a, 
+#secondaryNavigation li a:visited, 
+#tertiaryNavigation li a, 
+#tertiaryNavigation li a:visited,
+body > footer > nav li a,
+body > footer > nav li
 {
 	border: none;	
 	float: left;
@@ -128,15 +133,17 @@ body > footer {
 	text-transform: lowercase;
 }
 
-#primaryNavigation ul li a:hover, 
-#secondaryNavigation ul li a:hover, 
-#tertiaryNavigation ul li a:hover,
-#primaryNavigation ul li a:focus, 
-#secondaryNavigation ul li a:focus, 
-#tertiaryNavigation ul li a:focus,
-#primaryNavigation ul li.active a,
-#secondaryNavigation ul li.active a,
-#tertiaryNavigation ul li.active a
+#primaryNavigation li a:hover, 
+#secondaryNavigation li a:hover, 
+#tertiaryNavigation li a:hover,
+#primaryNavigation li a:focus, 
+#secondaryNavigation li a:focus, 
+#tertiaryNavigation li a:focus,
+#primaryNavigation li.active a,
+#secondaryNavigation li.active a,
+#tertiaryNavigation li.active a,
+body > footer > nav li a:hover,
+body > footer > nav li a:focus
 {
 	background-color: #00b6d5;
 	color: #ffffff;
