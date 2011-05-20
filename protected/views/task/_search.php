@@ -11,8 +11,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'goalId'); ?>
-		<?php echo $form->textField($model,'goalId'); ?>
+		<?php echo $form->label($model,'groupId'); ?>
+		<?php echo $form->textField($model,'groupId'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'parentId'); ?>
+		<?php echo $form->textField($model,'parentId'); ?>
 	</div>
 
 	<div class="row">
@@ -21,18 +26,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'ownerId'); ?>
-		<?php echo $form->textField($model,'ownerId'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'priority'); ?>
 		<?php echo $form->textField($model,'priority'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'isCompleted'); ?>
-		<?php echo $form->textField($model,'isCompleted'); ?>
 	</div>
 
 	<div class="row">

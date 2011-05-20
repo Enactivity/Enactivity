@@ -1,4 +1,8 @@
 <?php
+$this->pageTitle = 'Manage Tasks';
+
+$this->menu = MenuDefinitions::adminMenu();
+
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -12,8 +16,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
-<h1>Manage Tasks</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -33,18 +35,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'goalId',
+		'groupId',
+		'parentId',
 		'name',
-		'ownerId',
 		'priority',
-		'isCompleted',
-		/*
 		'isTrash',
 		'starts',
 		'ends',
-		'created',
-		'modified',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
