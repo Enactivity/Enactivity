@@ -10,7 +10,6 @@
 html {
 	color: #232425;
 	font-family: sans-serif;
-	font-size: 18px;
 	font-style: normal;
 	height: 100%;
 }
@@ -198,6 +197,7 @@ p
 article > header
 {
 	float: left;
+	margin-right: 2em;
 	max-width: 32em;
 }
 
