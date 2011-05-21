@@ -42,8 +42,16 @@ if(isset($data->ends)) {
 
 // task name
 echo PHtml::openTag('h1');
-echo PHtml::encode($data->name);
+echo PHtml::link(
+		PHtml::encode($data->name), 
+		array('/task/view', 'id'=>$data->id),
+		array()
+	);
 echo PHtml::closeTag('h1');
+
+echo PHtml::openTag('h2');
+echo PHtml::encode(sizeof($data->participants) . ' signed up');
+echo PHtml::closeTag('h2');
 
 // close headers
 echo PHtml::closeTag('hgroup');
@@ -54,23 +62,6 @@ echo PHtml::closeTag('header');
 //	tasks toolbar
 echo PHtml::openTag('menu');
 echo PHtml::openTag('ul');
-
-echo PHtml::openTag('li');
-if(sizeof($data->participants) > 0) {
-	echo PHtml::link(
-		PHtml::encode(sizeof($data->participants) . ' signed up'), 
-		array('/task/view', 'id'=>$data->id, '#'=>'users-participating'),
-		array()
-	);	
-}
-else {
-	// view children link
-	echo PHtml::link(
-		PHtml::encode('Add tasks'), 
-		array('/task/view', 'id'=>$data->id, '#'=>'task-form'),
-		array()
-	); 
-}
 
 // update link
 echo PHtml::openTag('li');

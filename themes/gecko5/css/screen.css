@@ -23,7 +23,6 @@ body
 
 a, a:hover, a:visited, a:active, a:focus
 {
-	border-bottom: 1px solid #808080;
 	color: #808080;
 	font-weight: bold;
 }
