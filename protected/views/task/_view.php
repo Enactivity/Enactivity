@@ -26,7 +26,7 @@ if(isset($data->starts)) {
 	echo PHtml::openTag('h2');
 	echo 'Starts ';
 	echo PHtml::openTag('time');
-	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->starts), 'full');
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->starts), 'full', 'short');
 	echo PHtml::closeTag('time');
 	echo PHtml::closeTag('h2');
 }
@@ -35,7 +35,7 @@ if(isset($data->ends)) {
 	echo PHtml::openTag('h2');
 	echo 'Ends ';
 	echo PHtml::openTag('time');
-	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->ends), 'full');
+	echo Yii::app()->dateFormatter->formatDateTime(PHtml::encode($data->ends), 'full', 'short');
 	echo PHtml::closeTag('time');
 	echo PHtml::closeTag('h2');
 }
