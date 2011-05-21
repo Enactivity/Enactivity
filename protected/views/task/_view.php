@@ -32,6 +32,10 @@ if(isset($data->starts)) {
 if(isset($data->starts) && isset($data->ends)) {
 	echo PHtml::encode(' to ');	
 }
+elseif(isset($data->ends)) {
+	echo PHtml::encode($data->getAttributeLabel('ends'));
+	echo PHtml::encode(' ');
+}
 
 if(isset($data->ends)) {
 	echo PHtml::openTag('time');
