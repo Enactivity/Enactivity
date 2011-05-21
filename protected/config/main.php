@@ -19,7 +19,7 @@ return CMap::mergeArray(
 	        
 			'format'=>array(
 				'class' => 'application.components.utils.Formatter',
-	        	'datetimeFormat' => 'l, M d, Y \a\t g:i a', 
+	        	'datetimeFormat' => 'l, M d, \a\t g:i a', 
 			),
 	        
 	        // Log settings
