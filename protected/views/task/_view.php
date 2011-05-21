@@ -22,23 +22,23 @@ echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
 
 // event date
+echo PHtml::openTag('h2');
 if(isset($data->starts)) {
-	echo PHtml::openTag('h2');
-	echo 'Starts ';
 	echo PHtml::openTag('time');
 	echo Yii::app()->format->formatDateTime(strtotime($data->starts));
 	echo PHtml::closeTag('time');
-	echo PHtml::closeTag('h2');
+}
+
+if(isset($data->starts) && isset($data->ends)) {
+	echo PHtml::encode(' to ');	
 }
 
 if(isset($data->ends)) {
-	echo PHtml::openTag('h2');
-	echo 'Ends ';
 	echo PHtml::openTag('time');
 	echo Yii::app()->format->formatDateTime(strtotime($data->ends));
 	echo PHtml::closeTag('time');
-	echo PHtml::closeTag('h2');
 }
+echo PHtml::closeTag('h2');
 
 // task name
 echo PHtml::openTag('h1');
@@ -48,10 +48,6 @@ echo PHtml::link(
 		array()
 	);
 echo PHtml::closeTag('h1');
-
-echo PHtml::openTag('h2');
-echo PHtml::encode(sizeof($data->participants) . ' signed up');
-echo PHtml::closeTag('h2');
 
 // close headers
 echo PHtml::closeTag('hgroup');
