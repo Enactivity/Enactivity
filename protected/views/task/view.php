@@ -14,12 +14,14 @@ $this->widget('application.components.widgets.DetailView', array(
 	'attributes'=>array(
 		array( 
 			'name' => 'starts',
-			'type' => 'styledtext',
+			'type' => 'datetime',
+			'value' => strtotime($model->starts),
 			'visible' => strlen($model->starts) > 0 ? true : false,
 		),
 		array( 
 			'name' => 'ends',
-			'type' => 'styledtext',
+			'type' => 'datetime',
+			'value' => strtotime($model->ends),
 			'visible' => strlen($model->ends) > 0 ? true : false,
 		),
 	),
