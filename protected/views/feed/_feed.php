@@ -39,11 +39,13 @@ if($data->action == 'update') {
 	echo PHtml::encode($data->modelObject->getAttributeLabel($data->modelAttribute));
 	echo ' from ';
 	echo PHtml::openTag('strong');
-	echo PHtml::encode($data->oldAttributeValue);
+	$old = isset($data->oldAttributeValue) ? $data->oldAttributeValue : 'nothing';
+	echo PHtml::encode($old);
 	echo PHtml::closeTag('strong');
 	echo PHtml::encode(' to ');
 	echo PHtml::openTag('strong');
-	echo PHtml::encode($data->newAttributeValue);
+	$new = isset($data->newAttributeValue) ? $data->newAttributeValue : 'nothing';
+	echo PHtml::encode($new);
 	echo PHtml::closeTag('strong');
 }
 
