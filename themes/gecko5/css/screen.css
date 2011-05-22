@@ -588,6 +588,17 @@ form#task-form.new-task input[type="text"] {
 }
 
 /*
+	Task stylings
+*/
+.task.completed h1 a {
+	color: #bfbfbf;
+}
+
+.task.trash h1 a {
+	text-decoration: line-through;
+}
+
+/*
 	Home page styling
 */
 .site.index {
