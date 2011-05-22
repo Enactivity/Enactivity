@@ -77,7 +77,7 @@ class TaskController extends Controller
 		
 		$this->render('whatsnext',array(
 			'model'=>$model,
-			'tasks'=>Yii::app()->user->model->tasks, 
+			'tasks'=>Yii::app()->user->model->nextTasks, 
 		));
 	}
 

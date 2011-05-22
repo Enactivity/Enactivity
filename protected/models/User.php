@@ -205,9 +205,14 @@ class User extends CActiveRecord
 			
 			// all tasks that the user is actively signed up for
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
+
 			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0',
+			),
+			
+			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
+				'through' => 'taskUsers',
+				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0',
 			),
 		);
 	}
