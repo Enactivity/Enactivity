@@ -72,7 +72,7 @@ echo $this->renderPartial('_form', array('model'=>$newTask));
 	</header>
 	<?php 
 	foreach($model->feed as $log) {
-		$this->renderPartial('/feed/_feed',
+		$this->renderPartial('/feed/_view',
 			array(
 				'data' => $log
 			) 
