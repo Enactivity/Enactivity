@@ -10,29 +10,9 @@
  * @param Task  
  * @author Ajay Sharma
  */
-class UserCompleteButton extends CWidget {
+class UserCompleteButton extends ButtonWidget {
 	
-	/**
-	 * @var Task task
-	 */
-	public $task = null;
-	
-	/**
-	 * This method is called by CController::beginWidget()
-	 */
-	public function init()
-	{
-		if(is_null($this->task)) {
-			throw exception ("No task passed into UserCompleteButton");
-		}
-	}
- 
-	public function run()
-	{
-		$this->render();
-	}
-	
-	public function render() {
+	protected function renderButton() {
 		if($this->task->isUserComplete) {
 			echo PHtml::link(
 				PHtml::encode('Uncomplete'), 

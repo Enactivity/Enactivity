@@ -9,29 +9,9 @@
  * @param Task
  * @author Ajay Sharma
  */
-class TrashButton extends CWidget {
+class TrashButton extends ButtonWidget {
 	
-	/**
-	 * @var CModel model
-	 */
-	public $task = null;
-	
-	/**
-	 * This method is called by CController::beginWidget()
-	 */
-	public function init()
-	{
-		if(is_null($this->task)) {
-			throw exception ("No task passed into TrashButton");
-		}
-	}
- 
-	public function run()
-	{
-		$this->render();
-	}
-	
-	public function render() {
+	protected function renderButton() {
 		if($this->task->isTrash) {
 			echo PHtml::link(
 				PHtml::encode('UnTrash'), 
