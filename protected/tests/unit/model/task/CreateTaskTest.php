@@ -40,8 +40,6 @@ class CreateTaskTest extends DbTestCase
 			'id' => $id,
 			'parentId' => $parentId,
 			'name' => $name,
-			'ownerId' => $ownerId,
-			'isCompleted' => $isCompleted,
 			'isTrash' => $isTrash,
 			'created' => $created,
 			'modified' => $modified,
