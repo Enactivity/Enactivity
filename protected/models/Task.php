@@ -187,13 +187,14 @@ class Task extends CActiveRecord
 
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 		
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
+			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
+				'condition' => 'taskUsers.isTrash=0',
+			),
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			'taskUsersCompletedCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
 				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'modelId',

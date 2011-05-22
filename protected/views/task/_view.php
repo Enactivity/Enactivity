@@ -186,11 +186,21 @@ echo PHtml::closeTag('menu');
 
 // list participants
 echo PHtml::openTag('ol', array('class' => 'participants'));
-foreach($data->participants as $user) {
-	echo PHtml::openTag('li');	
-	$this->widget('application.components.widgets.UserLink', array(
-		'userModel' => $user,
+foreach($data->taskUsers as $taskUser) {
+	$spanClass = "view";
+	$spanClass .= " participant";
+	$spanClass .= " participant-" . $taskUser->id;
+	$spanClass .= $taskUser->isCompleted ? " completed" : " not-completed";
+	$spanClass .= $taskUser->isTrash ? " trash" : " not-trash";
+	
+	echo PHtml::openTag('li');
+	echo PHtml::openTag('span', array(
+	'class' => $spanClass,		
 	));
+	$this->widget('application.components.widgets.UserLink', array(
+		'userModel' => $taskUser->user,
+	));
+	echo PHtml::closeTag('span');
 	echo PHtml::closeTag('li');
 }
 echo PHtml::closeTag('ol');

@@ -593,9 +593,24 @@ form#task-form.new-task input[type="text"] {
 .task.completed h1 a {
 	color: #bfbfbf;
 }
+.task.completed h1 a:hover, 
+.task.completed h1 a:focus {
+	border-bottom: 1px solid #00b6d5;
+	color: #00b6d5;
+}
 
 .task.trash h1 a {
 	text-decoration: line-through;
+}
+
+.participant.completed a {
+	color: #bfbfbf;
+}
+
+.participant.completed a:hover, 
+.participant.completed a:focus {
+	border-bottom: 1px solid #00b6d5;
+	color: #00b6d5;
 }
 
 /*
