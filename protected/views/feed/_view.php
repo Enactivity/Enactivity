@@ -23,7 +23,7 @@ echo PHtml::openTag('hgroup');
 echo PHtml::openTag('h2');
 echo PHtml::openTag('date');
 echo PHtml::encode(
-	Yii::app()->dateformatter->formatDateTime($data->created, 'full', 'short')
+	Yii::app()->format->formatDateTime(strtotime($data->created))
 );
 echo PHtml::closeTag('date');
 echo PHtml::closeTag('h2');
