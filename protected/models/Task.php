@@ -360,10 +360,21 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsCompleted() {
+		// if it has subtasks, check they are completed
 		if($this->hasChildren) {
 			foreach($this->children as $subtask) {
 				if(!$subtask->isTrash
 				&& !$subtask->isCompleted) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		// if no subchildren, check signed up users are done
+		if(sizeof($this->taskUsers) > 0) {
+			foreach($this->taskUsers as $taskUser) {
+				if(!$taskUser->isCompleted) {
 					return false;
 				}
 			}
