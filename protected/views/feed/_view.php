@@ -64,8 +64,15 @@ if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 	}
 	echo ' from ';
 	echo PHtml::openTag('strong');
-	$old = isset($data->oldAttributeValue) ? $data->oldAttributeValue : 'nothing';
-	echo PHtml::encode($old);
+	if(empty($data->oldAttributeValue)) {
+		echo 'nothing';
+	}
+	elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
+		echo Yii::app()->format->formatDateTime(strtotime($data->newAttributeValue));
+	}
+	else {
+		echo PHtml::encode($old);
+	}
 	echo PHtml::closeTag('strong');
 	echo PHtml::encode(' to ');
 	echo PHtml::openTag('strong');
