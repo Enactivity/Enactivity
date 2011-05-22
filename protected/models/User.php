@@ -104,9 +104,9 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => self::SCENARIO_INVITE),
-		array('email, token, password, confirmPassword, firstName, lastName', 'required', 
+		array('email, token, password, confirmPassword, firstName, lastName, timeZone', 'required', 
 			'on' => self::SCENARIO_REGISTER),
-		array('email, firstName, lastName', 'required', 
+		array('email, firstName, lastName, timeZone', 'required', 
 			'on' => self::SCENARIO_UPDATE),
 		array('password, confirmPassword', 'required',
 			'on' => self::SCENARIO_UPDATE_PASSWORD),
