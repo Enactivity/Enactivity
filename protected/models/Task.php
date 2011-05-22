@@ -233,10 +233,10 @@ class Task extends CActiveRecord
 			self::SCENARIO_INSERT => 'posted', // default set by Yii
 			self::SCENARIO_READ => 'read',
 			self::SCENARIO_OWN => 'own',
-			self::SCENARIO_TRASH => 'trash',
+			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNCOMPLETE => 'uncomplete',
 			self::SCENARIO_UNOWN => 'unown',
-			self::SCENARIO_UNTRASH => 'untrash',
+			self::SCENARIO_UNTRASH => 'untrashed',
 			self::SCENARIO_UPDATE => 'updated',
 		);
 	}
