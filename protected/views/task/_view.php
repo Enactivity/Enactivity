@@ -147,7 +147,7 @@ else {
 }
 
 echo PHtml::openTag('li');
-if($model->isTrash) {
+if($data->isTrash) {
 	echo PHtml::link(
 		PHtml::encode('UnTrash'), 
 		array('task/untrash', 'id'=>$data->id),
