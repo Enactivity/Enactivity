@@ -4,10 +4,6 @@ require_once 'TestConstants.php';
 
 class GroupRulesTest extends DbTestCase
 {
-	public $fixtures = array(
-        'groups'=>'Group',
-    );
-    
     public $groupUnderTest = null;
 
 	public static function setUpBeforeClass()

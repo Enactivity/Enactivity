@@ -6,10 +6,6 @@ class UpdateGroupTest extends DbTestCase
 {
 	public $group;
 	
-	public $fixtures = array(
-        'groups'=>'Group',
-    );
-	
 	public static function setUpBeforeClass()
 	{
 		parent::setUpBeforeClass();
@@ -210,7 +206,7 @@ class UpdateGroupTest extends DbTestCase
 	 */
 	public function testUpdateGroupDuplicateName() {
 
-		$name = $this->groups['testgroup']['name'];
+		$name = $this->groupFixtures['testgroup']['name'];
 		$slug = null;
 		
 	    $this->group->setAttributes(array(

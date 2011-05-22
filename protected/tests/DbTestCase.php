@@ -9,6 +9,13 @@ require_once 'TestConstants.php';
  */
 class DbTestCase extends CDbTestCase
 {
+	public $fixtures = array(
+		'groupFixtures'=>':group',
+		'userFixtures'=>':user',
+		'groupUserFixtures'=>':group_user',
+		'taskFixtures'=>':task',
+    );
+    
 	public static function setUpBeforeClass()
 	{
 		parent::setUpBeforeClass();
@@ -21,6 +28,10 @@ class DbTestCase extends CDbTestCase
 	protected function setUp()
 	{
 		parent::setUp();
+		$loginForm = new UserLoginForm();
+		$loginForm->email = $this->userFixtures['registered']['email'];
+		$loginForm->password = 'test';
+		$loginForm->login();
 	}
 	
 	protected function tearDown()

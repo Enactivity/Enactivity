@@ -4,10 +4,6 @@ require_once 'TestConstants.php';
 
 class UserLoginFormTest extends DbTestCase
 {
-	public $fixtures = array(
-		'users'=>'User',
-	);
-	
 	public function testEmptyForm() {
 		$email = '';
 		$password = '';
@@ -21,7 +17,7 @@ class UserLoginFormTest extends DbTestCase
 	
 	public function testEmptyEmail() {
 		$email = '';
-		$password = $this->users['registered']['password'];
+		$password = $this->userFixtures['registered']['password'];
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
 	        'email' => $email,
@@ -31,7 +27,7 @@ class UserLoginFormTest extends DbTestCase
 	}
 
 	public function testEmptyPassword() {
-		$email = $this->users['registered']['email'];
+		$email = $this->userFixtures['registered']['email'];
 		$password = '';
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
@@ -41,9 +37,8 @@ class UserLoginFormTest extends DbTestCase
 	    $this->assertFalse($formUnderTest->validate(), 'empty password was marked as valid');
 	}
 
-	//TODO: Password should not be hard coded	
-	public function testLoginValid() {
-		$email = $this->users['admin']['email'];
+	public function testLoginValidAdmin() {
+		$email = $this->userFixtures['admin']['email'];
 		$password = 'test';
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
@@ -54,7 +49,7 @@ class UserLoginFormTest extends DbTestCase
 	}
 
 	public function testLoginInvalid() {
-		$email = $this->users['admin']['email'];
+		$email = $this->userFixtures['admin']['email'];
 		$password = StringUtils::createRandomString(30);
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
@@ -63,4 +58,12 @@ class UserLoginFormTest extends DbTestCase
 	    ));
 	    $this->assertFalse($formUnderTest->login(), 'invalid user was able to log in');
 	}
+	
+	
 }
+
+/* AFONG TODO: 
+ * testLoginValidMember()
+ * testLoginInactive()
+ * testLoginBanned()
+ */
