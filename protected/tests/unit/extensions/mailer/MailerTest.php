@@ -17,8 +17,7 @@ class MailerTest extends PHPUnit_Framework_TestCase {
 		$childClass = $this->getMock('PasswordEmail');
 		$childClass->to = $to;
 		$childClass->newpassword = $newpassword;
-		$childClass->expects($this->once())
-					->method(send);
+		$childClass->expects($this->once())->method('send');
 					
 		$testClass = new Mailer;
 		$testClass->send($childClass);
