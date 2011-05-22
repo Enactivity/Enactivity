@@ -28,15 +28,14 @@ class PasswordEmail extends Mailer {
 		if ($this->newpassword == null) {
 			throw new Exception ("Value newpassword not being passed into PasswordEmail");
 		}
-				
-		$this->from = "no-reply@" . Yii::app()->request->serverName;
+
+		$from = "no-reply@" . Yii::app()->request->serverName;
 		$subject = 'Your Poncla password has been reset';
 		$body = 'Someone has requested that your password for your account'
 			. ' be reset.  We\'ve generated the new password: '
 			. $this->newpassword . ' for you.  You can change it once you log in.'
 			. '  If you didn\'t request this new password please contact us at'
 			. ' info@' . Yii::app()->request->serverName;
-
 		return $this->transmit($to, $from, $subject, $body);
 	}
 }
