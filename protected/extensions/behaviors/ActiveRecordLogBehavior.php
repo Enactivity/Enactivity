@@ -21,8 +21,16 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	 */
 	public $feedAttribute = '';
 	
+	/**
+	 * The central model of the record, not necessarily the one that
+	 * changed, but the one that can stand-alone  
+	 * @var string
+	 */
+	public $focalModelClass = null;
+	public $focalModelId = null;
+	
 	private $_oldAttributes = array();
- 
+	
 	/**
 	 * After the model saves, record the attributes
 	 * @param CEvent $event
@@ -34,6 +42,8 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 			$log = new ActiveRecordLog;
 			$log->groupId = $this->Owner->groupId;
 			$log->action = $this->Owner->scenario;
+			$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
+			$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = null;
@@ -61,6 +71,8 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 						$log = new ActiveRecordLog;
 						$log->groupId = $this->Owner->groupId;
 						$log->action = $this->Owner->scenario;
+						$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
+						$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
 						$log->model = get_class($this->Owner);
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
@@ -82,6 +94,8 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		$log = new ActiveRecordLog;
 		$log->groupId = $this->Owner->groupId;
 		$log->action = ActiveRecordLog::ACTION_DELETED;
+		$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
+		$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
 		$log->model = get_class($this->Owner);
 		$log->modelId = $this->Owner->getPrimaryKey();
 		$log->modelAttribute = '';

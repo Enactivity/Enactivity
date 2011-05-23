@@ -62,6 +62,8 @@ class TaskUser extends CActiveRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'focalModelClass' => 'Task',
+				'focalModelId' => 'taskId',
 				'feedAttribute' => $this->task->name,
 				'ignoreAttributes' => array('modified'),
 			),
@@ -137,7 +139,7 @@ class TaskUser extends CActiveRecord
 		return array(
 			self::SCENARIO_COMPLETE => 'finished working on',
 			self::SCENARIO_DELETE => 'delete',
-			self::SCENARIO_INSERT => 'posted', // default set by Yii
+			self::SCENARIO_INSERT => 'signed up for', // default set by Yii
 			self::SCENARIO_TRASH => 'quit',
 			self::SCENARIO_UNCOMPLETE => 'is once again working on',
 			self::SCENARIO_UNTRASH => 'signed back up for',
@@ -210,6 +212,9 @@ class TaskUser extends CActiveRecord
 	}
 	
 	public function getGroupId() {
+		if(is_null($this->task)) {
+			$this->task = Task::model()->findByPk($this->taskId);
+		}
 		return $this->task->groupId;
 	}
 }

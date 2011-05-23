@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'activerecordlog':
  * @property integer $id
  * @property integer $groupId
+ * @property string $focalModel
+ * @property integer $focalModelId
  * @property string $model
  * @property integer $modelId
  * @property string $action
@@ -26,6 +28,16 @@ class ActiveRecordLog extends CActiveRecord
 	const ACTION_DELETED = 'delete';
 	const ACTION_UPDATED = 'update';
 	
+	/**
+	 * The instanced focal model, loaded by afterFind
+	 * @var CActiveRecord
+	 */
+	public $focalModelObject;
+	
+	/**
+	 * The instanced model, loaded by afterFind 
+	 * @var CActiveRecord
+	 */
 	public $modelObject;
 	
 	/**
@@ -71,9 +83,9 @@ class ActiveRecordLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groupId, model', 'required'),
+			array('groupId, focalModel, focalModelId, model, modelId', 'required'),
 			array('groupId, modelId, userId', 'numerical', 'integerOnly'=>true),
-			array('model, modelAttribute', 'length', 'max'=>45),
+			array('focalModel, model, modelAttribute', 'length', 'max'=>45),
 			
 			// trim inputs
 			array('action, model, modelAttribute', 'filter', 'filter'=>'trim'),
@@ -113,6 +125,8 @@ class ActiveRecordLog extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'groupId' => 'Group',
+			'focalModel' => 'Focal Model',
+			'focalModelId' => 'Focal Model',
 			'model' => 'Model',
 			'modelId' => 'Model',
 			'action' => 'Action',
@@ -138,6 +152,8 @@ class ActiveRecordLog extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('groupId',$this->groupId);
+		$criteria->compare('focalModel',$this->focalModel,true);
+		$criteria->compare('focalModelId',$this->focalModelId);
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('modelId',$this->modelId);
 		$criteria->compare('action',$this->action,true);
@@ -185,6 +201,9 @@ class ActiveRecordLog extends CActiveRecord
 	
 	protected function afterFind() {
 		parent::afterFind();
+		
+		$focalModel = new $this->focalModel;
+		$this->focalModelObject = $focalModel->findByPk($this->focalModelId);
 		
 		$model = new $this->model;
 		$this->modelObject = $model->findByPk($this->modelId);

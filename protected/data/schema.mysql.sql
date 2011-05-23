@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 15, 2011 at 01:23 PM
+-- Generation Time: May 22, 2011 at 10:27 PM
 -- Server version: 5.1.33
 -- PHP Version: 5.2.9
 
@@ -28,8 +28,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS `activerecordlog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `groupId` int(11) NOT NULL,
+  `focalModel` varchar(45) NOT NULL,
+  `focalModelId` int(11) NOT NULL,
   `model` varchar(45) NOT NULL,
-  `modelId` int(11) DEFAULT NULL,
+  `modelId` int(11) NOT NULL,
   `action` varchar(20) DEFAULT NULL,
   `modelAttribute` varchar(45) DEFAULT NULL,
   `oldAttributeValue` mediumtext,
@@ -40,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`id`),
   KEY `parentId` (`parentId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `task_user` (
   UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
   KEY `userId` (`userId`),
   KEY `taskId` (`taskId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 

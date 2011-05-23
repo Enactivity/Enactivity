@@ -44,7 +44,7 @@ else {
 echo ' '; 
 echo PHtml::link(
 	StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80), 
-	array(strtolower($data->model) . '/view', 'id'=>$data->modelId)
+	array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
 );
 
 echo PHtml::closeTag('h1');
