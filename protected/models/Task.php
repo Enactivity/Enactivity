@@ -453,7 +453,9 @@ class Task extends CActiveRecord
 		// look for the TaskUser for this combination
 		$userTask = $this->loadTaskUser();
 		
-		$userTask->unTrash();
+		if($userTask->isTrash) {
+			$userTask->unTrash();
+		}
 		$userTask->save();
 		
 		return $this;
