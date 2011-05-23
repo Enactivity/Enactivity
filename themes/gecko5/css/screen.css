@@ -613,6 +613,42 @@ form#task-form.new-task input[type="text"] {
 	color: #00b6d5;
 }
 
+.task menu a 
+{
+	display: block;
+	height: 32px;
+	width: 32px;
+	text-indent: -9999px;
+}
+
+.task-update-menu-item {
+	background-image: url(../images/icons/pencil-32x32.png);	
+}
+
+.task-useruncomplete-menu-item {
+	background-image: url(../images/icons/man-blue-32x32.png);	
+}
+
+.task-usercomplete-menu-item {
+	background-image: url(../images/icons/check-gray-32x32.png);	
+}
+
+.task-unparticipate-menu-item {
+	background-image: url(../images/icons/x-mark-32x32.png);	
+}
+
+.task-participate-menu-item {
+	background-image: url(../images/icons/man-gray-32x32.png);	
+}
+
+.task-untrash-menu-item {
+	background-image: url(../images/icons/trash-with-arrow-32x32.png);
+}
+
+.task-trash-menu-item {
+	background-image: url(../images/icons/trash-can-32x32.png);
+}
+
 /*
 	Home page styling
 */

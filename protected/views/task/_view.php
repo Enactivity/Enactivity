@@ -71,6 +71,7 @@ echo PHtml::link(
 	array(
 		'id'=>'task-update-menu-item-' . $data->id,
 		'class'=>'task-update-menu-item',
+		'title'=>'Click to update ' . PHtml::encode($data->name),
 	)
 );
 echo PHtml::closeTag('li');
@@ -91,6 +92,7 @@ if($data->isUserParticipating) {
 				'csrf' => true,
 				'id'=>'task-useruncomplete-menu-item-' . $data->id,
 				'class'=>'task-useruncomplete-menu-item',
+				'title'=>'Click to mark as not done',
 			)
 		);
 	}
@@ -106,6 +108,7 @@ if($data->isUserParticipating) {
 				'csrf' => true,
 				'id'=>'task-usercomplete-menu-item-' . $data->id,
 				'class'=>'task-usercomplete-menu-item',
+				'title'=>'Click to mark as done',
 			)
 		); 
 	}
@@ -124,6 +127,7 @@ if($data->isUserParticipating) {
 			'csrf' => true,
 			'id'=>'task-unparticipate-menu-item-' . $data->id,
 			'class'=>'task-unparticipate-menu-item',
+			'title'=>'Click to quit ' . PHtml::encode($data->name),
 		)
 	);
 	echo PHtml::closeTag('li');
@@ -141,6 +145,7 @@ else {
 			'csrf' => true,
 			'id'=>'task-participate-menu-item-' . $data->id,
 			'class'=>'task-participate-menu-item',
+			'title'=>'Click to sign up for ' . PHtml::encode($data->name),
 		)
 	);
 	echo PHtml::closeTag('li');
@@ -159,6 +164,7 @@ if($data->isTrash) {
 			'csrf' => true,
 			'id'=>'task-untrash-menu-item-' . $data->id,
 			'class'=>'task-untrash-menu-item',
+			'title'=>'Click to untrash ' . PHtml::encode($data->name),
 		)
 	);
 }
@@ -175,6 +181,7 @@ else {
 			'csrf' => true,
 			'id'=>'task-trash-menu-item-' . $data->id,
 			'class'=>'task-trash-menu-item',
+			'title'=>'Click to trash ' . PHtml::encode($data->name),
 		)
 	);
 }
