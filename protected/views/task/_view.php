@@ -14,7 +14,8 @@ $articleClass .= $data->isTrash ? " trash" : " not-trash";
 
 // start article
 echo PHtml::openTag('article', array(
-	'class' => $articleClass,		
+	'id' => "task-" . $data->id,
+	'class' => $articleClass,
 ));
 
 // start headers
