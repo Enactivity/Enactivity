@@ -621,12 +621,6 @@ form#task-form.new-task input[type="text"] {
 	text-indent: -9999px;
 }
 
-.task menu a:hover,
-.task menu a:focus 
-{
-	background-color: 	
-}
-
 .task-update-menu-item {
 	background-image: url(../images/icons/pencil-32x32.png);	
 }
