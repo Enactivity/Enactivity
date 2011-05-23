@@ -18,6 +18,15 @@
  */
 class TaskUser extends CActiveRecord
 {
+	
+	const SCENARIO_COMPLETE = 'complete';
+	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNCOMPLETE = 'uncomplete';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_UPDATE = 'update';
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return TaskUser the static model class
@@ -49,6 +58,12 @@ class TaskUser extends CActiveRecord
 			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'feedAttribute' => $this->task->name,
+				'ignoreAttributes' => array('modified'),
 			),
 		);
 	}
@@ -117,6 +132,18 @@ class TaskUser extends CActiveRecord
 			'modified' => 'Modified',
 		);
 	}
+	
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_COMPLETE => 'finished working on',
+			self::SCENARIO_DELETE => 'delete',
+			self::SCENARIO_INSERT => 'posted', // default set by Yii
+			self::SCENARIO_TRASH => 'quit',
+			self::SCENARIO_UNCOMPLETE => 'is once again working on',
+			self::SCENARIO_UNTRASH => 'signed back up for',
+			self::SCENARIO_UPDATE => 'updated',
+		);
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -148,6 +175,7 @@ class TaskUser extends CActiveRecord
 	 */
 	public function complete() {
 		$this->isCompleted = 1;
+		$this->setScenario(self::SCENARIO_COMPLETE);
 		return $this;
 	}
 	
@@ -157,6 +185,7 @@ class TaskUser extends CActiveRecord
 	 */
 	public function uncomplete() {
 		$this->isCompleted = 0;
+		$this->setScenario(self::SCENARIO_UNCOMPLETE);
 		return $this;
 	}
 	
@@ -166,6 +195,7 @@ class TaskUser extends CActiveRecord
 	 */
 	public function trash() {
 		$this->isTrash = 1;
+		$this->setScenario(self::SCENARIO_TRASH);
 		return $this;
 	}
 	
@@ -175,6 +205,11 @@ class TaskUser extends CActiveRecord
 	 */
 	public function untrash() {
 		$this->isTrash = 0;
+		$this->setScenario(self::SCENARIO_UNTRASH);
 		return $this;
+	}
+	
+	public function getGroupId() {
+		return $this->task->groupId;
 	}
 }
