@@ -24,7 +24,7 @@ $this->widget('application.components.widgets.DetailView', array(
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>
 <section id="users">
-	<h2><?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?></h2>
+	<h1><?php echo $activemembers->getTotalItemCount() . ' Active Members'; ?></h1>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
