@@ -77,11 +77,12 @@ body > header
 }
 
 body > footer {
-	clear: both;
-	height: 5em;
 	background-color: #232425;
-	padding: 1em;
+	border-left: 1em solid #ff6600;
+	clear: both;
 	color: white;
+	height: 5em;
+	padding: 2em 1em;
 }
 
 /* 
