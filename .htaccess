@@ -10,5 +10,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 
 # Set Yii application environment
-SetEnv APPLICATION_ENV "test"
+SetEnv APPLICATION_ENV "production"
 SetEnv YII_INCLUDE_PATH "../yii_framework/yii.php"
