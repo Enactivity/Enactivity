@@ -34,8 +34,8 @@ $this->widget('application.components.widgets.DetailView', array(
 	<header>
 		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	</header>
-	
 	<?php 
+	echo PHtml::openTag('ol', array('class' => 'participants'));
 	foreach($model->participants as $user) {
 		echo PHtml::openTag('li');	
 		$this->widget('application.components.widgets.UserLink', array(
@@ -43,6 +43,7 @@ $this->widget('application.components.widgets.DetailView', array(
 		));
 		echo PHtml::closeTag('li');
 	}
+	echo PHtml::closeTag('ol');
 	?>
 </section>
 
