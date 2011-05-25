@@ -6,7 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/shared.php'),
+	require(dirname(__FILE__).'/shared.inc.php'),
 	array(
 		// application components
 		'components'=>array(
@@ -16,33 +16,14 @@ return CMap::mergeArray(
 				// use 'site/error' action to display error
 				'errorAction'=>'site/error',
 			),
+			
+			'fixture'=>array(
+				'class'=>'system.test.CDbFixtureManager',
+			),
 	        
 			'format'=>array(
 				'class' => 'application.components.utils.Formatter',
 	        	'datetimeFormat' => 'l, M d, \a\t g:i a', 
-			),
-	        
-	        // Log settings
-			'log'=>array(
-				'class'=>'CLogRouter',
-				'routes'=>array(
-					array(
-						'class'=>'CFileLogRoute',
-						'levels'=>'info, error, warning',
-					),
-					array(
-	                    'class'=>'CEmailLogRoute',
-	                    'levels'=>'error, warning',
-	                    'emails'=>'support-message-log@poncla.com',
-						'enabled'=>false,
-						'sentFrom'=>'support-message-log@poncla.com',
-	                ),
-					// un/comment the following to show/hide log messages on web pages
-			//		array(
-			//			'class'=>'CWebLogRoute',
-			//		),
-					
-				),
 			),
 			
 			'request'=>array(
@@ -170,17 +151,11 @@ return CMap::mergeArray(
 			'mailer'=>array(
         		'class'=>'application.extensions.mailer.Mailer',
         		'mailTransferAgent'=>'php',
-				'shouldEmail'=>true,  
+				'shouldEmail'=>false,  
 		    ),
 		),
 		
 		'modules'=>array(
-			// uncomment the following to enable the Gii tool
-			// custom url manager must also be disabled
-//			'gii'=>array(
-//				'class'=>'system.gii.GiiModule',
-//				'password'=>'123456',
-//			),
 		),
 		
 		// application-level parameters that can be accessed

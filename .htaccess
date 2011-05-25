@@ -8,3 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
 RewriteRule . index.php
+
+# Set Yii application environment
+SetEnv APPLICATION_ENV "test"
+SetEnv YII_INCLUDE_PATH "../yii_framework/yii.php"
