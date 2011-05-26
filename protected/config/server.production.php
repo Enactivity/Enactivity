@@ -17,26 +17,6 @@ return CMap::mergeArray(
 				'enableParamLogging'=>true
 			),
 			
-			// MySQL database settings for bella
-//			'db'=>array(
-//				'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
-//				'emulatePrepare' => true,
-//				'username' => 'root',
-//				'password' => 'justr1d3',
-//				'charset' => 'utf8',
-//				'enableParamLogging'=>false
-//			),
-	
-			// MySQL database settings for alpha
-//			'db'=>array(
-//				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
-//				'emulatePrepare' => true,
-//				'username' => 'poncla_alpha',
-//				'password' => 'alpha123',
-//				'charset' => 'utf8',
-//				'enableParamLogging'=>false
-//			),
-	
 			'log'=>array(
 				'class'=>'CLogRouter',
 				'routes'=>array(
