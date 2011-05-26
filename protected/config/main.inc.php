@@ -10,7 +10,7 @@ return CMap::mergeArray(
 	array(
 		// application components
 		'components'=>array(
-		
+	
 			// Set the error handler
 			'errorHandler'=>array(
 				// use 'site/error' action to display error
@@ -163,6 +163,7 @@ return CMap::mergeArray(
 		'params'=>array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
+			'googleAnalyticsOn'=>false,
 		),
 		
 		'theme'=>'gecko5',

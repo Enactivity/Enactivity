@@ -18,9 +18,7 @@
 	
 <?php 
 // Include Google Analytics widget
-$this->widget('ext.analytics.AnalyticsWidget', array(
-	'on' => false
-)); 
+$this->widget('ext.analytics.AnalyticsWidget', array()); 
 ?>
 		
 </head>
