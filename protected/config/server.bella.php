@@ -3,15 +3,15 @@
 // CWebApplication properties can be configured here.
 // Overrides any settings from main.inc.php
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/server.production.php'),
+	require(dirname(__FILE__).'/main.inc.php'),
 	array(
 		'components'=>array(
 			
 			// MySQL database settings for alpha
 			'db'=>array(
-				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
-				'username' => 'poncla_alpha',
-				'password' => 'alpha123',
+				'connectionString' => 'mysql:host=127.0.0.1;dbname=poncla_alpha',
+				'username' => 'root',
+				'password' => 'justr1d3',
 			),
 		),
 	)
