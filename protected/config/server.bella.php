@@ -7,11 +7,14 @@ return CMap::mergeArray(
 	array(
 		'components'=>array(
 			
-			// MySQL database settings for alpha
+			// MySQL database settings for bella
 			'db'=>array(
-				'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
-				'username' => 'root',
-				'password' => 'justr1d3',
+			'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => 'justr1d3',
+			'charset' => 'utf8',
+			'enableParamLogging'=>false
 			),
 		),
 	)
