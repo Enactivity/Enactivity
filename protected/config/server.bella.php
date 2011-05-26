@@ -9,7 +9,7 @@ return CMap::mergeArray(
 			
 			// MySQL database settings for alpha
 			'db'=>array(
-				'connectionString' => 'mysql:host=127.0.0.1;dbname=poncla_yii',
+				'connectionString' => 'mysql:host=localhost;dbname=poncla_yii',
 				'username' => 'root',
 				'password' => 'justr1d3',
 			),
