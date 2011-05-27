@@ -72,7 +72,7 @@ echo PHtml::link(
 	array(
 		'id'=>'task-update-menu-item-' . $data->id,
 		'class'=>'task-update-menu-item',
-		'title'=>'Click to update ' . PHtml::encode($data->name),
+		'title'=>'Update this task',
 	)
 );
 echo PHtml::closeTag('li');
@@ -83,7 +83,7 @@ if($data->isUserParticipating) {
 	
 	if($data->isUserComplete) {
 		echo PHtml::link(
-			PHtml::encode('Uncomplete'), 
+			PHtml::encode('Resume'), 
 			array('/task/useruncomplete', 'id'=>$data->id),
 			array(
 				'submit'=>array(
@@ -93,7 +93,7 @@ if($data->isUserParticipating) {
 				'csrf' => true,
 				'id'=>'task-useruncomplete-menu-item-' . $data->id,
 				'class'=>'task-useruncomplete-menu-item',
-				'title'=>'Click to mark as not done',
+				'title'=>'Resume work on this task',
 			)
 		);
 	}
@@ -109,7 +109,7 @@ if($data->isUserParticipating) {
 				'csrf' => true,
 				'id'=>'task-usercomplete-menu-item-' . $data->id,
 				'class'=>'task-usercomplete-menu-item',
-				'title'=>'Click to mark as done',
+				'title'=>'Finish working on this task',
 			)
 		); 
 	}
@@ -128,7 +128,7 @@ if($data->isUserParticipating) {
 			'csrf' => true,
 			'id'=>'task-unparticipate-menu-item-' . $data->id,
 			'class'=>'task-unparticipate-menu-item',
-			'title'=>'Click to quit ' . PHtml::encode($data->name),
+			'title'=>'Quit this task',
 		)
 	);
 	echo PHtml::closeTag('li');
@@ -146,7 +146,7 @@ else {
 			'csrf' => true,
 			'id'=>'task-participate-menu-item-' . $data->id,
 			'class'=>'task-participate-menu-item',
-			'title'=>'Click to sign up for ' . PHtml::encode($data->name),
+			'title'=>'Sign up for task',
 		)
 	);
 	echo PHtml::closeTag('li');
@@ -155,7 +155,7 @@ else {
 echo PHtml::openTag('li');
 if($data->isTrash) {
 	echo PHtml::link(
-		PHtml::encode('UnTrash'), 
+		PHtml::encode('Restore'), 
 		array('task/untrash', 'id'=>$data->id),
 		array(
 			'submit'=>array(
@@ -165,7 +165,7 @@ if($data->isTrash) {
 			'csrf' => true,
 			'id'=>'task-untrash-menu-item-' . $data->id,
 			'class'=>'task-untrash-menu-item',
-			'title'=>'Click to untrash ' . PHtml::encode($data->name),
+			'title'=>'Restore this task',
 		)
 	);
 }
@@ -182,7 +182,7 @@ else {
 			'csrf' => true,
 			'id'=>'task-trash-menu-item-' . $data->id,
 			'class'=>'task-trash-menu-item',
-			'title'=>'Click to trash ' . PHtml::encode($data->name),
+			'title'=>'Trash this task',
 		)
 	);
 }
