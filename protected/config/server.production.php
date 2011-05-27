@@ -43,9 +43,8 @@ return CMap::mergeArray(
 		// application-level parameters that can be accessed
 		// using Yii::app()->params['paramName']
 		'params'=>array(
-			// this is used in contact page
-			'adminEmail'=>'ajsharma@poncla.com',
-			'googleAnalyticsOn'=>true,
+			'adminEmail'=>'ajsharma@poncla.com', // this is used in contact page
+			'googleAnalyticsOn'=>true, // should enable google analytics 
 		),
 	)
 );
