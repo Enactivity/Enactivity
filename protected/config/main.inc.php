@@ -131,6 +131,8 @@ return CMap::mergeArray(
 					),
 					'CLinkPager' => array(
 						'cssFile' => false,
+						'nextPageLabel' => 'Next',
+						'prevPageLabel' => 'Previous',
 					),
 					'CListView' => array(
 						'ajaxUpdate' => false,
