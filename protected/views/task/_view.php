@@ -179,7 +179,6 @@ else {
 				'task/trash',
 				'id'=>$data->id,
 			),
-			'confirm'=>'Are you sure you want to trash this item?',
 			'csrf' => true,
 			'id'=>'task-trash-menu-item-' . $data->id,
 			'class'=>'task-trash-menu-item',
