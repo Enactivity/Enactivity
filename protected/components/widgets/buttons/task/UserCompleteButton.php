@@ -4,6 +4,7 @@
  * @author Ajay Sharma
  */
 
+Yii::import('application.components.widgets.buttons.ButtonWidget');
 /**
  * UserCompleteButton displays an button that allows the user to
  * mark themself as having completed or uncompleted the task
@@ -13,28 +14,35 @@
 class UserCompleteButton extends ButtonWidget {
 	
 	protected function renderButton() {
-		if($this->task->isUserComplete) {
+		if($data->isUserComplete) {
 			echo PHtml::link(
-				PHtml::encode('Uncomplete'), 
-				array('/task/useruncomplete', 'id'=>$this->task->id),
+				PHtml::encode('Resume'), 
+				array('/task/useruncomplete', 'id'=>$data->id),
 				array(
-					'class' => 'task_uncomplete_menu_item',
-					'id' => 'task_uncomplete_menu_item' . $this->task->id,
 					'submit'=>array(
 						'task/useruncomplete',
 						'id'=>$data->id,
 					),
 					'csrf' => true,
+					'id'=>'task-useruncomplete-menu-item-' . $data->id,
+					'class'=>'task-useruncomplete-menu-item',
+					'title'=>'Resume work on this task',
 				)
 			);
 		}
 		else {
 			echo PHtml::link(
 				PHtml::encode('Complete'), 
-				array('/task/usercomplete', 'id'=>$this->task->id),
+				array('/task/usercomplete', 'id'=>$data->id),
 				array(
-					'class' => 'task_complete_menu_item',
-					'id' => 'task_complete_menu_item' . $this->task->id,
+					'submit'=>array(
+						'task/usercomplete',
+						'id'=>$data->id,
+					),
+					'csrf' => true,
+					'id'=>'task-usercomplete-menu-item-' . $data->id,
+					'class'=>'task-usercomplete-menu-item',
+					'title'=>'Finish working on this task',
 				)
 			); 
 		}

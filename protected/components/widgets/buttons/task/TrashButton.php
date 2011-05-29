@@ -4,6 +4,7 @@
  * @author Ajay Sharma
  */
 
+Yii::import('application.components.widgets.buttons.ButtonWidget');
 /**
  * TrashButton displays an button for trashing or untrashing a Task
  * @param Task
