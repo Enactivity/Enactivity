@@ -32,7 +32,6 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<?php echo $form->labelEx($model,'starts'); ?>
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
-			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
 			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 					'model'=>$model,
@@ -53,7 +52,6 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<?php echo $form->labelEx($model,'ends'); ?>
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
-			$model->starts = isset($model->starts) ? date('m/d/Y g:i a', strtotime($model->starts)) : null;
 			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 					'model'=>$model,
