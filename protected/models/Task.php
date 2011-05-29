@@ -617,7 +617,7 @@ class Task extends CActiveRecord
 		);
 	}
 	
-	public function noParents()
+	public function noParentsScope()
 	{
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'parentId IS NULL',
