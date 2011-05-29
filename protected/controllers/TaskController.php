@@ -353,12 +353,19 @@ class TaskController extends Controller
 	/**
 	 * Redirect the current view to the return url value or
 	 * to the goal/view page if no return url is specified.
-	 * @param Goal $goal
+	 * @param Task $task
 	 */
-	private function redirectReturnUrlOrView($goal) {
+	private function redirectReturnUrlOrView($task) {
 		$this->redirect(
 			isset($_POST['returnUrl']) 
 			? $_POST['returnUrl'] 
-			: array('task/view', 'id'=>$goal->id,));
+			: $this->redirectParentTask($task));
+	}
+	
+	private function redirectParentTask($task) {
+		$this->redirect(
+			$task->hasParent 
+			? array('task/view', 'id'=>$task->parentId, '#'=>'task-' . $task->id,) 
+			: array('task/index', '#'=>'task-' . $task->id,));
 	}
 }
