@@ -22,7 +22,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 ?>
 		
 </head>
-<body>
+<body id="<?php echo $this->id . '-' . $this->action->id; ?>">
 
 <header>
 <nav id="primaryNavigation">
