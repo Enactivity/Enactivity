@@ -525,6 +525,19 @@ ul.yiiPager .last
 */
 
 /*
+	Main page styles
+*/
+#site-index header {
+	background-image: url(../images/poncla-splash.png);
+	background-position: top center;
+	height: 380px;
+}
+
+#site-index h1 {
+	display: none;	
+}
+
+/*
 	Site: login styles
 */
 #login-form .rememberMe label
