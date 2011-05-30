@@ -528,13 +528,13 @@ ul.yiiPager .last
 	Main page styles
 */
 #site-index header {
-	background-image: url(../images/poncla-splash.png);
+	background-image: url(../images/poncla-splash-no-header-1600x380.png);
 	background-position: top center;
 	height: 380px;
 }
 
 #site-index h1 {
-	display: none;	
+	text-align: center;
 }
 
 /*
