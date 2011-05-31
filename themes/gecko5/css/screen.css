@@ -47,7 +47,7 @@ em {
 	font-style: italic;
 }
 
-/* Selection colours (easy to forget) */
+/* Selection colours */
 
 ::selection 	 	{background: #92ccd6;}
 ::-moz-selection 	{background: #92ccd6;}
@@ -528,13 +528,14 @@ ul.yiiPager .last
 	Main page styles
 */
 #site-index header {
-	background-image: url(../images/poncla-splash-no-header-1600x380.png);
+	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
+	background-repeat: no-repeat;
 	height: 380px;
 }
 
 #site-index h1 {
-	text-align: center;
+	display: none;
 }
 
 /*
@@ -669,12 +670,6 @@ form#task-form.new-task input[type="text"] {
 }
 
 /*
-	Home page styling
-*/
-.site.index {
-}
-
-/*
 	Calendar styles
 */
 .event.calendar th,
@@ -707,6 +702,88 @@ form#task-form.new-task input[type="text"] {
 	white-space: nowrap;
 }
 
-/*
-	Group styles
-*/
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+
+body {
+}
+
+
+
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+	body {
+	}
+}
+
+
+
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+
+@media only screen and (max-width: 767px) {
+	
+	body {
+	}
+	
+	#site-index header {
+		background-image: url(../images/poncla-splash-320x270.jpg);
+		height: 270px;
+	}
+	
+}
+
+
+
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	
+	body {
+	}
+	
+	#site-index header {
+		background-image: url(../images/poncla-splash-480x380.jpg);
+		height: 380px;
+	}
+	
+}
+
+
+/*	Retina media query.
+	Overrides styles for devices with a 
+	device-pixel-ratio of 2+, such as iPhone 4.
+-----------------------------------------------    */
+
+@media 
+	only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min-device-pixel-ratio: 2) {
+	
+	body {
+	}
+	
+}
