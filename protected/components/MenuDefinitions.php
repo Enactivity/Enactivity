@@ -80,16 +80,7 @@ class MenuDefinitions extends CComponent {
 	 * @return array of menu items for groups
 	 */
 	public static function groupMenu($model = null) {
-		
-		if(isset($model->id)) {
-			$menu[] = array(
-				'label'=>'Update This Group', 
-				'url'=>array('group/updateprofile','id'=>$model->id),
-				'linkOptions'=>array('id'=>'group-profile-menu-item'),
-			);
-		}
-		
-		return $menu;
+		return array();
 	}
 
 	public static function task() {
