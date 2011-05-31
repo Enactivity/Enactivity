@@ -123,6 +123,7 @@ class TaskController extends Controller
 			if(!isset($_GET['ajax'])) {
 				$this->redirectReturnUrlOrView($task);
 			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -146,6 +147,7 @@ class TaskController extends Controller
 			if(!isset($_GET['ajax'])) {
 				$this->redirectReturnUrlOrView($task);
 			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -191,6 +193,7 @@ class TaskController extends Controller
 			if(!isset($_GET['ajax'])) {
 				$this->redirectReturnUrlOrView($task);
 			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -205,7 +208,7 @@ class TaskController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-			// we only allow participating via POST request
+			// we only allow completion via POST request
 			$task = $this->loadModel($id);
 			$task->userComplete();
 
@@ -228,8 +231,7 @@ class TaskController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-			// we only allow unparticipating via POST request
-			// we only allow participating via POST request
+			// we only allow uncomplete via POST request
 			$task = $this->loadModel($id);
 			$task->userUncomplete();
 			
@@ -237,6 +239,7 @@ class TaskController extends Controller
 			if(!isset($_GET['ajax'])) {
 				$this->redirectReturnUrlOrView($task);
 			}
+			$this->renderPartial('/task/_view', array('data'=>$task));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
