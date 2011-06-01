@@ -179,11 +179,12 @@ else {
 	echo PHtml::ajaxLink(
 		PHtml::encode('Trash'), 
 		array('task/trash', 'id'=>$data->id),
-		array(
-			'submit'=>array(
-				'task/trash',
-				'id'=>$data->id,
-			),
+		array( //ajax
+			'replace'=>'#task-' . $data->id,
+			'type'=>'POST',
+			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+		),
+		array( //html
 			'csrf' => true,
 			'id'=>'task-trash-menu-item-' . $data->id,
 			'class'=>'task-trash-menu-item',
