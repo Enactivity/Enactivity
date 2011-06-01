@@ -33,9 +33,15 @@ a:hover, a:focus {
 }
 
 input, textarea, select {
-	border: none; 
+	border: 1px solid gray; 
 	font-size: 1em;
-	font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Trebuchet MS', Verdana; 
+	font-family: sans-serif;
+	margin: -1px; 
+}
+
+input[type="submit"] {
+	border: none;
+	margin: 0px;	
 }
 
 strong 
@@ -578,13 +584,14 @@ input#Event_startDate,
 input#Event_endDate,
 input#Task_startDate,
 input#Task_endDate{
-	width: 65%;
+	width: 63%;
 }
 
 select#Event_startTime,
 select#Event_endTime,
 select#Task_startTime,
 select#Task_endTime {
+	float: right;
 	width: 35%;
 }
 
