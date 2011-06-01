@@ -5,7 +5,6 @@
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>  
 
-	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="all" />
 	<!--[if lt IE 8]>
