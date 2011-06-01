@@ -120,10 +120,11 @@ class TaskController extends Controller
 			$task->save();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -144,10 +145,11 @@ class TaskController extends Controller
 			$task->save();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -167,10 +169,11 @@ class TaskController extends Controller
 			$task->participate();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -190,10 +193,11 @@ class TaskController extends Controller
 			$task->unparticipate();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -213,10 +217,11 @@ class TaskController extends Controller
 			$task->userComplete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -236,10 +241,11 @@ class TaskController extends Controller
 			$task->userUncomplete();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax'])) {
-				$this->redirectReturnUrlOrView($task);
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				Yii::app()->end();	
 			}
-			$this->renderPartial('/task/_view', array('data'=>$task));
+			$this->redirectReturnUrlOrView($task);
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

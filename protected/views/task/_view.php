@@ -83,14 +83,15 @@ if($data->isUserParticipating) {
 	echo PHtml::openTag('li');
 	
 	if($data->isUserComplete) {
-		echo PHtml::link(
+		echo PHtml::ajaxLink(
 			PHtml::encode('Resume'), 
 			array('/task/useruncomplete', 'id'=>$data->id),
-			array(
-				'submit'=>array(
-					'task/useruncomplete',
-					'id'=>$data->id,
-				),
+			array( //ajax
+				'replace'=>'#task-' . $data->id,
+				'type'=>'POST',
+				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+			),
+			array( //html
 				'csrf' => true,
 				'id'=>'task-useruncomplete-menu-item-' . $data->id,
 				'class'=>'task-useruncomplete-menu-item',
@@ -99,14 +100,15 @@ if($data->isUserParticipating) {
 		);
 	}
 	else {
-		echo PHtml::link(
+		echo PHtml::ajaxLink(
 			PHtml::encode('Complete'), 
 			array('/task/usercomplete', 'id'=>$data->id),
-			array(
-				'submit'=>array(
-					'task/usercomplete',
-					'id'=>$data->id,
-				),
+			array( //ajax
+				'replace'=>'#task-' . $data->id,
+				'type'=>'POST',
+				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+			),
+			array( //html
 				'csrf' => true,
 				'id'=>'task-usercomplete-menu-item-' . $data->id,
 				'class'=>'task-usercomplete-menu-item',
@@ -118,14 +120,15 @@ if($data->isUserParticipating) {
 	
 	// 'participate' button
 	echo PHtml::openTag('li');
-	echo PHtml::link(
+	echo PHtml::ajaxLink(
 		PHtml::encode('Quit'), 
 		array('task/unparticipate', 'id'=>$data->id),
-		array(
-			'submit'=>array(
-				'task/unparticipate',
-				'id'=>$data->id,
-			),
+		array( //ajax
+			'replace'=>'#task-' . $data->id,
+			'type'=>'POST',
+			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->getCsrfToken(), 
+		),
+		array( //html
 			'csrf' => true,
 			'id'=>'task-unparticipate-menu-item-' . $data->id,
 			'class'=>'task-unparticipate-menu-item',
@@ -136,15 +139,16 @@ if($data->isUserParticipating) {
 }
 else {
 	echo PHtml::openTag('li');
-	echo PHtml::link(
+	echo PHtml::ajaxLink(
 		PHtml::encode('Sign up'), 
 		array('task/participate', 'id'=>$data->id),
-		array(
-			'submit'=>array(
-				'task/participate',
-				'id'=>$data->id,
-			),
-			'csrf' => true,
+		array( //ajax
+			'replace'=>'#task-' . $data->id,
+			'type'=>'POST',
+			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+		),
+		array( //html
+			'csrf'=>true,
 			'id'=>'task-participate-menu-item-' . $data->id,
 			'class'=>'task-participate-menu-item',
 			'title'=>'Sign up for task',
@@ -155,15 +159,16 @@ else {
 
 echo PHtml::openTag('li');
 if($data->isTrash) {
-	echo PHtml::link(
+	echo PHtml::ajaxLink(
 		PHtml::encode('Restore'), 
 		array('task/untrash', 'id'=>$data->id),
-		array(
-			'submit'=>array(
-				'task/untrash',
-				'id'=>$data->id,
-			),
-			'csrf' => true,
+		array( //ajax
+			'replace'=>'#task-' . $data->id,
+			'type'=>'POST',
+			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+		),
+		array( //html
+			'csrf'=>true,
 			'id'=>'task-untrash-menu-item-' . $data->id,
 			'class'=>'task-untrash-menu-item',
 			'title'=>'Restore this task',
@@ -171,7 +176,7 @@ if($data->isTrash) {
 	);
 }
 else {
-	echo PHtml::link(
+	echo PHtml::ajaxLink(
 		PHtml::encode('Trash'), 
 		array('task/trash', 'id'=>$data->id),
 		array(
