@@ -14,7 +14,7 @@ $this->pageTitle = 'Login';
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->emailField($model,'email', 
 			array(
-				'placeholder'=>'Email',
+				'placeholder'=>'@',
 				'autofocus'=>'autofocus',
 			)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
@@ -23,7 +23,7 @@ $this->pageTitle = 'Login';
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'password'); ?></div>
 		<div class="forminput"><?php echo $form->passwordField($model,'password', 
-			array('placeholder'=>'Password')); ?></div>
+			array('placeholder'=>'*')); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'password'); ?></div>
 	</div>
 
