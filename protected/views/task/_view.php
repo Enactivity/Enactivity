@@ -26,7 +26,7 @@ echo PHtml::openTag('hgroup');
 // event date
 echo PHtml::openTag('h2');
 if(isset($data->starts)) {
-	echo PHtml::openTag('time');
+	echo PHtml::openTag('time', array('class'=>'starts'));
 	echo Yii::app()->format->formatDateTime(strtotime($data->starts));
 	echo PHtml::closeTag('time');
 }
@@ -40,7 +40,7 @@ elseif(isset($data->ends)) {
 }
 
 if(isset($data->ends)) {
-	echo PHtml::openTag('time');
+	echo PHtml::openTag('time', array('class'=>'ends'));
 	echo Yii::app()->format->formatDateTime(strtotime($data->ends));
 	echo PHtml::closeTag('time');
 }
