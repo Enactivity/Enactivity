@@ -277,7 +277,6 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// FIXME: only get tasks in user's groups
 		$dataProvider = new CArrayDataProvider(
 			Yii::app()->user->model->groupsParentlessTasks,
 			array()
