@@ -30,6 +30,7 @@ a, a:hover, a:visited, a:active, a:focus
 a:hover, a:focus {
 	border-bottom: 1px solid #00b6d5;
 	color: #00b6d5;
+	margin-bottom: -1px;
 }
 
 input, textarea, select {
