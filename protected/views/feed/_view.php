@@ -54,6 +54,7 @@ echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
 if($data->action == ActiveRecordLog::ACTION_UPDATED) {
+	echo Phtml::openTag(p);
 	echo 'Changed ';
 	// if the referred to model was actually deleted then avoid the null pointer exception
 	if(isset($data->modelObject)) {
@@ -79,6 +80,7 @@ if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 	$new = isset($data->newAttributeValue) ? $data->newAttributeValue : 'nothing';
 	echo PHtml::encode($new);
 	echo PHtml::closeTag('strong');
+	echo Phtml::closeTag(p);
 }
 
 echo PHtml::closeTag('article');
