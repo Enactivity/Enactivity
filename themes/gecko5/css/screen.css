@@ -484,6 +484,10 @@ th
 /*
 	Content pagination
 */
+.pager {
+	clear: both;
+}
+
 ul.yiiPager
 {
 	border: 0;
