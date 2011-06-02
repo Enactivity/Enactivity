@@ -182,7 +182,9 @@ class Task extends CActiveRecord
 		return array(
 			'parent' => array(self::BELONGS_TO, 'Task', 'parentId'),
 			
-			'children' => array(self::HAS_MANY, 'Task', 'parentId'),
+			'children' => array(self::HAS_MANY, 'Task', 'parentId',
+				'condition' => 'children.isTrash=0',
+			),
 			'childrenCount' => array(self::STAT, 'Task', 'parentId'),
 
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
