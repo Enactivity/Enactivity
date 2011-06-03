@@ -69,7 +69,7 @@ if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 		echo 'nothing';
 	}
 	elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
-		echo Yii::app()->format->formatDateTime(strtotime($data->newAttributeValue));
+		echo Yii::app()->format->formatDateTime(strtotime($data->oldAttributeValue));
 	}
 	else {
 		echo PHtml::encode($data->oldAttributeValue);
