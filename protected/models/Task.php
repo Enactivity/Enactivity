@@ -201,7 +201,7 @@ class Task extends CActiveRecord
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
 				'condition' => 'feed.focalModel=\'Task\'',
-				'order' => 'feed.created ASC',
+				'order' => 'feed.created DESC',
 			),
 		);
 	}
