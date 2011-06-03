@@ -69,7 +69,7 @@ echo $this->renderPartial('_form', array('model'=>$newTask));
 ?>
 <section>
 	<header>
-		<h1><?php echo 'History'; ?></h1>
+		<h1><?php echo 'Recent Activity'; ?></h1>
 	</header>
 	<?php 
 	foreach($model->feed as $log) {
