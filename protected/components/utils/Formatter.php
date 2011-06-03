@@ -34,4 +34,36 @@ class Formatter extends CFormatter {
 		$enrichedText = PHtml::makeClickable($enrichedText);
 		return $enrichedText;
 	}
+	
+	public function formatDate($value)
+	{
+		$date = date('d/m/Y', $value);
+		if($date == date('d/m/Y')) {
+			return 'Today';
+		}
+		else if($date == date('d/m/Y', time() - (24 * 60 * 60))) {
+			return 'Yesterday';
+		}
+		else if($date == date('d/m/Y', time() + (24 * 60 * 60))) {
+			return 'Tomorrow';
+		}
+		
+		return parent::formatDate($value);
+	}
+	
+	public function formatDateTime($value)
+	{
+		$date = date('d/m/Y', $value);
+		if($date == date('d/m/Y')) {
+			return 'Today at ' . parent::formatTime($value);
+		}
+		else if($date == date('d/m/Y', time() - (24 * 60 * 60))) {
+			return 'Yesterday at ' . parent::formatTime($value);
+		}
+		else if($date == date('d/m/Y', time() + (24 * 60 * 60))) {
+			return 'Tomorrow at ' . parent::formatTime($value);
+		}
+		
+		return parent::formatDateTime($value);
+	}
 }
