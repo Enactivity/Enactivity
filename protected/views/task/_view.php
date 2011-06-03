@@ -6,17 +6,19 @@
  */
 
 // calculate article class
-$articleClass = "view";
-$articleClass .= " task";
-$articleClass .= " task-" . $data->id;
-$articleClass .= $data->isCompleted ? " completed" : " not-completed";
-$articleClass .= $data->isTrash ? " trash" : " not-trash";
-$articleClass .= $data->isUserParticipating ? " participating" : " not-participating";
+$articleClass[] = "view";
+$articleClass[] = "task";
+$articleClass[] = "task-" . $data->id;
+$articleClass[] = $data->hasStarts ? "starts" : "";
+$articleClass[] = $data->hasEnds ? "ends" : "";
+$articleClass[] = $data->isCompleted ? "completed" : "not-completed";
+$articleClass[] = $data->isTrash ? "trash" : "not-trash";
+$articleClass[] = $data->isUserParticipating ? "participating" : "not-participating";
 
 // start article
 echo PHtml::openTag('article', array(
 	'id' => "task-" . $data->id,
-	'class' => $articleClass,
+	'class' => implode(" ", $articleClass),
 ));
 
 // start headers
@@ -25,23 +27,47 @@ echo PHtml::openTag('hgroup');
 
 // event date
 echo PHtml::openTag('h2');
-if(isset($data->starts)) {
+if($data->hasStarts) {
 	echo PHtml::openTag('time', array('class'=>'starts'));
-	echo Yii::app()->format->formatDateTime(strtotime($data->starts));
+	echo PHtml::link(
+		PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->starts))), 
+		array('task/update', 'id'=>$data->id),
+		array()
+	);
+	echo PHtml::closeTag('time');
+}
+else {
+	echo PHtml::openTag('time', array('class'=>'starts'));
+	echo PHtml::link(
+		PHtml::encode('Add start time'), 
+		array('task/update', 'id'=>$data->id),
+		array(
+			'title' => PHtml::encode('Set ' . strtolower($data->getAttributeLabel('starts'))),
+		)
+	);
 	echo PHtml::closeTag('time');
 }
 
-if(isset($data->starts) && isset($data->ends)) {
-	echo PHtml::encode(' to ');	
-}
-elseif(isset($data->ends)) {
-	echo PHtml::encode($data->getAttributeLabel('ends'));
-	echo PHtml::encode(' ');
-}
-
-if(isset($data->ends)) {
+if($data->hasOnlyEnds) {
 	echo PHtml::openTag('time', array('class'=>'ends'));
-	echo Yii::app()->format->formatDateTime(strtotime($data->ends));
+	echo PHtml::link(
+		PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->ends))), 
+		array('task/update', 'id'=>$data->id),
+		array(
+			'title' => PHtml::encode('Update ' . strtolower($data->getAttributeLabel('ends'))),
+		)
+	);
+	echo PHtml::closeTag('time');
+}
+else if($data->hasEnds) {
+	echo PHtml::openTag('time', array('class'=>'ends'));
+	echo PHtml::link(
+		PHtml::encode(Yii::app()->format->formatTime(strtotime($data->ends))), 
+		array('task/update', 'id'=>$data->id),
+		array(
+			'title' => PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->ends))),
+		)
+	);
 	echo PHtml::closeTag('time');
 }
 echo PHtml::closeTag('h2');

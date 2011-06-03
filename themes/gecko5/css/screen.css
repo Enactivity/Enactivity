@@ -62,12 +62,48 @@ img::selection 		{background: transparent;}
 img::-moz-selection	{background: transparent;}
 body {-webkit-tap-highlight-color: #92ccd6;}
 
+
+h1,
+h2,
+h3, 
+h4,
+h5,
+h6 
+{
+	clear: both;
+	width: 100%;
+	margin-bottom: .5em;
+}
+
+h1 
+{
+	font-size: 1.5em;
+	max-width: 32em;
+}
+
+h2
+{
+	font-size: .8em;
+	max-width: 32em;
+}
+
+h3 
+{
+	font-size: .5em;
+	max-width: 32em;
+}
+
+p
+{
+	font-weight: normal;
+	margin-bottom: .5em;
+	max-width: 32em;
+}
+
 /*
 	Global wrappers
 */
-body > header, 
-#content,
-body > footer
+body > *
 {
 	padding-left: 2.5%;
 	padding-right: 2.5%;
@@ -76,6 +112,11 @@ body > footer
 body > header 
 {
 	overflow: hidden;
+}
+
+body > header h1 
+{
+	font-size: 3em;
 }
 
 #content
@@ -92,133 +133,74 @@ body > footer {
 	padding: 2em 1em;
 }
 
-/* 
-	Main layout styles
-*/
-#primaryNavigation, 
-#secondaryNavigation,
-#tertiaryNavigation
+nav
 {
 	clear: both;
 	overflow: hidden;
 }
 
-#primaryNavigation ul, 
-#secondaryNavigation ul,
-#tertiaryNavigation ul,
-body > footer > nav ul
+nav ul
 {
 	list-style-type: none;
 	margin: 0px auto;
 	padding: 0px;
 }
 
-#primaryNavigation li,
-#secondaryNavigation li,
-#tertiaryNavigation li,
-body > footer > nav li
+nav li
 
 {
 	white-space: nowrap;
 }
 
-#primaryNavigation li a, 
-#primaryNavigation li a:visited,
-#secondaryNavigation li a, 
-#secondaryNavigation li a:visited, 
-#tertiaryNavigation li a, 
-#tertiaryNavigation li a:visited,
-body > footer > nav li a,
-body > footer > nav li
+nav li a,
+nav li a:visited
 {
 	border: none;	
 	float: left;
 	padding: .5em;
-	margin-right: .25em;
 	text-decoration: none;
 	text-transform: lowercase;
 }
 
-#primaryNavigation li a:hover, 
-#secondaryNavigation li a:hover, 
-#tertiaryNavigation li a:hover,
-#primaryNavigation li a:focus, 
-#secondaryNavigation li a:focus, 
-#tertiaryNavigation li a:focus,
-#primaryNavigation li.active a,
-#secondaryNavigation li.active a,
-#tertiaryNavigation li.active a,
-body > footer > nav li a:hover,
-body > footer > nav li a:focus
+nav li a:hover,
+nav li a:focus
 {
 	background-color: #00b6d5;
 	color: #ffffff;
 }
 
 /*
-	Content styles
+	Content styles 
 */
-h1,
-h2,
-h3, 
-h4,
-h5,
-h6 
-{
-	clear: both;
-	width: 100%;
-	margin-bottom: .5em;
-}
-
-h1 
-{
-	font-size: 3em;
-	max-width: 32em;
-}
-
-article h1 
-{
-	font-size: 1.5em;
-	max-width: 32em;
-}
-
-article h2
-{
-	font-size: .8em;
-	max-width: 32em;
-}
-
-article h3 
-{
-	font-size: .5em;
-	max-width: 32em;
-}
-
-p
-{
-	font-weight: normal;
-	margin-bottom: .5em;
-	max-width: 32em;
-}
-
 article > header
 {
-	float: left;
-	margin-right: 2em;
-	max-width: 32em;
 }
 
 article > menu
 {
-	float: right;
+	bottom: 0;
+	margin: 1.25em 0;
+	position: absolute;
 }
 
 article menu li
 {
 	float: left;
+	font-size: .6em;
 	list-style-type: none;
 	margin: 0px 1em 0px 0px;
 	padding: 0px;
+	white-space: nowrap;
+}
+
+article menu li a 
+{
+	background-repeat: no-repeat;
+	border: none;
+	display: block;
+	height: 18px;
+	padding-left: 18px;
+	padding-top: 3px;
 }
 
 /*
@@ -277,25 +259,17 @@ article
 {
 	background-color: #ffffff;
 	border-radius: 2em;
-	clear: both;
-	margin-bottom: 1em;
-	overflow: hidden;
+	float: left;
+	margin: 1em;
+	min-height: 5em;
+	max-width: 32em;
+	min-width: 20em;
 	padding: 1.25em;
+	position: relative;
 }
 
 article:last-child
 {
-}
-
-article > footer
-{
-	font-size: .8em;	
-}
-
-article > footer li
-{
-	float: left;
-	margin-right: .5em;
 }
 
 .detail-view dl,
@@ -612,6 +586,39 @@ form#task-form.new-task input[type="text"] {
 /*
 	Task stylings
 */
+article.task {
+	border-top-left-radius: 0em 0em;
+	padding-bottom: 4em;
+}
+
+article.task.starts {
+}
+
+article.task.ends {
+	border-bottom-right-radius: 0em 0em;
+}
+
+.task time.starts,
+.task time.ends {
+	position: absolute;
+	background: white;
+	padding: .5em;
+	white-space: nowrap;
+	z-index: 1;	
+}
+
+.task time.starts {
+	top: -.75em;
+	left: 0em;
+	border-radius: 1em 1em 1em 0;
+}
+
+.task time.ends {
+	right: 0;
+	bottom: -.75em;
+	border-radius: 1em 0 1em 1em;
+}
+
 .task.completed h1 a {
 	color: #bfbfbf;
 }
@@ -646,38 +653,43 @@ form#task-form.new-task input[type="text"] {
 }
 
 /* task menu and buttons */
-.task menu a 
-{
-	background-repeat: no-repeat;
-	display: block;
-	padding-left: 1em;
-}
-
 .task-update-menu-item {
 	background-image: url(../images/icons/pencil-16x16.png);	
 }
 
-.task-useruncomplete-menu-item {
+.task-useruncomplete-menu-item,
+.task-usercomplete-menu-item:hover,
+.task-usercomplete-menu-item:focus {
 	background-image: url(../images/icons/check-blue-16x16.png);	
 }
 
-.task-usercomplete-menu-item {
+.task-usercomplete-menu-item,
+.task-useruncomplete-menu-item:hover,
+.task-useruncomplete-menu-item:focus {
 	background-image: url(../images/icons/check-gray-16x16.png);	
 }
 
-.task-unparticipate-menu-item {
+.task-unparticipate-menu-item,
+.task-participate-menu-item:hover,
+.task-participate-menu-item:focus {
 	background-image: url(../images/icons/man-blue-16x16.png);	
 }
 
-.task-participate-menu-item {
+.task-participate-menu-item,
+.task-unparticipate-menu-item:hover,
+.task-unparticipate-menu-item:focus {
 	background-image: url(../images/icons/man-gray-16x16.png);	
 }
 
-.task-untrash-menu-item {
+.task-untrash-menu-item,
+.task-trash-menu-item:hover,
+.task-trash-menu-item:focus {
 	background-image: url(../images/icons/trash-with-arrow-16x16.png);
 }
 
-.task-trash-menu-item {
+.task-trash-menu-item,
+.task-untrash-menu-item:hover,
+.task-untrash-menu-item:focus {
 	background-image: url(../images/icons/trash-can-16x16.png);
 }
 
@@ -754,6 +766,15 @@ px      68    160    252    */
 @media only screen and (max-width: 767px) {
 	
 	body {
+	}
+	
+	article {
+		min-width: 13em;
+	}
+	
+	article menu li a 
+	{
+		text-indent: -9999px;
 	}
 	
 	#site-index header {
