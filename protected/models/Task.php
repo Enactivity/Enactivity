@@ -367,11 +367,27 @@ class Task extends CActiveRecord
 	}
 	
 	/**
-	 * Does this task have a start time?
+	 * Does this task have an end time?
 	 * @return boolean
 	 */
 	public function getHasEnds() {
 		return isset($this->ends);
+	}
+	
+	/**
+	 * Does this task have a start time and no end time?
+	 * @return boolean
+	 */
+	public function getHasOnlyStarts() {
+		return $this->hasStarts && !$this->hasEnds;
+	}
+	
+	/**	
+	 * Does this task have a start time and no end time?
+	 * @return boolean
+	 */
+	public function getHasOnlyEnds() {
+		return !$this->hasStarts && $this->hasEnds;
 	}
 	
 	/**
