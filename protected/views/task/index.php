@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = 'Tasks';
+$this->pageTitle = 'Tasks';
 
 // "what would you want to do input" box
 echo $this->renderPartial('_form', array('model'=>$newTask));
