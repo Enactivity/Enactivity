@@ -117,6 +117,7 @@ body > header
 body > header h1 
 {
 	font-size: 3em;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
 }
 
 #content
@@ -163,7 +164,8 @@ nav li a:visited
 }
 
 nav li a:hover,
-nav li a:focus
+nav li a:focus,
+nav li.active a
 {
 	background-color: #00b6d5;
 	color: #ffffff;
@@ -260,7 +262,7 @@ article
 	background-color: #ffffff;
 	border-radius: 2em;
 	float: left;
-	margin: 1em;
+	margin: 2em 1em;
 	min-height: 5em;
 	max-width: 32em;
 	min-width: 20em;
