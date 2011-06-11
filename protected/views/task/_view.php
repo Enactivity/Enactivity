@@ -25,6 +25,17 @@ echo PHtml::openTag('article', array(
 echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
 
+
+
+// task name
+echo PHtml::openTag('h1');
+echo PHtml::link(
+		PHtml::encode($data->name), 
+		array('/task/view', 'id'=>$data->id),
+		array()
+	);
+echo PHtml::closeTag('h1');
+
 // event date
 echo PHtml::openTag('h2');
 if($data->hasStarts) {
@@ -71,15 +82,6 @@ else if($data->hasEnds) {
 	echo PHtml::closeTag('time');
 }
 echo PHtml::closeTag('h2');
-
-// task name
-echo PHtml::openTag('h1');
-echo PHtml::link(
-		PHtml::encode($data->name), 
-		array('/task/view', 'id'=>$data->id),
-		array()
-	);
-echo PHtml::closeTag('h1');
 
 // close headers
 echo PHtml::closeTag('hgroup');
