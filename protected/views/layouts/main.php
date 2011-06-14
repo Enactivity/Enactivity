@@ -44,11 +44,15 @@ if(isset($this->menu)
 	));
 	?>
 	</nav><!-- end of secondaryNavigation -->
-<?php endif; ?>
+<?php endif; 
 
-<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
+if(!empty($this->pageTitle)) {
+	echo PHtml::openTag('h1');
+	echo PHtml::encode($this->pageTitle); 
+	echo PHtml::closeTag('h1');
+}
 
-<?php if(isset($this->pageMenu) 
+if(isset($this->pageMenu) 
 		&& !empty($this->pageMenu)
 		&& !Yii::app()->user->isGuest
 	):?>
