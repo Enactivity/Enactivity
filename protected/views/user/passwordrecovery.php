@@ -14,7 +14,7 @@ $this->pageTitle = 'Recover Password';
 	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'email',
-			 array('placeholder'=>'Email')); ?></div>
+			 array('placeholder'=>'@')); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
 	</div>
 
