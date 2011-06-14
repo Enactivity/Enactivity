@@ -8,9 +8,6 @@ $this->pageTitle = 'Login';
 )); 
 ?>
 	<div class="row">
-		<p>Please fill out the following form with your login credentials:</p>
-	</div>
-	<div class="row">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->emailField($model,'email', 
 			array(
