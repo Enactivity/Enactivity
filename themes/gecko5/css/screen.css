@@ -8,7 +8,7 @@
 	General settings
 */
 html {
-	color: #232425;
+	color: #ffffff;
 	font-family: sans-serif;
 	font-style: normal;
 	height: 100%;
@@ -16,21 +16,19 @@ html {
 
 body
 {
-	background-color: #ececec;
-	background-image: url(../images/background.jpg);
+	background: #005483 url("../images/blue-noise-vertical-bar.jpg") repeat-x scroll left top;
 	height: 100%;
 }
 
 a, a:hover, a:visited, a:active, a:focus
 {
-	color: #808080;
+	color: #ffffff;
 	font-weight: bold;
 }
 
 a:hover, a:focus {
-	border-bottom: 1px solid #00b6d5;
 	color: #00b6d5;
-	margin-bottom: -1px;
+	text-decoration: underline;
 }
 
 input, textarea, select {
@@ -70,9 +68,7 @@ h4,
 h5,
 h6 
 {
-	clear: both;
 	width: 100%;
-	margin-bottom: .5em;
 }
 
 h1 
@@ -120,7 +116,7 @@ body > header h1
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
 }
 
-#content
+.content
 {
 	min-height: 100%;
 }
@@ -156,10 +152,10 @@ nav li
 nav li a,
 nav li a:visited
 {
-	border: none;	
+	border: none;
+	color: #ffffff;	
 	float: left;
 	padding: .5em;
-	text-decoration: none;
 	text-transform: lowercase;
 }
 
@@ -169,6 +165,7 @@ nav li.active a
 {
 	background-color: #00b6d5;
 	color: #ffffff;
+	text-decoration: none;
 }
 
 /*
@@ -253,21 +250,49 @@ aside.flash-success a
 */
 section
 {
+	clear: both;
 	margin-bottom: 1em;
-	overflow: hidden;
+}
+
+section > header
+{
+	border-bottom: 1px solid #005483;
+	box-shadow: 0px 10px 10px #005483;
+	padding: 2em 2em 1em;
+	margin: 0 -1.9em 1em;
+}
+
+section > header h1
+{
+	font-size: 2em;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
 }
 
 article
 {
 	background-color: #ffffff;
 	border-radius: 2em;
-	margin: 2em 1em;
+	color: #232425;
+	float: left;
+	clear: both;
+	margin: 1em;
 	min-height: 5em;
 	max-width: 32em;
 	min-width: 20em;
 	padding: 1.25em;
 	position: relative;
 }
+
+article a, article a:visited, article a:active
+{
+	color: #808080;
+}
+
+article a:hover,
+article a:focus {
+	color: #00B6D5;	
+}
+
 
 article:last-child
 {
@@ -289,8 +314,6 @@ article:last-child
 }
 
 .detail-view dt {
-	border-top: 1px dotted #d9d4cc;
-	color: #8A8581;
 	font-size: .75em;
 	margin-top: 1em;
 	text-transform: uppercase;
@@ -309,12 +332,21 @@ article:last-child
 */
 form
 {
-	background-color: transparent;
+	background-color: #ffffff;
+	border-radius: 1em;
 	clear: both;
+	color: #232425;
 	overflow: hidden;
+	padding: 1em;
 	max-width: 32em;
 	margin-bottom: 1em;
 }
+
+form a, form a:hover, form a:visited, form a:active, form a:focus
+{
+	color: #808080;
+}
+
 
 form .errorSummary {
 	background-color: #E82C0C;
@@ -514,6 +546,7 @@ ul.yiiPager .last
 	Main page styles
 */
 #site-index header {
+	background-color: #ECECEC;
 	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
 	background-repeat: no-repeat;
@@ -625,7 +658,6 @@ article.task.ends {
 }
 .task.completed h1 a:hover, 
 .task.completed h1 a:focus {
-	border-bottom: 1px solid #00b6d5;
 	color: #00b6d5;
 }
 
@@ -634,11 +666,11 @@ article.task.ends {
 }
 
 /* participating user listing  */
-.participants {
+.users {
 	clear: both;	
 }
 
-.participants li {
+.users li {
 	float: left;
 	margin-right: 1em;
 }
@@ -649,7 +681,6 @@ article.task.ends {
 
 .participant.completed a:hover, 
 .participant.completed a:focus {
-	border-bottom: 1px solid #00b6d5;
 	color: #00b6d5;
 }
 

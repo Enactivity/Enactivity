@@ -227,7 +227,7 @@ echo PHtml::closeTag('menu');
 // end of toolbar
 
 // list participants
-echo PHtml::openTag('ol', array('class' => 'participants'));
+echo PHtml::openTag('ol', array('class' => 'users'));
 foreach($data->taskUsers as $taskUser) {
 	$spanClass = "view";
 	$spanClass .= " participant";

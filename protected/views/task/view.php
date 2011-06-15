@@ -35,7 +35,7 @@ $this->widget('application.components.widgets.DetailView', array(
 		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	</header>
 	<?php 
-	echo PHtml::openTag('ol', array('class' => 'participants'));
+	echo PHtml::openTag('ol', array('class' => 'users'));
 	foreach($model->participants as $user) {
 		echo PHtml::openTag('li');	
 		$this->widget('application.components.widgets.UserLink', array(
@@ -51,6 +51,9 @@ $this->widget('application.components.widgets.DetailView', array(
 // Show children tasks
 ?>
 <section id="child-tasks">
+	<header>
+		<h1><?php echo PHtml::encode(sizeof($model->children)) . ' Subtasks'; ?></h1>
+	</header>
 	<ol>
 	<?php 
 	foreach($model->children as $task) {
