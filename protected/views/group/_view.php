@@ -34,4 +34,22 @@ $this->widget('application.components.widgets.TextSummary', array(
 echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
+echo PHtml::openTag('ol', array('class' => 'userlist'));
+foreach($data->groupUsersActive as $groupMember) {
+	$spanClass = "view";
+	$spanClass .= " group-member";
+	$spanClass .= " group-member-" . $groupMember->id;
+	
+	echo PHtml::openTag('li');
+	echo PHtml::openTag('span', array(
+	'class' => $spanClass,		
+	));
+	$this->widget('application.components.widgets.UserLink', array(
+		'userModel' => $groupMember->user,
+	));
+	echo PHtml::closeTag('span');
+	echo PHtml::closeTag('li');
+}
+echo PHtml::closeTag('ol');
+
 echo PHtml::closeTag('article');
