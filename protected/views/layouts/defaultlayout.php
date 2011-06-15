@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
 	
-<section id="content">
+<section class="content">
 <?php echo $content; ?>
 </section>
 
