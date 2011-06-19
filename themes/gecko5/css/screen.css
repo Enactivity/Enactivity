@@ -68,7 +68,6 @@ h4,
 h5,
 h6 
 {
-	width: 100%;
 }
 
 h1 
@@ -96,38 +95,29 @@ p
 	max-width: 32em;
 }
 
+time
+{
+	white-space: nowrap;	
+}
+
 /*
 	Global wrappers
 */
-body > *
+.everything 
 {
-	padding-left: 2.5%;
-	padding-right: 2.5%;
-}
-
-body > header 
-{
-	overflow: hidden;
-}
-
-body > header h1 
-{
-	font-size: 3em;
-	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
-}
-
-.content
-{
+	height: auto;
 	min-height: 100%;
+	margin: 0 auto;
+	width: 98%;
 }
 
 body > footer {
 	background-color: #232425;
-	border-left: 1em solid #ff6600;
-	clear: both;
-	color: white;
-	height: 5em;
-	padding: 2em 1em;
+    border-radius: 2em 2em 0 0;
+    clear: both;
+    color: white;
+    height: 5em;
+    padding: 2em;
 }
 
 nav
@@ -139,12 +129,9 @@ nav
 nav ul
 {
 	list-style-type: none;
-	margin: 0px auto;
-	padding: 0px;
 }
 
 nav li
-
 {
 	white-space: nowrap;
 }
@@ -171,35 +158,104 @@ nav li.active a
 /*
 	Content styles 
 */
-article > header
+section
 {
+	clear: both;
+	margin: 1em 0;
 }
 
-article > menu
+section > header h1
 {
-	bottom: 0;
-	margin: 1.25em 0;
+	font-size: 2em;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
+}
+
+.content
+{
+	background-color: #ffffff;
+	border-radius: 2em;
+	color: #232425;
+	float: left;
+	padding: 1em;
+	position: relative;
+}
+
+.content > header 
+{
+	overflow: hidden;
+}
+
+.content > header h1 
+{
+	font-size: 3em;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
+	margin-right: 132px;
+}
+
+.content a, 
+.content a:visited, 
+.content a:active
+{
+	color: #808080;
+}
+
+.content a:hover,
+.content a:focus 
+{
+	color: #00B6D5;	
+}
+
+article
+{
+	border-top: 1px solid #ececec;
+	clear: both;
+	min-width: 20em;
+	padding: 1em 0;
+	position: relative;
+}
+
+article:last-child
+{
+	border-top: 1px solid #ececec;
+}
+
+menu
+{
 	position: absolute;
 }
 
-article menu li
+menu li
 {
-	float: left;
+	display: inline-block;
 	font-size: .6em;
 	list-style-type: none;
-	margin: 0px 1em 0px 0px;
-	padding: 0px;
+	margin-right: 1em;
 	white-space: nowrap;
 }
 
-article menu li a 
+menu li a 
 {
 	background-repeat: no-repeat;
 	border: none;
 	display: block;
-	height: 18px;
-	padding-left: 18px;
-	padding-top: 3px;
+	height: 32px;
+	padding-top: 32px;
+	margin-right: 1em;
+	text-align: center;
+	width: 32px;
+}
+
+menu.toolbox
+{
+	right: 1em;
+	top: 1em;
+}
+
+article > menu
+{
+	padding-top: 1em;
+	right: 0;
+	top: 0;
 }
 
 /*
@@ -248,56 +304,6 @@ aside.flash-success a
 /*
 	Content lists
 */
-section
-{
-	clear: both;
-	margin-bottom: 1em;
-}
-
-section > header
-{
-	border-bottom: 1px solid #005483;
-	box-shadow: 0px 10px 10px #005483;
-	padding: 2em 2em 1em;
-	margin: 0 -1.9em 1em;
-}
-
-section > header h1
-{
-	font-size: 2em;
-	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
-}
-
-article
-{
-	background-color: #ffffff;
-	border-radius: 2em;
-	color: #232425;
-	float: left;
-	clear: both;
-	margin: 1em;
-	min-height: 5em;
-	max-width: 32em;
-	min-width: 20em;
-	padding: 1.25em;
-	position: relative;
-}
-
-article a, article a:visited, article a:active
-{
-	color: #808080;
-}
-
-article a:hover,
-article a:focus {
-	color: #00B6D5;	
-}
-
-
-article:last-child
-{
-}
-
 .detail-view dl,
 .list-view dl
 {
@@ -307,10 +313,7 @@ article:last-child
 .detail-view dt,
 .list-view dt
 {
-	clear: both;
-	float: left;
-	margin: auto;
-	width: 100%;
+	display: inline-block;
 }
 
 .detail-view dt {
@@ -323,7 +326,7 @@ article:last-child
 .detail-view dd,
 .list-view dd
 {
-	float: left;
+	display: inline-block;
 	margin-right: 1em;
 }
 
@@ -332,14 +335,10 @@ article:last-child
 */
 form
 {
-	background-color: #ffffff;
-	border-radius: 1em;
 	clear: both;
 	color: #232425;
 	overflow: hidden;
-	padding: 1em;
 	max-width: 32em;
-	margin-bottom: 1em;
 }
 
 form a, form a:hover, form a:visited, form a:active, form a:focus
@@ -355,16 +354,15 @@ form .errorSummary {
 }
 
 form .errorSummary p {
-	margin: 0px;
 }
 
 form .errorSummary ul {
-	margin-left: 15px;
+	margin-left: 1em;
 }
 
 form .errorMessage {
 	color: #E82C0C;
-	font-size: .75em;
+	font-size: .6em;
 }
 
 form input[type="submit"], 
@@ -373,7 +371,7 @@ form input[type="button"] {
 	color: #00b6d5;
 	cursor: pointer;
 	font-weight: bold;
-	float: left;
+	display: inline-block;
 	padding: .5em;
 	text-shadow: none;
 	text-transform: lowercase;
@@ -493,6 +491,7 @@ th
 */
 .pager {
 	clear: both;
+	padding: 1em;
 }
 
 ul.yiiPager
@@ -545,7 +544,7 @@ ul.yiiPager .last
 /*
 	Main page styles
 */
-#site-index header {
+#site-index > header {
 	background-color: #ECECEC;
 	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
@@ -569,42 +568,16 @@ ul.yiiPager .last
 	width: 15px;
 }
 
-#login-form .buttons
-{
-	margin-top: 10px;
-}
-
-/*
-	Event styles
-*/
-.event
-{
-	margin-bottom: 10px;
-}
-
-.event .eventname
-{
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.event .eventdate
-{
-	margin-bottom: 15px;
-}
-
-input#Event_startDate,
-input#Event_endDate,
 input#Task_startDate,
-input#Task_endDate{
+input#Task_endDate
+{
+	margin-right: 2%;
 	width: 63%;
 }
 
-select#Event_startTime,
-select#Event_endTime,
 select#Task_startTime,
-select#Task_endTime {
-	float: right;
+select#Task_endTime 
+{
 	width: 35%;
 }
 
@@ -618,39 +591,19 @@ form#task-form.new-task input[type="text"] {
 }
 
 /*
+	Yii widgets
+*/
+.list-view .summary
+{
+	display: none;
+}
+
+/*
 	Task stylings
 */
 article.task {
 	border-top-left-radius: 0em 0em;
-	padding-bottom: 4em;
-}
-
-article.task.starts {
-}
-
-article.task.ends {
-	border-bottom-right-radius: 0em 0em;
-}
-
-.task time.starts,
-.task time.ends {
-	position: absolute;
-	background: white;
-	padding: .5em;
-	white-space: nowrap;
-	z-index: 1;	
-}
-
-.task time.starts {
-	top: -.75em;
-	left: 0em;
-	border-radius: 1em 1em 1em 0;
-}
-
-.task time.ends {
-	right: 0;
-	bottom: -.75em;
-	border-radius: 1em 0 1em 1em;
+	padding-right: 182px;
 }
 
 .task.completed h1 a {
@@ -671,7 +624,7 @@ article.task.ends {
 }
 
 .users li {
-	float: left;
+	display: inline-block;
 	margin-right: 1em;
 }
 
@@ -686,43 +639,43 @@ article.task.ends {
 
 /* task menu and buttons */
 .task-update-menu-item {
-	background-image: url(../images/icons/pencil-16x16.png);	
+	background-image: url(../images/icons/pencil-32x32.png);	
 }
 
 .task-useruncomplete-menu-item,
 .task-usercomplete-menu-item:hover,
 .task-usercomplete-menu-item:focus {
-	background-image: url(../images/icons/check-blue-16x16.png);	
+	background-image: url(../images/icons/check-blue-32x32.png);	
 }
 
 .task-usercomplete-menu-item,
 .task-useruncomplete-menu-item:hover,
 .task-useruncomplete-menu-item:focus {
-	background-image: url(../images/icons/check-gray-16x16.png);	
+	background-image: url(../images/icons/check-gray-32x32.png);	
 }
 
 .task-unparticipate-menu-item,
 .task-participate-menu-item:hover,
 .task-participate-menu-item:focus {
-	background-image: url(../images/icons/man-blue-16x16.png);	
+	background-image: url(../images/icons/man-blue-32x32.png);	
 }
 
 .task-participate-menu-item,
 .task-unparticipate-menu-item:hover,
 .task-unparticipate-menu-item:focus {
-	background-image: url(../images/icons/man-gray-16x16.png);	
+	background-image: url(../images/icons/man-gray-32x32.png);	
 }
 
 .task-untrash-menu-item,
 .task-trash-menu-item:hover,
 .task-trash-menu-item:focus {
-	background-image: url(../images/icons/trash-with-arrow-16x16.png);
+	background-image: url(../images/icons/trash-with-arrow-32x32.png);
 }
 
 .task-trash-menu-item,
 .task-untrash-menu-item:hover,
 .task-untrash-menu-item:focus {
-	background-image: url(../images/icons/trash-can-16x16.png);
+	background-image: url(../images/icons/trash-can-32x32.png);
 }
 
 /*
@@ -804,14 +757,24 @@ px      68    160    252    */
 		min-width: 13em;
 	}
 	
+	.content > header h1 
+	{
+		margin-right: 0;
+	}
+	
 	article menu li a 
 	{
+		padding-top: 0px;
 		text-indent: -9999px;
 	}
 	
 	#site-index header {
 		background-image: url(../images/poncla-splash-320x270.jpg);
 		height: 270px;
+	}
+	
+	menu {
+		position: static;
 	}
 	
 }
@@ -836,6 +799,9 @@ px      68    160    252    344    436    */
 		height: 380px;
 	}
 	
+	menu {
+		position: absolute;
+	}
 }
 
 

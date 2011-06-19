@@ -9,24 +9,11 @@ if(isset($model->parentId)) {
 	);
 }
 
-$this->widget('application.components.widgets.DetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		array( 
-			'name' => 'starts',
-			'type' => 'datetime',
-			'value' => strtotime($model->starts),
-			'visible' => strlen($model->starts) > 0 ? true : false,
-		),
-		array( 
-			'name' => 'ends',
-			'type' => 'datetime',
-			'value' => strtotime($model->ends),
-			'visible' => strlen($model->ends) > 0 ? true : false,
-		),
-	),
+echo PHtml::openTag('p');
+$this->widget('application.components.widgets.TaskDates', array(
+	'task'=>$model,
 ));
-
+echo PHtml::closeTag('p');
 
 // show participants
 ?>
@@ -54,15 +41,11 @@ $this->widget('application.components.widgets.DetailView', array(
 	<header>
 		<h1><?php echo PHtml::encode(sizeof($model->children)) . ' Subtasks'; ?></h1>
 	</header>
-	<ol>
 	<?php 
 	foreach($model->children as $task) {
-		echo PHtml::openTag('li');	
 		$this->renderPartial('/task/_view', array('data'=>$task));
-		echo PHtml::closeTag('li');
 	}
 	?>
-	</ol>
 </section>
 
 <?php // "what would you want to do input" box

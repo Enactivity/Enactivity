@@ -141,7 +141,7 @@ return CMap::mergeArray(
 						'cssFile' => false,
 						'emptyText' => 'No results yet',
 						'summaryText' => false,
-						'tagName' => 'section',
+						'tagName' => 'div',
 					),
 					'CMenu' => array(
 						//'cssFile' => false,

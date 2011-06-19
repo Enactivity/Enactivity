@@ -20,6 +20,12 @@ class Controller extends CController
 	 * @var array action level context menu items. This property will be assigned to {@link CMenu::items}.
 	 */
 	public $pageMenu = array();
+	
+	/**
+	 * Secondary title for page
+	 * @var string
+	 */
+	public $pageByline;
 
 	/**
 	 * override 

@@ -94,15 +94,19 @@ class MenuDefinitions extends CComponent {
 	public static function taskMenu($model = null) {
 		if(isset($model)) {
 			$menu[] = array(
-				'label'=>'Update This Task', 
+				'label'=>'Update', 
 				'url'=>array('task/update', 'id'=>$model->id),
-				'linkOptions'=>array('id'=>'task-update-menu-item'),
+				'linkOptions'=>array(
+					'id'=>'task-update-menu-item-' . $model->id,
+					'class'=>'task-update-menu-item',
+					'title'=>'Update this task',
+				),
 			);
 			
 			// 'participate' button
 			if($model->isUserParticipating) {
 				$menu[] = array(
-					'label'=>'Stop participating', 
+					'label'=>'Quit', 
 					'url'=>array('task/unparticipate', 'id'=>$model->id),
 					'linkOptions'=>array(
 						'submit'=>array(
@@ -110,13 +114,15 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'task-unparticipate-menu-item' . $model->id,
+						'id'=>'task-useruncomplete-menu-item-' . $model->id,
+						'class'=>'task-useruncomplete-menu-item',
+						'title'=>'Resume work on this task',
 					),
 				);
 			}
 			else {
 				$menu[] = array(
-					'label'=>'Participate', 
+					'label'=>'Sign up', 
 					'url'=>array('task/participate', 'id'=>$model->id),
 					'linkOptions'=>array(
 						'submit'=>array(
@@ -124,104 +130,47 @@ class MenuDefinitions extends CComponent {
 							'id'=>$model->id,
 						),
 						'csrf' => true,
-						'id'=>'task-unparticipate-menu-item' . $model->id,
+						'id'=>'task-participate-menu-item-' . $model->id,
+						'class'=>'task-participate-menu-item',
+						'title'=>'Sign up for task',
 					),
 				);
 			}
 			
-//			// only show when there is no owner
-//			if($model->ownerId == null) {
-//				$menu[] = array(
-//					'label'=>'Take Ownership', 
-//					'url'=>array('task/own', 'id'=>$model->id),
-//					'linkOptions'=>array(
-//						'submit'=>array(
-//							'task/own',
-//							'id'=>$model->id,
-//						),
-//						'csrf' => true,
-//						'id'=>'task-owner-menu-item' . $model->id,
-//					),
-//				);
-//			}
-//			elseif($model->ownerId == Yii::app()->user->id) {
-//				$menu[] = array(
-//					'label'=>'Give Up Ownership', 
-//					'url'=>array('task/unown', 'id'=>$model->id),
-//					'linkOptions'=>array(
-//						'submit'=>array(
-//							'task/unown',
-//							'id'=>$model->id,
-//						),
-//						'csrf' => true,
-//						'id'=>'task-owner-menu-item' . $model->id,
-//					),
-//				);
-//			}
-//			
-//			if($model->ownerId == null 
-//			|| $model->ownerId == Yii::app()->user->id) {
-//				if($model->isCompleted) {
-//					$menu[] = array(
-//						'label'=>'Mark Not Done', 
-//						'url'=>array('task/uncomplete', 'id'=>$model->id),
-//						'linkOptions'=>array(
-//							'submit'=>array(
-//								'task/uncomplete',
-//								'id'=>$model->id,
-//							),
-//							'csrf' => true,
-//							'id'=>'task-uncomplete-menu-item' . $model->id,
-//						),
-//					);
-//				}
-//				else {
-//					$menu[] = array(
-//						'label'=>'Mark Done', 
-//						'url'=>array('task/complete', 'id'=>$model->id),
-//						'linkOptions'=>array(
-//							'submit'=>array(
-//								'task/complete',
-//								'id'=>$model->id,
-//							),
-//							'csrf' => true,
-//							'id'=>'task-complete-menu-item' . $model->id,
-//						),
-//					);
-//				}
-				
-				if($model->isTrash) {
-					$menu[] = array(
-						'label'=>'UnTrash', 
-						'url'=>array('task/untrash', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'task/untrash',
-								'id'=>$model->id,
-							),
-							'csrf' => true,
-							'id'=>'task-untrash-menu-item' . $model->id,
+			if($model->isTrash) {
+				$menu[] = array(
+					'label'=>'Restore', 
+					'url'=>array('task/untrash', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/untrash',
+							'id'=>$model->id,
 						),
-					);
-				}
-				else {
-					$menu[] = array(
-						'label'=>'Trash', 
-						'url'=>array('task/trash', 'id'=>$model->id),
-						'linkOptions'=>array(
-							'submit'=>array(
-								'task/trash',
-								'id'=>$model->id,
-							),
-							'confirm'=>'Are you sure you want to trash this item?',
-							'csrf' => true,
-							'id'=>'task-trash-menu-item' . $model->id,
-						),
-					);
-				}	
+						'csrf' => true,
+						'id'=>'task-untrash-menu-item-' . $model->id,
+						'class'=>'task-untrash-menu-item',
+						'title'=>'Restore this task',
+					),
+				);
 			}
-
-//		}
+			else {
+				$menu[] = array(
+					'label'=>'Trash', 
+					'url'=>array('task/trash', 'id'=>$model->id),
+					'linkOptions'=>array(
+						'submit'=>array(
+							'task/trash',
+							'id'=>$model->id,
+						),
+						'confirm'=>'Are you sure you want to trash this item?',
+						'csrf' => true,
+						'id'=>'task-trash-menu-item-' . $model->id,
+						'class'=>'task-trash-menu-item',
+						'title'=>'Trash this task',
+					),
+				);
+			}	
+		}
 		
 		return $menu;
 	}

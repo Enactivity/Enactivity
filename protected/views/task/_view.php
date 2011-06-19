@@ -38,49 +38,9 @@ echo PHtml::closeTag('h1');
 
 // event date
 echo PHtml::openTag('h2');
-if($data->hasStarts) {
-	echo PHtml::openTag('time', array('class'=>'starts'));
-	echo PHtml::link(
-		PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->starts))), 
-		array('task/update', 'id'=>$data->id),
-		array()
-	);
-	echo PHtml::closeTag('time');
-}
-else {
-	echo PHtml::openTag('time', array('class'=>'starts'));
-	echo PHtml::link(
-		PHtml::encode('Add start time'), 
-		array('task/update', 'id'=>$data->id),
-		array(
-			'title' => PHtml::encode('Set ' . strtolower($data->getAttributeLabel('starts'))),
-		)
-	);
-	echo PHtml::closeTag('time');
-}
-
-if($data->hasOnlyEnds) {
-	echo PHtml::openTag('time', array('class'=>'ends'));
-	echo PHtml::link(
-		PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->ends))), 
-		array('task/update', 'id'=>$data->id),
-		array(
-			'title' => PHtml::encode('Update ' . strtolower($data->getAttributeLabel('ends'))),
-		)
-	);
-	echo PHtml::closeTag('time');
-}
-else if($data->hasEnds) {
-	echo PHtml::openTag('time', array('class'=>'ends'));
-	echo PHtml::link(
-		PHtml::encode(Yii::app()->format->formatTime(strtotime($data->ends))), 
-		array('task/update', 'id'=>$data->id),
-		array(
-			'title' => PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->ends))),
-		)
-	);
-	echo PHtml::closeTag('time');
-}
+$this->widget('application.components.widgets.TaskDates', array(
+	'task'=>$data,
+));
 echo PHtml::closeTag('h2');
 
 // close headers
@@ -226,26 +186,26 @@ echo PHtml::closeTag('ul');
 echo PHtml::closeTag('menu');
 // end of toolbar
 
-// list participants
-echo PHtml::openTag('ol', array('class' => 'users'));
-foreach($data->taskUsers as $taskUser) {
-	$spanClass = "view";
-	$spanClass .= " participant";
-	$spanClass .= " participant-" . $taskUser->id;
-	$spanClass .= $taskUser->isCompleted ? " completed" : " not-completed";
-	$spanClass .= $taskUser->isTrash ? " trash" : " not-trash";
-	
-	echo PHtml::openTag('li');
-	echo PHtml::openTag('span', array(
-	'class' => $spanClass,		
-	));
-	$this->widget('application.components.widgets.UserLink', array(
-		'userModel' => $taskUser->user,
-	));
-	echo PHtml::closeTag('span');
-	echo PHtml::closeTag('li');
-}
-echo PHtml::closeTag('ol');
+//// list participants
+//echo PHtml::openTag('ol', array('class' => 'users'));
+//foreach($data->taskUsers as $taskUser) {
+//	$spanClass = "view";
+//	$spanClass .= " participant";
+//	$spanClass .= " participant-" . $taskUser->id;
+//	$spanClass .= $taskUser->isCompleted ? " completed" : " not-completed";
+//	$spanClass .= $taskUser->isTrash ? " trash" : " not-trash";
+//	
+//	echo PHtml::openTag('li');
+//	echo PHtml::openTag('span', array(
+//	'class' => $spanClass,		
+//	));
+//	$this->widget('application.components.widgets.UserLink', array(
+//		'userModel' => $taskUser->user,
+//	));
+//	echo PHtml::closeTag('span');
+//	echo PHtml::closeTag('li');
+//}
+//echo PHtml::closeTag('ol');
 
 // end body
 

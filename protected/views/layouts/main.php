@@ -23,69 +23,36 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 </head>
 <body id="<?php echo $this->id . '-' . $this->action->id; ?>">
 
-<header>
-<nav id="primaryNavigation">
-<?php 
-$this->widget('zii.widgets.CMenu', array(
-	'items'=>MenuDefinitions::globalMenu()
-)); 
-?>
-</nav><!-- end of primaryNavigation -->
-
-<?php
-if(isset($this->menu) 
-	&& !empty($this->menu)
-	&& !Yii::app()->user->isGuest
-):?>
-	<nav id="secondaryNavigation">
-	<?php 
-	$this->widget('zii.widgets.CMenu', array(
-		'items'=>$this->menu,
-	));
-	?>
-	</nav><!-- end of secondaryNavigation -->
-<?php endif; 
-
-if(!empty($this->pageTitle)) {
-	echo PHtml::openTag('h1');
-	echo PHtml::encode($this->pageTitle); 
-	echo PHtml::closeTag('h1');
-}
-
-if(isset($this->pageMenu) 
-		&& !empty($this->pageMenu)
-		&& !Yii::app()->user->isGuest
-	):?>
-	<nav id="tertiaryNavigation">
-	<?php 
-	$this->widget('zii.widgets.CMenu', array(
-		'items'=>$this->pageMenu,
-	));
-	?>
-	</nav><!-- end of tertiaryNavigation -->
-<?php endif; ?>
-
-<!-- flash notices -->
-<?php if(Yii::app()->user->hasFlash('error')):?>
-<aside class="flash-error">
-<?php echo Yii::app()->user->getFlash('error'); ?>
-</aside>
-<?php endif; ?>
-<?php if(Yii::app()->user->hasFlash('notice')):?>
-<aside class="flash-notice">
-<?php echo Yii::app()->user->getFlash('notice'); ?>
-</aside>
-<?php endif; ?>
-<?php if(Yii::app()->user->hasFlash('success')):?>
-<aside class="flash-success">
-<?php echo Yii::app()->user->getFlash('success'); ?>
-</aside>
-<?php endif; ?>
-
-</header>
-
-<?php echo $content; ?>
+<div class="everything">
+	<header>
+		<nav id="primaryNavigation">
+		<?php 
+		$this->widget('zii.widgets.CMenu', array(
+			'items'=>MenuDefinitions::globalMenu()
+		)); 
+		?>
+		</nav><!-- end of primaryNavigation -->
 	
+		<?php
+		if(isset($this->menu) 
+			&& !empty($this->menu)
+		):?>
+		<nav id="secondaryNavigation">
+		<?php 
+		$this->widget('zii.widgets.CMenu', array(
+			'items'=>$this->menu,
+		));
+		?>
+		</nav><!-- end of secondaryNavigation -->
+		<?php endif; ?>
+	</header>
+	
+	<section class="content">
+		<?php echo $content; ?>
+	</section>
+	
+</div>
+
 <footer>
 	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
 	<nav>
