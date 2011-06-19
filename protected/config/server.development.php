@@ -33,9 +33,9 @@ return CMap::mergeArray(
 						'levels'=>'error, warning',
 					),
 					// show log messages on web pages
-//					array(
-//						'class'=>'CWebLogRoute',
-//					),
+					array(
+						'class'=>'CWebLogRoute',
+					),
 				),
 			),
 		
