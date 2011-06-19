@@ -55,18 +55,18 @@ class GroupController extends Controller
 	{
 		// Get the group
 		if(isset($id)) {
-			$group = $this->loadModel($id);	
+			$group = $this->loadModel($id);
 		}
 		else {
 			$group = $this->loadModel($slug);
 		}
-		
+
 		// Get the list of the active group users
 		$activemembers = $group->getMembersByStatus(GroupUser::STATUS_ACTIVE);
-		
+
 		// Get the list of the pending group users
 		//$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
-				
+
 		$this->render('view',array(
 			'model'=>$group,
 			'activemembers'=>$activemembers,
@@ -93,7 +93,7 @@ class GroupController extends Controller
 				$profile = new GroupProfile;
 				$profile->groupId = $model->id;
 				$profile->save();
-				
+
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -126,7 +126,7 @@ class GroupController extends Controller
 			'model'=>$model,
 		));
 	}
-	
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -179,19 +179,19 @@ class GroupController extends Controller
 		$dataProvider = new CActiveDataProvider('Group', array(
 			'data' => Yii::app()->user->model->groups)
 		);
-				
+
 		// If user is only in one group, redirect them to view group
 		if($dataProvider->getItemCount() == 1) {
 			$data = $dataProvider->getData();
 			$id = reset($data)->id;
 			$this->redirect(array('view','id'=>$id));
 		}
-		
+
 		$this->render('index', array(
 		        'dataProvider'=>$dataProvider,
 		));
 	}
-	
+
 	/**
 	 * Lists all models.
 	 */
@@ -210,7 +210,7 @@ class GroupController extends Controller
 	{
 		$model=new Group('search');
 		$model->unsetAttributes();  // clear any default values
-		
+
 		if(isset($_GET['Group'])) {
 			$model->attributes=$_GET['Group'];
 		}
@@ -219,7 +219,7 @@ class GroupController extends Controller
 			'model'=>$model,
 		));
 	}
-	
+
 	/**
 	 * Invite a user to the group
 	 */
@@ -240,7 +240,7 @@ class GroupController extends Controller
 			if($inviteForm->validate()) {
 				foreach($inviteForm->splitEmails($inviteForm->emails) as $email) {
 					$user = User::model()->findByAttributes(array('email' => $email));
-					
+
 					if(is_null($user)) {
 						//Create a new user with the email invite
 						$user = new User;
@@ -250,49 +250,49 @@ class GroupController extends Controller
 							throw new CHttpException(500, 'There was an error when trying to generate invites. Please try again later.');
 						}
 					}
-					
+
 					// Get group
 					$group = Group::model()->findByPk($inviteForm->groupId);
-					
+
 					if(!GroupUser::model()->isGroupMember($group->id,
 						$user->id)) {
 						$groupuser = new GroupUser;
 						$groupuser->groupId = $group->id;
 						$groupuser->userId = $user->id;
-						
+
 						//Validate and save
-						$groupuser->save();						
+						$groupuser->save();
 					}
-					
+
 					// Send email
 					$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
 					Yii::app()->user->setFlash('success', 'Your invitation has been sent.');
 				}
-				$this->redirect(array('view','id'=>$groupuser->groupId));
+				$this->redirect(array('view','id'=>$group->id));
 			}
 		}
-		
+
 		// get user's groups
 		if(Yii::app()->user->isAdmin) {
 			$userGroups = Group::model()->findAll(array('order' => 'name'));
 		}
 		else {
-			$userGroups = Yii::app()->user->model->groups;	
+			$userGroups = Yii::app()->user->model->groups;
 		}
-		
-		$this->render('invite', 
+
+		$this->render('invite',
 			array(
 				'model'=>$inviteForm,
 				'userGroups'=>$userGroups,
 			)
 		);
 	}
-	
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param mixed the integer ID or string slug of the model to be loaded 
+	 * @param mixed the integer ID or string slug of the model to be loaded
 	 */
 	public function loadModel($idOrSlug)
 	{
