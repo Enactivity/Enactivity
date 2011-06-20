@@ -189,7 +189,7 @@ section > header h1
 {
 	font-size: 3em;
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
-	margin-right: 132px;
+	margin-right: 282px;
 }
 
 .content a, 
@@ -229,20 +229,20 @@ menu li
 	display: inline-block;
 	font-size: .6em;
 	list-style-type: none;
-	margin-right: 1em;
+	margin-right: 16px;
 	white-space: nowrap;
 }
 
 menu li a 
 {
 	background-repeat: no-repeat;
+	background-position: top center;
 	border: none;
 	display: block;
 	height: 32px;
 	padding-top: 32px;
-	margin-right: 1em;
 	text-align: center;
-	width: 32px;
+	width: 50px;
 }
 
 menu.toolbox
@@ -603,7 +603,7 @@ form#task-form.new-task input[type="text"] {
 */
 article.task {
 	border-top-left-radius: 0em 0em;
-	padding-right: 182px;
+	padding-right: 282px;
 }
 
 .task.completed h1 a {
@@ -754,12 +754,17 @@ px      68    160    252    */
 	}
 	
 	article {
-		min-width: 13em;
+		
 	}
 	
 	.content > header h1 
 	{
 		margin-right: 0;
+	}
+	
+	article.task
+	{
+		padding-right: 0;
 	}
 	
 	article menu li a 
@@ -799,9 +804,6 @@ px      68    160    252    344    436    */
 		height: 380px;
 	}
 	
-	menu {
-		position: absolute;
-	}
 }
 
 
