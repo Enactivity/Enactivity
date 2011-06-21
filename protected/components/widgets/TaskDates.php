@@ -28,34 +28,26 @@ class TaskDates extends CWidget
 			);
 			echo PHtml::closeTag('time');
 		}
-		else {
-			echo PHtml::openTag('time', array('class'=>'starts'));
-			echo PHtml::link(
-				PHtml::encode('Add start time'), 
-				array('task/update', 'id'=>$this->task->id),
-				array(
-					'title' => PHtml::encode('Set ' . strtolower($this->task->getAttributeLabel('starts'))),
-				)
-			);
-			echo PHtml::closeTag('time');
-		}
 		
-		if($this->task->hasOnlyEnds) {
+		if($this->task->hasEnds) {
+			
+			if($this->task->hasOnlyEnds) {
+				$formattedEnds = $this->task->getAttributeLabel('ends');
+				$formattedEnds .= ' ' . Yii::app()->format->formatDateTime(strtotime($this->task->ends)); 	
+			}
+			else {
+				echo ' - ';
+				if($this->task->startDate == $this->task->endDate) {
+					$formattedEnds = Yii::app()->format->formatTime(strtotime($this->task->ends));
+				}
+				else {
+					$formattedEnds = ' ' . Yii::app()->format->formatDateTime(strtotime($this->task->ends));
+				}
+			}
+			
 			echo PHtml::openTag('time', array('class'=>'ends'));
 			echo PHtml::link(
-				PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->ends))), 
-				array('task/update', 'id'=>$this->task->id),
-				array(
-					'title' => PHtml::encode('Update ' . strtolower($this->task->getAttributeLabel('ends'))),
-				)
-			);
-			echo PHtml::closeTag('time');
-		}
-		else if($this->task->hasEnds) {
-			echo ' - ';
-			echo PHtml::openTag('time', array('class'=>'ends'));
-			echo PHtml::link(
-				PHtml::encode(Yii::app()->format->formatTime(strtotime($this->task->ends))), 
+				PHtml::encode($formattedEnds),	 
 				array('task/update', 'id'=>$this->task->id),
 				array(
 					'title' => PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->ends))),
