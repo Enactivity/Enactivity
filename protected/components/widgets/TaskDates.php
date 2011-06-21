@@ -19,6 +19,16 @@ class TaskDates extends CWidget
 	private $text;
 	
 	public function run() {
+		if(!$this->task->hasStarts && !$this->task->hasEnds) {
+			echo PHtml::openTag('time', array('class'=>'starts'));
+			echo PHtml::link(
+				PHtml::encode('Add times'), 
+				array('task/update', 'id'=>$this->task->id),
+				array()
+			);
+			echo PHtml::closeTag('time');
+		}
+		
 		if($this->task->hasStarts) {
 			echo PHtml::openTag('time', array('class'=>'starts'));
 			echo PHtml::link(
