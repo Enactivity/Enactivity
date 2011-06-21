@@ -647,7 +647,7 @@ class Task extends CActiveRecord
 	
 	public function defaultScope() {
 		return array(
-			'order' => 'ISNULL(ends), ends ASC, ISNULL(starts), starts ASC',
+			'order' => 'ISNULL(ends), ends ASC, ISNULL(starts), starts ASC, ' . $this->getTableAlias(false, false) . '.created ASC',
 		);
 	}
 	
