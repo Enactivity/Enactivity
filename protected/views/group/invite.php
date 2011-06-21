@@ -23,8 +23,8 @@ $this->pageTitle = 'Invite a User';
 		<div class="formlabel"><?php echo $form->labelEx($model,'emails'); ?></div>
 		<div class="forminput"><?php echo $form->emailField($model,'emails', 
 			array(
-				'multiple'=>'',
-				'placeholder'=>'One or more emails separated by spaces'
+				'multiple'=>'multiple',
+				'placeholder'=>'One or more emails separated by commas'
 			)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'emails'); ?></div>
 	</div>
