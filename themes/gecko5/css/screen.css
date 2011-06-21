@@ -36,11 +36,12 @@ input, textarea, select {
 	font-size: 1em;
 	font-family: sans-serif;
 	margin: -1px; 
+	width: 100%;
 }
 
 input[type="submit"] {
 	border: none;
-	margin: 0px;	
+	margin: 0;	
 }
 
 strong 
@@ -58,16 +59,10 @@ em {
 ::-moz-selection 	{background: #92ccd6;}
 img::selection 		{background: transparent;}
 img::-moz-selection	{background: transparent;}
-body {-webkit-tap-highlight-color: #92ccd6;}
-
-
-h1,
-h2,
-h3, 
-h4,
-h5,
-h6 
+body
 {
+	-webkit-tap-highlight-color: #92ccd6;
+	tap-highlight-color: #92ccd6;
 }
 
 h1 
@@ -123,7 +118,6 @@ body > footer {
 nav
 {
 	clear: both;
-	overflow: hidden;
 }
 
 nav ul
@@ -148,7 +142,7 @@ nav li a:visited
 
 nav li a:hover,
 nav li a:focus,
-nav li.active a
+.active a
 {
 	background-color: #00b6d5;
 	color: #ffffff;
@@ -178,11 +172,6 @@ section > header h1
 	float: left;
 	padding: 1em;
 	position: relative;
-}
-
-.content > header 
-{
-	overflow: hidden;
 }
 
 .content > header h1 
@@ -260,42 +249,42 @@ article > menu
 /*
 	Content flashes and errors
 */ 
-aside.flash-error, 
-aside.flash-notice, 
-aside.flash-success
+.flash-error, 
+.flash-notice, 
+.flash-success
 {
 	padding: 10px;
 }
 
-aside.flash-error
+.flash-error
 {
 	background-color: #E82C0C;
 	color: #ffffff;
 }
 
-aside.flash-notice
+.flash-notice
 {
 	background-color: #FFF6BF;
 	color: #514721;
 }
 
-aside.flash-success
+.flash-success
 {
 	background-color: #E6EFC2;
 	color: #264409;
 }
 
-aside.flash-error a
+.flash-error a
 {
 	color: #8a1f11;
 }
 
-aside.flash-notice a
+.flash-notice a
 {
 	color: #7f7b5f;
 }
 
-aside.flash-success a
+.flash-success a
 {
 	color: #264409;
 }
@@ -303,12 +292,6 @@ aside.flash-success a
 /*
 	Content lists
 */
-.detail-view dl,
-.list-view dl
-{
-	overflow: hidden;
-}
-
 .detail-view dt,
 .list-view dt
 {
@@ -319,7 +302,6 @@ aside.flash-success a
 	font-size: .75em;
 	margin-top: 1em;
 	text-transform: uppercase;
-	width: 100%;
 }
 
 .detail-view dd,
@@ -336,7 +318,6 @@ form
 {
 	clear: both;
 	color: #232425;
-	overflow: hidden;
 	max-width: 32em;
 }
 
@@ -350,9 +331,6 @@ form .errorSummary {
 	background-color: #E82C0C;
 	color: #ffffff;
 	padding: 10px;
-}
-
-form .errorSummary p {
 }
 
 form .errorSummary ul {
@@ -386,7 +364,7 @@ form input[type="button"]:focus {
 }
 
 /* Overrides for disabled buttons */
-form input[type="submit"].disabled ,
+.disabled,
 form input[type="submit"]:disabled, 
 form input[type="submit"][disabled="disabled"],
 form input[type="button"]:disabled {
@@ -395,7 +373,7 @@ form input[type="button"]:disabled {
 	cursor: default;
 }
 
-form input[type="submit"].disabled:hover,
+.disabled:hover,
 form input[type="submit"]:disabled:hover,
 form input[type="submit"][disabled="disabled"],
 form input[type="button"]:disabled:hover {
@@ -406,58 +384,34 @@ form input[type="button"]:disabled:hover {
 form .row
 {
 	clear: both;
-	overflow: hidden;
-	padding: .25em .5em;
+	padding: 4px 0;
 }
 
-form .row.buttons
-{
-}
-
-form .row label
+form label
 {
 	color: #8A8581;
 	cursor: text;
 	font-size: .75em;
 	text-transform: lowercase;
-	width: 100%;
 }
 
-form .row label.required
+.required
 {
 	color: #232425;
 }
 
-form .row input, 
-form .row textarea, 
-form .row select 
-{
-	width: 100%;
-}
-
-form .row textarea  {
+form textarea  {
 	height: 3em;
 }
 
-form .row input[type="submit"], 
-form .row input[type="button"] {
+form input[type="submit"], 
+form input[type="button"] {
 	text-align: left;
 }
 
-form .row input[type="submit"]:hover, 
-form .row input[type="button"]:hover {
+form input[type="submit"]:hover, 
+form input[type="button"]:hover {
 	background-color: #00b6d5;
-}
-
-form .row input[type="submit"].disabled,
-form .row input[type="submit"].disabled:hover,
-form .row input[type="submit"]:disabled, 
-form .row input[type="submit"]:disabled:hover,
-form .row input[type="submit"][disabled="disabled"],
-form .row input[type="submit"][disabled="disabled"]:hover,
-form .row input[type="button"]:disabled,
-form .row input[type="button"]:disabled:hover {
-	border: 3px solid #232425;
 }
 
 /*
@@ -465,7 +419,6 @@ form .row input[type="button"]:disabled:hover {
 */
 table {
 	table-layout: fixed;
-	width: 100%;
 }
 
 tr {
@@ -489,40 +442,33 @@ th
 	Content pagination
 */
 .pager {
+	border: none;
 	clear: both;
-	padding: 1em;
-}
-
-ul.yiiPager
-{
-	border: 0;
-	margin: 0;
-	padding: 0;
 	line-height: 100%;
 	display: inline;
 }
 
-ul.yiiPager li
+.pager li
 {
 	display: inline;
 }
 
-ul.yiiPager a:link,
-ul.yiiPager a:visited
+.pager a:link,
+.pager a:visited
 {
 	font-weight: bold;
 	padding: 1px 6px;
 	text-decoration: none;
 }
 
-ul.yiiPager .selected a
+.pager .selected a
 {
 	background-color: #00b6d5;
 	color: #ffffff;
 	font-weight: bold;
 }
 
-ul.yiiPager .hidden a
+.pager .hidden a
 {
 	color: #d9d4cc;
 }
@@ -530,8 +476,8 @@ ul.yiiPager .hidden a
 /**
  * Hide first and last buttons by default.
  */
-ul.yiiPager .first,
-ul.yiiPager .last
+.yiiPager .first,
+.yiiPager .last
 {
 	display: none;
 }
@@ -543,7 +489,7 @@ ul.yiiPager .last
 /*
 	Main page styles
 */
-#site-index > header {
+.site-index > header {
 	background-color: #ECECEC;
 	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
@@ -551,41 +497,37 @@ ul.yiiPager .last
 	height: 380px;
 }
 
-#site-index h1 {
+.site-index h1 {
 	display: none;
 }
 
 /*
 	Site: login styles
 */
-#login-form .rememberMe label
-{
-}
-
-#login-form #UserLoginForm_rememberMe
+#UserLoginForm_rememberMe
 {
 	width: 15px;
 }
 
-input#Task_startDate,
-input#Task_endDate
+input[name="Task[startDate]"],
+input[name="Task[endDate]"]
 {
 	margin-right: 2%;
 	width: 63%;
 }
 
-select#Task_startTime,
-select#Task_endTime 
+select[name="Task[startTime]"],
+select[name="Task[endTime]"] 
 {
 	width: 35%;
 }
 
 /* task form inputs */
-form#task-form.new-task {
+.new-task {
 	max-width: none;
 }
 
-form#task-form.new-task input[type="text"] {
+.new-task input[type="text"] {
 	font-size: 2em;
 }
 
@@ -601,19 +543,19 @@ form#task-form.new-task input[type="text"] {
 	Task stylings
 */
 article.task {
-	border-top-left-radius: 0em 0em;
+	border-top-left-radius: 0 0;
 	padding-right: 282px;
 }
 
-.task.completed h1 a {
+.completed h1 a {
 	color: #bfbfbf;
 }
-.task.completed h1 a:hover, 
-.task.completed h1 a:focus {
+.completed h1 a:hover, 
+.completed h1 a:focus {
 	color: #00b6d5;
 }
 
-.task.trash h1 a {
+.trash h1 a {
 	text-decoration: line-through;
 }
 
@@ -625,15 +567,6 @@ article.task {
 .users li {
 	display: inline-block;
 	margin-right: 1em;
-}
-
-.participant.completed a {
-	color: #bfbfbf;
-}
-
-.participant.completed a:hover, 
-.participant.completed a:focus {
-	color: #00b6d5;
 }
 
 /* task menu and buttons */
@@ -677,39 +610,6 @@ article.task {
 	background-image: url(../images/icons/trash-can-32x32.png);
 }
 
-/*
-	Calendar styles
-*/
-.event.calendar th,
-.event.calendar td {
-	overflow: hidden;
-	padding: .1em;
-	white-space: nowrap;
-	width: 13%;
-}
-
-.event.calendar .daytitle {
-	background-color: #d9d4cc;
-	text-align: center;
-	white-space: nowrap;
-}
-
-.event.calendar .day {
-	height: 6em; /* em allows for number of events rather than fixed */
-	white-space: nowrap;
-}
-
-.event.calendar .day.notThisMonth {
-	opacity: .5;
-}
-
-.event.calendar .day dt {
-}
-
-.event.calendar .day a {
-	white-space: nowrap;
-}
-
 /*		Default Layout: 992px. 
 		Gutters: 24px.
 		Outer margins: 48px.
@@ -732,9 +632,6 @@ cols    1     2      3      4      5      6      7      8
 px      68    160    252    344    436    528    620    712    */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-	
-	body {
-	}
 }
 
 
@@ -748,13 +645,6 @@ cols    1     2      3
 px      68    160    252    */
 
 @media only screen and (max-width: 767px) {
-	
-	body {
-	}
-	
-	article {
-		
-	}
 	
 	.everything
 	{
@@ -773,7 +663,7 @@ px      68    160    252    */
 	
 	article menu li a 
 	{
-		padding-top: 0px;
+		padding-top: 0;
 		text-indent: -9999px;
 	}
 	
@@ -785,7 +675,6 @@ px      68    160    252    */
 	menu {
 		position: static;
 	}
-	
 }
 
 
@@ -800,14 +689,10 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 	
-	body {
-	}
-	
-	#site-index header {
+	.site-index header {
 		background-image: url(../images/poncla-splash-480x380.jpg);
 		height: 380px;
 	}
-	
 }
 
 
@@ -819,8 +704,4 @@ px      68    160    252    344    436    */
 @media 
 	only screen and (-webkit-min-device-pixel-ratio: 2),
 	only screen and (min-device-pixel-ratio: 2) {
-	
-	body {
-	}
-	
 }

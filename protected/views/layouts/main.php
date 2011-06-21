@@ -21,7 +21,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 ?>
 		
 </head>
-<body id="<?php echo $this->id . '-' . $this->action->id; ?>">
+<body class="<?php echo $this->id . '-' . $this->action->id; ?>">
 
 <div class="everything">
 	<header>
