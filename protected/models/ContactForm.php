@@ -9,7 +9,7 @@ class ContactForm extends CFormModel
 {
 	public $email;
 	public $subject = 'Contact form';
-	public $body = '';
+	public $body = 'New interest from: ';
 
 	/**
 	 * Declares the validation rules.
@@ -39,11 +39,11 @@ class ContactForm extends CFormModel
 	 * Send a contact email
 	 */
 	public function sendEmail() {
-		$headers="From: {$model->email}\r\nReply-To: {$model->email}";
-		mail(
+		$headers = "From: {$this->email}\r\nReply-To: {$this->email}";
+		$mailed = mail(
 			Yii::app()->params['adminEmail'], 
-			$model->subject, 
-			$model->body, 
+			$this->subject, 
+			$this->body . $this->email, 
 			$headers
 		);
 		Yii::app()->user->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
