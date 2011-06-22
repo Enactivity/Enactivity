@@ -73,13 +73,13 @@ h1
 
 h2
 {
-	font-size: .8em;
+	font-size: 1.25em;
 	max-width: 32em;
 }
 
 h3 
 {
-	font-size: .5em;
+	font-size: 1.1em;
 	max-width: 32em;
 }
 
@@ -342,8 +342,8 @@ form .errorMessage {
 	font-size: .6em;
 }
 
-form input[type="submit"], 
-form input[type="button"] {
+input[type="submit"], 
+input[type="button"] {
 	background-color: transparent;
 	color: #00b6d5;
 	cursor: pointer;
@@ -355,28 +355,28 @@ form input[type="button"] {
 	white-space: nowrap;
 }
 
-form input[type="submit"]:hover,
-form input[type="submit"]:focus, 
-form input[type="button"]:hover,
-form input[type="button"]:focus {
+input[type="submit"]:hover,
+input[type="submit"]:focus, 
+input[type="button"]:hover,
+input[type="button"]:focus {
 	background-color: #00b6d5;
 	color: #ffffff;
 }
 
 /* Overrides for disabled buttons */
 .disabled,
-form input[type="submit"]:disabled, 
-form input[type="submit"][disabled="disabled"],
-form input[type="button"]:disabled {
+input[type="submit"]:disabled, 
+input[type="submit"][disabled="disabled"],
+input[type="button"]:disabled {
 	background-color: transparent;
 	color: #232425;
 	cursor: default;
 }
 
 .disabled:hover,
-form input[type="submit"]:disabled:hover,
-form input[type="submit"][disabled="disabled"],
-form input[type="button"]:disabled:hover {
+input[type="submit"]:disabled:hover,
+input[type="submit"][disabled="disabled"],
+input[type="button"]:disabled:hover {
 	background-color: transparent;
 }
 
@@ -404,13 +404,13 @@ form textarea  {
 	height: 3em;
 }
 
-form input[type="submit"], 
-form input[type="button"] {
+input[type="submit"], 
+input[type="button"] {
 	text-align: left;
 }
 
-form input[type="submit"]:hover, 
-form input[type="button"]:hover {
+input[type="submit"]:hover, 
+input[type="button"]:hover {
 	background-color: #00b6d5;
 }
 
@@ -490,16 +490,22 @@ th
 /*
 	Main page styles
 */
-.site-index > header {
+.site-index .content header {
 	background-color: #ECECEC;
 	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
 	background-repeat: no-repeat;
+	border-radius: 2em;
 	height: 380px;
 }
 
-.site-index h1 {
-	display: none;
+.site-index .content h1 {
+	display: none;	
+}
+
+#contact-form {
+	font-size: 2em;
+	margin: 1em auto;	
 }
 
 /*
@@ -657,7 +663,7 @@ px      68    160    252    */
 		padding-right: 0;
 	}
 	
-	#site-index header {
+	.site-index .content header {
 		background-image: url(../images/poncla-splash-320x270.jpg);
 		height: 270px;
 	}
@@ -679,7 +685,7 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 	
-	.site-index header {
+	.site-index .content header {
 		background-image: url(../images/poncla-splash-480x380.jpg);
 		height: 380px;
 	}
