@@ -117,7 +117,6 @@ body > footer {
 nav
 {
 	clear: both;
-	margin: 1em 0;
 }
 
 nav ul
@@ -125,17 +124,18 @@ nav ul
 	list-style-type: none;
 }
 
-nav li
-{
+nav li {
 	white-space: nowrap;
-	display: inline;
+	display: inline-block;
+	height: 35px;
 }
 
 nav li a,
 nav li a:visited
 {
 	border: none;
-	color: #ffffff;	
+	color: #ffffff;
+	display: block;	
 	padding: .5em;
 	text-transform: lowercase;
 }
@@ -655,12 +655,6 @@ px      68    160    252    */
 	article.task
 	{
 		padding-right: 0;
-	}
-	
-	article menu li a 
-	{
-		padding-top: 0;
-		text-indent: -9999px;
 	}
 	
 	#site-index header {
