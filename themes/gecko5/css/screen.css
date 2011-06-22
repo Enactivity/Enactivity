@@ -107,7 +107,6 @@ time
 
 body > footer {
 	background-color: #232425;
-    border-radius: 2em 2em 0 0;
     clear: both;
     color: white;
     height: 5em;
@@ -301,6 +300,7 @@ article > menu
 .detail-view dt {
 	font-size: .75em;
 	margin-top: 1em;
+	margin-right: 1em;
 	text-transform: uppercase;
 }
 
