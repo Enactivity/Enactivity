@@ -295,6 +295,8 @@ class Task extends CActiveRecord
 			$dateTimeArray[0] = $date;
 			$datetime = implode(' ', $dateTimeArray);
 			$this->starts = $datetime;
+		}else{
+			$this->starts = null;
 		}
 		return $this;
 	}
@@ -310,6 +312,8 @@ class Task extends CActiveRecord
 			$dateTimeArray[1] = $time;
 			$datetime = implode(' ', $dateTimeArray);
 			$this->starts = $datetime;
+		}else{
+			$this->starts = null;
 		}
 		return $this;
 	}
@@ -339,6 +343,8 @@ class Task extends CActiveRecord
 			$dateTimeArray[0] = $date;
 			$datetime = implode(' ', $dateTimeArray);
 			$this->ends = $datetime;
+		}else{
+			$this->ends = null;
 		}
 		return $this;
 	}
@@ -354,6 +360,8 @@ class Task extends CActiveRecord
 			$dateTimeArray[1] = $time;
 			$datetime = implode(' ', $dateTimeArray);
 			$this->ends = $datetime;
+		}else{
+			$this->ends = null;
 		}
 		return $this;
 	}
