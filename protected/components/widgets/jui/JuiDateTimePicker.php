@@ -101,6 +101,12 @@ class JuiDateTimePicker extends CJuiWidget
 		if($this->hasModel()) {
 			echo CHtml::activeTextField($this->model, $this->dateAttribute, $this->htmlOptions);
 			echo CHtml::activeDropDownList($this->model, $this->timeAttribute, $this->getTimes(), $timeHtmlOptions);
+			echo CHtml::link("Clear",'#',
+				array(
+					'class' => 'clear-date-time'	
+				)
+			
+			);
 		}
 		else {
 			echo CHtml::textField($dateInputName, $this->dateValue, $this->htmlOptions);
@@ -139,6 +145,11 @@ class JuiDateTimePicker extends CJuiWidget
 		$options = CJavaScript::encode($this->options);
 		$js = "jQuery('#{$dateInputId}_container').datepicker($options);";
 		$cs->registerScript(__CLASS__.'#'.$dateInputId.'_container', $js);
+		$script = Yii::getPathOfAlias('application.components.widgets.jui.assets')
+			.'/clearDateTime.js';
+		$clearDateTimeScript = Yii::app()->getAssetManager()->publish($script);
+		$cs->registerScriptFile($clearDateTimeScript, CClientScript::POS_END);
+		
 	}
 	
 	protected function getTimes(){
