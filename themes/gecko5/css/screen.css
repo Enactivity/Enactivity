@@ -33,9 +33,12 @@ a:hover, a:focus {
 
 input, textarea, select {
 	border: 1px solid #bfbfbf; 
-	font-size: 1em;
-	font-family: sans-serif;
-	margin: -1px; 
+	box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	font: inherit;
 	width: 100%;
 }
 
