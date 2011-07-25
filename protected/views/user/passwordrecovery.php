@@ -8,17 +8,17 @@ $this->pageTitle = 'Recover Password';
 	'enableAjaxValidation'=>false,
 )); 
 ?>
-	<div class="row">
+	<div class="field">
 		<p>Please fill out the following form with your login credentials:</p>
 	</div>
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'email',
 			 array('placeholder'=>'@')); ?></div>
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton('Send me a new password'); ?>
 	</div>
 	

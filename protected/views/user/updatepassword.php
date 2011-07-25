@@ -10,7 +10,7 @@ $this->menu = MenuDefinitions::userMenu($model);
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model, 'password'); ?></div>
 		<div class="forminput"><?php echo $form->passwordField($model, 'password', 
 			array(
@@ -20,14 +20,14 @@ $this->menu = MenuDefinitions::userMenu($model);
 		<div class="formerrors"><?php echo $form->error($model, 'password'); ?></div>
 	</div>
 	
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model, 'confirmPassword'); ?></div>
 		<div class="forminput"><?php echo $form->passwordField($model, 'confirmPassword',
 			array('maxlength'=>User::PASSWORD_MAX_LENGTH)); ?></div>
 		<div class="formerrors"><?php echo $form->error($model, 'confirmPassword'); ?></div>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

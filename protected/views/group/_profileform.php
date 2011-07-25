@@ -5,7 +5,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model->groupProfile, 'description'); ?></div>
 		<div class="forminput"><?php echo $form->textArea($model->groupProfile, 'description', 
 			array(
@@ -16,7 +16,7 @@
 		<div class="formerrors"><?php echo $form->error($model->groupProfile, 'description'); ?></div>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

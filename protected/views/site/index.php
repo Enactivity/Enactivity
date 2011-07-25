@@ -12,7 +12,7 @@ $this->pageTitle = 'Discover a better way to interact with your group';
 
 	<h2>Sign up for news about our launch.</h2>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->emailField($model,'email', 
 			array(
@@ -22,7 +22,7 @@ $this->pageTitle = 'Discover a better way to interact with your group';
 		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo CHtml::submitButton('Notify me'); ?>
 	</div>
 

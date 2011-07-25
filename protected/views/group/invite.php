@@ -19,7 +19,7 @@ $this->pageTitle = 'Invite a User';
 	));
 	?>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'emails'); ?></div>
 		<div class="forminput"><?php echo $form->emailField($model,'emails', 
 			array(
@@ -30,7 +30,7 @@ $this->pageTitle = 'Invite a User';
 	</div>
 
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton('Invite'); ?>
 	</div>
 

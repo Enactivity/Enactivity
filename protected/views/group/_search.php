@@ -5,32 +5,32 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('maxlength'=>255)); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'slug'); ?>
 		<?php echo $form->textField($model,'slug',array('maxlength'=>50)); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'created'); ?>
 		<?php echo $form->textField($model,'created'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textField($model,'modified'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton('Search'); ?>
 	</div>
 

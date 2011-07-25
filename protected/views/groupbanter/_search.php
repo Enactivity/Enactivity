@@ -5,42 +5,42 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'creatorId'); ?>
 		<?php echo $form->textField($model,'creatorId'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'groupId'); ?>
 		<?php echo $form->textField($model,'groupId'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'parentId'); ?>
 		<?php echo $form->textField($model,'parentId'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'content'); ?>
 		<?php echo $form->textField($model,'content',array('size'=>60,'maxlength'=>4000)); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'created'); ?>
 		<?php echo $form->textField($model,'created'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textField($model,'modified'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
