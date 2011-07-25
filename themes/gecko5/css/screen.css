@@ -382,14 +382,14 @@ input[type="button"]:disabled:hover {
 	background-color: transparent;
 }
 
-/* form rows */
-form .row
+/* forms */
+.field
 {
 	clear: both;
 	padding: 4px 0;
 }
 
-form label
+label
 {
 	color: #8A8581;
 	cursor: text;
@@ -402,7 +402,7 @@ form label
 	color: #232425;
 }
 
-form textarea  {
+textarea  {
 	height: 3em;
 }
 

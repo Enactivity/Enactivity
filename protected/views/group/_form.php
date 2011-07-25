@@ -5,7 +5,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'name'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'name',
 			array(
@@ -16,7 +16,7 @@
 		<div class="formerrors"><?php echo $form->error($model,'name'); ?></div>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'slug'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'slug',
 			array('maxlength'=>Group::SLUG_MAX_LENGTH)
@@ -24,7 +24,7 @@
 		<div class="formerrors"><?php echo $form->error($model,'slug'); ?></div>
 	</div>
 	
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

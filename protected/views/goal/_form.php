@@ -22,7 +22,7 @@
 	if($model->getScenario() == Goal::SCENARIO_INSERT
 	|| $model->getScenario() == Goal::SCENARIO_UPDATE):
 	?>
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textArea($model,'name',array(
 			'maxlength'=>Goal::NAME_MAX_LENGTH,
@@ -34,14 +34,14 @@
 	if($model->getScenario() == Goal::SCENARIO_TRASH
 	|| $model->getScenario() == Goal::SCENARIO_UNTRASH):
 	?>
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'isTrash'); ?>
 		<?php echo $form->textField($model,'isTrash'); ?>
 		<?php echo $form->error($model,'isTrash'); ?>
 	</div>
 	<?php endif; ?>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

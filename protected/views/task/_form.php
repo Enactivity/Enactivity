@@ -15,7 +15,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',
 			array(
@@ -28,7 +28,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</div>
 	
 	<?php if(!$model->isNewRecord): ?>
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'starts'); ?>
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
@@ -48,7 +48,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<?php echo $form->error($model,'starts'); ?>
 	</div>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'ends'); ?>
 		<div class="forminput"><?php
 			// preformat date before loading into widget 
@@ -68,7 +68,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<?php echo $form->error($model,'ends'); ?>
 	</div>
 	<?php endif; ?>
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

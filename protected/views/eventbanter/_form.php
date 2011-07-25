@@ -5,7 +5,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="field">
 		<?php echo $form->labelEx($model,'content'); ?>
 		<div class="forminput"><?php echo $form->textArea($model,'content',
 			array(
@@ -16,7 +16,7 @@
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="field buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Say it' : 'Update it'); ?>
 	</div>
 
