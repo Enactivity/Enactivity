@@ -539,17 +539,24 @@ select[name="Task[endTime]"]
 /*
 	Task stylings
 */
-article.task {
+.task {
 	border-top-left-radius: 0 0;
 	padding-right: 282px;
 }
 
-.completed h1 a {
+.completed h1 a,
+.completed h1 a:visited, 
+.completed h1 a:active {
 	color: #bfbfbf;
 }
+
 .completed h1 a:hover, 
 .completed h1 a:focus {
 	color: #00b6d5;
+}
+
+.completed p {
+	color: #6B6E71;
 }
 
 .trash h1 a {
