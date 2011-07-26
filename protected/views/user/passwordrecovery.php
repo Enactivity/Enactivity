@@ -1,7 +1,10 @@
 <?php
 $this->pageTitle = 'Recover Password';
-
 ?>
+
+<header>
+	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
+</header>
 
 <?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'password-recovery-form',

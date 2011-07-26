@@ -2,6 +2,10 @@
 $this->pageTitle = 'Login';
 ?>
 
+<header>
+	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
+</header>
+
 <?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'login-form',
 	'enableAjaxValidation'=>false,

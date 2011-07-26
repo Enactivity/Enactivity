@@ -19,23 +19,9 @@ class TaskDates extends CWidget
 	private $text;
 	
 	public function run() {
-		if(!$this->task->hasStarts && !$this->task->hasEnds) {
-			echo PHtml::openTag('time', array('class'=>'starts'));
-			echo PHtml::link(
-				PHtml::encode('Add times'), 
-				array('task/update', 'id'=>$this->task->id),
-				array()
-			);
-			echo PHtml::closeTag('time');
-		}
-		
 		if($this->task->hasStarts) {
 			echo PHtml::openTag('time', array('class'=>'starts'));
-			echo PHtml::link(
-				PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->starts))), 
-				array('task/update', 'id'=>$this->task->id),
-				array()
-			);
+			echo PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->starts)));
 			echo PHtml::closeTag('time');
 		}
 		
@@ -51,18 +37,12 @@ class TaskDates extends CWidget
 					$formattedEnds = Yii::app()->format->formatTime(strtotime($this->task->ends));
 				}
 				else {
-					$formattedEnds = ' ' . Yii::app()->format->formatDateTime(strtotime($this->task->ends));
+					$formattedEnds = Yii::app()->format->formatDateTime(strtotime($this->task->ends));
 				}
 			}
 			
 			echo PHtml::openTag('time', array('class'=>'ends'));
-			echo PHtml::link(
-				PHtml::encode($formattedEnds),	 
-				array('task/update', 'id'=>$this->task->id),
-				array(
-					'title' => PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->ends))),
-				)
-			);
+			echo PHtml::encode($formattedEnds);
 			echo PHtml::closeTag('time');
 		}
 	}

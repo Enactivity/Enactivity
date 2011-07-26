@@ -17,6 +17,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<header>
+	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
+</header>
+
 <p>
 You may optionally enter a comparison operator (<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;</strong>, <strong>&gt;=</strong>, <strong>&lt;&gt;</strong>
 or <strong>=</strong>) at the beginning of each of your search values to specify how the comparison should be done.

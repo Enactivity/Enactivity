@@ -486,6 +486,28 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Can a user sign up for the task?
+	 * @return boolean
+	 */
+	public function getIsParticipatable() {
+		if(!$this->hasChildren) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Can subtasks be added to this task?
+	 * @return boolean
+	 */
+	public function getIsSubtaskable() {
+		if(sizeof($this->participants) == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Marks the current user as participating in the task.
 	 * Saves TaskUser
 	 * @return Task

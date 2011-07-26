@@ -1,8 +1,10 @@
 <?php
 $this->pageTitle = $model->name;
-
-$this->pageMenu = MenuDefinitions::groupMenu($model);
 ?>
+
+<header>
+	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
+</header>
 
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>

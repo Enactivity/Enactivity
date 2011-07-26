@@ -21,7 +21,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 			array(
 				'size'=>60,
 				'maxlength'=>255,
-				'placeholder'=>PHtml::encode("i.e. be the change we want to see in the world"),
+				'placeholder'=>"What's next?",
 			)); 
 		?>
 		<?php echo $form->error($model,'name'); ?>

@@ -17,32 +17,6 @@
 </aside>
 <?php endif; ?>
 
-	<header>
-		<?php 
-		if(isset($this->pageMenu) 
-			&& !empty($this->pageMenu)
-			&& !Yii::app()->user->isGuest
-		):?>
-		<menu class="toolbox">
-			<?php 
-			$this->widget('zii.widgets.CMenu', array(
-				'items'=>$this->pageMenu,
-			));
-			?>
-		</menu><!-- end of toolbox -->
-	<?php endif; 
-	if(!empty($this->pageTitle)) {
-		echo PHtml::openTag('h1');
-		echo PHtml::encode($this->pageTitle); 
-		echo PHtml::closeTag('h1');
-	}
-	if(!empty($this->pageByline)) {
-		echo PHtml::openTag('h2');
-		echo PHtml::encode($this->pageByline); 
-		echo PHtml::closeTag('h2');
-	}
-	?>
-	</header>
-	<?php echo $content; ?>
+<?php echo $content; ?>
 
 <?php $this->endContent(); ?>

@@ -68,7 +68,7 @@ class MenuDefinitions extends CComponent {
 	public static function group() {
 		return array(
 			array(
-				'label'=>'Invite a User', 
+				'label'=>'Invite People', 
 				'url'=>array('group/invite'),
 				'linkOptions'=>array('id'=>'group-invite-menu-item'),
 			),
@@ -214,26 +214,26 @@ class MenuDefinitions extends CComponent {
 	 */
 	public static function globalMenu() {
 		return array(
+// 			array(
+// 				'label'=>'Home:Beta', 
+// 				'url'=>array('/site/index'),
+// 				'visible'=>Yii::app()->user->isGuest
+// 			),
+// 			array(
+// 				'label'=>'What\'s Next', 
+// 				'url'=>array('/task/whatsnext'),
+// 				'visible'=>!Yii::app()->user->isGuest
+// 			),
 			array(
-				'label'=>'Home:Beta', 
-				'url'=>array('/site/index'),
-				'visible'=>Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'What\'s Next', 
-				'url'=>array('/task/whatsnext'),
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'What\'s On', 
+				'label'=>'Tasks', 
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
-			array(
-				'label'=>'Goings on', 
-				'url'=>array('/feed/index'),
-				'visible'=>!Yii::app()->user->isGuest
-			),
+// 			array(
+// 				'label'=>'Goings on', 
+// 				'url'=>array('/feed/index'),
+// 				'visible'=>!Yii::app()->user->isGuest
+// 			),
 			array(
 				'label'=>'Groups', 
 				'url'=>array('/group/index'), 
@@ -250,7 +250,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Logout ('.Yii::app()->user->model->firstName.')', 
+				'label'=>'Logout', 
 				'url'=>array('/site/logout'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),

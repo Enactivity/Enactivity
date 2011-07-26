@@ -16,14 +16,13 @@ html {
 
 body
 {
-	background: #005483 url("../images/blue-noise-vertical-bar.jpg") repeat-x scroll left top;
+	background-color: #232425;
 	height: 100%;
 }
 
 a, a:hover, a:visited, a:active, a:focus
 {
 	color: #ffffff;
-	font-weight: bold;
 }
 
 a:hover, a:focus {
@@ -32,7 +31,8 @@ a:hover, a:focus {
 }
 
 input, textarea, select {
-	border: 1px solid #bfbfbf; 
+	border: 1px solid #bfbfbf;
+	border-radius: 2px; 
 	box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -68,22 +68,25 @@ body
 	tap-highlight-color: #92ccd6;
 }
 
+h1, h2, h3,
+h4, h5, h6 
+{
+	max-width: 32em;
+}
+
 h1 
 {
 	font-size: 1.5em;
-	max-width: 32em;
 }
 
 h2
 {
 	font-size: 1.25em;
-	max-width: 32em;
 }
 
 h3 
 {
 	font-size: 1.1em;
-	max-width: 32em;
 }
 
 p
@@ -105,7 +108,6 @@ time
 {
 	height: auto;
 	min-height: 100%;
-	margin: 0 10px;
 }
 
 body > footer {
@@ -159,26 +161,17 @@ section
 	margin: 1em 0;
 }
 
-section > header h1
-{
-	font-size: 2em;
-	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
-}
-
 .content
 {
 	background-color: #ffffff;
-	border-radius: 2em;
 	color: #232425;
-	margin: 16px 0;
-	padding: 1em;
+	margin: 0;
+	padding: 16px;
 	position: relative;
 }
 
 .content > header h1 
 {
-	font-size: 3em;
-	text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
 	margin-right: 282px;
 }
 
@@ -226,9 +219,7 @@ menu li a
 {
 	background-repeat: no-repeat;
 	background-position: top center;
-	border: none;
 	display: block;
-	height: 32px;
 	padding-top: 32px;
 	text-align: center;
 	width: 50px;
@@ -349,7 +340,6 @@ input[type="button"] {
 	background-color: transparent;
 	color: #00b6d5;
 	cursor: pointer;
-	font-weight: bold;
 	display: inline-block;
 	padding: .5em;
 	text-shadow: none;
@@ -459,7 +449,6 @@ th
 .pager a:link,
 .pager a:visited
 {
-	font-weight: bold;
 	padding: 1px 6px;
 	text-decoration: none;
 }
@@ -468,7 +457,6 @@ th
 {
 	background-color: #00b6d5;
 	color: #ffffff;
-	font-weight: bold;
 }
 
 .pager .hidden a

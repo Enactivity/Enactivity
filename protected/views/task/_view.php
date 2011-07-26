@@ -25,8 +25,6 @@ echo PHtml::openTag('article', array(
 echo PHtml::openTag('header');
 echo PHtml::openTag('hgroup');
 
-
-
 // task name
 echo PHtml::openTag('h1');
 echo PHtml::link(
@@ -36,115 +34,120 @@ echo PHtml::link(
 	);
 echo PHtml::closeTag('h1');
 
-// event date
-echo PHtml::openTag('h2');
-$this->widget('application.components.widgets.TaskDates', array(
-	'task'=>$data,
-));
-echo PHtml::closeTag('h2');
-
 // close headers
 echo PHtml::closeTag('hgroup');
 echo PHtml::closeTag('header');
 
+
+
 // body
+
+// event date
+echo PHtml::openTag('p');
+$this->widget('application.components.widgets.TaskDates', array(
+	'task'=>$data,
+));
+echo PHtml::closeTag('p');
 
 //	tasks toolbar
 echo PHtml::openTag('menu');
 echo PHtml::openTag('ul');
 
+if($data->isParticipatable) {
+	// show complete/uncomplete buttons if user is participating
+	if($data->isUserParticipating) {
+		echo PHtml::openTag('li');
+		
+		if($data->isUserComplete) {
+			echo PHtml::ajaxLink(
+				PHtml::encode('Resume'), 
+				array('/task/useruncomplete', 'id'=>$data->id),
+				array( //ajax
+					'replace'=>'#task-' . $data->id,
+					'type'=>'POST',
+					'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+				),
+				array( //html
+					'csrf' => true,
+					'id'=>'task-useruncomplete-menu-item-' . $data->id,
+					'class'=>'task-useruncomplete-menu-item',
+					'title'=>'Resume work on this task',
+				)
+			);
+		}
+		else {
+			echo PHtml::ajaxLink(
+				PHtml::encode('Complete'), 
+				array('/task/usercomplete', 'id'=>$data->id),
+				array( //ajax
+					'replace'=>'#task-' . $data->id,
+					'type'=>'POST',
+					'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+				),
+				array( //html
+					'csrf' => true,
+					'id'=>'task-usercomplete-menu-item-' . $data->id,
+					'class'=>'task-usercomplete-menu-item',
+					'title'=>'Finish working on this task',
+				)
+			); 
+		}
+		echo PHtml::closeTag('li');
+		
+		// 'participate' button
+		echo PHtml::openTag('li');
+		echo PHtml::ajaxLink(
+			PHtml::encode('Quit'), 
+			array('task/unparticipate', 'id'=>$data->id),
+			array( //ajax
+				'replace'=>'#task-' . $data->id,
+				'type'=>'POST',
+				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->getCsrfToken(), 
+			),
+			array( //html
+				'csrf' => true,
+				'id'=>'task-unparticipate-menu-item-' . $data->id,
+				'class'=>'task-unparticipate-menu-item',
+				'title'=>'Quit this task',
+			)
+		);
+		echo PHtml::closeTag('li');
+	}
+	else {
+		echo PHtml::openTag('li');
+		echo PHtml::ajaxLink(
+			PHtml::encode('Sign up'), 
+			array('task/participate', 'id'=>$data->id),
+			array( //ajax
+				'replace'=>'#task-' . $data->id,
+				'type'=>'POST',
+				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+			),
+			array( //html
+				'csrf'=>true,
+				'id'=>'task-participate-menu-item-' . $data->id,
+				'class'=>'task-participate-menu-item',
+				'title'=>'Sign up for task',
+			)
+		);
+		echo PHtml::closeTag('li');
+	}
+}
+
 // update link
 echo PHtml::openTag('li');
 echo PHtml::link(
-	PHtml::encode('Update'), 
-	array('task/update', 'id'=>$data->id),
-	array(
+PHtml::encode('Update'),
+array('task/update', 'id'=>$data->id),
+array(
 		'id'=>'task-update-menu-item-' . $data->id,
 		'class'=>'task-update-menu-item',
 		'title'=>'Update this task',
-	)
+)
 );
 echo PHtml::closeTag('li');
 
-// show complete/uncomplete buttons if user is participating
-if($data->isUserParticipating) {
-	echo PHtml::openTag('li');
-	
-	if($data->isUserComplete) {
-		echo PHtml::ajaxLink(
-			PHtml::encode('Resume'), 
-			array('/task/useruncomplete', 'id'=>$data->id),
-			array( //ajax
-				'replace'=>'#task-' . $data->id,
-				'type'=>'POST',
-				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-			),
-			array( //html
-				'csrf' => true,
-				'id'=>'task-useruncomplete-menu-item-' . $data->id,
-				'class'=>'task-useruncomplete-menu-item',
-				'title'=>'Resume work on this task',
-			)
-		);
-	}
-	else {
-		echo PHtml::ajaxLink(
-			PHtml::encode('Complete'), 
-			array('/task/usercomplete', 'id'=>$data->id),
-			array( //ajax
-				'replace'=>'#task-' . $data->id,
-				'type'=>'POST',
-				'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-			),
-			array( //html
-				'csrf' => true,
-				'id'=>'task-usercomplete-menu-item-' . $data->id,
-				'class'=>'task-usercomplete-menu-item',
-				'title'=>'Finish working on this task',
-			)
-		); 
-	}
-	echo PHtml::closeTag('li');
-	
-	// 'participate' button
-	echo PHtml::openTag('li');
-	echo PHtml::ajaxLink(
-		PHtml::encode('Quit'), 
-		array('task/unparticipate', 'id'=>$data->id),
-		array( //ajax
-			'replace'=>'#task-' . $data->id,
-			'type'=>'POST',
-			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->getCsrfToken(), 
-		),
-		array( //html
-			'csrf' => true,
-			'id'=>'task-unparticipate-menu-item-' . $data->id,
-			'class'=>'task-unparticipate-menu-item',
-			'title'=>'Quit this task',
-		)
-	);
-	echo PHtml::closeTag('li');
-}
-else {
-	echo PHtml::openTag('li');
-	echo PHtml::ajaxLink(
-		PHtml::encode('Sign up'), 
-		array('task/participate', 'id'=>$data->id),
-		array( //ajax
-			'replace'=>'#task-' . $data->id,
-			'type'=>'POST',
-			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-		),
-		array( //html
-			'csrf'=>true,
-			'id'=>'task-participate-menu-item-' . $data->id,
-			'class'=>'task-participate-menu-item',
-			'title'=>'Sign up for task',
-		)
-	);
-	echo PHtml::closeTag('li');
-}
-
+// trash link
 echo PHtml::openTag('li');
 if($data->isTrash) {
 	echo PHtml::ajaxLink(
