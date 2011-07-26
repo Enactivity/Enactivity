@@ -26,21 +26,6 @@ class EventbanterController extends Controller
 			$creatorId = $eventBanter->creatorId;
 		}
 		return array(
-			// allow registered users to perform 'index' and 'create' actions
-			array('allow',  
-				'actions'=>array('index','create'),
-				'expression'=>'$user->isAdmin',
-			),
-			// allow only group members to perform 'view', 'create' and 'update' actions
-			array('allow',  
-				'actions'=>array('view','update','delete'),
-				'expression'=>'$user->id == ' . $creatorId,
-			),
-			// allow admin user to perform 'admin' and 'delete' actions
-			array('allow', 
-				'actions'=>array('admin','view','update','delete'),
-				'expression'=>'$user->isAdmin',
-			),
 			// deny all users
 			array('deny',  
 				'users'=>array('*'),

@@ -27,21 +27,6 @@ class EventController extends Controller
 			//FIXME: what to do when id is expected but not present
 		}
 		return array(
-			// allow registered users to perform 'index' and 'create' actions
-			array('allow',  
-				'actions'=>array('index','calendar','create'),
-				'users'=>array('@'),
-			),
-			// allow only group members to perform 'view', 'create' and 'update' actions
-			array('allow',  
-				'actions'=>array('view','update','delete'),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
-			),
-			// allow admin user to perform 'admin' and 'delete' actions
-			array('allow', 
-				'actions'=>array('admin','view','update','delete'),
-				'expression'=>'$user->isAdmin',
-			),
 			// deny all users
 			array('deny',  
 				'users'=>array('*'),

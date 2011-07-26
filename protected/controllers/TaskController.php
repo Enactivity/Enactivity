@@ -26,7 +26,7 @@ class TaskController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index', 'whatsnext'),
+				'actions'=>array('index'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions

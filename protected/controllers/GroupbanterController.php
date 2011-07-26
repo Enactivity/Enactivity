@@ -26,22 +26,6 @@ class GroupbanterController extends Controller
 			$creatorId = $groupBanter->creatorId;
 		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','create', 'reply'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('view'),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update', 'delete'),
-				'expression'=>'$user->id == ' . $creatorId,
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
-				'users'=>array('admin'),
-			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
