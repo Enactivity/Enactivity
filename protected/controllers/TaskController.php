@@ -26,7 +26,7 @@ class TaskController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index'),
+				'actions'=>array('index', 'calendar'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -288,6 +288,29 @@ class TaskController extends Controller
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 			'newTask'=>$newTask,
+		));
+	}
+	
+	/**
+	* Lists all models.
+	*/
+	public function actionCalendar($month=null, $year=null)
+	{
+		$monthObj = new Month($month, $year);
+		
+		$dataProvider = new CActiveDataProvider(
+			Task::model()
+				->scopeUsersGroups(Yii::app()->user->id)
+				->scopeByCalendarMonth($monthObj->intValue, $monthObj->year)
+		);
+	
+		// handle new task
+		$newTask = $this->handleNewTaskForm();
+	
+		$this->render('calendar', array(
+				'dataProvider'=>$dataProvider,
+				'newTask'=>$newTask,
+				'month'=>$monthObj,
 		));
 	}
 

@@ -38,17 +38,18 @@ class Formatter extends CFormatter {
 	public function formatDate($value)
 	{
 		$date = date('d/m/Y', $value);
+		$prefix = '';
 		if($date == date('d/m/Y')) {
-			return 'Today';
+			$prefix = 'Today, ';
 		}
 		else if($date == date('d/m/Y', time() - (24 * 60 * 60))) {
-			return 'Yesterday';
+			$prefix = 'Yesterday, ';
 		}
 		else if($date == date('d/m/Y', time() + (24 * 60 * 60))) {
-			return 'Tomorrow';
+			$prefix = 'Tomorrow, ';
 		}
 		
-		return parent::formatDate($value);
+		return $prefix . parent::formatDate($value);
 	}
 	
 	public function formatDateTime($value)
@@ -65,5 +66,10 @@ class Formatter extends CFormatter {
 		}
 		
 		return parent::formatDateTime($value);
+	}
+	
+	public function formatMonth($value)
+	{
+		return date('F', $value);
 	}
 }

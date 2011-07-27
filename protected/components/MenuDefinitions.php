@@ -229,6 +229,11 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
+			array(
+				'label'=>'Calendar', 
+				'url'=>array('/task/calendar'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
 // 			array(
 // 				'label'=>'Goings on', 
 // 				'url'=>array('/feed/index'),

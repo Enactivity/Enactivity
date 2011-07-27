@@ -420,12 +420,13 @@ tr {
 th, 
 td
 {
-	border: 1px solid #d9d4cc;
+	border: 1px solid #333436;
 }
 
 th 
 {
-	background-color: #d9d4cc;
+	background-color: #333436;
+	color: white;
 	font-weight: bold;
 	text-align: center;
 }
@@ -612,6 +613,39 @@ select[name="Task[endTime]"]
 .task-untrash-menu-item:hover,
 .task-untrash-menu-item:focus {
 	background-image: url(../images/icons/trash-can-32x32.png);
+}
+
+/*
+Task Calendar
+*/
+.task-calendar
+{
+	width: 100%;	
+}
+
+.task-calendar th
+{
+	font-size: .5em;
+}
+
+.task-calendar td, .task-calendar th 
+{
+	width: 5%;
+	border: 8px solid white;
+	padding: .5em;
+	text-align: right;
+}
+
+.task-calendar td.has-tasks 
+{
+	background-color: #333436;
+}
+
+.task-calendar td a 
+{
+	display: block; 
+	height: 100%; 
+	width: 100%;
 }
 
 /*		Default Layout: 992px. 

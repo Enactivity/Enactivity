@@ -22,7 +22,7 @@
  * @property Task[] $tasks
  * @property integer $taskUsersCount number of users who have signed up for the task 
  * @property integer $taskUsersCompletedCount number of users who have signed up for the task and marked it complete
- * @property User[] $users
+ * @property User[] $participants
  */
 class Task extends CActiveRecord
 {
@@ -197,6 +197,7 @@ class Task extends CActiveRecord
 			
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
 				'through' => 'taskUsers',
+				'condition' => 'taskUsers.isTrash=0',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -685,6 +686,72 @@ class Task extends CActiveRecord
 	{
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'parentId IS NULL',
+		));
+		return $this;
+	}
+	
+	/**
+	* Scope for events taking place in a particular Month
+	* @param mixed $month as integer (January = 1, Dec = 12)
+	* @param mixed $year as integer
+	*/
+	public function scopeByCalendarMonth($month, $year) {
+	
+		// convert params to integers
+		$month = intval($month);
+		$year = intval($year);
+	
+		// FIXME: account for user timezone
+		$monthStarts = new DateTime($year . "-" . $month . "-1");
+		$monthStarts->setTime(0, 0, 0);
+	
+		$monthEnds = new DateTime($year . "-" . ($month) . "-1");
+		$monthEnds->modify('+1 month');
+		$monthEnds->setTime(0, 0, 0);
+	
+		// calculate buffer dates before and after month
+		$dayOfWeekStarts = $monthStarts->format('w');
+		$bufferStart = new DateTime();
+		$bufferStart->setDate($year, $month, 1 - $dayOfWeekStarts);
+		$bufferStart->setTime(0, 0, 0);
+	
+		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		$dayOfWeekEnds = $monthEnds->format('w');
+		$bufferEnd = new DateTime();
+		$bufferEnd->setDate($year, $month, $daysInMonth + $dayOfWeekEnds);
+		$bufferEnd->setTime(23, 59, 59);
+	
+		return $this->scopeStartsBetween($bufferStart, $bufferEnd);
+	}
+	
+	/**
+	 * Scope for events taking place in a particular Month
+	 * @param int $starts unix timestamp of start time
+	 * @param int $ends unix timestamp of end time
+	 */
+	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
+		$this->getDbCriteria()->mergeWith(array(
+				'condition'=>'starts <= :ends AND starts >= :starts',
+				'params' => array(
+					':starts' => $starts->format("Y-m-d H:i:s"),
+					':ends' => $ends->format("Y-m-d H:i:s"),
+		),
+		));
+		return $this;
+	}
+	
+	/**
+	 * Scope definition for events that share group value with
+	 * the user's groups
+	 * @param int $userId
+	 * @return Event
+	 */
+	public function scopeUsersGroups($userId) {
+		$this->getDbCriteria()->mergeWith(array(
+				'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+		.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+		. ' WHERE userId=:userId))',
+				'params' => array(':userId' => $userId)
 		));
 		return $this;
 	}
