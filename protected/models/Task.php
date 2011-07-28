@@ -678,7 +678,9 @@ class Task extends CActiveRecord
 	
 	public function defaultScope() {
 		return array(
-			'order' => 'LEAST(IFNULL(starts, 9999-12-12), IFNULL(ends, 9999-12-12)) ASC, ' . $this->getTableAlias(false, false) . '.created ASC',
+			'order' => 'LEAST(IFNULL(starts, 9999-12-12), IFNULL(ends, 9999-12-12)) ASC' 
+				. ', ' . $this->getTableAlias(false, false) . '.parentId ASC'
+				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
 	}
 	
@@ -753,6 +755,14 @@ class Task extends CActiveRecord
 		. ' WHERE userId=:userId))',
 				'params' => array(':userId' => $userId)
 		));
+		return $this;
+	}
+	
+	public function scopeNoWhen() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'starts IS NULL',
+			)
+		);
 		return $this;
 	}
 }

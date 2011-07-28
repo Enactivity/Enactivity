@@ -278,7 +278,7 @@ class TaskController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CArrayDataProvider(
-			Yii::app()->user->model->groupsParentlessTasks,
+			Yii::app()->user->model->nextTasks,
 			array()
 		);
 		
@@ -286,7 +286,8 @@ class TaskController extends Controller
 		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'datedTasksProvider'=>$dataProvider,
+			'datelessTasksProvider'=>$dataProvider, //FIXME: do a proper query
 			'newTask'=>$newTask,
 		));
 	}
@@ -298,17 +299,26 @@ class TaskController extends Controller
 	{
 		$monthObj = new Month($month, $year);
 		
-		$dataProvider = new CActiveDataProvider(
-			Task::model()
+		$taskWithDateQueryModel = new Task();
+		$datedTasks = new CActiveDataProvider(
+			$taskWithDateQueryModel
 				->scopeUsersGroups(Yii::app()->user->id)
 				->scopeByCalendarMonth($monthObj->intValue, $monthObj->year)
+		);
+		
+		$taskWithoutDateQueryModel = new Task();
+		$datelessTasks = new CActiveDataProvider(
+			$taskWithoutDateQueryModel
+				->scopeUsersGroups(Yii::app()->user->id)
+				->scopeNoWhen()
 		);
 	
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
 	
 		$this->render('calendar', array(
-				'dataProvider'=>$dataProvider,
+				'datedTasksProvider'=>$datedTasks,
+				'datelessTasksProvider'=>$datelessTasks,
 				'newTask'=>$newTask,
 				'month'=>$monthObj,
 		));

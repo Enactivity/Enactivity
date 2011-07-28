@@ -545,6 +545,10 @@ select[name="Task[endTime]"]
 	padding-right: 282px;
 }
 
+.task h1 {
+	font-size: 1.25em;
+}
+
 .task h1 time {
 	font-weight: bold;
 }

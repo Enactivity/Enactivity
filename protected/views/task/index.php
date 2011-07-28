@@ -10,8 +10,12 @@ $this->pageTitle = 'Tasks';
 // "what would you want to do input" box
 echo $this->renderPartial('_form', array('model'=>$newTask));
 
-if($dataProvider->itemCount > 0) {
-	echo $this->renderPartial('_agenda', array('tasks'=>$dataProvider->data));
+if($datedTasksProvider->itemCount > 0
+|| $datelessTaskProvider->itemCount > 0) {
+	echo $this->renderPartial('_agenda', array(
+		'datedTasks'=>$datedTasksProvider->data,
+		'datelessTasks'=>$datelessTasksProvider->data,
+	));
 }
 else {
 	//TODO: make more user-friendly

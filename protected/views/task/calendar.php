@@ -28,7 +28,7 @@ $this->menu[] = array(
 <?php 
 // show task calendar
 echo $this->renderPartial('_calendar', array(
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$datedTasksProvider,
 	'month'=>$month,
 ));
 ?>
@@ -38,6 +38,6 @@ echo $this->renderPartial('_calendar', array(
 echo $this->renderPartial('_form', array('model'=>$newTask));
 
 echo $this->renderPartial('_agenda', array(
-	'tasks'=>$dataProvider->data,
-	'month'=>$month,
+	'datedTasks'=>$datedTasksProvider->data,
+	'datelessTasks'=>$datelessTasksProvider->data,
 ));

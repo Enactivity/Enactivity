@@ -4,58 +4,68 @@ $this->pageTitle = $model->name;
 
 <header>
 	<h1>
-		<?php
-		if(isset($model->parentId)) {
-			echo PHtml::openTag('span', array('class'=>'parent-task-name'));
-			echo PHtml::link(
-				PHtml::encode($model->parent->name),
-				array('task/view', 'id'=>$model->parentId)
-			);
-			echo PHtml::closeTag('span');
-			echo ' ';
-		} 
-		echo PHtml::encode($this->pageTitle);
-		?></h1>
-	<p><?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></p>
+
+
+	<?php
+	if(isset($model->parentId)) {
+		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+		echo PHtml::link(
+		PHtml::encode($model->parent->name),
+		array('task/view', 'id'=>$model->parentId)
+		);
+		echo PHtml::closeTag('span');
+		echo ' ';
+	}
+	echo PHtml::encode($this->pageTitle);
+	?></h1>
+	<p>
+
+	<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></p>
 </header>
 
 <menu class="toolbox">
 	<ul>
 
-		<?php 
-		if($model->isParticipatable) {
-			// show complete/uncomplete buttons if user is participating
-			if($model->isUserParticipating) { ?>
-				<li>
-					<?php 
-					if($model->isUserComplete) {
-						echo PHtml::link(
-							PHtml::encode('Resume'), 
-							array('/task/useruncomplete', 'id'=>$model->id),
-							array( //html
+
+
+	<?php
+	if($model->isParticipatable) {
+		// show complete/uncomplete buttons if user is participating
+		if($model->isUserParticipating) { ?>
+		<li>
+		<?php
+		if($model->isUserComplete) {
+			echo PHtml::link(
+			PHtml::encode('Resume'),
+			array('/task/useruncomplete', 'id'=>$model->id),
+			array( //html
 								'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
 								'csrf'=>true,
 								'id'=>'task-useruncomplete-menu-item-' . $model->id,
 								'class'=>'task-useruncomplete-menu-item',
 								'title'=>'Resume work on this task',
-							)
-						);
-					}
-					else {
-						echo PHtml::link(
-							PHtml::encode('Complete'), 
-							array('/task/usercomplete', 'id'=>$model->id),
-							array( //html
+			)
+			);
+		}
+		else {
+			echo PHtml::link(
+			PHtml::encode('Complete'),
+			array('/task/usercomplete', 'id'=>$model->id),
+			array( //html
 								'submit'=>array('/task/usercomplete', 'id'=>$model->id),
 								'csrf'=>true,
 								'id'=>'task-usercomplete-menu-item-' . $model->id,
 								'class'=>'task-usercomplete-menu-item',
 								'title'=>'Finish working on this task',
-							)
-						); 
-					}
-					?>
-				</li>
+			)
+			);
+		}
+		?>
+		</li>
+		
+		
+		
+		
 		
 		<?php
 		// 'participate' button
@@ -136,14 +146,21 @@ echo PHtml::closeTag('li');
 </ul>
 </menu>
 
+
 <?php
 // show participants
 if($model->isParticipatable):
 ?>
 <section id="users-participating">
 	<header>
-		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
+		<h1>
+			
+		<?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	</header>
+	
+	
+	
+	
 	<?php 
 	echo PHtml::openTag('ol', array('class' => 'users'));
 	foreach($model->participants as $user) {
@@ -156,27 +173,26 @@ if($model->isParticipatable):
 	echo PHtml::closeTag('ol');
 	?>
 </section>
+
 <?php endif; ?>
 
-<?php 
+<?php
 // Show children tasks
 if($model->isSubtaskable):
 ?>
 <section id="child-tasks">
-	<header>
-		<h1><?php echo PHtml::encode(sizeof($model->children)) . ' Subtasks'; ?></h1>
-	</header>
-	<?php 
-// 	foreach($model->children as $task) {
-// 		$this->renderPartial('/task/_view', array('data'=>$task));
-// 	}
-	echo $this->renderPartial('_agenda', array(
-		'tasks'=>$model->children,
+
+
+<?php
+echo $this->renderPartial('_agenda', array(
+		'datedTasks'=>$model->children,
+		'datelessTasks'=>$model->children,
 		'month'=>$month,
 		'showParent'=>false,
-	));
-	?>
+));
+?>
 </section>
+
 <?php endif; ?>
 
 <?php // "what would you want to do input" box
@@ -188,8 +204,14 @@ if($model->isSubtaskable) {
 ?>
 <section>
 	<header>
-		<h1><?php echo 'Recent Activity'; ?></h1>
+		<h1>
+			
+		<?php echo 'Recent Activity'; ?></h1>
 	</header>
+	
+	
+	
+	
 	<?php 
 	foreach($model->feed as $log) {
 		$this->renderPartial('/feed/_view',

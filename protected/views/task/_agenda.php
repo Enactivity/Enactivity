@@ -1,28 +1,16 @@
 <?php
 /**
- * @param tasks Task[] 
+ * @param datedTasks Task[] tasks with dates
+ * @param datelessTasks Task[] task with no dates
  * @param showParent boolean
  */
-// for($day = 1; $day <= $month->calendarDays; $day++) {
-// 	$currentDayStart = mktime(0, 0, 0, $month->intValue, $day, $month->year);
-// 	$currentDayEnd = mktime(23, 59, 59, $month->intValue, $day, $month->year);
 
-// 	$htmlId = 'day-' . $day;
-// 	echo PHtml::openTag('h1', array('id' => $htmlId));
-// 	echo Yii::app()->format->formatDate($currentDayStart);
-// 	echo PHtml::closeTag('h1');
-
-// 	foreach($dataProvider->getData() as $task) {
-// 		if((PDateTime::MySQLDateOffset($task->starts) <= $currentDayEnd)
-// 		&& (PDateTime::MySQLDateOffset($task->starts) >= $currentDayStart)) {
-// 			echo $this->renderPartial('_view', array('data'=>$task));
-// 		}
-// 	}
-// }
-//
+// instantiate the arrays if needed
+$datedTasks = empty($datedTasks) ? array() : $datedTasks;
+$datelessTasks = empty($datelessTasks) ? array() : $datelessTasks;
 
 $currentDate = null;
-foreach($tasks as $task) {
+foreach($datedTasks as $task) {
 	if(isset($task->starts)) {
 		$taskDate = Yii::app()->format->formatDate(strtotime($task->starts));
 		if($taskDate != $currentDate) {
@@ -38,15 +26,17 @@ foreach($tasks as $task) {
 		));
 	}
 }
-	
-echo PHtml::openTag('h1', array('id' => 'no-start-tasks'));
-echo 'Someday';
-echo PHtml::closeTag('h1');
-foreach($tasks as $task) {
-	if(!isset($task->starts)) {
-		echo $this->renderPartial('_view', array(
-			'data'=>$task,
-			'showParent'=>$showParent,
-		));
+
+if(!empty($datelessTasks)) {
+	echo PHtml::openTag('h1', array('id' => 'no-start-datedTasks'));
+	echo 'Someday';
+	echo PHtml::closeTag('h1');
+	foreach($datelessTasks as $task) {
+		if(!isset($task->starts)) {
+			echo $this->renderPartial('_view', array(
+				'data'=>$task,
+				'showParent'=>$showParent,
+			));
+		}
 	}
 }
