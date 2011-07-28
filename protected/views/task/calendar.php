@@ -37,20 +37,7 @@ echo $this->renderPartial('_calendar', array(
 // "what would you want to do input" box
 echo $this->renderPartial('_form', array('model'=>$newTask));
 
-for($day = 1; $day <= $month->calendarDays; $day++) {
-	$currentDayStart = mktime(0, 0, 0, $month->intValue, $day, $month->year);
-	$currentDayEnd = mktime(23, 59, 59, $month->intValue, $day, $month->year);
-	
-	$htmlId = 'day-' . $day;
-	echo PHtml::openTag('h1', array('id' => $htmlId));
-	echo Yii::app()->format->formatDate($currentDayStart);
-	echo PHtml::closeTag('h1');
-	
-	foreach($dataProvider->getData() as $task) {
-		if((PDateTime::MySQLDateOffset($task->starts) <= $currentDayEnd)
-		&& (PDateTime::MySQLDateOffset($task->starts) >= $currentDayStart)) {
-			$this->renderPartial('_view', array('data'=>$task));
-		}
-	}
-	
-}
+echo $this->renderPartial('_agenda', array(
+	'tasks'=>$dataProvider->data,
+	'month'=>$month,
+));

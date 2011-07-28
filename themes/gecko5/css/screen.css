@@ -233,7 +233,7 @@ menu.toolbox
 
 article > menu
 {
-	padding-top: 1em;
+	padding-top: .5em;
 	right: 0;
 	top: 0;
 }
@@ -543,6 +543,10 @@ select[name="Task[endTime]"]
 .task {
 	border-top-left-radius: 0 0;
 	padding-right: 282px;
+}
+
+.task h1 time {
+	font-weight: bold;
 }
 
 .completed h1 a,

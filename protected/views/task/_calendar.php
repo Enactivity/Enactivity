@@ -8,11 +8,7 @@ echo PHtml::openTag('thead');
 echo PHtml::openTag('tr');
 foreach ($weekdays as $weekdayname) {
 	echo PHtml::openTag('th');
-	echo PHtml::tag('dl');
-	echo PHtml::tag('dt');
-	echo $weekdayname;
-	echo PHtml::closetag('dt');
-	echo PHtml::closetag('dl');
+	echo PHtml::encode($weekdayname);
 	echo PHtml::closeTag('th');
 }
 echo PHtml::closeTag('tr');
@@ -58,7 +54,11 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 	if($day > 0 && $day <= $month->calendarDays) {
 		echo PHtml::link(
 			date('d', $currentDayStart), 
-			array('task/calendar/', 'year' => $month->year, 'month' => $month->intValue, '#' => 'day-' . $day)
+			array('task/calendar/', 
+				'year' => $month->year, 
+				'month' => $month->intValue, 
+				'#' => 'day-' . $month->year . '-' . $month->intValue . '-' . $day //day-YYYY-m-d
+			)
 		);
 	}
 

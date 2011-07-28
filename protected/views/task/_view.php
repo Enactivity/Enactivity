@@ -3,7 +3,10 @@
  * View for individual task models
  * 
  * @param Task $data model
+ * @param boolean $showParent
  */
+
+$showParent = isset($showParent) ? $showParent : true;
 
 // calculate article class
 $articleClass[] = "view";
@@ -27,6 +30,17 @@ echo PHtml::openTag('hgroup');
 
 // task name
 echo PHtml::openTag('h1');
+if(isset($data->starts)) {
+	echo PHtml::openTag('time');
+	echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts)) . ' ');
+	echo PHtml::closeTag('time');
+}
+if(isset($data->parentId) && $showParent) {
+	echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+	echo PHtml::encode($data->parent->name);
+	echo PHtml::closeTag('span');
+	echo ' ';
+}
 echo PHtml::link(
 		PHtml::encode($data->name), 
 		array('/task/view', 'id'=>$data->id),
@@ -43,11 +57,11 @@ echo PHtml::closeTag('header');
 // body
 
 // event date
-echo PHtml::openTag('p');
-$this->widget('application.components.widgets.TaskDates', array(
-	'task'=>$data,
-));
-echo PHtml::closeTag('p');
+// echo PHtml::openTag('p');
+// $this->widget('application.components.widgets.TaskDates', array(
+// 	'task'=>$data,
+// ));
+// echo PHtml::closeTag('p');
 
 //	tasks toolbar
 echo PHtml::openTag('menu');

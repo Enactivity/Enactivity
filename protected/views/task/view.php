@@ -6,11 +6,13 @@ $this->pageTitle = $model->name;
 	<h1>
 		<?php
 		if(isset($model->parentId)) {
+			echo PHtml::openTag('span', array('class'=>'parent-task-name'));
 			echo PHtml::link(
 				PHtml::encode($model->parent->name),
 				array('task/view', 'id'=>$model->parentId)
 			);
-			echo ' - ';
+			echo PHtml::closeTag('span');
+			echo ' ';
 		} 
 		echo PHtml::encode($this->pageTitle);
 		?></h1>
@@ -165,9 +167,14 @@ if($model->isSubtaskable):
 		<h1><?php echo PHtml::encode(sizeof($model->children)) . ' Subtasks'; ?></h1>
 	</header>
 	<?php 
-	foreach($model->children as $task) {
-		$this->renderPartial('/task/_view', array('data'=>$task));
-	}
+// 	foreach($model->children as $task) {
+// 		$this->renderPartial('/task/_view', array('data'=>$task));
+// 	}
+	echo $this->renderPartial('_agenda', array(
+		'tasks'=>$model->children,
+		'month'=>$month,
+		'showParent'=>false,
+	));
 	?>
 </section>
 <?php endif; ?>
