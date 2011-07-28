@@ -26,11 +26,6 @@
 	</div>
 
 	<div class="field">
-		<?php echo $form->label($model,'priority'); ?>
-		<?php echo $form->textField($model,'priority'); ?>
-	</div>
-
-	<div class="field">
 		<?php echo $form->label($model,'isTrash'); ?>
 		<?php echo $form->textField($model,'isTrash'); ?>
 	</div>
@@ -38,11 +33,6 @@
 	<div class="field">
 		<?php echo $form->label($model,'starts'); ?>
 		<?php echo $form->textField($model,'starts'); ?>
-	</div>
-
-	<div class="field">
-		<?php echo $form->label($model,'ends'); ?>
-		<?php echo $form->textField($model,'ends'); ?>
 	</div>
 
 	<div class="field">
