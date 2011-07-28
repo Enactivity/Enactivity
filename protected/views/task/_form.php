@@ -16,7 +16,11 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 
 	<?php echo $form->errorSummary($model); ?>
 	<div class="field">
-		<?php echo $form->labelEx($model,'name'); ?>
+		<?php
+		if(!$model->isNewRecord) { 
+			echo $form->labelEx($model,'name');
+		} 
+		?>
 		<?php echo $form->textField($model,'name',
 			array(
 				'size'=>60,
