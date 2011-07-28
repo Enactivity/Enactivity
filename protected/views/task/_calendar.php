@@ -57,7 +57,7 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 			array('task/calendar/', 
 				'year' => $month->year, 
 				'month' => $month->intValue, 
-				'#' => 'day-' . $month->year . '-' . $month->intValue . '-' . $day //day-YYYY-m-d
+				'#' => 'day-' . $month->year . '-' . date('m', $currentDayStart) . '-' . date('d', $currentDayStart) //day-YYYY-mm-dd
 			)
 		);
 	}
