@@ -34,6 +34,12 @@ if(isset($data->starts)) {
 	echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts)) . ' ');
 	echo PHtml::closeTag('time');
 }
+if(isset($data->rootParent) && ($data->rootParent->id != $data->parent->id) && $showParent) {
+	echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+	echo PHtml::encode($data->rootParent->name);
+	echo PHtml::closeTag('span');
+	echo '&hellip;';
+}
 if(isset($data->parentId) && $showParent) {
 	echo PHtml::openTag('span', array('class'=>'parent-task-name'));
 	echo PHtml::encode($data->parent->name);

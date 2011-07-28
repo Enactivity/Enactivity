@@ -397,6 +397,18 @@ class Task extends CActiveRecord
 		return false;
 	}
 	
+	public function getRootParent() {
+		if($this->hasParent) {
+			if($this->parent->hasParent) {
+				return $this->parent->rootParent;
+			}
+			else {
+				return $this->parent;
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Marks the current user as participating in the task.
 	 * Saves TaskUser
