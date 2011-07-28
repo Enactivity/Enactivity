@@ -39,6 +39,7 @@ input, textarea, select {
 	-webkit-box-sizing: border-box;
 	-khtml-box-sizing: border-box;
 	font: inherit;
+	font-size: 2em;
 	width: 100%;
 }
 
@@ -341,6 +342,7 @@ input[type="button"] {
 	color: #00b6d5;
 	cursor: pointer;
 	display: inline-block;
+	font-size: 1em;
 	padding: .5em;
 	text-shadow: none;
 	text-transform: lowercase;
@@ -523,10 +525,6 @@ select[name="Task[endTime]"]
 /* task form inputs */
 .new-task {
 	max-width: none;
-}
-
-.new-task input[type="text"] {
-	font-size: 2em;
 }
 
 /*
