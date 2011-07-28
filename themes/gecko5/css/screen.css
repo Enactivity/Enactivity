@@ -592,6 +592,11 @@ select[name="Task[endTime]"]
 	background-image: url(../images/icons/pencil-32x32.png);	
 }
 
+.task-update-menu-item:hover,
+.task-update-menu-item:focus {
+	background-image: url(../images/icons/blue-pencil-32x32.png);	
+}
+
 .task-useruncomplete-menu-item,
 .task-usercomplete-menu-item:hover,
 .task-usercomplete-menu-item:focus {
