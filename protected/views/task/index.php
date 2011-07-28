@@ -19,9 +19,11 @@ if($datedTasksProvider->itemCount > 0
 }
 else {
 	//TODO: make more user-friendly
-	echo PHtml::openTag('p');
+	echo PHtml::openTag('p', array('class'=>'no-results-message'));
 	echo 'You haven\'t signed up for any tasks.  Why not check out the ';
 	echo PHtml::link('calendar', array('task/calendar'));
-	echo ' to see what is listed or start a new task?'; 
+	echo ' to see what is listed or ';
+	echo PHtml::link('start a new task', array('task/index', '#'=>'task-form'));
+	echo '?'; 
 	echo PHtml::closeTag('p');
 }

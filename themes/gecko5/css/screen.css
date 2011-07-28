@@ -537,6 +537,11 @@ select[name="Task[endTime]"]
 	display: none;
 }
 
+.no-results-message {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /*
 	Task stylings
 */
