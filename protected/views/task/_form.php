@@ -51,26 +51,6 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		?></div>
 		<?php echo $form->error($model,'starts'); ?>
 	</div>
-
-	<div class="field">
-		<?php echo $form->labelEx($model,'ends'); ?>
-		<div class="forminput"><?php
-			// preformat date before loading into widget 
-			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
-				array(
-					'model'=>$model,
-					'dateAttribute'=>'endDate',
-					'timeAttribute'=>'endTime',
-					// additional javascript options for the date picker plugin
-					'options'=>array(
-						'showAnim'=>'fold',
-						'minDate' => 0,
-					),
-				)
-			);
-		?></div>
-		<?php echo $form->error($model,'ends'); ?>
-	</div>
 	<?php endif; ?>
 	<div class="field buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

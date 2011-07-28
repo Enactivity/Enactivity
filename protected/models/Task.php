@@ -8,10 +8,8 @@
  * @property integer $groupId
  * @property integer $parentId
  * @property string $name
- * @property integer $priority
  * @property integer $isTrash
  * @property string $starts
- * @property string $ends
  * @property string $created
  * @property string $modified
  *
@@ -92,7 +90,7 @@ class Task extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groupId, name, priority, isTrash',
+			array('groupId, name, isTrash',
 				'required'),
 			
 			// parent can be any integer > 0
@@ -108,12 +106,6 @@ class Task extends CActiveRecord
 				'integerOnly'=>true,
 				'allowEmpty'=>true),
 						
-			// int >= 1 so it can be human readable
-			array('priority',
-				'numerical',
-				'min' => 1,
-				'integerOnly'=>true),
-			
 			// boolean ints can be 0 or 1
 			array('isTrash',
 				'numerical',
@@ -134,44 +126,17 @@ class Task extends CActiveRecord
 				'filter', 
 				'filter'=>'trim'),
 			
-			array('starts, ends, startDate, startTime, endDate, endTime',
+			array('starts, startDate, startTime',
 				'safe'),
-			
-			array('ends',
-				'validateDateAfter', 
-				'beforeDateTime'=>'starts'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			//array('id, groupId, name, priority, isTrash, starts, ends, created, modified',
+			//array('id, groupId, name, isTrash, starts, created, modified',
 			//	'safe',
 			//	'on'=>'search'),
 		);
 	}
 
-	/**
-	 * Validate that the given date comes after the specified
-	 * 'beforeDate'
-	 * @param string $attribute the attribute to test
-	 * @param array $params
-	 * @return boolean true if date comes after parameter date, false otherwise
-	 */
-	public function validateDateAfter($attribute, $params) {
-		$ends = $this->$attribute;
-		if(empty($ends)) {
-			return;	
-		}
-		
-		$starts = $this->$params['beforeDateTime'];
-		
-		$ends = strtotime($ends);
-		$starts = strtotime($starts);
-		
-		if($ends < $starts) {
-			$this->addError($attribute, 'End time cannot be before start time.');
-		}
-	}
-	
 	/**
 	 * @return array relational rules.
 	 */
@@ -217,10 +182,8 @@ class Task extends CActiveRecord
 			'groupId' => 'Group',
 			'parentId' => 'Parent',
 			'name' => 'Description',
-			'priority' => 'Priority',
 			'isTrash' => 'Is Trash',
-			'starts' => 'Starts',
-			'ends' => 'Ends',
+			'starts' => 'When',
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'taskUsers' => 'Participants',
@@ -259,10 +222,8 @@ class Task extends CActiveRecord
 		$criteria->compare('groupId',$this->groupId);
 		$criteria->compare('parentId',$this->parentId);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('priority',$this->priority);
 		$criteria->compare('isTrash',$this->isTrash);
 		$criteria->compare('starts',$this->starts,true);
-		$criteria->compare('ends',$this->ends,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 
@@ -319,84 +280,12 @@ class Task extends CActiveRecord
 		return $this;
 	}
 	
-	public function getEndDate() {
-		if(empty($this->ends)) return null;
-		
-		$dateTimeArray = explode(' ', $this->ends);
-		return $dateTimeArray[0];
-	}
-	
-	public function getEndTime() {
-		if(empty($this->ends)) return null;
-		
-		$dateTimeArray = explode(' ', $this->ends);
-		return $dateTimeArray[1];
-	}
-	
-	public function setEndDate($date) {
-		if(!empty($date)) {
-			if(empty($this->ends)) {
-				$soon = strtotime("+1 hour");
-				$this->ends = date("Y-m-d H:00:00", $soon);
-			}
-			
-			$dateTimeArray = explode(' ', $this->ends);
-			$dateTimeArray[0] = $date;
-			$datetime = implode(' ', $dateTimeArray);
-			$this->ends = $datetime;
-		}else{
-			$this->ends = null;
-		}
-		return $this;
-	}
-	
-	public function setEndTime($time) {
-		if(!empty($time)) {
-			if(empty($this->ends)) {
-				$soon = strtotime("+1 hour");
-				$this->ends = date("Y-m-d H:00:00", $soon);
-			}
-			
-			$dateTimeArray = explode(' ', $this->ends);
-			$dateTimeArray[1] = $time;
-			$datetime = implode(' ', $dateTimeArray);
-			$this->ends = $datetime;
-		}else{
-			$this->ends = null;
-		}
-		return $this;
-	}
-	
 	/**
 	 * Does this task have a start time?
 	 * @return boolean
 	 */
 	public function getHasStarts() {
 		return isset($this->starts);
-	}
-	
-	/**
-	 * Does this task have an end time?
-	 * @return boolean
-	 */
-	public function getHasEnds() {
-		return isset($this->ends);
-	}
-	
-	/**
-	 * Does this task have a start time and no end time?
-	 * @return boolean
-	 */
-	public function getHasOnlyStarts() {
-		return $this->hasStarts && !$this->hasEnds;
-	}
-	
-	/**	
-	 * Does this task have a start time and no end time?
-	 * @return boolean
-	 */
-	public function getHasOnlyEnds() {
-		return !$this->hasStarts && $this->hasEnds;
 	}
 	
 	/**
@@ -617,68 +506,9 @@ class Task extends CActiveRecord
 		return $this;
 	}
 	
-	/**
-	 * Set the task to have the highest priority in the parents' task list.
-	 * Updates sister tasks to compensate.
-	 * @return Task[] updated task list
-	 */
-	public function setChildTaskToHighestPriority($childTaskId) {
-		//FIXME: implement properly
-		$model = Task::model();
-		$tasks = $model->tasks;
-		
-		// if task is already highest priority, list remains the same
-		$task = Task::model()->findByPk($childTaskId);
-		if($task->priority <= 0) {
-			return $tasks;
-		}
-		
-		// start a transaction
-		$transaction = $model->dbConnection->beginTransaction();
-		try {
-			// update each priority
-			foreach($tasks as $listTask) {
-				if($listTask->priority < $task->priority)
-				$listTask->priority++;
-				$listTask->save();
-			}
-			
-			// update this task to have highest priority
-			$task->priority = 0;
-			$task->save();
-			
-			$transaction->commit();
-		}
-		catch(Exception $e) {
-		    $transaction->rollBack();
-		    throw $e;
-		}
-		
-		return $this;
-	}
-	
-	protected function beforeValidate() {
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord)
-			{
-				if(isset($this->parentId)) {
-					$parentTask = Task::model()->findByPk($this->parentId);
-					$this->priority = $parentTask->childrenCount + 1;
-				}
-				else {
-					$tasksWithNoParents = Yii::app()->user->model->groupsParentlessTasks;
-					$size = sizeof($tasksWithNoParents);
-					$this->priority = $size + 1;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-	
 	public function defaultScope() {
 		return array(
-			'order' => 'LEAST(IFNULL(starts, 9999-12-12), IFNULL(ends, 9999-12-12)) ASC' 
+			'order' => 'starts ASC' 
 				. ', ' . $this->getTableAlias(false, false) . '.parentId ASC'
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);

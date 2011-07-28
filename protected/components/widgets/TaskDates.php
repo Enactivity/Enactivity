@@ -24,26 +24,5 @@ class TaskDates extends CWidget
 			echo PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->starts)));
 			echo PHtml::closeTag('time');
 		}
-		
-		if($this->task->hasEnds) {
-			
-			if($this->task->hasOnlyEnds) {
-				$formattedEnds = $this->task->getAttributeLabel('ends');
-				$formattedEnds .= ' ' . Yii::app()->format->formatDateTime(strtotime($this->task->ends)); 	
-			}
-			else {
-				echo ' - ';
-				if($this->task->startDate == $this->task->endDate) {
-					$formattedEnds = Yii::app()->format->formatTime(strtotime($this->task->ends));
-				}
-				else {
-					$formattedEnds = Yii::app()->format->formatDateTime(strtotime($this->task->ends));
-				}
-			}
-			
-			echo PHtml::openTag('time', array('class'=>'ends'));
-			echo PHtml::encode($formattedEnds);
-			echo PHtml::closeTag('time');
-		}
 	}
 }
