@@ -10,4 +10,14 @@ $this->pageTitle = 'Tasks';
 // "what would you want to do input" box
 echo $this->renderPartial('_form', array('model'=>$newTask));
 
-echo $this->renderPartial('_agenda', array('tasks'=>$dataProvider->data));
+if($dataProvider->itemCount > 0) {
+	echo $this->renderPartial('_agenda', array('tasks'=>$dataProvider->data));
+}
+else {
+	//TODO: make more user-friendly
+	echo PHtml::openTag('p');
+	echo 'You haven\'t signed up for any tasks.  Why not check out the ';
+	echo PHtml::link('calendar', array('task/calendar'));
+	echo ' to see what is listed or start a new task?'; 
+	echo PHtml::closeTag('p');
+}
