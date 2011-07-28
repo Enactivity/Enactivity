@@ -142,44 +142,4 @@ class CreateTaskTest extends DbTestCase
 		$this->assertFalse($task->validate(), 'task with no inputs was saved');
 	}
 	
-	/**
-	 * Test task create when start date is after end date
-	 */
-	public function testCreateTaskStartDateAfterEndDate() {
-		
-		$name = $this->taskFixtures['noparenttask']['name'];
-		$parentId = $this->taskFixtures['noparenttask']['id'];
-		$starts = date ("Y-m-d H:i:s", strtotime("-1 hours"));
-		$ends = date ("Y-m-d H:i:s", strtotime("-2 hours"));
-		
-		$task = new Task();
-		$task->setAttributes(array(
-			'name' => $name,
-			'parentId' => $parentId,
-			'starts' => $starts,
-			'ends' => $ends,
-		));
-		
-		$this->assertFalse($task->validate(), 'task with start date after end date was validated');
-		$this->assertFalse($task->save(), 'task with start date after end date saved');
-	}
-	
-	/**
-	 * Test that priority is auto-assigned on validate
-	 */
-	public function testPriorityAutoAssign() {
-		
-		$name = "test task";
-		$parentId = $this->taskFixtures['noparenttask']['id'];
-		
-		$task = new Task();
-		$task->setAttributes(array(
-			'name' => $name,
-			'parentId' => $parentId,
-		));
-		
-		$this->assertNull($task->priority, 'Priority was set before validate');
-		$task->validate();
-		$this->assertNotNull($task->priority, 'Priority was not set before validation');
-	}
 }
