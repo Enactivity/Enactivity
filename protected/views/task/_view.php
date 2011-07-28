@@ -148,7 +148,7 @@ if($data->isParticipatable) {
 }
 
 // update link
-echo PHtml::openTag('li');
+/* echo PHtml::openTag('li');
 echo PHtml::link(
 PHtml::encode('Update'),
 array('task/update', 'id'=>$data->id),
@@ -196,7 +196,7 @@ else {
 		)
 	);
 }
-echo PHtml::closeTag('li');
+echo PHtml::closeTag('li'); */
 
 echo PHtml::closeTag('ul');
 echo PHtml::closeTag('menu');

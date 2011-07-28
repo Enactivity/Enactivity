@@ -210,6 +210,7 @@ menu
 menu li
 {
 	display: inline-block;
+	font-family: Verdana, sans-serif;
 	font-size: .6em;
 	list-style-type: none;
 	margin-right: 16px;
@@ -221,7 +222,7 @@ menu li a
 	background-repeat: no-repeat;
 	background-position: top center;
 	display: block;
-	padding-top: 32px;
+	padding-top: 35px;
 	text-align: center;
 	width: 50px;
 }
@@ -234,7 +235,7 @@ menu.toolbox
 
 article > menu
 {
-	padding-top: .5em;
+	padding-top: 5px;
 	right: 0;
 	top: 0;
 }
