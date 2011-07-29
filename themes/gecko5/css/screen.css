@@ -39,7 +39,7 @@ input, textarea, select {
 	-webkit-box-sizing: border-box;
 	-khtml-box-sizing: border-box;
 	font: inherit;
-	font-size: 2em;
+	font-size: 1.5em;
 	width: 100%;
 }
 
@@ -515,13 +515,13 @@ input[name="Task[startDate]"],
 input[name="Task[endDate]"]
 {
 	margin-right: 2%;
-	width: 63%;
+	width: 48%;
 }
 
 select[name="Task[startTime]"],
 select[name="Task[endTime]"] 
 {
-	width: 35%;
+	width: 50%;
 }
 
 /* task form inputs */
