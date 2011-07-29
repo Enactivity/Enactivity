@@ -56,6 +56,7 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadModel($id);
+		$subtasks = $model->children()->findAll();
 		
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
@@ -66,6 +67,7 @@ class TaskController extends Controller
 			'view', 
 			array(
 				'model' => $model,
+				'subtasks' => $subtasks, 
 				'newTask' => $newTask,
 				'feedDataProvider' => $feedDataProvider,
 			)
@@ -99,7 +101,7 @@ class TaskController extends Controller
 		if(isset($_POST['Task']))
 		{
 			$model->attributes=$_POST['Task'];
-			if($model->save())
+			if($model->saveNode())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
@@ -120,7 +122,7 @@ class TaskController extends Controller
 			// we only allow trashing via POST request
 			$task = $this->loadModel($id);
 			$task->trash();
-			$task->save();
+			$task->saveNode();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -145,7 +147,7 @@ class TaskController extends Controller
 			// we only allow untrashing via POST request
 			$task = $this->loadModel($id);
 			$task->untrash();
-			$task->save();
+			$task->saveNode();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -282,7 +284,9 @@ class TaskController extends Controller
 	{
 		$dataProvider = new CArrayDataProvider(
 			Yii::app()->user->model->nextTasks,
-			array()
+			array(
+				'pagination'=>false,
+			)
 		);
 		
 		// handle new task
@@ -306,7 +310,13 @@ class TaskController extends Controller
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
 				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeByCalendarMonth($monthObj->intValue, $monthObj->year)
+				->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
+			array(
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				),
+				'pagination'=>false,
+			)
 		);
 		
 		$taskWithoutDateQueryModel = new Task();
@@ -317,7 +327,8 @@ class TaskController extends Controller
 			array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'
-				)
+				),
+				'pagination'=>false,
 			)
 		);
 	
@@ -372,14 +383,15 @@ class TaskController extends Controller
 			$model->attributes=$_POST['Task'];
 			
 			if(isset($parentId)) {
-				$model->parentId = $parentId;
-			}
-			
-			if($model->save()) {
-				if(isset($model->parentId)) {
-					$this->redirect(array('view','id'=>$model->parentId));
+				$ParentTask = Task::model()->findByPk($parentId);
+				if($model->appendTo($ParentTask)) {
+					$this->redirect(array('view','id'=>$ParentTask->id));
 				}
-				$this->redirect(array('view','id'=>$model->id));
+			}
+			else {
+				if($model->saveNode()) {
+					$this->redirect(array('view','id'=>$model->id));
+				}
 			}
 		}
 		

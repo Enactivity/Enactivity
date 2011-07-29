@@ -7,11 +7,11 @@ $this->pageTitle = $model->name;
 
 
 	<?php
-	if(isset($model->parentId)) {
+	if(!$model->isRoot()) {
 		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
 		echo PHtml::link(
-		PHtml::encode($model->parent->name),
-		array('task/view', 'id'=>$model->parentId)
+			PHtml::encode($model->parent->name),
+			array('task/view', 'id'=>$model->parent->id)
 		);
 		echo PHtml::closeTag('span');
 		echo ' ';
@@ -182,11 +182,10 @@ if($model->isSubtaskable):
 ?>
 <section id="child-tasks">
 
-
 <?php
 echo $this->renderPartial('_agenda', array(
-		'datedTasks'=>$model->children,
-		'datelessTasks'=>$model->children,
+		'datedTasks'=>$subtasks,
+		'datelessTasks'=>$subtasks,
 		'month'=>$month,
 		'showParent'=>false,
 ));

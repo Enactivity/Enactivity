@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'task':
  * @property integer $id
  * @property integer $groupId
- * @property integer $parentId
  * @property string $name
  * @property integer $isTrash
  * @property string $starts
@@ -79,6 +78,15 @@ class Task extends CActiveRecord
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
+			// Nested Set Behavior
+			'NestedSetBehavior'=>array(
+				'class'=>'ext.behaviors.NestedSetBehavior',
+				'hasManyRoots'=>true,
+				'rootAttribute'=>'rootId',
+				'leftAttribute'=>'lft',
+				'rightAttribute'=>'rgt',
+				'levelAttribute'=>'level',
+			),  
 		);
 	}
 
@@ -88,24 +96,17 @@ class Task extends CActiveRecord
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+		// will receive user inputs via forms.
 		return array(
 			array('groupId, name, isTrash',
 				'required'),
 			
-			// parent can be any integer > 0
+			// groupId can be any integer > 0
 			array('groupId',
 				'numerical',
 				'min' => 1,
 				'integerOnly'=>true),
 			
-			// parent points to other taskId or null
-			array('parentId',
-				'numerical',
-				'min' => 1,
-				'integerOnly'=>true,
-				'allowEmpty'=>true),
-						
 			// boolean ints can be 0 or 1
 			array('isTrash',
 				'numerical',
@@ -145,13 +146,8 @@ class Task extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'parent' => array(self::BELONGS_TO, 'Task', 'parentId'),
-			
-			'children' => array(self::HAS_MANY, 'Task', 'parentId',
-				'condition' => 'children.isTrash=0',
-			),
-			'childrenCount' => array(self::STAT, 'Task', 'parentId'),
-
+			'root' => array(self::BELONGS_TO, 'Task', 'rootId'),
+		
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 		
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
@@ -180,7 +176,6 @@ class Task extends CActiveRecord
 		return array(
 			'id' => 'Id',
 			'groupId' => 'Group',
-			'parentId' => 'Parent',
 			'name' => 'Description',
 			'isTrash' => 'Is Trash',
 			'starts' => 'When',
@@ -220,7 +215,6 @@ class Task extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('groupId',$this->groupId);
-		$criteria->compare('parentId',$this->parentId);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('isTrash',$this->isTrash);
 		$criteria->compare('starts',$this->starts,true);
@@ -306,8 +300,8 @@ class Task extends CActiveRecord
 	 */
 	public function getIsCompleted() {
 		// if it has subtasks, check they are completed
-		if($this->hasChildren) {
-			foreach($this->children as $subtask) {
+		if(!$this->isLeaf) {
+			foreach($this->children()->findAll() as $subtask) {
 				if(!$subtask->isTrash
 				&& !$subtask->isCompleted) {
 					return false;
@@ -331,17 +325,19 @@ class Task extends CActiveRecord
 	/**
 	 * Does the Task have a parent Task?
 	 * @return boolean
+	 * @deprecated use !isRoot instead
 	 */
 	public function getHasParent() {
-		return isset($this->parentId);
+		return !$this->isRoot;
 	}
 	
 	/**
 	 * Does the Task have any children?
 	 * @return boolean
+	 * @deprecated use isLeaf instead
 	 */
 	public function getHasChildren() {
-		return sizeof($this->children) > 0;
+		return !$this->isLeaf();
 	}
 	
 	/**
@@ -392,7 +388,7 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsParticipatable() {
-		if(!$this->isInheritedTrash && !$this->hasChildren) {
+		if(!$this->isInheritedTrash && $this->isLeaf) {
 			return true;
 		}
 		return false;
@@ -403,22 +399,10 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsSubtaskable() {
-		if(!$this->isInheritedTrash && sizeof($this->participants) == 0) {
+		if(sizeof($this->participants) == 0) {
 			return true;
 		}
 		return false;
-	}
-	
-	public function getRootParent() {
-		if($this->hasParent) {
-			if($this->parent->hasParent) {
-				return $this->parent->rootParent;
-			}
-			else {
-				return $this->parent;
-			}
-		}
-		return null;
 	}
 	
 	/**
@@ -532,18 +516,12 @@ class Task extends CActiveRecord
 	
 	public function defaultScope() {
 		return array(
-			'order' => 'starts ASC' 
-				. ', ' . $this->getTableAlias(false, false) . '.parentId ASC'
+			'order' => 'starts ASC'
+				 . ', ' . $this->getTableAlias(false, false) . '.rootId ASC'
+				 . ', ' . $this->getTableAlias(false, false) . '.lft ASC'
+				//FIXME: . ', ' . $this->getTableAlias(false, false) . '.parentId ASC'
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
-	}
-	
-	public function noParentsScope()
-	{
-		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'parentId IS NULL',
-		));
-		return $this;
 	}
 	
 	/**

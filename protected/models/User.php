@@ -198,11 +198,6 @@ class User extends CActiveRecord
 			'groupsTasks' => array(self::HAS_MANY, 'Task', 'groupId',
 				'through' => 'groups',
 			),
-			'groupsParentlessTasks' => array(self::HAS_MANY, 'Task', 'groupId',
-				'through' => 'groups',
-				'condition' => 'groupsParentlessTasks.parentId IS NULL'
-					. ' AND groupsParentlessTasks.isTrash=0',
-			),
 			
 			// all tasks that the user is actively signed up for
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),

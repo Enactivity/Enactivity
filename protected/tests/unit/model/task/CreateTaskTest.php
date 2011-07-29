@@ -30,7 +30,6 @@ class CreateTaskTest extends DbTestCase
 		
 		// test parameters
 		$id = 42;
-		$parentId = $this->taskFixtures['noparenttask']['id'];
 		$name = "test task";
 		$isTrash = 0;
 		$created = date ("Y-m-d H:i:s", strtotime("-1 hours"));
@@ -38,7 +37,6 @@ class CreateTaskTest extends DbTestCase
 		
 		$testdata = array(
 			'id' => $id,
-			'parentId' => $parentId,
 			'name' => $name,
 			'isTrash' => $isTrash,
 			'created' => $created,
@@ -54,16 +52,14 @@ class CreateTaskTest extends DbTestCase
 		
 		// confirm attribute assigned properly
 		$this->assertNull($task->id, 'task id attribute was assigned in [' . $task->getScenario() . ']');
-		$this->assertNotNull($task->parentId, 'task parentId attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNotNull($task->name, 'task name attribute was not assigned in [' . $task->getScenario() . ']');
-		$this->assertNull($task->priority, 'task priority attribute was assigned in [' . $task->getScenario() . ']');
 		$this->assertNotNull($task->isTrash, 'task isTrash attribute was not assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->created, 'task created attribute was assigned in [' . $task->getScenario() . ']');
 		$this->assertNull($task->modified, 'task modified attribute was assigned in [' . $task->getScenario() . ']');
 		
 		// confirm validation & save works
 		$this->assertTrue($task->validate(), 'valid task was not validated: ' . print_r($task->getErrors(null), true));
-		$this->assertTrue($task->save(), 'valid task was not saved');
+		$this->assertTrue($task->saveNode(), 'valid task was not saved');
 	}
 	
 	/**
@@ -72,12 +68,10 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskWithNullName() {
 		
 		$name = null;
-		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'parentId' => $parentId,
 		));
 		
 		$this->assertNull($task->name, 'save name is not null');
@@ -91,16 +85,14 @@ class CreateTaskTest extends DbTestCase
 		
 		$name = "Test Task";
 		$paddedName = ' ' . $name . ' ';
-		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $paddedName,
-			'parentId' => $parentId,
 		));
 		
 		$this->assertTrue($task instanceof Task, 'found task not a Task object');
-		$this->assertTrue($task->save(), 'valid task was not saved: ' . print_r($task->getErrors(null), true));
+		$this->assertTrue($task->saveNode(), 'valid task was not saved: ' . print_r($task->getErrors(null), true));
 		$this->assertNotNull($task->created, 'task created was not set');
 		$this->assertNotNull($task->modified, 'task modified was not set');
 			
@@ -112,16 +104,14 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskExceedMaximumNameInput() {
 		
 		$name = StringUtils::createRandomString(255 + 1);
-		$parentId = $this->taskFixtures['noparenttask']['id'];
 
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'parentId' => $parentId,
 		));
 		
 		$this->assertFalse($task->validate(), 'task with name of 256 characters was validated: ' . print_r($task->getErrors(null), true));
-		$this->assertFalse($task->save(), 'task with name of 256 characters was saved');
+		$this->assertFalse($task->saveNode(), 'task with name of 256 characters was saved');
 	}
 	
 	/**
@@ -130,12 +120,10 @@ class CreateTaskTest extends DbTestCase
 	public function testCreateTaskNoInput() {
 
 		$name = null;
-		$parentId = $this->taskFixtures['noparenttask']['id'];
 		
 		$task = new Task();
 		$task->setAttributes(array(
 			'name' => $name,
-			'parentId' => $parentId,
 		));
 		
 		$this->assertNull($task->name, 'unsaved task has a name');
