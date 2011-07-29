@@ -289,6 +289,18 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Is the task trash due to either its own property or the 
+	 * isTrash level of its parent.
+	 * @return boolean
+	 */
+	public function getIsInheritedTrash() {
+		if($this->hasParent) {
+			return $this->parent->isInheritedTrash;
+		}
+		return $this->isTrash;
+	}
+	
+	/**
 	 * Is the task completed?
 	 * @return boolean
 	 */
@@ -380,7 +392,7 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsParticipatable() {
-		if(!$this->hasChildren) {
+		if(!$this->isInheritedTrash && !$this->hasChildren) {
 			return true;
 		}
 		return false;
@@ -391,7 +403,7 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsSubtaskable() {
-		if(sizeof($this->participants) == 0) {
+		if(!$this->isInheritedTrash && sizeof($this->participants) == 0) {
 			return true;
 		}
 		return false;

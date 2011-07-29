@@ -14,7 +14,7 @@ $articleClass[] = "task";
 $articleClass[] = "task-" . $data->id;
 $articleClass[] = $data->hasStarts ? "starts" : "";
 $articleClass[] = $data->isCompleted ? "completed" : "not-completed";
-$articleClass[] = $data->isTrash ? "trash" : "not-trash";
+$articleClass[] = $data->isInheritedTrash ? "trash" : "not-trash";
 $articleClass[] = $data->isUserParticipating ? "participating" : "not-participating";
 
 // start article
