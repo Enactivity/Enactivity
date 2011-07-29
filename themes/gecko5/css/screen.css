@@ -666,6 +666,17 @@ Task Calendar
 	width: 100%;
 }
 
+/*
+Agenda
+*/
+.agenda > h1 {
+	background-color: #363636;
+	color: white;
+	margin: 0 -16px;
+	max-width: none;
+	padding: 16px;
+}
+
 /*		Default Layout: 992px. 
 		Gutters: 24px.
 		Outer margins: 48px.
