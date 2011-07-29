@@ -229,15 +229,14 @@ menu li a
 
 menu.toolbox
 {
-	right: 1em;
-	top: 1em;
+	right: 16px;
+	top: 5px;
 }
 
 article > menu
 {
-	padding-top: 5px;
 	right: 0;
-	top: 0;
+	top: 5px;
 }
 
 /*
