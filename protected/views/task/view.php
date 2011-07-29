@@ -204,21 +204,14 @@ if($model->isSubtaskable) {
 ?>
 <section>
 	<header>
-		<h1>
-			
-		<?php echo 'Recent Activity'; ?></h1>
+		<h1><?php echo 'Recent Activity'; ?></h1>
 	</header>
 	
-	
-	
-	
 	<?php 
-	foreach($model->feed as $log) {
-		$this->renderPartial('/feed/_view',
-			array(
-				'data' => $log
-			) 
-		);
-	}
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$feedDataProvider,
+		'itemView'=>'/feed/_view',
+	));
 	?>
+	
 </section>

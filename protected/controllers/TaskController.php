@@ -60,11 +60,14 @@ class TaskController extends Controller
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
 		
+		$feedDataProvider = new CArrayDataProvider($model->feed);
+		
 		$this->render(
 			'view', 
 			array(
 				'model' => $model,
 				'newTask' => $newTask,
+				'feedDataProvider' => $feedDataProvider,
 			)
 		);
 	}
@@ -310,7 +313,12 @@ class TaskController extends Controller
 		$datelessTasks = new CActiveDataProvider(
 			$taskWithoutDateQueryModel
 				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeNoWhen()
+				->scopeNoWhen(),
+			array(
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				)
+			)
 		);
 	
 		// handle new task
