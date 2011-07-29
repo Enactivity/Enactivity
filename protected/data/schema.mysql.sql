@@ -26,17 +26,17 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `activerecordlog` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `groupId` int(11) unsigned NOT NULL,
   `focalModel` varchar(45) NOT NULL,
-  `focalModelId` int(11) NOT NULL,
+  `focalModelId` int(11) unsigned NOT NULL,
   `model` varchar(45) NOT NULL,
-  `modelId` int(11) NOT NULL,
+  `modelId` int(11) unsigned NOT NULL,
   `action` varchar(20) DEFAULT NULL,
   `modelAttribute` varchar(45) DEFAULT NULL,
   `oldAttributeValue` mediumtext,
   `newAttributeValue` mediumtext,
-  `userId` int(11) DEFAULT NULL,
+  `userId` int(11) unsigned DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
 --
 
 CREATE TABLE IF NOT EXISTS `group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `created` datetime DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `group` (
 --
 
 CREATE TABLE IF NOT EXISTS `group_profile` (
-  `groupId` int(11) NOT NULL,
+  `groupId` int(11) unsigned NOT NULL,
   `description` varchar(4000) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `group_profile` (
 --
 
 CREATE TABLE IF NOT EXISTS `group_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `groupId` int(11) unsigned NOT NULL,
+  `userId` int(11) unsigned NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'Pending',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `group_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `task` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `groupId` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `isTrash` tinyint(1) NOT NULL DEFAULT '0',
   `starts` datetime DEFAULT NULL,
@@ -127,9 +127,9 @@ CREATE TABLE IF NOT EXISTS `task` (
 --
 
 CREATE TABLE IF NOT EXISTS `task_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) DEFAULT NULL,
-  `taskId` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(11) unsigned DEFAULT NULL,
+  `taskId` int(11) unsigned NOT NULL,
   `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
   `isTrash` tinyint(1) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `task_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `token` varchar(40) NOT NULL,
   `password` varchar(40) DEFAULT NULL,
