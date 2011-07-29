@@ -9,6 +9,9 @@
 $datedTasks = empty($datedTasks) ? array() : $datedTasks;
 $datelessTasks = empty($datelessTasks) ? array() : $datelessTasks;
 
+?>
+<section class='agenda'>
+<?php 
 $currentDate = null;
 foreach($datedTasks as $task) {
 	if(isset($task->starts)) {
@@ -16,7 +19,10 @@ foreach($datedTasks as $task) {
 		if($taskDate != $currentDate) {
 			$currentDate = $taskDate;
 			$htmlId = 'day-' . $task->startDate;
-			echo PHtml::openTag('h1', array('id' => $htmlId));
+			echo PHtml::openTag('h1', array(
+				'id' => $htmlId,
+				'class' => 'agenda-date',
+			));
 			echo $currentDate;
 			echo PHtml::closeTag('h1');
 		}
@@ -40,3 +46,5 @@ if(!empty($datelessTasks)) {
 		}
 	}
 }
+?>
+</section>
