@@ -562,6 +562,7 @@ class Task extends CActiveRecord
 	 * Scope for events taking place in a particular Month
 	 * @param int $starts unix timestamp of start time
 	 * @param int $ends unix timestamp of end time
+	 * @return CActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -578,7 +579,7 @@ class Task extends CActiveRecord
 	 * Scope definition for events that share group value with
 	 * the user's groups
 	 * @param int $userId
-	 * @return Event
+	 * @return CActiveRecord the Task
 	 */
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -590,11 +591,26 @@ class Task extends CActiveRecord
 		return $this;
 	}
 	
+	/**
+	 * Named scope. Gets the nodes that have no start value.
+	 * @return CActiveRecord the Task
+	 */
 	public function scopeNoWhen() {
 		$this->getDbCriteria()->mergeWith(array(
 			'condition'=>'starts IS NULL',
 			)
 		);
+		return $this;
+	}
+	
+	/**
+	 * Named scope. Gets leaf node(s).
+	 * @return CActiveRecord the Task
+	 */
+	public function scopeLeaves() {
+		$this->getDbCriteria()->mergeWith(array(
+					'condition'=>'rgt - lft = 1',
+		));
 		return $this;
 	}
 }

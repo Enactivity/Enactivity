@@ -323,7 +323,8 @@ class TaskController extends Controller
 		$datelessTasks = new CActiveDataProvider(
 			$taskWithoutDateQueryModel
 				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeNoWhen(),
+				->scopeNoWhen()
+				->scopeLeaves(),
 			array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'
