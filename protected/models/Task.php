@@ -517,9 +517,8 @@ class Task extends CActiveRecord
 	public function defaultScope() {
 		return array(
 			'order' => 'starts ASC'
-				 . ', ' . $this->getTableAlias(false, false) . '.rootId ASC'
-				 . ', ' . $this->getTableAlias(false, false) . '.lft ASC'
-				//FIXME: . ', ' . $this->getTableAlias(false, false) . '.parentId ASC'
+				. ', ' . $this->getTableAlias(false, false) . '.rootId ASC'
+				. ', ' . $this->getTableAlias(false, false) . '.lft ASC'
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
 	}
