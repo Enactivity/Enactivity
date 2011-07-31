@@ -16,11 +16,6 @@
 	</div>
 
 	<div class="field">
-		<?php echo $form->label($model,'parentId'); ?>
-		<?php echo $form->textField($model,'parentId'); ?>
-	</div>
-
-	<div class="field">
 		<?php echo $form->label($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
