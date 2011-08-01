@@ -40,6 +40,9 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 	if($hasTasks) {
 		$htmlOptions['class'] .= ' has-tasks';
 	}
+	else {
+		$htmlOptions['class'] .= ' has-no-tasks';
+	}
 	
 	// clarify if current month or not
 	if($day < 1) {
