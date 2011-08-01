@@ -2,6 +2,7 @@
 
 /**
  * This is the model class for table "task".
+ * A task is a single item within a {@link Group} that {@link User}s can sign up for.
  *
  * The followings are the available columns in table 'task':
  * @property integer $id
@@ -13,13 +14,13 @@
  * @property string $modified
  *
  * The followings are the available model relations:
+ * @property Task $root
  * @property Group $group
- * @property Task $parent
- * @property TaskUser[] $taskUsers
- * @property Task[] $tasks
+ * @property TaskUser[] $taskUsers all TaskUser objects related to this Task
  * @property integer $taskUsersCount number of users who have signed up for the task 
- * @property integer $taskUsersCompletedCount number of users who have signed up for the task and marked it complete
+ * @property TaskUser[] $participatingTaskUsers active TaskUser objects related to the model
  * @property User[] $participants
+ * @property ActiveRecordLog[] $feed
  */
 class Task extends CActiveRecord
 {
@@ -147,18 +148,17 @@ class Task extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'root' => array(self::BELONGS_TO, 'Task', 'rootId'),
-		
-			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
-		
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'taskUsers.isTrash=0',
-			),
-			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
-			'taskUsersCompletedCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			
+			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
+			
+			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
+			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
+			
+			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
+				'condition' => 'participatingTaskUsers.isTrash=0',
+			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0',
+				'through' => 'participatingTaskUsers',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -181,9 +181,6 @@ class Task extends CActiveRecord
 			'starts' => 'When',
 			'created' => 'Created',
 			'modified' => 'Modified',
-			'taskUsers' => 'Participants',
-			'taskUsersCount' => 'Number of Participants',
-			'taskUsersCompletedCount' => 'Number of Participants Done',
 		);
 	}
 	
@@ -311,8 +308,8 @@ class Task extends CActiveRecord
 		}
 		
 		// if no subchildren, check signed up users are done
-		if(sizeof($this->taskUsers) > 0) {
-			foreach($this->taskUsers as $taskUser) {
+		if(sizeof($this->participatingTaskUsers) > 0) {
+			foreach($this->participatingTaskUsers as $taskUser) {
 				if(!$taskUser->isCompleted) {
 					return false;
 				}
@@ -415,9 +412,7 @@ class Task extends CActiveRecord
 		// look for the TaskUser for this combination
 		$userTask = $this->loadTaskUser();
 		
-		if($userTask->isTrash) {
-			$userTask->unTrash();
-		}
+		$userTask->unTrash();
 		$userTask->save();
 		
 		return $this;
