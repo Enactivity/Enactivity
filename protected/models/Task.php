@@ -19,7 +19,7 @@
  * @property TaskUser[] $taskUsers all TaskUser objects related to this Task
  * @property integer $taskUsersCount number of users who have signed up for the task 
  * @property TaskUser[] $participatingTaskUsers active TaskUser objects related to the model
- * @property User[] $participants
+ * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
 class Task extends CActiveRecord
