@@ -489,8 +489,8 @@ th
 	background-image: url(../images/poncla-splash-1600x380.jpg);
 	background-position: top center;
 	background-repeat: no-repeat;
-	border-radius: 2em;
 	height: 380px;
+	margin: -16px;
 }
 
 .site-index .content h1 {
