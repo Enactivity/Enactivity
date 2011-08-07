@@ -13,6 +13,10 @@ return CMap::mergeArray(
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
 			),
+			
+			'mailer'=>array(
+				'shouldEmail'=>true,  
+		    ),
 		),
 	)
 );

@@ -107,7 +107,7 @@ class Mailer extends CApplicationComponent {
 	 * @return boolean Result of email transmission.
 	 */
 	protected function transmit($to, $from, $subject, $body) {
-		if ($this->shouldEmail) {	
+		if (!$this->shouldEmail) {	
 			//Temp fix while I learn about views
 			Yii::log("Mailer shouldEmail logged output\nHeaders: "
 				. implode("\r\n", $this->createHeaders()) . "\nTo: " . $to . "\n"
