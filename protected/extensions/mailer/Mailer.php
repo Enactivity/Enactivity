@@ -121,7 +121,7 @@ class Mailer extends CApplicationComponent {
 				case 'php':
 					$subject = wordwrap($subject, $this->maxLength);
 					$body = wordwrap($body, $this->maxLength);
-					$from = $this->from;
+					$this->from = $from;
 					return mail($to, $subject, $body, implode("\r\n", $this->createHeaders()));
 					break;
 				default:
