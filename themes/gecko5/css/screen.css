@@ -192,23 +192,18 @@ section
 
 article
 {
-	border-top: 1px solid #ececec;
+	border-bottom: 1px solid #ececec;
 	clear: both;
 	padding: 1em 0;
 	position: relative;
 }
 
-article:last-child
-{
-	border-top: 1px solid #ececec;
-}
-
-menu
+.menu
 {
 	position: absolute;
 }
 
-menu li
+.menu li
 {
 	display: inline-block;
 	font-family: Verdana, sans-serif;
@@ -218,7 +213,7 @@ menu li
 	white-space: nowrap;
 }
 
-menu li a 
+.menu li a 
 {
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -228,16 +223,17 @@ menu li a
 	width: 50px;
 }
 
-menu.toolbox
+.menu.toolbox
 {
 	right: 16px;
 	top: 5px;
 }
 
-article > menu
+article > .menu
 {
 	right: 0;
-	top: 5px;
+	top: 50%;
+	margin-top: -23px;
 }
 
 /*
@@ -546,7 +542,6 @@ select[name="Task[endTime]"]
 	Task stylings
 */
 .task {
-	border-top-left-radius: 0 0;
 	padding-right: 282px;
 }
 
@@ -728,7 +723,7 @@ px      68    160    252    */
 		height: 270px;
 	}
 	
-	menu {
+	.menu {
 		position: static;
 	}
 }

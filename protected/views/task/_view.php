@@ -69,7 +69,9 @@ echo PHtml::closeTag('header');
 // echo PHtml::closeTag('p');
 
 //	tasks toolbar
-echo PHtml::openTag('menu');
+echo PHtml::openTag('div', array(
+	'class' => 'menu'
+));
 echo PHtml::openTag('ul');
 
 if($data->isParticipatable) {
@@ -205,7 +207,7 @@ else {
 echo PHtml::closeTag('li'); */
 
 echo PHtml::closeTag('ul');
-echo PHtml::closeTag('menu');
+echo PHtml::closeTag('div');
 // end of toolbar
 
 //// list participants

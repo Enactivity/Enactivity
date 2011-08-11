@@ -23,7 +23,7 @@ $this->pageTitle = $model->name;
 	<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></p>
 </header>
 
-<menu class="toolbox">
+<div class="menu toolbox">
 	<ul>
 
 
@@ -144,7 +144,7 @@ else {
 echo PHtml::closeTag('li');
 ?>
 </ul>
-</menu>
+</div>
 
 
 <?php

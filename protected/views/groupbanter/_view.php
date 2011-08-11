@@ -68,7 +68,9 @@ echo PHtml::closeTag('li');
 echo PHtml::closeTag('ul');
 
 // show update & delete menu if user is author
-echo PHtml::openTag('menu');
+echo PHtml::openTag('div', array(
+	'class' => 'menu'
+));
 if($data->creatorId == Yii::app()->user->id) {
 	$this->widget('zii.widgets.CMenu', array(
 		'items'=>array(
@@ -92,7 +94,7 @@ if($data->creatorId == Yii::app()->user->id) {
 		)
 	));
 }
-echo PHtml::closeTag('menu');
+echo PHtml::closeTag('div');
 
 echo PHtml::closeTag('footer');
 echo PHtml::closeTag('article');

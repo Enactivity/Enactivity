@@ -54,12 +54,14 @@ $this->widget('application.components.widgets.TextSummary', array(
 echo PHtml::openTag('footer');
 
 // RSVP menu
-echo PHtml::openTag('menu');
+echo PHtml::openTag('div', array(
+	'class'=>'menu'
+));
 $this->renderPartial('_rsvp', array(
 	'event'=>$data,
 	'eventuser'=>$data->getRSVP(Yii::app()->user->id),
 )); 
-echo PHtml::closeTag('menu');
+echo PHtml::closeTag('div');
 echo PHtml::closeTag('footer');
 
 // close article

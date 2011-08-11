@@ -43,12 +43,14 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('footer');
 
 //	goals toolbar
-echo PHtml::openTag('menu');
+echo PHtml::openTag('div', array(
+	'class' => 'menu'
+));
 
 $this->widget('zii.widgets.CMenu', array(
 	'items'=>MenuDefinitions::goalMenu($data),
 ));
-echo PHtml::closeTag('menu');
+echo PHtml::closeTag('div');
 echo PHtml::closeTag('footer');
 //end of footer
 
