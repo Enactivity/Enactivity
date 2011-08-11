@@ -21,11 +21,11 @@ echo PHtml::openTag('hgroup');
 
 // created date
 echo PHtml::openTag('h2');
-echo PHtml::openTag('date');
+echo PHtml::openTag('time');
 echo PHtml::encode(
 	Yii::app()->format->formatDateTime(strtotime($data->created))
 );
-echo PHtml::closeTag('date');
+echo PHtml::closeTag('time');
 echo PHtml::closeTag('h2');
 
 echo PHtml::openTag('h1');
