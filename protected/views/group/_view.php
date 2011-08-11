@@ -11,8 +11,6 @@ echo PHtml::openTag('article', array(
 ));
 
 // start headers
-echo PHtml::openTag('header');
-echo PHtml::openTag('hgroup');
 
 // display <user> <action> <model> 
 echo PHtml::openTag('h1');
@@ -29,10 +27,6 @@ $this->widget('application.components.widgets.TextSummary', array(
 	'url' => array('group/view', 'id'=>$data->id)
 ));
 // end body
-
-// close headers
-echo PHtml::closeTag('hgroup');
-echo PHtml::closeTag('header');
 
 echo PHtml::openTag('ol', array('class' => 'userlist'));
 foreach($data->groupUsersActive as $groupMember) {

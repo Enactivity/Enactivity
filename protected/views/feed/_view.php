@@ -16,8 +16,6 @@ echo PHtml::openTag('article', array(
 ));
 
 // start headers
-echo PHtml::openTag('header');
-echo PHtml::openTag('hgroup');
 
 // created date
 echo PHtml::openTag('h2');
@@ -49,16 +47,16 @@ echo PHtml::link(
 
 echo PHtml::closeTag('h1');
 
-// close headers
-echo PHtml::closeTag('hgroup');
-echo PHtml::closeTag('header');
-
 if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 	echo Phtml::openTag(p);
 	echo 'Changed ';
 	// if the referred to model was actually deleted then avoid the null pointer exception
 	if(isset($data->modelObject)) {
+		echo PHtml::openTag('span', array(
+			'class' => 'feed-model-attribute'
+		));
 		echo PHtml::encode($data->modelObject->getAttributeLabel($data->modelAttribute));
+		echo PHtml::closeTag('span');
 	}
 	else {
 		echo PHtml::encode($data->modelAttribute);

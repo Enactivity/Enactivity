@@ -47,9 +47,9 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 		<?php endif; ?>
 	</header>
 	
-	<section class="content">
+	<div class="content">
 		<?php echo $content; ?>
-	</section>
+	</div>
 	
 </div>
 

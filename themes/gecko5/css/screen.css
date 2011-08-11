@@ -94,7 +94,7 @@ h3
 p
 {
 	font-weight: normal;
-	margin-bottom: .5em;
+	margin: .5em 0;
 	max-width: 32em;
 }
 
@@ -160,7 +160,16 @@ nav li a:focus,
 section
 {
 	clear: both;
-	margin: 1em 0;
+}
+
+section > h1 
+{
+	background-color: #363636;
+	color: white;
+	font-size: 1.25em;
+	margin: 0 -16px;
+	max-width: none;
+	padding: 16px;
 }
 
 .content
@@ -168,12 +177,13 @@ section
 	background-color: #ffffff;
 	color: #232425;
 	margin: 0;
-	padding: 16px;
+	padding: 0 16px;
 	position: relative;
 }
 
 .content > header 
 {
+	padding: 16px 0;
 	margin-right: 282px;
 }
 
@@ -194,8 +204,12 @@ article
 {
 	border-bottom: 1px solid #ececec;
 	clear: both;
-	padding: 1em 0;
+	margin: 0 -16px;
+	padding: 1em;
 	position: relative;
+}
+
+article:last-child {
 }
 
 .menu
@@ -209,7 +223,6 @@ article
 	font-family: Verdana, sans-serif;
 	font-size: .6em;
 	list-style-type: none;
-	margin-left: 16px;
 	white-space: nowrap;
 }
 
@@ -229,11 +242,11 @@ article
 	top: 5px;
 }
 
-article > .menu
+article .menu
 {
-	right: 0;
+	right: 16px;
 	top: 50%;
-	margin-top: -23px;
+	margin-top: -22px;
 }
 
 /*
@@ -293,7 +306,7 @@ article > .menu
 	font-size: .75em;
 	margin-top: 1em;
 	margin-right: 1em;
-	text-transform: uppercase;
+	text-transform: lowercase;
 }
 
 .detail-view dd,
@@ -438,7 +451,7 @@ th
 	border: none;
 	clear: both;
 	line-height: 100%;
-	display: inline;
+	padding: 16px 0;
 }
 
 .pager ul,
@@ -487,7 +500,7 @@ th
 	background-position: top center;
 	background-repeat: no-repeat;
 	height: 380px;
-	margin: -16px;
+	margin: 0 -16px;
 }
 
 .site-index .content h1 {
@@ -542,11 +555,17 @@ select[name="Task[endTime]"]
 	Task stylings
 */
 .task {
-	padding-right: 282px;
+	padding-right: 116px;
 }
 
-.task h1 {
-	font-size: 1.25em;
+.task h1,
+.feed h1 {
+	font-size: 1.1em;
+}
+
+.task h2,
+.feed h2 {
+	font-size: .9em;
 }
 
 .task h1 time {
@@ -639,37 +658,52 @@ Task Calendar
 .task-calendar th
 {
 	font-size: .5em;
+	padding: .5em;
 }
 
-.task-calendar td, .task-calendar th 
+.task-calendar td, 
+.task-calendar th 
 {
 	width: 5%;
 	border: 8px solid white;
-	padding: .5em;
 	text-align: right;
-}
-
-.task-calendar td.has-tasks 
-{
-	background-color: #333436;
 }
 
 .task-calendar td a 
 {
 	display: block; 
-	height: 100%; 
-	width: 100%;
+	padding: .5em;
+}
+
+.has-tasks 
+{
+	background-color: #333436;
+}
+
+.has-tasks a,
+.has-tasks a:active,
+.has-tasks a:visited
+{
+	color: white;
+}
+
+.has-tasks a:hover
+{
+	background-color: #00B6D5;
 }
 
 /*
 Agenda
 */
 .agenda > h1 {
-	background-color: #363636;
-	color: white;
-	margin: 0 -16px;
-	max-width: none;
-	padding: 16px;
+}
+
+/*
+Feed
+*/
+.feed-model-attribute 
+{
+	text-transform: lowercase;
 }
 
 /*		Default Layout: 992px. 
@@ -715,7 +749,7 @@ px      68    160    252    */
 	
 	article.task
 	{
-		padding-right: 0;
+		/* padding-right: 0; */
 	}
 	
 	.site-index .content header {
@@ -723,7 +757,7 @@ px      68    160    252    */
 		height: 270px;
 	}
 	
-	.menu {
+	.menu.toolbox {
 		position: static;
 	}
 }

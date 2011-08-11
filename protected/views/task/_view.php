@@ -24,8 +24,6 @@ echo PHtml::openTag('article', array(
 ));
 
 // start headers
-echo PHtml::openTag('header');
-echo PHtml::openTag('hgroup');
 
 // task name
 echo PHtml::openTag('h1');
@@ -52,12 +50,6 @@ echo PHtml::link(
 		array()
 	);
 echo PHtml::closeTag('h1');
-
-// close headers
-echo PHtml::closeTag('hgroup');
-echo PHtml::closeTag('header');
-
-
 
 // body
 

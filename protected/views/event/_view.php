@@ -11,8 +11,6 @@ echo PHtml::openTag('article', array(
 ));
 
 // start headers
-echo PHtml::openTag('header');
-echo PHtml::openTag('hgroup');
 
 // event name
 echo PHtml::openTag('h1');
@@ -37,10 +35,6 @@ echo $data->eventUsersAttendingCount == 1
 	: ' people attending';
 echo PHtml::closeTag('span');
 echo PHtml::closeTag('h2');
-
-// close headers
-echo PHtml::closeTag('hgroup');
-echo PHtml::closeTag('header');
 
 // body
 // summarized description

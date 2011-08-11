@@ -18,8 +18,6 @@ echo PHtml::openTag('article', array(
 ));
 
 // start headers
-echo PHtml::openTag('header');
-echo PHtml::openTag('hgroup');
 
 // goal name
 echo PHtml::openTag('h1');
@@ -28,10 +26,6 @@ echo PHtml::link(
 	array('view', 'id'=>$data->id)
 ); 
 echo PHtml::closeTag('h1');
-
-echo PHtml::closeTag('hgroup');
-echo PHtml::closeTag('header');
-// end of header
 
 // start body
 echo PHtml::openTag('p'); 

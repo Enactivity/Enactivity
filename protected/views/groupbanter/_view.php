@@ -13,8 +13,6 @@ echo PHtml::openTag('article', array(
 //banters with parents have no headers
 if($data->parentId === null) {
 	// start headers
-	echo PHtml::openTag('header');
-	echo PHtml::openTag('hgroup');
 	
 	echo PHtml::openTag('h1');
 	echo PHtml::link(StringUtils::truncate(PHtml::encode($data->content), 80), 
@@ -24,8 +22,6 @@ if($data->parentId === null) {
 	echo PHtml::closeTag('h1');
 
 	// close headers
-	echo PHtml::closeTag('hgroup');
-	echo PHtml::closeTag('header');
 } 
 //if it has a parent, it's a reply, so show it all
 else {

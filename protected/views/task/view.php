@@ -4,8 +4,6 @@ $this->pageTitle = $model->name;
 
 <header>
 	<h1>
-
-
 	<?php
 	if(!$model->isRoot()) {
 		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
@@ -17,89 +15,84 @@ $this->pageTitle = $model->name;
 		echo ' ';
 	}
 	echo PHtml::encode($this->pageTitle);
-	?></h1>
+	?>
+	</h1>
 	<p>
-
-	<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></p>
+		<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?>
+	</p>
 </header>
 
 <div class="menu toolbox">
 	<ul>
-
-
-
 	<?php
 	if($model->isParticipatable) {
 		// show complete/uncomplete buttons if user is participating
-		if($model->isUserParticipating) { ?>
+		if($model->isUserParticipating) { 
+	?>
 		<li>
 		<?php
-		if($model->isUserComplete) {
+			if($model->isUserComplete) {
+				echo PHtml::link(
+					PHtml::encode('Resume'),
+					array('/task/useruncomplete', 'id'=>$model->id),
+					array( //html
+						'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-useruncomplete-menu-item-' . $model->id,
+						'class'=>'task-useruncomplete-menu-item',
+						'title'=>'Resume work on this task',
+					)
+				);
+			}
+			else {
+				echo PHtml::link(
+					PHtml::encode('Complete'),
+					array('/task/usercomplete', 'id'=>$model->id),
+					array( //html
+						'submit'=>array('/task/usercomplete', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-usercomplete-menu-item-' . $model->id,
+						'class'=>'task-usercomplete-menu-item',
+						'title'=>'Finish working on this task',
+					)
+				);
+			}
+			?>
+			</li>
+			
+			<?php
+			// 'participate' button
+			echo PHtml::openTag('li');
 			echo PHtml::link(
-			PHtml::encode('Resume'),
-			array('/task/useruncomplete', 'id'=>$model->id),
-			array( //html
-								'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
-								'csrf'=>true,
-								'id'=>'task-useruncomplete-menu-item-' . $model->id,
-								'class'=>'task-useruncomplete-menu-item',
-								'title'=>'Resume work on this task',
-			)
+				PHtml::encode('Quit'), 
+				array('task/unparticipate', 'id'=>$model->id),
+				array( //html
+					'submit' => array('task/unparticipate', 'id'=>$model->id),
+					'csrf' => true,
+					'id'=>'task-unparticipate-menu-item-' . $model->id,
+					'class'=>'task-unparticipate-menu-item',
+					'title'=>'Quit this task',
+				)
 			);
+			echo PHtml::closeTag('li');
 		}
 		else {
+			echo PHtml::openTag('li');
 			echo PHtml::link(
-			PHtml::encode('Complete'),
-			array('/task/usercomplete', 'id'=>$model->id),
-			array( //html
-								'submit'=>array('/task/usercomplete', 'id'=>$model->id),
-								'csrf'=>true,
-								'id'=>'task-usercomplete-menu-item-' . $model->id,
-								'class'=>'task-usercomplete-menu-item',
-								'title'=>'Finish working on this task',
-			)
+				PHtml::encode('Sign up'), 
+				array('task/participate', 'id'=>$model->id),
+				array( //html
+					'submit'=>array('task/participate', 'id'=>$model->id),
+					'csrf'=>true,
+					'id'=>'task-participate-menu-item-' . $model->id,
+					'class'=>'task-participate-menu-item',
+					'title'=>'Sign up for task',
+				)
 			);
+			echo PHtml::closeTag('li');
 		}
-		?>
-		</li>
-		
-		
-		
-		
-		
-		<?php
-		// 'participate' button
-		echo PHtml::openTag('li');
-		echo PHtml::link(
-			PHtml::encode('Quit'), 
-			array('task/unparticipate', 'id'=>$model->id),
-			array( //html
-				'submit' => array('task/unparticipate', 'id'=>$model->id),
-				'csrf' => true,
-				'id'=>'task-unparticipate-menu-item-' . $model->id,
-				'class'=>'task-unparticipate-menu-item',
-				'title'=>'Quit this task',
-			)
-		);
-		echo PHtml::closeTag('li');
 	}
-	else {
-		echo PHtml::openTag('li');
-		echo PHtml::link(
-			PHtml::encode('Sign up'), 
-			array('task/participate', 'id'=>$model->id),
-			array( //html
-				'submit'=>array('task/participate', 'id'=>$model->id),
-				'csrf'=>true,
-				'id'=>'task-participate-menu-item-' . $model->id,
-				'class'=>'task-participate-menu-item',
-				'title'=>'Sign up for task',
-			)
-		);
-		echo PHtml::closeTag('li');
-	}
-		}
-?>
+	?>
 		<li>
 			<?php
 			echo PHtml::link(
@@ -152,25 +145,13 @@ echo PHtml::closeTag('li');
 if($model->isParticipatable):
 ?>
 <section id="users-participating">
-	<header>
-		<h1>
-			
-		<?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
-	</header>
-	
-	
-	
-	
+	<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<?php 
-	echo PHtml::openTag('ol', array('class' => 'users'));
 	foreach($model->participants as $user) {
-		echo PHtml::openTag('li');	
-		$this->widget('application.components.widgets.UserLink', array(
-			'userModel' => $user,
+		echo $this->renderPartial('/user/_view', array(
+			'data'=>$user,
 		));
-		echo PHtml::closeTag('li');
 	}
-	echo PHtml::closeTag('ol');
 	?>
 </section>
 
@@ -181,7 +162,6 @@ if($model->isParticipatable):
 if($model->isSubtaskable):
 ?>
 <section id="child-tasks">
-
 <?php
 echo $this->renderPartial('_agenda', array(
 		'datedTasks'=>$subtasks,
@@ -202,9 +182,7 @@ if($model->isSubtaskable) {
 // Show history
 ?>
 <section>
-	<header>
-		<h1><?php echo 'Recent Activity'; ?></h1>
-	</header>
+	<h1><?php echo 'Recent Activity'; ?></h1>
 	
 	<?php 
 	$this->widget('zii.widgets.CListView', array(
