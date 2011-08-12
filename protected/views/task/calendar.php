@@ -34,10 +34,11 @@ echo $this->renderPartial('_calendar', array(
 ?>
 
 <?php
-// "what would you want to do input" box
-echo $this->renderPartial('_form', array('model'=>$newTask));
-
+// agenda
 echo $this->renderPartial('_agenda', array(
 	'datedTasks'=>$datedTasksProvider->data,
 	'datelessTasks'=>$datelessTasksProvider->data,
 ));
+
+// "what would you want to do input" box
+echo $this->renderPartial('_form', array('model'=>$newTask));

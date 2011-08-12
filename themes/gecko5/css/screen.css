@@ -160,6 +160,7 @@ nav li a:focus,
 section
 {
 	clear: both;
+	padding-bottom: 16px;
 }
 
 section > h1 
