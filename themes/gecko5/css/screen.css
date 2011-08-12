@@ -177,7 +177,7 @@ section > h1
 	background-color: #ffffff;
 	color: #232425;
 	margin: 0;
-	padding: 0 16px;
+	padding: 0 16px 16px;
 	position: relative;
 }
 
@@ -536,6 +536,10 @@ select[name="Task[endTime]"]
 /* task form inputs */
 .new-task {
 	max-width: none;
+}
+
+.new-task label {
+	display: none;
 }
 
 /*
