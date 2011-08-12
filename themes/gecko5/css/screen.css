@@ -654,26 +654,26 @@ select[name="Task[endTime]"]
 /*
 Task Calendar
 */
-.task-calendar
+table.calendar
 {
 	width: 100%;	
 }
 
-.task-calendar th
+.calendar th
 {
 	font-size: .5em;
 	padding: .5em;
 }
 
-.task-calendar td, 
-.task-calendar th 
+.calendar td, 
+.calendar th 
 {
 	width: 5%;
 	border: 8px solid white;
 	text-align: right;
 }
 
-.task-calendar td a 
+.calendar td a 
 {
 	display: block; 
 	padding: .5em;
@@ -694,6 +694,7 @@ Task Calendar
 .has-tasks a:hover
 {
 	background-color: #00B6D5;
+	color: white;
 }
 
 /*

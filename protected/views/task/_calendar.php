@@ -1,6 +1,6 @@
 <?php 
 // start calendar table
-echo PHtml::openTag('table', array('class'=>'task-calendar'));
+echo PHtml::openTag('table', array('class'=>'calendar'));
 
 // row of days of the week
 $weekdays = array ("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat");
