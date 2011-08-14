@@ -42,6 +42,7 @@ input, textarea, select {
 	font-size: 1.5em;
 	padding: .25em;
 	width: 100%;
+	-webkit-appearance: none;
 }
 
 input[type="submit"] {
