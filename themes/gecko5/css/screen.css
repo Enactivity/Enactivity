@@ -692,7 +692,8 @@ table.calendar
 	color: white;
 }
 
-.has-tasks a:hover
+.has-tasks a:hover,
+.has-tasks a:focus
 {
 	background-color: #00B6D5;
 	color: white;
