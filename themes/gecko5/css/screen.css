@@ -670,7 +670,7 @@ table.calendar
 .calendar th 
 {
 	width: 5%;
-	border: 8px solid transparent;
+	border: 8px solid #ffffff;
 	text-align: right;
 }
 
