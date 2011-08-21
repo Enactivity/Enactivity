@@ -424,7 +424,8 @@ class Task extends CActiveRecord
 			}
 		}
 		
-		return array_unique($participants);
+		$participants = array_unique($participants);
+		return $participants;
 	}
 	
 	/**
