@@ -426,6 +426,8 @@ class Task extends CActiveRecord
 		}
 		
 		// we need to remove duplicates
+		$serialized = array();
+		$unserialized = array();
 		foreach ($participants as $k=>$na) {
 			$serialized[$k] = serialize($na);
 		}
