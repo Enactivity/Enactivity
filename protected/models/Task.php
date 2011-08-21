@@ -424,8 +424,15 @@ class Task extends CActiveRecord
 			}
 		}
 		
-		$participants = array_unique($participants);
-		return $participants;
+		// we need to remove duplicates
+		foreach ($participants as $k=>$na) {
+			$serialized[$k] = serialize($na);
+		}
+		$uniq = array_unique($serialized);
+		foreach($uniq as $k=>$ser) {
+			$unserialized[$k] = unserialize($ser);
+		}
+		return $unserialized;
 	}
 	
 	/**
