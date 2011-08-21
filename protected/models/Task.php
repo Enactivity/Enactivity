@@ -74,13 +74,13 @@ class Task extends CActiveRecord
 							'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
 			// Nested Set Behavior
-						'NestedSetBehavior'=>array(
-							'class'=>'ext.behaviors.NestedSetBehavior',
-							'hasManyRoots'=>true,
-							'rootAttribute'=>'rootId',
-							'leftAttribute'=>'lft',
-							'rightAttribute'=>'rgt',
-							'levelAttribute'=>'level',
+			'NestedSetBehavior'=>array(
+				'class'=>'ext.behaviors.NestedSetBehavior',
+				'hasManyRoots'=>true,
+				'rootAttribute'=>'rootId',
+				'leftAttribute'=>'lft',
+				'rightAttribute'=>'rgt',
+				'levelAttribute'=>'level',
 			),
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
@@ -89,9 +89,10 @@ class Task extends CActiveRecord
 				'ignoreAttributes' => array('modified'),
 			),
 			// Record C-UD operations to this record
-			'TaskEmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.task.TaskEmailNotificationBehavior',
-				'feedAttribute' => $this->name,
+			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+				'emailAttribute' => $this->name,
+				'notifyAttribute' => 'descendantParticipants',
 				'ignoreAttributes' => array('modified'),
 			),
 		);

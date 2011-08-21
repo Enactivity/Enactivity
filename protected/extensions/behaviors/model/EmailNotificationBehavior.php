@@ -1,14 +1,14 @@
 <?php
 /**
- * Class file for TaskEmailNotificationBehavior
+ * Class file for EmailNotificationBehavior
  */
 
 /**
- * This is the behavior class for behavior "SendEmailNotificationBehavior".
+ * This is the behavior class for behavior "EmailNotificationBehavior".
  *
  * Models wishing to use this behavior must have a public $groupId int value
  */
-class TaskEmailNotificationBehavior extends CActiveRecordBehavior
+class EmailNotificationBehavior extends CActiveRecordBehavior
 {
 	/**
 	 * List of attributes that should be ignored by the log
@@ -18,11 +18,18 @@ class TaskEmailNotificationBehavior extends CActiveRecordBehavior
 	public $ignoreAttributes = array();
 	
 	/**
-	 * The attribute that the feed should use to identify the model
+	 * The attribute that the email should use to identify the model
 	 * to the user
 	 * @var string
 	 */
-	public $feedAttribute = '';
+	public $emailAttribute = '';
+	
+	/**
+	 * The attribute that the behavior should use to get the list of 
+	 * users who should be emailed.  Should return User[].
+	 * @var string
+	 */
+	public $notifyAttribute = '';
 	
 	private $_oldAttributes = array();
  
@@ -50,25 +57,8 @@ class TaskEmailNotificationBehavior extends CActiveRecordBehavior
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
 						$log->userId = Yii::app()->user->id;
-						$log->save();
 						
-						// foreach notifyee
-						foreach($this->Owner->descendantParticipants as $user) {
-// 							$mail = new ActionNotificationEmail;
-// 							$mail->to = $user->email;
-// 							$mail->shouldEmail = true;
-// 							Yii::app()->mailer->send($mail);
-							$message = new YiiMailMessage;
-							$message->view = 'notification';
-							
-							//userModel is passed to the view
-							$message->setBody(array('user'=>$user), 'text/html');
-							
-							$message->setSubject('Something wonderful has happened on Poncla!');
-							$message->addTo($user->email);
-							$message->from = Yii::app()->params['adminEmail'];
-							Yii::app()->mail->send($message);
-						}
+						$this->notify($log);
 					}
 				}
 			}
@@ -81,10 +71,25 @@ class TaskEmailNotificationBehavior extends CActiveRecordBehavior
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = '';
 			$log->userId = Yii::app()->user->id;
-			$log->save();
+			
+			$this->notify($log);
 		}
 	}
  
+	protected function notify($log) {
+		foreach($this->Owner->{$this->notifyAttribute} as $user) {
+			$message = new YiiMailMessage;
+			$message->view = 'notification';
+				
+			$message->setBody(array('data'=>$log), 'text/html');
+				
+			$message->setSubject('Poncla activity!');
+			$message->addTo($user->email);
+			$message->from = 'notifications@' . $_SERVER['SERVER_NAME'];
+			Yii::app()->mail->send($message);
+		}
+	}
+	
 	public function afterFind($event) {
 		// Save old values
 		$this->setOldAttributes($this->Owner->getAttributes());
