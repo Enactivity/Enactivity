@@ -229,11 +229,6 @@ class Task extends CActiveRecord
 		));
 	}
 	
-	public function afterFind() {
-		parent::afterFind();
-		$this->startDate = date('m/d/Y');
-	}
-	
 	public function getStartDate() {
 		if(empty($this->starts)) return null;
 		
