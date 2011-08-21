@@ -64,7 +64,7 @@ class TaskEmailNotificationBehavior extends CActiveRecordBehavior
 							//userModel is passed to the view
 							$message->setBody(array('user'=>$user), 'text/html');
 							
-							
+							$message->setSubject('Something wonderful has happened on Poncla!');
 							$message->addTo($user->email);
 							$message->from = Yii::app()->params['adminEmail'];
 							Yii::app()->mail->send($message);
