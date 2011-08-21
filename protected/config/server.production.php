@@ -35,6 +35,10 @@ return CMap::mergeArray(
 				),
 			),
 			
+			'mail'=>array(
+				'dryRun'=>false,
+			),
+			
 			'mailer'=>array(
 				'shouldEmail'=>true,  
 			),

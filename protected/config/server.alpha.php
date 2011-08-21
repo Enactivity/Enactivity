@@ -14,6 +14,10 @@ return CMap::mergeArray(
 				'password' => 'alpha123',
 			),
 			
+			'mail'=>array(
+				'dryRun'=>false,
+			),
+			
 			'mailer'=>array(
 				'shouldEmail'=>true,  
 		    ),

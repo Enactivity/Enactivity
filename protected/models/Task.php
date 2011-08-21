@@ -70,24 +70,30 @@ class Task extends CActiveRecord
 			'DefaultGroupBehavior'=>array(
 				'class' => 'ext.behaviors.DefaultGroupBehavior',
 			),
+			'DateTimeZoneBehavior'=>array(
+							'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
+			// Nested Set Behavior
+						'NestedSetBehavior'=>array(
+							'class'=>'ext.behaviors.NestedSetBehavior',
+							'hasManyRoots'=>true,
+							'rootAttribute'=>'rootId',
+							'leftAttribute'=>'lft',
+							'rightAttribute'=>'rgt',
+							'levelAttribute'=>'level',
+			),
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'feedAttribute' => $this->name,
 				'ignoreAttributes' => array('modified'),
 			),
-			'DateTimeZoneBehavior'=>array(
-				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			// Record C-UD operations to this record
+			'TaskEmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.task.TaskEmailNotificationBehavior',
+				'feedAttribute' => $this->name,
+				'ignoreAttributes' => array('modified'),
 			),
-			// Nested Set Behavior
-			'NestedSetBehavior'=>array(
-				'class'=>'ext.behaviors.NestedSetBehavior',
-				'hasManyRoots'=>true,
-				'rootAttribute'=>'rootId',
-				'leftAttribute'=>'lft',
-				'rightAttribute'=>'rgt',
-				'levelAttribute'=>'level',
-			),  
 		);
 	}
 
@@ -378,7 +384,7 @@ class Task extends CActiveRecord
 			return true;
 		}
 		return false;
-	}
+	}	
 	
 	/**
 	 * Can a user sign up for the task?
@@ -400,6 +406,25 @@ class Task extends CActiveRecord
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Get all participants of the task and its children.
+	 * @return array User[]
+	 */
+	public function getDescendantParticipants() {
+		$participants = array();
+		
+		if($this->isParticipatable) {
+			$participants = CMap::mergeArray($participants, $this->participants);
+		}
+		else {
+			foreach($this->descendants()->with('participants')->findAll() as $task) {
+				$participants = CMap::mergeArray($participants, $task->descendantParticipants);
+			}
+		}
+		
+		return array_unique($participants);
 	}
 	
 	/**
