@@ -32,13 +32,10 @@ class ActiveRecordLog extends CActiveRecord
 	 * The instanced focal model, loaded by afterFind
 	 * @var CActiveRecord
 	 */
-	public $focalModelObject;
+	private $_focalModelObject;
 	
-	/**
-	 * The instanced model, loaded by afterFind 
-	 * @var CActiveRecord
-	 */
-	public $modelObject;
+	
+	private $_modelObject;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -202,10 +199,35 @@ class ActiveRecordLog extends CActiveRecord
 	protected function afterFind() {
 		parent::afterFind();
 		
+// 		$focalModel = new $this->focalModel;
+// 		$this->focalModelObject = $focalModel->findByPk($this->focalModelId);
+		
+// 		$model = new $this->model;
+// 		$this->modelObject = $model->findByPk($this->modelId);
+	}
+	
+	
+	public function getFocalModelObject() {
+		if(isset($this->_focalModelObject)) {
+			return $this->_focalModelObject;
+		}
+		
 		$focalModel = new $this->focalModel;
-		$this->focalModelObject = $focalModel->findByPk($this->focalModelId);
+		$this->_focalModelObject = $focalModel->findByPk($this->focalModelId);
+		return $this->_focalModelObject;
+	}
+	
+	/**
+	 * The instanced model, loaded by afterFind
+	 * @var CActiveRecord
+	*/
+	public function getModelObject() {
+		if(isset($this->_modelObject)) {
+			return $this->_modelObject;
+		}
 		
 		$model = new $this->model;
-		$this->modelObject = $model->findByPk($this->modelId);
+		$this->_modelObject = $model->findByPk($this->modelId);
+		return $this->_modelObject;
 	}
 }
