@@ -17,20 +17,24 @@ echo PHtml::openTag('article', array(
 // start headers
 
 // created date
-echo PHtml::openTag('h2');
+echo PHtml::openTag('p');
+echo PHtml::openTag('strong');
 echo PHtml::openTag('time');
 echo PHtml::encode(
-	Yii::app()->format->formatDateTime(strtotime($data->created))
+	//FIXME: use actual event time
+	Yii::app()->format->formatDateTime(time())
 );
 echo PHtml::closeTag('time');
-echo PHtml::closeTag('h2');
+echo PHtml::closeTag('strong');
+echo PHtml::closeTag('p');
 
-echo PHtml::openTag('h1');
+echo PHtml::openTag('p');
 
 // display <user> <action> <model> <attribute>
 $this->widget('application.components.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
+
 echo ' ';
 if($data->modelObject) {
 	echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
@@ -39,12 +43,15 @@ else {
 	echo 'deleted something';
 }	
 echo ' '; 
+
 echo PHtml::link(
 	StringUtils::truncate(PHtml::encode($data->modelObject->emailAttribute), 80), 
-	array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
+	Yii::app()->request->hostInfo . Yii::app()->createUrl(
+		strtolower($data->focalModel) . '/view', array('id'=>$data->focalModelId)
+	)
 );
 
-echo PHtml::closeTag('h1');
+echo PHtml::closeTag('p');
 
 if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 	echo Phtml::openTag(p);
