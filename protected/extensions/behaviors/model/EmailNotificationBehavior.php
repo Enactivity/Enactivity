@@ -33,49 +33,78 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	
 	private $_oldAttributes = array();
  
+	/**
+	* After the model saves, record the attributes
+	* @param CEvent $event
+	*/
 	public function afterSave($event) {
-		if (!$this->Owner->isNewRecord) {
- 
+		// is new record?
+		if ($this->Owner->isNewRecord) {
+				
+			$log = new ActiveRecordLog;
+			$log->groupId = $this->Owner->groupId;
+			$log->action = $this->Owner->scenario;
+			$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner);
+			$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+			$log->model = get_class($this->Owner);
+			$log->modelId = $this->Owner->getPrimaryKey();
+			$log->modelAttribute = null;
+			$log->userId = Yii::app()->user->id;
+			$this->notify($log);
+		}
+		else { // updating existing record
+				
 			// new attributes
 			$newAttributes = $this->Owner->getAttributes();
 			$oldAttributes = $this->getOldAttributes();
- 
+	
 			// compare old and new
 			foreach ($newAttributes as $name => $value) {
+				// check that if the attribute should be ignored in the log
 				if(!in_array($name, $this->ignoreAttributes)) {
 					if (!empty($oldAttributes)) {
-						$old = $oldAttributes[$name];
-					} else {
-						$old = '';
+						$oldValue = $oldAttributes[$name];
 					}
-	 
-					if ($value != $old) {
+					else {
+						$oldValue = '';
+					}
+	
+					if ($value != $oldValue) {
 						$log = new ActiveRecordLog;
 						$log->groupId = $this->Owner->groupId;
-						$log->action = 'updated';
+						$log->action = $this->Owner->scenario;
+						$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner);
+						$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
 						$log->model = get_class($this->Owner);
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
+						$log->oldAttributeValue = $oldValue;
+						$log->newAttributeValue = $value;
 						$log->userId = Yii::app()->user->id;
-						
 						$this->notify($log);
 					}
 				}
 			}
-		} 
-		else {
-			$log = new ActiveRecordLog;
-			$log->groupId = $this->Owner->groupId;
-			$log->action = 'posted';
-			$log->model = get_class($this->Owner);
-			$log->modelId = $this->Owner->getPrimaryKey();
-			$log->modelAttribute = '';
-			$log->userId = Yii::app()->user->id;
-			
-			$this->notify($log);
 		}
 	}
- 
+	
+	/**
+	 * Record the deletion
+	 * @param CEvent $event
+	 */
+	public function afterDelete($event) {
+		$log = new ActiveRecordLog;
+		$log->groupId = $this->Owner->groupId;
+		$log->action = ActiveRecordLog::ACTION_DELETED;
+		$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner);
+		$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+		$log->model = get_class($this->Owner);
+		$log->modelId = $this->Owner->getPrimaryKey();
+		$log->modelAttribute = '';
+		$log->userId = Yii::app()->user->id;
+		$this->notify($log);
+	}
+	 
 	protected function notify($log) {
 		foreach($this->Owner->{$this->notifyAttribute} as $user) {
 			$message = new YiiMailMessage;
