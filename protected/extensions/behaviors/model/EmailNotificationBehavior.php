@@ -107,15 +107,18 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 
 	protected function notify($log) {
 		foreach($this->Owner->{$this->notifyAttribute} as $user) {
-			$message = new YiiMailMessage;
-			$message->view = 'notification';
-				
-			$message->setBody(array('data'=>$log), 'text/html');
-				
-			$message->setSubject('Poncla activity!');
-			$message->addTo($user->email);
-			$message->from = 'notifications@' . $_SERVER['SERVER_NAME'];
-			Yii::app()->mail->send($message);
+			// don't want to email person who did the action
+			if($user->id != $log->userId) {
+				$message = new YiiMailMessage;
+				$message->view = 'notification';
+					
+				$message->setBody(array('data'=>$log), 'text/html');
+					
+				$message->setSubject('Poncla activity!');
+				$message->addTo($user->email);
+				$message->from = 'notifications@' . $_SERVER['SERVER_NAME'];
+				Yii::app()->mail->send($message); 
+			}
 		}
 	}
 	
