@@ -177,7 +177,6 @@ section > h1
 {
 	background-color: #ffffff;
 	color: #232425;
-	margin: 0;
 	padding: 0 16px 16px;
 	position: relative;
 }
@@ -441,9 +440,9 @@ td
 
 th 
 {
-	background-color: #333436;
-	color: white;
+	font-size: .5em;
 	font-weight: bold;
+	padding: 1em;
 	text-align: center;
 }
 
@@ -658,39 +657,37 @@ Task Calendar
 */
 table.calendar
 {
-	width: 100%;	
-}
-
-.calendar th
-{
-	font-size: .5em;
-	padding: .5em;
+	margin-bottom: 1em;
+	width: 100%;
 }
 
 .calendar td, 
 .calendar th 
 {
 	width: 5%;
-	border: 8px solid #ffffff;
+	border: none;
 	text-align: right;
 }
 
-.calendar td a 
+.calendar a 
 {
+	border-radius: 2px;
 	display: block; 
-	padding: .5em;
+	padding: .5em .25em;
+	margin: .25em;
 }
 
 .has-tasks 
 {
-	background-color: #333436;
 }
 
 .has-tasks a,
 .has-tasks a:active,
 .has-tasks a:visited
 {
+	background-color: #808080;
 	color: white;
+	text-decoration: none;
 }
 
 .has-tasks a:hover,
@@ -760,7 +757,6 @@ px      68    160    252    344    436    528    620    712    */
 
 	.content > header 
 	{
-		padding: 16px 0;
 		margin-right: 282px;
 	}	
 	
