@@ -112,7 +112,7 @@ time
 	min-height: 100%;
 }
 
-body > footer {
+.global-footer {
 	background-color: #232425;
     clear: both;
     color: white;
@@ -184,8 +184,8 @@ section > h1
 
 .content > header 
 {
+	margin-right: 0;
 	padding: 16px 0;
-	margin-right: 282px;
 }
 
 .content a, 
@@ -201,7 +201,7 @@ section > h1
 	color: #00B6D5;	
 }
 
-article
+.story
 {
 	border-bottom: 1px solid #ececec;
 	clear: both;
@@ -210,7 +210,7 @@ article
 	position: relative;
 }
 
-article:last-child {
+.story:last-child {
 }
 
 .menu
@@ -239,11 +239,13 @@ article:last-child {
 
 .menu.toolbox
 {
+	margin-bottom: 1em;
+	position: static;
 	right: 16px;
 	top: 16px;
 }
 
-article .menu
+.story .menu
 {
 	right: 16px;
 	top: 50%;
@@ -497,10 +499,10 @@ th
 */
 .site-index .content header {
 	background-color: #ECECEC;
-	background-image: url(../images/poncla-splash-1600x380.jpg);
+	background-image: url(../images/poncla-splash-320x270.jpg);
 	background-position: top center;
 	background-repeat: no-repeat;
-	height: 380px;
+	height: 270px;
 	margin: 0 -16px;
 }
 
@@ -712,62 +714,16 @@ Feed
 	text-transform: lowercase;
 }
 
-/*		Default Layout: 992px. 
-		Gutters: 24px.
-		Outer margins: 48px.
-		Leftover space for scrollbars @1024px: 32px.
--------------------------------------------------------------------------------
-cols    1     2      3      4      5      6      7      8      9      10
-px      68    160    252    344    436    528    620    712    804    896    */
 
-body {
+/*	Retina media query.
+	Overrides styles for devices with a 
+	device-pixel-ratio of 2+, such as iPhone 4.
+-----------------------------------------------    */
+
+@media 
+	only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min-device-pixel-ratio: 2) {
 }
-
-
-
-/*		Tablet Layout: 768px.
-		Gutters: 24px.
-		Outer margins: 28px.
-		Inherits styles from: Default Layout.
------------------------------------------------------------------
-cols    1     2      3      4      5      6      7      8
-px      68    160    252    344    436    528    620    712    */
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-}
-
-
-
-/*		Mobile Layout: 320px.
-		Gutters: 24px.
-		Outer margins: 34px.
-		Inherits styles from: Default Layout.
----------------------------------------------
-cols    1     2      3
-px      68    160    252    */
-
-@media only screen and (max-width: 767px) {
-	
-	.content > header
-	{
-		margin-right: 0;
-	}
-	
-	article.task
-	{
-		/* padding-right: 0; */
-	}
-	
-	.site-index .content header {
-		background-image: url(../images/poncla-splash-320x270.jpg);
-		height: 270px;
-	}
-	
-	.menu.toolbox {
-		position: static;
-	}
-}
-
 
 
 /*		Wide Mobile Layout: 480px.
@@ -778,7 +734,7 @@ px      68    160    252    */
 cols    1     2      3      4      5
 px      68    160    252    344    436    */
 
-@media only screen and (min-width: 480px) and (max-width: 767px) {
+@media only screen and (min-width: 480px) {
 	
 	.site-index .content header {
 		background-image: url(../images/poncla-splash-480x380.jpg);
@@ -787,12 +743,29 @@ px      68    160    252    344    436    */
 }
 
 
-/*	Retina media query.
-	Overrides styles for devices with a 
-	device-pixel-ratio of 2+, such as iPhone 4.
------------------------------------------------    */
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
 
-@media 
-	only screen and (-webkit-min-device-pixel-ratio: 2),
-	only screen and (min-device-pixel-ratio: 2) {
+@media only screen and (min-width: 768px) {
+
+	.site-index .content header {
+		background-image: url(../images/poncla-splash-1600x380.jpg);
+		height: 380px;
+	}
+
+	.content > header 
+	{
+		padding: 16px 0;
+		margin-right: 282px;
+	}	
+	
+	.menu.toolbox {
+		position: absolute;
+	}
+	
 }

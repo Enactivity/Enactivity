@@ -53,7 +53,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 	
 </div>
 
-<footer>
+<footer class="global-footer">
 	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
 	<nav>
 	<?php 
