@@ -209,9 +209,6 @@ section > h1
 	position: relative;
 }
 
-.story:last-child {
-}
-
 .menu
 {
 	position: absolute;
@@ -675,10 +672,6 @@ table.calendar
 	display: block; 
 	padding: .5em .25em;
 	margin: .25em;
-}
-
-.has-tasks 
-{
 }
 
 .has-tasks a,
