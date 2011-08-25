@@ -2,12 +2,19 @@
 /**
  * View for individual group models
  * 
- * @param Group $data model
+ * @uses Group $data model
  */
+
+// calculate article class
+$articleClass[] = "view";
+$articleClass[] = "story";
+$articleClass[] = "group";
+$articleClass[] = "group-" . PHtml::encode($data->id);
 
 // start article
 echo PHtml::openTag('article', array(
-	'class' => 'view'
+	'id' => "group-" . PHtml::encode($data->id),
+	'class' => implode(" ", $articleClass),
 ));
 
 // start headers

@@ -2,17 +2,19 @@
 /**
  * View for individual feed models
  * 
- * @param ActiveRecordLog $data model
+ * @uses ActiveRecordLog $data model
  */
 
 // calculate article class
-$articleClass = "view";
-$articleClass .= " feed";
-$articleClass .= " feed-" . $data->id;
+$articleClass[] = "view";
+$articleClass[] = "story";
+$articleClass[] = "feed";
+$articleClass[] = "feed-" . PHtml::encode($data->id);
 
 // start article
 echo PHtml::openTag('article', array(
-	'class' => 'feed'
+	'id' => "task-" . PHtml::encode($data->id),
+	'class' => implode(" ", $articleClass),
 ));
 
 // start headers

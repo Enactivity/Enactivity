@@ -10,8 +10,9 @@ $showParent = isset($showParent) ? $showParent : true;
 
 // calculate article class
 $articleClass[] = "view";
+$articleClass[] = "story";
 $articleClass[] = "task";
-$articleClass[] = "task-" . $data->id;
+$articleClass[] = "task-" . PHtml::encode($data->id);
 $articleClass[] = $data->hasStarts ? "starts" : "";
 $articleClass[] = $data->isCompleted ? "completed" : "not-completed";
 $articleClass[] = $data->isInheritedTrash ? "trash" : "not-trash";
@@ -19,7 +20,7 @@ $articleClass[] = $data->isUserParticipating ? "participating" : "not-participat
 
 // start article
 echo PHtml::openTag('article', array(
-	'id' => "task-" . $data->id,
+	'id' => "task-" . PHtml::encode($data->id),
 	'class' => implode(" ", $articleClass),
 ));
 
