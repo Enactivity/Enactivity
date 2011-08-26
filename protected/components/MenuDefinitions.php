@@ -15,16 +15,6 @@ class MenuDefinitions extends CComponent {
 		return null;
 	}
 	
-	public static function footer() {
-		return array(
-			array(
-				'label'=>PHtml::encode('@Poncla'), 
-				'url'=>'http://twitter.com/#!/poncla',
-				'linkOptions'=>array('id'=>'twitter-menu-item'), 
-			),
-		);
-	} 
-	
 	/**
 	 * @return array of menu items for admins
 	 */

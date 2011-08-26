@@ -54,14 +54,16 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 </div>
 
 <footer class="global-footer">
-	<span>Poncla &copy; <?php echo date('Y'); ?> All Rights Reserved.</span>
-	<nav>
-	<?php 
-	$this->widget('zii.widgets.CMenu', array(
-		'items'=>MenuDefinitions::footer()
-	)); 
-	?>
-	</nav>
+	<span class="copyright"><?php echo PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?php echo date('Y'); ?> 
+		All Rights Reserved.
+	</span>
+	<span class="credits">Created by 
+		<?php echo PHtml::link("Reed Musselman", "http://twitter.com/#!/blue21japan"); ?>, 
+		<?php echo PHtml::link("Andy Fong", "http://twitter.com/#!/andysfong"); ?>, 
+		<?php echo PHtml::link("Harrison Vuong", "http://twitter.com/#!/harrisonvuong"); ?>, and 
+		<?php echo PHtml::link("Ajay Sharma", "http://twitter.com/#!/ajsharma"); ?>.
+		<!-- Also, chicken wings and beer, lots of beer. --> 
+	</span>
 </footer>
 
 </body>
