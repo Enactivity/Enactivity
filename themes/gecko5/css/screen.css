@@ -421,7 +421,7 @@ th
 {
 	font-size: .5em;
 	font-weight: bold;
-	padding: 1em;
+	padding: 1em 1.5em;
 	text-align: center;
 }
 
@@ -538,7 +538,6 @@ select[name="Task[endTime]"]
 /*
 	Story stylings
 */
-
 .story
 {
 	border-bottom: 1px solid #ececec;
@@ -663,7 +662,7 @@ table.calendar
 {
 	border-radius: 2px;
 	display: block; 
-	padding: .5em .25em;
+	padding: .5em;
 	margin: .25em;
 }
 
