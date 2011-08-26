@@ -165,7 +165,7 @@ section
 
 section > h1 
 {
-	background-color: #363636;
+	background-color: #333436;
 	color: white;
 	font-size: 1.25em;
 	margin: 0 -16px;
@@ -200,15 +200,6 @@ section > h1
 	color: #00B6D5;	
 }
 
-.story
-{
-	border-bottom: 1px solid #ececec;
-	clear: both;
-	margin: 0 -16px;
-	padding: 1em;
-	position: relative;
-}
-
 .menu
 {
 	position: absolute;
@@ -239,13 +230,6 @@ section > h1
 	position: static;
 	right: 16px;
 	top: 16px;
-}
-
-.story .menu
-{
-	right: 16px;
-	top: 50%;
-	margin-top: -22px;
 }
 
 /*
@@ -552,24 +536,35 @@ select[name="Task[endTime]"]
 }
 
 /*
-	Task stylings
+	Story stylings
 */
-.task {
-	padding-right: 116px;
+
+.story
+{
+	border-bottom: 1px solid #ececec;
+	clear: both;
+	margin: 0 -16px;
+	padding: 1em 116px 1em 1em;
+	position: relative;
 }
 
-.task h1,
-.feed h1 {
+.story h1 {
 	font-size: 1.1em;
 }
 
-.task h2,
-.feed h2 {
+.story h2 {
 	font-size: .9em;
 }
 
-.task h1 time {
+.story h1 time {
 	font-weight: bold;
+}
+
+.story .menu
+{
+	right: 16px;
+	top: 50%;
+	margin-top: -22px;
 }
 
 .completed h1 a,
@@ -686,12 +681,6 @@ table.calendar
 {
 	background-color: #00B6D5;
 	color: white;
-}
-
-/*
-Agenda
-*/
-.agenda > h1 {
 }
 
 /*
