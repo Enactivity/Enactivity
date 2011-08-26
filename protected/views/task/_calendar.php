@@ -58,8 +58,8 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 		echo PHtml::link(
 			date('d', $currentDayStart), 
 			array('task/calendar/', 
-				'year' => $month->year, 
-				'month' => $month->intValue, 
+				'month' => $month->intValue,
+				'year' => $month->year,
 				'#' => 'day-' . $month->year . '-' . date('m', $currentDayStart) . '-' . date('d', $currentDayStart) //day-YYYY-mm-dd
 			)
 		);
