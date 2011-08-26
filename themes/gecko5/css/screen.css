@@ -321,7 +321,6 @@ section > h1
 form
 {
 	clear: both;
-	color: #232425;
 	max-width: 32em;
 }
 
@@ -393,15 +392,14 @@ input[type="button"]:disabled:hover {
 
 label
 {
-	color: #8A8581;
 	cursor: text;
 	font-size: .75em;
 	text-transform: lowercase;
 }
 
-.required
+label:not(.required)
 {
-	color: #232425;
+	color: #8A8581;	
 }
 
 textarea  {
