@@ -140,7 +140,6 @@ nav li a:focus,
 
 section {
 	clear: both;
-	padding-bottom: 16px;
 }
 
 section > h1 {
@@ -154,7 +153,7 @@ section > h1 {
 .content {
 	background-color: #ffffff;
 	color: #232425;
-	padding: 0 16px 16px;
+	padding: 0 16px;
 	position: relative;
 }
 
