@@ -96,11 +96,14 @@ time {
 */
 .everything {
 	height: auto;
+	margin: auto;
+	max-width: 790px;
 }
 
 .global-footer {
     clear: both;  /* Ensure footer isn't floating around anywhere */
-    padding: 2em 1em;
+    padding: 2em;
+    text-align: center;
 }
 
 nav {
