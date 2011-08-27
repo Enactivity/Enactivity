@@ -12,7 +12,8 @@ html, body {
 	color: #ffffff;
 	font-family: sans-serif;
 	font-style: normal;
-	height: 100%;
+	height: 101%;
+	min-height: 101%; /* Ensure vertical scrollbar always shows */
 }
 
 a, a:active, a:visited {
