@@ -424,9 +424,8 @@ th {
 	Main page styles
 */
 .site-index .content header {
-	background-color: #ECECEC;
 	background-image: url(../images/poncla-splash-320x270.jpg);
-	background-position: top center;
+	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	height: 270px;
 	margin: 0 -16px;
@@ -645,7 +644,6 @@ px      68    160    252    344    436    */
 	
 	.site-index .content header {
 		background-image: url(../images/poncla-splash-480x380.jpg);
-		height: 380px;
 	}
 }
 
@@ -662,7 +660,6 @@ px      68    160    252    344    436    528    620    712    */
 
 	.site-index .content header {
 		background-image: url(../images/poncla-splash-1600x380.jpg);
-		height: 380px;
 	}
 
 	.content > header {
