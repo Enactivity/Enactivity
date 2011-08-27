@@ -7,21 +7,15 @@
 /*
 	General settings
 */
-html {
+html, body {
+	background-color: #333436;
 	color: #ffffff;
 	font-family: sans-serif;
 	font-style: normal;
 	height: 100%;
 }
 
-body
-{
-	background-color: #333436;
-	height: 100%;
-}
-
-a, a:hover, a:visited, a:active, a:focus
-{
+a, a:active, a:visited {
 	color: #ffffff;
 }
 
@@ -32,25 +26,19 @@ a:hover, a:focus {
 
 input, textarea, select {
 	border: 1px solid #bfbfbf;
-	border-radius: 2px; 
+	border-radius: 2px;
 	-khtml-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	font: inherit;
+	box-sizing: border-box; /* Border box ensures that inputs fill containers without border overlap */
+	font: inherit; /* Match overall font settings */
 	font-size: 1.5em;
 	padding: .25em;
 	width: 100%;
 }
 
-input[type="submit"] {
-	border: none;
-	margin: 0;	
-}
-
-strong 
-{
+strong {
 	font-weight: bold;	
 }
 
@@ -60,85 +48,76 @@ em {
 
 /* Selection colours */
 
-::selection 	 	{background: #92ccd6;}
-::-moz-selection 	{background: #92ccd6;}
-img::selection 		{background: transparent;}
-img::-moz-selection	{background: transparent;}
-body
-{
+::-moz-selection,
+::selection {
+	background: #92ccd6;
+}
+
+img::-moz-selection,
+img::selection {
+	background: transparent;
+}
+
+body {
 	-webkit-tap-highlight-color: #92ccd6;
 	tap-highlight-color: #92ccd6;
 }
 
+/* Header stylings */
+
 h1, h2, h3,
-h4, h5, h6 
-{
+h4, h5, h6 {
 	max-width: 32em;
 }
 
-h1 
-{
-	font-size: 1.5em;
-}
-
-h2
-{
+h1 {
 	font-size: 1.25em;
 }
 
-h3 
-{
+h2 {
+	font-size: 1.2em;
+}
+
+h3 {
 	font-size: 1.1em;
 }
 
-p
-{
-	font-weight: normal;
-	margin: .5em 0;
+p {
+	margin: .5em 0; /* Readability spacing */
 	max-width: 32em;
 }
 
-time
-{
-	white-space: nowrap;	
+time {
+	white-space: nowrap; /* Prevents hard-to-read multiline dates */
 }
 
 /*
 	Global wrappers
 */
-.everything 
-{
+.everything {
 	height: auto;
-	min-height: 100%;
 }
 
 .global-footer {
-	background-color: #232425;
-    clear: both;
-    color: white;
-    height: 5em;
-    padding: 2em;
+    clear: both;  /* Ensure footer isn't floating around anywhere */
+    padding: 2em 1em;
 }
 
-nav
-{
+nav {
 	clear: both;
 }
 
-nav ul
-{
+nav ul {
 	list-style-type: none;
 }
 
 nav li {
-	white-space: nowrap;
-	display: inline-block;
+	white-space: nowrap; /* Don't want overflowing links */
+	display: inline-block; /* List horizontally, not vertically */
 }
 
 nav li a,
-nav li a:visited
-{
-	border: none;
+nav li a:visited {
 	color: #ffffff;
 	display: block;	
 	padding: .5em;
@@ -147,87 +126,81 @@ nav li a:visited
 
 nav li a:hover,
 nav li a:focus,
-.active a
-{
+.active a {
 	background-color: #00b6d5;
 	color: #ffffff;
 	text-decoration: none;
 }
 
-/*
-	Content styles 
-*/
-section
-{
+/* Content styles */
+
+section {
 	clear: both;
 	padding-bottom: 16px;
 }
 
-section > h1 
-{
-	background-color: #333436;
-	color: white;
-	font-size: 1.25em;
-	margin: 0 -16px;
-	max-width: none;
+section > h1 {
+	background-color: #333436; /* Match background */
+	color: #ffffff;
+	margin: 0 -16px; /* Negative margin to reach edges */
+	max-width: none; /* Override readability for edge to edge */
 	padding: 16px;
 }
 
-.content
-{
+.content {
 	background-color: #ffffff;
 	color: #232425;
 	padding: 0 16px 16px;
 	position: relative;
 }
 
-.content > header 
-{
-	margin-right: 0;
+.content > header {
 	padding: 16px 0;
+}
+
+.content > header h1 {
+	font-size: 1.5em;
 }
 
 .content a, 
 .content a:visited, 
-.content a:active
-{
+.content a:active {
 	color: #808080;
 }
 
 .content a:hover,
-.content a:focus 
-{
+.content a:focus {
 	color: #00B6D5;	
 }
 
-.menu
-{
+.menu {
 	position: absolute;
 }
 
-.menu li
-{
+.menu li {
 	display: inline-block;
-	font-family: Verdana, sans-serif;
-	font-size: .6em;
 	list-style-type: none;
 	white-space: nowrap;
 }
 
-.menu li a 
-{
-	background-repeat: no-repeat;
+.menu li a {
+	/* Background settings made to be generic for all menus with icons */
+	background-repeat: no-repeat; 
 	background-position: top center;
-	display: block;
-	padding-top: 32px;
+	display: block; /* So it fills area and icon is clickable */
+	font-family: Verdana, sans-serif; /* Verdana is better at small sizes */
+	font-size: .6em; /* Should fit in width */
+	padding-top: 32px; /* Room above for icon */
 	text-align: center;
-	width: 50px;
+	width: 50px; /* Should be at least 44px for touch screens */
 }
 
-.menu.toolbox
-{
-	margin-bottom: 1em;
-	position: static;
+/* Content toolbox */
+
+.toolbox {
+	margin-bottom: 1em; /* Extra spacing below */
+	position: static; /* By default, under the text as toolboxes have more icons than standard menus */
+	/* to match content padding */
 	right: 16px;
 	top: 16px;
 }
@@ -237,42 +210,35 @@ section > h1
 */ 
 .flash-error, 
 .flash-notice, 
-.flash-success
-{
+.flash-success {
 	padding: 16px;
 	margin-bottom: 8px;
 }
 
-.flash-error
-{
+.flash-error {
 	background-color: #E82C0C;
 	color: #ffffff;
 }
 
-.flash-notice
-{
+.flash-notice {
 	background-color: #FFF6BF;
 	color: #514721;
 }
 
-.flash-success
-{
+.flash-success {
 	background-color: #E6EFC2;
 	color: #264409;
 }
 
-.flash-error a
-{
+.flash-error a {
 	color: #8a1f11;
 }
 
-.flash-notice a
-{
+.flash-notice a {
 	color: #7f7b5f;
 }
 
-.flash-success a
-{
+.flash-success a {
 	color: #264409;
 }
 
@@ -280,8 +246,7 @@ section > h1
 	Content lists
 */
 .detail-view dt,
-.list-view dt
-{
+.list-view dt {
 	display: inline-block;
 }
 
@@ -293,8 +258,7 @@ section > h1
 }
 
 .detail-view dd,
-.list-view dd
-{
+.list-view dd {
 	display: inline-block;
 	margin-right: 1em;
 }
@@ -302,26 +266,19 @@ section > h1
 /*
 	Content forms
 */
-form
-{
+form {
 	clear: both;
-	max-width: 32em;
+	max-width: 32em; /* Readability */
 }
-
-form a, form a:hover, form a:visited, form a:active, form a:focus
-{
-	color: #808080;
-}
-
 
 form .errorSummary {
 	background-color: #E82C0C;
 	color: #ffffff;
-	padding: 10px;
+	padding: 16px;
 }
 
 form .errorSummary ul {
-	margin-left: 1em;
+	margin-left: 1em; /* Life indentation */
 }
 
 form .errorMessage {
@@ -337,17 +294,20 @@ input[type="button"] {
 	background-image: -o-linear-gradient(top, #00b6d5, #00ADCC);
 	background-image: -webkit-linear-gradient(top, #00b6d5, #00ADCC);
 	background-image: linear-gradient(top, #00b6d5, #00ADCC);
+	border: none;
 	color: #ffffff;
-	cursor: pointer;
+	cursor: pointer; /* Finger cursor */
 	display: inline-block;
-	font-size: 1em;
-	padding: .5em;
+	font-size: .8em;
+	font-weight: bold;
+	padding: 1.25em; /* General padding size */
 	margin-bottom: 1em;
 	text-align: left;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
 	text-transform: lowercase;
-	white-space: nowrap;
-	-moz-appearance: none;
+	white-space: nowrap; /* Don't break sentence */
+	/* Avoid gradient defaults in some browsers */
+	-moz-appearance: none; 
 	-webkit-appearance: none;
 }
 
@@ -369,8 +329,7 @@ input[type="button"]:active {
 input[type="submit"]:disabled, 
 input[type="submit"][disabled="disabled"],
 input[type="button"]:disabled {
-	background-color: transparent;
-	color: #232425;
+	opacity: .25; /* Blarg, cheap, color better */
 	cursor: default;
 }
 
@@ -378,25 +337,22 @@ input[type="button"]:disabled {
 input[type="submit"]:disabled:hover,
 input[type="submit"][disabled="disabled"],
 input[type="button"]:disabled:hover {
-	background-color: transparent;
+	opacity: .25; /* Blarg, cheap, color better */
 }
 
-/* forms */
-.field
-{
+/* More about forms */
+.field {
 	clear: both;
 	padding: 4px 0;
 }
 
-label
-{
-	cursor: text;
+label {
+	cursor: text; /* To help user realize it's clickable */
 	font-size: .75em;
 	text-transform: lowercase;
 }
 
-label:not(.required)
-{
+label:not(.required) {
 	color: #8A8581;	
 }
 
@@ -404,34 +360,28 @@ textarea  {
 	height: 3em;
 }
 
-/*
-	Content tables
-*/
+/* Content tables */
 table {
 	table-layout: fixed;
 }
 
 tr {
-	vertical-align: text-top;
+	vertical-align: middle;
 }
 
 th, 
-td
-{
+td {
 	border: 1px solid #333436;
 }
 
-th 
-{
+th {
 	font-size: .5em;
 	font-weight: bold;
-	padding: 1em 1.5em;
+	padding: 1em 1.5em; /* 1.5em to match standard padding */
 	text-align: center;
 }
 
-/*
-	Content pagination
-*/
+/* Content pagination */
 .pager {
 	border: none;
 	clear: both;
@@ -440,35 +390,25 @@ th
 }
 
 .pager ul,
-.pager li
-{
-	display: inline;
+.pager li {
+	display: inline-block; /* Display horizontally */
 }
 
 .pager a:link,
-.pager a:visited
-{
+.pager a:visited {
 	padding: 1px 6px;
 	text-decoration: none;
 }
 
-.pager .selected a
-{
+.pager .selected a {
 	background-color: #00b6d5;
 	color: #ffffff;
 }
 
-.pager .hidden a
-{
-	color: #d9d4cc;
-}
-
-/**
- * Hide first and last buttons by default.
- */
+ .pager .hidden a,
 .yiiPager .first,
-.yiiPager .last
-{
+.yiiPager .last {
+	/* Hide first, last, and inactive buttons by default */
 	display: none;
 }
 
@@ -496,28 +436,20 @@ th
 	margin: 1em auto;	
 }
 
-/*
-	Site: login styles
-*/
-#UserLoginForm_rememberMe
-{
-	width: 15px;
-}
+/* Task form inputs */
 
 input[name="Task[startDate]"],
-input[name="Task[endDate]"]
-{
-	margin-right: 2%;
-	width: 48%;
+input[name="Task[endDate]"] {
+	margin-right: 2%; /* spacing between date and time */
+	width: 48%; /* 48 + 2 = 50 */
 }
 
 select[name="Task[startTime]"],
-select[name="Task[endTime]"] 
-{
+select[name="Task[endTime]"]  {
 	width: 50%;
 }
 
-/* task form inputs */
+/* Special settings for displaying inline */
 .new-task {
 	max-width: none;
 }
@@ -526,11 +458,9 @@ select[name="Task[endTime]"]
 	display: none;
 }
 
-/*
-	Yii widgets
-*/
-.list-view .summary
-{
+/* Yii widgets */
+
+.list-view .summary {
 	display: none;
 }
 
@@ -539,16 +469,13 @@ select[name="Task[endTime]"]
 	margin-right: auto;
 }
 
-/*
-	Story stylings
-*/
-.story
-{
-	border-bottom: 1px solid #ececec;
+/* Story stylings */
+.story {
+	border-bottom: 1px solid #ECECEC;
 	clear: both;
-	margin: 0 -16px;
-	padding: 1em 116px 1em 1em;
-	position: relative;
+	margin: 0 -16px; /* Negative margin for edge to edge right and left */
+	padding: 1em 116px 1em 1em; /* Increase right margin to account for menu */
+	position: relative; /* Set position so menu can be absolute */
 }
 
 .story h1 {
@@ -563,12 +490,13 @@ select[name="Task[endTime]"]
 	font-weight: bold;
 }
 
-.story .menu
-{
+.story .menu {
 	right: 16px;
-	top: 50%;
-	margin-top: -22px;
+	top: 50%; /* to help align menu vertically */
+	margin-top: -22px; /* half of menu size for vertical alignment */
 }
+
+/* Completed story stylings */ 
 
 .completed h1 a,
 .completed h1 a:visited, 
@@ -585,11 +513,14 @@ select[name="Task[endTime]"]
 	color: #6B6E71;
 }
 
+/* Trashed story stylings */
+
 .trash h1 a {
 	text-decoration: line-through;
 }
 
-/* participating user listing  */
+/* Participating user listing  */
+
 .users {
 	clear: both;	
 }
@@ -599,7 +530,8 @@ select[name="Task[endTime]"]
 	margin-right: 1em;
 }
 
-/* task menu and buttons */
+/* Task menu and buttons */
+
 .task-update-menu-item {
 	background-image: url(../images/icons/pencil-32x32.png);	
 }
@@ -645,52 +577,43 @@ select[name="Task[endTime]"]
 	background-image: url(../images/icons/trash-can-32x32.png);
 }
 
-/*
-Task Calendar
-*/
-table.calendar
-{
+/* Task Calendar */
+
+.calendar {
 	margin-bottom: 1em;
 	width: 100%;
 }
 
 .calendar td, 
-.calendar th 
-{
-	width: 5%;
+.calendar th {
+	width: 5%; /* Ensures minimum */
 	border: none;
 	text-align: right;
 }
 
-.calendar a 
-{
-	border-radius: 2px;
-	display: block; 
+.calendar a {
+	border-radius: 3px;
+	display: block; /* fill tabel cell */
 	padding: .5em;
 	margin: .25em;
 }
 
 .has-tasks a,
 .has-tasks a:active,
-.has-tasks a:visited
-{
+.has-tasks a:visited {
 	background-color: #808080;
 	color: white;
 	text-decoration: none;
 }
 
 .has-tasks a:hover,
-.has-tasks a:focus
-{
+.has-tasks a:focus {
 	background-color: #00B6D5;
 	color: white;
 }
 
-/*
-Feed
-*/
-.feed-model-attribute 
-{
+/* Feed */
+.feed-model-attribute {
 	text-transform: lowercase;
 }
 
@@ -738,8 +661,7 @@ px      68    160    252    344    436    528    620    712    */
 		height: 380px;
 	}
 
-	.content > header 
-	{
+	.content > header {
 		margin-right: 282px;
 	}	
 	
