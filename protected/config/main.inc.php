@@ -151,20 +151,6 @@ return CMap::mergeArray(
 					),
 	    		),
 			),
-			
-			'mail' => array(
-				'class' => 'ext.YiiMail',
-				'transportType' => 'php',
-				'viewPath' => 'application.views.mail',
-				'logging' => true,
-				'dryRun' => true,
-			),
-			
-			'mailer'=>array(
-        		'class'=>'application.extensions.mailer.Mailer',
-        		'mailTransferAgent'=>'php',
-				'shouldEmail'=>false,  
-		    ),
 		),
 		
 		'modules'=>array(
