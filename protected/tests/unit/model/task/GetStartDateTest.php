@@ -12,7 +12,7 @@ class GetStartDateTest extends DbTestCase
 		'groupFixtures'=>':group',
 		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
-		'task_user'=>':task_user',
+		'taskUserFixtures'=>':task_user',
 	);
 
 	public $task;
