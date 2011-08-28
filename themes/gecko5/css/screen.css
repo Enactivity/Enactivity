@@ -289,6 +289,10 @@ form .errorMessage {
 	font-size: .6em;
 }
 
+input[type="checkbox"] {
+	width: auto; /* checkboxes don't stretch */
+}
+
 input[type="submit"], 
 input[type="button"] {
 	background-color: #00b6d5;
