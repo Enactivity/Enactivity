@@ -39,9 +39,9 @@ $this->pageTitle = 'Login';
 	</div>
 	
 	<div class="field">
-		<div class="formlink"><?php echo PHtml::link('Forgot my password', array(
+		<div class="formlink"><p><?php echo PHtml::link('Forgot my password', array(
 			'user/recoverpassword'
-		));?></div>
+		));?></p></div>
 	</div>
 
 <?php $this->endWidget(); ?>
