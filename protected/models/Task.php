@@ -1,5 +1,5 @@
 <?php
-
+//FIXME: add inheritedTrash, participantsCount, participantsCompletedCount, participatableChildren 
 /**
  * This is the model class for table "task".
  * A task is a single item within a {@link Group} that {@link User}s can sign up for.
