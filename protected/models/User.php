@@ -351,7 +351,13 @@ class User extends CActiveRecord
 	 * @return string new encrypted token
 	 */
 	public static function generateToken() {
-		return sha1( uniqid() );
+		$token = sha1( uniqid() );
+		$user = User::model()->findByAttributes(array("token" => $token));
+		if(is_null($user)) {
+			return $token;
+		}
+		
+		return self::generateToken();
 	}
 	
 	/**
