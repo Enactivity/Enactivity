@@ -381,6 +381,8 @@ textarea  {
 /* Content tables */
 table {
 	table-layout: fixed;
+	margin-bottom: 16px;
+	width: 100%;
 }
 
 tr {
@@ -596,11 +598,6 @@ select[name="Task[endTime]"]  {
 }
 
 /* Task Calendar */
-
-.calendar {
-	margin-bottom: 1em;
-	width: 100%;
-}
 
 .calendar td, 
 .calendar th {
