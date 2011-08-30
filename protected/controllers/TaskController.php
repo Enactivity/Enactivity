@@ -379,6 +379,9 @@ class TaskController extends Controller
 	 */
 	public function handleNewTaskForm($parentId = null) {
 		$model = new Task(Task::SCENARIO_INSERT);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 		
 		if(isset($_POST['Task'])) {
 			$model->attributes=$_POST['Task'];
