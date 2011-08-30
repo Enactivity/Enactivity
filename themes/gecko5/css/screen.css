@@ -130,7 +130,8 @@ nav li a:visited {
 
 nav li a:hover,
 nav li a:focus,
-.active a {
+.active a,
+.active a:visited {
 	background-color: #00b6d5;
 	color: #ffffff;
 	text-decoration: none;
@@ -147,22 +148,25 @@ section > h1 {
 	color: #ffffff;
 	margin: 0 -16px; /* Negative margin to reach edges */
 	max-width: none; /* Override readability for edge to edge */
-	padding: 16px;
+	padding: 16px; /* Extra spacing for readability and show background */
 }
 
 .content {
 	background-color: #ffffff;
 	color: #232425;
-	padding: 0 16px;
+	padding: 0 16px; /* Not all pages want top and bottom padding */
 	position: relative;
+	overflow: auto; /* so that first and last child can set their own margins */
 }
 
 .content > header {
-	padding: 16px 0;
+	padding-top: 16px; /* Could use margin, but this way, matches stylings */
+	min-height: 50px; /* this is to ensure room for toolbox */
+	margin-bottom: 16px; /* Collapsable with siblings */
 }
 
 .content > header h1 {
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
 .content a, 
@@ -194,8 +198,8 @@ section > h1 {
 	font-family: Verdana, sans-serif; /* Verdana is better at small sizes */
 	font-size: .6em; /* Should fit in width */
 	padding-top: 32px; /* Room above for icon */
+	min-width: 50px; /* Should be at least 44px for touch screens */
 	text-align: center;
-	width: 50px; /* Should be at least 44px for touch screens */
 }
 
 /* Content toolbox */
@@ -215,7 +219,8 @@ section > h1 {
 .flash-notice, 
 .flash-success {
 	padding: 16px;
-	margin-bottom: 8px;
+	margin-bottom: 16px;
+	margin-top: 16px;
 }
 
 .flash-error {
@@ -248,6 +253,11 @@ section > h1 {
 /*
 	Content lists
 */
+.detail-view dt {
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
 .detail-view dt,
 .list-view dt {
 	display: inline-block;
@@ -271,6 +281,7 @@ section > h1 {
 */
 form {
 	clear: both;
+	margin: 16px 0;
 	max-width: 32em; /* Readability */
 }
 
@@ -308,7 +319,6 @@ input[type="button"] {
 	font-size: .8em;
 	font-weight: bold;
 	padding: 1.25em; /* General padding size */
-	margin-bottom: 1em;
 	text-align: left;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
 	text-transform: lowercase;
