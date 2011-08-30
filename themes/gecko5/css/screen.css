@@ -298,6 +298,7 @@ form .errorSummary ul {
 form .errorMessage {
 	color: #E82C0C;
 	font-size: .6em;
+	margin: 6px; /* match input padding */
 }
 
 input[type="checkbox"] {
@@ -360,7 +361,7 @@ input[type="button"]:disabled:hover {
 /* More about forms */
 .field {
 	clear: both;
-	padding: 4px 0;
+	margin: 8px 0;
 }
 
 label {
@@ -403,7 +404,8 @@ th {
 	border: none;
 	clear: both;
 	line-height: 100%;
-	padding: 16px 0;
+	margin-bottom: 16px;
+	margin-top: 16px;
 }
 
 .pager ul,
