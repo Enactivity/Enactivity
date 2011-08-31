@@ -170,14 +170,17 @@ section > h1 {
 }
 
 .content a, 
-.content a:visited, 
-.content a:active {
+.content a:visited {
 	color: #808080;
 }
 
-.content a:hover,
+.content a:hover {
+	color: #00b6d5;	
+}
+
+.content a:active,
 .content a:focus {
-	color: #00B6D5;	
+	color: #00adcc;
 }
 
 .menu {
@@ -308,11 +311,11 @@ input[type="checkbox"] {
 input[type="submit"], 
 input[type="button"] {
 	background-color: #00b6d5;
-	background-image: -moz-linear-gradient(top, #00b6d5, #00ADCC);
-	background-image: -ms-linear-gradient(top, #00b6d5, #00ADCC);
-	background-image: -o-linear-gradient(top, #00b6d5, #00ADCC);
-	background-image: -webkit-linear-gradient(top, #00b6d5, #00ADCC);
-	background-image: linear-gradient(top, #00b6d5, #00ADCC);
+	background-image: -moz-linear-gradient(top, #00b6d5, #00adcc);
+	background-image: -ms-linear-gradient(top, #00b6d5, #00adcc);
+	background-image: -o-linear-gradient(top, #00b6d5, #00adcc);
+	background-image: -webkit-linear-gradient(top, #00b6d5, #00adcc);
+	background-image: linear-gradient(top, #00b6d5, #00adcc);
 	border: none;
 	color: #ffffff;
 	cursor: pointer; /* Finger cursor */
@@ -517,7 +520,7 @@ select[name="Task[endTime]"]  {
 }
 
 /* Completed story stylings */ 
-
+/* FIXME: standardize */
 .completed h1 a,
 .completed h1 a:visited, 
 .completed h1 a:active {
@@ -530,7 +533,7 @@ select[name="Task[endTime]"]  {
 }
 
 .completed p {
-	color: #6B6E71;
+	color: #6b6e71;
 }
 
 /* Trashed story stylings */
@@ -611,20 +614,27 @@ select[name="Task[endTime]"]  {
 	display: block; /* fill tabel cell */
 	padding: .5em;
 	margin: .25em;
-}
-
-.has-tasks a,
-.has-tasks a:active,
-.has-tasks a:visited {
-	background-color: #808080;
-	color: white;
 	text-decoration: none;
 }
 
-.has-tasks a:hover,
-.has-tasks a:focus {
-	background-color: #00B6D5;
-	color: white;
+.has-tasks a,
+.has-tasks a:visited {
+	background-color: #808080;
+	color: #ffffff;
+}
+
+.calendar a:hover,
+.calendar a:active,
+.calendar a:focus {
+	background-color: #00b6d5;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/* Redundant a:active and a:focus to ensure keyboard focus works too */
+.calendar a:active,
+.calendar a:focus {
+	background-color: #00adcc;
 }
 
 /* Feed */
