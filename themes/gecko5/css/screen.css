@@ -153,7 +153,7 @@ section > h1 {
 
 .content {
 	background-color: #ffffff;
-	color: #232425;
+	color: #333436;
 	padding: 0 16px; /* Not all pages want top and bottom padding */
 	position: relative;
 	overflow: auto; /* so that first and last child can set their own margins */
@@ -227,17 +227,17 @@ section > h1 {
 }
 
 .flash-error {
-	background-color: #E82C0C;
+	background-color: #e82c0c; /* red */
 	color: #ffffff;
 }
 
 .flash-notice {
-	background-color: #FFF6BF;
+	background-color: #fff6bf; /* yellow */
 	color: #514721;
 }
 
 .flash-success {
-	background-color: #E6EFC2;
+	background-color: #e6efc2; /* green */
 	color: #264409;
 }
 
