@@ -4,16 +4,7 @@ require_once 'TestConstants.php';
 
 class CreateTaskTest extends DbTestCase
 {
-
-	public $fixtures = array(
-		'groupFixtures'=>':group',
-		'userFixtures'=>':user',
-		'groupUserFixtures'=>':group_user',
-		'taskFixtures'=>':task',
-	);
-	
-	public function setUp()
-	{
+	public function setUp() {
 		parent::setUp();
 		
 		// login as user

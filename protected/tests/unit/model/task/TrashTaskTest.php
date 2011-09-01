@@ -4,12 +4,6 @@ require_once 'TestConstants.php';
 
 class TrashTaskTest extends DbTestCase
 {
-
-	public $fixtures = array(
-		'groupFixtures'=>':group',
-		'userFixtures'=>':user',
-		'groupUserFixtures'=>':group_user',
-	);
 			
 	public function setUp()
 	{

@@ -10,11 +10,11 @@ require_once 'TestConstants.php';
 class DbTestCase extends CDbTestCase
 {
 	public $fixtures = array(
-		'taskUserFixtures'=>':task_user',
 		'groupFixtures'=>':group',
 		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
 		'taskFixtures'=>':task',
+		'taskUserFixtures'=>':task_user',
     );
     
 	public static function setUpBeforeClass()

@@ -4,13 +4,6 @@ require_once 'TestConstants.php';
 
 class CreateGroupTest extends DbTestCase
 {
-	public $fixtures = array(
-        'groups'=>'Group',
-		'groupFixtures'=>':group',
-		'userFixtures'=>':user',
-		'groupUserFixtures'=>':group_user',
-    );
-    
     public $groupUnderTest = null;
 
 	public static function setUpBeforeClass()
