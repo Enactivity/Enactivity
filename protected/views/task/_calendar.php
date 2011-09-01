@@ -32,8 +32,8 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 	
 	$hasTasks = false;
 	foreach($dataProvider->getData() as $task) {
-		if((PDateTime::MySQLDateOffset($task->starts) <= $currentDayEnd)
-		&& (PDateTime::MySQLDateOffset($task->starts) >= $currentDayStart)) {
+		if(($task->startTimestamp <= $currentDayEnd)
+		&& ($task->startTimestamp >= $currentDayStart)) {
 			$hasTasks = true;
 		}
 	}

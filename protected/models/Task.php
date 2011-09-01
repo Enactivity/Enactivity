@@ -252,6 +252,16 @@ class Task extends CActiveRecord
 		return $dateTimeArray[1];
 	}
 	
+	/**
+	 * Returns the Task's start date time as a datetime int
+	 */
+	public function getStartTimestamp() {
+		if(empty($this->starts)) {
+			return null;
+		}
+		return strtotime($this->starts);
+	}
+	
 	public function setStartDate($date) {
 		if(!empty($date)) {
 			if(empty($this->starts)) {
