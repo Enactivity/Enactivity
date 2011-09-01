@@ -35,7 +35,7 @@ input, textarea, select {
 	box-sizing: border-box; /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	font-size: 1.5em;
-	padding: .25em;
+	padding: 8px;
 	width: 100%;
 }
 
@@ -98,12 +98,12 @@ time {
 .everything {
 	height: auto;
 	margin: auto;
-	max-width: 790px;
+	max-width: 50em; /* Using ems to scale on text zoom */
 }
 
 .global-footer {
     clear: both;  /* Ensure footer isn't floating around anywhere */
-    padding: 2em;
+    padding: 32px;
     text-align: center;
 }
 
@@ -124,7 +124,7 @@ nav li a,
 nav li a:visited {
 	color: #ffffff;
 	display: block;	
-	padding: .5em;
+	padding: 8px;
 	text-transform: lowercase;
 }
 
@@ -208,7 +208,7 @@ section > h1 {
 /* Content toolbox */
 
 .toolbox {
-	margin-bottom: 1em; /* Extra spacing below */
+	margin-bottom: 16px; /* Extra spacing below */
 	position: static; /* By default, under the text as toolboxes have more icons than standard menus */
 	/* to match content padding */
 	right: 16px;
@@ -497,7 +497,7 @@ select[name="Task[endTime]"]  {
 	border-bottom: 1px solid #ECECEC;
 	clear: both;
 	margin: 0 -16px; /* Negative margin for edge to edge right and left */
-	padding: 1em 116px 1em 1em; /* Increase right margin to account for menu */
+	padding: 16px 116px 16px 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
 }
 
