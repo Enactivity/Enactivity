@@ -20,7 +20,7 @@ echo PHtml::openTag('article', array(
 // start headers
 
 // display <user> <action> <model> 
-echo PHtml::openTag('h1');
+echo PHtml::openTag('h1', array('class'=>'story-title'));
 
 echo PHtml::link(PHtml::encode($data->name), 
 	array('view', 'slug'=>$data->slug)); 

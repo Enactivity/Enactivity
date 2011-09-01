@@ -27,22 +27,11 @@ echo PHtml::openTag('article', array(
 // start headers
 
 // task name
-echo PHtml::openTag('h1');
+echo PHtml::openTag('h1', array('class'=>'story-title'));
 if(isset($data->starts)) {
 	echo PHtml::openTag('time');
-	echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts)) . ' ');
+	echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts)));
 	echo PHtml::closeTag('time');
-}
-if(!$data->isRoot() && ($data->parent->id != $data->rootId) && $showParent) {
-	echo PHtml::openTag('span', array('class'=>'parent-task-name'));
-	echo PHtml::encode($data->root->name);
-	echo PHtml::closeTag('span');
-	echo '&hellip;';
-}
-if(!$data->isRoot() && $showParent) {
-	echo PHtml::openTag('span', array('class'=>'parent-task-name'));
-	echo PHtml::encode($data->parent->name);
-	echo PHtml::closeTag('span');
 	echo ' ';
 }
 echo PHtml::link(
@@ -51,6 +40,24 @@ echo PHtml::link(
 		array()
 	);
 echo PHtml::closeTag('h1');
+
+// parent tasks
+if(!$data->isRoot()) {
+	echo PHtml::openTag('h2', array('class'=>'parent-tasks story-subtitle'));
+	if(!$data->isRoot() && ($data->parent->id != $data->rootId) && $showParent) {
+		echo PHtml::openTag('span', array('class'=>'parent-task-name top-parent-task-name'));
+		echo PHtml::encode(StringUtils::truncate($data->root->name, 32, ''));
+		echo PHtml::closeTag('span');
+		echo '&hellip;';
+	}
+	if(!$data->isRoot() && $showParent) {
+		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+		echo PHtml::encode(StringUtils::truncate($data->parent->name, 32));
+		echo PHtml::closeTag('span');
+		echo ' ';
+	}
+	echo PHtml::closeTag('h2');
+}
 
 // body
 

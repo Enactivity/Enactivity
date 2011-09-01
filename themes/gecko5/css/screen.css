@@ -513,6 +513,10 @@ select[name="Task[endTime]"]  {
 	font-weight: bold;
 }
 
+.story .created {
+	font-size: .7em;
+}
+
 .story .menu {
 	right: 16px;
 	top: 50%; /* to help align menu vertically */

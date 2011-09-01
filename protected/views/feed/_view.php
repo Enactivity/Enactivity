@@ -20,15 +20,13 @@ echo PHtml::openTag('article', array(
 // start headers
 
 // created date
-echo PHtml::openTag('h2');
-echo PHtml::openTag('time');
+echo PHtml::openTag('time', array('class'=>'created'));
 echo PHtml::encode(
 	Yii::app()->format->formatDateTime(strtotime($data->created))
 );
 echo PHtml::closeTag('time');
-echo PHtml::closeTag('h2');
 
-echo PHtml::openTag('h1');
+echo PHtml::openTag('h1', array('class'=>'story-title'));
 
 // display <user> <action> <model> <attribute>
 $this->widget('application.components.widgets.UserLink', array(
