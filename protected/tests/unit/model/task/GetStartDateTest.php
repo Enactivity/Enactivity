@@ -14,12 +14,6 @@ class GetStartDateTest extends DbTestCase
 	{
 		parent::setUp();
 		
-		// login as user
-		$loginForm = new UserLoginForm();
-		$loginForm->email = $this->userFixtures['registered']['email'];
-		$loginForm->password = 'test';
-		$loginForm->login();
-		
 		// create a new task
 		$this->task = new Task();
 		$this->task->name = 'test_' . time();

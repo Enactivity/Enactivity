@@ -8,12 +8,6 @@ class TrashTaskTest extends DbTestCase
 	public function setUp()
 	{
 		parent::setUp();
-		
-		// login as user
-		$loginForm = new UserLoginForm();
-		$loginForm->email = $this->userFixtures['registered']['email'];
-		$loginForm->password = 'test';
-		$loginForm->login();
 	}
 	
 	/**

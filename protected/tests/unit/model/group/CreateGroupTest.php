@@ -15,12 +15,6 @@ class CreateGroupTest extends DbTestCase
 	{
 		parent::setUp();
 		
-		 // login as user
-		$loginForm = new UserLoginForm();
-		$loginForm->email = $this->userFixtures['registered']['email'];
-		$loginForm->password = 'test';
-		$loginForm->login();
-		
 		// create a valid group
 		$name = StringUtils::createRandomString(10);
 		$slug = StringUtils::createRandomString(10);
