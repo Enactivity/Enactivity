@@ -1,17 +1,19 @@
 <?php
-
-require_once 'TestConstants.php';
-
-class CreateTaskTest extends DbTestCase
+/**
+ * Tests related to the initial insertion of a Task model
+ * @author ajsharma
+ *
+ */
+class InsertTaskTest extends DbTestCase
 {
 	public function setUp() {
 		parent::setUp();
 	}
 	
 	/**
-	* Create a valid task
+	* Insert a valid task
 	*/
-	public function testCreateTaskValidScenarioDefault() {
+	public function testInsertTaskValidScenarioDefault() {
 		
 		// test parameters
 		$id = 42;
@@ -48,9 +50,9 @@ class CreateTaskTest extends DbTestCase
 	}
 	
 	/**
-	* Create a valid task and test if name is null
+	* Insert a valid task and test if name is null
 	*/
-	public function testCreateTaskWithNullName() {
+	public function testInsertTaskWithNullName() {
 		
 		$name = null;
 		
@@ -61,12 +63,13 @@ class CreateTaskTest extends DbTestCase
 		
 		$this->assertNull($task->name, 'save name is not null');
 		$this->assertFalse($task->validate(), 'task without name was validated: ' . print_r($task->getErrors(null), true));
+		$this->assertFalse($task->saveNode(), 'task without name was saved: ' . print_r($task->getErrors(null), true));
 	}
 	
 	/**
-	* Create a valid task and ensure entries are trimmed
+	* Insert a valid task and ensure entries are trimmed
 	*/
-	public function testCreateTaskTrimSpaces() {
+	public function testInsertTaskTrimSpaces() {
 		
 		$name = "Test Task";
 		$paddedName = ' ' . $name . ' ';
@@ -76,17 +79,18 @@ class CreateTaskTest extends DbTestCase
 			'name' => $paddedName,
 		));
 		
-		$this->assertTrue($task instanceof Task, 'found task not a Task object');
 		$this->assertTrue($task->saveNode(), 'valid task was not saved: ' . print_r($task->getErrors(null), true));
+		
 		$this->assertNotNull($task->created, 'task created was not set');
 		$this->assertNotNull($task->modified, 'task modified was not set');
-			
+		
+		
 	}
 	
 	/**
 	* Set name input over the acceptable lengths
 	*/
-	public function testCreateTaskExceedMaximumNameInput() {
+	public function testInsertTaskExceedMaximumNameInput() {
 		
 		$name = StringUtils::createRandomString(255 + 1);
 
@@ -102,7 +106,7 @@ class CreateTaskTest extends DbTestCase
 	/**
 	* Test task create when no name, starts and ends are set
 	*/
-	public function testCreateTaskNoInput() {
+	public function testInsertTaskNoInput() {
 
 		$name = null;
 		

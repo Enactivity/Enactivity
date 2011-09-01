@@ -2,7 +2,7 @@
 
 require_once 'TestConstants.php';
 
-class CreateGroupTest extends DbTestCase
+class InsertGroupTest extends DbTestCase
 {
     public $groupUnderTest = null;
 
@@ -37,9 +37,9 @@ class CreateGroupTest extends DbTestCase
     }
     
 	/**
-	 * Create a valid group
+	 * Insert a valid group
 	 */
-    public function testCreateGroupValidSave() {
+    public function testInsertGroupValidSave() {
     	
 		$name = StringUtils::createRandomString(10);
 		$slug = StringUtils::createRandomString(10);
@@ -65,9 +65,9 @@ class CreateGroupTest extends DbTestCase
 	}
 	
 	/**
-	 * Create a valid group and ensure entries are trimmed
+	 * Insert a valid group and ensure entries are trimmed
 	 */
-    public function testCreateGroupTrimSpaces() {
+    public function testInsertGroupTrimSpaces() {
     	
 		$name = StringUtils::createRandomString(10);
 		$slug = StringUtils::createRandomString(10);
@@ -97,9 +97,9 @@ class CreateGroupTest extends DbTestCase
 	}
 	
 	/**
-	 * Create a valid group
+	 * Insert a valid group
 	 */
-    public function testCreateGroupMaximumInputs() {
+    public function testInsertGroupMaximumInputs() {
     	
 		$name = StringUtils::createRandomString(255);
 		$slug = StringUtils::createRandomString(50);
@@ -128,7 +128,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Set inputs over the acceptable lengths
 	 */
-    public function testCreateGroupExceedMaximumInputs() {
+    public function testInsertGroupExceedMaximumInputs() {
     	
 		$name = StringUtils::createRandomString(255 + 1);
 		$slug = StringUtils::createRandomString(50 + 1);
@@ -145,7 +145,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Test group create when name and slug are blank
 	 */
-	public function testCreateGroupBlankInputs() {
+	public function testInsertGroupBlankInputs() {
 
 		$name = '';
 		$slug = '';
@@ -163,7 +163,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNullInputs() {
+	public function testInsertGroupNullInputs() {
 
 		$name = null;
 		$slug = null;
@@ -180,7 +180,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNoInputs() {
+	public function testInsertGroupNoInputs() {
 
 		$this->groupUnderTest = new Group();
 	    $this->groupUnderTest->setAttributes(array());
@@ -191,7 +191,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNoName() {
+	public function testInsertGroupNoName() {
 
 		$name = null;
 		$slug = StringUtils::createRandomString(10);
@@ -208,7 +208,7 @@ class CreateGroupTest extends DbTestCase
 	/**
 	 * Test group create when no inputs are set
 	 */
-	public function testCreateGroupNoSlug() {
+	public function testInsertGroupNoSlug() {
 
 		$name = StringUtils::createRandomString(10);
 		$slug = null;
