@@ -27,7 +27,8 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 */
 	static function insertInvited($attributes, $groupId = 1) {
-		$user = self::makeInvited($attributes);
+		$user = self::make($attributes);
+		$user->save();
 
 		// add user to group
 		$groupUser = new GroupUser();
