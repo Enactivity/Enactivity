@@ -58,6 +58,10 @@ class UpdateTaskTest extends DbTestCase
 		$this->assertEquals($starts, $this->task->starts, 'task starts was not saved');
 	}
 	
+	/**
+	 * Updating a Valid Task with DateTime
+	 */
+	
 	public function testUpdateTaskValidwithDateTime() 
 	{
 	    $this->task = Task::model()->findByPk($this->task->id);
@@ -84,6 +88,31 @@ class UpdateTaskTest extends DbTestCase
 		$this->assertEquals($starts, $this->task->starts, 'task starts was not saved');
 		
 	}
+	
+	/**
+	 * Updating Task with a Null Name
+	 */
+	
+	public function testUpdateTaskWithNullName()
+	{
+		$this->task = Task::model()->findByPk($this->task->id);
+		
+		$name = null;
+		$starts = date ("Y-m-d H:i:s", strtotime("-1 hours"));
+		
+		$this->task->setAttributes(array(
+			'name' => $name,
+	    	'starts' => $starts,
+	    ));
+	    
+		$this->assertNull($this->task->name, 'save name is not null');
+		$this->assertFalse($this->task->saveNode(), 'task without name was saved: ');
+	}
+	
+	/**
+	 * Updating task with trimmed name and trimmed DateTime
+	 */
+	
 	public function testUpdateTaskTrimSpacesWithDateTime() 
 	{
 		$name = StringUtils::createRandomString(10);
@@ -109,4 +138,26 @@ class UpdateTaskTest extends DbTestCase
 		$this->assertEquals($name, $this->task->name, 'task name was not saved');
 		$this->assertEquals($starts, $this->task->starts, 'task starts was not saved');
 	}
+	
+	/**
+	 * Updating task with only startDate
+	 */
+	
+	public function testSetDate()
+	{
+		$this->task = Task::model()->findByPk($this->task->id);
+		$name = StringUtils::createRandomString(10);
+		$today = date ('m/d/Y', time());
+		
+		$this->task->setAttributes(array(
+			'name' => $name,
+	    	'startDate' => $today,
+	    ));
+	    
+	    $this->assertTrue($this->task->saveNode(), 'valid task was not saved');
+	    $this->task = Task::model()->findByPk($this->task->id);
+	 	$this->assertEquals($today, $this->task->startDate, 'task startDate was not saved');
+	    
+	}
+	
 }
