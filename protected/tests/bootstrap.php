@@ -9,5 +9,6 @@ $_SERVER['SERVER_NAME'] = 'http://localhost';
 
 require_once($yiit);
 require_once(dirname(__FILE__).'/WebTestCase.php');
+require_once(dirname(__FILE__).'/TestConstants.php');
 
 Yii::createWebApplication($config);

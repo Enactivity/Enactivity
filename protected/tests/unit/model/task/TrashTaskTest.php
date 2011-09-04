@@ -1,7 +1,5 @@
 <?php
 
-require_once 'TestConstants.php';
-
 class TrashTaskTest extends DbTestCase
 {
 			

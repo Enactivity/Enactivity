@@ -1,7 +1,5 @@
 <?php
 
-require_once 'TestConstants.php';
-
 class UpdateTaskTest extends DbTestCase
 {
 	public $task;

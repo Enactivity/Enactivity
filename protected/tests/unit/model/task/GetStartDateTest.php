@@ -2,9 +2,6 @@
 /**
  * Tests for Task->getStartDate()
  */
-
-require_once 'TestConstants.php';
-
 class GetStartDateTest extends DbTestCase
 {
 
