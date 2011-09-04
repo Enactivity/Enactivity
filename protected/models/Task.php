@@ -71,7 +71,7 @@ class Task extends CActiveRecord
 				'class' => 'ext.behaviors.DefaultGroupBehavior',
 			),
 			'DateTimeZoneBehavior'=>array(
-							'class' => 'ext.behaviors.DateTimeZoneBehavior',
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
 			// Nested Set Behavior
 			'NestedSetBehavior'=>array(
