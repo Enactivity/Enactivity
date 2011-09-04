@@ -461,10 +461,10 @@ class Task extends CActiveRecord
 	 * Saves TaskUser
 	 * @return Task
 	 */
-	public function participate() {
+	public function participate($userId) {
 		
 		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser();
+		$userTask = $this->loadTaskUser($userId);
 		
 		if(!$userTask->isNewRecord) {
 			$userTask->unTrash();
@@ -479,10 +479,10 @@ class Task extends CActiveRecord
 	 * Saves TaskUser
 	 * @return Task
 	 */
-	public function unparticipate() {
+	public function unparticipate($userId) {
 			
 		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser();
+		$userTask = $this->loadTaskUser($userId);
 		
 		$userTask->trash();
 		$userTask->save();
@@ -495,10 +495,10 @@ class Task extends CActiveRecord
 	 * Saves TaskUser
 	 * @return Task
 	 */
-	public function userComplete() {
+	public function userComplete($userId) {
 		
 		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser();
+		$userTask = $this->loadTaskUser($userId);
 		
 		$userTask->complete();
 		$userTask->save();
@@ -511,10 +511,10 @@ class Task extends CActiveRecord
 	 * Saves TaskUser
 	 * @return Task
 	 */
-	public function userUncomplete() {
+	public function userUncomplete($userId) {
 			
 		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser();
+		$userTask = $this->loadTaskUser($userId);
 		
 		$userTask->uncomplete();
 		$userTask->save();
@@ -527,11 +527,11 @@ class Task extends CActiveRecord
 	 * exists yet, an unsaved new TaskUser is created. 
 	 * @return TaskUser model for linking task to current user
 	 */
-	private function loadTaskUser() {
+	private function loadTaskUser($userId) {
 		// look for the TaskUser for this combination
 		$userTask = TaskUser::model()->findByAttributes(
 			array(
-				'userId'=>Yii::app()->user->id,
+				'userId'=>$userId,
 				'taskId'=>$this->id,
 			)
 		);
@@ -539,7 +539,7 @@ class Task extends CActiveRecord
 		// if no TaskUser linker exists, create one
 		if(is_null($userTask)) {
 			$userTask = new TaskUser();
-			$userTask->userId = Yii::app()->user->id;
+			$userTask->userId = $userId;
 			$userTask->taskId = $this->id;
 		}
 		return $userTask;
