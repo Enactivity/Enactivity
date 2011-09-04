@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests related to the initial insertion of a Task model
+ * Tests related to the CTimestampBehavior of a Task model
  * @author ajsharma
  */
 class CTimestampBehaviorTest extends DbTestCase {
