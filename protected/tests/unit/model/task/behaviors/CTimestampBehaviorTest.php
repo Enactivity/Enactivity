@@ -19,11 +19,10 @@ class CTimestampBehaviorTest extends DbTestCase {
 		// run test
 		$this->task = new Task();
 		$this->task->attributes = array(
-					'id' => $id,
-					'name' => $name,
-					'isTrash' => $isTrash,
-					'created' => $created,
-					'modified' => $modified,
+			'name' => $name,
+			'isTrash' => $isTrash,
+			'created' => $created,
+			'modified' => $modified,
 		);
 	}
 
