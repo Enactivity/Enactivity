@@ -12,7 +12,7 @@ class TaskFactory extends AbstractFactory {
 	 */
 	static function make($attributes = array()) {
 		$task = new Task();
-		$task->name = "task" + uniqid();
+		$task->name = "ptask" + uniqid();
 		
 		// overload attributes
 		$task->attributes = $attributes;
