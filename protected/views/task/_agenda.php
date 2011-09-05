@@ -8,7 +8,7 @@
 // instantiate the arrays if needed
 $datedTasks = empty($datedTasks) ? array() : $datedTasks;
 $datelessTasks = empty($datelessTasks) ? array() : $datelessTasks;
-$showParent = empty($showParent) ? false : $showParent;
+$showParent = empty($showParent) ? true : $showParent;
 
 ?>
 <section class='agenda'>
