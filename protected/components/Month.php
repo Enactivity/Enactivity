@@ -69,7 +69,7 @@ class Month extends CComponent {
 	 * @return array an associative array of information related to the timestamp.
 	 */
 	public function getLastDayOfMonth() {
-		return getdate(mktime(0, 0, 0, $this->intValue, $this->calendarDays, $year));
+		return getdate(mktime(0, 0, 0, $this->intValue, $this->calendarDays, $this->year));
 	}
 	
 	/**
