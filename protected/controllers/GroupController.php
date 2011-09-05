@@ -24,6 +24,9 @@ class GroupController extends Controller
 			$group = $this->loadModel($_GET['id']);
 			$groupId = $group->id;
 		}
+		else {
+			$groupId = null;
+		}
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('view'),
