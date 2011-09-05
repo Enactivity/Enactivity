@@ -118,8 +118,17 @@ class JuiDateTimePicker extends CJuiWidget
 				}";
 		}
 		$this->htmlOptions['id'] = $this->htmlOptions['id'].'_container';
-		$this->htmlOptions['name'] = $this->htmlOptions['name'] . '_container';
+		
+		if(empty($this->htmlOptions['class'])) {
+			$this->htmlOptions['class'] = '';
+		} 
+		$this->htmlOptions['class'] = $this->htmlOptions['class'] . '_container';
+		
+		if(empty($this->htmlOptions['style'])) {
+			$this->htmlOptions['style'] = '';
+		}
 		$this->htmlOptions['style']= $this->htmlOptions['style'].'display: none;';
+		
 		echo CHtml::tag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
 		echo CHtml::link("Clear",'#',
