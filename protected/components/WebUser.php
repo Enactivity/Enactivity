@@ -39,7 +39,13 @@ class WebUser extends CWebUser {
 	public function getIsAdmin()
 	{
 		//TODO: implement admin in user
-		return $this->getModel()->email == 'admin@poncla.com';
+		if($this != null) {
+			$model = $this->getModel();
+			if(isset($model)) {
+				return $model->email == 'admin@poncla.com';
+			}
+		}
+		return false;
 	}
 	
 	/**
