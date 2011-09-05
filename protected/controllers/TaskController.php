@@ -24,6 +24,10 @@ class TaskController extends Controller
 			$task = $this->loadModel($_GET['id']);
 			$groupId = $task->groupId;
 		}
+		else {
+			$groupId = null;
+		}
+		
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index', 'calendar'),
