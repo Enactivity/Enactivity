@@ -14,7 +14,7 @@ $this->pageTitle = $model->name;
 	if(!$model->isRoot()) {
 		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
 		echo PHtml::link(
-			PHtml::encode($model->parent->name),
+			StringUtils::truncate(PHtml::encode($model->parent->name)),
 			array('task/view', 'id'=>$model->parent->id)
 		);
 		echo PHtml::closeTag('span');
