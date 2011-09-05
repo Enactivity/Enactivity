@@ -33,22 +33,22 @@ $this->widget('application.components.widgets.UserLink', array(
 	'userModel' => $data->user,
 )); 
 echo ' ';
-if($data->modelObject) {
+if(isset($data->modelObject)) {
 	echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
+	echo ' ';
+	echo PHtml::link(
+		StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80),
+		array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
+	);
 }
 else {
 	echo 'deleted something';
 }	
-echo ' '; 
-echo PHtml::link(
-	StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80), 
-	array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
-);
 
 echo PHtml::closeTag('h1');
 
 if($data->action == ActiveRecordLog::ACTION_UPDATED) {
-	echo Phtml::openTag(p);
+	echo Phtml::openTag('p');
 	echo 'Changed ';
 	// if the referred to model was actually deleted then avoid the null pointer exception
 	if(isset($data->modelObject)) {
@@ -85,7 +85,7 @@ if($data->action == ActiveRecordLog::ACTION_UPDATED) {
 		echo PHtml::encode($data->newAttributeValue);
 	}
 	echo PHtml::closeTag('strong');
-	echo Phtml::closeTag(p);
+	echo Phtml::closeTag('p');
 }
 
 echo PHtml::closeTag('article');
