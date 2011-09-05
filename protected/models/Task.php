@@ -322,7 +322,7 @@ class Task extends CActiveRecord
 	 */
 	public function getIsCompleted() {
 		// if it has subtasks, check they are completed
-		if(!$this->isLeaf) {
+		if($this->hasChildren) {
 			foreach($this->children()->findAll() as $subtask) {
 				if(!$subtask->isTrash
 				&& !$subtask->isCompleted) {
@@ -356,9 +356,9 @@ class Task extends CActiveRecord
 	/**
 	 * Does the Task have any children?
 	 * @return boolean
-	 * @deprecated use isLeaf instead
 	 */
 	public function getHasChildren() {
+		//FIXME: doesn't account for deleted children
 		return !$this->isLeaf();
 	}
 	
