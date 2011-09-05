@@ -1,4 +1,11 @@
 <?php
+/**
+ * Lists user's upcoming tasks
+ * @uses datedTasksProvider
+ * @uses datelessTasksProvider
+ * @uses newTask
+ */
+
 $this->pageTitle = 'Tasks';
 ?>
 
@@ -11,7 +18,7 @@ $this->pageTitle = 'Tasks';
 echo $this->renderPartial('_form', array('model'=>$newTask));
 
 if($datedTasksProvider->itemCount > 0
-|| $datelessTaskProvider->itemCount > 0) {
+|| $datelessTasksProvider->itemCount > 0) {
 	echo $this->renderPartial('_agenda', array(
 		'datedTasks'=>$datedTasksProvider->data,
 		'datelessTasks'=>$datelessTasksProvider->data,
