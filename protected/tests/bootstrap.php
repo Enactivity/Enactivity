@@ -14,5 +14,6 @@ require_once(dirname(__FILE__).'/TestConstants.php');
 // require factories
 require_once(dirname(__FILE__).'/factories/AbstractFactory.php');
 require_once(dirname(__FILE__).'/factories/TaskFactory.php');
+require_once(dirname(__FILE__).'/factories/UserFactory.php');
 
 Yii::createWebApplication($config);

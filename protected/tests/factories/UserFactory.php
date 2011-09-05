@@ -15,7 +15,7 @@ class UserFactory extends AbstractFactory {
 		$user = new User();
 		$user->scenario = User::SCENARIO_INVITE;
 		$user->attributes = array(
-			'email' => "pemail+" + uniqid() + "@alpha.poncla.com"
+			'email' => "pemail+" . uniqid() . "@alpha.poncla.com"
 		);
 
 		return $user;
@@ -29,7 +29,7 @@ class UserFactory extends AbstractFactory {
 	static function insertInvited($attributes, $groupId = 1) {
 		$user = self::make($attributes);
 		$user->save();
-
+		
 		// add user to group
 		$groupUser = new GroupUser();
 		$groupUser->groupId = $groupId;
@@ -37,12 +37,15 @@ class UserFactory extends AbstractFactory {
 		$groupUser->status = GroupUser::STATUS_ACTIVE;
 		$groupUser->save();
 
-		return User::model()->findAllByPk($user->id);
+		$foundUser = User::model()->findByPk($user->id);
+		return $foundUser;
 	}
 
 	/**
-	 * Returns a user generated via {@link UserFactory::make()}
-	 * @param attributes, overloads default attributes
+	 * Returns a user generated via {@link UserFactory::insertInvited()}
+	 * that is an active part of the group
+	 * @param array $attributes, overloads default attributes
+	 * @param int $groupId
 	 * @return User saved user
 	 */
 	static function insert($attributes = array(), $groupId = 1) {
@@ -50,7 +53,6 @@ class UserFactory extends AbstractFactory {
 		$user = self::insertInvited($attributes, $groupId);
 
 		// register
-		$user = User::model()->findById($user->id);
 		$user->scenario = User::SCENARIO_REGISTER;
 		$user->attributes = array(
 			'firstName' => "pfirst" + uniqid(),
@@ -61,8 +63,7 @@ class UserFactory extends AbstractFactory {
 		// overload attributes
 		$user->attributes = $attributes;
 
-		$user->save();
-
-		return User::model()->findByPk($user->id);
+		$foundUser = User::model()->findByPk($user->id);
+		return $foundUser;
 	}
 }
