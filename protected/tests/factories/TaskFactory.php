@@ -21,6 +21,22 @@ class TaskFactory extends AbstractFactory {
 	}
 	
 	/**
+	 * Make a subtask
+	 * @param int $parentId id of the parent task
+	 * @param array $attributes
+	 * @return Task subtask
+	 */
+	static function makeSubTask($parentId, $attributes = array()) {
+		$parent = Task::model()->findByPk($parentId);
+
+		$task = self::make($attributes);
+		$task->appendTo($parent);
+		
+		$subtask = Task::model()->findByPk($task->id);
+		return $subtask;
+	}
+	
+	/**
 	 * Returns a task generated via {@link TaskFactory::make()}
 	 * @param attributes, overloads default attributes
 	 * @return Task saved task
