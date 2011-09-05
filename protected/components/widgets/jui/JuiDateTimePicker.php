@@ -131,12 +131,14 @@ class JuiDateTimePicker extends CJuiWidget
 		
 		echo CHtml::tag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
+		echo CHtml::openTag('p');
 		echo CHtml::link("Clear",'#',
 				array(
 					'class' => 'clear-date-time'	
 				)
 			
 		);
+		echo CHtml::closeTag('p');
 		$cs = Yii::app()->getClientScript();
 		
 		// attach script to input to prevent keyboard pop-ups on focus
