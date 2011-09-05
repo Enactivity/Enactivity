@@ -2,12 +2,13 @@
 /**
  * @param datedTasks Task[] tasks with dates
  * @param datelessTasks Task[] task with no dates
- * @param showParent boolean
+ * @param showParent boolean defaults to true
  */
 
 // instantiate the arrays if needed
 $datedTasks = empty($datedTasks) ? array() : $datedTasks;
 $datelessTasks = empty($datelessTasks) ? array() : $datelessTasks;
+$showParent = empty($showParent) ? false : $showParent;
 
 ?>
 <section class='agenda'>

@@ -19,8 +19,6 @@ $this->menu[] = array(
 );
 ?>
 
-
-
 <header>
 	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
 </header>

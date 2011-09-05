@@ -1,4 +1,10 @@
 <?php
+/**
+ * @uses $model 
+ * @uses $subtasks
+ * @uses $newTask
+ * @uses $feedDataProvider
+ */
 $this->pageTitle = $model->name;
 ?>
 
@@ -166,7 +172,6 @@ if($model->isSubtaskable):
 echo $this->renderPartial('_agenda', array(
 		'datedTasks'=>$subtasks,
 		'datelessTasks'=>$subtasks,
-		'month'=>$month,
 		'showParent'=>false,
 ));
 ?>

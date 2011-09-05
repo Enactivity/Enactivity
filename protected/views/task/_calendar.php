@@ -1,4 +1,11 @@
 <?php 
+/**
+ * @uses $datedTasksProvider
+ * @uses $datelessTasksProvider
+ * @uses $newTask
+ * @uses $month
+ */
+
 // start calendar table
 echo PHtml::openTag('table', array('class'=>'calendar'));
 
