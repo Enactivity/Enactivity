@@ -53,6 +53,10 @@ class WebUser extends CWebUser {
 	 * @return boolean whether the current application user is in the group
 	 */
 	public function isGroupMember($groupId) {
+		if(is_null($groupId) || empty($groupId)) {
+			return false;
+		}
+		
 		return GroupUser::model()->isGroupMember($groupId, Yii::app()->user->id); 
 	}
 	
