@@ -36,6 +36,7 @@ echo $this->renderPartial('_calendar', array(
 echo $this->renderPartial('_agenda', array(
 	'datedTasks'=>$datedTasksProvider->data,
 	'datelessTasks'=>$datelessTasksProvider->data,
+	'showParent'=>'true',
 ));
 
 // "what would you want to do input" box
