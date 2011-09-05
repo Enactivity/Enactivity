@@ -64,7 +64,7 @@ class TaskUser extends CActiveRecord
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'focalModelClass' => 'Task',
 				'focalModelId' => 'taskId',
-				'feedAttribute' => $this->task->name,
+				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
 			),
 		);
