@@ -14,14 +14,13 @@ $this->pageTitle = 'Tasks';
 </header>
 
 <?php
-// "what would you want to do input" box
-echo $this->renderPartial('_form', array('model'=>$newTask));
 
 if($datedTasksProvider->itemCount > 0
 || $datelessTasksProvider->itemCount > 0) {
 	echo $this->renderPartial('_agenda', array(
 		'datedTasks'=>$datedTasksProvider->data,
 		'datelessTasks'=>$datelessTasksProvider->data,
+		'showParent'=>true,
 	));
 }
 else {
@@ -34,3 +33,6 @@ else {
 	echo '?'; 
 	echo PHtml::closeTag('p');
 }
+
+// "what would you want to do input" box
+echo $this->renderPartial('_form', array('model'=>$newTask));
