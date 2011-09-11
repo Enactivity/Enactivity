@@ -62,14 +62,28 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 
 	// print the date
 	if($day > 0 && $day <= $month->calendarDays) {
-		echo PHtml::link(
-			date('d', $currentDayStart), 
-			array('task/calendar/', 
-				'month' => $month->intValue,
-				'year' => $month->year,
-				'#' => 'day-' . $month->year . '-' . date('m', $currentDayStart) . '-' . date('d', $currentDayStart) //day-YYYY-mm-dd
-			)
-		);
+		$day = date('d', $currentDayStart);
+		
+		if($hasTasks) {
+			echo PHtml::link(
+				$day, 
+				array('task/calendar/', 
+					'month' => $month->intValue,
+					'year' => $month->year,
+					'#' => 'day-' . $month->year . '-' . date('m', $currentDayStart) . '-' . $day //day-YYYY-mm-dd
+				)
+			);
+		}
+		else {
+			echo PHtml::link(
+				$day, 
+				array('task/create/', 
+					'day' => $day,
+					'month' => $month->intValue,
+					'year' => $month->year,
+				)
+			);
+		}
 	}
 
 	// if it's the end of a week, end a the row

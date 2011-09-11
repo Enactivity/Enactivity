@@ -181,7 +181,7 @@ echo $this->renderPartial('_agenda', array(
 
 <?php // "what would you want to do input" box
 if($model->isSubtaskable) {
-	echo $this->renderPartial('_form', array('model'=>$newTask));
+	echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true));
 }
 
 // Show history

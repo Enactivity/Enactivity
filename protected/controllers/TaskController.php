@@ -30,7 +30,7 @@ class TaskController extends Controller
 		
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index', 'calendar'),
+				'actions'=>array('index','create','calendar'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -64,6 +64,7 @@ class TaskController extends Controller
 		
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
+		$newTask->starts = $model->starts;
 		
 		$feedDataProvider = new CArrayDataProvider($model->feed);
 		
@@ -78,15 +79,28 @@ class TaskController extends Controller
 		);
 	}
 	
+	
 	/**
-	 *	Displays a list of upcoming user goals and tasks
-	 */
-	public function actionWhatsNext() {
-		$model = $this->handleNewTaskForm();
-		
-		$this->render('whatsnext',array(
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	*/
+	public function actionCreate($year = null, $month = null, $day = null)
+	{
+		$model = new Task;
+	
+		if(isset($year)
+		&& isset($month)
+		&& isset($day)) {
+			$model->startDate = $month . "/" . $day . "/" . $year;
+		}
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		self::handleNewTaskForm();
+	
+		$this->render('create',array(
 			'model'=>$model,
-			'tasks'=>Yii::app()->user->model->nextTasks, 
 		));
 	}
 
@@ -304,7 +318,7 @@ class TaskController extends Controller
 	}
 	
 	/**
-	* Lists all models.
+	 * Lists all models.
 	*/
 	public function actionCalendar($month=null, $year=null)
 	{
