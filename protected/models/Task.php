@@ -165,6 +165,7 @@ class Task extends CActiveRecord
 				'condition' => 'participatingTaskUsers.isTrash=0',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
+				'condition' => 'participatingTaskUsers.isTrash=0',
 				'through' => 'participatingTaskUsers',
 			),
 			
