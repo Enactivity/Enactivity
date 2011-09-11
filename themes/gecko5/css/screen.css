@@ -472,6 +472,12 @@ select[name="Task[endTime]"]  {
 	width: 50%;
 }
 
+.clear-date-time {
+	display: block;
+	padding-bottom: .5em;
+	padding-top: .5em;
+}
+
 /* Special settings for displaying inline */
 .new-task {
 	max-width: none;
