@@ -27,28 +27,28 @@ class TaskController extends Controller
 		else {
 			$groupId = null;
 		}
-		
+
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+		array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','create','calendar'),
 				'users'=>array('@'),
-			),
-			array('allow',  // allow only group members to perform 'updateprofile' actions
+		),
+		array('allow',  // allow only group members to perform 'updateprofile' actions
 				'actions'=>array(
 					'view','update','trash',
 					'untrash','complete','uncomplete',
 					'participate','unparticipate',
 					'userComplete','userUncomplete',
-				),
+		),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		),
+		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin', 'delete'),
 				'expression'=>'$user->isAdmin',
-			),
-			array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+		),
 		);
 	}
 
@@ -61,44 +61,44 @@ class TaskController extends Controller
 		// load model
 		$model = $this->loadModel($id);
 		$subtasks = $model->children()->findAll();
-		
+
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
 		$newTask->starts = $model->starts;
-		
+
 		$feedDataProvider = new CArrayDataProvider($model->feed);
-		
+
 		$this->render(
 			'view', 
-			array(
+		array(
 				'model' => $model,
 				'subtasks' => $subtasks, 
 				'newTask' => $newTask,
 				'feedDataProvider' => $feedDataProvider,
-			)
+		)
 		);
 	}
-	
-	
+
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	*/
+	 */
 	public function actionCreate($year = null, $month = null, $day = null)
 	{
 		$model = new Task;
-	
+
 		if(isset($year)
 		&& isset($month)
 		&& isset($day)) {
 			$model->startDate = $month . "/" . $day . "/" . $year;
 		}
-	
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-	
+
 		self::handleNewTaskForm();
-	
+
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -120,14 +120,14 @@ class TaskController extends Controller
 		{
 			$model->attributes=$_POST['Task'];
 			if($model->saveNode())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
-	
+
 	/**
 	 * Trashes a particular model.
 	 * If trash is successful, the browser will be redirected to the 'index' page.
@@ -145,14 +145,14 @@ class TaskController extends Controller
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 	/**
 	 * Untrashes a particular model.
 	 * If untrash is successful, the browser will be redirected to the 'index' page.
@@ -166,18 +166,18 @@ class TaskController extends Controller
 			$task = $this->loadModel($id);
 			$task->untrash();
 			$task->saveNode();
-			
+				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 	/**
 	 * Adds the current user to task
 	 * If add is successful, the browser will be redirected to the 'index' page.
@@ -194,14 +194,14 @@ class TaskController extends Controller
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 	/**
 	 * Removes current user from task
 	 * If remove is successful, the browser will be redirected to the 'index' page.
@@ -214,20 +214,20 @@ class TaskController extends Controller
 			// we only allow unparticipating via POST request
 			$task = $this->loadModel($id);
 			$task->unparticipate(Yii::app()->user->id);
-			
+				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 	/**
-	 * Marks the user as having completed the task 
+	 * Marks the user as having completed the task
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
@@ -242,16 +242,16 @@ class TaskController extends Controller
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 	/**
-	 * Marks the user as having completed the task 
+	 * Marks the user as having completed the task
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
@@ -262,18 +262,18 @@ class TaskController extends Controller
 			// we only allow uncomplete via POST request
 			$task = $this->loadModel($id);
 			$task->userUncomplete(Yii::app()->user->id);
-			
+				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
-				Yii::app()->end();	
+				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-	
+
 
 	/**
 	 * Deletes a particular model.
@@ -284,15 +284,30 @@ class TaskController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			// we only allow trashing via POST request
+			$task = $this->loadModel($id);
+			$parentId = null;
+			if(!$task->isRoot) {
+				$parentId = $task->getParent()->id; // so we can use it for redirect
+			}
+				
+			if($task->deleteNode()) {
+				if(!is_null($parentId)) {
+					$this->redirect(array('task/view', 'id'=>$parentId));
+				}
+				else {
+					$this->redirect(array('task/index'));
+				}
+			}
+			else {
+				// Something went wrong
+				Yii::app()->user->setFlash('error', 'There was an error deleting the Task, please try again later.');
+				$this->redirect(array('task/view', 'id'=>$task->id));
+			}
 		}
-		else
+		else {
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -301,59 +316,59 @@ class TaskController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CArrayDataProvider(
-			Yii::app()->user->model->nextTasks,
-			array(
+		Yii::app()->user->model->nextTasks,
+		array(
 				'pagination'=>false,
-			)
+		)
 		);
-		
+
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
-		
+
 		$this->render('index', array(
 			'datedTasksProvider'=>$dataProvider,
 			'datelessTasksProvider'=>$dataProvider, //FIXME: do a proper query
 			'newTask'=>$newTask,
 		));
 	}
-	
+
 	/**
 	 * Lists all models.
-	*/
+	 */
 	public function actionCalendar($month=null, $year=null)
 	{
 		$monthObj = new Month($month, $year);
-		
+
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
-			$taskWithDateQueryModel
-				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
-			array(
+		$taskWithDateQueryModel
+		->scopeUsersGroups(Yii::app()->user->id)
+		->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
+		array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'
-				),
+		),
 				'pagination'=>false,
-			)
+		)
 		);
-		
+
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
-			$taskWithoutDateQueryModel
-				->scopeUsersGroups(Yii::app()->user->id)
-				->scopeNoWhen()
-				->scopeLeaves(),
-			array(
+		$taskWithoutDateQueryModel
+		->scopeUsersGroups(Yii::app()->user->id)
+		->scopeNoWhen()
+		->scopeLeaves(),
+		array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'
-				),
+		),
 				'pagination'=>false,
-			)
+		)
 		);
-	
+
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
-	
+
 		$this->render('calendar', array(
 				'datedTasksProvider'=>$datedTasks,
 				'datelessTasksProvider'=>$datelessTasks,
@@ -370,7 +385,7 @@ class TaskController extends Controller
 		$model=new Task('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Task']))
-			$model->attributes=$_GET['Task'];
+		$model->attributes=$_GET['Task'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -386,10 +401,10 @@ class TaskController extends Controller
 	{
 		$model=Task::model()->findByPk((int)$id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+		throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
-	
+
 	/**
 	 * Return a new task based on POST data
 	 * @param int $parentId the id of the new task's parent
@@ -400,10 +415,10 @@ class TaskController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		
+
 		if(isset($_POST['Task'])) {
 			$model->attributes=$_POST['Task'];
-			
+				
 			if(isset($parentId)) {
 				$ParentTask = Task::model()->findByPk($parentId);
 				if($model->appendTo($ParentTask)) {
@@ -416,10 +431,10 @@ class TaskController extends Controller
 				}
 			}
 		}
-		
+
 		return $model;
 	}
-	
+
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
@@ -432,16 +447,23 @@ class TaskController extends Controller
 			Yii::app()->end();
 		}
 	}
-	
+
 	/**
 	 * Redirect the current view to the return url value or
 	 * to the task/view page if no return url is specified.
+	 *
+	 * If task is null, redirect to 'task/index'
+	 *
 	 * @param Task $task
 	 */
 	private function redirectReturnUrlOrView($task) {
+		if(is_null($task)) {
+			$this->redirect(array('task/index'));
+		}
+
 		$this->redirect(
-			isset($_POST['returnUrl']) 
-			? $_POST['returnUrl'] 
-			: array('task/view', 'id'=>$task->id,));
+		isset($_POST['returnUrl'])
+		? $_POST['returnUrl']
+		: array('task/view', 'id'=>$task->id,));
 	}
 }

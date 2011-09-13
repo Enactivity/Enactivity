@@ -130,9 +130,9 @@ if($model->isTrash) {
 else {
 	echo PHtml::link(
 		PHtml::encode('Trash'), 
-		array('task/trash', 'id'=>$model->id),
+		array('task/delete', 'id'=>$model->id),
 		array( //html
-			'submit'=>array('task/trash', 'id'=>$model->id),
+			'submit'=>array('task/delete', 'id'=>$model->id),
 			'csrf'=>true,
 			'id'=>'task-trash-menu-item-' . $model->id,
 			'class'=>'task-trash-menu-item',

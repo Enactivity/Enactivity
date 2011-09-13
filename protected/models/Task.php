@@ -239,6 +239,26 @@ class Task extends CActiveRecord
 		}
 	}
 	
+	/**
+	 * Delete any TaskUsers attached to the task.  
+	 * @see CActiveRecord::beforeDelete()
+	 */
+	public function beforeDelete() {
+		parent::beforeDelete();
+		$taskUsers = $this->taskUsers;
+		
+		try {
+			foreach ($taskUsers as $taskUser) {
+				$taskUser->delete();
+			}
+		}
+		catch(Exception $e) {
+			Yii::log('Task before delete failed: ' . $e->getMessage(), 'error');
+			throw $e;
+		}
+		return true;
+	}
+	
 	public function getStartDate() {
 		if(empty($this->starts)) return null;
 		
