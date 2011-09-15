@@ -91,7 +91,7 @@ if($data->isParticipatable) {
 				array( //html
 					'csrf' => true,
 					'id'=>'task-useruncomplete-menu-item-' . $data->id,
-					'class'=>'task-useruncomplete-menu-item',
+					'class'=>'neutral task-useruncomplete-menu-item',
 					'title'=>'Resume work on this task',
 				)
 			);
@@ -108,7 +108,7 @@ if($data->isParticipatable) {
 				array( //html
 					'csrf' => true,
 					'id'=>'task-usercomplete-menu-item-' . $data->id,
-					'class'=>'task-usercomplete-menu-item',
+					'class'=>'positive task-usercomplete-menu-item',
 					'title'=>'Finish working on this task',
 				)
 			); 
@@ -128,7 +128,7 @@ if($data->isParticipatable) {
 			array( //html
 				'csrf' => true,
 				'id'=>'task-unparticipate-menu-item-' . $data->id,
-				'class'=>'task-unparticipate-menu-item',
+				'class'=>'neutral task-unparticipate-menu-item',
 				'title'=>'Quit this task',
 			)
 		);
@@ -147,7 +147,7 @@ if($data->isParticipatable) {
 			array( //html
 				'csrf'=>true,
 				'id'=>'task-participate-menu-item-' . $data->id,
-				'class'=>'task-participate-menu-item',
+				'class'=>'positive task-participate-menu-item',
 				'title'=>'Sign up for task',
 			)
 		);

@@ -44,7 +44,7 @@ $this->pageTitle = $model->name;
 						'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
 						'csrf'=>true,
 						'id'=>'task-useruncomplete-menu-item-' . $model->id,
-						'class'=>'task-useruncomplete-menu-item',
+						'class'=>'neutral task-useruncomplete-menu-item',
 						'title'=>'Resume work on this task',
 					)
 				);
@@ -56,7 +56,7 @@ $this->pageTitle = $model->name;
 						'submit'=>array('/task/usercomplete', 'id'=>$model->id),
 						'csrf'=>true,
 						'id'=>'task-usercomplete-menu-item-' . $model->id,
-						'class'=>'task-usercomplete-menu-item',
+						'class'=>'positive task-usercomplete-menu-item',
 						'title'=>'Finish working on this task',
 					)
 				);
@@ -73,7 +73,7 @@ $this->pageTitle = $model->name;
 					'submit' => array('task/unparticipate', 'id'=>$model->id),
 					'csrf' => true,
 					'id'=>'task-unparticipate-menu-item-' . $model->id,
-					'class'=>'task-unparticipate-menu-item',
+					'class'=>'neutral task-unparticipate-menu-item',
 					'title'=>'Quit this task',
 				)
 			);
@@ -87,7 +87,7 @@ $this->pageTitle = $model->name;
 					'submit'=>array('task/participate', 'id'=>$model->id),
 					'csrf'=>true,
 					'id'=>'task-participate-menu-item-' . $model->id,
-					'class'=>'task-participate-menu-item',
+					'class'=>'positive task-participate-menu-item',
 					'title'=>'Sign up for task',
 				)
 			);
@@ -103,7 +103,7 @@ $this->pageTitle = $model->name;
 					'submit'=>array('task/update', 'id'=>$model->id),
 					'csrf'=>true,
 					'id'=>'task-update-menu-item-' . $model->id,
-					'class'=>'task-update-menu-item',
+					'class'=>'neutral task-update-menu-item',
 					'title'=>'Update this task',
 				)
 			);
@@ -118,7 +118,7 @@ if($model->isTrash) {
 			'submit'=>array('task/untrash', 'id'=>$model->id),
 			'csrf'=>true,
 			'id'=>'task-untrash-menu-item-' . $model->id,
-			'class'=>'task-untrash-menu-item',
+			'class'=>'positive task-untrash-menu-item',
 			'title'=>'Restore this task',
 		)
 	);
@@ -130,7 +130,7 @@ else {
 			'submit'=>array('task/delete', 'id'=>$model->id),
 			'csrf'=>true,
 			'id'=>'task-trash-menu-item-' . $model->id,
-			'class'=>'task-trash-menu-item',
+			'class'=>'negative task-trash-menu-item',
 			'title'=>'Trash this task',
 		)
 	);
