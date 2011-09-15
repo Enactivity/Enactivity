@@ -38,9 +38,8 @@ $this->pageTitle = $model->name;
 		<li>
 		<?php
 			if($model->isUserComplete) {
-				echo PHtml::link(
+				echo PHtml::button(
 					PHtml::encode('Resume'),
-					array('/task/useruncomplete', 'id'=>$model->id),
 					array( //html
 						'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
 						'csrf'=>true,
@@ -51,9 +50,8 @@ $this->pageTitle = $model->name;
 				);
 			}
 			else {
-				echo PHtml::link(
+				echo PHtml::button(
 					PHtml::encode('Complete'),
-					array('/task/usercomplete', 'id'=>$model->id),
 					array( //html
 						'submit'=>array('/task/usercomplete', 'id'=>$model->id),
 						'csrf'=>true,
@@ -69,9 +67,8 @@ $this->pageTitle = $model->name;
 			<?php
 			// 'participate' button
 			echo PHtml::openTag('li');
-			echo PHtml::link(
+			echo PHtml::button(
 				PHtml::encode('Quit'), 
-				array('task/unparticipate', 'id'=>$model->id),
 				array( //html
 					'submit' => array('task/unparticipate', 'id'=>$model->id),
 					'csrf' => true,
@@ -84,9 +81,8 @@ $this->pageTitle = $model->name;
 		}
 		else {
 			echo PHtml::openTag('li');
-			echo PHtml::link(
+			echo PHtml::button(
 				PHtml::encode('Sign up'), 
-				array('task/participate', 'id'=>$model->id),
 				array( //html
 					'submit'=>array('task/participate', 'id'=>$model->id),
 					'csrf'=>true,
@@ -101,10 +97,11 @@ $this->pageTitle = $model->name;
 	?>
 		<li>
 			<?php
-			echo PHtml::link(
+			echo PHtml::button(
 				PHtml::encode('Update'), 
-				array('task/update', 'id'=>$model->id),
 				array(
+					'submit'=>array('task/update', 'id'=>$model->id),
+					'csrf'=>true,
 					'id'=>'task-update-menu-item-' . $model->id,
 					'class'=>'task-update-menu-item',
 					'title'=>'Update this task',
@@ -115,9 +112,8 @@ $this->pageTitle = $model->name;
 <?php
 echo PHtml::openTag('li');
 if($model->isTrash) {
-	echo PHtml::link(
+	echo PHtml::button(
 		PHtml::encode('Restore'), 
-		array('task/untrash', 'id'=>$model->id),
 		array( //html
 			'submit'=>array('task/untrash', 'id'=>$model->id),
 			'csrf'=>true,
@@ -128,9 +124,8 @@ if($model->isTrash) {
 	);
 }
 else {
-	echo PHtml::link(
+	echo PHtml::button(
 		PHtml::encode('Trash'), 
-		array('task/delete', 'id'=>$model->id),
 		array( //html
 			'submit'=>array('task/delete', 'id'=>$model->id),
 			'csrf'=>true,
