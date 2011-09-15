@@ -110,32 +110,6 @@ $this->pageTitle = $model->name;
 			?>
 		</li>
 <?php
-echo PHtml::openTag('li');
-if($model->isTrash) {
-	echo PHtml::button(
-		PHtml::encode('Restore'), 
-		array( //html
-			'submit'=>array('task/untrash', 'id'=>$model->id),
-			'csrf'=>true,
-			'id'=>'task-untrash-menu-item-' . $model->id,
-			'class'=>'positive task-untrash-menu-item',
-			'title'=>'Restore this task',
-		)
-	);
-}
-else {
-	echo PHtml::button(
-		PHtml::encode('Trash'), 
-		array( //html
-			'submit'=>array('task/delete', 'id'=>$model->id),
-			'csrf'=>true,
-			'id'=>'task-trash-menu-item-' . $model->id,
-			'class'=>'negative task-trash-menu-item',
-			'title'=>'Trash this task',
-		)
-	);
-}
-echo PHtml::closeTag('li');
 ?>
 </ul>
 </div>
