@@ -152,8 +152,6 @@ section > h1 {
 }
 
 .content {
-	background-color: #ffffff;
-	color: #333436;
 	padding: 0 16px; /* Not all pages want top and bottom padding */
 	position: relative;
 	overflow: auto; /* so that first and last child can set their own margins */
@@ -184,12 +182,13 @@ section > h1 {
 }
 
 .menu {
-	position: absolute;
+	margin-top: 8px;
 }
 
 .menu li {
 	display: inline-block;
 	list-style-type: none;
+	margin-right: 4px;
 	white-space: nowrap;
 }
 
@@ -331,6 +330,11 @@ input[type="button"] {
 	-moz-appearance: none; 
 	-webkit-appearance: none;
 }
+
+input[type="button"] {
+	padding: .75em;
+}
+
 
 input[type="submit"]:hover,
 input[type="submit"]:focus, 
@@ -500,10 +504,11 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
-	border-bottom: 1px solid #ECECEC;
+	background-color: #ffffff;
 	clear: both;
-	margin: 0 -16px; /* Negative margin for edge to edge right and left */
-	padding: 16px 116px 16px 16px; /* Increase right margin to account for menu */
+	color: #333436;
+	margin: 0 -16px 1px; /* Negative margin for edge to edge right and left */
+	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
 }
 
@@ -521,12 +526,6 @@ select[name="Task[endTime]"]  {
 
 .story .created {
 	font-size: .7em;
-}
-
-.story .menu {
-	right: 16px;
-	top: 50%; /* to help align menu vertically */
-	margin-top: -22px; /* half of menu size for vertical alignment */
 }
 
 /* Completed story stylings */ 
@@ -565,50 +564,6 @@ select[name="Task[endTime]"]  {
 
 /* Task menu and buttons */
 
-.task-update-menu-item {
-	background-image: url(../images/icons/pencil-32x32.png);	
-}
-
-.task-update-menu-item:hover,
-.task-update-menu-item:focus {
-	background-image: url(../images/icons/blue-pencil-32x32.png);	
-}
-
-.task-useruncomplete-menu-item,
-.task-usercomplete-menu-item:hover,
-.task-usercomplete-menu-item:focus {
-	background-image: url(../images/icons/check-blue-32x32.png);	
-}
-
-.task-usercomplete-menu-item,
-.task-useruncomplete-menu-item:hover,
-.task-useruncomplete-menu-item:focus {
-	background-image: url(../images/icons/check-gray-32x32.png);	
-}
-
-.task-unparticipate-menu-item,
-.task-participate-menu-item:hover,
-.task-participate-menu-item:focus {
-	background-image: url(../images/icons/man-blue-32x32.png);	
-}
-
-.task-participate-menu-item,
-.task-unparticipate-menu-item:hover,
-.task-unparticipate-menu-item:focus {
-	background-image: url(../images/icons/man-gray-32x32.png);	
-}
-
-.task-untrash-menu-item,
-.task-trash-menu-item:hover,
-.task-trash-menu-item:focus {
-	background-image: url(../images/icons/trash-with-arrow-32x32.png);
-}
-
-.task-trash-menu-item,
-.task-untrash-menu-item:hover,
-.task-untrash-menu-item:focus {
-	background-image: url(../images/icons/trash-can-32x32.png);
-}
 
 /* Task Calendar */
 
