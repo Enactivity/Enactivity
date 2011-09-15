@@ -12,9 +12,6 @@ $this->pageTitle = 'Recover Password';
 )); 
 ?>
 	<div class="field">
-		<p>Please fill out the following form with your login credentials:</p>
-	</div>
-	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
 		<div class="forminput"><?php echo $form->textField($model,'email',
 			 array('placeholder'=>'@')); ?></div>
