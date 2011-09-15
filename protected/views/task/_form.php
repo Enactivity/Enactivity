@@ -13,6 +13,8 @@ if($model->isNewRecord) {
 	$classForm = 'new-task';
 }
 
+$classForm .= $inline ? ' inline' : '';
+
 $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'task-form',
 	'action'=> isset($action) ? $action : '',
@@ -55,10 +57,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 					)
 				);
 			?></div>
-		<?php else: ?>
-		<?php	// preformat date before loading into widget 
-				echo PHtml::activeHiddenField($model, 'starts');
-		endif; ?>
+		<?php endif; ?>
 		<?php echo $form->error($model,'starts'); ?>
 	</div>
 	
