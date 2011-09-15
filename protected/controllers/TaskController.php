@@ -64,7 +64,6 @@ class TaskController extends Controller
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
-		$newTask->starts = $model->starts;
 
 		$feedDataProvider = new CArrayDataProvider($model->feed);
 
@@ -86,18 +85,21 @@ class TaskController extends Controller
 	 */
 	public function actionCreate($year = null, $month = null, $day = null)
 	{
-		$model = new Task;
+		$model = new Task();
 
+		$attributes = array();
+		
 		if(isset($year)
 		&& isset($month)
 		&& isset($day)) {
-			$model->startDate = $month . "/" . $day . "/" . $year;
+			// task->startDate doesn't stick in handle form 
+			$attributes['Task']['startDate'] = $month . "/" . $day . "/" . $year;
 		}
-
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		self::handleNewTaskForm();
+		$model = self::handleNewTaskForm(null, $attributes);
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -408,11 +410,13 @@ class TaskController extends Controller
 	/**
 	 * Return a new task based on POST data
 	 * @param int $parentId the id of the new task's parent
+	 * @param array $attributes attributes used to set default values
 	 * @return $model if not saved
 	 */
-	public function handleNewTaskForm($parentId = null) {
+	public function handleNewTaskForm($parentId = null, $attributes = array()) {
 		$model = new Task(Task::SCENARIO_INSERT);
-
+		$model->attributes = $attributes;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -420,9 +424,12 @@ class TaskController extends Controller
 			$model->attributes=$_POST['Task'];
 				
 			if(isset($parentId)) {
-				$ParentTask = Task::model()->findByPk($parentId);
-				if($model->appendTo($ParentTask)) {
-					$this->redirect(array('view','id'=>$ParentTask->id));
+				// tasks inherit parent time
+				$parentTask = Task::model()->findByPk($parentId);
+				$model->starts = $parentTask->starts;
+				
+				if($model->appendTo($parentTask)) {
+					$this->redirect(array('view','id'=>$parentTask->id));
 				}
 			}
 			else {
