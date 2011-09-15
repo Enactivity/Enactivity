@@ -92,14 +92,13 @@ class TaskController extends Controller
 		if(isset($year)
 		&& isset($month)
 		&& isset($day)) {
-			// task->startDate doesn't stick in handle form 
-			$attributes['Task']['startDate'] = $month . "/" . $day . "/" . $year;
+			$model->startDate = $month . "/" . $day . "/" . $year;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$model = self::handleNewTaskForm(null, $attributes);
+		$model = self::handleNewTaskForm(null, $model);
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -413,9 +412,10 @@ class TaskController extends Controller
 	 * @param array $attributes attributes used to set default values
 	 * @return $model if not saved
 	 */
-	public function handleNewTaskForm($parentId = null, $attributes = array()) {
-		$model = new Task(Task::SCENARIO_INSERT);
-		$model->attributes = $attributes;
+	public function handleNewTaskForm($parentId = null, $model = null) {
+		if(is_null($model)) {
+			$model = new Task(Task::SCENARIO_INSERT);
+		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
