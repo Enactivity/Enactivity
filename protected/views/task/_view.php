@@ -80,7 +80,7 @@ if($data->isParticipatable) {
 		echo PHtml::openTag('li');
 		
 		if($data->isUserComplete) {
-			echo PHtml::ajaxLink(
+			echo PHtml::ajaxButton(
 				PHtml::encode('Resume'), 
 				array('/task/useruncomplete', 'id'=>$data->id),
 				array( //ajax
@@ -97,7 +97,7 @@ if($data->isParticipatable) {
 			);
 		}
 		else {
-			echo PHtml::ajaxLink(
+			echo PHtml::ajaxButton(
 				PHtml::encode('Complete'), 
 				array('/task/usercomplete', 'id'=>$data->id),
 				array( //ajax
@@ -117,7 +117,7 @@ if($data->isParticipatable) {
 		
 		// 'participate' button
 		echo PHtml::openTag('li');
-		echo PHtml::ajaxLink(
+		echo PHtml::ajaxButton(
 			PHtml::encode('Quit'), 
 			array('task/unparticipate', 'id'=>$data->id),
 			array( //ajax
@@ -136,7 +136,7 @@ if($data->isParticipatable) {
 	}
 	else {
 		echo PHtml::openTag('li');
-		echo PHtml::ajaxLink(
+		echo PHtml::ajaxButton(
 			PHtml::encode('Sign up'), 
 			array('task/participate', 'id'=>$data->id),
 			array( //ajax
@@ -171,7 +171,7 @@ echo PHtml::closeTag('li');
 // trash link
 echo PHtml::openTag('li');
 if($data->isTrash) {
-	echo PHtml::ajaxLink(
+	echo PHtml::ajaxButton(
 		PHtml::encode('Restore'), 
 		array('task/untrash', 'id'=>$data->id),
 		array( //ajax
@@ -188,7 +188,7 @@ if($data->isTrash) {
 	);
 }
 else {
-	echo PHtml::ajaxLink(
+	echo PHtml::ajaxButton(
 		PHtml::encode('Trash'), 
 		array('task/trash', 'id'=>$data->id),
 		array( //ajax
