@@ -211,7 +211,7 @@ section > h1 {
 	position: static; /* By default, under the text as toolboxes have more icons than standard menus */
 	/* to match content padding */
 	right: 16px;
-	top: 16px;
+	top: 8px; /* +8px margin-inherited */
 }
 
 /*
