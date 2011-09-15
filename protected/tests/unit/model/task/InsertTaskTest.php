@@ -116,5 +116,24 @@ class InsertTaskTest extends DbTestCase
 		$this->assertFalse($task->validate(), 'task with no inputs was validated');
 		$this->assertFalse($task->saveNode(), 'task with no inputs was saved');
 	}
+	
+	/**
+	* Test task create when only a name
+	*/
+	public function testInsertTaskNameOnly() {
+	
+		$name = StringUtils::createRandomString(16);
+	
+		$task = new Task();
+		$task->setAttributes(array(
+				'name' => $name,
+		));
+	
+		$this->assertNotNull($task->name, 'unsaved task has no name');
+		$this->assertNull($task->starts, 'unsaved task has no name');
+		
+		$this->assertTrue($task->validate(), 'valid task was not validated: ' . print_r($task->getErrors(null), true));
+		$this->assertTrue($task->saveNode(), 'valid task was not saved');
+	}
 
 }
