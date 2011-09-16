@@ -25,11 +25,11 @@ class UserController extends Controller
 				'users'=>array('*')
 		),
 		array('allow', // allow only authenticated user to perform actions
-				'actions'=>array('view', 'invite'),		
+				'actions'=>array('invite'),		
 				'users'=>array('@'),
 		),
 		array('allow',
-			'actions'=>array('update', 'updatepassword'),
+			'actions'=>array('view', 'update', 'updatepassword'),
 			'expression'=>'$user->id == $_GET[\'id\']', 
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
