@@ -158,7 +158,8 @@ class UserController extends Controller
 		{
 			$model->attributes=$_POST['User'];
 			if($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));	
+				Yii::app()->user->setFlash('success', 'You\'re password has been updated.');
+				$this->redirect(array('update','id'=>$model->id));	
 			}
 		}
 		else {
