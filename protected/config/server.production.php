@@ -31,6 +31,7 @@ return CMap::mergeArray(
 						'emails'=>'support-message-log@poncla.com',
 						'enabled'=>true,
 						'sentFrom'=>'support-message-log@poncla.com',
+						'subject'=>'Application log ' . microtime(),
 					),
 				),
 			),
