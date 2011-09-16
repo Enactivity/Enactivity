@@ -152,6 +152,9 @@ section > h1 {
 }
 
 .content {
+	background-color: white;
+	clear: both;
+	color: #333436;
 	padding: 0 16px; /* Not all pages want top and bottom padding */
 	position: relative;
 	overflow: auto; /* so that first and last child can set their own margins */
@@ -521,10 +524,8 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
-	background-color: #ffffff;
-	clear: both;
-	color: #333436;
-	margin: 0 -16px 1px; /* Negative margin for edge to edge right and left */
+	border-bottom: 1px solid #333436;
+	margin: 0 -16px; /* Negative margin for edge to edge right and left */
 	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
 }
