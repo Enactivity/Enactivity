@@ -29,11 +29,11 @@ class GroupController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'invite', 'view'),
+				'actions'=>array('index', 'invite'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
-				'actions'=>array('updateprofile'),
+				'actions'=>array('updateprofile', 'view'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
