@@ -13,9 +13,11 @@ class TimeZoneKeeper extends CComponent{
 	public $userTimeZone;
 	public $serverTimeZone;
 
+	// we set the default server to Cali time since that's where Ajay lives
+	const DEFAULTTIMEZONE = "America/Los_Angeles"; 
+	
 	public function init(){
-		// we set the default server to Cali time since that's where Ajay lives
-		Yii::app()->setTimeZone("America/Los_Angeles"); 
+		Yii::app()->setTimeZone(self::DEFAULTTIMEZONE); 
 	}
 
 	/**
@@ -26,12 +28,15 @@ class TimeZoneKeeper extends CComponent{
 	 */
 	public static function serverTimeToUserTime($datetime) {
 		$serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
-		$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
+		$dateTime = new DateTime($datetime);
 		
-		$dateTimeResult = new DateTime($datetime, $serverTimeZone);
-		$dateTimeResult->setTimezone($userTimeZone);
+		if(isset(Yii::app()->user) && isset(Yii::app()->user->timeZone)) {
+			$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
+			$dateTime = new DateTime($datetime, $serverTimeZone);
+			$dateTime->setTimezone($userTimeZone);
+		}
 		
-		return $dateTimeResult->format('Y-m-d H:i:s');
+		return $dateTime->format('Y-m-d H:i:s');
 	}
 
 	/**
@@ -42,11 +47,15 @@ class TimeZoneKeeper extends CComponent{
 	 */
 	public static function userTimeToServerTime($datetime) {
 		$serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
-		$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
+		$dateTime = new DateTime($datetime);
 		
-		$dateTimeResult = new DateTime($datetime, $userTimeZone);
-		$dateTimeResult->setTimezone($serverTimeZone);
+		if(isset(Yii::app()->user) && isset(Yii::app()->user->timeZone)) {
+			$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
+			$dateTime = new DateTime($datetime, $userTimeZone);
+		}
 		
-		return $dateTimeResult->format('Y-m-d H:i:s');
+		$dateTime->setTimezone($serverTimeZone);
+		
+		return $dateTime->format('Y-m-d H:i:s');
 	}
 }
