@@ -28,12 +28,8 @@ class GroupController extends Controller
 			$groupId = null;
 		}
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'invite'),
+				'actions'=>array('index', 'invite', 'view'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
