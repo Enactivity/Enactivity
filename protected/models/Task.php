@@ -184,7 +184,7 @@ class Task extends CActiveRecord
 		return array(
 			'id' => 'Id',
 			'groupId' => 'Group',
-			'name' => 'Description',
+			'name' => $this->isNewRecord ? 'Create task' : 'Description',
 			'isTrash' => 'Is Trash',
 			'starts' => 'When',
 			'created' => 'Created',

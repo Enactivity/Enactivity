@@ -507,10 +507,6 @@ select[name="Task[endTime]"]  {
 	max-width: none;
 }
 
-.new-task label {
-	display: none;
-}
-
 /* Yii widgets */
 
 .list-view .summary {
