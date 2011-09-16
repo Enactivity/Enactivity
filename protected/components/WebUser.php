@@ -61,6 +61,11 @@ class WebUser extends CWebUser {
 	}
 	
 	public function getTimeZone() {
-		return $this->getModel()->timeZone; 
+		if(!is_null($this->getModel())) {
+			return $this->getModel()->timeZone;
+		} 
+		else {
+			return null;
+		}
 	}
 }
