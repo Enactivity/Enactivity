@@ -14,7 +14,7 @@ return CMap::mergeArray(
 			// Set the error handler
 			'errorHandler'=>array(
 				// use 'site/error' action to display error
-				'errorAction'=>'site/error',
+				//'errorAction'=>'site/error',
 			),
 			
 			'fixture'=>array(
