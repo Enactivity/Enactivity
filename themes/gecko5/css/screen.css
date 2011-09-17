@@ -196,13 +196,8 @@ section > h1 {
 }
 
 .menu li a {
-	/* Background settings made to be generic for all menus with icons */
-	background-repeat: no-repeat; 
-	background-position: top center;
 	display: block; /* So it fills area and icon is clickable */
-	font-family: Verdana, sans-serif; /* Verdana is better at small sizes */
-	font-size: .6em; /* Should fit in width */
-	padding-top: 32px; /* Room above for icon */
+	font-size: .8em; /* Should fit in width */
 	min-width: 50px; /* Should be at least 44px for touch screens */
 	text-align: center;
 }

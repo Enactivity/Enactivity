@@ -97,11 +97,10 @@ $this->pageTitle = $model->name;
 	?>
 		<li>
 			<?php
-			echo PHtml::button(
+			echo PHtml::link(
 				PHtml::encode('Update'), 
+				array('task/update', 'id'=>$model->id),
 				array(
-					'submit'=>array('task/update', 'id'=>$model->id),
-					'csrf'=>true,
 					'id'=>'task-update-menu-item-' . $model->id,
 					'class'=>'neutral task-update-menu-item',
 					'title'=>'Update this task',
