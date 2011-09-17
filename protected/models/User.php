@@ -17,8 +17,6 @@
  * @property string $lastLogin
  *
  * The followings are the available model relations:
- * @property Event[] $events
- * @property EventUser[] $eventUsers
  * @property GroupUser[] $groupUsers
  * @property Group[] $groups
  */

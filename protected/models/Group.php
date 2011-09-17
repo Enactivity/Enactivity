@@ -11,7 +11,6 @@
  * @property string $modified
  *
  * The followings are the available model relations:
- * @property Event[] $events
  * @property GroupProfile $groupProfile
  * @property GroupUser[] $groupUsers
  * @property User[] $users
@@ -93,7 +92,6 @@ class Group extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'events' => array(self::HAS_MANY, 'Event', 'groupId'),
 			'groupProfile' => array(self::HAS_ONE, 'GroupProfile', 'groupId'),
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'groupId'),
 			'groupUsersActive' => array(self::HAS_MANY, 'GroupUser', 'groupId',
