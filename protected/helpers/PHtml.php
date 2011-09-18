@@ -224,4 +224,22 @@ class PHtml extends CHtml {
 			'<a href="http$3://$4$5">http$3://$4$5</a>', $string);
 		return ($urlHtml);
 	}
+	
+	/**
+	 * Returns the classes values associated with a Task object 
+	 * @param Task $task
+	 * @return string space-separated html class string
+	 */
+	public static function taskClass($task) {
+		$articleClass = array();
+		
+		$articleClass[] = "task";
+		$articleClass[] = "task-" . PHtml::encode($task->id);
+		$articleClass[] = $task->hasStarts ? "starts" : "";
+		$articleClass[] = $task->isCompleted ? "completed" : "not-completed";
+		$articleClass[] = $task->isInheritedTrash ? "trash" : "not-trash";
+		$articleClass[] = $task->isUserParticipating ? "participating" : "not-participating";
+		
+		return implode(" ", $articleClass);
+	}
 }
