@@ -20,6 +20,7 @@ return CMap::mergeArray(
 			
 			// MySQL database settings for alpha
 			'db-alpha'=>array(
+				'class'=>'CDbConnection',
 				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
 				'emulatePrepare' => true,
 				'username' => 'poncla_alpha',
@@ -29,6 +30,7 @@ return CMap::mergeArray(
 			
 			// MySQL database settings for production
 			'db-production'=>array(
+				'class'=>'CDbConnection',
 				'connectionString' => 'mysql:dbname=poncla_live_dont_mess_with_me;host=173.236.204.211',
 				'emulatePrepare' => true,
 				'username' => 'poncla_live',
