@@ -67,10 +67,8 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 		if($hasTasks) {
 			echo PHtml::link(
 				$day, 
-				array('task/calendar/', 
-					'month' => $month->intValue,
-					'year' => $month->year,
-					'#' => 'day-' . $month->year . '-' . date('m', $currentDayStart) . '-' . $day //day-YYYY-mm-dd
+				array(Yii::app()->request->pathInfo, 
+					'#' => PHtml::dateTimeId($currentDayStart),
 				)
 			);
 		}

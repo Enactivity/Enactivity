@@ -226,6 +226,20 @@ class PHtml extends CHtml {
 	}
 	
 	/**
+	 * Returns the id attribute value for a tag based 
+	 * @param int $dateTime
+	 * @return string id value
+	 */
+	public static function dateTimeId($dateTime) {
+		$id = "day-";
+		$id .= date('Y', $dateTime);
+		$id .= '-' . date('m', $dateTime);
+		$id .= '-' . date('d', $dateTime);
+		
+		return $id;
+	}
+	
+	/**
 	 * Returns the classes values associated with a Task object 
 	 * @param Task $task
 	 * @return string space-separated html class string
