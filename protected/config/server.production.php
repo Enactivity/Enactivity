@@ -14,7 +14,7 @@ return CMap::mergeArray(
 				'username' => 'poncla_live',
 				'password' => '1f3870be274f6c4',
 				'charset' => 'utf8',
-				'enableParamLogging'=>true
+				'enableParamLogging'=>false,
 			),
 			
 			'log'=>array(

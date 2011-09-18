@@ -21,7 +21,7 @@ return CMap::mergeArray(
 				'username' => 'root',
 				'password' => '',
 				'charset' => 'utf8',
-				'enableParamLogging'=>false
+				'enableParamLogging'=>true,
 			),
 			
 			'log'=>array(
