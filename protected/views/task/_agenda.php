@@ -18,11 +18,13 @@ foreach($datedTasks as $task) {
 	if(isset($task->starts)) {
 		$taskDate = Yii::app()->format->formatDate(strtotime($task->starts));
 		if($taskDate != $currentDate) {
+			$currentDate = $taskDate;
+			$htmlId = 'day-' . $task->startDate;
 			echo PHtml::openTag('h1', array(
 				'id' => PHtml::dateTimeId($task->startTimestamp),
 				'class' => 'agenda-date',
 			));
-			echo $taskDate;
+			echo $currentDate;
 			echo PHtml::closeTag('h1');
 		}
 		echo $this->renderPartial('_view', array(
