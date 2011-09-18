@@ -15,7 +15,26 @@ return CMap::mergeArray(
 				'username' => 'root',
 				'password' => '',
 				'charset' => 'utf8',
-				'enableParamLogging'=>false
+				'enableParamLogging'=>true,
+			),
+			
+			// MySQL database settings for alpha
+			'db-alpha'=>array(
+				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
+				'emulatePrepare' => true,
+				'username' => 'poncla_alpha',
+				'password' => 'alpha123',
+				'charset' => 'utf8',
+			),
+			
+			// MySQL database settings for production
+			'db-production'=>array(
+				'connectionString' => 'mysql:dbname=poncla_live_dont_mess_with_me;host=173.236.204.211',
+				'emulatePrepare' => true,
+				'username' => 'poncla_live',
+				'password' => '1f3870be274f6c4',
+				'charset' => 'utf8',
+				'enableParamLogging'=>false,
 			),
 		)
 	)
