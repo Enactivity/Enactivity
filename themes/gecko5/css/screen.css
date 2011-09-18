@@ -162,7 +162,6 @@ section > h1 {
 
 .content > header {
 	padding-top: 16px; /* Could use margin, but this way, matches stylings */
-	min-height: 50px; /* this is to ensure room for toolbox */
 	margin-bottom: 16px; /* Collapsable with siblings */
 }
 
