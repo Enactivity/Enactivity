@@ -32,7 +32,7 @@ $this->menu = MenuDefinitions::userMenu($model);
 	</div>
 
 	<div class="field buttons">
-		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
