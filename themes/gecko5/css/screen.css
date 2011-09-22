@@ -462,9 +462,17 @@ th {
 	display: none;
 }
 
+/* no results span */
+.empty { 
+	display: block;
+	margin: .5em 0; /* Readability spacing */
+	max-width: 32em;
+}
+
 /* 
 	Site styles
 */
+
 
 /*
 	Main page styles
@@ -655,16 +663,11 @@ px      68    160    252    344    436    528    620    712    */
 	}
 
 	.content > header {
-		margin-right: 95px;
-	}
-
+		margin-right: 204px;
+	}	
+	
 	.toolbox {
 		position: absolute;
-	}
-	
-	.toolbox li {
-		display: block;
-		margin-bottom: 4px;
 	}
 	
 }
