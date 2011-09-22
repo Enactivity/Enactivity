@@ -121,9 +121,9 @@ if($model->isParticipatable):
 <section id="users-participating">
 	<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<?php 
-	foreach($model->participants as $user) {
-		echo $this->renderPartial('/user/_view', array(
-			'data'=>$user,
+	foreach($model->participatingTaskUsers as $usertask) {
+		echo $this->renderPartial('/taskuser/_view', array(
+			'data'=>$usertask,
 		));
 	}
 	?>

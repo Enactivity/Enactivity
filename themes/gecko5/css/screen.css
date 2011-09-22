@@ -543,19 +543,8 @@ select[name="Task[endTime]"]  {
 
 /* Completed story stylings */ 
 /* FIXME: standardize */
-.completed h1 a,
-.completed h1 a:visited, 
-.completed h1 a:active {
-	color: #bfbfbf;
-}
-
-.completed h1 a:hover, 
-.completed h1 a:focus {
-	color: #00b6d5;
-}
-
-.completed p {
-	color: #6b6e71;
+.completed {
+	background-color: #E6E6E6
 }
 
 /* Trashed story stylings */

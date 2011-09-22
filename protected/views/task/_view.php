@@ -149,81 +149,9 @@ if($data->isParticipatable) {
 	}
 }
 
-// update link
-/* echo PHtml::openTag('li');
-echo PHtml::link(
-PHtml::encode('Update'),
-array('task/update', 'id'=>$data->id),
-array(
-		'id'=>'task-update-menu-item-' . $data->id,
-		'class'=>'task-update-menu-item',
-		'title'=>'Update this task',
-)
-);
-echo PHtml::closeTag('li');
-
-// trash link
-echo PHtml::openTag('li');
-if($data->isTrash) {
-	echo PHtml::ajaxButton(
-		PHtml::encode('Restore'), 
-		array('task/untrash', 'id'=>$data->id),
-		array( //ajax
-			'replace'=>'#task-' . $data->id,
-			'type'=>'POST',
-			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-		),
-		array( //html
-			'csrf'=>true,
-			'id'=>'task-untrash-menu-item-' . $data->id,
-			'class'=>'task-untrash-menu-item',
-			'title'=>'Restore this task',
-		)
-	);
-}
-else {
-	echo PHtml::ajaxButton(
-		PHtml::encode('Trash'), 
-		array('task/trash', 'id'=>$data->id),
-		array( //ajax
-			'replace'=>'#task-' . $data->id,
-			'type'=>'POST',
-			'data'=>Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-		),
-		array( //html
-			'csrf' => true,
-			'id'=>'task-trash-menu-item-' . $data->id,
-			'class'=>'task-trash-menu-item',
-			'title'=>'Trash this task',
-		)
-	);
-}
-echo PHtml::closeTag('li'); */
-
 echo PHtml::closeTag('ul');
 echo PHtml::closeTag('div');
 // end of toolbar
-
-//// list participants
-//echo PHtml::openTag('ol', array('class' => 'users'));
-//foreach($data->taskUsers as $taskUser) {
-//	$spanClass = "view";
-//	$spanClass .= " participant";
-//	$spanClass .= " participant-" . $taskUser->id;
-//	$spanClass .= $taskUser->isCompleted ? " completed" : " not-completed";
-//	$spanClass .= $taskUser->isTrash ? " trash" : " not-trash";
-//	
-//	echo PHtml::openTag('li');
-//	echo PHtml::openTag('span', array(
-//	'class' => $spanClass,		
-//	));
-//	$this->widget('application.components.widgets.UserLink', array(
-//		'userModel' => $taskUser->user,
-//	));
-//	echo PHtml::closeTag('span');
-//	echo PHtml::closeTag('li');
-//}
-//echo PHtml::closeTag('ol');
 
 // end body
 
