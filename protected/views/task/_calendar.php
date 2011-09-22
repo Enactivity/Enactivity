@@ -10,7 +10,7 @@
 echo PHtml::openTag('table', array('class'=>'calendar'));
 
 // row of days of the week
-$weekdays = array ("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat");
+$weekdays = array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
 echo PHtml::openTag('thead');
 echo PHtml::openTag('tr');
 foreach ($weekdays as $weekdayname) {
