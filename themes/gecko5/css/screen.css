@@ -103,7 +103,7 @@ time {
 .everything {
 	height: auto;
 	margin: auto;
-	max-width: 50em; /* Using ems to scale on text zoom */
+	max-width: 34em; /* Using ems to scale on text zoom */
 }
 
 .global-footer {
@@ -162,7 +162,7 @@ section > h1 {
 	color: #333436;
 	padding: 0 16px; /* Not all pages want top and bottom padding */
 	position: relative;
-	overflow: auto; /* so that first and last child can set their own margins */
+	overflow: auto;
 }
 
 .content > header {
@@ -195,6 +195,7 @@ section > h1 {
 .menu li {
 	display: inline-block;
 	list-style-type: none;
+	margin-bottom: 4px;
 	margin-right: 4px;
 	white-space: nowrap;
 }
@@ -203,6 +204,8 @@ section > h1 {
 	display: block; /* So it fills area and icon is clickable */
 	font-size: .8em; /* Should fit in width */
 	min-width: 50px; /* Should be at least 44px for touch screens */
+	padding-bottom: 9px;
+	padding-top: 9px;
 	text-align: center;
 }
 
@@ -519,7 +522,7 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
-	border-bottom: 1px solid #333436;
+	border-bottom: 1px solid #D6D6D6;
 	margin: 0 -16px; /* Negative margin for edge to edge right and left */
 	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
@@ -652,11 +655,16 @@ px      68    160    252    344    436    528    620    712    */
 	}
 
 	.content > header {
-		margin-right: 282px;
-	}	
-	
+		margin-right: 95px;
+	}
+
 	.toolbox {
 		position: absolute;
+	}
+	
+	.toolbox li {
+		display: block;
+		margin-bottom: 4px;
 	}
 	
 }
