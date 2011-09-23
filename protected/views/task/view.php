@@ -2,6 +2,7 @@
 /**
  * @uses $model 
  * @uses $subtasks
+ * @uses $ancestors
  * @uses $newTask
  * @uses $feedDataProvider
  */
@@ -9,20 +10,18 @@ $this->pageTitle = $model->name;
 ?>
 
 <header>
-	<h1>
-	<?php
-	if(!$model->isRoot()) {
-		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+	<? if(sizeof($ancestors) > 0): ?>
+	<nav class="breadcrumb"><p>
+	<?php foreach($ancestors as $task) {
 		echo PHtml::link(
-			StringUtils::truncate(PHtml::encode($model->parent->name)),
-			array('task/view', 'id'=>$model->parent->id)
+			StringUtils::truncate(PHtml::encode($task->name), 15, ""),
+			array('task/view', 'id'=>$task->id)
 		);
-		echo PHtml::closeTag('span');
-		echo ' ';
-	}
-	echo PHtml::encode($this->pageTitle);
-	?>
-	</h1>
+		echo '&#8230';
+	} ?>
+	</p></nav>
+	<?php endif; ?>
+	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
 	<p>
 		<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?>
 	</p>
