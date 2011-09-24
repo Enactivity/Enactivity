@@ -483,6 +483,7 @@ th {
 	Main page styles
 */
 .greetings {
+	background-color: #ffffff;
 	background-image: url(../images/poncla-splash-320x270.jpg);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
