@@ -101,12 +101,19 @@ time {
 */
 .everything {
 	height: auto;
-	margin: auto;
+	margin: auto auto -150px; /* auto and footer size */
 	max-width: 34em; /* Using ems to scale on text zoom */
+	min-height: 100%;
+}
+
+.footer-push {
+	height: 150px; /* footer height + 16px */
 }
 
 .global-footer {
+	background-color: #19191A;
     clear: both;  /* Ensure footer isn't floating around anywhere */
+    height: 86px; /* 86 + 32 + 32 = 150px */
     padding: 32px;
     text-align: center;
 }
