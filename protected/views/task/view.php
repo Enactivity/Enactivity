@@ -14,7 +14,7 @@ $this->pageTitle = $model->name;
 	<nav class="breadcrumb"><p>
 	<?php foreach($ancestors as $task) {
 		echo PHtml::link(
-			StringUtils::truncate(PHtml::encode($task->name), 15, "") . '&#8230',
+			StringUtils::truncate(PHtml::encode($task->name), 15, "") . '&hellip;',
 			array('task/view', 'id'=>$task->id)
 		);
 	} ?>
