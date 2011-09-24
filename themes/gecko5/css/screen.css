@@ -43,6 +43,10 @@ input, textarea, select {
 	width: 100%;
 }
 
+input.error, textarea.error, select.error {
+	border: 3px solid #E82C0C;
+}
+
 strong {
 	font-weight: bold;	
 }
