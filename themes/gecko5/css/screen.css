@@ -127,7 +127,7 @@ time {
 
 .global-header nav {
 	margin: auto;
-	max-width: 544px; /* 34em */
+	max-width: 528px; /* 32em + nav li padding */
 }
 
 nav {
@@ -223,12 +223,14 @@ section > h1 {
 /*
 	Content flashes and errors
 */ 
-.flash-error, 
-.flash-notice, 
-.flash-success {
+.flash {
 	padding: 16px;
-	margin-bottom: 16px;
-	margin-top: 16px;
+}
+
+.flash span {
+	display: block;
+	margin: auto;
+	max-width: 32em;
 }
 
 .flash-error {
