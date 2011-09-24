@@ -24,7 +24,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 <body class="<?php echo $this->id . '-' . $this->action->id; ?>">
 
 <div class="everything">
-	<header>
+	<header class="global-header">
 		<nav id="primaryNavigation">
 		<?php 
 		$this->widget('zii.widgets.CMenu', array(

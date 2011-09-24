@@ -102,7 +102,6 @@ time {
 .everything {
 	height: auto;
 	margin: auto auto -150px; /* auto and footer size */
-	max-width: 34em; /* Using ems to scale on text zoom */
 	min-height: 100%;
 }
 
@@ -117,6 +116,14 @@ time {
     height: 86px; /* 86 + 32 + 32 = 150px */
     padding: 32px;
     text-align: center;
+}
+
+.global-header {
+}
+
+.global-header nav {
+	margin: auto;
+	max-width: 544px; /* 34em */
 }
 
 nav {
@@ -162,6 +169,8 @@ section > h1 {
 
 .content {
 	clear: both;
+	margin: auto;
+	max-width: 32em; /* Using ems to scale on text zoom */
 	padding: 0 16px;
 	position: relative;
 	overflow: visible;
