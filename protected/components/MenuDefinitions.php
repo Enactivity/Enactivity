@@ -194,6 +194,11 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'user-update-menu-item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
+			$menu[] = array(
+				'label'=>'Logout', 
+				'url'=>array('/site/logout'), 
+				'visible'=>!Yii::app()->user->isGuest
+			);
 		}
 		
 		return $menu;
@@ -204,16 +209,6 @@ class MenuDefinitions extends CComponent {
 	 */
 	public static function globalMenu() {
 		return array(
-// 			array(
-// 				'label'=>'Home:Beta', 
-// 				'url'=>array('/site/index'),
-// 				'visible'=>Yii::app()->user->isGuest
-// 			),
-// 			array(
-// 				'label'=>'What\'s Next', 
-// 				'url'=>array('/task/whatsnext'),
-// 				'visible'=>!Yii::app()->user->isGuest
-// 			),
 			array(
 				'label'=>'Tasks', 
 				'url'=>array('/task/index'), 
@@ -224,11 +219,6 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('/task/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
-// 			array(
-// 				'label'=>'Goings on', 
-// 				'url'=>array('/feed/index'),
-// 				'visible'=>!Yii::app()->user->isGuest
-// 			),
 			array(
 				'label'=>'Groups', 
 				'url'=>array('/group/index'), 
@@ -243,11 +233,6 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Login', 
 				'url'=>array('/site/login'), 
 				'visible'=>Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Logout', 
-				'url'=>array('/site/logout'), 
-				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
 				'label'=>'Admin', 
