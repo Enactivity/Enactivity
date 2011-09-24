@@ -2,7 +2,7 @@
 $this->pageTitle = 'Discover a better way to interact with your group'; 
 ?>
 
-<header>
+<header class="greetings">
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
 </header>
 <?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(

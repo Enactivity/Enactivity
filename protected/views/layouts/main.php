@@ -47,9 +47,26 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 		<?php endif; ?>
 	</header>
 	
-	<div class="content">
-		<?php echo $content; ?>
-	</div>
+	<!-- flash notices -->
+	<?php if(Yii::app()->user->hasFlash('error')):?>
+	<aside class="flash flash-error">
+		<span><?php echo Yii::app()->user->getFlash('error'); ?></span>
+	</aside>
+	<?php endif; ?>
+	<?php if(Yii::app()->user->hasFlash('notice')):?>
+	<aside class="flash flash-notice">
+		<span><?php echo Yii::app()->user->getFlash('notice'); ?></span>
+	</aside>
+	<?php endif; ?>
+	<?php if(Yii::app()->user->hasFlash('success')):?>
+	<aside class="flash flash-success">
+		<span><?php echo Yii::app()->user->getFlash('success'); ?></span>
+	</aside>
+	<?php endif; ?>
+
+	
+	<?php echo $content; ?>
+	
 	<div class="footer-push"></div>
 </div>
 

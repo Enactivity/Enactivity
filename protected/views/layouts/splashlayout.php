@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-<div class="content">
+<div class="splash-content">
 <?php echo $content; ?>
 </div>
 

@@ -482,20 +482,20 @@ th {
 /*
 	Main page styles
 */
-.site-index .content header {
+.greetings {
 	background-image: url(../images/poncla-splash-320x270.jpg);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	height: 270px;
-	margin: 0 -16px;
 }
 
-.site-index .content h1 {
+.greetings h1 {
 	display: none;	
 }
 
 #contact-form {
-	margin: 1em auto;	
+	margin: auto;
+	padding: 16px;	
 }
 
 /* Task form inputs */
@@ -664,8 +664,9 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
 	
-	.site-index .content header {
+	.greetings {
 		background-image: url(../images/poncla-splash-480x380.jpg);
+		height: 380px;
 	}
 }
 
@@ -680,7 +681,7 @@ px      68    160    252    344    436    528    620    712    */
 
 @media only screen and (min-width: 768px) {
 
-	.site-index .content header {
+	.greetings {
 		background-image: url(../images/poncla-splash-1600x380.jpg);
 	}
 
