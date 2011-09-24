@@ -50,7 +50,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 	<div class="content">
 		<?php echo $content; ?>
 	</div>
-	
+	<div class="footer-push"></div>
 </div>
 
 <footer class="global-footer">

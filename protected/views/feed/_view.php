@@ -19,12 +19,14 @@ echo PHtml::openTag('article', array(
 
 // start headers
 
-// created date
+// info
+echo PHtml::openTag('div', array('class'=>'story-info'));
 echo PHtml::openTag('time', array('class'=>'created'));
 echo PHtml::encode(
 	Yii::app()->format->formatDateTime(strtotime($data->created))
 );
 echo PHtml::closeTag('time');
+echo PHtml::closeTag('div');
 
 echo PHtml::openTag('h1', array('class'=>'story-title'));
 

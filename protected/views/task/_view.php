@@ -18,6 +18,27 @@ echo PHtml::openTag('article', array(
 	'class' => "view story " . PHtml::taskClass($data),
 ));
 
+
+// parent tasks
+if(!$data->isRoot()) {
+	echo PHtml::openTag('div', array('class'=>'story-info'));
+	echo PHtml::openTag('span', array('class'=>'parent-tasks story-subtitle'));
+	if(!$data->isRoot() && ($data->parent->id != $data->rootId) && $showParent) {
+		echo PHtml::openTag('span', array('class'=>'parent-task-name top-parent-task-name'));
+		echo PHtml::encode(StringUtils::truncate($data->root->name, 32, ''));
+		echo PHtml::closeTag('span');
+		echo '&hellip;';
+	}
+	if(!$data->isRoot() && $showParent) {
+		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
+		echo PHtml::encode(StringUtils::truncate($data->parent->name, 32));
+		echo PHtml::closeTag('span');
+		echo ' ';
+	}
+	echo PHtml::closeTag('span');
+	echo PHtml::closeTag('div');
+}
+
 // start headers
 
 // task name
@@ -35,32 +56,7 @@ echo PHtml::link(
 	);
 echo PHtml::closeTag('h1');
 
-// parent tasks
-if(!$data->isRoot()) {
-	echo PHtml::openTag('h2', array('class'=>'parent-tasks story-subtitle'));
-	if(!$data->isRoot() && ($data->parent->id != $data->rootId) && $showParent) {
-		echo PHtml::openTag('span', array('class'=>'parent-task-name top-parent-task-name'));
-		echo PHtml::encode(StringUtils::truncate($data->root->name, 32, ''));
-		echo PHtml::closeTag('span');
-		echo '&hellip;';
-	}
-	if(!$data->isRoot() && $showParent) {
-		echo PHtml::openTag('span', array('class'=>'parent-task-name'));
-		echo PHtml::encode(StringUtils::truncate($data->parent->name, 32));
-		echo PHtml::closeTag('span');
-		echo ' ';
-	}
-	echo PHtml::closeTag('h2');
-}
-
 // body
-
-// event date
-// echo PHtml::openTag('p');
-// $this->widget('application.components.widgets.TaskDates', array(
-// 	'task'=>$data,
-// ));
-// echo PHtml::closeTag('p');
 
 //	tasks toolbar
 echo PHtml::openTag('div', array(

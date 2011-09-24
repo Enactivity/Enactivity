@@ -60,6 +60,7 @@ class TaskController extends Controller
 		// load model
 		$model = $this->loadModel($id);
 		$subtasks = $model->children()->findAll();
+		$ancestors = $model->ancestors()->findAll();
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
@@ -71,6 +72,7 @@ class TaskController extends Controller
 		array(
 				'model' => $model,
 				'subtasks' => $subtasks, 
+				'ancestors' => $ancestors,
 				'newTask' => $newTask,
 				'feedDataProvider' => $feedDataProvider,
 		)
@@ -321,13 +323,20 @@ class TaskController extends Controller
 				'pagination'=>false,
 		)
 		);
+		
+		$dataProviderSomeday = new CArrayDataProvider(
+		Yii::app()->user->model->nextTasksSomeday,
+		array(
+			'pagination'=>false,
+		)
+		);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
 
 		$this->render('index', array(
 			'datedTasksProvider'=>$dataProvider,
-			'datelessTasksProvider'=>$dataProvider, //FIXME: do a proper query
+			'datelessTasksProvider'=>$dataProviderSomeday, //FIXME: do a proper query
 			'newTask'=>$newTask,
 		));
 	}

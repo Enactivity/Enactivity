@@ -208,6 +208,10 @@ class User extends CActiveRecord
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasks.isTrash=0',
 			),
+			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
+							'through' => 'taskUsers',
+							'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasksSomeday.isTrash=0 AND nextTasksSomeday.starts IS NULL',
+			),
 		);
 	}
 

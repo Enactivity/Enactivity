@@ -6,8 +6,9 @@
  * @uses $month
  */
 
+echo PHtml::openTag('section', array('class'=>'story calendar'));
 // start calendar table
-echo PHtml::openTag('table', array('class'=>'calendar'));
+echo PHtml::openTag('table');
 
 // row of days of the week
 $weekdays = array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
@@ -92,3 +93,4 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 
 echo PHtml::closeTag('tbody');
 echo PHtml::closeTag('table');
+echo PHtml::closeTag('section');

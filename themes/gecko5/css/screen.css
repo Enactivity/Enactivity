@@ -14,8 +14,7 @@ html {
 html, body {
 	background-color: #333436;
 	color: #ffffff;
-	font-family: sans-serif;
-	font-style: normal;
+	font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Arial, sans-serif;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
 	position: relative;
@@ -23,11 +22,11 @@ html, body {
 
 a, a:active, a:visited {
 	color: #ffffff;
+	font-weight: bold;
 }
 
 a:hover, a:focus {
 	color: #00b6d5;
-	text-decoration: underline;
 }
 
 input, textarea, select {
@@ -114,6 +113,7 @@ time {
 
 nav {
 	clear: both;
+	font-size: .8em;
 }
 
 nav ul {
@@ -149,20 +149,14 @@ section {
 }
 
 section > h1 {
-	background-color: #333436; /* Match background */
-	color: #ffffff;
-	margin: 0 -16px; /* Negative margin to reach edges */
-	max-width: none; /* Override readability for edge to edge */
-	padding: 16px; /* Extra spacing for readability and show background */
+	padding: 16px 0; /* Extra spacing for readability and show background */
 }
 
 .content {
-	background-color: white;
 	clear: both;
-	color: #333436;
-	padding: 0 16px; /* Not all pages want top and bottom padding */
+	padding: 0 16px;
 	position: relative;
-	overflow: auto;
+	overflow: visible;
 }
 
 .content > header {
@@ -172,20 +166,6 @@ section > h1 {
 
 .content > header h1 {
 	font-size: 2em;
-}
-
-.content a, 
-.content a:visited {
-	color: #808080;
-}
-
-.content a:hover {
-	color: #00b6d5;	
-}
-
-.content a:active,
-.content a:focus {
-	color: #00adcc;
 }
 
 .menu {
@@ -410,7 +390,6 @@ textarea  {
 /* Content tables */
 table {
 	table-layout: fixed;
-	margin-bottom: 16px;
 	width: 100%;
 }
 
@@ -530,10 +509,12 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
+	background-color: #ffffff;
 	border-bottom: 1px solid #D6D6D6;
-	margin: 0 -16px; /* Negative margin for edge to edge right and left */
+	color: #333436;
 	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
+	margin: 0 -16px;
 }
 
 .story h1 {
@@ -544,12 +525,22 @@ select[name="Task[endTime]"]  {
 	font-size: .9em;
 }
 
-.story h1 time {
-	font-weight: bold;
+.story-info {
+	font-size: .7em;
 }
 
-.story .created {
-	font-size: .7em;
+.story a, 
+.story a:visited {
+	color: #333436;
+}
+
+.story a:hover {
+	color: #00b6d5;	
+}
+
+.story a:active,
+.story a:focus {
+	color: #00adcc;
 }
 
 /* Completed story stylings */ 
@@ -579,6 +570,11 @@ select[name="Task[endTime]"]  {
 
 
 /* Task Calendar */
+.calendar {
+	background-color: #ffffff;
+	color: #333436;
+	padding: 16px;
+}
 
 .calendar td, 
 .calendar th {
@@ -664,10 +660,19 @@ px      68    160    252    344    436    528    620    712    */
 
 	.content > header {
 		margin-right: 204px;
-	}	
+	}
 	
 	.toolbox {
 		position: absolute;
 	}
+	
+	.story-avatar {
+		color: #ffffff;
+		display: block;
+		font-variant: small-caps;
+		position: absolute;
+		right: 560px;
+		top: 16px;
+	} 
 	
 }
