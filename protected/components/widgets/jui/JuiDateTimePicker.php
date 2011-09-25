@@ -79,7 +79,7 @@ class JuiDateTimePicker extends CJuiWidget
 	 * This method registers necessary javascript and renders the needed HTML code.
 	 */
 	public function run()
-	{
+	{  
 		// construct text field
 		list($dateInputName, $dateInputId) = $this->resolveNameID($this->dateInputName, $this->dateAttribute);
 		list($timeInputName, $timeInputId) = $this->resolveNameID($this->timeName, $this->timeAttribute);
@@ -97,7 +97,7 @@ class JuiDateTimePicker extends CJuiWidget
 		// set html options for time drop down
 		$timeHtmlOptions = $this->htmlOptions;
 		$timeHtmlOptions['id'] = $timeInputId;
-
+		
 		if($this->hasModel()) {
 			echo CHtml::activeTextField($this->model, $this->dateAttribute, $this->htmlOptions);
 			echo CHtml::activeDropDownList($this->model, $this->timeAttribute, $this->getTimes(), $timeHtmlOptions);
@@ -131,11 +131,11 @@ class JuiDateTimePicker extends CJuiWidget
 		
 		echo CHtml::tag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
-		echo CHtml::link("Clear",'#',
+		echo CHtml::link("Clear",'',
 				array(
 					'class' => 'clear-date-time'	
 				)
-		);
+		); 
 		$cs = Yii::app()->getClientScript();
 		
 		// attach script to input to prevent keyboard pop-ups on focus
