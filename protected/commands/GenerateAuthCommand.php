@@ -63,12 +63,6 @@ class GenerateAuthCommand extends CConsoleCommand
 		$authManager->createOperation('updateGroupBanterOperation', 'update a ');
 		$authManager->createOperation('deleteGroupBanterOperation', 'delete a ');
 		
-		// Group profile operations
-		$authManager->createOperation('createGroupProfileOperation', 'create a ');
-		$authManager->createOperation('readGroupProfileOperation', 'read a ');
-		$authManager->createOperation('updateGroupProfileOperation', 'update a ');
-		$authManager->createOperation('deleteGroupProfileOperation', 'delete a ');
-		
 		// Group user operations
 		$authManager->createOperation('createGroupUserOperation', 'create a ');
 		$authManager->createOperation('readGroupUserOperation', 'read a ');

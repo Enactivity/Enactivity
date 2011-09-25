@@ -33,11 +33,11 @@ class GroupController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
-				'actions'=>array('updateprofile', 'view'),
+				'actions'=>array('view'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create', 'admin', 'delete', 'update', 'updateprofile'),
+				'actions'=>array('create', 'admin', 'delete', 'update', 'view'),
 				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
@@ -88,11 +88,6 @@ class GroupController extends Controller
 		{
 			$model->attributes = $_POST['Group'];
 			if($model->save()) {
-				// create a group profile
-				$profile = new GroupProfile;
-				$profile->groupId = $model->id;
-				$profile->save();
-
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -122,30 +117,6 @@ class GroupController extends Controller
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdateProfile($id)
-	{
-		$model = $this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['GroupProfile']))
-		{
-			$model->groupProfile->attributes = $_POST['GroupProfile'];
-			if($model->groupProfile->save())
-			$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('updateprofile',array(
 			'model'=>$model,
 		));
 	}

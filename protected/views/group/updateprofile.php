@@ -1,9 +1,0 @@
-<?php
-$this->pageTitle = $model->name;
-?>
-
-<header>
-	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
-
-<?php echo $this->renderPartial('_profileform', array('model'=>$model)); ?>
