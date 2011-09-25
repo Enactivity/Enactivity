@@ -15,7 +15,7 @@ $showParent = isset($showParent) ? $showParent : true;
 
 	<?php if(isset($data->starts)): ?>
 	<div class="story-avatar">
-		<time class="task-starts"><?php echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts))); ?></time>
+		<time class="task-start-time"><?php echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts))); ?></time>
 	</div>
 	<?php endif; ?>
 

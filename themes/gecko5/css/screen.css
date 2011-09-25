@@ -570,7 +570,7 @@ select[name="Task[endTime]"]  {
 	color: #00adcc;
 }
 
-.task-starts {
+.task-start-time {
 	font-size: 1.5em;
 }
 
