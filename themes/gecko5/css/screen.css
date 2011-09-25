@@ -570,6 +570,10 @@ select[name="Task[endTime]"]  {
 	color: #00adcc;
 }
 
+.task-starts {
+	font-size: 1.5em;
+}
+
 /* Completed story stylings */ 
 /* FIXME: standardize */
 .completed {
@@ -592,9 +596,6 @@ select[name="Task[endTime]"]  {
 	display: inline-block;
 	margin-right: 1em;
 }
-
-/* Task menu and buttons */
-
 
 /* Task Calendar */
 .calendar {
@@ -698,8 +699,10 @@ px      68    160    252    344    436    528    620    712    */
 		color: #ffffff;
 		display: block;
 		font-variant: small-caps;
+		max-width: 100px;
 		position: absolute;
 		right: 560px;
+		text-align: right;
 		top: 16px;
 	} 
 	
