@@ -50,7 +50,7 @@ $showParent = isset($showParent) ? $showParent : true;
 				if($data->isUserComplete) {
 					echo PHtml::ajaxButton(
 						PHtml::encode('Resume'), 
-						array('/task/useruncomplete', 'id'=>$data->id),
+						array('/task/useruncomplete', 'id'=>$data->id, 'showParent'=>$showParent),
 						array( //ajax
 							'replace'=>'#task-' . $data->id,
 							'type'=>'POST',
@@ -67,7 +67,7 @@ $showParent = isset($showParent) ? $showParent : true;
 				else {
 					echo PHtml::ajaxButton(
 						PHtml::encode('Complete'), 
-						array('/task/usercomplete', 'id'=>$data->id),
+						array('/task/usercomplete', 'id'=>$data->id, 'showParent'=>$showParent),
 						array( //ajax
 							'replace'=>'#task-' . $data->id,
 							'type'=>'POST',
