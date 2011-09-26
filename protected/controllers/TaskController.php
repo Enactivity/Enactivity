@@ -185,7 +185,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionParticipate($id)
+	public function actionParticipate($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -195,7 +195,7 @@ class TaskController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -209,7 +209,7 @@ class TaskController extends Controller
 	 * If remove is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUnparticipate($id)
+	public function actionUnparticipate($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -219,7 +219,7 @@ class TaskController extends Controller
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);

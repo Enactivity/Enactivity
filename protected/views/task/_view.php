@@ -87,7 +87,7 @@ $showParent = isset($showParent) ? $showParent : true;
 				echo PHtml::openTag('li');
 				echo PHtml::ajaxButton(
 					PHtml::encode('Quit'), 
-					array('task/unparticipate', 'id'=>$data->id),
+					array('task/unparticipate', 'id'=>$data->id, 'showParent'=>$showParent),
 					array( //ajax
 						'replace'=>'#task-' . $data->id,
 						'type'=>'POST',
@@ -106,7 +106,7 @@ $showParent = isset($showParent) ? $showParent : true;
 				echo PHtml::openTag('li');
 				echo PHtml::ajaxButton(
 					PHtml::encode('Sign up'), 
-					array('task/participate', 'id'=>$data->id),
+					array('task/participate', 'id'=>$data->id, 'showParent'=>$showParent),
 					array( //ajax
 						'replace'=>'#task-' . $data->id,
 						'type'=>'POST',
