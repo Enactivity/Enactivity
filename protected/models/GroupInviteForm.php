@@ -102,6 +102,61 @@ class GroupInviteForm extends CFormModel {
 	}
 	
 	/**
+	 * Invite user to group specified in form
+	 * @return true if successful
+	 * @throws CHttpException
+	 */
+	public function inviteUsers() {
+		// array to capture results
+		$successfulEmails = array();
+		$alreadyMemberEmails = array();
+		
+		foreach($this->splitEmails($this->emails) as $email) {
+			$user = User::model()->findByAttributes(array('email' => $email));
+		
+			if(is_null($user)) {
+				//Create a new user with the email invite
+				$user = new User;
+				$user->setScenario(User::SCENARIO_INVITE);
+				$user->email = $email;
+				if(!$user->save()) {
+					throw new CHttpException(500, 'There was an error when trying to generate invites. Please try again later.');
+				}
+			}
+		
+			// Get group
+			$group = Group::model()->findByPk($this->groupId);
+		
+			if(!GroupUser::model()->isGroupMember($group->id, $user->id)) {
+				$groupuser = new GroupUser();
+				$groupuser->groupId = $group->id;
+				$groupuser->userId = $user->id;
+		
+				//Validate and save
+				$groupuser->save();
+		
+				// Send email
+				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
+		
+				$successfulEmails[] = $user->email;
+			}
+			else {
+				$alreadyMemberEmails[] = $user->email;
+			}
+		}
+		if(!empty($successfulEmails)) {
+			Yii::app()->user->setFlash('success', 'Your invitation has been sent to ' . implode(', ', $successfulEmails));
+		}
+		if(!empty($alreadyMemberEmails)) {
+			Yii::app()->user->setFlash('notice', implode(', ', $alreadyMemberEmails) . ' is/are already a member of the group');
+		}
+		if(sizeof($successfulEmails) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Returns the user's one user group
 	 * @return int id
 	 */
@@ -111,4 +166,5 @@ class GroupInviteForm extends CFormModel {
 		}
 		throw new Exception("Error when attempting to set user group.");
 	}
+	
 }
