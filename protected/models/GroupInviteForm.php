@@ -136,8 +136,6 @@ class GroupInviteForm extends CFormModel {
 				$groupuser->save();
 		
 				// Send email
-				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
-		
 				$successfulEmails[] = $user->email;
 			}
 			else {

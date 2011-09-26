@@ -183,4 +183,16 @@ class GroupUser extends CActiveRecord
 		return isset($groupuser);
 	}
 	
+	public function onAfterSave($event) {
+		parent::onAfterSave($event);
+		
+		// Send on new invite email
+		if($this->isNewRecord) {
+			$user = User::model()->findByPk($this->userId);
+			$group = Group::model()->findByPk($this->groupId);
+			
+			$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
+		}
+	}
+	
 }
