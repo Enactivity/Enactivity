@@ -131,7 +131,7 @@ class JuiDateTimePicker extends CJuiWidget
 		
 		echo CHtml::tag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
-		echo CHtml::link("Clear",'#',
+		echo CHtml::link("Clear date",'#',
 				array(
 					'class' => 'clear-date-time'	
 				)
