@@ -394,6 +394,7 @@ input[type="button"]:disabled:hover {
 .field {
 	clear: both;
 	margin: 8px 0;
+	position: relative;
 }
 
 label {
@@ -411,6 +412,14 @@ label:not(.required):after {
 
 textarea  {
 	height: 3em;
+}
+
+.clear-field {
+	display: block;
+	padding-bottom: .5em;
+	padding-top: .5em;
+	text-align: right;
+	white-space: nowrap;
 }
 
 /* Content tables */
@@ -510,12 +519,6 @@ input[name="Task[endDate]"] {
 select[name="Task[startTime]"],
 select[name="Task[endTime]"]  {
 	width: 50%;
-}
-
-.clear-date-time {
-	display: block;
-	padding-bottom: .5em;
-	padding-top: .5em;
 }
 
 /* Special settings for displaying inline */
@@ -705,5 +708,12 @@ px      68    160    252    344    436    528    620    712    */
 		text-align: right;
 		top: 16px;
 	} 
+	
+	.clear-field {
+		position: absolute;
+		left: 528px;
+		text-align: left;
+		top: 1.5em;
+	}
 	
 }

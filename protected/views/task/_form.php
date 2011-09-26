@@ -6,7 +6,8 @@
  */
 
 // Initialize inline
-$inline = isset($inline) ? $inline : false;
+// $inline = isset($inline) ? $inline : false;
+$inline = false;
 
 $classForm = 'update-task';
 if($model->isNewRecord) {

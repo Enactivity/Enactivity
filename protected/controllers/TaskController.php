@@ -425,6 +425,13 @@ class TaskController extends Controller
 			$model = new Task(Task::SCENARIO_INSERT);
 		}
 		
+		$parentTask = null;
+		if(isset($parentId)) {
+			// tasks inherit parent time
+			$parentTask = Task::model()->findByPk($parentId);
+			$model->starts = $parentTask->starts;
+		}
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -432,10 +439,6 @@ class TaskController extends Controller
 			$model->attributes=$_POST['Task'];
 				
 			if(isset($parentId)) {
-				// tasks inherit parent time
-				$parentTask = Task::model()->findByPk($parentId);
-				$model->starts = $parentTask->starts;
-				
 				if($model->appendTo($parentTask)) {
 					$this->redirect(array('view','id'=>$parentTask->id));
 				}

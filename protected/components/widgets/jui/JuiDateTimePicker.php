@@ -133,7 +133,7 @@ class JuiDateTimePicker extends CJuiWidget
 		echo CHtml::closeTag('div');
 		echo CHtml::link("Clear date",'#',
 				array(
-					'class' => 'clear-date-time'	
+					'class' => 'clear-field clear-date-time'	
 				)
 		); 
 		$cs = Yii::app()->getClientScript();
