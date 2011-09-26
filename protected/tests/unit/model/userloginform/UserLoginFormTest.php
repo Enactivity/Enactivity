@@ -39,7 +39,7 @@ class UserLoginFormTest extends DbTestCase
 
 	public function testLoginValidAdmin() {
 		$email = $this->userFixtures['admin']['email'];
-		$password = 'test';
+		$password = 'chewychocolatechips';
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
 	        'email' => $email,

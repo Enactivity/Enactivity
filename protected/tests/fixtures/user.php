@@ -7,7 +7,7 @@ return array(
 	'admin' => array(
 		'email' => 'admin@poncla.com',
 		'token' => '5d7f3e28571af8824a910e81996f409b8a6f5bd9', 
-		'password' => 'ac3642003276203b8ad9ceb60856fd9f7c3c286c', // "test"
+		'password' => '0986ddf76a9c678b0ec8407c3360b0a1b8467fc2', // "password"
 		'firstName' => 'Poncla',
 		'lastName' => 'Administrator',
 		'timeZone' => 'America/Los_Angeles',
