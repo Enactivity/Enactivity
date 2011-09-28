@@ -24,7 +24,7 @@ return CMap::mergeArray(
 			'format'=>array(
 				'class' => 'application.components.utils.Formatter',
 				'dateFormat' => 'F d', 
-	        	'datetimeFormat' => 'l, M d, \a\t g:i a', 
+	        	'datetimeFormat' => 'l, F d, \a\t g:i a', 
 				'timeFormat' => 'g:i a', 
 			),
 			
