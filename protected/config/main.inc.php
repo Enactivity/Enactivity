@@ -43,12 +43,12 @@ return CMap::mergeArray(
 			
 			'urlManager'=>array(
 				'urlFormat'=>'path', //enabled to allow for slugs
-				'rules'=>array(
-					'<slug:\w+>'=>'group/view/slug/<slug>',
+// 				'rules'=>array(
+					//'<slug:\w+>'=>'group/view/slug/<slug>',
 					//'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 					//'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 					//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				),
+// 				),
 				'showScriptName'=>false,
 			),
 			
