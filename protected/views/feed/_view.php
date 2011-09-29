@@ -22,8 +22,9 @@ echo PHtml::openTag('article', array(
 // info
 echo PHtml::openTag('div', array('class'=>'story-info'));
 echo PHtml::openTag('time', array('class'=>'created'));
-echo PHtml::encode(
-	Yii::app()->format->formatDateTime(strtotime($data->created))
+echo PHtml::link(
+	PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->created))), 
+	array('feed/view', 'id'=>$data->id)
 );
 echo PHtml::closeTag('time');
 echo PHtml::closeTag('div');

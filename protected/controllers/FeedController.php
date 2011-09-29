@@ -20,10 +20,23 @@ class FeedController extends Controller
 	 */
 	public function accessRules()
 	{
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$task = $this->loadModel($_GET['id']);
+			$groupId = $task->groupId;
+		}
+		else {
+			$groupId = null;
+		}
+		
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index'),
-				'users'=>array('@'),
+				'actions'=>array('view'),
+				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin'),
+				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -37,92 +50,8 @@ class FeedController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new ActiveRecordLog;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ActiveRecordLog']))
-		{
-			$model->attributes=$_POST['ActiveRecordLog'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ActiveRecordLog']))
-		{
-			$model->attributes=$_POST['ActiveRecordLog'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider = new CActiveDataProvider(
-			ActiveRecordLog::model()
-				->scopeUsersGroups(Yii::app()->user->id)
-//				->grouped()
-				->newestToOldest()
-		);
-		
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		$this->render('_view',array(
+			'data'=>$this->loadModel($id),
 		));
 	}
 

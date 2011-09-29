@@ -44,6 +44,12 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array('id'=>'task-admin-menu-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
+			array(
+				'label'=>'Manage Feed', 
+				'url'=>array('feed/admin'), 	
+				'linkOptions'=>array('id'=>'feed-admin-menu-item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
 		);
 	}
 	
