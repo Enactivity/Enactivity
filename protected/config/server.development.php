@@ -49,7 +49,7 @@ return CMap::mergeArray(
 			// custom url manager must also be disabled
 			'gii'=>array(
 				'class'=>'system.gii.GiiModule',
-				'password'=>'123456',
+				'password'=>'notsochewy',
 			),
 		),
 	)
