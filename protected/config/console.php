@@ -22,10 +22,8 @@ return CMap::mergeArray(
 			'db-alpha'=>array(
 				'class'=>'CDbConnection',
 				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
-				'emulatePrepare' => true,
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
-				'charset' => 'utf8',
 			),
 			
 			// MySQL database settings for production
