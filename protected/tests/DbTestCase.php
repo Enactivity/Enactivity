@@ -15,6 +15,8 @@ class DbTestCase extends CDbTestCase
 		'groupUserFixtures'=>':group_user',
 		'taskFixtures'=>':task',
 		'taskUserFixtures'=>':task_user',
+		'activeRecordLogFixtures'=>':activerecordlog',
+		'commentFixtures'=>':comment',
     );
     
 	public static function setUpBeforeClass()

@@ -214,10 +214,6 @@ section > h1 {
 
 .toolbox {
 	margin-bottom: 16px; /* Extra spacing below */
-	position: static; /* By default, under the text as toolboxes have more icons than standard menus */
-	/* to match content padding */
-	right: 16px;
-	top: 8px; /* +8px margin-inherited */
 }
 
 /*
@@ -689,19 +685,10 @@ px      68    160    252    344    436    528    620    712    */
 	.greetings {
 		background-image: url(../images/poncla-splash-1600x380.jpg);
 	}
-
-	.content > header {
-		margin-right: 204px;
-	}
-	
-	.toolbox {
-		position: absolute;
-	}
 	
 	.story-avatar {
 		color: #ffffff;
 		display: block;
-		font-variant: small-caps;
 		max-width: 100px;
 		position: absolute;
 		right: 560px;

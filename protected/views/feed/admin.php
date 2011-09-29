@@ -1,4 +1,7 @@
 <?php
+$this->pageTitle = 'Manage Feed';
+
+$this->menu = MenuDefinitions::adminMenu();
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -13,6 +16,10 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+
+<header>
+	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
+</header>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

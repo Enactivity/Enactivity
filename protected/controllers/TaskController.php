@@ -65,17 +65,25 @@ class TaskController extends Controller
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
 
+		// Comments
+		$comment = $this->handleNewComment($model);
+		
+		$commentsDataProvider = new CArrayDataProvider($model->comments);
+		
+		// Feed
 		$feedDataProvider = new CArrayDataProvider($model->feed);
 
 		$this->render(
 			'view', 
-		array(
+			array(
 				'model' => $model,
 				'subtasks' => $subtasks, 
 				'ancestors' => $ancestors,
 				'newTask' => $newTask,
+				'comment' => $comment,
+				'commentsDataProvider' => $commentsDataProvider,
 				'feedDataProvider' => $feedDataProvider,
-		)
+			)
 		);
 	}
 
@@ -451,6 +459,35 @@ class TaskController extends Controller
 		}
 
 		return $model;
+	}
+	
+	/**
+	 * Return a new task comment based on post data
+	 * @param Task $task Task the user is commenting on
+	 * @param Comment $comment
+	 * @return Comment
+	 */
+	public function handleNewComment($task, $comment = null) {
+		if(is_null($comment)) {
+			$comment = new Comment(Comment::SCENARIO_INSERT);
+		}
+	
+		$comment->model = "Task";
+		$comment->modelId = $task->id;
+		$comment->groupId = $task->groupId;
+		
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performCommentAjaxValidation($comment);
+	
+		if(isset($_POST['Comment'])) {
+			$comment->attributes=$_POST['Comment'];
+	
+			if($comment->save()) {
+				$this->redirect(array('view','id'=>$task->id, '#comment-' . $comment->id));
+			}
+		}
+	
+		return $comment;
 	}
 
 	/**

@@ -4,6 +4,8 @@
  * @uses $subtasks
  * @uses $ancestors
  * @uses $newTask
+ * @user $comment
+ * @uses $commentsDataProvider
  * @uses $feedDataProvider
  */
 $this->pageTitle = $model->name;
@@ -126,7 +128,6 @@ if($model->isParticipatable):
 	}
 	?>
 </section>
-
 <?php endif; ?>
 
 <?php
@@ -145,11 +146,28 @@ echo $this->renderPartial('_agenda', array(
 
 <?php endif; ?>
 
-<?php // "what would you want to do input" box
-if($model->isSubtaskable) {
-	echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true));
-}
+<?php // "what would you want to do input" box ?>
+<?php if($model->isSubtaskable): ?>
+<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+<?php endif; ?>
 
+<?php // show comments ?>
+<section id="task-comments">
+<h1><?php echo 'Comments'; ?></h1>
+	
+	<?php 
+	// show list of comments
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$commentsDataProvider,
+		'itemView'=>'/comment/_view',
+		'emptyText'=>''
+	));
+	
+	// show new comment form ?>
+	<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+</section>
+
+<?php
 // Show history
 ?>
 <section>

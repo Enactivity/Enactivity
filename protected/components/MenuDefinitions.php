@@ -45,12 +45,22 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
+				'label'=>'Manage Comments', 
+				'url'=>array('comment/admin'), 	
+				'linkOptions'=>array('id'=>'comment-admin-menu-item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
+			array(
 				'label'=>'Manage Feed', 
 				'url'=>array('feed/admin'), 	
 				'linkOptions'=>array('id'=>'feed-admin-menu-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 		);
+	}
+	
+	public static function comment() {
+		return null;
 	}
 	
 	public static function feed() {

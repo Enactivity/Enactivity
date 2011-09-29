@@ -173,6 +173,11 @@ class Task extends CActiveRecord
 				'condition' => 'feed.focalModel=\'Task\'',
 				'order' => 'feed.created DESC',
 			),
+			
+			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
+				'condition' => 'comments.model=\'Task\'',
+				'order' => 'comments.created DESC',
+			),
 		);
 	}
 

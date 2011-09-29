@@ -258,6 +258,20 @@ class PHtml extends CHtml {
 	}
 	
 	/**
+	 * Returns the classes values associated with a Comment object
+	 * @param Comment $comment
+	 * @return string space-separated html class string
+	*/
+	public static function commentClass($comment) {
+		$articleClass = array();
+	
+		$articleClass[] = "comment";
+		$articleClass[] = "comment-" . PHtml::encode($comment->id);
+	
+		return implode(" ", $articleClass);
+	}
+	
+	/**
 	* Returns the classes values associated with a user task object
 	* @param TaskUser $taskuser
 	* @return string space-separated html class string
