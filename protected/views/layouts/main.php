@@ -25,7 +25,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 
 <div class="everything">
 	<header class="global-header">
-		<nav id="primaryNavigation">
+		<nav class="primary-navigation">
 		<?php 
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>MenuDefinitions::globalMenu()
@@ -37,7 +37,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 		if(isset($this->menu) 
 			&& !empty($this->menu)
 		):?>
-		<nav id="secondaryNavigation">
+		<nav class="secondary-navigation">
 		<?php 
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,
