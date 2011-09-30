@@ -25,12 +25,8 @@ class UserController extends Controller
 				'users'=>array('*')
 		),
 		array('allow', // allow only authenticated user to perform actions
-				'actions'=>array('invite'),		
+				'actions'=>array('invite', 'update', 'updatepassword'),
 				'users'=>array('@'),
-		),
-		array('allow',
-			'actions'=>array('view', 'update', 'updatepassword'),
-			'expression'=>'$user->id == $_GET[\'id\']', 
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('index', 'admin', 'delete', 'update'),
@@ -120,9 +116,15 @@ class UserController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id = null)
 	{
-		$model = $this->loadModel($id);
+		$model = null;
+		if(is_null($id)) {
+			$model = Yii::app()->user->model;
+		}
+		else { 
+			$model = $this->loadModel($id);
+		}
 		$model->setScenario(User::SCENARIO_UPDATE);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -146,9 +148,16 @@ class UserController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdatePassword($id)
+	public function actionUpdatePassword($id = null)
 	{
-		$model = $this->loadModel($id);
+		$model = null;
+		if(is_null($id)) {
+			$model = Yii::app()->user->model;
+		}
+		else {
+			$model = $this->loadModel($id);
+		}
+		
 		$model->setScenario(User::SCENARIO_UPDATE_PASSWORD);
 
 		// Uncomment the following line if AJAX validation is needed

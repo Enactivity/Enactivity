@@ -201,12 +201,12 @@ class MenuDefinitions extends CComponent {
 				
 			$menu = array();
 			$menu[] = array('label'=>'Update Profile', 
-				'url'=>array('user/update', 'id'=>$model->id),
+				'url'=>array('user/update'),
 				'linkOptions'=>array('id'=>'user-update-menu-item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);
 			$menu[] = array('label'=>'Update Password', 
-				'url'=>array('user/updatepassword', 'id'=>$model->id),
+				'url'=>array('user/updatepassword'),
 				'linkOptions'=>array('id'=>'user-update-menu-item'), 
 				'visible'=>Yii::app()->user->id == $model->id,
 			);

@@ -120,6 +120,6 @@ class SiteController extends Controller
 	
 	public function actionSettings() 
 	{
-		$this->redirect(array('user/update', 'id'=>Yii::app()->user->id));
+		$this->redirect(array('user/update'));
 	}
 }
