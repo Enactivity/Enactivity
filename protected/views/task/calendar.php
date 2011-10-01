@@ -6,7 +6,7 @@ $this->menu[] = array(
 		'month' => $month->intValue - 1 < 1 ? 12 : $month->intValue - 1,
 		'year' => $month->intValue - 1 < 1 ? $month->year - 1 : $month->year,
 	),
-	'linkOptions'=>array('id'=>'task_next_month_menu_item'),
+	'linkOptions'=>array('id'=>'task_previous_month_menu_item'),
 );
 
 $this->menu[] = array(
