@@ -1,6 +1,6 @@
 <?php
 class PHtml extends CHtml {
-	
+
 	/**
 	 * Generates an date field input.
 	 * @param string the input name
@@ -16,7 +16,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('date',$name,$value,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an datetime field input.
 	 * @param string the input name
@@ -32,7 +32,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('datetime',$name,$value,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an datetime-local field input.
 	 * @param string the input name
@@ -48,7 +48,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('datetime-local',$name,$value,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an email field input.
 	 * @param string the input name
@@ -64,7 +64,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('email',$name,$value,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates a time field input.
 	 * @param string the input name
@@ -80,8 +80,8 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('time',$name,$value,$htmlOptions);
 	}
-	
-	
+
+
 	/**
 	 * Generates a drop down list with the list of acceptable timezones
 	 * @param string $name the input name
@@ -92,7 +92,7 @@ class PHtml extends CHtml {
 		$data = PDateTime::timeZoneArray();
 		return self::dropDownList($name, $select, $data, $htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an date field input for a model attribute.
 	 * If the attribute has input error, the input field's CSS class will
@@ -111,7 +111,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('date',$model,$attribute,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an datetime field input for a model attribute.
 	 * If the attribute has input error, the input field's CSS class will
@@ -130,7 +130,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('datetime',$model,$attribute,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an datetime-local field input for a model attribute.
 	 * If the attribute has input error, the input field's CSS class will
@@ -149,7 +149,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('datetime-local',$model,$attribute,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an email field input for a model attribute.
 	 * If the attribute has input error, the input field's CSS class will
@@ -168,7 +168,7 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('email',$model,$attribute,$htmlOptions);
 	}
-	
+
 	/**
 	 * Generates an time field input for a model attribute.
 	 * If the attribute has input error, the input field's CSS class will
@@ -187,7 +187,7 @@ class PHtml extends CHtml {
 		self::clientChange('change', $htmlOptions);
 		return self::activeInputField('time', $model, $attribute, $htmlOptions);
 	}
-	
+
 	/**
 	 * Generates a drop down list with the list of acceptable timezones
 	 * @param string $name the input name
@@ -198,7 +198,7 @@ class PHtml extends CHtml {
 		$data = PDateTime::timeZoneArray();
 		return self::activeDropDownList($model, $attribute, $data, $htmlOptions);
 	}
-	
+
 	/**
 	 * Provides an alternative to nl2br, and returns a string with
 	 * newlines replaced with <p> tags
@@ -208,15 +208,15 @@ class PHtml extends CHtml {
 	public static function nl2p($value) {
 		// Remove existing HTML formatting to avoid double-wrapping things
 		$value = str_replace(array('<p>', '</p>', '<br>', '<br />'), '', $value);
-		
-        return '<p>'.preg_replace("/([\n]{1,})/i", "</p>\n<p>", trim($value)).'</p>';
+
+		return '<p>'.preg_replace("/([\n]{1,})/i", "</p>\n<p>", trim($value)).'</p>';
 	}
-	
+
 	/**
-	 * Replaces plain text links with formatted that contains 
+	 * Replaces plain text links with formatted that contains
 	 * <a hrefs>.
 	 * @param string $string
-	 * @return string 
+	 * @return string
 	 */
 	public static function makeClickable($string) {
 		$urlHtml = preg_replace(
@@ -224,9 +224,9 @@ class PHtml extends CHtml {
 			'<a href="http$3://$4$5">http$3://$4$5</a>', $string);
 		return ($urlHtml);
 	}
-	
+
 	/**
-	 * Returns the id attribute value for a tag based 
+	 * Returns the id attribute value for a tag based
 	 * @param int $dateTime
 	 * @return string id value
 	 */
@@ -235,54 +235,68 @@ class PHtml extends CHtml {
 		$id .= date('Y', $dateTime);
 		$id .= '-' . date('m', $dateTime);
 		$id .= '-' . date('d', $dateTime);
-		
+
 		return $id;
 	}
-	
+
 	/**
-	 * Returns the classes values associated with a Task object 
+	 * Returns the classes values associated with a Comment object
+	 * @param Comment $comment
+	 * @return string space-separated html class string
+	 */
+	public static function commentClass($comment) {
+		$articleClass = array();
+
+		$articleClass[] = "comment";
+		$articleClass[] = "comment-" . PHtml::encode($comment->id);
+
+		return implode(" ", $articleClass);
+	}
+
+	/**
+	 * Returns the classes values associated with a Group object
+	 * @param Group $group
+	 * @return string space-separated html class string
+	 */
+	public static function groupClass($group) {
+		$articleClass = array();
+
+		$articleClass[] = "group";
+		$articleClass[] = "group-" . PHtml::encode($group->id);
+
+		return implode(" ", $articleClass);
+	}
+
+	/**
+	 * Returns the classes values associated with a Task object
 	 * @param Task $task
 	 * @return string space-separated html class string
 	 */
 	public static function taskClass($task) {
 		$articleClass = array();
-		
+
 		$articleClass[] = "task";
 		$articleClass[] = "task-" . PHtml::encode($task->id);
 		$articleClass[] = $task->hasStarts ? "starts" : "";
 		$articleClass[] = $task->isCompleted ? "completed" : "not-completed";
 		$articleClass[] = $task->isInheritedTrash ? "trash" : "not-trash";
 		$articleClass[] = $task->isUserParticipating ? "participating" : "not-participating";
-		
+
 		return implode(" ", $articleClass);
 	}
-	
+
 	/**
-	 * Returns the classes values associated with a Comment object
-	 * @param Comment $comment
+	 * Returns the classes values associated with a user task object
+	 * @param TaskUser $taskuser
 	 * @return string space-separated html class string
-	*/
-	public static function commentClass($comment) {
-		$articleClass = array();
-	
-		$articleClass[] = "comment";
-		$articleClass[] = "comment-" . PHtml::encode($comment->id);
-	
-		return implode(" ", $articleClass);
-	}
-	
-	/**
-	* Returns the classes values associated with a user task object
-	* @param TaskUser $taskuser
-	* @return string space-separated html class string
-	*/
+	 */
 	public static function taskUserClass($taskuser) {
 		$articleClass = array();
-	
+
 		$articleClass[] = "participant";
 		$articleClass[] = "participant-" . PHtml::encode($taskuser->id);
 		$articleClass[] = $taskuser->isCompleted ? "completed" : "not-completed";
-	
+
 		return implode(" ", $articleClass);
 	}
 }
