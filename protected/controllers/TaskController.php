@@ -66,7 +66,7 @@ class TaskController extends Controller
 		$newTask = $this->handleNewTaskForm($id);
 
 		// Comments
-		$comment = $this->handleNewComment($model);
+		$comment = $this->handleNewTaskComment($model);
 		
 		$commentsDataProvider = new CArrayDataProvider($model->comments);
 		
@@ -467,20 +467,19 @@ class TaskController extends Controller
 	 * @param Comment $comment
 	 * @return Comment
 	 */
-	public function handleNewComment($task, $comment = null) {
+	public function handleNewTaskComment($task, $comment = null) {
 		if(is_null($comment)) {
-			$comment = new Comment(Comment::SCENARIO_INSERT);
+			$comment = new TaskComment(TaskComment::SCENARIO_INSERT);
 		}
 	
-		$comment->model = "Task";
 		$comment->modelId = $task->id;
 		$comment->groupId = $task->groupId;
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);
 	
-		if(isset($_POST['Comment'])) {
-			$comment->attributes=$_POST['Comment'];
+		if(isset($_POST['TaskComment'])) {
+			$comment->attributes=$_POST['TaskComment'];
 	
 			if($comment->save()) {
 				$this->redirect(array('view','id'=>$task->id, '#comment-' . $comment->id));
