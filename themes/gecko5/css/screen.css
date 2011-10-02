@@ -149,7 +149,7 @@ nav li {
 
 nav li a,
 nav li a:visited {
-	color: #ffffff;
+	color: #808080;
 	display: block;	
 	padding: 8px;
 	text-transform: lowercase;
@@ -159,7 +159,6 @@ nav li a:hover,
 nav li a:focus,
 .active a,
 .active a:visited {
-	background-color: #00b6d5;
 	color: #ffffff;
 	text-decoration: none;
 }
