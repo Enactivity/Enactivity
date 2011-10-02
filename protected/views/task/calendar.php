@@ -1,25 +1,38 @@
 <?php
 $this->pageTitle = Yii::app()->format->formatMonth($month->timestamp) . " " . $month->year;
-$this->menu[] = array(
-	'label'=>'Previous Month', 
+// nav
+$calendarMenu = array();
+$calendarMenu[] = array(
+	'label'=>'Previous', 
 	'url'=>array('task/calendar',
 		'month' => $month->intValue - 1 < 1 ? 12 : $month->intValue - 1,
 		'year' => $month->intValue - 1 < 1 ? $month->year - 1 : $month->year,
+),
+	'linkOptions'=>array(
+		'id'=>'task-previous-month-menu-item',
+		'class'=>'task-previous-month-menu-item',
 	),
-	'linkOptions'=>array('id'=>'task_previous_month_menu_item'),
 );
 
-$this->menu[] = array(
-	'label'=>'Next Month', 
+$calendarMenu[] = array(
+	'label'=>'Next', 
 	'url'=>array('task/calendar',
 		'month' => $month->intValue + 1 > 12 ? 1 : $month->intValue + 1,
 		'year' => $month->intValue + 1 > 12 ? $month->year + 1 : $month->year,
+),
+	'linkOptions'=>array(
+		'id'=>'task-next-month-menu-item',
+		'class'=>'task-next-month-menu-item',
 	),
-	'linkOptions'=>array('id'=>'task_next_month_menu_item'),
 );
 ?>
 
 <header>
+	<nav class="calendar-nav">
+	<?php $this->widget('zii.widgets.CMenu', array(
+		'items'=>$calendarMenu,
+	)); ?>
+	</nav>
 	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
 </header>
 

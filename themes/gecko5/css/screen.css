@@ -600,6 +600,36 @@ select[name="Task[endTime]"]  {
 }
 
 /* Task Calendar */
+.calendar-nav {
+	position: absolute;
+	right: 0;
+	top: 16px;
+	white-space: nowrap;
+}
+
+.calendar-nav li {
+	max-width: 35px;
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+.calendar-nav a {
+	background-image: url(../images/white-arrows-70x35.png);
+	background-repeat: no-repeat;
+	height: 35px;
+	padding: 0;
+	overflow: hidden;
+	width: 35px;
+}
+
+.task-previous-month-menu-item {
+	background-position: 0 0; /* left arrow */
+}
+
+.task-next-month-menu-item {
+	background-position: -35px 0; /* right arrow */
+}
+
 .calendar {
 	background-color: #ffffff;
 	color: #333436;
@@ -694,9 +724,22 @@ px      68    160    252    344    436    528    620    712    */
 		display: block;
 		max-width: 100px;
 		position: absolute;
-		right: 560px;
+		right: 554px; /* 16px from left side */
 		text-align: right;
 		top: 16px;
 	} 
+
+	/* Calendar arrows */
+	#task-previous-month-menu-item {
+		position: absolute;
+		right: 560px; /* 16px from right size */
+		top: 15em;
+	}
+	
+	#task-next-month-menu-item {
+		position: absolute;
+		left: 16px;
+		top: 15em;
+	}
 	
 }
