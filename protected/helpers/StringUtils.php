@@ -25,6 +25,14 @@ class StringUtils {
 	} 
 	
 	/**
+	 * Returns a 23 character unique string
+	 * @return String
+	 */
+	public static function uniqueString() {
+		return uniqid('', true);
+	}
+	
+	/**
 	 * Truncates the given string to a set length, with the suffix if 
 	 * the initial string was longer than the length.
 	 * @param string $string
