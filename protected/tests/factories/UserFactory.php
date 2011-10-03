@@ -14,9 +14,8 @@ class UserFactory extends AbstractFactory {
 		// invite
 		$user = new User();
 		$user->scenario = User::SCENARIO_INVITE;
-		$user->attributes = array(
-			'email' => "pemail+" . uniqid() . "@alpha.poncla.com"
-		);
+		$user->email = "pemail+" . uniqid() . "@alpha.poncla.com";
+		$user->attributes = $attributes;
 
 		return $user;
 	}
