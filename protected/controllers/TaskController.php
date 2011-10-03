@@ -471,9 +471,8 @@ class TaskController extends Controller
 		if(is_null($comment)) {
 			$comment = new TaskComment(TaskComment::SCENARIO_INSERT);
 		}
-	
-		$comment->modelId = $task->id;
-		$comment->groupId = $task->groupId;
+		
+		$comment->task = $task;
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);

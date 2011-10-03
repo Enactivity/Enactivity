@@ -67,14 +67,13 @@ class Comment extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('groupId, creatorId, model, modelId, content', 'required'),
-            array('groupId, creatorId, modelId', 'length', 'max'=>11),
-            array('model', 'length', 'max'=>45),
+            array('content', 'required'),
             
-        // trim inputs
+        	// trim inputs
         	array('content', 'filter', 'filter'=>'trim'),
         	array('content', 'length', 'max'=>self::CONTENT_MAX_LENGTH),
-            // The following rule is used by search().
+            
+        	// The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, groupId, creatorId, model, modelId, content, created, modified', 'safe', 'on'=>'search'),
         );

@@ -71,4 +71,13 @@ class TaskComment extends Comment
     		'model' => self::MODELTYPE,
     	);
     }
+    
+    /**
+     * Set the TaskComment's Task
+     * @param Task $task
+     */
+    public function setTask(Task $task) {
+    	$this->modelId = $task->id;
+    	$this->groupId = $task->groupId;
+    }
 }
