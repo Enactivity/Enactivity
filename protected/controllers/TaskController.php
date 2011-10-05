@@ -358,29 +358,29 @@ class TaskController extends Controller
 
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
-		$taskWithDateQueryModel
-		->scopeUsersGroups(Yii::app()->user->id)
-		->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
-		array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-		),
-				'pagination'=>false,
-		)
+			$taskWithDateQueryModel
+			->scopeUsersGroups(Yii::app()->user->id)
+			->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
+			array(
+					'criteria'=>array(
+						'condition'=>'isTrash=0'
+			),
+					'pagination'=>false,
+			)
 		);
 
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
 		$taskWithoutDateQueryModel
-		->scopeUsersGroups(Yii::app()->user->id)
-		->scopeNoWhen()
-		->scopeLeaves(),
-		array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-		),
-				'pagination'=>false,
-		)
+			->scopeUsersGroups(Yii::app()->user->id)
+			->scopeNoWhen()
+			->roots(),
+			array(
+					'criteria'=>array(
+						'condition'=>'isTrash=0'
+			),
+					'pagination'=>false,
+			)
 		);
 
 		// handle new task
