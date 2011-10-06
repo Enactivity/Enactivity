@@ -107,7 +107,7 @@ class TaskController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$model = self::handleNewTaskForm(null, $model);
+		$model = $this->handleNewTaskForm(null, $model);
 
 		$this->render('create',array(
 			'model'=>$model,
