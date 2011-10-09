@@ -49,7 +49,7 @@ class GroupInputRow extends CWidget {
 	
 	protected function renderRow() {
 		if(count($this->groups) != 1) {
-			echo CHtml::openTag('div', array('class' => 'row'));
+			echo CHtml::openTag('div', array('class' => 'field'));
 			
 			echo CHtml::openTag('div', array('class' => 'formlabel'));
 			echo $this->form->labelEx($this->model, 'groupId');

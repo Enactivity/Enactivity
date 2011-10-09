@@ -26,6 +26,18 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
+	
+	<?php
+	// only show row when is root task
+	if(!isset($model->parentId)) {
+		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
+				'form' => $form,
+				'model' => $model,
+				'groups' => Yii::app()->user->model->groups,
+		));
+	}
+	?>
+	
 	<div class="field">
 		<?php
 		echo $form->labelEx($model,'name');
