@@ -12,6 +12,7 @@
  * @property string $lastName
  * @property string $timeZone
  * @property string $status
+ * @property integer $isAdmin
  * @property string $created
  * @property string $modified
  * @property string $lastLogin

@@ -15,19 +15,18 @@ class WebUser extends CWebUser {
 	 * Return the model, access it by <code>Yii::app()->user->model</code>.
 	 * @return User $user
 	 */
-	public function getModel(){
-		$user = $this->loadUser(Yii::app()->user->id);
+	public function getModel() {
+		$user = $this->loadUser($this->id);
 		return $user;
 	}
 
 	/**
 	 * Load user model.
+	 * @param int id User's id
 	 */
-	protected function loadUser($id = null)
-	{
-		if($this->_model === null)
-		{
-			if($id !== null)
+	protected function loadUser($id = null) {
+		if(is_null($this->_model)
+			&& !is_null($id)) {
 			$this->_model = User::model()->findByPk($id);
 		}
 		return $this->_model;
@@ -36,16 +35,9 @@ class WebUser extends CWebUser {
 	/**
 	 * @return boolean whether the current application user is a guest.
 	 */
-	public function getIsAdmin()
-	{
+	public function getIsAdmin() {
 		//TODO: implement admin in user
-		if($this != null) {
-			$model = $this->getModel();
-			if(isset($model)) {
-				return $model->email == 'admin@poncla.com';
-			}
-		}
-		return false;
+		return $this->model->isAdmin;
 	}
 	
 	/**
