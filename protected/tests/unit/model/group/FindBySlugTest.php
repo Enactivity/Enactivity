@@ -4,7 +4,9 @@ require_once 'TestConstants.php';
 
 class FindBySlugTest extends DbTestCase
 {
-	public $group;
+	var $group;
+	var $groupName;
+	var $groupSlug;
 	
 	public static function setUpBeforeClass()
 	{
@@ -15,15 +17,15 @@ class FindBySlugTest extends DbTestCase
 	{
 		parent::setUp();
 		
-		$name = StringUtils::createRandomString(10);
-		$slug = StringUtils::createRandomString(10);
+		$this->groupName = StringUtils::createRandomString(10);
+		$this->groupSlug = StringUtils::createRandomString(10);
 		
-		$this->group = new Group;
-	    $this->group->setAttributes(array(
-	        'name' => $name,
-	        'slug' => $slug,
-	    ));
-	    $this->group->save();
+	    $this->group = GroupFactory::insert(
+	    	array(
+	        	'name' => $this->groupName,
+	        	'slug' => $this->groupSlug,
+	    	)
+	    );
 	}
 	
 	protected function tearDown()
@@ -40,12 +42,12 @@ class FindBySlugTest extends DbTestCase
 	 * Test using the correct slug
 	 */
     public function testFindByGroupValid() {
-    	$foundGroup = Group::model()->findBySlug($this->group->slug);
+    	$foundGroup = Group::model()->findBySlug($this->groupSlug);
     	
     	$this->assertTrue($foundGroup instanceof Group, 'found group not a Group object');
 	    
-	    $this->assertEquals($this->group->name, $foundGroup->name, 'found group name does not match saved group name');
-	    $this->assertEquals($this->group->slug, $foundGroup->slug, 'found group slug does not match saved group slug');
+	    $this->assertEquals($this->groupName, $foundGroup->name, 'found group name does not match saved group name');
+	    $this->assertEquals($this->groupSlug, $foundGroup->slug, 'found group slug does not match saved group slug');
 	}
 	
 	/**
