@@ -28,7 +28,7 @@ class UserFactory extends AbstractFactory {
 	static function insertInvited($attributes, $groupId = 1) {
 		$user = self::make($attributes);
 		$user->save();
-		
+
 		// add user to group
 		$groupUser = new GroupUser();
 		$groupUser->groupId = $groupId;
@@ -61,6 +61,23 @@ class UserFactory extends AbstractFactory {
 
 		// overload attributes
 		$user->attributes = $attributes;
+
+		$foundUser = User::model()->findByPk($user->id);
+		return $foundUser;
+	}
+
+	/**
+	 * Returns an admin user generated via {@link UserFactory::insertInvited()}
+	 * that is an active part of the group
+	 * @param array $attributes, overloads default attributes
+	 * @param int $groupId
+	 * @return User saved user
+	 */
+	static function insertAdmin($attributes = array(), $groupId = 1) {
+		// invite
+		$user = self::insert($attributes, $groupId);
+		$user->isAdmin = 1;
+		$user->save();
 
 		$foundUser = User::model()->findByPk($user->id);
 		return $foundUser;
