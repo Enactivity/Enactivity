@@ -37,7 +37,7 @@ class WebUser extends CWebUser {
 	 */
 	public function getIsAdmin() {
 		//TODO: implement admin in user
-		return $this->model->isAdmin;
+		return isset($this->model->isAdmin) && $this->model->isAdmin;
 	}
 	
 	/**
