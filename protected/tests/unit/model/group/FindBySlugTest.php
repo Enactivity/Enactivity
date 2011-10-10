@@ -47,7 +47,7 @@ class FindBySlugTest extends DbTestCase
     	$this->assertTrue($foundGroup instanceof Group, 'found group not a Group object');
 	    
 	    $this->assertEquals($this->groupName, $foundGroup->name, 'found group name does not match saved group name');
-	    $this->assertEquals($this->groupSlug, $foundGroup->slug, 'found group slug does not match saved group slug');
+	    $this->assertEquals($this->groupSlug, $foundGroup->slug, 'found group slug does not match saved group slug', 0, 10, false, true);
 	}
 	
 	/**
