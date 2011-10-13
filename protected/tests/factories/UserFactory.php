@@ -14,7 +14,7 @@ class UserFactory extends AbstractFactory {
 		// invite
 		$user = new User();
 		$user->scenario = User::SCENARIO_INVITE;
-		$user->email = "pemail+" . uniqid() . "@alpha.poncla.com";
+		$user->email = "pemail+" . StringUtils::uniqueString() . "@alpha.poncla.com";
 		$user->attributes = $attributes;
 
 		return $user;
@@ -59,12 +59,12 @@ class UserFactory extends AbstractFactory {
 		$user = self::insertInvited($attributes, $groupId);
 
 		// register
-		$password = "pw" + uniqid();
+		$password = "pw" + StringUtils::uniqueString();
 		
 		$user->scenario = User::SCENARIO_REGISTER;
 		$user->attributes = array(
-			'firstName' => "pfirst" + uniqid(),
-			'lastName' => "plast" + uniqid(),
+			'firstName' => "pfirst" + StringUtils::uniqueString(),
+			'lastName' => "plast" + StringUtils::uniqueString(),
 			'password' => $password,
 		);
 

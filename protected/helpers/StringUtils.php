@@ -29,7 +29,9 @@ class StringUtils {
 	 * @return String
 	 */
 	public static function uniqueString() {
-		return uniqid('', true);
+		$string = uniqid('', true);
+		$string = str_replace('.', '', $string);
+		return $string;
 	}
 	
 	/**
