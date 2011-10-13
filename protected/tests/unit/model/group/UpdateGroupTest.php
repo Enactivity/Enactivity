@@ -206,7 +206,7 @@ class UpdateGroupTest extends DbTestCase
 	 */
 	public function testUpdateGroupDuplicateName() {
 
-		$name = $this->groupFixtures['testgroup']['name'];
+		$name = GroupFactory::insert()->name;
 		$slug = null;
 		
 	    $this->group->setAttributes(array(

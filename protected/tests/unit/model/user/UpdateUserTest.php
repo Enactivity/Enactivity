@@ -4,7 +4,10 @@ require_once 'TestConstants.php';
 
 class UpdateUserTest extends DbTestCase
 {
-	public $user;
+	var $user;
+	var $userId;
+	var $userCreated;
+	var $userModified;
 
 	public static function setUpBeforeClass()
 	{
@@ -16,7 +19,10 @@ class UpdateUserTest extends DbTestCase
 		parent::setUp();
 		
 		// get the registered user
-		$this->user = User::model()->findByPk($this->userFixtures['registered']['id']);
+		$this->user = UserFactory::insert();
+		$this->userId = $this->user->id;
+		$this->userCreated = $this->user->created;
+		$this->userModified = $this->user->modified;
 		
 		$this->user->scenario = User::SCENARIO_UPDATE;
 	}
@@ -46,8 +52,10 @@ class UpdateUserTest extends DbTestCase
 			'lastName' => $lastName,
 		));
 		
+		sleep(1); // to allow time for modified to update
+		
 		$this->assertTrue($this->user->save(), 'valid user was not saved');
-		$this->assertEquals($this->userFixtures['registered']['id'], $this->user->id, 
+		$this->assertEquals($this->userId, $this->user->id, 
 			'updating save changed user id');
 		
 		// verify the user can be found in db 
@@ -62,9 +70,9 @@ class UpdateUserTest extends DbTestCase
 		$this->assertEquals($lastName, $this->user->lastName, 
 			'user last name was not saved');
 		
-		$this->assertEquals($this->userFixtures['registered']['created'], $this->user->created, 
+		$this->assertEquals($this->userCreated, $this->user->created, 
 			'user created was changed on update');
-		$this->assertNotEquals($this->userFixtures['registered']['modified'], $this->user->modified, 
+		$this->assertNotEquals($this->userModified, $this->user->modified, 
 			'user modified was not changed on update');
 	}
 	
@@ -84,7 +92,7 @@ class UpdateUserTest extends DbTestCase
 		));
 		
 		$this->assertTrue($this->user->save(), 'valid user was not saved');
-		$this->assertEquals($this->userFixtures['registered']['id'], $this->user->id, 
+		$this->assertEquals($this->userId, $this->user->id, 
 			'updating save changed user id');
 		
 		// verify the user can be found in db 

@@ -73,7 +73,6 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{	
 			$model->attributes = $_POST['User'];
-			$model->status = User::STATUS_ACTIVE;
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', 'Your registration is complete, please sign-in.');
 				$this->redirect(array('site/login'));

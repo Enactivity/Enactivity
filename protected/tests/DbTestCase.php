@@ -13,10 +13,6 @@ class DbTestCase extends CDbTestCase
 		'groupFixtures'=>':group',
 		'userFixtures'=>':user',
 		'groupUserFixtures'=>':group_user',
-		'taskFixtures'=>':task',
-		'taskUserFixtures'=>':task_user',
-		'activeRecordLogFixtures'=>':activerecordlog',
-		'commentFixtures'=>':comment',
     );
     
 	public static function setUpBeforeClass()
@@ -34,8 +30,8 @@ class DbTestCase extends CDbTestCase
 		
 		// login as registered user
 		$loginForm = new UserLoginForm();
-		$loginForm->email = $this->userFixtures['registered']['email'];
-		$loginForm->password = 'test';
+		$loginForm->email = USER_EMAIL; //declared in init.php
+		$loginForm->password = USER_PASSWORD;
 		$loginForm->login();
 	}
 	

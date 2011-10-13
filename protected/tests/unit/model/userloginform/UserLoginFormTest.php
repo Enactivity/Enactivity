@@ -17,7 +17,7 @@ class UserLoginFormTest extends DbTestCase
 	
 	public function testEmptyEmail() {
 		$email = '';
-		$password = $this->userFixtures['registered']['password'];
+		$password = USER_PASSWORD;
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
 	        'email' => $email,
@@ -27,7 +27,7 @@ class UserLoginFormTest extends DbTestCase
 	}
 
 	public function testEmptyPassword() {
-		$email = $this->userFixtures['registered']['email'];
+		$email = USER_EMAIL;
 		$password = '';
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
@@ -38,7 +38,7 @@ class UserLoginFormTest extends DbTestCase
 	}
 
 	public function testLoginValidAdmin() {
-		$email = $this->userFixtures['admin']['email'];
+		$email = ADMIN_EMAIL;
 		$password = 'chewychocolatechips';
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
@@ -49,7 +49,7 @@ class UserLoginFormTest extends DbTestCase
 	}
 
 	public function testLoginInvalid() {
-		$email = $this->userFixtures['admin']['email'];
+		$email = ADMIN_EMAIL;
 		$password = StringUtils::createRandomString(30);
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(

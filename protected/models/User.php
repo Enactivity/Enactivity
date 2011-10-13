@@ -287,17 +287,18 @@ class User extends CActiveRecord
 	 */
 	protected function beforeSave()
 	{
-		if(parent::beforeSave())
-		{
-			if($this->isNewRecord)
-			{				
+		if(parent::beforeSave()) {
+			if($this->isNewRecord) {				
 				//encrypt token and password
 				$this->token = self::generateToken();
 			}
-			elseif($this->getScenario() == self::SCENARIO_REGISTER
+			if($this->getScenario() == self::SCENARIO_REGISTER
 				|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD	
 				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
 				$this->password = self::encrypt($this->password, $this->token);
+			}
+			if($this->getScenario() == self::SCENARIO_REGISTER) {
+				$this->status = User::STATUS_ACTIVE;
 			}
 			return true;
 		}

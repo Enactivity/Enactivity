@@ -227,7 +227,8 @@ class InsertGroupTest extends DbTestCase
 	 */
 	public function testUpdateGroupDuplicateName() {
 
-		$name = $this->groupFixtures['testgroup']['name'];
+		$group = GroupFactory::insert();
+		$name = $group->name;
 		$slug = null;
 		
 		$this->groupUnderTest = new Group();

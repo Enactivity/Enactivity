@@ -22,10 +22,18 @@ class UserFactory extends AbstractFactory {
 
 	/**
 	 * Generate a user who has not yet registered
+	 * @see UserFactory::make
 	 * @param array $attributes
 	 * @param int $groupId
 	 */
-	static function insertInvited($attributes, $groupId = 1) {
+	static function insertInvited($attributes = array(), $groupId = null) {
+		// setup group if not defined
+		if(is_null($groupId)) {
+			$group = GroupFactory::insert();
+			$groupId = $group->id;
+		}
+
+		// invite user
 		$user = self::make($attributes);
 		$user->save();
 
@@ -36,8 +44,7 @@ class UserFactory extends AbstractFactory {
 		$groupUser->status = GroupUser::STATUS_ACTIVE;
 		$groupUser->save();
 
-		$foundUser = User::model()->findByPk($user->id);
-		return $foundUser;
+		return User::model()->findByPk($user->id);
 	}
 
 	/**
@@ -47,23 +54,27 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User saved user
 	 */
-	static function insert($attributes = array(), $groupId = 1) {
+	static function insert($attributes = array(), $groupId = null) {
 		// invite
 		$user = self::insertInvited($attributes, $groupId);
 
 		// register
+		$password = "pw" + uniqid();
+		
 		$user->scenario = User::SCENARIO_REGISTER;
 		$user->attributes = array(
 			'firstName' => "pfirst" + uniqid(),
 			'lastName' => "plast" + uniqid(),
-			'password' => "pw" + uniqid(),
+			'password' => $password,
 		);
 
 		// overload attributes
 		$user->attributes = $attributes;
+		$user->confirmPassword = $user->password;
+		
+		$user->save();
 
-		$foundUser = User::model()->findByPk($user->id);
-		return $foundUser;
+		return User::model()->findByPk($user->id);
 	}
 
 	/**
@@ -73,13 +84,12 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User saved user
 	 */
-	static function insertAdmin($attributes = array(), $groupId = 1) {
+	static function insertAdmin($attributes = array(), $groupId = null) {
 		// invite
 		$user = self::insert($attributes, $groupId);
 		$user->isAdmin = 1;
 		$user->save();
 
-		$foundUser = User::model()->findByPk($user->id);
-		return $foundUser;
+		return User::model()->findByPk($user->id);
 	}
 }

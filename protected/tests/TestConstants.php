@@ -10,3 +10,10 @@
  */
 $_SERVER['APPLICATION_ENV'] = 'test';
 define('TEST_BASE_URL', 'http://localhost/poncla-yii/index.php/');
+
+// test  constants
+define(ADMIN_EMAIL, 'admin@poncla.com');
+define(ADMIN_PASSWORD, 'chewychocolatechips');
+
+define(USER_EMAIL, 'user@poncla.com');
+define(USER_PASSWORD, 'test');
