@@ -38,7 +38,6 @@ input, textarea, select {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box; /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
-	font-size: 1.5em;
 	padding: 8px;
 	width: 100%;
 }
@@ -205,10 +204,9 @@ section > h1 {
 
 .menu li a {
 	display: block; /* So it fills area and icon is clickable */
-	font-size: .8em; /* Should fit in width */
 	min-width: 50px; /* Should be at least 44px for touch screens */
-	padding-bottom: 9px;
-	padding-top: 9px;
+	padding-bottom: 8px;
+	padding-top: 8px;
 	text-align: center;
 }
 
@@ -325,9 +323,7 @@ input[type="button"] {
 	color: #ffffff;
 	cursor: pointer; /* Finger cursor */
 	display: inline-block;
-	font-size: .8em;
 	font-weight: bold;
-	padding: 1.25em; /* General padding size */
 	text-align: left;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
 	text-transform: lowercase;
@@ -335,10 +331,6 @@ input[type="button"] {
 	/* Avoid gradient defaults in some browsers */
 	-moz-appearance: none; 
 	-webkit-appearance: none;
-}
-
-input[type="button"] {
-	padding: .75em;
 }
 
 input[type="button"].neutral {
@@ -397,7 +389,6 @@ input[type="button"]:disabled:hover {
 
 label {
 	cursor: text; /* To help user realize it's clickable */
-	font-size: .75em;
 }
 
 label:not(.required) {
@@ -675,6 +666,10 @@ select[name="Task[endTime]"]  {
 	text-transform: lowercase;
 }
 
+/* JQuery overrides */
+.ui-datepicker {
+	max-width: 100%;
+}
 
 /*	Retina media query.
 	Overrides styles for devices with a 
