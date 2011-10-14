@@ -389,8 +389,10 @@ input[type="button"]:disabled:hover {
 
 label {
 	cursor: text; /* To help user realize it's clickable */
+	display: inline-block;
+	margin-bottom: 4px;
 }
-
+	
 label:not(.required) {
 	color: #8A8581;	
 }
@@ -404,9 +406,6 @@ textarea  {
 }
 
 .clear-field {
-	display: block;
-	padding-bottom: .5em;
-	padding-top: .5em;
 	text-align: right;
 	white-space: nowrap;
 }
