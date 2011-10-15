@@ -3,50 +3,35 @@
 class TrashTaskTest extends DbTestCase
 {
 			
-	public function setUp()
-	{
-		parent::setUp();
-	}
-	
 	/**
 	 * Create a valid task
 	 */
 	public function testTrashNewTask() {
-		$task = new Task();
+		$task = TaskFactory::insert();
 		
 		try {
-			$task->trash();
+			$this->assertTrue($task->trash(), "New task could not be trashed");
 		}
 		catch(Exception $e) {
 			$this->fail('Task->trash() threw exception: ' . $e->getMessage());
 		}
 		
-		if($task->isTrash) {
-			// test passes
-		}
-		else {
-			$this->fail('trash call did not update isTrash value');
-		}
+		$this->assertEquals(1, $task->isTrash, 'trash call did not update isTrash value');
 	}
 	
 	/**
 	 * Create a valid task
 	 */
 	public function testUnTrashNewTask() {
-		$task = new Task();
+		$task = TaskFactory::insert();
 		
 		try {
-			$task->untrash();
+			$this->assertTrue($task->untrash(), "New task could not be untrashed");
 		}
 		catch(Exception $e) {
 			$this->fail('Task->untrash() threw exception: ' . $e->getMessage());
 		}
 		
-		if($task->isTrash) {
-			$this->fail('untrash call did not update isTrash value');
-		}
-		else {
-			// test passes
-		}
+		$this->assertEquals(0, $task->isTrash, 'untrash call did not update isTrash value');
 	}
 }

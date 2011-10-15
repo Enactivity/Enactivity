@@ -160,10 +160,10 @@ class CompleteTaskTest extends DbTestCase {
 		$subtaskA->userComplete($userA->id);
 		$subtaskA->userComplete($userB->id);
 
-		$subtaskB->trash()->saveNode();
+		$this->assertTrue($subtaskB->trash(), "Subtask did not save");
 
 		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
-		$this->assertTrue($subtaskA->isCompleted, "Subask was not completed when all users are completed");
+		$this->assertTrue($subtaskA->isCompleted, "Subtask was not completed when all users are completed");
 
 		$this->assertTrue($task->getIsCompleted(), "Parent task was not completed when all users of subtask are completed");
 		$this->assertTrue($task->isCompleted, "Parent task was not completed when all users of subtasks are completed");

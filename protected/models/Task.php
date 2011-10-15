@@ -236,6 +236,28 @@ class Task extends CActiveRecord
 		));
 	}
 	
+	/**
+	 * Saves the task as trash
+	 * @return boolean whether the saving succeeds.
+	 * @see NestedSetBehavior::saveNode()
+	*/
+	public function trash() {
+		$this->isTrash = 1;
+		$this->setScenario(self::SCENARIO_TRASH);
+		return $this->saveNode();
+	}
+	
+	/**
+	 * Saves the task as not trash
+	 * @return boolean whether the saving succeeds.
+	 * @see NestedSetBehavior::saveNode()
+	 */
+	public function untrash() {
+		$this->isTrash = 0;
+		$this->setScenario(self::SCENARIO_UNTRASH);
+		return $this->saveNode();
+	}
+	
 	public function afterFind() {
 		parent::afterFind();
 		if(!is_null($this->startDate))
@@ -511,7 +533,6 @@ class Task extends CActiveRecord
 		$userTask = $this->loadTaskUser($userId);
 		
 		$userTask->trash();
-		$userTask->save();
 		
 		return $this;
 	}
@@ -569,26 +590,6 @@ class Task extends CActiveRecord
 			$userTask->taskId = $this->id;
 		}
 		return $userTask;
-	}
-	
-	/**
-	 * Mark the task as trash, does not save
-	 * @return Task
-	 */
-	public function trash() {
-		$this->isTrash = 1;
-		$this->setScenario(self::SCENARIO_TRASH);
-		return $this;
-	}
-	
-	/**
-	 * Mark the task as not trash, does not save
-	 * @return Task
-	 */
-	public function untrash() {
-		$this->isTrash = 0;
-		$this->setScenario(self::SCENARIO_UNTRASH);
-		return $this;
 	}
 	
 	public function defaultScope() {

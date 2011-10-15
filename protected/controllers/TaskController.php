@@ -150,7 +150,6 @@ class TaskController extends Controller
 			// we only allow trashing via POST request
 			$task = $this->loadModel($id);
 			$task->trash();
-			$task->saveNode();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -175,7 +174,6 @@ class TaskController extends Controller
 			// we only allow untrashing via POST request
 			$task = $this->loadModel($id);
 			$task->untrash();
-			$task->saveNode();
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
