@@ -36,6 +36,13 @@ class JuiDateTimePicker extends CJuiWidget
 	 * @var CModel the data model associated with this widget.
 	 */
 	public $model;
+	
+	/**
+	* @var string the datetime attribute associated with this widget.
+	* The name can contain square brackets (e.g. 'name[1]') which is used to collect tabular data input.
+	*/
+	public $dateTimeAttribute;
+	
 	/**
 	 * @var string the date attribute associated with this widget.
 	 * The name can contain square brackets (e.g. 'name[1]') which is used to collect tabular data input.
@@ -95,7 +102,7 @@ class JuiDateTimePicker extends CJuiWidget
 		}
 		
 		// label
-		echo CHTML::activelabelEx($this->model, $this->dateAttribute);
+		echo CHTML::activelabelEx($this->model, $this->dateTimeAttribute);
 		
 		// clear link
 		echo ' ';

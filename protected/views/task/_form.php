@@ -58,6 +58,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 				$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 					'model'=>$model,
+					'dateTimeAttribute'=>'starts',
 					'dateAttribute'=>'startDate',
 					'timeAttribute'=>'startTime',
 					// additional javascript options for the date picker plugin
