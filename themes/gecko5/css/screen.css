@@ -510,11 +510,6 @@ select[name="Task[endTime]"]  {
 	width: 50%;
 }
 
-/* Special settings for displaying inline */
-.new-task {
-	max-width: none;
-}
-
 /* Yii widgets */
 
 .list-view .summary {
