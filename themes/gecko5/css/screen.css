@@ -406,6 +406,7 @@ textarea  {
 }
 
 .clear-field {
+	float: right;
 	text-align: right;
 	white-space: nowrap;
 }
