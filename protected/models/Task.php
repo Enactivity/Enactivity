@@ -26,16 +26,11 @@ class Task extends CActiveRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
-	const SCENARIO_COMPLETE = 'complete';
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
-	const SCENARIO_READ = 'read';
-	const SCENARIO_OWN = 'own';
 	const SCENARIO_TRASH = 'trash';
-	const SCENARIO_UNCOMPLETE = 'uncomplete';
-	const SCENARIO_UNOWN = 'unown';
 	const SCENARIO_UNTRASH = 'untrash';
-	const SCENARIO_UPDATE = 'update';
+	const SCENARIO_UPDATE = 'update'; // default set by Yii
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -199,14 +194,9 @@ class Task extends CActiveRecord
 	
 	public function scenarioLabels() {
 		return array(
-			self::SCENARIO_COMPLETE => 'complete',
 			self::SCENARIO_DELETE => 'delete',
 			self::SCENARIO_INSERT => 'posted', // default set by Yii
-			self::SCENARIO_READ => 'read',
-			self::SCENARIO_OWN => 'own',
 			self::SCENARIO_TRASH => 'trashed',
-			self::SCENARIO_UNCOMPLETE => 'uncomplete',
-			self::SCENARIO_UNOWN => 'unown',
 			self::SCENARIO_UNTRASH => 'untrashed',
 			self::SCENARIO_UPDATE => 'updated',
 		);
@@ -260,8 +250,9 @@ class Task extends CActiveRecord
 	
 	public function afterFind() {
 		parent::afterFind();
-		if(!is_null($this->startDate))
-		{
+		
+		// Format the date into a user-friendly format that matches inputs
+		if(!is_null($this->startDate)) {
 			$this->startDate = date('m/d/Y', strtotime($this->starts));			
 		}
 	}
