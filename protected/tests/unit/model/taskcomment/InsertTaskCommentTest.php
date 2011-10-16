@@ -10,12 +10,7 @@ class InsertTaskCommentTest extends DbTestCase
 	public function setUp() {
 		parent::setUp();
 
-		$this->task = new Task();
-		$this->task->setAttributes(array(
-			'content' => "test testing",
-		));
-		$this->task->saveNode();
-		$this->task->scenario = Task::SCENARIO_UPDATE;
+		$this->task = TaskFactory::insert();
 	}
 
 	/**
