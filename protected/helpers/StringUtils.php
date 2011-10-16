@@ -25,6 +25,25 @@ class StringUtils {
 	} 
 	
 	/**
+	* Create a random string of letters and numbers
+	* @param integer $length number of characters in string
+	*/
+	public static function createRandomAlphaString($length = 10) {
+		$chars = "abcdefghijkmnopqrstuvwxyz";
+		$chars .= "ABCDEFGHIJKMNOPQRSTUVWXYZ";
+		srand((double) microtime() * 1000000);
+		$randomString = '';
+	
+		for($i = 0; $i < $length; $i++) {
+			$index = rand() % 33;
+			$tmp = substr($chars, $index, 1);
+			$randomString = $randomString . $tmp;
+		}
+	
+		return $randomString;
+	}
+	
+	/**
 	 * Returns a 23 character unique string
 	 * @return String
 	 */

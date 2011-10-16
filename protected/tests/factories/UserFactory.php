@@ -35,14 +35,20 @@ class UserFactory extends AbstractFactory {
 
 		// invite user
 		$user = self::make($attributes);
-		$user->save();
+		if(!$user->save()) {
+			var_dump($user->getErrors());
+			throw new Exception("User factory failed");
+		}
 
 		// add user to group
 		$groupUser = new GroupUser();
 		$groupUser->groupId = $groupId;
 		$groupUser->userId = $user->id;
 		$groupUser->status = GroupUser::STATUS_ACTIVE;
-		$groupUser->save();
+		if(!$groupUser->save()) {
+			var_dump($groupUser->getErrors());
+			throw new Exception("User factory failed");
+		}
 
 		return User::model()->findByPk($user->id);
 	}
@@ -63,8 +69,8 @@ class UserFactory extends AbstractFactory {
 		
 		$user->scenario = User::SCENARIO_REGISTER;
 		$user->attributes = array(
-			'firstName' => "pfirst" + StringUtils::uniqueString(),
-			'lastName' => "plast" + StringUtils::uniqueString(),
+			'firstName' => "pfirst" . StringUtils::createRandomAlphaString(),
+			'lastName' => "plast" . StringUtils::createRandomAlphaString(),
 			'password' => $password,
 		);
 
@@ -72,7 +78,10 @@ class UserFactory extends AbstractFactory {
 		$user->attributes = $attributes;
 		$user->confirmPassword = $user->password;
 		
-		$user->save();
+		if(!$user->save()) {
+			var_dump($user->getErrors());
+			throw new Exception("User factory failed");
+		}
 
 		return User::model()->findByPk($user->id);
 	}
