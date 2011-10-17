@@ -255,7 +255,7 @@ class Task extends CActiveRecord
 		}
 		
 		$this->attributes = $attributes;
-		return $this->appendTo($parentId);
+		return $this->appendTo($parentTask);
 	}
 	
 	/**
