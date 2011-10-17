@@ -235,7 +235,7 @@ class Task extends CActiveRecord
 	public function insertTask($attributes=null) {
 		if($this->isNewRecord) {
 			$this->attributes = $attributes;
-			return $this->saveNode(true, $attributes);
+			return $this->saveNode();
 		}
 		else {
 			throw new CDbException(Yii::t('task','The task cannot be inserted because it is not new.'));
