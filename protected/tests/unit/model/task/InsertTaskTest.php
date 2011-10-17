@@ -45,7 +45,7 @@ class InsertTaskTest extends DbTestCase
 
 		// confirm validation & save works
 		$this->assertTrue($task->validate(), 'valid task was not validated: ' . print_r($task->getErrors(null), true));
-		$this->assertTrue($task->saveNode(), 'valid task was not saved');
+		$this->assertTrue($task->insertTask(), 'valid task was not saved');
 	}
 
 	/**
@@ -62,7 +62,7 @@ class InsertTaskTest extends DbTestCase
 
 		$this->assertNull($task->name, 'save name is not null');
 		$this->assertFalse($task->validate(), 'task without name was validated: ' . print_r($task->getErrors(null), true));
-		$this->assertFalse($task->saveNode(), 'task without name was saved: ' . print_r($task->getErrors(null), true));
+		$this->assertFalse($task->insertTask(), 'task without name was saved: ' . print_r($task->getErrors(null), true));
 	}
 
 	/**
@@ -78,7 +78,7 @@ class InsertTaskTest extends DbTestCase
 			'name' => $paddedName,
 		));
 
-		$this->assertTrue($task->saveNode(), 'valid task was not saved: ' . print_r($task->getErrors(null), true));
+		$this->assertTrue($task->insertTask(), 'valid task was not saved: ' . print_r($task->getErrors(null), true));
 
 		$this->assertNotNull($task->created, 'task created was not set');
 		$this->assertNotNull($task->modified, 'task modified was not set');
@@ -97,7 +97,7 @@ class InsertTaskTest extends DbTestCase
 		));
 
 		$this->assertFalse($task->validate(), 'task with name of 256 characters was validated: ' . print_r($task->getErrors(null), true));
-		$this->assertFalse($task->saveNode(), 'task with name of 256 characters was saved');
+		$this->assertFalse($task->insertTask(), 'task with name of 256 characters was saved');
 	}
 
 	/**
@@ -114,7 +114,7 @@ class InsertTaskTest extends DbTestCase
 
 		$this->assertNull($task->name, 'unsaved task has a name');
 		$this->assertFalse($task->validate(), 'task with no inputs was validated');
-		$this->assertFalse($task->saveNode(), 'task with no inputs was saved');
+		$this->assertFalse($task->insertTask(), 'task with no inputs was saved');
 	}
 	
 	/**
@@ -133,7 +133,7 @@ class InsertTaskTest extends DbTestCase
 		$this->assertNull($task->starts, 'unsaved task has no name');
 		
 		$this->assertTrue($task->validate(), 'valid task was not validated: ' . print_r($task->getErrors(null), true));
-		$this->assertTrue($task->saveNode(), 'valid task was not saved');
+		$this->assertTrue($task->insertTask(), 'valid task was not saved');
 	}
 
 }

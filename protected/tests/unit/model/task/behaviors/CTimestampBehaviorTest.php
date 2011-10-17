@@ -34,7 +34,7 @@ class CTimestampBehaviorTest extends DbTestCase {
 		// confirm datetimes are not set
 		$this->assertNull($this->task->created, 'task created attribute was assigned in [' . $this->task->getScenario() . ']');
 
-		$this->task->saveNode();
+		$this->task->insertTask();
 
 		// confirm datetime set
 		$this->assertNotNull($this->task->created, 'task created attribute was not assigned in [' . $this->task->getScenario() . ']');
@@ -46,7 +46,7 @@ class CTimestampBehaviorTest extends DbTestCase {
 	public function testCreatedSetCorrectly() {
 		$now = time();
 		
-		$this->task->saveNode();
+		$this->task->insertTask();
 		
 		$later = time();
 		
@@ -65,7 +65,7 @@ class CTimestampBehaviorTest extends DbTestCase {
 		// confirm datetimes are not set
 		$this->assertNull($this->task->modified, 'task modified attribute was assigned in [' . $this->task->getScenario() . ']');
 
-		$this->task->saveNode();
+		$this->task->insertTask();
 
 		// confirm datetime set
 		$this->assertNotNull($this->task->modified, 'task modified attribute was not assigned in [' . $this->task->getScenario() . ']');
@@ -77,14 +77,14 @@ class CTimestampBehaviorTest extends DbTestCase {
 	public function testModifiedSetOnUpdate() {
 
 		// insert task
-		$this->task->saveNode();
+		$this->task->insertTask();
 		
 		// find task
 		$oldTask = Task::model()->findByPk($this->task->id);
 
 		// update task
 		$oldTask->name = "test task updated";
-		$oldTask->saveNode();
+		$oldTask->updateTask();
 
 		// find task again
 		$newTask = Task::model()->findByPk($this->task->id);

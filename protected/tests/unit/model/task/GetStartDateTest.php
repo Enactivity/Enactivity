@@ -12,9 +12,7 @@ class GetStartDateTest extends DbTestCase
 		parent::setUp();
 		
 		// create a new task
-		$this->task = new Task();
-		$this->task->name = 'test_' . time();
-		$this->task->saveNode();
+		$this->task = TaskFactory::insert();
 	}
 	
 	/**
@@ -46,7 +44,7 @@ class GetStartDateTest extends DbTestCase
 	public function testGetStartDateWithDate() {
 		$now = time();
 		$this->task->starts = date('m/d/Y H:i:00', $now);
-		$this->task->saveNode();
+		$this->task->updateTask();
 		
 		// try method
 		try {
@@ -61,7 +59,7 @@ class GetStartDateTest extends DbTestCase
 	public function testGetStartDateWithDateMagic() {
 		$now = time();
 		$this->task->starts = date('m/d/Y H:i:00', $now);
-		$this->task->saveNode();
+		$this->task->updateTask();
 		
 		// try method
 		try {

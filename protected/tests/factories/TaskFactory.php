@@ -44,7 +44,7 @@ class TaskFactory extends AbstractFactory {
 	static function insert($attributes = array()) {
 		$task = self::make($attributes);
 		
-		$task->saveNode();
+		$task->insertTask();
 		
 		$insertedTask = Task::model()->findByPk($task->id);
 		return $insertedTask;

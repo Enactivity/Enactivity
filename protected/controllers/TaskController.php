@@ -21,7 +21,7 @@ class TaskController extends Controller
 	{
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
-			$task = $this->loadModel($_GET['id']);
+			$task = $this->loadTaskModel($_GET['id']);
 			$groupId = $task->groupId;
 		}
 		else {
@@ -58,7 +58,7 @@ class TaskController extends Controller
 	public function actionView($id)
 	{
 		// load model
-		$model = $this->loadModel($id);
+		$model = $this->loadTaskModel($id);
 		$subtasks = $model->children()->findAll();
 		$ancestors = $model->ancestors()->findAll();
 
@@ -121,16 +121,16 @@ class TaskController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model = $this->loadModel($id);
+		$model = $this->loadTaskModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Task']))
 		{
-			$model->attributes=$_POST['Task'];
-			if($model->saveNode())
-			$this->redirect(array('view','id'=>$model->id));
+			if($model->updateTask($_POST['Task'])) {
+				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(
@@ -148,7 +148,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->trash();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -172,7 +172,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow untrashing via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->untrash();
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -196,7 +196,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow participating via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->participate(Yii::app()->user->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -220,7 +220,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow unparticipating via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->unparticipate(Yii::app()->user->id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -244,7 +244,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow completion via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->userComplete(Yii::app()->user->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -268,7 +268,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow uncomplete via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$task->userUncomplete(Yii::app()->user->id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -293,7 +293,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$task = $this->loadModel($id);
+			$task = $this->loadTaskModel($id);
 			$parentId = null;
 			if(!$task->isRoot) {
 				$parentId = $task->getParent()->id; // so we can use it for redirect
@@ -412,7 +412,7 @@ class TaskController extends Controller
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
 	 */
-	public function loadModel($id)
+	public function loadTaskModel($id)
 	{
 		$model=Task::model()->findByPk((int)$id);
 		if($model===null)
@@ -442,15 +442,13 @@ class TaskController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Task'])) {
-			$model->attributes=$_POST['Task'];
-				
 			if(isset($parentId)) {
-				if($model->appendTo($parentTask)) {
+				if($model->insertSubtask($parentTask, $_POST['Task'])) {
 					$this->redirect(array('view','id'=>$parentTask->id));
 				}
 			}
 			else {
-				if($model->saveNode()) {
+				if($model->insertTask($_POST['Task'])) {
 					$this->redirect(array('view','id'=>$model->id));
 				}
 			}

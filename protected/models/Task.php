@@ -227,6 +227,54 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Save a new task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 * @see NestedSetBehavior::saveNode()
+	 */
+	public function insertTask($attributes=null) {
+		if($this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->saveNode(true, $attributes);
+		}
+		else {
+			throw new CDbException(Yii::t('task','The task cannot be inserted because it is not new.'));
+		}
+	}
+	
+	/**
+	 * Save this task as a new subtask, runs validation
+	 * @param Task $parentTask
+	 * @param array $attributes
+	 * @return boolean
+	 * @see NestedSetBehavior::appendTo()
+	 */
+	public function insertSubtask($parentTask, $attributes=null) {
+		if(is_null($parentTask)) {
+			throw new CDbException(Yii::t('task','The subtask cannot be inserted because no parent is specified'));
+		}
+		
+		$this->attributes = $attributes;
+		return $this->appendTo($parentId);
+	}
+	
+	/**
+	 * Update the task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 * @see NestedSetBehavior::saveNode()
+	 */
+	public function updateTask($attributes=null) {
+		if(!$this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->saveNode();
+		}
+		else {
+			throw new CDbException(Yii::t('task','The task cannot be updated because it is new.'));
+		}
+	}
+	
+	/**
 	 * Saves the task as trash
 	 * @return boolean whether the saving succeeds.
 	 * @see NestedSetBehavior::saveNode()

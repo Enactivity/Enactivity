@@ -13,13 +13,7 @@ class UpdateTaskTest extends DbTestCase
 	{
 		parent::setUp();
 		
-		$this->task = new Task();
-	    $this->task->setAttributes(array(
-			'name' => "test testing",
-	    ));
-	    $this->task->saveNode();
-	   	$this->task->scenario = Task::SCENARIO_UPDATE;
-		
+		$this->task = TaskFactory::insert();
 	}
 	
 	protected function tearDown()
@@ -39,14 +33,12 @@ class UpdateTaskTest extends DbTestCase
 		$name = "updated test testing";
 		$starts = null;
 	    
-	    $this->task->setAttributes(array(
+	    $attributes = array(
 			'name' => $name,
 	    	'starts' => $starts,
-	    ));
+	    );
 	    
-	   	$this->task->saveNode();
-
-	   	$this->assertTrue($this->task->saveNode(), 'valid task was not saved');
+	   	$this->assertTrue($this->task->updateTask($attributes), 'valid task was not saved');
 	   	$this->assertTrue($this->task instanceof Task, 'found task not a Task object');
 		$this->assertNotNull($this->task->id, 'task id attribute was not assigned');
 		$this->assertNotNull($this->task->name, 'task name attribute was assigned');
@@ -69,14 +61,12 @@ class UpdateTaskTest extends DbTestCase
 		$name = "updated test testing";
 		$starts = date ("Y-m-d H:i:s", strtotime("-1 hours"));
 	    
-	    $this->task->setAttributes(array(
+	   	$attributes = array(
 			'name' => $name,
 	    	'starts' => $starts,
-	    ));
+	    );
 	    
-	   	$this->task->saveNode();
-	   	
- 		$this->assertTrue($this->task->saveNode(), 'valid task was not saved');	   	
+ 		$this->assertTrue($this->task->updateTask($attributes), 'valid task was not saved');	   	
 	   	$this->assertTrue($this->task instanceof Task, 'found task not a Task object');	 
 		$this->assertNotNull($this->task->id, 'task id attribute was not assigned');
 		$this->assertNotNull($this->task->name, 'task name attribute was assigned');
@@ -106,7 +96,7 @@ class UpdateTaskTest extends DbTestCase
 	    ));
 	    
 		$this->assertNull($this->task->name, 'save name is not null');
-		$this->assertFalse($this->task->saveNode(), 'task without name was saved: ');
+		$this->assertFalse($this->task->updateTask(), 'task without name was saved: ');
 	}
 	
 	/**
@@ -125,9 +115,7 @@ class UpdateTaskTest extends DbTestCase
 	    	'starts' => ' ' . $starts . ' ',
 	    ));
 	    
-	    $this->task->saveNode();
-	    
-	    $this->assertTrue($this->task->saveNode(), 'valid task was not saved');	   	
+	    $this->assertTrue($this->task->updateTask(), 'valid task was not saved');	   	
 	   	$this->assertTrue($this->task instanceof Task, 'found task not a Task object');	 
 		$this->assertNotNull($this->task->id, 'task id attribute was not assigned');
 		$this->assertNotNull($this->task->name, 'task name attribute was assigned');
@@ -154,7 +142,7 @@ class UpdateTaskTest extends DbTestCase
 	    	'startDate' => $today,
 	    ));
 	    
-	    $this->assertTrue($this->task->saveNode(), 'valid task was not saved');
+	    $this->assertTrue($this->task->updateTask(), 'valid task was not saved');
 	    $this->task = Task::model()->findByPk($this->task->id);
 	 	$this->assertEquals($today, $this->task->startDate, 'task startDate was not saved');
 	    
