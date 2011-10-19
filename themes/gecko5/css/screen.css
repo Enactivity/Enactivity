@@ -21,7 +21,7 @@ html, body {
 }
 
 a, a:active, a:visited {
-	color: #ffffff;
+	color: inherit;
 	font-weight: bold;
 }
 
@@ -525,6 +525,9 @@ select[name="Task[endTime]"]  {
 .story {
 	background-color: #ffffff;
 	border-bottom: 1px solid #D6D6D6;
+	-moz-box-shadow: 0 16px 16px -16px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 0 16px 16px -16px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 16px 16px -16px rgba(0, 0, 0, 0.25);
 	color: #333436;
 	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
@@ -543,18 +546,8 @@ select[name="Task[endTime]"]  {
 	font-size: .7em;
 }
 
-.story a, 
-.story a:visited {
-	color: #333436;
-}
-
 .story a:hover {
 	color: #00b6d5;	
-}
-
-.story a:active,
-.story a:focus {
-	color: #00adcc;
 }
 
 .task-start-time {
@@ -564,7 +557,9 @@ select[name="Task[endTime]"]  {
 /* Completed story stylings */ 
 /* FIXME: standardize */
 .completed {
-	background-color: #E6E6E6
+	background-color: #74996E;
+	border-color: #7D907A;
+	color: white;
 }
 
 /* Trashed story stylings */
