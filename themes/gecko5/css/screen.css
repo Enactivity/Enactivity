@@ -31,7 +31,6 @@ a:hover, a:focus {
 
 input, textarea, select {
 	border: 1px solid #bfbfbf;
-	border-radius: 2px;
 	-khtml-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -302,9 +301,10 @@ form .errorSummary ul {
 }
 
 form .errorMessage {
-	color: #E82C0C;
+	background-color: #E82C0C;
+	color: #ffffff;
 	font-size: .6em;
-	margin: 6px; /* match input padding */
+	padding: 6px; /* match input padding */
 }
 
 input[type="checkbox"], input[type="button"] {
@@ -320,6 +320,7 @@ input[type="button"] {
 	background-image: -webkit-linear-gradient(top, #00b6d5, #00adcc);
 	background-image: linear-gradient(top, #00b6d5, #00adcc);
 	border: none;
+	border-radius: 2px;
 	color: #ffffff;
 	cursor: pointer; /* Finger cursor */
 	display: inline-block;
