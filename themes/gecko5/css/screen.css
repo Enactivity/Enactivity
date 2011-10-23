@@ -42,7 +42,7 @@ input, textarea, select {
 }
 
 input.error, textarea.error, select.error {
-	border: 3px solid #E82C0C;
+	border: 1px solid #E82C0C;
 }
 
 strong {
@@ -303,8 +303,7 @@ form .errorSummary ul {
 form .errorMessage {
 	background-color: #E82C0C;
 	color: #ffffff;
-	font-size: .6em;
-	padding: 6px; /* match input padding */
+	padding: 8px; /* match input padding */
 }
 
 input[type="checkbox"], input[type="button"] {
