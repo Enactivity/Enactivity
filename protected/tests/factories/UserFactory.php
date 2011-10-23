@@ -9,6 +9,7 @@ class UserFactory extends AbstractFactory {
 	 * Generate a user who has not yet registered, no group-user made
 	 * @param array $attributes
 	 * @param int $groupId
+	 * @return User
 	 */
 	static function make($attributes = array()) {
 		// invite
@@ -25,6 +26,7 @@ class UserFactory extends AbstractFactory {
 	 * @see UserFactory::make
 	 * @param array $attributes
 	 * @param int $groupId
+	 * @return User
 	 */
 	static function insertInvited($attributes = array(), $groupId = null) {
 		// setup group if not defined
@@ -35,9 +37,9 @@ class UserFactory extends AbstractFactory {
 
 		// invite user
 		$user = self::make($attributes);
-		if(!$user->save()) {
-			var_dump($user->getErrors());
-			throw new Exception("User factory failed");
+		$email = isset($attributes['email']) ? $attributes['email'] : $user->email;
+		if(!$user->inviteUser($email)) {
+			throw new Exception("User factory failed on invite: " . CVarDumper::dumpAsString($user->errors));
 		}
 
 		// add user to group
@@ -46,8 +48,7 @@ class UserFactory extends AbstractFactory {
 		$groupUser->userId = $user->id;
 		$groupUser->status = GroupUser::STATUS_ACTIVE;
 		if(!$groupUser->save()) {
-			var_dump($groupUser->getErrors());
-			throw new Exception("User factory failed");
+			throw new Exception("User factory failed on group invite: " . CVarDumper::dumpAsString($groupUser->errors));
 		}
 
 		return User::model()->findByPk($user->id);
@@ -65,7 +66,7 @@ class UserFactory extends AbstractFactory {
 		$user = self::insertInvited($attributes, $groupId);
 
 		// register
-		$password = "pw" + StringUtils::uniqueString();
+		$password = StringUtils::uniqueString();
 		
 		$user->scenario = User::SCENARIO_REGISTER;
 		$user->attributes = array(
@@ -78,9 +79,8 @@ class UserFactory extends AbstractFactory {
 		$user->attributes = $attributes;
 		$user->confirmPassword = $user->password;
 		
-		if(!$user->save()) {
-			var_dump($user->getErrors());
-			throw new Exception("User factory failed");
+		if(!$user->registerUser($attributes)) {
+			throw new Exception("User factory failed on register: " . CVarDumper::dumpAsString($user->errors));
 		}
 
 		return User::model()->findByPk($user->id);
@@ -97,7 +97,9 @@ class UserFactory extends AbstractFactory {
 		// invite
 		$user = self::insert($attributes, $groupId);
 		$user->isAdmin = 1;
-		$user->save();
+		if(!$user->updateUser($attributes)) {
+			throw new Exception("User factory failed on admin: " . CVarDumper::dumpAsString($user->errors));
+		}
 
 		return User::model()->findByPk($user->id);
 	}

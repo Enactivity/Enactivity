@@ -43,6 +43,7 @@ class User extends CActiveRecord
 	const STATUS_BANNED = 'Banned';
 	const STATUS_MAX_LENGTH = 15;
 	
+	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_RECOVER_PASSWORD = 'recoverPassword';
 	const SCENARIO_REGISTER = 'register';
@@ -262,16 +263,122 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	 * Inject a user into the system
+	 * @param array $attributes
+	 * @return boolean
+	 * @see CActiveRecord::save()
+	 */
+	public function insertUser($attributes = null) {
+		$this->scenario = self::SCENARIO_INSERT;
+		if($this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		throw new CDbException(Yii::t('user','The user could not be injected because it is not new.'));
+	}
 	
-	public function defaultScope() {
-		return array(
-			'order' => 'firstName ASC',
-		);
+	/**
+	 * Invite a new user
+	 * @param String email
+	 * @return boolean
+	 * @throws CDbException if user record is not new
+	 */
+	public function inviteUser($email) {
+		$this->scenario = self::SCENARIO_INVITE;
+		if($this->isNewRecord) {
+			$attributes = array(
+				'email'=>$email,
+			);
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		throw new CDbException(Yii::t('user','The user could not be invited because it is not new.'));
+	}
+	
+	/**
+	 * Reset the user's password and send an email notifying them of the 
+	 * update.
+	 * Also sets flash for user.
+	 * @return boolean
+	 * @throws CDbException if error saving password
+	 */
+	public function recoverPassword() {
+		// set scenario to encrypt on save
+		$this->scenario = self::SCENARIO_RECOVER_PASSWORD;
+		$newPassword = self::generatePassword(); // store unencrypted for email
+		$this->password = $newPassword;
+		
+		if($this->save()) {
+			// email user
+			Yii::import('application.extensions.mailer.PasswordEmail');
+			$mail = new PasswordEmail;
+			$mail->to = $this->email;
+			$mail->newpassword = $newPassword;
+			$mail->shouldEmail = true;
+			Yii::app()->mailer->send($mail);
+			
+			// notify end user
+			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
+			
+			return true;
+		}
+		else {
+			$errors = $this->getErrors('password');
+			throw new CDbException('There was an error generating a new password.', 
+				500, $errors[0]);
+		}
+	}
+	
+	/**
+	 * Register a pending user, saves.
+	 * @param array $attributes
+	 * @return boolean
+	 * @see CActiveRecord::save()
+	 */
+	public function registerUser($attributes = null) {
+		$this->scenario = self::SCENARIO_REGISTER;
+		if(is_array($attributes)) {
+			$this->attributes = $attributes;
+			$this->status = User::STATUS_ACTIVE;
+			return $this->save();
+		}
+		return false;
 	}
 
 	/**
+	 * Updates a user's password, saves.
+	 * @param array $attributes
+	 * @return boolean
+	 * @see CActiveRecord::save()
+	*/
+	public function updatePassword($attributes = null) {
+		$this->scenario = self::SCENARIO_UPDATE_PASSWORD;
+		if(is_array($attributes)) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		return false;
+	}
+	
+	/**
+	 * Updates a user's profile, saves.
+	 * @param array $attributes
+	 * @return boolean
+	 * @see CActiveRecord::save()
+	*/
+	public function updateUser($attributes = null) {
+		$this->scenario = self::SCENARIO_UPDATE;
+		if(is_array($attributes)) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		return false;
+	}
+	
+	/**
 	 * Convert email to lowercase
-	 * 
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
@@ -288,7 +395,7 @@ class User extends CActiveRecord
 	protected function beforeSave()
 	{
 		if(parent::beforeSave()) {
-			if($this->isNewRecord) {				
+			if($this->isNewRecord) {
 				//encrypt token and password
 				$this->token = self::generateToken();
 			}
@@ -297,14 +404,17 @@ class User extends CActiveRecord
 				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
 				$this->password = self::encrypt($this->password, $this->token);
 			}
-			if($this->getScenario() == self::SCENARIO_REGISTER) {
-				$this->status = User::STATUS_ACTIVE;
-			}
 			return true;
 		}
 		return false;
 	}
 
+	public function defaultScope() {
+		return array(
+			'order' => 'firstName ASC',
+		);
+	}
+	
 	/**
 	 * Checks if the given password is correct.
 	 * @param string the password to be validated
@@ -412,7 +522,6 @@ class User extends CActiveRecord
 	/**
 	 * Invite a user to the web app
 	 * 
-	 * 
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
 	 * @return void
@@ -427,36 +536,5 @@ class User extends CActiveRecord
 		$mail->token = $this->token;
 		$mail->shouldEmail = true;
 		Yii::app()->mailer->send($mail);
-	}
-	
-	/**
-	 * Reset the user's password and send an email notifying them of the 
-	 * update.
-	 * Also sets flash for user.
-	 * @return void
-	 */
-	public function recoverPassword() {
-		// set scenario to encrypt on save
-		$this->setScenario(self::SCENARIO_RECOVER_PASSWORD);
-		$newpassword = self::generatePassword(); // store unencrypted for email
-		$this->password = $newpassword;
-		
-		if($this->save()) {
-			// email user
-			Yii::import('application.extensions.mailer.PasswordEmail');
-			$mail = new PasswordEmail;
-			$mail->to = $this->email;
-			$mail->newpassword = $newpassword;
-			$mail->shouldEmail = true;
-			Yii::app()->mailer->send($mail);
-			
-			// notify end user
-			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
-		}
-		else {
-			$errors = $this->getErrors('password');
-			throw new CDbException('There was an error generating a new password.', 
-				500, $errors[0]);
-		}
 	}
 }

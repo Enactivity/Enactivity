@@ -29,7 +29,7 @@ class UserController extends Controller
 				'users'=>array('@'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index', 'admin', 'delete', 'update'),
+				'actions'=>array('admin', 'delete', 'update'),
 				'expression'=>'$user->isAdmin',
 		),
 		array('deny',  // deny all users
@@ -57,7 +57,6 @@ class UserController extends Controller
 	public function actionRegister($token)
 	{		
 		$model = $this->loadModelByToken($token);
-		$model->setScenario(User::SCENARIO_REGISTER);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -70,13 +69,9 @@ class UserController extends Controller
 			throw new CHttpException(400, 'Invalid request. This account has already registered.');
 		}
 
-		if(isset($_POST['User']))
-		{	
-			$model->attributes = $_POST['User'];
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', 'Your registration is complete, please sign-in.');
-				$this->redirect(array('site/login'));
-			}
+		if($model->registerUser($_POST['User'])) {
+			Yii::app()->user->setFlash('success', 'Your registration is complete, please sign-in.');
+			$this->redirect(array('site/login'));
 		}
 
 		$this->render('register',array(
@@ -124,18 +119,13 @@ class UserController extends Controller
 		else { 
 			$model = $this->loadModel($id);
 		}
-		$model->setScenario(User::SCENARIO_UPDATE);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['User']))
-		{
-			$model->attributes = $_POST['User'];
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', 'Your profile has been updated.');
-				$this->redirect(array('update'));
-			}
+		if($model->updateUser($_POST['User'])) {
+			Yii::app()->user->setFlash('success', 'Your profile has been updated.');
+			//TODO: redirect to profile screen if/when implemented
 		}
 
 		$this->render('update', array(
@@ -158,23 +148,17 @@ class UserController extends Controller
 			$model = $this->loadModel($id);
 		}
 		
-		$model->setScenario(User::SCENARIO_UPDATE_PASSWORD);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', 'Your password has been updated.');
-				$this->redirect(array('update'));	
-			}
+		if($model->updatePassword($_POST['User'])) {
+			Yii::app()->user->setFlash('success', 'Your password has been updated.');
+			$this->redirect(array('update'));
 		}
-		else {
-			// if the user hasn't attempted an upload yet, clean out their password
-			$model->password = null;
-		}
+		
+		// clean out passwords to avoid leaks
+		$model->password = null;
+		$model->confirmPassword = null;
 
 		$this->render('updatepassword', array(
 			'model'=>$model,
@@ -194,22 +178,13 @@ class UserController extends Controller
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if(!isset($_GET['ajax'])) {
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			}
 		}
-		else
+		else {
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('User');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		}
 	}
 
 	/**

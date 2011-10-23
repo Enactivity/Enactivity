@@ -1,8 +1,9 @@
 <?php
-
-require_once 'TestConstants.php';
-
-class UpdateUserTest extends DbTestCase
+/**
+ * Tests for {@link User::updateUser}
+ * @author ajsharma
+ */
+class UserUpdateUserTest extends DbTestCase
 {
 	var $user;
 	var $userId;
@@ -23,8 +24,6 @@ class UpdateUserTest extends DbTestCase
 		$this->userId = $this->user->id;
 		$this->userCreated = $this->user->created;
 		$this->userModified = $this->user->modified;
-		
-		$this->user->scenario = User::SCENARIO_UPDATE;
 	}
 	
 	protected function tearDown()
@@ -46,15 +45,15 @@ class UpdateUserTest extends DbTestCase
 		$firstName = StringUtils::createRandomString(10);
 		$lastName = StringUtils::createRandomString(10);
 		
-		$this->user->setAttributes(array(
+		$attributes = array(
 			'email' => $email,
 			'firstName' => $firstName,
 			'lastName' => $lastName,
-		));
+		);
 		
 		sleep(1); // to allow time for modified to update
 		
-		$this->assertTrue($this->user->save(), 'valid user was not saved');
+		$this->assertTrue($this->user->updateUser($attributes), 'valid user was not saved');
 		$this->assertEquals($this->userId, $this->user->id, 
 			'updating save changed user id');
 		
@@ -85,13 +84,13 @@ class UpdateUserTest extends DbTestCase
 		$firstName = StringUtils::createRandomString(10);
 		$lastName = StringUtils::createRandomString(10);
 		
-		$this->user->setAttributes(array(
+		$attributes = array(
 			'email' => ' ' . $email . ' ',
 			'firstName' => ' ' . $firstName . ' ',
 			'lastName' => ' ' . $lastName . ' ',
-		));
+		);
 		
-		$this->assertTrue($this->user->save(), 'valid user was not saved');
+		$this->assertTrue($this->user->updateUser($attributes), 'valid user was not saved');
 		$this->assertEquals($this->userId, $this->user->id, 
 			'updating save changed user id');
 		
@@ -112,48 +111,62 @@ class UpdateUserTest extends DbTestCase
 	 * Create a valid user
 	 */
 	public function testUpdateUserMaximumInputs() {
-		
+		$this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
 	}
 	
 	/**
 	 * Set inputs over the acceptable lengths
 	 */
 	public function testUpdateUserExceedMaximumInputs() {
-
+		$this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
 	}
 	
 	/**
 	 * Test user create when name and slug are blank
 	 */
 	public function testUpdateUserBlankInputs() {
-
+		$this->markTestIncomplete(
+		          'This test has not been implemented yet.'
+		);
 	}
 	
 	/**
 	 * Test user create when no inputs are set
 	 */
 	public function testUpdateUserNullInputs() {
-
+		$this->markTestIncomplete(
+		          'This test has not been implemented yet.'
+		);
 	}
 	
 	/**
 	 * Test user create when no inputs are set
 	 */
 	public function testUpdateUserNoName() {
-
+		$this->markTestIncomplete(
+		          'This test has not been implemented yet.'
+		);
 	}
 	
 	/**
 	 * Test user create when no inputs are set
 	 */
 	public function testUpdateUserNoSlug() {
-
+		$this->markTestIncomplete(
+		          'This test has not been implemented yet.'
+		);
 	}
 	
 	/**
 	 * Test that users with duplicate names cannot be saved
 	 */
 	public function testUpdateUserDuplicateToken() {
-
+		$this->markTestIncomplete(
+		          'This test has not been implemented yet.'
+		);
 	}
 }
