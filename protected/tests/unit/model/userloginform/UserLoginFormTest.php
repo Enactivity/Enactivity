@@ -39,7 +39,7 @@ class UserLoginFormTest extends DbTestCase
 
 	public function testLoginValidAdmin() {
 		$email = ADMIN_EMAIL;
-		$password = 'chewychocolatechips';
+		$password = ADMIN_PASSWORD;
 		$formUnderTest = new UserLoginForm();
 		$formUnderTest->setAttributes(array(
 	        'email' => $email,
