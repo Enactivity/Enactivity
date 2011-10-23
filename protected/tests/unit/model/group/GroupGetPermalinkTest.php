@@ -2,7 +2,7 @@
 
 require_once 'TestConstants.php';
 
-class GetPermalinkTest extends DbTestCase
+class GroupGetPermalinkTest extends DbTestCase
 {
 	public static function setUpBeforeClass()
 	{
