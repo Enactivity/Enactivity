@@ -22,21 +22,40 @@ class TimeZoneKeeper extends CComponent{
 
 	/**
 	 * Convert a server timestamp into a timestamp in user time
+	 * If user time is not set, 
+	 *
+	 * @param string $timestamp timestamp string
+	 * @param string timezone
+	 * @return String
+	*/
+	public static function serverTimeToTimeZone($datetime, $timeZone) {
+		$serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
+		$convertedDateTime = new DateTime($datetime, $serverTimeZone);
+		
+		$userTimeZone = new DateTimeZone($timeZone);
+		$convertedDateTime->setTimezone($userTimeZone);
+		
+		return $convertedDateTime->format('Y-m-d H:i:s');
+	}
+	
+	/**
+	 * Convert a server timestamp into a timestamp in user time
 	 * 
 	 * @param string $timestamp timestamp string
 	 * @return String
 	 */
 	public static function serverTimeToUserTime($datetime) {
+		//FIXME: add tests & user serverTimeToTime
 		$serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
-		$dateTime = new DateTime($datetime);
+		$convertedDateTime = new DateTime($datetime);
 		
 		if(isset(Yii::app()->user) && isset(Yii::app()->user->timeZone)) {
 			$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
-			$dateTime = new DateTime($datetime, $serverTimeZone);
-			$dateTime->setTimezone($userTimeZone);
+			$convertedDateTime = new DateTime($datetime, $serverTimeZone);
+			$convertedDateTime->setTimezone($userTimeZone);
 		}
 		
-		return $dateTime->format('Y-m-d H:i:s');
+		return $convertedDateTime->format('Y-m-d H:i:s');
 	}
 
 	/**
@@ -47,15 +66,15 @@ class TimeZoneKeeper extends CComponent{
 	 */
 	public static function userTimeToServerTime($datetime) {
 		$serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
-		$dateTime = new DateTime($datetime);
+		$convertedDateTime = new DateTime($datetime);
 		
 		if(isset(Yii::app()->user) && isset(Yii::app()->user->timeZone)) {
 			$userTimeZone = new DateTimeZone(Yii::app()->user->timeZone);
-			$dateTime = new DateTime($datetime, $userTimeZone);
+			$convertedDateTime = new DateTime($datetime, $userTimeZone);
 		}
 		
-		$dateTime->setTimezone($serverTimeZone);
+		$convertedDateTime->setTimezone($serverTimeZone);
 		
-		return $dateTime->format('Y-m-d H:i:s');
+		return $convertedDateTime->format('Y-m-d H:i:s');
 	}
 }
