@@ -17,6 +17,10 @@
  */
 class GroupUser extends CActiveRecord
 {
+	const SCENARIO_INJECT = 'inject';
+	const SCENARIO_INVITE = 'invite';
+	const SCENARIO_JOIN = 'join';
+	
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
 	const STATUS_INACTIVE = 'Inactive';
@@ -183,16 +187,36 @@ class GroupUser extends CActiveRecord
 		return isset($groupuser);
 	}
 	
+	public function injectGroupUser($groupId, $userId) {
+		$this->scenario = self::SCENARIO_INJECT;
+		$this->groupId = $groupId;
+		$this->userId = $userId;
+		$this->status = self::STATUS_ACTIVE;
+		return $this->save();
+	}
+	
+	public function inviteGroupUser($groupId, $userId) {
+		$this->scenario = self::SCENARIO_INVITE;
+		$this->groupId = $groupId;
+		$this->userId = $userId;
+		return $this->save();
+	}
+	
+	public function joinGroupUser() {
+		$this->scenario = self::SCENARIO_JOIN;
+		$this->status = self::STATUS_ACTIVE;
+		return $this->save();
+	}
+	
 	public function onAfterSave($event) {
 		parent::onAfterSave($event);
 		
 		// Send on new invite email
-		if($this->isNewRecord) {
+		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
 			$user = User::model()->findByPk($this->userId);
 			$group = Group::model()->findByPk($this->groupId);
 			
 			$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
 		}
 	}
-	
 }

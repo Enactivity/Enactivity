@@ -127,11 +127,7 @@ class GroupInviteForm extends CFormModel {
 		
 			if(!GroupUser::model()->isGroupMember($group->id, $user->id)) {
 				$groupuser = new GroupUser();
-				$groupuser->groupId = $group->id;
-				$groupuser->userId = $user->id;
-		
-				//Validate and save
-				$groupuser->save();
+				$groupuser->inviteGroupUser($group->id, $user->id);
 		
 				// Send email
 				$successfulEmails[] = $user->email;
