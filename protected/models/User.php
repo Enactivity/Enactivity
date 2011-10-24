@@ -45,6 +45,7 @@ class User extends CActiveRecord
 	
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
+	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
 	const SCENARIO_RECOVER_PASSWORD = 'recoverPassword';
 	const SCENARIO_REGISTER = 'register';
 	const SCENARIO_UPDATE = 'update';
@@ -375,6 +376,17 @@ class User extends CActiveRecord
 			return $this->save();
 		}
 		return false;
+	}
+	
+	/**
+	 * Promote the user to admin level
+	 * @return boolean
+	 * @see CActiveRecord::save();
+	 */
+	public function promoteToAdmin() {
+		$this->scenario = self::SCENARIO_PROMOTE_TO_ADMIN;
+		$this->isAdmin = 1;
+		return $this->save();
 	}
 	
 	/**

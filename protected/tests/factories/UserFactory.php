@@ -94,7 +94,7 @@ class UserFactory extends AbstractFactory {
 		// invite
 		$user = self::insert($attributes, $groupId);
 		$user->isAdmin = 1;
-		if(!$user->updateUser($attributes)) {
+		if(!$user->promoteToAdmin()) {
 			throw new Exception("User factory failed on admin: " . CVarDumper::dumpAsString($user->errors));
 		}
 
