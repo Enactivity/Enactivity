@@ -32,13 +32,15 @@ class DbTestCase extends CDbTestCase
 		$loginForm = new UserLoginForm();
 		$loginForm->email = USER_EMAIL; //declared in init.php
 		$loginForm->password = USER_PASSWORD;
-		$loginForm->login();
+		if(!$loginForm->login()) {
+			throw new Exception("Could not login in setup");
+		}
 	}
 	
 	protected function tearDown()
 	{
 		parent::tearDown();
-		Yii::app()->user->logout();
+		Yii::app()->user->logout(true);
 	}
  
     public static function tearDownAfterClass()

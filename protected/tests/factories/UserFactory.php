@@ -36,8 +36,8 @@ class UserFactory extends AbstractFactory {
 		}
 
 		// invite user
-		$user = self::make($attributes);
-		$email = isset($attributes['email']) ? $attributes['email'] : $user->email;
+		$user = new User();
+		$email = isset($attributes['email']) ? $attributes['email'] : "pemail+" . StringUtils::uniqueString() . "@alpha.poncla.com";
 		if(!$user->inviteUser($email)) {
 			throw new Exception("User factory failed on invite: " . CVarDumper::dumpAsString($user->errors));
 		}
