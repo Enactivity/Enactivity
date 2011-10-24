@@ -11,6 +11,10 @@ class EnvironmentTest extends TestCase
 	public function testMemoryLimit() {
 		// get limit
 		$memoryLimit = ini_get('memory_limit');
+		
+		if($memoryLimit == '-1') {
+			return; // no memory limit
+		}
 
 		$this->assertNotNull($memoryLimit, "memory_limit is not set");
 
