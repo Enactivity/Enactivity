@@ -470,6 +470,13 @@ class User extends CActiveRecord
 	 * @return string encrypted value
 	 */
 	public static function encrypt($value, $token) {
+		if(is_null($value) || empty($value)) {
+			throw new CDbException("No value specified in encrypt call");
+		}
+		if(is_null($token) || empty($token)) {
+			throw new CDbException("No token specified in encrypt call");
+		}
+		
 		return sha1(self::SALT . $token . $value);
 	}
 	
