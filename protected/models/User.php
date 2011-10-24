@@ -532,10 +532,10 @@ class User extends CActiveRecord
 	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {
-		return array(self::STATUS_ACTIVE,
-			self::STATUS_INACTIVE, 
-			self::STATUS_PENDING,
-			self::STATUS_BANNED);
+		return array(User::STATUS_ACTIVE,
+			User::STATUS_INACTIVE, 
+			User::STATUS_PENDING,
+			User::STATUS_BANNED);
 	}
 	
 	/**
