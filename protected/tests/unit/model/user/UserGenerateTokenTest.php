@@ -6,10 +6,20 @@
 class UserGenerateTokenTest extends DbTestCase
 {
 	/**
-	 * Test  
+	 * Test generated token is different on different calls
 	 */
-	public function test() {
+	public function testGenerateTokenIsDifferent() {
+		$token = User::generateToken();
+		$tokenAgain = User::generateToken();
+
+		$this->assertNotEquals($token, $tokenAgain, 'Token generated is the same');
+	}
+
+	/**
+	 * Test that tokens are unique per user
+	 */
+	public function testUniqueToken() {
 		$this->markTestIncomplete();
 	}
-	
+
 }

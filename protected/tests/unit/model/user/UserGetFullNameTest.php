@@ -6,10 +6,16 @@
 class UserGetFullNameTest extends DbTestCase
 {
 	/**
-	 * Test  
+	 * Test get full name
 	 */
-	public function test() {
-		$this->markTestIncomplete();
+	public function testFullName() {
+		$attributes = array(
+			'firstName' => 'hello',
+			'lastName' => 'world',
+		);
+		
+		$user = UserFactory::insert($attributes);
+		
+		$this->assertEquals('hello world', $user->getFullName(), 'Get full name did not return full name');
 	}
-	
 }
