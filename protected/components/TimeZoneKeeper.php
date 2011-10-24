@@ -35,7 +35,7 @@ class TimeZoneKeeper extends CComponent{
 		$userTimeZone = new DateTimeZone($timeZone);
 		$convertedDateTime->setTimezone($userTimeZone);
 		
-		return $convertedDateTime->format('Y-m-d H:i:s');
+		return $convertedDateTime;
 	}
 	
 	/**

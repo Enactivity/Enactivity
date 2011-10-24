@@ -90,6 +90,9 @@ class PHtml extends CHtml {
 	 */
 	public static function timeZoneDropDownList(string $name, string $select, array $htmlOptions=array()) {
 		$data = PDateTime::timeZoneArray();
+		foreach ($data as $key => $value) {
+			$value .= "ajay can hack";
+		}
 		return self::dropDownList($name, $select, $data, $htmlOptions);
 	}
 
@@ -196,6 +199,10 @@ class PHtml extends CHtml {
 	 */
 	public static function activeTimeZoneDropDownList($model, $attribute, $htmlOptions=array()) {
 		$data = PDateTime::timeZoneArray();
+		$currentTime = date('h:i a');
+		foreach ($data as $key => $value) {
+			$data[$key] = $value . " (" . TimeZoneKeeper::serverTimeToTimeZone($currentTime, $data[$key])->format('g:i a') . ")";
+		}
 		return self::activeDropDownList($model, $attribute, $data, $htmlOptions);
 	}
 

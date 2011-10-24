@@ -15,17 +15,17 @@ class PDateTime {
 	 */
 	public static function timeZoneArray() {
 		return array( 
-			'America/Puerto_Rico'=>'Atlantic Standard Time (AST)', 
-			'America/New_York'=>'Eastern Standard Time (EST)', 
-			'America/Chicago'=>'Central Standard Time (CST)', 
-			'America/Boise'=>'Mountain Time (MDT)', 
-			'America/Phoenix'=>'Mountain Standard Time (MST)', 
-			'America/Los_Angeles'=>'Pacific Standard Time (PST)', 
-			'America/Juneau'=>'Alaskan Standard Time (AKST)', 
-			'Pacific/Honolulu'=>'Hawaii-Aleutian Standard Time (HST)', 
-			'Pacific/Samoa'=>'Samoa Standard Time (UTC-11)',
-			'Pacific/Guam'=>'Chamorro Standard Time (UTC+10)', 
-			'Pacific/Wake'=>'Pacific/Wake Time (UTC+12)', 
+			'Pacific/Samoa'=>'Pacific/Samoa',
+			'Pacific/Honolulu'=>'Pacific/Honolulu',
+			'America/Juneau'=>'America/Juneau',
+			'America/Los_Angeles'=>'America/Los_Angeles', 
+			'America/Phoenix'=>'America/Phoenix',   
+			'America/Boise'=>'America/Boise', 
+			'America/Chicago'=>'America/Chicago', 
+			'America/New_York'=>'America/New_York', 
+			'America/Puerto_Rico'=>'America/Puerto_Rico', 
+			'Pacific/Guam'=>'Pacific/Guam', 
+			'Pacific/Wake'=>'Pacific/Wake', 
 		); 
 	}
 	
