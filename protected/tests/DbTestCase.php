@@ -38,6 +38,7 @@ class DbTestCase extends CDbTestCase
 	protected function tearDown()
 	{
 		parent::tearDown();
+		Yii::app()->user->logout();
 	}
  
     public static function tearDownAfterClass()
