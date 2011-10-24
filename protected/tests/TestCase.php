@@ -21,7 +21,6 @@ class TestCase extends CTestCase
 	protected function setUp()
 	{
 		parent::setUp();
-		$this->setBrowserUrl(TEST_BASE_URL);
 	}
 	
 	protected function tearDown()
