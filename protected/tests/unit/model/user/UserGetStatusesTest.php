@@ -6,10 +6,15 @@
 class UserGetStatusesTest extends DbTestCase
 {
 	/**
-	 * Test  
+	 * Test get statuses returns all User statuses 
 	 */
-	public function test() {
-		$this->markTestIncomplete();
+	public function testGetStatuses() {
+		$statuses = array(self::STATUS_ACTIVE,
+		self::STATUS_INACTIVE,
+		self::STATUS_PENDING,
+		self::STATUS_BANNED);
+		
+		$this->assertEquals($statuses, User::getStatuses());
 	}
 	
 }
