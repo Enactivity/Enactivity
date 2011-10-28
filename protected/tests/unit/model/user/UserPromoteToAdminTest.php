@@ -9,6 +9,9 @@ class UserPromoteToAdminTest extends DbTestCase
 	 * Test  
 	 */
 	public function testPromoteToAdmin() {
-		$this->markTestIncomplete();
+		$user = UserFactory::insert();
+		
+		$this->assertTrue($user->promoteToAdmin(), "Promote admin returned false");
+		$this->assertEquals(1, $user->isAdmin, "Promote to admin did not actually promote user");
 	}
 }
