@@ -30,13 +30,6 @@ class UserLink extends CWidget {
 	
 	protected function renderLink() {
 		if(isset($this->userModel)) {
-// 			echo PHtml::link(
-// 				PHtml::encode($this->userModel->fullName != "" ? $this->userModel->fullName : $this->userModel->email), 
-// 				$this->userModel->permalink, 
-// 				array(
-// 					'class'=>'userlink',
-// 				)
-// 			);
 			echo PHtml::encode($this->userModel->fullName != "" ? $this->userModel->fullName : $this->userModel->email);
 		}
 		else {

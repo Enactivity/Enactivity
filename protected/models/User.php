@@ -515,20 +515,6 @@ class User extends CActiveRecord
 	}
 	
 	/**
-	 * Get the url for viewing this user
-	 * @return string url to user page
-	 */
-	public function getPermalink()
-	{
-		return Yii::app()->request->hostInfo .
-			Yii::app()->createUrl('user/view', 
-			array(
-            	'id'=>$this->id,
-			)
-		);
-	}
-	
-	/**
 	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {

@@ -275,6 +275,25 @@ class PHtml extends CHtml {
 	}
 
 	/**
+	 * Get the url for viewing this group
+	 * @param 
+	*/
+	public function groupLink(Group $group)
+	{
+		if(!empty($group->slug)) {
+			return Yii::app()->request->hostInfo .
+			Yii::app()->getBaseUrl() .
+				"/" . $group->slug;
+		}
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('group/view',
+				array(
+	            	'id'=>$group->id,
+				)
+			);
+	}
+	
+	/**
 	 * Returns the classes values associated with a Task object
 	 * @param Task $task
 	 * @return string space-separated html class string

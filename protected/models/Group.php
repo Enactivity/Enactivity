@@ -174,24 +174,6 @@ class Group extends CActiveRecord
 	}
 	
 	/**
-	 * Get the url for viewing this group
-	 */
-	public function getPermalink()
-	{
-		if(!empty($this->slug)) {
-			return Yii::app()->request->hostInfo .
-			Yii::app()->getBaseUrl() .
-			"/" . $this->slug;
-		}
-		return Yii::app()->request->hostInfo .
-			Yii::app()->createUrl('group/view', 
-			array(
-            	'id'=>$this->id,
-			)
-		);
-	}
-	
-	/**
 	 * Get the list of Active users in this group filtered by 
 	 * group status
 	 * @param int $groupId
