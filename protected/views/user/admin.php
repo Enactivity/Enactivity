@@ -43,8 +43,8 @@ or <strong>=</strong>) at the beginning of each of your search values to specify
 		'firstName',
 		'lastName',
 		'status',
-		array(
-			'class'=>'CButtonColumn',
-		),
+// 		array(
+// 			'class'=>'CButtonColumn',
+// 		),
 	),
 )); ?>

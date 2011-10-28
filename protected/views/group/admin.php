@@ -41,8 +41,8 @@ or <strong>=</strong>) at the beginning of each of your search values to specify
 		'id',
 		'name',
 		'slug',
-		array(
-			'class'=>'CButtonColumn',
-		),
+// 		array(
+// 			'class'=>'CButtonColumn',
+// 		),
 	),
 )); ?>
