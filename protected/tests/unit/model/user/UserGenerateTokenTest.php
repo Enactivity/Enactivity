@@ -15,11 +15,4 @@ class UserGenerateTokenTest extends DbTestCase
 		$this->assertNotEquals($token, $tokenAgain, 'Token generated is the same');
 	}
 
-	/**
-	 * Test that tokens are unique per user
-	 */
-	public function testUniqueToken() {
-		$this->markTestIncomplete();
-	}
-
 }
