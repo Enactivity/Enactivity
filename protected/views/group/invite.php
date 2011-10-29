@@ -3,9 +3,9 @@ $this->pageTitle = 'Invite People';
 
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'invite-form-invite-form',

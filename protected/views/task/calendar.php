@@ -27,14 +27,14 @@ $calendarMenu[] = array(
 );
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<nav class="calendar-nav">
 	<?php $this->widget('zii.widgets.CMenu', array(
 		'items'=>$calendarMenu,
 	)); ?>
 	</nav>
 	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <?php 
 // show task calendar

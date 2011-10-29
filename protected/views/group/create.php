@@ -4,8 +4,8 @@ $this->pageTitle = 'Create a Group';
 $this->menu = MenuDefinitions::adminMenu();
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

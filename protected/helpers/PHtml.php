@@ -245,6 +245,27 @@ class PHtml extends CHtml {
 
 		return $id;
 	}
+	
+	/**
+	 * Generates an opening header tag for content.
+	 * Note, only the open tag is generated. A close tag should be placed manually
+	 * at the end of the header.
+	 * @return string
+	 */
+	public static function beginContentHeader() {
+		return self::openTag("header", array(
+			'class'=>'content-header '
+		));
+	}
+	
+	/**
+	 * Generates a closing header for content-header tag.
+	 * @return string the generated tag
+	 * @see beginContentHeader
+	 */
+	public static function endContentHeader() {
+		return self::closeTag("header");
+	}
 
 	/**
 	 * Returns the classes values associated with a Comment object

@@ -11,7 +11,7 @@
 $this->pageTitle = $model->name;
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<? if(sizeof($ancestors) > 0): ?>
 	<nav class="breadcrumb"><p>
 	<?php foreach($ancestors as $task) {
@@ -26,7 +26,7 @@ $this->pageTitle = $model->name;
 	<p>
 		<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?>
 	</p>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <div class="menu toolbox">
 	<ul>

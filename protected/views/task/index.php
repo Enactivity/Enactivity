@@ -9,9 +9,9 @@
 $this->pageTitle = 'Tasks';
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <?php
 

@@ -2,9 +2,9 @@
 $this->pageTitle = 'What\'s Next';
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <?php
 // "what would you want to do input" box

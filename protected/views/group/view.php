@@ -2,9 +2,9 @@
 $this->pageTitle = $model->name;
 ?>
 
-<header>
+<?php echo PHtml::beginContentHeader(); ?>
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-</header>
+<?php echo PHtml::endContentHeader(); ?>
 
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>

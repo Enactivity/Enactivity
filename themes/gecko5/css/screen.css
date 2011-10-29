@@ -180,12 +180,12 @@ section > h1 {
 	overflow: visible;
 }
 
-.content > header {
+.content-header {
 	padding-top: 16px; /* Could use margin, but this way, matches stylings */
 	margin-bottom: 16px; /* Collapsable with siblings */
 }
 
-.content > header h1 {
+.content-header h1 {
 	font-size: 2em;
 }
 
