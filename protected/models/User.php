@@ -529,7 +529,7 @@ class User extends CActiveRecord
 	 * 
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
-	 * @return void
+	 * @return boolean true if successfully emailed
 	 */
 	public function sendInvitation($userName, $groupName) {
 		//send invite email
@@ -540,6 +540,6 @@ class User extends CActiveRecord
 		$mail->groupName = $groupName;
 		$mail->token = $this->token;
 		$mail->shouldEmail = true;
-		Yii::app()->mailer->send($mail);
+		return Yii::app()->mailer->send($mail);
 	}
 }
