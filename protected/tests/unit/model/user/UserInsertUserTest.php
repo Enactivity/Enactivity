@@ -389,7 +389,7 @@ class UserInsertUserTest extends DbTestCase
 	}
 
 	/**
-	 * Test that user is not saved on null attributes
+	 * Test that user scenario is still set on null attributes
 	 */
 	public function testInsertUserNullAttributesSetsScenario() {
 
@@ -399,7 +399,7 @@ class UserInsertUserTest extends DbTestCase
 	}
 
 	/**
-	 * Test that user is not saved on null attributes
+	 * Test that user scenario is still set on invalid attributes
 	 */
 	public function testInsertUserInvalidAttributesSetsScenario() {
 
