@@ -12,6 +12,7 @@ class PDateTime {
 	
 	/**
 	 * Get array of time zones
+	 * @return array of String keys => String values
 	 */
 	public static function timeZoneArray() {
 		return array( 
@@ -31,6 +32,7 @@ class PDateTime {
 	
 	/**
 	 * Get array of time zones values
+	 * @return array of time zone values
 	 */
 	public static function timeZoneArrayValues() {
 		return array_keys(self::timeZoneArray());
