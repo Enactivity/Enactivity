@@ -1,172 +1,467 @@
 <?php
 /**
- * Tests for {@link User::updateUser}
+ * Tests for User::updateUser
  * @author ajsharma
  */
 class UserUpdateUserTest extends DbTestCase
 {
-	var $user;
-	var $userId;
-	var $userCreated;
-	var $userModified;
+	var $attributes = array();
 
-	public static function setUpBeforeClass()
-	{
-		parent::setUpBeforeClass();
-	}
-	
-	protected function setUp()
-	{
+	public function setUp() {
 		parent::setUp();
-		
-		// get the registered user
-		$this->user = UserFactory::insert();
-		$this->userId = $this->user->id;
-		$this->userCreated = $this->user->created;
-		$this->userModified = $this->user->modified;
+
+		$this->attributes = array(
+			'id' => StringUtils::createRandomAlphaString(),
+			'email' => StringUtils::createRandomEmail(),
+			'token' => StringUtils::createRandomAlphaString(),
+			'password' => StringUtils::createRandomAlphaString(),
+			'confirmPassword' => StringUtils::createRandomAlphaString(),
+			'firstName' => StringUtils::createRandomAlphaString(),
+			'lastName' => StringUtils::createRandomAlphaString(),
+			'timeZone' => array_rand(PDateTime::timeZoneArray()),
+			'status' => StringUtils::createRandomAlphaString(),
+			'isAdmin' => StringUtils::createRandomAlphaString(),
+			'created' => StringUtils::createRandomAlphaString(),
+			'modified' => StringUtils::createRandomAlphaString(),
+			'lastLogin' => StringUtils::createRandomAlphaString(),
+		);
 	}
-	
-	protected function tearDown()
-	{
-		parent::tearDown();
-	}
- 
-	public static function tearDownAfterClass()
-	{
-		parent::tearDownAfterClass();
-	}
-	
+
 	/**
-	 * Create a valid user
+	 * Test that user is updated on valid attributes
 	 */
 	public function testUpdateUserValid() {
-		
-		$email = strtolower(StringUtils::createRandomString(10)) . '@fakeyfaky.com';
-		$firstName = StringUtils::createRandomString(10);
-		$lastName = StringUtils::createRandomString(10);
-		
-		$attributes = array(
-			'email' => $email,
-			'firstName' => $firstName,
-			'lastName' => $lastName,
-		);
-		
-		sleep(1); // to allow time for modified to update
-		
-		$this->assertTrue($this->user->updateUser($attributes), 'valid user was not saved');
-		$this->assertEquals($this->userId, $this->user->id, 
-			'updating save changed user id');
-		
-		// verify the user can be found in db 
-		$this->user = User::model()->findByPk($this->user->id);
-		
-		$this->assertTrue($this->user instanceof User, 'found user not a User object');
-		
-		$this->assertEquals($email, $this->user->email, 
-			'user email was not saved');
-		$this->assertEquals($firstName, $this->user->firstName, 
-			'user first name was not saved');
-		$this->assertEquals($lastName, $this->user->lastName, 
-			'user last name was not saved');
-		
-		$this->assertEquals($this->userCreated, $this->user->created, 
-			'user created was changed on update');
-		$this->assertNotEquals($this->userModified, $this->user->modified, 
-			'user modified was not changed on update');
-	}
-	
-	/**
-	 * Create a valid user and ensure entries are trimmed
-	 */
-	public function testUpdateUserTrimSpaces() {
 
-		$email = strtolower(StringUtils::createRandomString(10)) . '@fakeyfaky.com';
-		$firstName = StringUtils::createRandomString(10);
-		$lastName = StringUtils::createRandomString(10);
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+	}
+
+	/**
+	 * Test that user Id is set by system on Update
+	 */
+	public function testUpdateUserValidSystemSetsId() {
+
+		$user = UserFactory::insert();
+		$oldId = $user->id;
 		
-		$attributes = array(
-			'email' => ' ' . $email . ' ',
-			'firstName' => ' ' . $firstName . ' ',
-			'lastName' => ' ' . $lastName . ' ',
-		);
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->id, 'Id was not set on updateUser');
+		$this->assertNotEquals($this->attributes['id'], $user->id, 'Id was set by user on updateUser');
+		$this->assertEquals($oldId, $user->id, "Updating user changed Id");
+	}
+
+	/**
+	 * Test that user email is set by user on Update
+	 */
+	public function testUpdateUserValidUserSetsEmail() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->email, 'email was not set on updateUser');
+		$this->assertEquals($this->attributes['email'], $user->email, 'Email was not set by user on updateUser');
+	}
+
+	/**
+	 * Test that user is not updated with null email
+	 */
+	public function testUpdateUserNullEmail() {
+
+		$user = UserFactory::insert();
+		$this->attributes['email'] = null;
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with null email was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('email'), 'null email did not cause error on update');
+	}
+
+	/**
+	 * Test that user is not updated with invalid email format
+	 */
+	public function testUpdateUserInvalidEmailFormat() {
+
+		$user = UserFactory::insert();
+		$this->attributes['email'] = StringUtils::createRandomAlphaString();
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with invalid email was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('email'), 'null email did not cause error on update');
+	}
+
+	/**
+	 * Test that user is not updated with long email
+	 */
+	public function testUpdateUserLongEmailFormat() {
+
+		$user = UserFactory::insert();
+		$this->attributes['email'] = StringUtils::createRandomAlphaString(55) . '@alpha.poncla.com';
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with invalid email was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('email'), 'null email did not cause error on update');
+	}
+
+	/**
+	 * Test that user email is trimmed
+	 */
+	public function testUpdateUserTrimEmail() {
+
+		$user = UserFactory::insert();
+		$this->attributes['email'] = " " . $this->attributes['email'] . " ";
+
+		$this->assertTrue($user->updateUser($this->attributes), "User with untrimmed email was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['email']), $user->email, "User email was not trimmed on update");
+	}
+
+	/**
+	 * Test that user token is set by system on Update
+	 */
+	public function testUpdateUserValidSystemSetsToken() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->token, 'token was not set on updateUser');
+		$this->assertNotEquals($this->attributes['token'], $user->token, 'Token was set by user on updateUser');
+	}
+
+	/**
+	 * Test that user password is ignored on Update
+	 */
+	public function testUpdateUserValidIgnoresPassword() {
+
+		$user = UserFactory::insert();
+		$oldPassword = $user->password;
 		
-		$this->assertTrue($this->user->updateUser($attributes), 'valid user was not saved');
-		$this->assertEquals($this->userId, $this->user->id, 
-			'updating save changed user id');
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals($oldPassword, $user->password, 'password was set by user on updateUser');
+	}
+
+	/**
+	 * Test that user password is ignored with null password
+	 */
+	public function testUpdateUserValidIgnoresNullPassword() {
+
+		$this->attributes['password'] = null;
+
+		$user = UserFactory::insert();
+		$oldPassword = $user->password;
 		
-		// verify the user can be found in db 
-		$this->user = User::model()->findByPk($this->user->id);
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals($oldPassword, $user->password, 'password was set by user on updateUser');
+	}
+
+	/**
+	 * Test that user is not updated with too short password
+	 */
+	public function testUpdateUserShortPassword() {
+
+		$this->attributes['password'] = StringUtils::createRandomAlphaString(3);
 		
-		$this->assertTrue($this->user instanceof User, 'found user not a User object');
+		$user = UserFactory::insert();
+		$oldPassword = $user->password;
 		
-		$this->assertEquals($email, $this->user->email, 
-			'user email was not trimmed');
-		$this->assertEquals($firstName, $this->user->firstName, 
-			'user first name was not trimmed');
-		$this->assertEquals($lastName, $this->user->lastName, 
-			'user last name was not trimmed');
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+		
+		$this->assertEquals($oldPassword, $user->password, 'password was set by user on updateUser');
 	}
-	
+
 	/**
-	 * Create a valid user
+	 * Test that user is updated regardless of long password
 	 */
-	public function testUpdateUserMaximumInputs() {
-		$this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+	public function testUpdateUserLongPassword() {
+
+		$this->attributes['password'] = StringUtils::createRandomAlphaString(45);
+		
+		$user = UserFactory::insert();
+		$oldPassword = $user->password;
+		
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+		
+		$this->assertEquals($oldPassword, $user->password, 'password was set by user on updateUser');	}
+
+	/**
+	 * Test that user confirmPassword is not set by user on Update
+	 */
+	public function testUpdateUserValidIgnoresConfirmPassword() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNull($user->confirmPassword, 'confirmPassword was set on updateUser');
+		$this->assertNotEquals($this->attributes['confirmPassword'], $user->confirmPassword, 'confirmPassword set by user on updateUser');
 	}
-	
+
 	/**
-	 * Set inputs over the acceptable lengths
+	 * Test that user first name is set by user on Update
 	 */
-	public function testUpdateUserExceedMaximumInputs() {
-		$this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+	public function testUpdateUserValidUserSetsFirstName() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->firstName, 'firstName was not set on updateUser');
+		$this->assertEquals($this->attributes['firstName'], $user->firstName, 'First name was not set by user on updateUser');
 	}
-	
+
 	/**
-	 * Test user create when name and slug are blank
+	 * Test that user is not updated with too short first name
 	 */
-	public function testUpdateUserBlankInputs() {
-		$this->markTestIncomplete(
-		          'This test has not been implemented yet.'
-		);
+	public function testUpdateUserShortFirstName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['firstName'] = StringUtils::createRandomAlphaString(1);
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with short firstName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('firstName'), 'short firstName did not cause error on update');
 	}
-	
+
 	/**
-	 * Test user create when no inputs are set
+	 * Test that user is not updated with too long first name
 	 */
-	public function testUpdateUserNullInputs() {
-		$this->markTestIncomplete(
-		          'This test has not been implemented yet.'
-		);
+	public function testUpdateUserLongFirstName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['firstName'] = StringUtils::createRandomAlphaString(55);
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with long firstName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('firstName'), 'long firstName did not cause error on update');
 	}
-	
+
 	/**
-	 * Test user create when no inputs are set
+	 * Test that user is not updated with a alpha numeric first name
 	 */
-	public function testUpdateUserNoName() {
-		$this->markTestIncomplete(
-		          'This test has not been implemented yet.'
-		);
+	public function testUpdateUserAlphaNumericFirstName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['firstName'] .= '0';
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with non-alphabetic firstName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('firstName'), 'non-alphabetic firstName did not cause error on update');
 	}
-	
+
 	/**
-	 * Test user create when no inputs are set
+	 * Test that user firstname is trimmed
 	 */
-	public function testUpdateUserNoSlug() {
-		$this->markTestIncomplete(
-		          'This test has not been implemented yet.'
-		);
+	public function testUpdateUserTrimFirstName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['firstName'] = " " . $this->attributes['firstName'] . " ";
+
+		$this->assertTrue($user->updateUser($this->attributes), "User with untrimmed firstName was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['firstName']), $user->firstName, "User firstName was not trimmed on update");
 	}
-	
+
 	/**
-	 * Test that users with duplicate names cannot be saved
+	 * Test that user last name is set by user on Update
 	 */
-	public function testUpdateUserDuplicateToken() {
-		$this->markTestIncomplete(
-		          'This test has not been implemented yet.'
-		);
+	public function testUpdateUserValidUserSetsLastName() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->lastName, 'lastName was not set on updateUser');
+		$this->assertEquals($this->attributes['lastName'], $user->lastName, 'Last name was not set by user on updateUser');
+	}
+
+	/**
+	 * Test that user is not updated with too short last name
+	 */
+	public function testUpdateUserShortLastName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['lastName'] = StringUtils::createRandomAlphaString(1);
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with short lastName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('lastName'), 'short lastName did not cause error on update');
+	}
+
+	/**
+	 * Test that user is not updated with too long last name
+	 */
+	public function testUpdateUserLongLastName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['lastName'] = StringUtils::createRandomAlphaString(55);
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with long lastName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('lastName'), 'long lastName did not cause error on update');
+	}
+
+	/**
+	 * Test that user is not updated with a alpha numeric last name
+	 */
+	public function testUpdateUserAlphaNumericLastName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['lastName'] .= '0';
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with non-alphabetic lastName was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('lastName'), 'non-alphabetic lastName did not cause error on update');
+	}
+
+	/**
+	 * Test that user last name is trimmed
+	 */
+	public function testUpdateUserTrimLastName() {
+
+		$user = UserFactory::insert();
+		$this->attributes['lastName'] = " " . $this->attributes['lastName'] . " ";
+
+		$this->assertTrue($user->updateUser($this->attributes), "User with untrimmed lastName was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['lastName']), $user->lastName, "User lastName was not trimmed on update");
+	}
+
+	/**
+	 * Test that user timezone is set by user on Update
+	 */
+	public function testUpdateUserValidUserSetsTimeZone() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->timeZone, 'timeZone was not set on updateUser');
+		$this->assertEquals($this->attributes['timeZone'], $user->timeZone, 'Time zone was not set by user on updateUser');
+	}
+
+	/**
+	 * Test that user timezone is a timezone
+	 */
+	public function testUpdateUserValidUserInvalidTimeZone() {
+
+		$user = UserFactory::insert();
+		$this->attributes['timeZone'] .= StringUtils::createRandomAlphaString();
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with invalid timeZone value was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('timeZone'), 'invalid timeZone value did not cause error on update');
+	}
+
+	/**
+	 * Test that user timezone only allows supported time zones
+	 */
+	public function testUpdateUserValidUserUnsupportedTimeZone() {
+
+		$user = UserFactory::insert();
+		$this->attributes['timeZone'] .= 'Antarctica/South_Pole';
+
+		$this->assertFalse($user->updateUser($this->attributes), "User with antartic timeZone value was updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->getError('timeZone'), 'antartic timeZone value did not cause error on update');
+	}
+
+	/**
+	 * Test that user status is set to active by system on Update
+	 */
+	public function testUpdateUserValidSystemSetsStatus() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->status, 'status was not set on updateUser');
+		$this->assertNotEquals($this->attributes['status'], $user->status, 'status set by user on updateUser');
+
+		$this->assertEquals(User::STATUS_ACTIVE, $user->status, "User was not set to active on update");
+	}
+
+	/**
+	 * Test that user isAdmin is set by system to false on Update
+	 */
+	public function testUpdateUserValidSystemSetsIsAdmin() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->isAdmin, 'isAdmin was not set on updateUser');
+		$this->assertNotEquals($this->attributes['isAdmin'], $user->isAdmin, 'isAdmin set by user on updateUser');
+
+		$this->assertEquals(0, $user->isAdmin, "User was set to admin on update");
+	}
+
+	/**
+	 * Test that user created is set by system on Update
+	 */
+	public function testUpdateUserValidSystemSetsCreated() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->created, 'created was not set on updateUser');
+		$this->assertNotEquals($this->attributes['created'], $user->created, 'created set by user on updateUser');
+	}
+
+	/**
+	 * Test that user modified is set by system on Update
+	 */
+	public function testUpdateUserValidSystemSetsModified() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNotNull($user->modified, 'modified was not set on updateUser');
+		$this->assertNotEquals($this->attributes['modified'], $user->modified, 'isAdmin set by user on updateUser');
+	}
+
+	/**
+	 * Test that user login is ignored on Update
+	 */
+	public function testUpdateUserValidIgnoresLastLogin() {
+
+		$user = UserFactory::insert();
+		$this->assertTrue($user->updateUser($this->attributes), "User was not updated: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertNull($user->lastLogin, 'lastLogin was set on updateUser');
+	}
+
+	/**
+	 * Test that user is not saved on null attributes
+	 */
+	public function testUpdateUserNullAttributes() {
+
+		$user = UserFactory::insert();
+		$this->assertFalse($user->updateUser(null), "updateUser(null) return true");
+	}
+
+	/**
+	 * Test that user scenario is still set on null attributes
+	 */
+	public function testUpdateUserNullAttributesSetsScenario() {
+
+		$user = UserFactory::insert();
+		$user->updateUser(null);
+		$this->assertEquals(User::SCENARIO_UPDATE, $user->scenario);
+	}
+
+	/**
+	 * Test that user scenario is still set on invalid attributes
+	 */
+	public function testUpdateUserInvalidAttributesSetsScenario() {
+
+		$this->attributes['email'] = StringUtils::createRandomAlphaString();
+
+		$user = UserFactory::insert();
+		$user->updateUser($this->attributes);
+		$this->assertEquals(User::SCENARIO_UPDATE, $user->scenario);
+	}
+
+	/**
+	 * Test that updating a user that doesn't exist throws an exception
+	 * @expectedException CDbException
+	 */
+	public function testUpdateUserOnNonExistingUser() {
+		$user = new User();
+		$user->updateUser();
 	}
 }
