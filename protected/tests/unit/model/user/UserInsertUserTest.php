@@ -100,6 +100,19 @@ class UserInsertUserTest extends DbTestCase
 	}
 
 	/**
+	 * Test that user email is trimmed
+	 */
+	public function testInsertUserTrimEmail() {
+
+		$user = new User();
+		$this->attributes['email'] = " " . $this->attributes['email'] . " ";
+
+		$this->assertTrue($user->insertUser($this->attributes), "User with untrimmed email was not inserted: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['email']), $user->email, "User email was not trimmed on insert");
+	}
+
+	/**
 	 * Test that user token is set by system on Insert
 	 */
 	public function testInsertUserValidSystemSetsToken() {
@@ -228,6 +241,19 @@ class UserInsertUserTest extends DbTestCase
 	}
 
 	/**
+	 * Test that user firstname is trimmed
+	 */
+	public function testInsertUserTrimFirstName() {
+
+		$user = new User();
+		$this->attributes['firstName'] = " " . $this->attributes['firstName'] . " ";
+
+		$this->assertTrue($user->insertUser($this->attributes), "User with untrimmed firstName was not inserted: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['firstName']), $user->firstName, "User firstName was not trimmed on insert");
+	}
+
+	/**
 	 * Test that user last name is set by user on Insert
 	 */
 	public function testInsertUserValidUserSetsLastName() {
@@ -276,6 +302,19 @@ class UserInsertUserTest extends DbTestCase
 		$this->assertFalse($user->insertUser($this->attributes), "User with non-alphabetic lastName was inserted: " . CVarDumper::dumpAsString($user->errors));
 
 		$this->assertNotNull($user->getError('lastName'), 'non-alphabetic lastName did not cause error on insert');
+	}
+
+	/**
+	 * Test that user last name is trimmed
+	 */
+	public function testInsertUserTrimLastName() {
+
+		$user = new User();
+		$this->attributes['lastName'] = " " . $this->attributes['lastName'] . " ";
+
+		$this->assertTrue($user->insertUser($this->attributes), "User with untrimmed lastName was not inserted: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->attributes['lastName']), $user->lastName, "User lastName was not trimmed on insert");
 	}
 
 	/**
@@ -404,7 +443,7 @@ class UserInsertUserTest extends DbTestCase
 	public function testInsertUserInvalidAttributesSetsScenario() {
 
 		$this->attributes['email'] = StringUtils::createRandomAlphaString();
-		
+
 		$user = new User();
 		$user->insertUser($this->attributes);
 		$this->assertEquals(User::SCENARIO_INSERT, $user->scenario);

@@ -105,10 +105,10 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 		array('email', 'required', 'on' => self::SCENARIO_INVITE),
-		array('email, token, password, confirmPassword, firstName, lastName, timeZone', 'required', 
+		array('email, password, confirmPassword, firstName, lastName, timeZone', 'required', 
 			'on' => self::SCENARIO_REGISTER
 		),
-		array('email, token, password, firstName, lastName, timeZone', 'required',
+		array('email, password, firstName, lastName, timeZone', 'required',
 			'on' => self::SCENARIO_INSERT
 		),
 		array('email, firstName, lastName, timeZone', 'required', 
@@ -118,11 +118,22 @@ class User extends CActiveRecord
 			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD),
 
 		// trim inputs
-		array('email', 'filter', 'filter'=>'trim', 'on' => 'invite'),
-		array('email, token, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => self::SCENARIO_REGISTER),
-		array('email, firstName, lastName', 'filter', 'filter'=>'trim', 'on' => self::SCENARIO_UPDATE),
-		
-		array('token', 'length', 'max'=>self::TOKEN_MAX_LENGTH),
+		array('email',	
+			'filter', 
+			'filter'=>'trim', 
+			'on' => self::SCENARIO_INSERT),
+		array('email', 
+			'filter', 
+			'filter'=>'trim', 
+			'on' => self::SCENARIO_INVITE),
+		array('email, firstName, lastName', 
+			'filter', 
+			'filter'=>'trim',
+			'on' => self::SCENARIO_REGISTER),
+		array('email, firstName, lastName', 
+			'filter', 
+			'filter'=>'trim', 
+			'on' => self::SCENARIO_INSERT . ',' . self::SCENARIO_UPDATE),
 		
 		array('email', 'unique', 
 			'allowEmpty' => false, 
