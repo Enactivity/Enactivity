@@ -73,5 +73,14 @@ class StringUtils {
 		}
 		return $string;
 	}
+	
+	/**
+	 * Create a random email address
+	 * @return String email address
+	 */
+	public static function createRandomEmail() {
+		return "pemail+" . StringUtils::uniqueString() . "@alpha.poncla.com";
+	}
+	
 }
 ?>
