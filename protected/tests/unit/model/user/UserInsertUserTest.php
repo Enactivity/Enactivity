@@ -30,6 +30,15 @@ class UserInsertUserTest extends DbTestCase
 	/**
 	 * Test that user Id is set by system on Insert
 	 */
+	public function testInsertUserValid() {
+
+		$user = new User();
+		$this->assertTrue($user->insertUser($this->attributes), "User was not inserted: " . CVarDumper::dumpAsString($user->errors));
+	}
+
+	/**
+	 * Test that user Id is set by system on Insert
+	 */
 	public function testInsertUserValidSystemSetsId() {
 
 		$user = new User();
@@ -350,7 +359,7 @@ class UserInsertUserTest extends DbTestCase
 	/**
 	 * Test that user modified is set by system on Insert
 	 */
-	public function testInsertUserValidSystemModified() {
+	public function testInsertUserValidSystemSetsModified() {
 
 		$user = new User();
 		$this->assertTrue($user->insertUser($this->attributes), "User was not inserted: " . CVarDumper::dumpAsString($user->errors));
@@ -386,6 +395,18 @@ class UserInsertUserTest extends DbTestCase
 
 		$user = new User();
 		$user->insertUser(null);
+		$this->assertEquals(User::SCENARIO_INSERT, $user->scenario);
+	}
+
+	/**
+	 * Test that user is not saved on null attributes
+	 */
+	public function testInsertUserInvalidAttributesSetsScenario() {
+
+		$this->attributes['email'] = StringUtils::createRandomAlphaString();
+		
+		$user = new User();
+		$user->insertUser($this->attributes);
 		$this->assertEquals(User::SCENARIO_INSERT, $user->scenario);
 	}
 
