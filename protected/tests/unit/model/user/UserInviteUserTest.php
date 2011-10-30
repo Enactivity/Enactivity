@@ -85,6 +85,19 @@ class UserInviteUserTest extends DbTestCase
 	}
 
 	/**
+	 * Test that user email is trimmed
+	 */
+	public function testInviteUserTrimEmail() {
+
+		$user = new User();
+		$this->email = " " . $this->email . " ";
+
+		$this->assertTrue($user->inviteUser($this->email), "User with untrimmed email was not invited: " . CVarDumper::dumpAsString($user->errors));
+
+		$this->assertEquals(trim($this->email), $user->email, "User email was not trimmed on invite");
+	}
+
+	/**
 	 * Test that user token is set by system on Invite
 	 */
 	public function testInviteUserValidSystemSetsToken() {
