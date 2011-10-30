@@ -106,7 +106,11 @@ class User extends CActiveRecord
 		return array(
 		array('email', 'required', 'on' => self::SCENARIO_INVITE),
 		array('email, token, password, confirmPassword, firstName, lastName, timeZone', 'required', 
-			'on' => self::SCENARIO_REGISTER),
+			'on' => self::SCENARIO_REGISTER
+		),
+		array('email, token, password, firstName, lastName, timeZone', 'required',
+			'on' => self::SCENARIO_INSERT
+		),
 		array('email, firstName, lastName, timeZone', 'required', 
 			'on' => self::SCENARIO_UPDATE),
 		array('password, confirmPassword', 'required',
@@ -145,7 +149,7 @@ class User extends CActiveRecord
 		array('confirmPassword', 'compare', 
 			'compareAttribute'=>'password', 
 			'message' => 'Passwords do not match',
-			'on' => 'register, updatePassword'),
+			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD),
 
 		array('timeZone', 'default',
 			'value'=>'America/Los_Angeles',
@@ -155,19 +159,6 @@ class User extends CActiveRecord
 			'timeZone', 
 			'in', 
 			'range'=>PDateTime::timeZoneArrayValues()
-		),
-		
-		array('status', 'length', 
-			'max'=>self::STATUS_MAX_LENGTH),
-		array('status', 'default',
-			'value'=>self::STATUS_PENDING,
-			'setOnEmpty'=>false, 'on'=>self::SCENARIO_INVITE
-		),
-		array('status', 'in', 'range'=>array(
-			self::STATUS_PENDING,
-			self::STATUS_ACTIVE,
-			self::STATUS_INACTIVE
-			)
 		),
 		
 		// The following rule is used by search().
@@ -274,8 +265,12 @@ class User extends CActiveRecord
 	public function insertUser($attributes = null) {
 		$this->scenario = self::SCENARIO_INSERT;
 		if($this->isNewRecord) {
-			$this->attributes = $attributes;
-			return $this->save();
+			if(is_array($attributes)) {
+				$this->attributes = $attributes;
+				$this->status = User::STATUS_ACTIVE;
+				return $this->save();
+			}
+			return false;
 		}
 		throw new CDbException(Yii::t('user','The user could not be injected because it is not new.'));
 	}
@@ -411,7 +406,8 @@ class User extends CActiveRecord
 				//encrypt token and password
 				$this->token = self::generateToken();
 			}
-			if($this->getScenario() == self::SCENARIO_REGISTER
+			if($this->getScenario() == self::SCENARIO_INSERT
+				|| $this->getScenario() == self::SCENARIO_REGISTER
 				|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD	
 				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
 				$this->password = self::encrypt($this->password, $this->token);
