@@ -113,8 +113,9 @@ class User extends CActiveRecord
 		),
 		array('email, firstName, lastName, timeZone', 'required', 
 			'on' => self::SCENARIO_UPDATE),
+			
 		array('password, confirmPassword', 'required',
-			'on' => self::SCENARIO_UPDATE_PASSWORD),
+			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD),
 
 		// trim inputs
 		array('email', 'filter', 'filter'=>'trim', 'on' => 'invite'),
