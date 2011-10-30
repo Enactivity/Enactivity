@@ -318,25 +318,29 @@ class User extends CActiveRecord
 		$newPassword = self::generatePassword(); // store unencrypted for email
 		$this->password = $newPassword;
 		
-		if($this->save()) {
-			// email user
-			Yii::import('application.extensions.mailer.PasswordEmail');
-			$mail = new PasswordEmail;
-			$mail->to = $this->email;
-			$mail->newpassword = $newPassword;
-			$mail->shouldEmail = true;
-			Yii::app()->mailer->send($mail);
-			
-			// notify end user
-			Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
-			
-			return true;
+		if($this->isRegistered) {
+			if($this->save()) {
+				// email user
+				Yii::import('application.extensions.mailer.PasswordEmail');
+				$mail = new PasswordEmail;
+				$mail->to = $this->email;
+				$mail->newpassword = $newPassword;
+				$mail->shouldEmail = true;
+				Yii::app()->mailer->send($mail);
+				
+				// notify end user
+				Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
+				
+				return true;
+			}
+			else {
+				$errors = $this->getErrors('password');
+				throw new CDbException('There was an error generating a new password.', 
+					500, $errors[0]);
+			}
 		}
-		else {
-			$errors = $this->getErrors('password');
-			throw new CDbException('There was an error generating a new password.', 
-				500, $errors[0]);
-		}
+		$this->addError('email', 'No user was found with that email');
+		return false;
 	}
 	
 	/**
@@ -347,12 +351,16 @@ class User extends CActiveRecord
 	 */
 	public function registerUser($attributes = null) {
 		$this->scenario = self::SCENARIO_REGISTER;
-		if(is_array($attributes)) {
-			$this->attributes = $attributes;
-			$this->status = User::STATUS_ACTIVE;
-			return $this->save();
+		if(!$this->isNewRecord) {
+			if(is_array($attributes)) {
+				$this->attributes = $attributes;
+				$this->status = User::STATUS_ACTIVE;
+				return $this->save();
+			}
+			return false;
 		}
-		return false;
+		throw new CDbException(Yii::t('user','The user could not be registered because it is a new user.'));
+		
 	}
 
 	/**
@@ -363,11 +371,14 @@ class User extends CActiveRecord
 	*/
 	public function updatePassword($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE_PASSWORD;
-		if(is_array($attributes)) {
-			$this->attributes = $attributes;
-			return $this->save();
+		if(!$this->isNewRecord) {
+			if(is_array($attributes)) {
+				$this->attributes = $attributes;
+				return $this->save();
+			}
+			return false;
 		}
-		return false;
+		throw new CDbException(Yii::t('user','The user password could not be updated because it is a new user.'));
 	}
 	
 	/**
@@ -378,11 +389,14 @@ class User extends CActiveRecord
 	*/
 	public function updateUser($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE;
-		if(is_array($attributes)) {
-			$this->attributes = $attributes;
-			return $this->save();
+		if(!$this->isNewRecord) {
+			if(is_array($attributes)) {
+				$this->attributes = $attributes;
+				return $this->save();
+			}
+			return false;
 		}
-		return false;
+		throw new CDbException(Yii::t('user','The user could not be updated because it is new.'));
 	}
 	
 	/**
@@ -469,6 +483,14 @@ class User extends CActiveRecord
 	 */
 	public function getIsBanned() {
 		return $this->isStatus(self::STATUS_BANNED);
+	}
+	
+	/**
+	 * Has the user registered yet?
+	 * @return boolean
+	 */
+	public function getIsRegistered() {
+		return $this->isActive || $this->isBanned;
 	}
 
 	/**
