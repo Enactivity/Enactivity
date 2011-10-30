@@ -28,7 +28,7 @@ class UserInsertUserTest extends DbTestCase
 	}
 
 	/**
-	 * Test that user Id is set by system on Insert
+	 * Test that user is inserted on valid attributes
 	 */
 	public function testInsertUserValid() {
 
