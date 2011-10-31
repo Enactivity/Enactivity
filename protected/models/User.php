@@ -157,7 +157,7 @@ class User extends CActiveRecord
 			'length', 
 			'min'=>self::PASSWORD_MIN_LENGTH, 
 			'max'=>self::PASSWORD_MAX_LENGTH,
-			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD,
+			'on' => self::SCENARIO_INSERT . ',' . self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD,
 		),
 		
 		array('confirmPassword', 'compare', 
