@@ -25,24 +25,24 @@ class User extends CActiveRecord
 {
 	const EMAIL_MAX_LENGTH = 50;
 	const EMAIL_MIN_LENGTH = 3;
-	
+
 	const FIRSTNAME_MAX_LENGTH = 50;
 	const FIRSTNAME_MIN_LENGTH = 2;
-	
+
 	const PASSWORD_MAX_LENGTH = 40;
 	const PASSWORD_MIN_LENGTH = 4;
-	
+
 	const LASTNAME_MAX_LENGTH = 50;
 	const LASTNAME_MIN_LENGTH = 2;
-	
+
 	const TOKEN_MAX_LENGTH = 40;
-	
+
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
 	const STATUS_INACTIVE = 'Inactive';
 	const STATUS_BANNED = 'Banned';
 	const STATUS_MAX_LENGTH = 15;
-	
+
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
@@ -53,14 +53,14 @@ class User extends CActiveRecord
 
 	/******************************************************
 	 * DO NOT CHANGE THE SALT!  YOU WILL BREAK ALL SIGN-INS
-	 ******************************************************/
+	******************************************************/
 	const SALT = 'yom0mm4wasap455w0rd';
 
 	/**
 	 * @var string
 	 */
 	public $confirmPassword;
-	
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -77,22 +77,22 @@ class User extends CActiveRecord
 	{
 		return 'user';
 	}
-	
+
 	/**
 	 * @return array behaviors that this model should behave as
 	 */
 	public function behaviors() {
 		return array(
-			// Update created and modified dates on before save events
+		// Update created and modified dates on before save events
 			'CTimestampBehavior'=>array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'created',
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
-			),
-//			'DateTimeZoneBehavior'=>array(
-//				'class' => 'ext.behaviors.DateTimeZoneBehavior',
-//			),
+		),
+		//			'DateTimeZoneBehavior'=>array(
+		//				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+		//			),
 		);
 	}
 
@@ -104,113 +104,113 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			// SCENARIO_INSERT
-			array('email, password, firstName, lastName, timeZone', 'required',
+		// SCENARIO_INSERT
+		array('email, password, firstName, lastName, timeZone', 'required',
 				'on' => self::SCENARIO_INSERT
-			),
-			array('confirmPassword',
+		),
+		array('confirmPassword',
 				'unsafe',
 				'on' => self::SCENARIO_INSERT
-			),
+		),
 			
-			// SCENARIO_INVITE
-			array('email',
+		// SCENARIO_INVITE
+		array('email',
 				'required', 
 				'on' => self::SCENARIO_INVITE
-			),
-			array('password, confirmPassword, firstName, lastName, timeZone',
+		),
+		array('password, confirmPassword, firstName, lastName, timeZone',
 				'unsafe',
 				'on' => self::SCENARIO_INVITE
-			),
-		
-			// SCENARIO_PROMOTE_TO_ADMIN has no rules
+		),
+
+		// SCENARIO_PROMOTE_TO_ADMIN has no rules
 			
-			// SCENARIO_RECOVER_PASSWORD has no rules
+		// SCENARIO_RECOVER_PASSWORD has no rules
 			
-			// SCENARIO_REGISTER
-			array('email, password, confirmPassword, firstName, lastName, timeZone', 
+		// SCENARIO_REGISTER
+		array('email, password, confirmPassword, firstName, lastName, timeZone',
 				'required',
 				'on' => self::SCENARIO_REGISTER
-			),
-		
-			// SCENARIO_UPDATE
-			array('email, firstName, lastName, timeZone', 'required', 
-				'on' => self::SCENARIO_UPDATE
-			),
-			array('password, confirmPassword',
-				'unsafe',
-				'on' => self::SCENARIO_UPDATE
-			),
+		),
 
-			// SCENARIO_UPDATE_PASSWORD
-			array('password, confirmPassword', 'required',
+		// SCENARIO_UPDATE
+		array('email, firstName, lastName, timeZone', 'required',
+				'on' => self::SCENARIO_UPDATE
+		),
+		array('password, confirmPassword',
+				'unsafe',
+				'on' => self::SCENARIO_UPDATE
+		),
+
+		// SCENARIO_UPDATE_PASSWORD
+		array('password, confirmPassword', 'required',
 				'on' => self::SCENARIO_UPDATE_PASSWORD
-			),
-			array('email, firstName, lastName, timeZone', 
+		),
+		array('email, firstName, lastName, timeZone',
 				'unsafe',
 				'on' => self::SCENARIO_UPDATE_PASSWORD
-			),
-				
-			// trim inputs
-			array('email, firstName, lastName', 
+		),
+
+		// trim inputs
+		array('email, firstName, lastName',
 				'filter', 
 				'filter'=>'trim',
-			),
-	
-			// email formatting
-			array('email', 
+		),
+
+		// email formatting
+		array('email',
 				'unique', 
 				'allowEmpty' => false, 
 				'caseSensitive'=>false),
-			array('email', 
+		array('email',
 				'length', 
 				'min'=>self::EMAIL_MIN_LENGTH, 
 				'max'=>self::EMAIL_MAX_LENGTH),
-			array('email', 'email'),
-	
-			// first and last name lengths & alpha numeric
-			array('firstName',
+		array('email', 'email'),
+
+		// first and last name lengths & alpha numeric
+		array('firstName',
 				'length', 
 				'min'=>self::FIRSTNAME_MIN_LENGTH, 
 				'max'=>self::FIRSTNAME_MAX_LENGTH),
-			array('lastName', 
+		array('lastName',
 				'length', 
 				'min'=>self::LASTNAME_MIN_LENGTH, 
 				'max'=>self::LASTNAME_MAX_LENGTH),
-			array('firstName, lastName', 
+		array('firstName, lastName',
 				'match', 
 				'allowEmpty' => false, 
 				'pattern' => '/^[a-zA-Z]*$/'),
-	
-			// password length
-			array('password', 
+
+		// password length
+		array('password',
 				'length', 
 				'min'=>self::PASSWORD_MIN_LENGTH, 
 				'max'=>self::PASSWORD_MAX_LENGTH,
-			),
+		),
 			
-			// confirm password required
-			array('confirmPassword', 
+		// confirm password required
+		array('confirmPassword',
 				'compare',
 				'allowEmpty'=>true,
 				'compareAttribute'=>'password',
 				'message' => 'Passwords do not match',
-			),
-	
-			// timeZone
-			array('timeZone', 
+		),
+
+		// timeZone
+		array('timeZone',
 				'default',
 				'value'=>'America/Los_Angeles',
 				'setOnEmpty'=>true, 
-			),
-			array('timeZone', 
+		),
+		array('timeZone',
 				'in', 
 				'range'=>PDateTime::timeZoneArrayValues(),
-			),
+		),
 			
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, email, password, confirmPassword, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
+		// The following rule is used by search().
+		// Please remove those attributes that should not be searched.
+		array('id, email, password, confirmPassword, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -223,36 +223,36 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			
-			// all groups that the user is a member of
+		// all groups that the user is a member of
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
 				'through' => 'groupUsers',
 				'order' => 'groups.name'
-			),
+		),
 			'groupsCount' => array(self::STAT, 'Group', 
 				'group_user(userId, groupId)',
-			),
+		),
 			
-			// all tasks that belong to the groups the user belongs to
+		// all tasks that belong to the groups the user belongs to
 			'groupsTasks' => array(self::HAS_MANY, 'Task', 'groupId',
 				'through' => 'groups',
-			),
+		),
 			
-			// all tasks that the user is actively signed up for
+		// all tasks that the user is actively signed up for
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
-			),
+		),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasks.isTrash=0',
-			),
+		),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
 							'through' => 'taskUsers',
 							'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasksSomeday.isTrash=0 AND nextTasksSomeday.starts IS NULL',
-			),
+		),
 		);
 	}
 
@@ -321,7 +321,7 @@ class User extends CActiveRecord
 		}
 		throw new CDbException(Yii::t('user','The user could not be injected because it is not new.'));
 	}
-	
+
 	/**
 	 * Invite a new user
 	 * @param String email
@@ -339,9 +339,9 @@ class User extends CActiveRecord
 		}
 		throw new CDbException(Yii::t('user','The user could not be invited because it is not new.'));
 	}
-	
+
 	/**
-	 * Reset the user's password and send an email notifying them of the 
+	 * Reset the user's password and send an email notifying them of the
 	 * update.
 	 * Also sets flash for user.
 	 * @return boolean
@@ -352,7 +352,7 @@ class User extends CActiveRecord
 		$this->scenario = self::SCENARIO_RECOVER_PASSWORD;
 		$newPassword = self::generatePassword(); // store unencrypted for email
 		$this->password = $newPassword;
-		
+
 		if($this->isRegistered) {
 			if($this->save()) {
 				// email user
@@ -362,40 +362,47 @@ class User extends CActiveRecord
 				$mail->newpassword = $newPassword;
 				$mail->shouldEmail = true;
 				Yii::app()->mailer->send($mail);
-				
+
 				// notify end user
 				Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
-				
+
 				return true;
 			}
 			else {
 				$errors = $this->getErrors('password');
-				throw new CDbException('There was an error generating a new password.', 
-					500, $errors[0]);
+				throw new CDbException('There was an error generating a new password.',
+				500, $errors[0]);
 			}
 		}
 		$this->addError('email', 'No user was found with that email');
 		return false;
 	}
-	
+
 	/**
 	 * Register a pending user, saves.
 	 * @param array $attributes
 	 * @return boolean
 	 * @see CActiveRecord::save()
+	 * @throws CDbException if User is not a new record
+	 * @throws CHttpException if User is already registered
 	 */
 	public function registerUser($attributes = null) {
 		$this->scenario = self::SCENARIO_REGISTER;
-		if(!$this->isNewRecord) {
-			if(is_array($attributes)) {
-				$this->attributes = $attributes;
-				$this->status = User::STATUS_ACTIVE;
-				return $this->save();
-			}
-			return false;
+
+		if($this->isNewRecord) {
+			throw new CDbException(Yii::t('user','The user could not be registered because it is a new user.'));
 		}
-		throw new CDbException(Yii::t('user','The user could not be registered because it is a new user.'));
-		
+
+		if($this->status != User::STATUS_PENDING) {
+			throw new CHttpException(400, 'Invalid request. This account has already registered.');
+		}
+
+		if(is_array($attributes)) {
+			$this->attributes = $attributes;
+			$this->status = User::STATUS_ACTIVE;
+			return $this->save();
+		}
+		return false;
 	}
 
 	/**
@@ -403,7 +410,7 @@ class User extends CActiveRecord
 	 * @param array $attributes
 	 * @return boolean
 	 * @see CActiveRecord::save()
-	*/
+	 */
 	public function updatePassword($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE_PASSWORD;
 		if(!$this->isNewRecord) {
@@ -415,13 +422,13 @@ class User extends CActiveRecord
 		}
 		throw new CDbException(Yii::t('user','The user password could not be updated because it is a new user.'));
 	}
-	
+
 	/**
 	 * Updates a user's profile, saves.
 	 * @param array $attributes
 	 * @return boolean
 	 * @see CActiveRecord::save()
-	*/
+	 */
 	public function updateUser($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE;
 		if(!$this->isNewRecord) {
@@ -433,7 +440,7 @@ class User extends CActiveRecord
 		}
 		throw new CDbException(Yii::t('user','The user could not be updated because it is new.'));
 	}
-	
+
 	/**
 	 * Promote the user to admin level
 	 * @return boolean
@@ -444,7 +451,7 @@ class User extends CActiveRecord
 		$this->isAdmin = 1;
 		return $this->save();
 	}
-	
+
 	/**
 	 * Convert email to lowercase
 	 */
@@ -468,9 +475,9 @@ class User extends CActiveRecord
 				$this->token = self::generateToken();
 			}
 			if($this->getScenario() == self::SCENARIO_INSERT
-				|| $this->getScenario() == self::SCENARIO_REGISTER
-				|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD	
-				|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
+			|| $this->getScenario() == self::SCENARIO_REGISTER
+			|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD
+			|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
 				$this->password = self::encrypt($this->password, $this->token);
 			}
 			return true;
@@ -483,7 +490,7 @@ class User extends CActiveRecord
 			'order' => 'firstName ASC',
 		);
 	}
-	
+
 	/**
 	 * Checks if the given password is correct.
 	 * @param string the password to be validated
@@ -493,7 +500,7 @@ class User extends CActiveRecord
 	{
 		return self::encrypt($password, $this->token) === $this->password;
 	}
-	
+
 	/**
 	 * Checks if the user has the given status
 	 * @param string the status to check
@@ -503,7 +510,7 @@ class User extends CActiveRecord
 	{
 		return $this->status === $status;
 	}
-	
+
 	/**
 	 * Is the user's status 'Active'?
 	 * @return boolean whether the user is active
@@ -511,15 +518,15 @@ class User extends CActiveRecord
 	public function getIsActive() {
 		return $this->isStatus(self::STATUS_ACTIVE);
 	}
-	
-/**
+
+	/**
 	 * Is the user's status 'Banned'?
 	 * @return boolean whether the user is banned
 	 */
 	public function getIsBanned() {
 		return $this->isStatus(self::STATUS_BANNED);
 	}
-	
+
 	/**
 	 * Has the user registered yet?
 	 * @return boolean
@@ -541,10 +548,10 @@ class User extends CActiveRecord
 		if(is_null($token) || empty($token)) {
 			throw new CDbException("No token specified in encrypt call");
 		}
-		
+
 		return sha1(self::SALT . $token . $value);
 	}
-	
+
 	/**
 	 * @return string new encrypted token
 	 */
@@ -554,10 +561,10 @@ class User extends CActiveRecord
 		if(is_null($user)) {
 			return $token;
 		}
-		
+
 		return self::generateToken();
 	}
-	
+
 	/**
 	 * @return string a new random password
 	 */
@@ -570,7 +577,7 @@ class User extends CActiveRecord
 	 * @return string FirstName LastName or NULL if neither is set
 	 */
 	public function getFullName() {
-		if($this->firstName != NULL 
+		if($this->firstName != NULL
 		&& $this->lastName != NULL) {
 			return $this->firstName . ' ' . $this->lastName;
 		}
@@ -578,20 +585,20 @@ class User extends CActiveRecord
 			return NULL;
 		}
 	}
-	
+
 	/**
 	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {
 		return array(self::STATUS_ACTIVE,
-			self::STATUS_INACTIVE, 
-			self::STATUS_PENDING,
-			self::STATUS_BANNED);
+		self::STATUS_INACTIVE,
+		self::STATUS_PENDING,
+		self::STATUS_BANNED);
 	}
-	
+
 	/**
 	 * Invite a user to the web app
-	 * 
+	 *
 	 * @param string userName the name of the user sending the invite
 	 * @param string groupName the name of the group
 	 * @return boolean true if successfully emailed
