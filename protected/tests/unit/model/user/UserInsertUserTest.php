@@ -172,7 +172,7 @@ class UserInsertUserTest extends DbTestCase
 		$user = new User();
 		$this->attributes['password'] = StringUtils::createRandomAlphaString(45);
 
-		$this->assertFalse($user->insertUser($this->attributes), "User with short password was inserted: " . CVarDumper::dumpAsString($user->errors));
+		$this->assertFalse($user->insertUser($this->attributes), "User with long password was inserted: " . CVarDumper::dumpAsString($user->errors));
 
 		$this->assertNotNull($user->getError('password'), 'null password did not cause error on insert');
 	}
