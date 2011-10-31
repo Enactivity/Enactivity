@@ -5,14 +5,14 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
- * @property string $email
+ * @property string $email user configurable
  * @property string $token
- * @property string $password
- * @property string $firstName
- * @property string $lastName
- * @property string $timeZone
+ * @property string $password user configurable
+ * @property string $firstName user configurable
+ * @property string $lastName user configurable
+ * @property string $timeZone user configurable
  * @property string $status
- * @property integer $isAdmin
+ * @property integer $isAdmin admin configurable
  * @property string $created
  * @property string $modified
  * @property string $lastLogin
@@ -104,81 +104,113 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-		array('email', 'required', 'on' => self::SCENARIO_INVITE),
-		array('email, password, confirmPassword, firstName, lastName, timeZone', 'required', 
-			'on' => self::SCENARIO_REGISTER
-		),
-		array('email, password, firstName, lastName, timeZone', 'required',
-			'on' => self::SCENARIO_INSERT
-		),
-		array('email, firstName, lastName, timeZone', 'required', 
-			'on' => self::SCENARIO_UPDATE),
+			// SCENARIO_INSERT
+			array('email, password, firstName, lastName, timeZone', 'required',
+				'on' => self::SCENARIO_INSERT
+			),
+			array('confirmPassword',
+				'unsafe',
+				'on' => self::SCENARIO_INSERT
+			),
 			
-		array('password, confirmPassword', 'required',
-			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD),
-
-		// trim inputs
-		array('email',	
-			'filter', 
-			'filter'=>'trim', 
-			'on' => self::SCENARIO_INSERT),
-		array('email', 
-			'filter', 
-			'filter'=>'trim', 
-			'on' => self::SCENARIO_INVITE),
-		array('email, firstName, lastName', 
-			'filter', 
-			'filter'=>'trim',
-			'on' => self::SCENARIO_REGISTER),
-		array('email, firstName, lastName', 
-			'filter', 
-			'filter'=>'trim', 
-			'on' => self::SCENARIO_INSERT . ',' . self::SCENARIO_UPDATE),
+			// SCENARIO_INVITE
+			array('email',
+				'required', 
+				'on' => self::SCENARIO_INVITE
+			),
+			array('password, confirmPassword, firstName, lastName, timeZone',
+				'unsafe',
+				'on' => self::SCENARIO_INVITE
+			),
 		
-		array('email', 'unique', 
-			'allowEmpty' => false, 
-			'caseSensitive'=>false),
-		array('email', 'length', 
-			'min'=>self::EMAIL_MIN_LENGTH, 
-			'max'=>self::EMAIL_MAX_LENGTH),
-		array('email', 'email'),
-
-		array('firstName', 'length', 
-			'min'=>self::FIRSTNAME_MIN_LENGTH, 
-			'max'=>self::FIRSTNAME_MAX_LENGTH),
-		array('lastName', 'length', 
-			'min'=>self::LASTNAME_MIN_LENGTH, 
-			'max'=>self::LASTNAME_MAX_LENGTH),
-		array('firstName, lastName', 'match', 
-			'allowEmpty' => false, 
-			'pattern' => '/^[a-zA-Z]*$/'),
+			// SCENARIO_PROMOTE_TO_ADMIN has no rules
 			
-		array('password', 
-			'length', 
-			'min'=>self::PASSWORD_MIN_LENGTH, 
-			'max'=>self::PASSWORD_MAX_LENGTH,
-			'on' => self::SCENARIO_INSERT . ',' . self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD,
-		),
+			// SCENARIO_RECOVER_PASSWORD has no rules
+			
+			// SCENARIO_REGISTER
+			array('email, password, confirmPassword, firstName, lastName, timeZone', 
+				'required',
+				'on' => self::SCENARIO_REGISTER
+			),
 		
-		array('confirmPassword', 'compare', 
-			'compareAttribute'=>'password', 
-			'message' => 'Passwords do not match',
-			'on' => self::SCENARIO_REGISTER . ',' . self::SCENARIO_UPDATE_PASSWORD,
-		),
+			// SCENARIO_UPDATE
+			array('email, firstName, lastName, timeZone', 'required', 
+				'on' => self::SCENARIO_UPDATE
+			),
+			array('password, confirmPassword',
+				'unsafe',
+				'on' => self::SCENARIO_UPDATE
+			),
 
-		array('timeZone', 'default',
-			'value'=>'America/Los_Angeles',
-			'setOnEmpty'=>true, 'on'=>self::SCENARIO_INVITE
-		),
-		array(
-			'timeZone', 
-			'in', 
-			'range'=>PDateTime::timeZoneArrayValues()
-		),
-		
-		// The following rule is used by search().
-		// Please remove those attributes that should not be searched.
-		array('id, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
+			// SCENARIO_UPDATE_PASSWORD
+			array('password, confirmPassword', 'required',
+				'on' => self::SCENARIO_UPDATE_PASSWORD
+			),
+			array('email, firstName, lastName, timeZone', 
+				'unsafe',
+				'on' => self::SCENARIO_UPDATE_PASSWORD
+			),
+				
+			// trim inputs
+			array('email, firstName, lastName', 
+				'filter', 
+				'filter'=>'trim',
+			),
+	
+			// email formatting
+			array('email', 
+				'unique', 
+				'allowEmpty' => false, 
+				'caseSensitive'=>false),
+			array('email', 
+				'length', 
+				'min'=>self::EMAIL_MIN_LENGTH, 
+				'max'=>self::EMAIL_MAX_LENGTH),
+			array('email', 'email'),
+	
+			// first and last name lengths & alpha numeric
+			array('firstName',
+				'length', 
+				'min'=>self::FIRSTNAME_MIN_LENGTH, 
+				'max'=>self::FIRSTNAME_MAX_LENGTH),
+			array('lastName', 
+				'length', 
+				'min'=>self::LASTNAME_MIN_LENGTH, 
+				'max'=>self::LASTNAME_MAX_LENGTH),
+			array('firstName, lastName', 
+				'match', 
+				'allowEmpty' => false, 
+				'pattern' => '/^[a-zA-Z]*$/'),
+	
+			// password length
+			array('password', 
+				'length', 
+				'min'=>self::PASSWORD_MIN_LENGTH, 
+				'max'=>self::PASSWORD_MAX_LENGTH,
+			),
+			
+			// confirm password required
+			array('confirmPassword', 
+				'compare',
+				'allowEmpty'=>true,
+				'compareAttribute'=>'password',
+				'message' => 'Passwords do not match',
+			),
+	
+			// timeZone
+			array('timeZone', 
+				'default',
+				'value'=>'America/Los_Angeles',
+				'setOnEmpty'=>true, 
+			),
+			array('timeZone', 
+				'in', 
+				'range'=>PDateTime::timeZoneArrayValues(),
+			),
+			
+			// The following rule is used by search().
+			// Please remove those attributes that should not be searched.
+			array('id, email, password, confirmPassword, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
 	}
 

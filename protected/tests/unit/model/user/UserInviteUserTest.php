@@ -139,7 +139,7 @@ class UserInviteUserTest extends DbTestCase
 		$user = new User();
 		$this->assertTrue($user->inviteUser($this->email), "User was not invited: " . CVarDumper::dumpAsString($user->errors));
 
-		$this->assertNull($user->firstName, 'firstName was set on inviteUser');
+		$this->assertEmpty($user->firstName, 'firstName was set on inviteUser');
 	}
 
 	/**
@@ -150,7 +150,7 @@ class UserInviteUserTest extends DbTestCase
 		$user = new User();
 		$this->assertTrue($user->inviteUser($this->email), "User was not invited: " . CVarDumper::dumpAsString($user->errors));
 
-		$this->assertNull($user->lastName, 'lastName was set on inviteUser');
+		$this->assertEmpty($user->lastName, 'lastName was set on inviteUser');
 	}
 
 	/**

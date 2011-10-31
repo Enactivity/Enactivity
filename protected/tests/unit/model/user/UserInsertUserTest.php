@@ -10,12 +10,14 @@ class UserInsertUserTest extends DbTestCase
 	public function setUp() {
 		parent::setUp();
 
+		$password = StringUtils::createRandomAlphaString();
+		
 		$this->attributes = array(
 			'id' => StringUtils::createRandomAlphaString(),
 			'email' => StringUtils::createRandomEmail(),
 			'token' => StringUtils::createRandomAlphaString(),
-			'password' => StringUtils::createRandomAlphaString(),
-			'confirmPassword' => StringUtils::createRandomAlphaString(),
+			'password' => $password,
+			'confirmPassword' => $password,
 			'firstName' => StringUtils::createRandomAlphaString(),
 			'lastName' => StringUtils::createRandomAlphaString(),
 			'timeZone' => array_rand(PDateTime::timeZoneArray()),
