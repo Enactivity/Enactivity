@@ -17,7 +17,7 @@
  */
 class GroupUser extends CActiveRecord
 {
-	const SCENARIO_INJECT = 'inject';
+	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_JOIN = 'join';
 	
@@ -81,13 +81,20 @@ class GroupUser extends CActiveRecord
 		array('status', 'filter', 'filter'=>'trim'),
 		array('status', 'length', 'max'=>15),
 		
-		array('created, modified', 'safe'),
+		array('created, modified', 
+			'safe'
+		),
 
 		// TODO: default to pending after adding user confirmation
-		array('status', 'default',
-		 'value'=>self::STATUS_ACTIVE,
-		 'setOnEmpty'=>false, 'on'=>'insert'),
-		array('status', 'in', 'range'=>$this->getStatuses()),
+		array('status', 
+			'default',
+			'value'=>self::STATUS_ACTIVE,
+			'setOnEmpty'=>false, 'on'=>'insert'
+		),
+		array('status', 
+			'in', 
+			'range'=>$this->getStatuses()
+		),
 
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
@@ -187,36 +194,57 @@ class GroupUser extends CActiveRecord
 		return isset($groupuser);
 	}
 	
-	public function injectGroupUser($groupId, $userId) {
-		$this->scenario = self::SCENARIO_INJECT;
-		$this->groupId = $groupId;
-		$this->userId = $userId;
-		$this->status = self::STATUS_ACTIVE;
-		return $this->save();
+	/**
+	 * Inserts a GroupUser object into 
+	 * @param int $groupId
+	 * @param int $userId
+	 * @throws CDbException
+	 */
+	public function insertGroupUser($groupId, $userId) {
+		$this->scenario = self::SCENARIO_INSERT;
+		if($this->isNewRecord) {
+			$this->groupId = $groupId;
+			$this->userId = $userId;
+			$this->status = self::STATUS_ACTIVE;
+			return $this->save();
+		}
+		throw new CDbException(Yii::t('GroupUser','The group_user could not be inserted because it is not new.'));
 	}
 	
+	/**
+	 * Invite a user to a group
+	 * @param int $groupId
+	 * @param int $userId
+	 * @return boolean
+	 */
 	public function inviteGroupUser($groupId, $userId) {
 		$this->scenario = self::SCENARIO_INVITE;
 		$this->groupId = $groupId;
 		$this->userId = $userId;
+
 		return $this->save();
 	}
 	
+	/**
+	 * Have a user join a group
+	 * @return boolean
+	 */
 	public function joinGroupUser() {
 		$this->scenario = self::SCENARIO_JOIN;
 		$this->status = self::STATUS_ACTIVE;
 		return $this->save();
 	}
 	
-	public function onAfterSave($event) {
-		parent::onAfterSave($event);
-		
+	/**
+	 * Handler inviteGroupUser event
+	 * @param CEvent $event
+	 * @return null
+	 */
+	public function onAfterInviteGroupUser($event) {
 		// Send on new invite email
-		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
-			$user = User::model()->findByPk($this->userId);
-			$group = Group::model()->findByPk($this->groupId);
-			
-			$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
-		}
+		$user = User::model()->findByPk($this->userId);
+		$group = Group::model()->findByPk($this->groupId);
+		
+		$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
 	}
 }
