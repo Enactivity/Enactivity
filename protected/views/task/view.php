@@ -145,7 +145,7 @@ if($model->isParticipatable):
 
 <?php // show comments ?>
 <section id="task-comments">
-<h1><?php echo 'Comments'; ?></h1>
+	<h1><?php echo 'Comments'; ?></h1>
 	
 	<?php 
 	// show list of comments
@@ -153,15 +153,13 @@ if($model->isParticipatable):
 		'dataProvider'=>$commentsDataProvider,
 		'itemView'=>'/comment/_view',
 		'emptyText'=>''
-	));
+	)); ?>
 	
-	// show new comment form ?>
+	<?php // show new comment form ?>
 	<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 </section>
 
-<?php
-// Show history
-?>
+<?php // Show history ?>
 <section id="task-activity">
 	<h1><?php echo 'Recent Activity'; ?></h1>
 	
@@ -169,7 +167,6 @@ if($model->isParticipatable):
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$feedDataProvider,
 		'itemView'=>'/feed/_view',
-	));
-	?>
+	));?>
 	
 </section>
