@@ -130,25 +130,17 @@ if($model->isParticipatable):
 </section>
 <?php endif; ?>
 
-<?php
-// Show children tasks
-if($model->isSubtaskable):
-?>
+<?php if($model->isSubtaskable):?>
 <section id="child-tasks">
-<?php
-echo $this->renderPartial('_agenda', array(
-		'datedTasks'=>$subtasks,
-		'datelessTasks'=>$subtasks,
-		'showParent'=>false,
-));
-?>
+	<?php
+	echo $this->renderPartial('_agenda', array(
+			'datedTasks'=>$subtasks,
+			'datelessTasks'=>$subtasks,
+			'showParent'=>false,
+	));
+	?>
+	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 </section>
-
-<?php endif; ?>
-
-<?php // "what would you want to do input" box ?>
-<?php if($model->isSubtaskable): ?>
-<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 <?php endif; ?>
 
 <?php // show comments ?>
@@ -170,7 +162,7 @@ echo $this->renderPartial('_agenda', array(
 <?php
 // Show history
 ?>
-<section>
+<section id="task-activity">
 	<h1><?php echo 'Recent Activity'; ?></h1>
 	
 	<?php 
