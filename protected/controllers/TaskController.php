@@ -477,7 +477,7 @@ class TaskController extends Controller
 			$comment->attributes=$_POST['TaskComment'];
 	
 			if($comment->save()) {
-				$this->redirect(array('view','id'=>$task->id, '#comment-' . $comment->id));
+				$this->redirect(array('view','id'=>$task->id, '#'=>'comment-' . $comment->id));
 			}
 		}
 	
