@@ -5,24 +5,17 @@
  * @uses Group $data model
  */
 
-// calculate article class
-$articleClass[] = "view";
-$articleClass[] = "story";
+$story = $this->beginWidget('application.components.widgets.Story', array(
+	'htmlOptions'=>array(
+		'id'=>"group-" . PHtml::encode($data->id),
+		'class'=>PHtml::groupClass($data),
+	),
+));?>
 
-// start article
-echo PHtml::openTag('article', array(
-	'id' => "group-" . PHtml::encode($data->id),
-	'class' => "view story " . PHtml::groupClass($data),
-));
+<h1 class="story-title">
+	<?php echo PHtml::link(PHtml::encode($data->name), 
+		array('view', 'id'=>$data->id)
+	); ?>
+</h1>
 
-// start headers
-
-// display <user> <action> <model> 
-echo PHtml::openTag('h1', array('class'=>'story-title'));
-
-echo PHtml::link(PHtml::encode($data->name), 
-	array('view', 'id'=>$data->id)); 
-
-echo PHtml::closeTag('h1');
-
-echo PHtml::closeTag('article');
+<?php $this->endWidget(); ?>

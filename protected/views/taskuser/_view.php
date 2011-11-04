@@ -3,17 +3,15 @@
  * @uses $data User model
  */
 
-// calculate article class
+$story = $this->beginWidget('application.components.widgets.Story', array(
+	'htmlOptions'=>array(
+		'id'=>"user-" . PHtml::encode($data->id),
+		'class'=>PHtml::taskUserClass($data),
+	),
+)); ?>
 
-// start article
-echo PHtml::openTag('article', array(
-	'id' => "user-" . PHtml::encode($data->id),
-	'class' => "view story " . PHtml::taskUserClass($data),
-));
+	<?php $this->widget('application.components.widgets.UserLink', array(
+		'userModel' => $data->user,
+	)); ?>
 
-$this->widget('application.components.widgets.UserLink', array(
-	'userModel' => $data->user,
-));
-
-echo PHtml::closeTag('article');
-?>
+<?php $this->endWidget(); ?>

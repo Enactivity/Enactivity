@@ -316,6 +316,20 @@ class PHtml extends CHtml {
 	
 	/**
 	 * Returns the classes values associated with a Task object
+	 * @param Feed $feed
+	 * @return string space-separated html class string
+	*/
+	public static function feedClass($feed) {
+		$articleClass = array();
+	
+		$articleClass[] = "feed";
+		$articleClass[] = "feed-" . PHtml::encode($feed->id);
+	
+		return implode(" ", $articleClass);
+	}
+	
+	/**
+	 * Returns the classes values associated with a Task object
 	 * @param Task $task
 	 * @return string space-separated html class string
 	 */
@@ -344,6 +358,20 @@ class PHtml extends CHtml {
 		$articleClass[] = "participant-" . PHtml::encode($taskuser->id);
 		$articleClass[] = $taskuser->isCompleted ? "completed" : "not-completed";
 
+		return implode(" ", $articleClass);
+	}
+	
+	/**
+	* Returns the classes values associated with a user object
+	* @param User $user
+	* @return string space-separated html class string
+	*/
+	public static function userClass($user) {
+		$articleClass = array();
+	
+		$articleClass[] = "user";
+		$articleClass[] = "user-" . PHtml::encode($user->id);
+	
 		return implode(" ", $articleClass);
 	}
 }

@@ -94,10 +94,6 @@ p {
 	max-width: 32em;
 }
 
-time {
-	white-space: nowrap; /* Prevents hard-to-read multiline dates */
-}
-
 /*
 	Global wrappers
 */
@@ -201,16 +197,14 @@ section > h1 {
 	white-space: nowrap;
 }
 
-.menu li a {
+.menu a {
 	display: block; /* So it fills area and icon is clickable */
 	min-width: 50px; /* Should be at least 44px for touch screens */
-	padding-bottom: 8px;
-	padding-top: 8px;
+	margin-top: 8px;
 	text-align: center;
 }
 
 /* Content toolbox */
-
 .toolbox {
 	margin-bottom: 16px; /* Extra spacing below */
 }
