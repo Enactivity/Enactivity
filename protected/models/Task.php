@@ -572,6 +572,7 @@ class Task extends CActiveRecord
 		$userTask = $this->loadTaskUser($userId);
 		
 		$userTask->trash();
+		$userTask->save();
 		
 		return $this;
 	}
