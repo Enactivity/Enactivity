@@ -207,7 +207,7 @@ class TaskController extends Controller
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -231,7 +231,7 @@ class TaskController extends Controller
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -255,7 +255,7 @@ class TaskController extends Controller
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -279,7 +279,7 @@ class TaskController extends Controller
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 	}
 
 
@@ -314,7 +314,7 @@ class TaskController extends Controller
 			}
 		}
 		else {
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 		}
 	}
 
