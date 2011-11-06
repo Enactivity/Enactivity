@@ -18,7 +18,7 @@
  */
 class TaskUser extends CActiveRecord
 {
-	
+
 	const SCENARIO_COMPLETE = 'complete';
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
@@ -26,7 +26,7 @@ class TaskUser extends CActiveRecord
 	const SCENARIO_UNCOMPLETE = 'uncomplete';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update';
-	
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return TaskUser the static model class
@@ -49,27 +49,27 @@ class TaskUser extends CActiveRecord
 	 */
 	public function behaviors() {
 		return array(
-			// Update created and modified dates on before save events
+		// Update created and modified dates on before save events
 			'CTimestampBehavior'=>array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'created',
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
-			),
+		),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
-			),
-			// Record C-UD operations to this record
+		),
+		// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'focalModelClass' => 'Task',
 				'focalModelId' => 'taskId',
 				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
-			),
+		),
 		);
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -78,31 +78,31 @@ class TaskUser extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('userId, taskId, isCompleted, isTrash', 
+		array('userId, taskId, isCompleted, isTrash',
 				'required'
-			),
+		),
 			
-			// goal and owner can be any integer > 0
-			array('userId, taskId',
+		// goal and owner can be any integer > 0
+		array('userId, taskId',
 				'numerical',
 				'min' => 0,
 				'integerOnly'=>true),
-						
-			// boolean ints can be 0 or 1
-			array('isCompleted, isTrash',
+
+		// boolean ints can be 0 or 1
+		array('isCompleted, isTrash',
 				'numerical',
 				'min' => 0,
 				'max' => 1,
 				'integerOnly'=>true),
 			
-			// boolean ints defaults to 0
-			array('isCompleted, isTrash',
+		// boolean ints defaults to 0
+		array('isCompleted, isTrash',
 				'default',
 				'value' => 0),
 			
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			//array('id, userId, taskId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
+		// The following rule is used by search().
+		// Please remove those attributes that should not be searched.
+		//array('id, userId, taskId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -134,16 +134,16 @@ class TaskUser extends CActiveRecord
 			'modified' => 'Modified',
 		);
 	}
-	
+
 	public function scenarioLabels() {
 		return array(
-			self::SCENARIO_COMPLETE => 'finished working on',
-			self::SCENARIO_DELETE => 'delete',
-			self::SCENARIO_INSERT => 'signed up for', // default set by Yii
-			self::SCENARIO_TRASH => 'quit',
-			self::SCENARIO_UNCOMPLETE => 'is once again working on',
-			self::SCENARIO_UNTRASH => 'signed back up for',
-			self::SCENARIO_UPDATE => 'updated',
+		self::SCENARIO_COMPLETE => 'finished working on',
+		self::SCENARIO_DELETE => 'delete',
+		self::SCENARIO_INSERT => 'signed up for', // default set by Yii
+		self::SCENARIO_TRASH => 'quit',
+		self::SCENARIO_UNCOMPLETE => 'is once again working on',
+		self::SCENARIO_UNTRASH => 'signed back up for',
+		self::SCENARIO_UPDATE => 'updated',
 		);
 	}
 
@@ -170,12 +170,24 @@ class TaskUser extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
+	/**
+	 * Get the groupId of the TaskUser
+	 * @return int
+	 */
+	public function getGroupId() {
+		if(is_null($this->task)) {
+			$this->task = Task::model()->findByPk($this->taskId);
+		}
+		return $this->task->groupId;
+	}
+
 	/**
 	 * Find a TaskUser with the given task and user id,
 	 * if no such task user exists, a model is created.
 	 * @param int $taskId
 	 * @param int $userId
+	 * @return boolean
 	 * @return TaskUser unsaved TaskUser model
 	 */
 	public static function loadTaskUser($taskId, $userId) {
@@ -188,10 +200,18 @@ class TaskUser extends CActiveRecord
 			$taskUser->taskId = $taskId;
 			$taskUser->userId = $userId;
 		}
-		
+
 		return $taskUser;
 	}
-	
+
+	/**
+	 * Insert a new TaskUser into db, this function is for
+	 * internal helpers only.
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 * @throws CDbException if TaskUser already exists
+	 */
 	public function insertTaskUser($taskId, $userId) {
 		$this->scenario = self::SCENARIO_INSERT;
 		if($this->isNewRecord) {
@@ -201,51 +221,97 @@ class TaskUser extends CActiveRecord
 		}
 		throw new CDbException(Yii::t('Task_User','The task_user could not be inserted because it is not new.'));
 	}
-	
+
 	/**
-	 * Mark the TaskUser as completed, does not save
-	 * @return TaskUser
+	 * User signs up for task, if user is already
+	 * signed up for the task in some form, their
+	 * sign up is refreshed as an untrashed, incomplete
+	 * TaskUser
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 * @throws CHttpException if TaskUser was not saved
 	 */
-	public function complete() {
-		$this->isCompleted = 1;
-		$this->setScenario(self::SCENARIO_COMPLETE);
-		return $this;
+	public static function signup($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->isNewRecord) {
+			$taskUser->scenario = self::SCENARIO_INSERT;
+		}
+		else {
+			$taskUser->scenario = self::SCENARIO_UNTRASH;
+		}
+
+		$taskUser->isTrash = 0;
+		$taskUser->isCompleted = 0;
+
+		if($taskUser->save()) {
+			return true;
+		}
+		
+		throw new CHttpException(400, "There was an error signing up for this task");
 	}
-	
+
+	/**
+	 * User quits task
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 * @throws CHttpException if user never signed up for task
+	 */
+	public static function quit($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->isNewRecord) {
+			throw new CHttpException(400, "Can't quit a task you never signed up for");
+		}
+
+		$taskUser->scenario = self::SCENARIO_TRASH;
+		$taskUser->isTrash = 1;
+		
+		if($taskUser->save()) {
+			return true;
+		}
+		
+		throw new CHttpException(400, "There was an error quitting this task");
+	}
+
+	/**
+	 * Mark the TaskUser as completed
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 * @throws CHttpException if TaskUser was not saved
+	 */
+	public static function complete($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		$taskUser->scenario = self::SCENARIO_COMPLETE;
+		$taskUser->isCompleted = 1;
+
+		if($taskUser->save()) {
+			return true;
+		}
+		
+		throw new CHttpException(400, "There was an error completing this task");
+	}
+
 	/**
 	 * Mark the TaskUser as not completed, does not save
-	 * @return TaskUser
+	 * @return boolean true
+	 * @throws CHttpException if TaskUser was not saved
 	 */
-	public function uncomplete() {
-		$this->isCompleted = 0;
-		$this->setScenario(self::SCENARIO_UNCOMPLETE);
-		return $this;
-	}
-	
-	/**
-	 * Mark the TaskUser as trash, does not save
-	 * @return TaskUser
-	 */
-	public function trash() {
-		$this->isTrash = 1;
-		$this->setScenario(self::SCENARIO_TRASH);
-		return $this;
-	}
-	
-	/**
-	 * Mark the TaskUser as not trash, does not save
-	 * @return TaskUser
-	 */
-	public function untrash() {
-		$this->isTrash = 0;
-		$this->setScenario(self::SCENARIO_UNTRASH);
-		return $this;
-	}
-	
-	public function getGroupId() {
-		if(is_null($this->task)) {
-			$this->task = Task::model()->findByPk($this->taskId);
+	public static function resume($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		$taskUser->setScenario(self::SCENARIO_UNCOMPLETE);
+		$taskUser->isCompleted = 0;
+		
+		if($taskUser->save()) {
+			return true;
 		}
-		return $this->task->groupId;
+		
+		throw new CHttpException(400, "There was an error resuming work on this task");
 	}
+
 }

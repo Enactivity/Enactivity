@@ -546,76 +546,45 @@ class Task extends CActiveRecord
 	/**
 	 * Marks the current user as participating in the task.
 	 * Saves TaskUser
-	 * @return Task
+	 * @return boolean
+	 * @throws CHttpException if TaskUser was not saved
+	 * @see TaskUser::signup()
 	 */
 	public function participate($userId) {
-		
-		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser($userId);
-		
-		if(!$userTask->isNewRecord) {
-			$userTask->unTrash();
-		}
-		$userTask->save();
-		
-		return $this;
+		return TaskUser::signup($this->id, $userId);
 	}
 	
 	/**
 	 * Marks the current user as not participating in the task.
 	 * Saves TaskUser
-	 * @return Task
+	 * @return boolean
+	 * @throws CHttpException if TaskUser was not saved
+	 * @see TaskUser::quit()
 	 */
 	public function unparticipate($userId) {
-			
-		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser($userId);
-		
-		$userTask->trash();
-		$userTask->save();
-		
-		return $this;
+		return TaskUser::quit($this->id, $userId);
 	}
 	
 	/**
 	 * Marks the current user as done with the task.
 	 * Saves TaskUser
-	 * @return Task
+	 * @return boolean
+	 * @throws CHttpException if TaskUser was not saved
+	 * @see TaskUser::complete()
 	 */
 	public function userComplete($userId) {
-		
-		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser($userId);
-		
-		$userTask->complete();
-		$userTask->save();
-		
-		return $this;
+		return TaskUser::complete($this->id, $userId);
 	}
 	
 	/**
 	 * Marks the current user as not done with the task.
 	 * Saves TaskUser
-	 * @return Task
+	 * @return boolean
+	 * @throws CHttpException if TaskUser was not saved
+	 * @see TaskUser::resume()
 	 */
 	public function userUncomplete($userId) {
-			
-		// look for the TaskUser for this combination
-		$userTask = $this->loadTaskUser($userId);
-		
-		$userTask->uncomplete();
-		$userTask->save();
-		
-		return $this;
-	}
-	
-	/**
-	 * Loads the TaskUser for the model and current user.  If no TaskUser
-	 * exists yet, an unsaved new TaskUser is created. 
-	 * @return TaskUser unsaved model for linking task to current user
-	 */
-	private function loadTaskUser($userId) {
-		return TaskUser::loadTaskUser($this->id, $userId);
+		return TaskUser::resume($this->id, $userId);
 	}
 	
 	public function defaultScope() {
