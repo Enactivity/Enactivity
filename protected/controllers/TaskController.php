@@ -183,7 +183,7 @@ class TaskController extends Controller
 			$this->redirectReturnUrlOrView($task);
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -411,6 +411,8 @@ class TaskController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
+	 * @return Task
+	 * @throws CHttpException
 	 */
 	public function loadTaskModel($id)
 	{
@@ -511,8 +513,8 @@ class TaskController extends Controller
 		}
 
 		$this->redirect(
-		isset($_POST['returnUrl'])
-		? $_POST['returnUrl']
-		: array('task/view', 'id'=>$task->id,));
+			isset($_POST['returnUrl'])
+			? $_POST['returnUrl']
+			: array('task/view', 'id'=>$task->id,));
 	}
 }
