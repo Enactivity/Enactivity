@@ -172,6 +172,37 @@ class TaskUser extends CActiveRecord
 	}
 	
 	/**
+	 * Find a TaskUser with the given task and user id,
+	 * if no such task user exists, a model is created.
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return TaskUser unsaved TaskUser model
+	 */
+	public static function loadTaskUser($taskId, $userId) {
+		$taskUser = TaskUser::model()->findByAttributes(array(
+			'taskId' => $taskId,
+			'userId' => $userId,
+		));
+		if(is_null($taskUser)) {
+			$taskUser = new TaskUser();
+			$taskUser->taskId = $taskId;
+			$taskUser->userId = $userId;
+		}
+		
+		return $taskUser;
+	}
+	
+	public function insertTaskUser($taskId, $userId) {
+		$this->scenario = self::SCENARIO_INSERT;
+		if($this->isNewRecord) {
+			$this->taskId = $taskId;
+			$this->userId = $userId;
+			return $this->save();
+		}
+		throw new CDbException(Yii::t('Task_User','The task_user could not be inserted because it is not new.'));
+	}
+	
+	/**
 	 * Mark the TaskUser as completed, does not save
 	 * @return TaskUser
 	 */

@@ -612,24 +612,10 @@ class Task extends CActiveRecord
 	/**
 	 * Loads the TaskUser for the model and current user.  If no TaskUser
 	 * exists yet, an unsaved new TaskUser is created. 
-	 * @return TaskUser model for linking task to current user
+	 * @return TaskUser unsaved model for linking task to current user
 	 */
 	private function loadTaskUser($userId) {
-		// look for the TaskUser for this combination
-		$userTask = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>$userId,
-				'taskId'=>$this->id,
-			)
-		);
-
-		// if no TaskUser linker exists, create one
-		if(is_null($userTask)) {
-			$userTask = new TaskUser();
-			$userTask->userId = $userId;
-			$userTask->taskId = $this->id;
-		}
-		return $userTask;
+		return TaskUser::loadTaskUser($this->id, $userId);
 	}
 	
 	public function defaultScope() {
