@@ -39,7 +39,7 @@ class UpdateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertTrue($this->group->save(), 'valid group was not saved');
+	    $this->assertTrue($this->group->save(), 'valid group was not saved: ' . CVarDumper::dumpAsString($this->group->getErrors()));
 	    $this->assertNotNull($this->group->id, 'save did not set group id');
 	    
 	    // verify the group can be found in db 
@@ -70,7 +70,7 @@ class UpdateGroupTest extends DbTestCase
 	        'slug' => $paddedSlug,
 	    ));
 	    
-	    $this->assertTrue($this->group->save(), 'valid group was not saved');
+	    $this->assertTrue($this->group->save(), 'valid group was not saved: ' . CVarDumper::dumpAsString($this->group->getErrors()));
 	    $this->assertNotNull($this->group->id, 'save did not set group id');
 	    
 	    // verify the group can be found in db 
@@ -97,7 +97,7 @@ class UpdateGroupTest extends DbTestCase
 	        'name' => $name,
 	        'slug' => $slug,
 	    ));
-	    $this->assertTrue($this->group->save(), 'valid group was not saved');
+	    $this->assertTrue($this->group->save(), 'valid group was not saved: ' . CVarDumper::dumpAsString($this->group->getErrors()));
 	 
 	    $this->assertNotNull($this->group->id, 'save did not set group id');
 	    
