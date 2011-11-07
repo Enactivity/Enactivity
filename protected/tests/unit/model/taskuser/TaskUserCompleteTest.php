@@ -3,7 +3,7 @@
  * Tests for {@link TaskUser::complete}
  * @author ajsharma
  */
-class TaskUserCompleteTaskUserTest extends DbTestCase
+class TaskUserCompleteTest extends DbTestCase
 {
 	/**
 	 * Test that group insert works when group and user exist
