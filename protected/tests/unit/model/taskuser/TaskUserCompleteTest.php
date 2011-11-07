@@ -12,7 +12,7 @@ class TaskUserCompleteTest extends DbTestCase
 		$task = TaskFactory::insert();
 		$user = UserFactory::insert(array(), $task->groupId);
 
-		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Task user was not signed up: " . CVarDumper::dumpAsString($taskUser->errors));
+		$this->assertTrue(TaskUser::complete($task->id, $user->id), "new TaskUser was not completed");
 		
 		$taskUser = TaskUser::model()->findByAttributes(array(
 			'taskId' => $task->id,
@@ -31,8 +31,8 @@ class TaskUserCompleteTest extends DbTestCase
 		$task = TaskFactory::insert();
 		$user = UserFactory::insert(array(), $task->groupId);
 		
-		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Task user was not signed up: " . CVarDumper::dumpAsString($taskUser->errors));
-		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Task user was not signed up: " . CVarDumper::dumpAsString($taskUser->errors));
+		$this->assertTrue(TaskUser::complete($task->id, $user->id), "New TaskUser was not completed");
+		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Existing TaskUser was not completed");
 	}
 
 	/**

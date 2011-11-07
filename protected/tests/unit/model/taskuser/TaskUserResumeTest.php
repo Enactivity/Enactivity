@@ -12,7 +12,7 @@ class TaskUserResumeTest extends DbTestCase
 		$task = TaskFactory::insert();
 		$user = UserFactory::insert(array(), $task->groupId);
 
-		$this->assertTrue(TaskUser::resume($task->id, $user->id), "Task user was not signed up: " . CVarDumper::dumpAsString($taskUser->errors));
+		$this->assertTrue(TaskUser::resume($task->id, $user->id), "New taskuser was not resumed");
 		
 		$taskUser = TaskUser::model()->findByAttributes(array(
 			'taskId' => $task->id,
