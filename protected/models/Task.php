@@ -551,7 +551,7 @@ class Task extends CActiveRecord
 	 * @see TaskUser::signup()
 	 */
 	public function participate($userId) {
-		return TaskUser::signup($this->id, $userId);
+		return TaskUser::signUp($this->id, $userId);
 	}
 	
 	/**

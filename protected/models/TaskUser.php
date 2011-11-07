@@ -232,7 +232,7 @@ class TaskUser extends CActiveRecord
 	 * @return boolean true
 	 * @throws CHttpException if TaskUser was not saved
 	 */
-	public static function signup($taskId, $userId) {
+	public static function signUp($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
 		if($taskUser->isNewRecord) {
