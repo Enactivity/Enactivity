@@ -150,27 +150,8 @@ class JuiDateTimePicker extends CJuiWidget
 		
 		echo CHtml::tag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
-		 
-		$cs = Yii::app()->getClientScript();
-		
-		// attach script to input to prevent keyboard pop-ups on focus
-		$script = 
-			"jQuery('#{$dateInputId}').focus( 
-			function() {
-				$('#{$dateInputId}').blur();
-				$('#{$dateInputId}_container').show('slow');
-			});";
-		$cs->registerScript(__CLASS__.'#'.$dateInputId, $script);
-		
-		// encode $this->options[] and pass to jquery datepicker 
-		$options = CJavaScript::encode($this->options);
-		$js = "jQuery('#{$dateInputId}_container').datepicker($options);";
-		$cs->registerScript(__CLASS__.'#'.$dateInputId.'_container', $js);
-		$script = Yii::getPathOfAlias('application.components.widgets.jui.assets')
-			.'/clearDateTime.js';
-		$clearDateTimeScript = Yii::app()->getAssetManager()->publish($script);
-		$cs->registerScriptFile($clearDateTimeScript, CClientScript::POS_END);
-		
+
+		$this->registerCalendarScripts($dateInputId);
 	}
 	
 	protected function getTimes(){
@@ -309,5 +290,51 @@ class JuiDateTimePicker extends CJuiWidget
 			&& $this->dateAttribute!==null
 			&& $this->timeAttribute!==null
 			;
+	}
+	
+	/**
+	 * Register a script to show and hide the calendar script
+	 * @param String $dateInputId
+	 * @return null
+	 */
+	protected function registerShowHideCalendarScript($dateInputId) {
+		$cs = Yii::app()->getClientScript();
+		
+		// attach script to input to prevent keyboard pop-ups on focus
+		$focusScript =
+					"$('#{$dateInputId}').live(\"focus\",
+						function() {
+							$('#{$dateInputId}').blur();
+							$('#{$dateInputId}_container').show('slow');
+						}
+					);";
+		$cs->registerScript(__CLASS__.'#'.$dateInputId, $focusScript, CClientScript::POS_BEGIN);
+		
+		// encode $this->options[] and pass to jquery datepicker
+		$options = CJavaScript::encode($this->options);
+		$addDatepickerScript = "$('#{$dateInputId}_container').datepicker($options);";
+		$cs->registerScript(__CLASS__.'#'.$dateInputId.'_container', $addDatepickerScript, CClientScript::POS_END);
+	}
+	
+	/**
+	 * add a script to clear the date and time when the "clear" link is pressed
+	 * @return null
+	 */
+	protected function registerClearScript() {
+		$cs = Yii::app()->getClientScript();
+		
+		$script = Yii::getPathOfAlias('application.components.widgets.jui.assets') .'/clearDateTime.js';
+		$clearDateTimeScript = Yii::app()->getAssetManager()->publish($script);
+		$cs->registerScriptFile($clearDateTimeScript, CClientScript::POS_BEGIN);
+	}
+	
+	/**
+	 * Regsiter the javascripts needed for the date picker
+	 * @param String $dateInputId id attribute for datepicker's date input
+	 * @return null
+	 */
+	protected function registerCalendarScripts($dateInputId) {
+		$this->registerShowHideCalendarScript($dateInputId);
+		$this->registerClearScript();
 	}
 }
