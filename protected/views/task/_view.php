@@ -20,19 +20,20 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	<?php $story->endAvatar(); ?>
 	
 	<?php $story->beginStoryContent(); ?>
-		<?php if($showParent && !$data->isRoot()): ?>
-		<div class="story-info">
-			<span class="parent-tasks story-subtitle">
-				<?php if($data->parent->id != $data->rootId): ?>
-				<span class="parent-task-name top-parent-task-name"><?php echo PHtml::encode(StringUtils::truncate($data->root->name, 32, '')); ?></span>&hellip;
-				<?php endif; ?>
-				<span class="parent-task-name"><?php echo PHtml::encode(StringUtils::truncate($data->parent->name, 32)); ?></span>
-			</span>
-		</div>
-		<?php endif; ?>
-		
 		<?php // task name ?>
 		<h1 class="story-title">
+			<?php if($showParent && !$data->isRoot()): ?>
+			<span class="parent-tasks story-subtitle">
+				<?php if($data->parent->id != $data->rootId): ?>
+				<span class="parent-task-name top-parent-task-name">
+					<?php echo PHtml::encode(StringUtils::truncate($data->root->name, 32)); ?>
+				</span>
+				<?php endif; ?>
+				<span class="parent-task-name">
+					<?php echo PHtml::encode(StringUtils::truncate($data->parent->name, 32)); ?>
+				</span>
+			</span>
+			<?php endif; ?>
 			<?php echo PHtml::link(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
