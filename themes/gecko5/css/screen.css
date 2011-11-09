@@ -14,7 +14,7 @@ html {
 html, body {
 	background-color: #333436;
 	color: #ffffff;
-	font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Arial, sans-serif;
+	font-family: Gotham, “Helvetica Neue”, Helvetica, Arial, sans-serif;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
 	position: relative;
