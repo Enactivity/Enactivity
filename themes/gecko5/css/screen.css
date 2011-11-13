@@ -127,7 +127,6 @@ p {
 }
 
 nav {
-	clear: both;
 	font-size: .8em;
 }
 
@@ -204,7 +203,8 @@ section > h1 {
 
 /* Content toolbox */
 .toolbox {
-	margin: 0 16px 16px; /* Extra spacing below */
+	float: right;
+	margin-top: 0;
 }
 
 /*
