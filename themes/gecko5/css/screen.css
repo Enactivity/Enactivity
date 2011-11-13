@@ -183,7 +183,7 @@ section > h1 {
 }
 
 .menu {
-	margin-top: 8px;
+	margin-top: 11px;
 }
 
 .menu li {
@@ -199,6 +199,11 @@ section > h1 {
 	min-width: 50px; /* Should be at least 44px for touch screens */
 	margin-top: 8px;
 	text-align: center;
+}
+
+.novel-controls {
+	float: right;
+	margin-right: 16px;
 }
 
 /* Content toolbox */
