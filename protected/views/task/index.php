@@ -25,6 +25,7 @@ if($datedTasksProvider->itemCount > 0
 }
 else {
 	//TODO: make more user-friendly
+	echo PHtml::openTag('section');
 	echo PHtml::openTag('p', array('class'=>'no-results-message'));
 	echo 'You haven\'t signed up for any tasks.  Why not check out the ';
 	echo PHtml::link('calendar', array('task/calendar'));
@@ -32,7 +33,10 @@ else {
 	echo PHtml::link('start a new task', array('task/index', '#'=>'task-form'));
 	echo '?'; 
 	echo PHtml::closeTag('p');
+	echo PHtml::closeTag('section');
 }
 
-// "what would you want to do input" box
-echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true));
+// "what would you want to do input" box ?>
+<section class="novel">
+	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+</section>

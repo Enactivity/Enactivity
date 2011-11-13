@@ -75,7 +75,6 @@ body {
 
 h1, h2, h3,
 h4, h5, h6 {
-	max-width: 32em;
 }
 
 h1 {
@@ -124,7 +123,6 @@ p {
 }
 
 .global-header nav {
-	margin: auto;
 	max-width: 528px; /* 32em + nav li padding */
 }
 
@@ -162,24 +160,23 @@ nav li a:focus,
 
 section {
 	clear: both;
+	max-width: 32em; /* Using ems to scale on text zoom */
 }
 
 section > h1 {
-	padding: 16px 0; /* Extra spacing for readability and show background */
+	padding: 16px; /* Extra spacing for readability and show background */
 }
 
 .content {
 	clear: both;
 	margin: auto;
-	max-width: 32em; /* Using ems to scale on text zoom */
-	padding: 0 16px;
 	position: relative;
 	overflow: visible;
 }
 
 .content-header {
-	padding-top: 16px; /* Could use margin, but this way, matches stylings */
-	margin-bottom: 16px; /* Collapsable with siblings */
+	background-color: #000000;
+	padding: 16px; /* Could use margin, but this way, matches stylings */
 }
 
 .content-header h1 {
@@ -207,7 +204,7 @@ section > h1 {
 
 /* Content toolbox */
 .toolbox {
-	margin-bottom: 16px; /* Extra spacing below */
+	margin: 0 16px 16px; /* Extra spacing below */
 }
 
 /*
@@ -283,6 +280,7 @@ form {
 	clear: both;
 	margin: 16px 0;
 	max-width: 32em; /* Readability */
+	padding: 0 16px;
 }
 
 form .errorSummary {
@@ -526,7 +524,6 @@ select[name="Task[endTime]"]  {
 	color: #333436;
 	padding: 16px; /* Increase right margin to account for menu */
 	position: relative; /* Set position so menu can be absolute */
-	margin: 0 -16px;
 }
 
 .story h1 {
@@ -573,7 +570,6 @@ select[name="Task[endTime]"]  {
 .calendar {
 	background-color: #ffffff;
 	color: #333436;
-	padding: 16px;
 }
 
 .calendar td, 
@@ -645,11 +641,21 @@ cols    1     2      3      4      5
 px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
+
+	section {
+		margin-left: 16px;
+		margin-right: 16px;
+	}
+	
+	.content-header {
+		margin-bottom: 16px;
+	}
 	
 	.greetings {
 		background-image: url(../images/poncla-splash-480x380.jpg);
 		height: 380px;
 	}
+	
 }
 
 

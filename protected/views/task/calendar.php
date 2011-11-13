@@ -52,5 +52,7 @@ echo $this->renderPartial('_agenda', array(
 	'showParent'=>'true',
 ));
 
-// "what would you want to do input" box
-echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true));
+// "what would you want to do input" box ?>
+<section class="novel">
+	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+</section>

@@ -130,17 +130,15 @@ if($model->isParticipatable):
 </section>
 <?php endif; ?>
 
-<?php if($model->isSubtaskable):?>
-<section id="child-tasks">
-	<?php
+<?php if($model->isSubtaskable):
 	echo $this->renderPartial('_agenda', array(
 			'datedTasks'=>$subtasks,
 			'datelessTasks'=>$subtasks,
 			'showParent'=>false,
-	));
-	?>
+	)); ?>
+	<section>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
-</section>
+	</section>
 <?php endif; ?>
 
 <?php // show comments ?>
