@@ -26,7 +26,8 @@ a, a:active, a:visited {
 }
 
 a:hover, a:focus {
-	color: #00b6d5;
+	color: inherit;
+	text-decoration: underline;
 }
 
 input, textarea, select {
@@ -540,20 +541,15 @@ select[name="Task[endTime]"]  {
 	font-size: .7em;
 }
 
-.story a:hover {
-	color: #00b6d5;	
-}
-
 .task-start-time {
 	font-size: 1.5em;
 }
 
 /* Completed story stylings */ 
-/* FIXME: standardize */
 .completed {
 	background-color: #74996E;
 	border-color: #7D907A;
-	color: white;
+	color: #ffffff;
 }
 
 /* Trashed story stylings */
