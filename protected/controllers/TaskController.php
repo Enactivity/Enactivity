@@ -325,16 +325,22 @@ class TaskController extends Controller
 	{
 		$dataProvider = new CArrayDataProvider(
 		Yii::app()->user->model->nextTasks,
-		array(
+			array(
 				'pagination'=>false,
-		)
+			)
 		);
 		
 		$dataProviderSomeday = new CArrayDataProvider(
 		Yii::app()->user->model->nextTasksSomeday,
-		array(
-			'pagination'=>false,
-		)
+			array(
+				'pagination'=>false,
+			)
+		);
+		
+		$feedModel = new ActiveRecordLog();
+		$feedProvider = new CActiveDataProvider(
+			$feedModel->scopeUsersGroups(Yii::app()->user->id),
+			array()
 		);
 
 		// handle new task
@@ -344,6 +350,7 @@ class TaskController extends Controller
 			'datedTasksProvider'=>$dataProvider,
 			'datelessTasksProvider'=>$dataProviderSomeday, //FIXME: do a proper query
 			'newTask'=>$newTask,
+			'feedProvider'=>$feedProvider,
 		));
 	}
 
@@ -360,10 +367,10 @@ class TaskController extends Controller
 			->scopeUsersGroups(Yii::app()->user->id)
 			->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
 			array(
-					'criteria'=>array(
-						'condition'=>'isTrash=0'
-			),
-					'pagination'=>false,
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				),
+				'pagination'=>false,
 			)
 		);
 
@@ -374,22 +381,23 @@ class TaskController extends Controller
 			->scopeNoWhen()
 			->roots(),
 			array(
-					'criteria'=>array(
-						'condition'=>'isTrash=0'
-			),
-					'pagination'=>false,
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				),
+				'pagination'=>false,
 			)
 		);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
-
+		
 		$this->render('calendar', array(
 				'datedTasksProvider'=>$datedTasks,
 				'datelessTasksProvider'=>$datelessTasks,
 				'newTask'=>$newTask,
 				'month'=>$monthObj,
-		));
+			)
+		);
 	}
 
 	/**

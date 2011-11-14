@@ -6,7 +6,7 @@
  * @uses newTask
  */
 
-$this->pageTitle = 'Tasks';
+$this->pageTitle = 'Home';
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>
@@ -38,3 +38,15 @@ $this->pageTitle = 'Tasks';
 	<h1><?php echo 'Start a New Task'; ?></h1>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 </section>
+
+<div class="novel">
+<?php // Show history ?>
+	<section id="feed">
+		<h1><?php echo 'Recent Activity'; ?></h1>
+		<?php 
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$feedProvider,
+			'itemView'=>'/feed/_view',
+		));?>
+	</section>	
+</div>

@@ -226,7 +226,7 @@ class MenuDefinitions extends CComponent {
 	public static function globalMenu() {
 		return array(
 			array(
-				'label'=>'Tasks', 
+				'label'=>'Home', 
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),

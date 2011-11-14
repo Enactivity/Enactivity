@@ -184,15 +184,17 @@ class ActiveRecordLog extends CActiveRecord
 	 * Scope definition for banters that share group value with
 	 * the user's groups 
 	 * @param int $userId
-	 * @return Group model
+	 * @return ActiveRecordLog model
 	 */
 	public function scopeUsersGroups($userId) {
-		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName() 
+		$this->getDbCriteria()->mergeWith(
+			array(
+				'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
 				. ' WHERE userId=:userId))',
-			'params' => array(':userId' => $userId)
-		));
+				'params' => array(':userId' => $userId)
+			)
+		);
 		return $this;
 	}
 	
