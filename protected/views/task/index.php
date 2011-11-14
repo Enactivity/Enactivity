@@ -15,29 +15,29 @@ $this->pageTitle = 'Home';
 
 <div class="novel">
 	<section class="tasks">
-	<?php
-	if($datedTasksProvider->itemCount > 0
-	|| $datelessTasksProvider->itemCount > 0) {
-		echo $this->renderPartial('_agenda', array(
-			'datedTasks'=>$datedTasksProvider->data,
-			'datelessTasks'=>$datelessTasksProvider->data,
-			'showParent'=>true,
-		));
-	}
-	else {
-		//TODO: make more user-friendly
-		echo PHtml::openTag('p', array('class'=>'no-results-message blurb'));
-		echo 'You haven\'t signed up for any tasks.  Why not check out the ';
-		echo PHtml::link('calendar', array('task/calendar'));
-		echo ' to see what is listed or ';
-		echo PHtml::link('start a new task', array('task/index', '#'=>'task-form'));
-		echo '?'; 
-		echo PHtml::closeTag('p');
-	}
-	
-	// "what would you want to do input" box ?>
-	<h1><?php echo 'Start a New Task'; ?></h1>
-	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+		<?php
+		if($datedTasksProvider->itemCount > 0
+		|| $datelessTasksProvider->itemCount > 0) {
+			echo $this->renderPartial('_agenda', array(
+				'datedTasks'=>$datedTasksProvider->data,
+				'datelessTasks'=>$datelessTasksProvider->data,
+				'showParent'=>true,
+			));
+		}
+		else {
+			//TODO: make more user-friendly
+			echo PHtml::openTag('p', array('class'=>'no-results-message blurb'));
+			echo 'You haven\'t signed up for any tasks.  Why not check out the ';
+			echo PHtml::link('calendar', array('task/calendar'));
+			echo ' to see what is listed or ';
+			echo PHtml::link('start a new task', array('task/index', '#'=>'task-form'));
+			echo '?'; 
+			echo PHtml::closeTag('p');
+		}
+		
+		// "what would you want to do input" box ?>
+		<h1><?php echo 'Start a New Task'; ?></h1>
+		<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 	</section>
 </div>
 
