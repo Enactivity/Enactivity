@@ -133,6 +133,7 @@ return CMap::mergeArray(
 					),
 					'CLinkPager' => array(
 						'cssFile' => false,
+						'header' => "",
 						'nextPageLabel' => 'Next',
 						'prevPageLabel' => 'Previous',
 					),
