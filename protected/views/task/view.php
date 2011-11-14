@@ -143,6 +143,7 @@ if($model->isParticipatable):
 	<p class="blurb">Since no one has signed up for this task yet, you can break it down into more specific tasks below.</p>
 	<?php endif; ?>
 	
+	<h1><?php echo 'Break Down Task'; ?></h1>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 </section>
 <?php endif; ?>
@@ -167,6 +168,7 @@ if($model->isParticipatable):
 		
 		
 		<?php // show new comment form ?>
+		<h1><?php echo 'Add a Comment'; ?></h1>
 		<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 	</section>
 	

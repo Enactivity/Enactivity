@@ -284,7 +284,6 @@ section > h1 {
 */
 form {
 	clear: both;
-	margin: 16px 0;
 	max-width: 32em; /* Readability */
 	padding: 0 16px;
 }

@@ -35,5 +35,6 @@ $this->pageTitle = 'Tasks';
 	}
 	
 	// "what would you want to do input" box ?>
+	<h1><?php echo 'Start a New Task'; ?></h1>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 </section>

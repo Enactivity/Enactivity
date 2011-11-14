@@ -56,8 +56,9 @@ $calendarMenu[] = array(
 			'datedTasks'=>$datedTasksProvider->data,
 			'datelessTasks'=>$datelessTasksProvider->data,
 			'showParent'=>'true',
-		));
+		));?>
 
-		echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+		<h1><?php echo 'Start a New Task'; ?></h1>
+		<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 	</section>
 </div>
