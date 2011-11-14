@@ -52,6 +52,11 @@ class Formatter extends CFormatter {
 		return $prefix . parent::formatDate($value);
 	}
 	
+	/**
+	 * Format a datetime timestamp
+	 * @param int $value timestamp
+	 * @return String
+	 */
 	public function formatDateTime($value)
 	{
 		$date = date('d/m/Y', $value);
@@ -65,11 +70,51 @@ class Formatter extends CFormatter {
 			return 'Tomorrow at ' . parent::formatTime($value);
 		}
 		
-		return parent::formatDateTime($value);
+		return date('F d, Y \a\\t h:i a', $value);
 	}
 	
+	/**
+	 * @param int $value timestamp
+	 * @return String
+	 */
 	public function formatMonth($value)
 	{
 		return date('F', $value);
+	}
+	
+	/**
+	 * Format the datetime as a string such as "5 minutes ago" or 
+	 * "2 days from now".
+	 * @param int $value timestamp
+	 * @return string
+	 */
+	function formatDateTimeAsAgo($value) {
+		$periods = array("second", "minute", "hour");
+		$lengths = array("60","60","24");
+		$now = time();
+
+		// is it future date or past date
+		if($now >= $value) {
+			$difference = $now - $value;
+			$tense = "ago";
+		}
+		else {
+			$difference = $value - $now;
+			$tense = "from now";
+		}
+		for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+			$difference /= $lengths[$j];
+		}
+		$difference = round($difference);
+		if($difference != 1) {
+			//      $periods[$j] .= "s"; // plural for English language
+			$periods = array("seconds", "minutes", "hours");
+		}
+		
+		if($difference > 12 && $j == 2) {
+			return $this->formatDateTime($value);
+		}
+		
+		return "$difference $periods[$j] {$tense}";
 	}
 }

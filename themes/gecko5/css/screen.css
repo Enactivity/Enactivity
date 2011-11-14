@@ -566,6 +566,11 @@ select[name="Task[endTime]"]  {
 	text-decoration: line-through;
 }
 
+/* Task view styles */
+.task-header-time {
+	font-size: 3em;
+}
+
 /* Participating user listing  */
 
 .users {

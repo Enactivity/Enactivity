@@ -21,7 +21,7 @@ class TaskDates extends CWidget
 	public function run() {
 		if($this->task->hasStarts) {
 			echo PHtml::openTag('time', array('class'=>'starts'));
-			echo PHtml::encode(Yii::app()->format->formatDateTime(strtotime($this->task->starts)));
+			echo PHtml::encode(Yii::app()->format->formatDateTimeAsAgo($this->task->startTimestamp));
 			echo PHtml::closeTag('time');
 		}
 	}

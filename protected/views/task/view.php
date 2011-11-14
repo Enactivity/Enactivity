@@ -17,12 +17,12 @@ $this->pageTitle = $model->name;
 			<li>
 				<?php
 				echo PHtml::link(
-					PHtml::encode('Update'), 
+					PHtml::encode('Edit'), 
 					array('task/update', 'id'=>$model->id),
 					array(
 						'id'=>'task-update-menu-item-' . $model->id,
 						'class'=>'neutral task-update-menu-item',
-						'title'=>'Update this task',
+						'title'=>'Edit this task',
 					)
 				);
 				?>
@@ -41,9 +41,7 @@ $this->pageTitle = $model->name;
 	</p></nav>
 	<?php endif; ?>
 	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
-	<p>
-		<?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?>
-	</p>
+	<span class="task-header-time"><?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 <?php echo PHtml::endContentHeader(); ?>
 
 <div class="novel">

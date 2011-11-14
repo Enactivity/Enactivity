@@ -1,5 +1,5 @@
 <?php 
-$this->pageTitle = 'Update Task';
+$this->pageTitle = 'Edit Task';
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>

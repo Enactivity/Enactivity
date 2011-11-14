@@ -28,11 +28,11 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		<?php $story->beginControls() ?>
 		<li>
 			<?php if(isset($model)) : ?>
-			<span><?php echo PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->created))); ?></span>
+			<span><?php echo PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
 			<?php else: ?>
 			<span class="created">
 				<?php echo PHtml::link(
-					PHtml::encode(Yii::app()->format->formatDateTime(strtotime($data->created))),
+					PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
 					array(Yii::app()->request->pathInfo, 
 						'#' => 'comment-' . $data->id,
 					)
