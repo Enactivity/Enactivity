@@ -201,7 +201,7 @@ class PHtml extends CHtml {
 		$data = PDateTime::timeZoneArray();
 		$currentTime = date('h:i a');
 		foreach ($data as $key => $value) {
-			$data[$key] = $value . " (" . TimeZoneKeeper::serverTimeToTimeZone($currentTime, $data[$key])->format('g:i a') . ")";
+			$data[$key] = $value . " (" . TimeZoneKeeper::serverTimeToTimeZone($currentTime, $key)->format('g:i a') . ")";
 		}
 		return self::activeDropDownList($model, $attribute, $data, $htmlOptions);
 	}
