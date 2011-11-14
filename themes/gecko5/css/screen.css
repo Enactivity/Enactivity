@@ -222,8 +222,6 @@ section > h1 {
 
 .flash span {
 	display: block;
-	margin: auto;
-	max-width: 32em;
 }
 
 .flash-error {
