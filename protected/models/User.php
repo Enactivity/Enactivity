@@ -512,6 +512,14 @@ class User extends CActiveRecord
 	}
 
 	/**
+	 * Is the user's status 'Pending'?
+	 * @return boolean whether the user is pending
+	 */
+	public function getIsPending() {
+		return $this->isStatus(self::STATUS_PENDING);
+	}
+	
+	/**
 	 * Is the user's status 'Active'?
 	 * @return boolean whether the user is active
 	 */
