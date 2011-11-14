@@ -107,10 +107,10 @@ class GroupInviteForm extends CFormModel {
 	 * @throws CHttpException
 	 */
 	public function inviteUsers() {
-		// array to capture results
+		//array to capture results
 		$successfulEmails = array();
 		$alreadyMemberEmails = array();
-		
+	    
 		foreach($this->splitEmails($this->emails) as $email) {
 			$user = User::model()->findByAttributes(array('email' => $email));
 		
@@ -124,10 +124,11 @@ class GroupInviteForm extends CFormModel {
 		
 			// Get group
 			$group = Group::model()->findByPk($this->groupId);
-		
 			if(!GroupUser::model()->isGroupMember($group->id, $user->id)) {
 				$groupuser = new GroupUser();
-				$groupuser->inviteGroupUser($group->id, $user->id);
+				if(!$groupuser->inviteGroupUser($group->id, $user->id)) {
+					throw new Exception(CVarDumper::dumpAsString($groupuser->errors));
+				}
 		
 				// Send email
 				$successfulEmails[] = $user->email;

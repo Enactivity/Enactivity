@@ -221,7 +221,6 @@ class GroupUser extends CActiveRecord
 		$this->scenario = self::SCENARIO_INVITE;
 		$this->groupId = $groupId;
 		$this->userId = $userId;
-
 		return $this->save();
 	}
 	
@@ -234,17 +233,49 @@ class GroupUser extends CActiveRecord
 		$this->status = self::STATUS_ACTIVE;
 		return $this->save();
 	}
+
+	public function onAfterSave($event) {
+		//parent::onAfterSave($event);
+		// Send on new invite email
+		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
+			$user = User::model()->findByPk($this->userId);
+			$group = Group::model()->findByPk($this->groupId);
+			if ($user->getIsActive()) {
+				//send invitation to group
+			}
+			elseif ($user->getIsPending()) {
+				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
+			}
+		}
+	}
 	
 	/**
 	 * Handler inviteGroupUser event
 	 * @param CEvent $event
 	 * @return null
 	 */
+	/*
 	public function onAfterInviteGroupUser($event) {
 		// Send on new invite email
+		CVarDumper::dump("in onAfterInviteGroupUser");
+		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
+			$user = User::model()->findByPk($this->userId);
+			CVarDumper::dump("found user");
+			$group = Group::model()->findByPk($this->groupId);
+			CVarDumper::dump("found groupid");
+			
+			if ($user->getIsActive()) {
+				CVarDumper::dump("sending invitation to actives");
+				//send invitation to group
+			}
+			elseif ($user->getIsPending()) {
+				CVarDumper::dump("sending invitation");
+				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
+			}
+		}
 		$user = User::model()->findByPk($this->userId);
 		$group = Group::model()->findByPk($this->groupId);
 		
 		$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
-	}
+	}*/
 }
