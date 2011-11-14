@@ -132,7 +132,8 @@ if($model->isParticipatable):
 
 <?php if($model->isSubtaskable): ?>
 <section id="agenda">
-	<?php if($subtasks->totalItemCount > 0) :
+
+	<?php if(!empty($subtasks)) :
 	echo $this->renderPartial('_agenda', array(
 			'datedTasks'=>$subtasks,
 			'datelessTasks'=>$subtasks,
