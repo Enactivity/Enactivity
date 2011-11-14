@@ -615,19 +615,7 @@ class Task extends CActiveRecord
 		$monthEnds->modify('+1 month');
 		$monthEnds->setTime(0, 0, 0);
 	
-		// calculate buffer dates before and after month
-		$dayOfWeekStarts = $monthStarts->format('w');
-		$bufferStart = new DateTime();
-		$bufferStart->setDate($year, $month, 1 - $dayOfWeekStarts);
-		$bufferStart->setTime(0, 0, 0);
-	
-		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-		$dayOfWeekEnds = $monthEnds->format('w');
-		$bufferEnd = new DateTime();
-		$bufferEnd->setDate($year, $month, $daysInMonth + $dayOfWeekEnds);
-		$bufferEnd->setTime(23, 59, 59);
-	
-		return $this->scopeStartsBetween($bufferStart, $bufferEnd);
+		return $this->scopeStartsBetween($monthStarts, $monthEnds);
 	}
 	
 	/**
