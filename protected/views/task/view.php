@@ -46,11 +46,12 @@ $this->pageTitle = $model->name;
 	</p>
 <?php echo PHtml::endContentHeader(); ?>
 
+<div class="novel">
 <?php
 // show participants
 if($model->isParticipatable):
 ?>
-<section id="users-participating novel">
+<section id="users-participating" class="novel">
 	<div class="menu novel-controls">
 	<ul>
 	<?php
@@ -131,41 +132,43 @@ if($model->isParticipatable):
 </section>
 <?php endif; ?>
 
-<?php if($model->isSubtaskable):
-	echo $this->renderPartial('_agenda', array(
+<?php if($model->isSubtaskable): ?>
+<section id="agenda">
+	<?php echo $this->renderPartial('_agenda', array(
 			'datedTasks'=>$subtasks,
 			'datelessTasks'=>$subtasks,
 			'showParent'=>false,
 	)); ?>
-	<section>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
-	</section>
+</section>
 <?php endif; ?>
+</div>
 
 <?php // show comments ?>
-<section id="task-comments">
-	<h1><?php echo 'Comments'; ?></h1>
+<div class="novel">
+	<section id="task-comments">
+		<h1><?php echo 'Comments'; ?></h1>
+		
+		<?php 
+		// show list of comments
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$commentsDataProvider,
+			'itemView'=>'/comment/_view',
+			'emptyText'=>''
+		)); ?>
+		
+		<?php // show new comment form ?>
+		<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+	</section>
 	
-	<?php 
-	// show list of comments
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$commentsDataProvider,
-		'itemView'=>'/comment/_view',
-		'emptyText'=>''
-	)); ?>
-	
-	<?php // show new comment form ?>
-	<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
-</section>
-
-<?php // Show history ?>
-<section id="task-activity">
-	<h1><?php echo 'Recent Activity'; ?></h1>
-	
-	<?php 
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$feedDataProvider,
-		'itemView'=>'/feed/_view',
-	));?>
-	
-</section>
+	<?php // Show history ?>
+	<section id="task-activity">
+		<h1><?php echo 'Recent Activity'; ?></h1>
+		
+		<?php 
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$feedDataProvider,
+			'itemView'=>'/feed/_view',
+		));?>
+	</section>	
+</div>

@@ -160,6 +160,7 @@ nav li a:focus,
 section {
 	clear: both;
 	max-width: 32em; /* Using ems to scale on text zoom */
+	width: 100%;
 }
 
 section > h1 {
@@ -170,7 +171,7 @@ section > h1 {
 	clear: both;
 	margin: auto;
 	position: relative;
-	overflow: visible;
+	overflow: hidden;
 }
 
 .content-header {
@@ -519,6 +520,11 @@ select[name="Task[endTime]"]  {
 	margin-right: auto;
 }
 
+/* Novel stylings */
+.novel {
+	vertical-align: top;
+}
+
 /* Story stylings */
 .story {
 	background-color: #ffffff;
@@ -647,15 +653,6 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
 
-	section {
-		margin-left: 16px;
-		margin-right: 16px;
-	}
-	
-	.content-header {
-		margin-bottom: 16px;
-	}
-	
 	.greetings {
 		background-image: url(../images/poncla-splash-480x380.jpg);
 		height: 380px;
@@ -678,4 +675,27 @@ px      68    160    252    344    436    528    620    712    */
 		background-image: url(../images/poncla-splash-1600x380.jpg);
 	}
 	
+	section {
+		margin-left: 16px;
+		margin-right: 16px;
+	}
+	
+	.content-header {
+		margin-bottom: 16px;
+	}
+	
+	.novel {
+		float:left;
+		margin-right: 1em;
+		width: 360px; /* iPad resolution/2 - 16px */
+	}
+}
+
+/*
+	Desktop layout
+*/
+@media only screen and (min-width: 991px) {
+	.novel {
+		width: 490px; /* iPad resolution/2 - 16px */
+	}
 }

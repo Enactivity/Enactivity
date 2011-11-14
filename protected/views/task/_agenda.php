@@ -11,7 +11,6 @@ $datelessTasks = empty($datelessTasks) ? array() : $datelessTasks;
 $showParent = empty($showParent) ? $showParent : true;
 
 ?>
-<section class='agenda'>
 <?php 
 $currentDate = null;
 foreach($datedTasks as $task) {
@@ -48,4 +47,3 @@ if(!empty($datelessTasks)) {
 	}
 }
 ?>
-</section>

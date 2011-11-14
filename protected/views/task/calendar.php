@@ -36,23 +36,28 @@ $calendarMenu[] = array(
 	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
 <?php echo PHtml::endContentHeader(); ?>
 
-<?php 
-// show task calendar
-echo $this->renderPartial('_calendar', array(
-	'dataProvider'=>$datedTasksProvider,
-	'month'=>$month,
-));
-?>
+<div class="novel">
+	<section id="calendar" class="calendar">
+	<?php 
+	// show task calendar
+	echo $this->renderPartial('_calendar', array(
+		'dataProvider'=>$datedTasksProvider,
+		'month'=>$month,
+	));
+	?>
+	</section>
+</div>
 
-<?php
-// agenda
-echo $this->renderPartial('_agenda', array(
-	'datedTasks'=>$datedTasksProvider->data,
-	'datelessTasks'=>$datelessTasksProvider->data,
-	'showParent'=>'true',
-));
+<div class="novel">
+	<section id="agenda" class="agenda">
+		<?php
+		// agenda
+		echo $this->renderPartial('_agenda', array(
+			'datedTasks'=>$datedTasksProvider->data,
+			'datelessTasks'=>$datelessTasksProvider->data,
+			'showParent'=>'true',
+		));
 
-// "what would you want to do input" box ?>
-<section class="novel">
-	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
-</section>
+		echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+	</section>
+</div>

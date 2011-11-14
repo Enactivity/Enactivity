@@ -6,7 +6,6 @@
  * @uses $month
  */
 
-echo PHtml::openTag('section', array('class'=>'calendar'));
 echo PHtml::openTag('article', array('class'=>'story'));
 // start calendar table
 echo PHtml::openTag('table');
@@ -95,4 +94,3 @@ for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
 echo PHtml::closeTag('tbody');
 echo PHtml::closeTag('table');
 echo PHtml::closeTag('article');
-echo PHtml::closeTag('section');
