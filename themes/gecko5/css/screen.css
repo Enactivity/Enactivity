@@ -559,12 +559,12 @@ select[name="Task[endTime]"]  {
 	font-size: .9em;
 }
 
-.story-info {
-	font-size: .7em;
+.story-avatar {
+	font-size: 1.5em;
 }
 
-.task-start-time {
-	font-size: 1.5em;
+.story-info {
+	font-size: .7em;
 }
 
 /* Completed story stylings */ 
