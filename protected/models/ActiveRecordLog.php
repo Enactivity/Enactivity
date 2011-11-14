@@ -180,6 +180,12 @@ class ActiveRecordLog extends CActiveRecord
 		);
 	}
 	
+	public function defaultScope() {
+		return array(
+			'order' => 'created DESC'
+		);
+	}
+	
 	/**
 	 * Scope definition for banters that share group value with
 	 * the user's groups 

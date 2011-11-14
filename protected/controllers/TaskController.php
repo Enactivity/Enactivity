@@ -340,7 +340,8 @@ class TaskController extends Controller
 		$feedModel = new ActiveRecordLog();
 		$feedProvider = new CActiveDataProvider(
 			$feedModel->scopeUsersGroups(Yii::app()->user->id),
-			array()
+			array(
+			)
 		);
 
 		// handle new task
