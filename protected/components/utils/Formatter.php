@@ -91,7 +91,7 @@ class Formatter extends CFormatter {
 	function formatDateTimeAsAgo($value) {
 		$periods = array("second", "minute", "hour");
 		$lengths = array("60","60","24");
-		$now = time();
+		$now = strtotime(TimeZoneKeeper::serverTimeToUserTime(null));
 
 		// is it future date or past date
 		if($now >= $value) {
