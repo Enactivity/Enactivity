@@ -122,10 +122,6 @@ p {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-.global-header nav {
-	max-width: 528px; /* 32em + nav li padding */
-}
-
 nav {
 	font-size: .8em;
 }
