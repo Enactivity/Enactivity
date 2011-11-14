@@ -13,7 +13,7 @@ $this->pageTitle = 'Home';
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
 <?php echo PHtml::endContentHeader(); ?>
 
-<section class="novel">
+<div class="novel">
 	<?php
 	if($datedTasksProvider->itemCount > 0
 	|| $datelessTasksProvider->itemCount > 0) {
@@ -37,7 +37,7 @@ $this->pageTitle = 'Home';
 	// "what would you want to do input" box ?>
 	<h1><?php echo 'Start a New Task'; ?></h1>
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
-</section>
+</div>
 
 <div class="novel">
 <?php // Show history ?>
