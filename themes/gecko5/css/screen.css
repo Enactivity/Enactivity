@@ -520,6 +520,13 @@ select[name="Task[endTime]"]  {
 	margin-right: auto;
 }
 
+/*
+	Blurbs are system messages for user's aid
+*/
+.blurb {
+	padding: 0 1em;
+}
+
 /* Novel stylings */
 .novel {
 	vertical-align: top;

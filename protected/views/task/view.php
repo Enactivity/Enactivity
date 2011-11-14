@@ -147,13 +147,18 @@ if($model->isParticipatable):
 	<section id="task-comments">
 		<h1><?php echo 'Comments'; ?></h1>
 		
-		<?php 
-		// show list of comments
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$commentsDataProvider,
-			'itemView'=>'/comment/_view',
-			'emptyText'=>''
-		)); ?>
+		<?php
+		if($commentsDataProvider->totalItemCount > 0) :
+			// show list of comments
+			$this->widget('zii.widgets.CListView', array(
+				'dataProvider'=>$commentsDataProvider,
+				'itemView'=>'/comment/_view',
+				'emptyText'=>''
+			)); 
+		else: ?>
+		<p class="blurb">No one has written any comments yet, be the first!</p>
+		<?php endif; ?>
+		
 		
 		<?php // show new comment form ?>
 		<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>

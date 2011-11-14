@@ -25,7 +25,7 @@ $this->pageTitle = 'Tasks';
 	}
 	else {
 		//TODO: make more user-friendly
-		echo PHtml::openTag('p', array('class'=>'no-results-message'));
+		echo PHtml::openTag('p', array('class'=>'no-results-message blurb'));
 		echo 'You haven\'t signed up for any tasks.  Why not check out the ';
 		echo PHtml::link('calendar', array('task/calendar'));
 		echo ' to see what is listed or ';
