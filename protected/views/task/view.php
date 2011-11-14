@@ -132,11 +132,16 @@ if($model->isParticipatable):
 
 <?php if($model->isSubtaskable): ?>
 <section id="agenda">
-	<?php echo $this->renderPartial('_agenda', array(
+	<?php if($subtasks->totalItemCount > 0) :
+	echo $this->renderPartial('_agenda', array(
 			'datedTasks'=>$subtasks,
 			'datelessTasks'=>$subtasks,
 			'showParent'=>false,
-	)); ?>
+	));
+	else: ?>
+	<p class="blurb">Since no one has signed up for this task yet, you can break it down into more specific tasks below.</p>
+	<?php endif; ?>
+	
 	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
 </section>
 <?php endif; ?>
