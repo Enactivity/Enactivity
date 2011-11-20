@@ -195,6 +195,7 @@ section > h1 {
 	display: block; /* So it fills area and icon is clickable */
 	min-width: 50px; /* Should be at least 44px for touch screens */
 	margin-top: 8px;
+	padding: 0px; /* override nav padding for nav menus */
 	text-align: center;
 }
 

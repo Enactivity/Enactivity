@@ -5,8 +5,46 @@
  * @uses $newTask
  * @uses $month
  */
+?>
 
-echo PHtml::openTag('article', array('class'=>'story'));
+<?php 
+// nav
+$calendarMenu = array();
+$calendarMenu[] = array(
+	'label'=>'Previous', 
+	'url'=>array('task/calendar',
+		'month' => $month->intValue - 1 < 1 ? 12 : $month->intValue - 1,
+		'year' => $month->intValue - 1 < 1 ? $month->year - 1 : $month->year,
+	),
+	'linkOptions'=>array(
+		'id'=>'task-previous-month-menu-item',
+		'class'=>'task-previous-month-menu-item',
+	),
+);
+
+$calendarMenu[] = array(
+	'label'=>'Next', 
+	'url'=>array('task/calendar',
+		'month' => $month->intValue + 1 > 12 ? 1 : $month->intValue + 1,
+		'year' => $month->intValue + 1 > 12 ? $month->year + 1 : $month->year,
+	),
+	'linkOptions'=>array(
+		'id'=>'task-next-month-menu-item',
+		'class'=>'task-next-month-menu-item',
+	),
+);
+?>
+
+<nav class="menu novel-controls">
+	<?php $this->widget('zii.widgets.CMenu', array(
+		'items'=>$calendarMenu,
+	)); ?>
+</nav>
+<h1><?php echo Yii::app()->format->formatMonth($month->timestamp) . " " . $month->year; ?></h1>
+
+
+<?php 
+echo PHtml::openTag('article', array('class'=>'story calendar'));
 // start calendar table
 echo PHtml::openTag('table');
 
