@@ -15,10 +15,31 @@ $showParent = empty($showParent) ? $showParent : true;
 $currentDate = null;
 foreach($datedTasks as $task) {
 	if(isset($task->starts)) {
-		$taskDate = Yii::app()->format->formatDate(strtotime($task->starts));
+		$taskDate = Yii::app()->format->formatDate($task->startTimestamp);
 		if($taskDate != $currentDate) {
 			$currentDate = $taskDate;
 			$htmlId = 'day-' . $task->startDate;
+
+			if($showParent) :
+			?>
+			<div class="menu novel-controls">
+				<ol>
+					<li>
+						<?php
+						echo PHtml::link(
+							'Add Task',
+							array('task/create/',
+								'day' => PHtml::encode(date('d', $task->startTimestamp)),
+								'month' => PHtml::encode(date('m', $task->startTimestamp)),
+								'year' => PHtml::encode(date('Y', $task->startTimestamp)),
+							)
+						);
+						?>
+					</li>
+				</ol>
+			</div>
+			<?php
+			endif;
 			echo PHtml::openTag('h1', array(
 				'id' => PHtml::dateTimeId($task->startTimestamp),
 				'class' => 'agenda-date',
