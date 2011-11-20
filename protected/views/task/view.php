@@ -11,7 +11,7 @@
 $this->pageTitle = $model->name;
 ?>
 
-<?php echo PHtml::beginContentHeader(); ?>
+<?php echo PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
 	<div class="menu toolbox">
 		<ul>
 			<li>

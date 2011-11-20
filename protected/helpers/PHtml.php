@@ -250,12 +250,17 @@ class PHtml extends CHtml {
 	 * Generates an opening header tag for content.
 	 * Note, only the open tag is generated. A close tag should be placed manually
 	 * at the end of the header.
+	 * @param $htmlOptions array of html options @see CHtml::openTag()
 	 * @return string
 	 */
-	public static function beginContentHeader() {
-		return self::openTag("header", array(
-			'class'=>'content-header '
-		));
+	public static function beginContentHeader($htmlOptions = null) {
+		if(empty($htmlOptions)) {
+			$htmlOptions = array();
+		}
+		
+		$htmlOptions['class'] = $htmlOptions['class'] . ' content-header';
+		
+		return self::openTag("header", $htmlOptions);
 	}
 	
 	/**
