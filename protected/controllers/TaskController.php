@@ -435,7 +435,7 @@ class TaskController extends Controller
 	 * Return a new task based on POST data
 	 * @param int $parentId the id of the new task's parent
 	 * @param array $attributes attributes used to set default values
-	 * @return $model if not saved
+	 * @return Task if not saved, directs otherwise
 	 */
 	public function handleNewTaskForm($parentId = null, $model = null) {
 		if(is_null($model)) {
