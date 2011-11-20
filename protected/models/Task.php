@@ -4,6 +4,14 @@
  * This is the model class for table "task".
  * A task is a single item within a {@link Group} that {@link User}s can sign up for.
  *
+ * The following are behaviors used by Task
+ * @uses CTimestampBehavior
+ * @uses NestedSetBehavior
+ * @uses DefaultGroupBehavior
+ * @uses DateTimeZoneBehavior
+ * @uses ActiveRecordLogBehavior
+ * @uses EmailNotificationBehavior
+ *
  * The followings are the available columns in table 'task':
  * @property integer $id
  * @property integer $groupId
