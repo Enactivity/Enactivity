@@ -38,7 +38,8 @@ input, textarea, select {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box; /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
-	padding: 8px;
+	height: 3em;
+	padding: .5em;
 	width: 100%;
 }
 
@@ -396,6 +397,20 @@ label:not(.required):after {
 
 textarea  {
 	height: 3em;
+}
+
+.inline-form {
+	position: relative;		
+}
+
+.inline-form .buttons {
+	position: absolute;
+	right: 1em;
+	bottom: 1em;
+}
+
+.inline-form .formlabel {
+	display: none;
 }
 
 .clear-field {

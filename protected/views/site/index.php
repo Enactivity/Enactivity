@@ -7,6 +7,9 @@ $this->pageTitle = 'Discover a better way to interact with your group';
 </header>
 <?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'contact-form',
+	'htmlOptions'=>array(
+		'class'=>'inline-form',
+	),
 	//'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
