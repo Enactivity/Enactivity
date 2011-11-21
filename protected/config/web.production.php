@@ -3,7 +3,7 @@
 // CWebApplication properties can be configured here.
 // Overrides any settings from main.inc.php
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/main.inc.php'),
+	require(dirname(__FILE__).'/web.php'),
 	array(
 		'components'=>array(
 			

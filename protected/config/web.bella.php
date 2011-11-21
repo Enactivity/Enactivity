@@ -2,7 +2,7 @@
 // This is the test Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/server.production.php'),
+	require(dirname(__FILE__).'/web.php'),
 	array(
 		'components'=>array(
 			

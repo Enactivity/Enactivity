@@ -6,7 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/shared.inc.php'),
+	require(dirname(__FILE__).'/all.inc.php'),
 	array(
 		// application components
 		'components'=>array(
