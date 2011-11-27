@@ -29,6 +29,10 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->timestamp) . " " . $m
 		));?>
 
 		<h1><?php echo 'Start a New Task'; ?></h1>
-		<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+		<?php echo $this->renderPartial('_form', array(
+			'model'=>$newTask, 
+			'inline'=>true, 
+			'action'=>'create')
+		); ?>
 	</section>
 </div>
