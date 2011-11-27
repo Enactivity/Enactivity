@@ -135,7 +135,7 @@ class JuiDateTimePicker extends CJuiWidget
 			$this->options['onSelect'] =
 				"js:function( selectedDate ) { 
 					jQuery('#{$dateInputId}').val(selectedDate);
-					$(this).hide('slow');
+					$(this).hide();
 				}";
 		}
 		$this->htmlOptions['id'] = $this->htmlOptions['id'].'_container';
@@ -307,7 +307,7 @@ class JuiDateTimePicker extends CJuiWidget
 					"$('#{$dateInputId}').live(\"focus\",
 						function() {
 							$('#{$dateInputId}').blur();
-							$('#{$dateInputId}_container').show('slow');
+							$('#{$dateInputId}_container').show();
 						}
 					);";
 		$cs->registerScript(__CLASS__.'#'.$dateInputId, $focusScript, CClientScript::POS_BEGIN);
