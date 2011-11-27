@@ -345,7 +345,6 @@ class PHtml extends CHtml {
 		$articleClass[] = "task-" . PHtml::encode($task->id);
 		$articleClass[] = $task->hasStarts ? "starts" : "";
 		$articleClass[] = $task->isCompleted ? "completed" : "not-completed";
-		$articleClass[] = $task->isInheritedTrash ? "trash" : "not-trash";
 		$articleClass[] = $task->isUserParticipating ? "participating" : "not-participating";
 
 		return implode(" ", $articleClass);

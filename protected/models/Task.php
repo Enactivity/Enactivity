@@ -404,18 +404,6 @@ class Task extends CActiveRecord
 	}
 	
 	/**
-	 * Is the task trash due to either its own property or the 
-	 * isTrash level of its parent.
-	 * @return boolean
-	 */
-	public function getIsInheritedTrash() {
-		if($this->hasParent) {
-			return $this->parent->isInheritedTrash;
-		}
-		return $this->isTrash;
-	}
-	
-	/**
 	 * Is the task completed?
 	 * @return boolean
 	 */
