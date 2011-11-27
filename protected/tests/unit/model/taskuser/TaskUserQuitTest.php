@@ -65,7 +65,7 @@ class TaskUserQuitTest extends DbTestCase
 
 	/**
 	 * Test that taskuser quit fails when group is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserQuitTaskNullIsInvalid() {
 		$user = UserFactory::insert();
@@ -74,7 +74,7 @@ class TaskUserQuitTest extends DbTestCase
 
 	/**
 	 * Test that taskuser quit fails when user is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserQuitUserNullIsInvalid() {
 		$task = TaskFactory::insert();
@@ -83,7 +83,7 @@ class TaskUserQuitTest extends DbTestCase
 
 	/**
 	 * Test that taskuser quit fails when group is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserQuitGroupAndUserNullIsInvalid() {
 		TaskUser::quit(null, null);

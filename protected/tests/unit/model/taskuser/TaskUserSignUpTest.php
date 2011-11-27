@@ -37,7 +37,7 @@ class TaskUserSignUpTaskUserTest extends DbTestCase
 
 	/**
 	 * Test that group insert fails when group is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserSignUpTaskNullIsInvalid() {
 		$user = UserFactory::insert();
@@ -46,7 +46,7 @@ class TaskUserSignUpTaskUserTest extends DbTestCase
 
 	/**
 	 * Test that group insert fails when user is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserSignUpUserNullIsInvalid() {
 		$task = TaskFactory::insert();
@@ -55,7 +55,7 @@ class TaskUserSignUpTaskUserTest extends DbTestCase
 
 	/**
 	 * Test that group insert fails when group is null
-	 * @expectedException CHttpException
+	 * @expectedException CDbException
 	 */
 	public function testTaskUserSignUpGroupAndUserNullIsInvalid() {
 		TaskUser::signUp(null, null);

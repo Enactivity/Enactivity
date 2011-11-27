@@ -77,33 +77,7 @@ class TaskUser extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-		array('userId, taskId, isCompleted, isTrash',
-				'required'
-		),
-			
-		// goal and owner can be any integer > 0
-		array('userId, taskId',
-				'numerical',
-				'min' => 0,
-				'integerOnly'=>true),
-
-		// boolean ints can be 0 or 1
-		array('isCompleted, isTrash',
-				'numerical',
-				'min' => 0,
-				'max' => 1,
-				'integerOnly'=>true),
-			
-		// boolean ints defaults to 0
-		array('isCompleted, isTrash',
-				'default',
-				'value' => 0),
-			
-		// The following rule is used by search().
-		// Please remove those attributes that should not be searched.
-		//array('id, userId, taskId, isCompleted, isTrash, created, modified', 'safe', 'on'=>'search'),
-		);
+		return array();
 	}
 
 	/**
@@ -190,6 +164,13 @@ class TaskUser extends CActiveRecord
 	 * @return TaskUser unsaved TaskUser model
 	 */
 	public static function loadTaskUser($taskId, $userId) {
+		if($taskId == null) {
+			throw new CDbException("No task id provided in loadTaskUser call");
+		}
+		if($userId == null) {
+			throw new CDbException("No user id provided in loadTaskUser call");
+		}
+		
 		$taskUser = TaskUser::model()->findByAttributes(array(
 			'taskId' => $taskId,
 			'userId' => $userId,
@@ -201,24 +182,6 @@ class TaskUser extends CActiveRecord
 		}
 
 		return $taskUser;
-	}
-
-	/**
-	 * Insert a new TaskUser into db, this function is for
-	 * internal helpers only.
-	 * @param int $taskId
-	 * @param int $userId
-	 * @return boolean true
-	 * @throws CDbException if TaskUser already exists
-	 */
-	public function insertTaskUser($taskId, $userId) {
-		$this->scenario = self::SCENARIO_INSERT;
-		if($this->isNewRecord) {
-			$this->taskId = $taskId;
-			$this->userId = $userId;
-			return $this->save();
-		}
-		throw new CDbException(Yii::t('Task_User','The task_user could not be inserted because it is not new.'));
 	}
 
 	/**
