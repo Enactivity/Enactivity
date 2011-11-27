@@ -81,6 +81,8 @@ class JuiDateTimePicker extends CJuiWidget
 	 */
 	public $defaultOptions;
 	
+	public $cssFile = false; // hack to prevent styling
+	
 	/**
 	 * Run this widget.
 	 * This method registers necessary javascript and renders the needed HTML code.
