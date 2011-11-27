@@ -11,6 +11,9 @@
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
+
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/> 
 
 	<title><?php echo CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
@@ -25,26 +28,13 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 
 <div class="everything">
 	<header class="global-header">
-		<nav class="primary-navigation">
+		<nav class="global-navigation">
 		<?php 
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>MenuDefinitions::globalMenu()
 		)); 
 		?>
 		</nav><!-- end of primaryNavigation -->
-	
-		<?php
-		if(isset($this->menu) 
-			&& !empty($this->menu)
-		):?>
-		<nav class="secondary-navigation">
-		<?php 
-		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-		));
-		?>
-		</nav><!-- end of secondaryNavigation -->
-		<?php endif; ?>
 	</header>
 	
 	<!-- flash notices -->

@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = $model->fullName;
-$this->menu = MenuDefinitions::userMenu($model);
+$this->menu = MenuDefinitions::settings();
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>

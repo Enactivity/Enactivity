@@ -126,6 +126,7 @@ p {
 
 nav {
 	font-size: .8em;
+	position: relative;
 }
 
 nav ul {
@@ -133,7 +134,6 @@ nav ul {
 }
 
 nav li {
-	white-space: nowrap; /* Don't want overflowing links */
 	display: inline-block; /* List horizontally, not vertically */
 }
 
@@ -141,16 +141,44 @@ nav li a,
 nav li a:visited {
 	color: #bfbfbf;
 	display: block;	
-	padding: 8px;
+	padding: 1em;
 	text-transform: lowercase;
 }
 
 nav li a:hover,
 nav li a:focus,
-.active a,
-.active a:visited {
+.active > a,
+.active > a:visited {
 	color: #ffffff;
 	text-decoration: none;
+}
+
+/* Drop down navigation */
+nav li ul {
+	background: #2A2A2C;
+	display: none;
+	left: 0;
+	position: absolute;
+	top: 100%;
+	z-index: 100; /* So early dropdowns can cover lower nav links */
+}
+
+nav li.open ul { 
+	display: block;
+}
+
+.dropdown-toggle::after { /* dropdown arrow using border fanciness */
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 4px solid #cccccc;
+	content: "&darr;";
+	display: inline-block;
+	height: 0;	
+	margin-top: 8px;
+	margin-left: 4px;
+	text-indent: -99999px;
+	vertical-align: top;
+	width: 0;
 }
 
 /* Content styles */

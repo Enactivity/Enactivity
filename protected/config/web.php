@@ -10,7 +10,16 @@ return CMap::mergeArray(
 	array(
 		// application components
 		'components'=>array(
-	
+		
+			'clientScript'=>array(
+				'packages'=>array(
+					'jquery'=>array(
+						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/',
+						'js'=>array('jquery.min.js'),
+					)
+				),
+			),
+		
 			// Set the error handler
 			'errorHandler'=>array(
 				// use 'site/error' action to display error

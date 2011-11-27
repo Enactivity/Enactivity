@@ -23,37 +23,37 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Create Group', 
 				'url'=>array('group/create'),
-				'linkOptions'=>array('id'=>'group-create-menu-item'), 
+				'linkOptions'=>array('id'=>'group-create-nav-item'), 
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
 				'label'=>'Manage Groups', 
 				'url'=>array('group/admin'), 
-				'linkOptions'=>array('id'=>'group-manage-menu-item'),
+				'linkOptions'=>array('id'=>'group-manage-nav-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
 				'label'=>'Manage Users', 
 				'url'=>array('user/admin'),
-				'linkOptions'=>array('id'=>'user-admin-menu-item'), 
+				'linkOptions'=>array('id'=>'user-admin-nav-item'), 
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
 				'label'=>'Manage Tasks', 
 				'url'=>array('task/admin'), 
-				'linkOptions'=>array('id'=>'task-admin-menu-item'),
+				'linkOptions'=>array('id'=>'task-admin-nav-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
 				'label'=>'Manage Comments', 
 				'url'=>array('comment/admin'), 	
-				'linkOptions'=>array('id'=>'comment-admin-menu-item'),
+				'linkOptions'=>array('id'=>'comment-admin-nav-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
 				'label'=>'Manage Feed', 
 				'url'=>array('feed/admin'), 	
-				'linkOptions'=>array('id'=>'feed-admin-menu-item'),
+				'linkOptions'=>array('id'=>'feed-admin-nav-item'),
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 		);
@@ -74,111 +74,35 @@ class MenuDefinitions extends CComponent {
 	public static function group() {
 		return array(
 			array(
+				'label'=>'View Groups', 
+				'linkOptions'=>array(
+					'class'=>'groups',
+				),
+				'url'=>array('/group/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
 				'label'=>'Invite People', 
 				'url'=>array('group/invite'),
-				'linkOptions'=>array('id'=>'group-invite-menu-item'),
+				'linkOptions'=>array('id'=>'group-invite-nav-item'),
 			),
 		);
 	}
 	
 	/**
-	 * @param Group $model Group currently under scrutiny
-	 * @return array of menu items for groups
+	 * @return array of menu items
 	 */
-	public static function groupMenu($model = null) {
-		return array();
-	}
-
 	public static function task() {
-		return array();
-	}
-	
-	/**
-	 * @param Task $model Task currently under scrutiny
-	 * @return array of menu items for tasks
-	 */
-	public static function taskMenu($model = null) {
-		if(isset($model)) {
-			$menu[] = array(
-				'label'=>'Update', 
-				'url'=>array('task/update', 'id'=>$model->id),
-				'linkOptions'=>array(
-					'id'=>'task-update-menu-item-' . $model->id,
-					'class'=>'task-update-menu-item',
-					'title'=>'Update this task',
-				),
-			);
-			
-			// 'participate' button
-			if($model->isUserParticipating) {
-				$menu[] = array(
-					'label'=>'Quit', 
-					'url'=>array('task/unparticipate', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/unparticipate',
-							'id'=>$model->id,
-						),
-						'csrf' => true,
-						'id'=>'task-useruncomplete-menu-item-' . $model->id,
-						'class'=>'task-useruncomplete-menu-item',
-						'title'=>'Resume work on this task',
-					),
-				);
-			}
-			else {
-				$menu[] = array(
-					'label'=>'Sign up', 
-					'url'=>array('task/participate', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/participate',
-							'id'=>$model->id,
-						),
-						'csrf' => true,
-						'id'=>'task-participate-menu-item-' . $model->id,
-						'class'=>'task-participate-menu-item',
-						'title'=>'Sign up for task',
-					),
-				);
-			}
-			
-			if($model->isTrash) {
-				$menu[] = array(
-					'label'=>'Restore', 
-					'url'=>array('task/untrash', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/untrash',
-							'id'=>$model->id,
-						),
-						'csrf' => true,
-						'id'=>'task-untrash-menu-item-' . $model->id,
-						'class'=>'task-untrash-menu-item',
-						'title'=>'Restore this task',
-					),
-				);
-			}
-			else {
-				$menu[] = array(
-					'label'=>'Trash', 
-					'url'=>array('task/trash', 'id'=>$model->id),
-					'linkOptions'=>array(
-						'submit'=>array(
-							'task/trash',
-							'id'=>$model->id,
-						),
-						'confirm'=>'Are you sure you want to trash this item?',
-						'csrf' => true,
-						'id'=>'task-trash-menu-item-' . $model->id,
-						'class'=>'task-trash-menu-item',
-						'title'=>'Trash this task',
-					),
-				);
-			}	
-		}
-		
-		return $menu;
+		return array(
+			array(
+				'label'=>'Dashboard', 
+				'url'=>array('/task/index'), 
+			),
+			array(
+				'label'=>'Calendar', 
+				'url'=>array('/task/calendar'), 
+			),
+		);
 	}
 	
 	/**
@@ -190,32 +114,27 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
-	 * @param User $model User current under scrutiny
 	 * @return array of menu items for user controller
 	 */
-	public static function userMenu($model = null) {
-		$menu = null;
+	public static function settings() {
+
+		$menu = array();
+		$menu[] = array('label'=>'Update Profile', 
+			'url'=>array('user/update'),
+			'linkOptions'=>array('id'=>'user-update-profile-nav-item'), 
+		);
+		$menu[] = array('label'=>'Update Password', 
+			'url'=>array('user/updatepassword'),
+			'linkOptions'=>array('id'=>'user-update-password-nav-item'), 
+		);
 		
-		if(isset($model)
-			&& Yii::app()->user->id == $model->id) {
-				
-			$menu = array();
-			$menu[] = array('label'=>'Update Profile', 
-				'url'=>array('user/update'),
-				'linkOptions'=>array('id'=>'user-update-menu-item'), 
-				'visible'=>Yii::app()->user->id == $model->id,
-			);
-			$menu[] = array('label'=>'Update Password', 
-				'url'=>array('user/updatepassword'),
-				'linkOptions'=>array('id'=>'user-update-menu-item'), 
-				'visible'=>Yii::app()->user->id == $model->id,
-			);
-			$menu[] = array(
-				'label'=>'Logout', 
-				'url'=>array('/site/logout'), 
-				'visible'=>!Yii::app()->user->isGuest
-			);
-		}
+		$menu = array_merge($menu, self::adminMenu());
+		
+		$menu[] = array(
+			'label'=>'Logout', 
+			'url'=>array('/site/logout'), 
+			'visible'=>!Yii::app()->user->isGuest
+		);
 		
 		return $menu;
 	}
@@ -226,22 +145,54 @@ class MenuDefinitions extends CComponent {
 	public static function globalMenu() {
 		return array(
 			array(
-				'label'=>'Home', 
+				'label'=>'P', 
+				'itemOptions'=>array(
+					'class'=>'poncla-logo',
+				),
+				'url'=>array('/site/index'), 
+				'visible'=>Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'P', 
+				'itemOptions'=>array(
+					'class'=>'poncla-logo',
+				),
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Calendar', 
-				'url'=>array('/task/calendar'), 
-				'visible'=>!Yii::app()->user->isGuest
+				'label'=>'Tasks',
+				'itemOptions'=>array(
+					'class'=>'dropdown',
+				),
+				'items'=>self::task(),
+				'linkOptions'=>array(
+					'class'=>'dropdown-toggle',
+				),
+				'url'=>array('/task/index'), 
+				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
 				'label'=>'Groups', 
+				'itemOptions'=>array(
+					'class'=>'dropdown',
+				),
+				'items'=>self::group(),
+				'linkOptions'=>array(
+					'class'=>'dropdown-toggle',
+				),
 				'url'=>array('/group/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),			
 			array(
-				'label'=>'Settings', 
+				'label'=>'Settings',
+				'itemOptions'=>array(
+					'class'=>'dropdown',
+				),
+				'items'=>self::settings(),
+				'linkOptions'=>array(
+					'class'=>'dropdown-toggle',
+				),
 				'url'=>array('/site/settings'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
@@ -249,11 +200,6 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Login', 
 				'url'=>array('/site/login'), 
 				'visible'=>Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Admin', 
-				'url'=>array('/group/create'), 
-				'visible'=>Yii::app()->user->isAdmin
 			),
 		);
 	}

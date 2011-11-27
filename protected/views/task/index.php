@@ -6,7 +6,7 @@
  * @uses newTask
  */
 
-$this->pageTitle = 'Home';
+$this->pageTitle = 'Dashboard';
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>
