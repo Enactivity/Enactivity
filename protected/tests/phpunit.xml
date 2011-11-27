@@ -42,9 +42,9 @@ for details
 	</filter>
 
 	<logging>
-		<log type="coverage-html" target="./report/coverage" charset="UTF-8"
+		<!-- <log type="coverage-html" target="./report/coverage" charset="UTF-8"
 			yui="true" highlight="false"
-			lowUpperBound="35" highLowerBound="70"/>
+			lowUpperBound="35" highLowerBound="70"/>  -->
 		<log type="junit" target="./report/logfile.xml" 
 			logIncompleteSkipped="false"/>
 		<log type="tap" target="./report/logfile.tap"/>
