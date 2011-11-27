@@ -15,18 +15,14 @@ class TaskUserQuitTest extends DbTestCase
 		TaskUser::signUp($task->id, $user->id);
 		$this->assertTrue(TaskUser::quit($task->id, $user->id), "Task user was not signed up");
 
-		$taskUser = TaskUser::model()->findByAttributes(array(
-			'taskId' => $task->id,
-			'userId' => $user->id,
-		));
-
+		$taskUser = TaskUser::loadTaskUser($task->id, $user->id);
 		$this->assertNotNull($taskUser, "TaskUser sign up did not save task");
-		$this->assertEquals(1, $taskUser->isTrash, "TaskUser was trashed on quit");
+		$this->assertEquals(1, $taskUser->isTrash, "TaskUser was not trashed on quit");
 		$this->assertEquals(0, $taskUser->isCompleted, "TaskUser was completed on quit");
 	}
 
 	/**
-	 * Test that taskuser quit works throw exception
+	 * Test that quitting a signed up task
 	 */
 	public function testTaskUserQuitValidTwiceValid() {
 		$task = TaskFactory::insert();
@@ -35,6 +31,25 @@ class TaskUserQuitTest extends DbTestCase
 		TaskUser::signUp($task->id, $user->id);
 		$this->assertTrue(TaskUser::quit($task->id, $user->id), "Task user did not quit");
 		$this->assertTrue(TaskUser::quit($task->id, $user->id), "Task user did not quit");
+		
+		$taskUser = TaskUser::loadTaskUser($task->id, $user->id);
+		$this->assertEquals(1, $taskUser->isTrash, "TaskUser was not trashed on quit");
+		$this->assertEquals(0, $taskUser->isCompleted, "TaskUser was completed on quit");
+	}
+	
+	/**
+	* Test that quitting a completed task is acceptable
+	*/
+	public function testTaskUserQuitWasCompleted() {
+		$task = TaskFactory::insert();
+		$user = UserFactory::insert(array(), $task->groupId);
+	
+		TaskUser::complete($task->id, $user->id);
+		$this->assertTrue(TaskUser::quit($task->id, $user->id), "Task user did not quit completed task");
+	
+		$taskUser = TaskUser::loadTaskUser($task->id, $user->id);
+		$this->assertEquals(1, $taskUser->isTrash, "TaskUser was not trashed on quit");
+		$this->assertEquals(0, $taskUser->isCompleted, "TaskUser was completed on quit");
 	}
 
 	/**

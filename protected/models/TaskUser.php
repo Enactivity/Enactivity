@@ -187,7 +187,6 @@ class TaskUser extends CActiveRecord
 	 * if no such task user exists, a model is created.
 	 * @param int $taskId
 	 * @param int $userId
-	 * @return boolean
 	 * @return TaskUser unsaved TaskUser model
 	 */
 	public static function loadTaskUser($taskId, $userId) {
@@ -270,6 +269,7 @@ class TaskUser extends CActiveRecord
 		}
 
 		$taskUser->scenario = self::SCENARIO_TRASH;
+		$taskUser->isCompleted = 0;
 		$taskUser->isTrash = 1;
 		
 		if($taskUser->save()) {
@@ -291,6 +291,7 @@ class TaskUser extends CActiveRecord
 
 		$taskUser->scenario = self::SCENARIO_COMPLETE;
 		$taskUser->isCompleted = 1;
+		$taskUser->isTrash = 0;
 
 		if($taskUser->save()) {
 			return true;

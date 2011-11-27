@@ -25,7 +25,7 @@ class TaskUserCompleteTest extends DbTestCase
 	}
 
 	/**
-	 * Test that group insert works throw exception
+	 * Test that completing the task user twice is ok
 	 */
 	public function testTaskUserCompleteValidTwiceValid() {
 		$task = TaskFactory::insert();
@@ -33,6 +33,39 @@ class TaskUserCompleteTest extends DbTestCase
 		
 		$this->assertTrue(TaskUser::complete($task->id, $user->id), "New TaskUser was not completed");
 		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Existing TaskUser was not completed");
+	}
+	
+	/**
+	 * Test that completing a signed up task works
+	 */
+	public function testTaskUserCompleteWasSignedUp() {
+		$task = TaskFactory::insert();
+		$user = UserFactory::insert(array(), $task->groupId);
+		TaskUser::signUp($task->id, $user->id);
+		
+		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Signed Up TaskUser was not completed");
+		
+		$taskUser = TaskUser::loadTaskUser($task->id, $user->id);
+		
+		$this->assertEquals(0, $taskUser->isTrash, "TaskUser was trashed on complete");
+		$this->assertEquals(1, $taskUser->isCompleted, "TaskUser was completed on complete");
+	}
+	
+	/**
+	* Test that completing a quitted task works
+	*/
+	public function testTaskUserCompleteWasQuit() {
+		$task = TaskFactory::insert();
+		$user = UserFactory::insert(array(), $task->groupId);
+		TaskUser::signUp($task->id, $user->id);
+		TaskUser::quit($task->id, $user->id);
+	
+		$this->assertTrue(TaskUser::complete($task->id, $user->id), "Quitted TaskUser was not completed");
+	
+		$taskUser = TaskUser::loadTaskUser($task->id, $user->id);
+	
+		$this->assertEquals(0, $taskUser->isTrash, "TaskUser was trashed on complete");
+		$this->assertEquals(1, $taskUser->isCompleted, "TaskUser was completed on complete");
 	}
 
 	/**
