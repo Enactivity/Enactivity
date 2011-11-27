@@ -18,6 +18,10 @@
  * @property string $name
  * @property integer $isTrash
  * @property string $starts
+ * @property int $rootId
+ * @property int $lft
+ * @property int $rgt
+ * @property int $level
  * @property string $created
  * @property string $modified
  *

@@ -251,6 +251,24 @@ class TaskUser extends CActiveRecord
 		
 		throw new CHttpException(400, "There was an error signing up for this task");
 	}
+	
+	/**
+	 * Mark the TaskUser as not completed
+	 * @return boolean true
+	 * @throws CHttpException if TaskUser was not saved
+	*/
+	public static function resume($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+	
+		$taskUser->setScenario(self::SCENARIO_UNCOMPLETE);
+		$taskUser->isCompleted = 0;
+	
+		if($taskUser->save()) {
+			return true;
+		}
+	
+		throw new CHttpException(400, "There was an error resuming work on this task");
+	}
 
 	/**
 	 * User quits task
@@ -295,23 +313,4 @@ class TaskUser extends CActiveRecord
 		
 		throw new CHttpException(400, "There was an error completing this task");
 	}
-
-	/**
-	 * Mark the TaskUser as not completed, does not save
-	 * @return boolean true
-	 * @throws CHttpException if TaskUser was not saved
-	 */
-	public static function resume($taskId, $userId) {
-		$taskUser = self::loadTaskUser($taskId, $userId);
-
-		$taskUser->setScenario(self::SCENARIO_UNCOMPLETE);
-		$taskUser->isCompleted = 0;
-		
-		if($taskUser->save()) {
-			return true;
-		}
-		
-		throw new CHttpException(400, "There was an error resuming work on this task");
-	}
-
 }
