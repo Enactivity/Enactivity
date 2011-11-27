@@ -593,10 +593,10 @@ class Task extends CActiveRecord
 	 * Saves TaskUser
 	 * @return boolean
 	 * @throws CHttpException if TaskUser was not saved
-	 * @see TaskUser::resume()
+	 * @see TaskUser::signUp()
 	 */
 	public function userUncomplete($userId) {
-		return TaskUser::resume($this->id, $userId);
+		return TaskUser::signUp($this->id, $userId);
 	}
 	
 	public function defaultScope() {

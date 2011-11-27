@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for {@link TaskUser::resume}
+ * Tests for {@link TaskUser::signup}
  * @author ajsharma
  */
 class TaskUserResumeTest extends DbTestCase
@@ -12,7 +12,7 @@ class TaskUserResumeTest extends DbTestCase
 		$task = TaskFactory::insert();
 		$user = UserFactory::insert(array(), $task->groupId);
 
-		$this->assertTrue(TaskUser::resume($task->id, $user->id), "New taskuser was not resumed");
+		$this->assertTrue(TaskUser::signup($task->id, $user->id), "New taskuser was not resumed");
 		
 		$taskUser = TaskUser::model()->findByAttributes(array(
 			'taskId' => $task->id,
@@ -31,8 +31,8 @@ class TaskUserResumeTest extends DbTestCase
 		$task = TaskFactory::insert();
 		$user = UserFactory::insert(array(), $task->groupId);
 		
-		$this->assertTrue(TaskUser::resume($task->id, $user->id), "Task user was not resumed");
-		$this->assertTrue(TaskUser::resume($task->id, $user->id), "Task user was not resumed");
+		$this->assertTrue(TaskUser::signup($task->id, $user->id), "Task user was not resumed");
+		$this->assertTrue(TaskUser::signup($task->id, $user->id), "Task user was not resumed");
 	}
 
 	/**
@@ -41,7 +41,7 @@ class TaskUserResumeTest extends DbTestCase
 	 */
 	public function testTaskUserResumeTaskNullIsInvalid() {
 		$user = UserFactory::insert();
-		TaskUser::resume(null, $user->id);
+		TaskUser::signup(null, $user->id);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class TaskUserResumeTest extends DbTestCase
 	 */
 	public function testTaskUserResumeUserNullIsInvalid() {
 		$task = TaskFactory::insert();
-		TaskUser::resume($task->id, null);
+		TaskUser::signup($task->id, null);
 	}
 
 	/**
@@ -58,6 +58,6 @@ class TaskUserResumeTest extends DbTestCase
 	 * @expectedException CHttpException
 	 */
 	public function testTaskUserResumeGroupAndUserNullIsInvalid() {
-		TaskUser::resume(null, null);
+		TaskUser::signup(null, null);
 	}
 }
