@@ -162,6 +162,7 @@ class TaskUser extends CActiveRecord
 	 * @param int $taskId
 	 * @param int $userId
 	 * @return TaskUser unsaved TaskUser model
+	 * @throws CDbException if no taskId or userId is passed in
 	 */
 	public static function loadTaskUser($taskId, $userId) {
 		if($taskId == null) {
