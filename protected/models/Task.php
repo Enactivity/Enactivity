@@ -22,6 +22,8 @@
  * @property int $lft
  * @property int $rgt
  * @property int $level
+ * @property int $participantsCount
+ * @property int $participantsCompletedCount
  * @property string $created
  * @property string $modified
  *
@@ -497,7 +499,7 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsParticipatable() {
-		if(!$this->isInheritedTrash && $this->isLeaf) {
+		if($this->isLeaf) {
 			return true;
 		}
 		return false;
