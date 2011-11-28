@@ -434,6 +434,44 @@ class Task extends CActiveRecord
 	}
 	
 	/**
+	 * Increment the participant count for a task and its ancestors
+	 * @param int $participantsIncrement number of times to increment participantsCount
+	 * @param int $participantsIncrement number of times to increment participantsCompletedCount
+	 * @return int number of Tasks updated
+	 */
+	public function incrementParticipantCounts($participantsIncrement, $participantsCompletedIncrement) {
+		if(!is_numeric($participantsIncrement) || !is_numeric($participantsCompletedIncrement)) {
+			throw new CDbException("Arguments must be numeric for increment participants counts");
+		}
+		
+		if(!$this->isParticipatable) {
+			throw new CDbException("Cannot increment tasks that are not participatable");
+		}
+		
+		$transaction = $this->dbConnection->beginTransaction();
+		try
+		{
+			$ancestors = $this->ancestors()->findAll();
+			$ancestors[] = $this; // so all objects are dealt with in a single loop
+			
+			/* @var $task Task */
+			foreach ($ancestors as $task) {
+				$task->participantsCount += $participantsIncrement;
+				$task->participantsCompletedCount += $participantsCompletedIncrement;
+				$task->saveNode();	
+			}
+			
+			$transaction->commit();
+			return count($ancestors);
+		}
+		catch(Exception $e)
+		{
+			$transaction->rollBack();
+			throw $e;
+		}
+	}
+	
+	/**
 	 * Does the Task have a parent Task?
 	 * @return boolean
 	 * @deprecated use !isRoot instead
