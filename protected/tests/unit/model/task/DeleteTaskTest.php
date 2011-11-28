@@ -47,8 +47,8 @@ class DeleteTaskTest extends DbTestCase {
 	 */
 	public function testDeleteTaskWithSubtask() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
-		$subtaskB = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
+		$subtaskB = TaskFactory::insertSubTask($task->id);
 
 		$deleted = $task->deleteNode();
 
@@ -67,8 +67,8 @@ class DeleteTaskTest extends DbTestCase {
 	 */
 	public function testDeleteSubtask() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
-		$subtaskB = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
+		$subtaskB = TaskFactory::insertSubTask($task->id);
 
 		$deletedA = $subtaskA->deleteNode();
 		$deletedB = $subtaskB->deleteNode();

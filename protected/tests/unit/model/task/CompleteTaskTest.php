@@ -77,7 +77,7 @@ class CompleteTaskTest extends DbTestCase {
 	 */
 	public function testCompletedSubtaskOneChild() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
 
 		$userA = UserFactory::insert();
 		$userB = UserFactory::insert();
@@ -97,8 +97,8 @@ class CompleteTaskTest extends DbTestCase {
 	 */
 	public function testCompletedSubtaskMultipleChildren() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
-		$subtaskB = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
+		$subtaskB = TaskFactory::insertSubTask($task->id);
 
 		$userA = UserFactory::insert();
 		$userB = UserFactory::insert();
@@ -124,8 +124,8 @@ class CompleteTaskTest extends DbTestCase {
 	 */
 	public function testIncompletedSubtaskMultipleChildren() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
-		$subtaskB = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
+		$subtaskB = TaskFactory::insertSubTask($task->id);
 
 		$userA = UserFactory::insert();
 		$userB = UserFactory::insert();
@@ -151,8 +151,8 @@ class CompleteTaskTest extends DbTestCase {
 	 */
 	public function testCompletedTaskWithTrashedSubtasks() {
 		$task = TaskFactory::insert();
-		$subtaskA = TaskFactory::makeSubTask($task->id);
-		$subtaskB = TaskFactory::makeSubTask($task->id);
+		$subtaskA = TaskFactory::insertSubTask($task->id);
+		$subtaskB = TaskFactory::insertSubTask($task->id);
 
 		$userA = UserFactory::insert();
 		$userB = UserFactory::insert();
