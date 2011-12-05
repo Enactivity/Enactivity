@@ -410,27 +410,10 @@ class Task extends CActiveRecord
 	 * @return boolean
 	 */
 	public function getIsCompleted() {
-		// if it has subtasks, check they are completed
-		if($this->hasChildren) {
-			foreach($this->children()->findAll() as $subtask) {
-				if(!$subtask->isTrash
-				&& !$subtask->isCompleted) {
-					return false;
-				}
-			}
-			return true;
+		if($this->participantsCount <= 0) {
+			return false;
 		}
-		
-		// if no subchildren, check signed up users are done
-		if(sizeof($this->participatingTaskUsers) > 0) {
-			foreach($this->participatingTaskUsers as $taskUser) {
-				if(!$taskUser->isCompleted) {
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
+		return $this->participantsCount == $this->participantsCompletedCount;
 	}
 	
 	/**
@@ -444,31 +427,30 @@ class Task extends CActiveRecord
 			throw new CDbException("Arguments must be numeric for increment participants counts");
 		}
 		
+		if(($participantsIncrement == 0) && ($participantsCompletedIncrement == 0)) {
+			return 0;
+		}
+		
 		if(!$this->isParticipatable) {
 			throw new CDbException("Cannot increment tasks that are not participatable");
 		}
 		
-		$transaction = $this->dbConnection->beginTransaction();
-		try
-		{
-			$ancestors = $this->ancestors()->findAll();
-			$ancestors[] = $this; // so all objects are dealt with in a single loop
-			
-			/* @var $task Task */
-			foreach ($ancestors as $task) {
-				$task->participantsCount += $participantsIncrement;
-				$task->participantsCompletedCount += $participantsCompletedIncrement;
-				$task->saveNode();	
+		$ancestors = $this->ancestors()->findAll();
+		$ancestors[] = $this; // so all objects are dealt with in a single loop
+		
+		/* @var $task Task */
+		foreach ($ancestors as $task) {
+			if($task->saveCounters(
+				array( // column => increment value
+					'participantsCount'=>$participantsIncrement,
+					'participantsCompletedCount'=>$participantsCompletedIncrement,
+				)
+			) == false) {
+				throw new CDbException("Task counters were not incremented");
 			}
-			
-			$transaction->commit();
-			return count($ancestors);
 		}
-		catch(Exception $e)
-		{
-			$transaction->rollBack();
-			throw $e;
-		}
+		
+		return count($ancestors);
 	}
 	
 	/**

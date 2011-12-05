@@ -184,7 +184,7 @@ class TaskUser extends CActiveRecord
 
 		return $taskUser;
 	}
-
+	
 	/**
 	 * User signs up for task, if user is already
 	 * signed up for the task in some form, their
@@ -207,15 +207,38 @@ class TaskUser extends CActiveRecord
 		else { // user had completed task previously
 			$taskUser->scenario = self::SCENARIO_UNCOMPLETE;
 		}
-
-		$taskUser->isTrash = 0;
-		$taskUser->isCompleted = 0;
-
-		if($taskUser->save()) {
-			return true;
+		
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+		 
+		if($taskUser->isNewRecord || $taskUser->isTrash == 1) {
+			$incrementCount = 1;
+		}
+		if($taskUser->isCompleted == 1) {
+			$incrementCompletedCount = -1;
 		}
 		
-		throw new CHttpException(400, "There was an error signing up for this task");
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+	
+			$taskUser->isCompleted = 0;
+			$taskUser->isTrash = 0;
+	
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e; 
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException("There was an error signing up for this task");
 	}
 	
 	/**
@@ -233,13 +256,37 @@ class TaskUser extends CActiveRecord
 		}
 
 		$taskUser->scenario = self::SCENARIO_TRASH;
-		$taskUser->isCompleted = 0;
-		$taskUser->isTrash = 1;
 		
-		if($taskUser->save()) {
-			return true;
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+			
+		if($taskUser->isNewRecord || $taskUser->isTrash == 0) {
+			$incrementCount = -1;
+		}
+		if($taskUser->isCompleted == 1) {
+			$incrementCompletedCount = -1;
 		}
 		
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->isTrash = 1;
+			$taskUser->isCompleted = 0;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
 		throw new CHttpException(400, "There was an error quitting this task");
 	}
 
@@ -254,13 +301,38 @@ class TaskUser extends CActiveRecord
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
 		$taskUser->scenario = self::SCENARIO_COMPLETE;
-		$taskUser->isCompleted = 1;
-		$taskUser->isTrash = 0;
-
-		if($taskUser->save()) {
-			return true;
+		
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+			
+		if($taskUser->isNewRecord || $taskUser->isTrash == 1) {
+			$incrementCount = 1;
+		}
+		if($taskUser->isCompleted == 0) {
+			$incrementCompletedCount = 1;
 		}
 		
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			/* @var $task Task */
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->isTrash = 0;
+			$taskUser->isCompleted = 1;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
 		throw new CHttpException(400, "There was an error completing this task");
 	}
 }

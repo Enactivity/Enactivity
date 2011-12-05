@@ -24,6 +24,7 @@ class CompleteTaskTest extends DbTestCase {
 	public function testCompletedTask() {
 		$task = TaskFactory::insert();
 		$task->userComplete(Yii::app()->user->id);
+		$task->refresh();
 
 		$this->assertTrue($task->getIsCompleted(), "Task was not completed when only user is completed");
 		$this->assertTrue($task->isCompleted, "Task was not completed when only user is completed");
@@ -35,6 +36,7 @@ class CompleteTaskTest extends DbTestCase {
 	public function testIncompletedTask() {
 		$task = TaskFactory::insert();
 		$task->userUncomplete(Yii::app()->user->id);
+		$task->refresh();
 
 		$this->assertFalse($task->getIsCompleted(), "Task was not completed when only user is not completed");
 		$this->assertFalse($task->isCompleted, "Task was not completed when only user is not completed");
@@ -51,6 +53,8 @@ class CompleteTaskTest extends DbTestCase {
 
 		$task->userComplete($userA->id);
 		$task->userComplete($userB->id);
+		
+		$task->refresh();
 
 		$this->assertTrue($task->getIsCompleted(), "Task was not completed when all users are completed");
 		$this->assertTrue($task->isCompleted, "Task was not completed when all users are completed");
@@ -67,6 +71,8 @@ class CompleteTaskTest extends DbTestCase {
 
 		$task->userComplete($userA->id);
 		$task->userUncomplete($userB->id);
+		
+		$task->refresh();
 
 		$this->assertFalse($task->getIsCompleted(), "Task was completed when one user was not completed");
 		$this->assertFalse($task->isCompleted, "Task was completed when one user was not completed");
@@ -84,12 +90,15 @@ class CompleteTaskTest extends DbTestCase {
 
 		$subtaskA->userComplete($userA->id);
 		$subtaskA->userComplete($userB->id);
-
-		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
-		$this->assertTrue($subtaskA->isCompleted, "Subask was not completed when all users are completed");
+		
+		$task->refresh();
+		$subtaskA->refresh();
 
 		$this->assertTrue($task->getIsCompleted(), "Parent task was not completed when all users of subtask are completed");
 		$this->assertTrue($task->isCompleted, "Parent task was not completed when all users of subtasks are completed");
+		
+		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
+		$this->assertTrue($subtaskA->isCompleted, "Subask was not completed when all users are completed");
 	}
 
 	/**
@@ -109,14 +118,18 @@ class CompleteTaskTest extends DbTestCase {
 		$subtaskB->userComplete($userA->id);
 		$subtaskB->userComplete($userB->id);
 
+		$task->refresh();
+		$subtaskA->refresh();
+		$subtaskB->refresh();
+		
+		$this->assertTrue($task->getIsCompleted(), "Parent task was not completed when all users of subtask are completed");
+		$this->assertTrue($task->isCompleted, "Parent task was not completed when all users of subtasks are completed");
+		
 		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
 		$this->assertTrue($subtaskA->isCompleted, "Subask was not completed when all users are completed");
 
 		$this->assertTrue($subtaskB->getIsCompleted(), "Subtask was not completed when all users are completed");
 		$this->assertTrue($subtaskB->isCompleted, "Subask was not completed when all users are completed");
-
-		$this->assertTrue($task->getIsCompleted(), "Parent task was not completed when all users of subtask are completed");
-		$this->assertTrue($task->isCompleted, "Parent task was not completed when all users of subtasks are completed");
 	}
 
 	/**
@@ -135,15 +148,19 @@ class CompleteTaskTest extends DbTestCase {
 
 		$subtaskB->userComplete($userA->id);
 		$subtaskB->userUncomplete($userB->id);
+		
+		$task->refresh();
+		$subtaskA->refresh();
+		$subtaskB->refresh();
 
+		$this->assertFalse($task->getIsCompleted(), "Parent task was completed when not all users of subtask are completed");
+		$this->assertFalse($task->isCompleted, "Parent task was completed when not all users of subtasks are completed");
+		
 		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
 		$this->assertTrue($subtaskA->isCompleted, "Subask was not completed when all users are completed");
 
 		$this->assertFalse($subtaskB->getIsCompleted(), "Subtask was completed when not all users are completed");
 		$this->assertFalse($subtaskB->isCompleted, "Subask was completed when not all users are completed");
-
-		$this->assertFalse($task->getIsCompleted(), "Parent task was completed when not all users of subtask are completed");
-		$this->assertFalse($task->isCompleted, "Parent task was completed when not all users of subtasks are completed");
 	}
 
 	/**
@@ -159,8 +176,12 @@ class CompleteTaskTest extends DbTestCase {
 
 		$subtaskA->userComplete($userA->id);
 		$subtaskA->userComplete($userB->id);
-
+		
 		$this->assertTrue($subtaskB->trash(), "Subtask did not save");
+		
+		$task->refresh();
+		$subtaskA->refresh();
+		$subtaskB->refresh();
 
 		$this->assertTrue($subtaskA->getIsCompleted(), "Subtask was not completed when all users are completed");
 		$this->assertTrue($subtaskA->isCompleted, "Subtask was not completed when all users are completed");
