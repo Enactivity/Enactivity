@@ -8,9 +8,10 @@ $this->pageTitle = 'Groups';
 <?php echo PHtml::endContentHeader(); ?>
 
 <section class="novel">
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-	'cssFile'=>false,
-)); ?>
+	<h1>Member of</h1>
+	<?php $this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$dataProvider,
+		'itemView'=>'_view',
+		'cssFile'=>false,
+	)); ?>
 <section>
