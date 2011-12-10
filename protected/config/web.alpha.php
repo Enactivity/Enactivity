@@ -3,7 +3,7 @@
 // CWebApplication properties can be configured here.
 // Overrides any settings from main.inc.php
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/web.php'),
+	require(dirname(__FILE__).'/web.production.php'),
 	array(
 		'components'=>array(
 			
@@ -13,14 +13,6 @@ return CMap::mergeArray(
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
 			),
-			
-			'mail'=>array(
-				'dryRun'=>false,
-			),
-			
-			'mailer'=>array(
-				'shouldEmail'=>true,  
-		    ),
 		),
 	)
 );
