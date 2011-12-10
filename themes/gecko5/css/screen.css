@@ -642,6 +642,10 @@ select[name="Task[endTime]"]  {
 	font-size: 3em;
 }
 
+.created {
+	color: #d6d6d6;
+}
+
 /* Participating user listing  */
 
 .users {
