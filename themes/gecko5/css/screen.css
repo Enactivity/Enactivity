@@ -221,7 +221,7 @@ section > h1 {
 
 .content-header {
 	background-color: #000000;
-	padding: 16px; /* Could use margin, but this way, matches stylings */
+	padding: 2em 1em; /* Could use margin, but this way, matches stylings */
 }
 
 .content-header h1 {
@@ -782,6 +782,6 @@ px      68    160    252    344    436    528    620    712    */
 */
 @media only screen and (min-width: 991px) {
 	.novel {
-		width: 490px; /* iPad resolution/2 - 16px */
+		width: 488px; /* iPad resolution/2 - 16px */
 	}
 }
