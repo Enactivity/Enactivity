@@ -153,9 +153,17 @@ nav li a:focus,
 }
 
 /* Branding */
+.poncla-logo {
+	vertical-align: top;
+}
+
 .poncla-logo a {
-	padding-left: 2em;
-	padding-right: 2em;
+	background: url("../images/poncla-cutout-logo-60x60.png");
+	height: 60px;
+	margin-top: 3px;
+	padding: 0;
+	text-indent: -10000px;
+	width: 60px;
 }
 
 /* Drop down navigation */
