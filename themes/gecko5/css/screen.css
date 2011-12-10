@@ -102,6 +102,7 @@ p {
 .everything {
 	height: auto;
 	margin: auto auto -150px; /* auto and footer size */
+	max-width: 1024px;
 	min-height: 100%;
 }
 
@@ -119,9 +120,7 @@ p {
 }
 
 .global-header {
-	background-color: #2A2A2C;
-	border-bottom: 1px solid #000000; /* legacy support */
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	border-bottom: 1px solid #2A2A2C; /* legacy support */
 }
 
 nav {
@@ -141,7 +140,7 @@ nav li a,
 nav li a:visited {
 	color: #bfbfbf;
 	display: block;	
-	padding: 1em;
+	padding: 2em 1em;
 	text-transform: lowercase;
 }
 
@@ -153,14 +152,35 @@ nav li a:focus,
 	text-decoration: none;
 }
 
+/* Branding */
+.poncla-logo a {
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
 /* Drop down navigation */
 nav li ul {
+	background-color: #fff;
+	border-color: #999;
+	border-color: rgba(0,0,0,.2);
+	border-style: solid;
+	border-width: 0 1px 1px;
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
 	background: #2A2A2C;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
 	display: none;
-	left: 0;
+	float: left;
 	position: absolute;
 	top: 100%;
-	z-index: 100; /* So early dropdowns can cover lower nav links */
+	z-index: 1000; /* So early dropdowns can cover lower nav links */
+	left: 0;
 }
 
 nav li.open ul { 
@@ -197,7 +217,6 @@ section > h1 {
 	clear: both;
 	margin: auto;
 	position: relative;
-	overflow: hidden;
 }
 
 .content-header {
@@ -735,6 +754,16 @@ px      68    160    252    344    436    528    620    712    */
 	section {
 		margin-left: 16px;
 		margin-right: 16px;
+	}
+	
+	nav li ul {
+		left: auto;
+		max-width: 12em;
+		right: auto;	
+	}
+	
+	.dropdown li {
+		display: block; /* to fill menu dropdown */
 	}
 	
 	.content-header {

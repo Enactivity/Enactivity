@@ -161,15 +161,8 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Tasks',
-				'itemOptions'=>array(
-					'class'=>'dropdown',
-				),
-				'items'=>self::task(),
-				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
-				),
-				'url'=>array('/task/index'), 
+				'label'=>'Calendar',
+				'url'=>array('/task/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
