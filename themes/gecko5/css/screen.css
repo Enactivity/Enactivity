@@ -158,7 +158,10 @@ nav li a:focus,
 	vertical-align: top;
 }
 
-.poncla-logo a {
+.poncla-logo a,
+.poncla-logo a:visited,
+.poncla-logo a:hover,
+.poncla-logo a:focus {
 	background-image: url("../images/poncla-cutout-logo-60x60.png");
 	background-position: center;
 	background-repeat: no-repeat;
