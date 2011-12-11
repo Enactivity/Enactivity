@@ -189,11 +189,11 @@ nav li ul {
 	-moz-background-clip: padding;
 	background-clip: padding-box;
 	display: none;
+	right: 0;
 	float: left;
 	position: absolute;
 	top: 100%;
 	z-index: 1000; /* So early dropdowns can cover lower nav links */
-	left: 0;
 }
 
 nav li.open ul { 
