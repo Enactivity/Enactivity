@@ -159,11 +159,11 @@ nav li a:focus,
 }
 
 .poncla-logo a {
-	background: url("../images/poncla-cutout-logo-60x60.png");
+	background-image: url("../images/poncla-cutout-logo-60x60.png");
+	background-position: center;
 	background-repeat: no-repeat;
 	height: 60px;
-	margin-top: 3px;
-	padding: 0;
+	padding: 4px;
 	text-indent: -10000px;
 	width: 60px;
 }
