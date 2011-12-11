@@ -223,36 +223,38 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			
-		// all groups that the user is a member of
+			// all groups that the user is a member of
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
 				'through' => 'groupUsers',
 				'order' => 'groups.name'
-		),
+			),
 			'groupsCount' => array(self::STAT, 'Group', 
 				'group_user(userId, groupId)',
-		),
+			),
 			
-		// all tasks that belong to the groups the user belongs to
+			// all tasks that belong to the groups the user belongs to
 			'groupsTasks' => array(self::HAS_MANY, 'Task', 'groupId',
 				'through' => 'groups',
-		),
+			),
 			
-		// all tasks that the user is actively signed up for
+			// all tasks that the user is actively signed up for
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
-		),
+			),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasks.isTrash=0',
-		),
+			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
 							'through' => 'taskUsers',
-							'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasksSomeday.isTrash=0 AND nextTasksSomeday.starts IS NULL',
-		),
+							'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0' 
+								. ' AND nextTasksSomeday.isTrash=0'
+								. ' AND nextTasksSomeday.starts IS NULL',
+			),
 		);
 	}
 
