@@ -25,11 +25,13 @@ $this->pageTitle = 'Invite People';
 
 	<div class="field">
 		<div class="formlabel"><?php echo $form->labelEx($model,'emails'); ?></div>
-		<div class="forminput"><?php echo $form->textArea($model,'emails', 
-			array(
-				'placeholder'=>'@, @, @...'
-			)); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'emails'); ?></div>
+		<div class="forminput">
+			<?php echo $form->textArea($model,'emails', 
+				array(
+					'placeholder'=>'@, @, @...'
+				)
+			); ?>
+		</div>
 	</div>
 
 
