@@ -380,6 +380,7 @@ class TaskController extends Controller
 		$taskWithoutDateQueryModel
 			->scopeUsersGroups(Yii::app()->user->id)
 			->scopeNoWhen()
+			->scopeNotCompleted()
 			->roots(),
 			array(
 				'criteria'=>array(

@@ -695,4 +695,16 @@ class Task extends CActiveRecord
 		));
 		return $this;
 	}
+	
+	/**
+	 * 
+	 * Enter description here ...
+	 */
+	public function scopeNotCompleted() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'(participantsCount = 0' 
+			. ' OR (participantsCount != participantsCompletedCount))',
+		));
+		return $this;
+	}
 }
