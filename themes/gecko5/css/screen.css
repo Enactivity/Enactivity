@@ -107,6 +107,7 @@ p {
 }
 
 .footer-push {
+	clear: both;
 	height: 150px; /* footer height + 16px */
 }
 
