@@ -37,4 +37,17 @@ class PDateTime {
 	public static function timeZoneArrayValues() {
 		return array_keys(self::timeZoneArray());
 	}
+	
+	/**
+	 * Gets a random time zone from the list of time zones
+	 * @param string $avoidZone
+	 * @return string
+	 */
+	public static function randomButNot($avoidZone = null) {
+		$zone = self::timeZoneArray();
+		if(strcmp($zone, $avoidZone) == 0) {
+			return self::randomButNot($avoidZone);
+		}
+		return $zone;
+	}
 }

@@ -20,7 +20,7 @@ class UserUpdatePasswordTest extends DbTestCase
 			'confirmPassword' => $password,
 			'firstName' => StringUtils::createRandomAlphaString(),
 			'lastName' => StringUtils::createRandomAlphaString(),
-			'timeZone' => array_rand(PDateTime::timeZoneArray()),
+			'timeZone' => PDateTime::randomButNot($user->timeZone),
 			'status' => StringUtils::createRandomAlphaString(),
 			'isAdmin' => StringUtils::createRandomAlphaString(),
 			'created' => StringUtils::createRandomAlphaString(),
