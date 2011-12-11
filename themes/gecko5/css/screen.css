@@ -141,7 +141,7 @@ nav li a,
 nav li a:visited {
 	color: #bfbfbf;
 	display: block;	
-	padding: 2em 1em;
+	padding: 2em .75em;
 	text-transform: lowercase;
 }
 
