@@ -44,7 +44,7 @@ class PDateTime {
 	 * @return string
 	 */
 	public static function randomButNot($avoidZone = null) {
-		$zone = self::timeZoneArray();
+		$zone = array_rand(self::timeZoneArray());
 		if(strcmp($zone, $avoidZone) == 0) {
 			return self::randomButNot($avoidZone);
 		}

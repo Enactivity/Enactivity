@@ -20,7 +20,7 @@ class UserUpdatePasswordTest extends DbTestCase
 			'confirmPassword' => $password,
 			'firstName' => StringUtils::createRandomAlphaString(),
 			'lastName' => StringUtils::createRandomAlphaString(),
-			'timeZone' => PDateTime::randomButNot($user->timeZone),
+			'timeZone' => array_rand(PDateTime::timeZoneArrayValues()),
 			'status' => StringUtils::createRandomAlphaString(),
 			'isAdmin' => StringUtils::createRandomAlphaString(),
 			'created' => StringUtils::createRandomAlphaString(),
@@ -326,7 +326,11 @@ class UserUpdatePasswordTest extends DbTestCase
 	 */
 	public function testUpdatePasswordIgnoresTimeZone() {
 
-		$user = UserFactory::insert();
+		$user = UserFactory::insert(
+			array(
+				'timeZone'=>PDateTime::randomButNot($this->attributes['timeZone']),
+			)
+		);
 		$this->assertTrue($user->updatePassword($this->attributes), "User did not update password: " . CVarDumper::dumpAsString($user->errors));
 
 		$this->assertNotEquals($this->attributes['timeZone'], $user->timeZone, 'Time zone was set by user on UpdatePassword');
