@@ -80,7 +80,7 @@ h4, h5, h6 {
 }
 
 h1 {
-	font-size: 1.25em;
+	font-size: 2em;
 }
 
 h2 {
@@ -92,6 +92,7 @@ h3 {
 }
 
 p {
+	font-size: .9em;
 	margin: .5em 0; /* Readability spacing */
 	max-width: 32em;
 }
@@ -257,6 +258,7 @@ section > h1 {
 
 .menu a {
 	display: block; /* So it fills area and icon is clickable */
+	font-size: .8em;
 	min-width: 50px; /* Should be at least 44px for touch screens */
 	margin-top: 8px;
 	padding: 0px; /* override nav padding for nav menus */
@@ -326,7 +328,7 @@ section > h1 {
 }
 
 .detail-view dt {
-	font-size: .75em;
+	font-size: .8em;
 	margin-top: 1em;
 	margin-right: 1em;
 	text-transform: lowercase;
@@ -628,15 +630,15 @@ select[name="Task[endTime]"]  {
 }
 
 .story h2 {
-	font-size: .9em;
+	font-size: .8em;
 }
 
 .story-avatar {
-	font-size: 1.5em;
+	font-size: 1.1em;
 }
 
 .story-info {
-	font-size: .7em;
+	font-size: .8em;
 }
 
 /* Completed story stylings */ 
