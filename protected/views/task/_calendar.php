@@ -35,7 +35,7 @@ $calendarMenu[] = array(
 );
 ?>
 
-<nav class="menu novel-controls">
+<nav class="novel-controls">
 	<?php $this->widget('zii.widgets.CMenu', array(
 		'items'=>$calendarMenu,
 	)); ?>
