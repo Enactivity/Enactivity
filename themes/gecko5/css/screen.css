@@ -189,8 +189,6 @@ nav li ul {
 	-moz-background-clip: padding;
 	background-clip: padding-box;
 	display: none;
-	right: 0;
-	float: left;
 	position: absolute;
 	top: 100%;
 	z-index: 1000; /* So early dropdowns can cover lower nav links */
@@ -198,6 +196,10 @@ nav li ul {
 
 nav li.open ul { 
 	display: block;
+}
+
+.dropdown li {
+	display: block; /* to fill menu dropdown */
 }
 
 .dropdown-toggle::after { /* dropdown arrow using border fanciness */
@@ -777,10 +779,6 @@ px      68    160    252    344    436    528    620    712    */
 		left: auto;
 		max-width: 12em;
 		right: auto;	
-	}
-	
-	.dropdown li {
-		display: block; /* to fill menu dropdown */
 	}
 	
 	.content-header {
