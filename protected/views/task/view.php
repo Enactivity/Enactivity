@@ -168,7 +168,6 @@ if($model->isParticipatable):
 		
 		
 		<?php // show new comment form ?>
-		<h1><?php echo 'Add a Comment'; ?></h1>
 		<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 	</section>
 	

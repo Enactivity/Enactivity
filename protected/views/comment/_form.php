@@ -8,7 +8,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="field">
-		<?php echo $form->labelEx($model,'content'); ?>
 		<?php echo $form->textArea($model,'content',array(
 			'maxlength'=>Comment::CONTENT_MAX_LENGTH,
 			'placeholder'=>'What\'s up?',
