@@ -5,31 +5,19 @@ $this->pageTitle = 'Discover a better way to interact with your group';
 <header class="greetings">
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
 </header>
-<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
-	'id'=>'contact-form',
-	'htmlOptions'=>array(
-		'class'=>'inline-form',
-	),
-	//'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-	<h2>Sign up for news about our launch.</h2>
-
-	<div class="field">
-		<div class="formlabel"><?php echo $form->labelEx($model,'email'); ?></div>
-		<div class="forminput"><?php echo $form->emailField($model,'email', 
-			array(
-				'placeholder'=>'@',
-				'autofocus'=>'autofocus',
-			)); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'email'); ?></div>
+<div class="content">
+	<div class="novel">
+		<section>
+			<h1>Getting Ourselves Organized</h1>
+			<p class="blurb">Poncla is currently in an invite-only private beta.</p>
+			<p class="blurb">Follow us on <a title="Twitter" href="http://twitter.com/poncla" target="_blank">Twitter</a> or like us on <a title="Facebook" href="http://www.facebook.com/pages/Poncla/166470333435396" target="_blank">Facebook</a> for early-access invitations.</p>
+		</section>
 	</div>
 
-	<div class="field buttons">
-		<?php echo CHtml::submitButton('Notify me'); ?>
+	<div class="novel">
+		<section>
+			<h1>Learn More</h1>
+			<p class="blurb">Follow our <a title="Tumblr" href="http://poncla.tumblr.com/" target="_blank">blog</a> if you want to learn more about us and what we're up to.</p>
+		</section>
 	</div>
-
-<?php $this->endWidget(); ?>
+</div>
