@@ -784,6 +784,7 @@ px      68    160    252    344    436    528    620    712    */
 	}
 	
 	.content-header {
+		padding: 32px;
 		margin-bottom: 16px;
 	}
 	
