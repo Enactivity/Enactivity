@@ -15,14 +15,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	),
 )); ?>
 
-	<?php
-	if(isset($data->starts)): 
-	$story->beginAvatar(); ?>
-		<span class="time task-start-time"><?php echo PHtml::encode(Yii::app()->format->formatTime(strtotime($data->starts))); ?></span>
-	<?php 
-	$story->endAvatar(); 
-	endif; ?>
-	
 	<?php $story->beginStoryContent(); ?>
 		<?php // task name ?>
 		<h1 class="story-title">

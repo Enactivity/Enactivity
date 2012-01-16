@@ -1,8 +1,7 @@
 <?php
 /**
  * Lists user's upcoming tasks
- * @uses datedTasksProvider
- * @uses datelessTasksProvider
+ * @uses calendar
  * @uses newTask
  */
 
@@ -19,8 +18,7 @@ $this->pageTitle = 'Dashboard';
 		if($datedTasksProvider->itemCount > 0
 		|| $datelessTasksProvider->itemCount > 0) {
 			echo $this->renderPartial('_agenda', array(
-				'datedTasks'=>$datedTasksProvider->data,
-				'datelessTasks'=>$datelessTasksProvider->data,
+				'calendar'=>$calendar,
 				'showParent'=>true,
 			));
 		}

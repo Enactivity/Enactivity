@@ -61,6 +61,9 @@ class TaskController extends Controller
 		$model = $this->loadTaskModel($id);
 		$subtasks = $model->children()->findAll();
 		$ancestors = $model->ancestors()->findAll();
+		
+		$calendar = new TaskCalendar();
+		$calendar->addTasks($subtasks);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm($id);
@@ -77,8 +80,9 @@ class TaskController extends Controller
 			'view', 
 			array(
 				'model' => $model,
-				'subtasks' => $subtasks, 
+				'subtasks' => $subtasks,
 				'ancestors' => $ancestors,
+				'calendar' => $calendar,
 				'newTask' => $newTask,
 				'comment' => $comment,
 				'commentsDataProvider' => $commentsDataProvider,
@@ -337,6 +341,10 @@ class TaskController extends Controller
 			)
 		);
 		
+		$calendar = new TaskCalendar();
+		$calendar->addTasks($dataProvider);
+		$calendar->addTasks($dataProviderSomeday);
+		
 		$feedModel = new ActiveRecordLog();
 		$feedProvider = new CActiveDataProvider(
 			$feedModel->scopeUsersGroups(Yii::app()->user->id),
@@ -348,8 +356,7 @@ class TaskController extends Controller
 		$newTask = $this->handleNewTaskForm();
 
 		$this->render('index', array(
-			'datedTasksProvider'=>$dataProvider,
-			'datelessTasksProvider'=>$dataProviderSomeday, //FIXME: do a proper query
+			'calendar'=>$calendar,
 			'newTask'=>$newTask,
 			'feedProvider'=>$feedProvider,
 		));
@@ -389,11 +396,16 @@ class TaskController extends Controller
 				'pagination'=>false,
 			)
 		);
+		
+		$taskcalendar = new TaskCalendar();
+		$taskcalendar->addTasks($datedTasks->data);
+		$taskcalendar->addTasks($datelessTasks->data);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('calendar', array(
+				'calendar'=>$taskcalendar,
 				'datedTasksProvider'=>$datedTasks,
 				'datelessTasksProvider'=>$datelessTasks,
 				'newTask'=>$newTask,

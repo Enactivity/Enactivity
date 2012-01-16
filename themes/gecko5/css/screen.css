@@ -84,11 +84,11 @@ h1 {
 }
 
 h2 {
-	font-size: 1.2em;
+	font-size: 1.5em;
 }
 
 h3 {
-	font-size: 1.1em;
+	font-size: 1.25em;
 }
 
 p {
@@ -227,6 +227,10 @@ section {
 
 section > h1 {
 	padding: 16px; /* Extra spacing for readability and show background */
+}
+
+section > h2 {
+	padding: 8px 16px; /* Extra spacing for readability and show background */
 }
 
 .content {

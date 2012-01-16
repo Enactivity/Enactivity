@@ -135,8 +135,7 @@ if($model->isParticipatable):
 
 	<?php if(!empty($subtasks)) :
 	echo $this->renderPartial('_agenda', array(
-			'datedTasks'=>$subtasks,
-			'datelessTasks'=>$subtasks,
+			'calendar'=>$calendar,
 			'showParent'=>false,
 	));
 	else: ?>

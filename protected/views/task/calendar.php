@@ -23,8 +23,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->timestamp) . " " . $m
 		<?php
 		// agenda
 		echo $this->renderPartial('_agenda', array(
-			'datedTasks'=>$datedTasksProvider->data,
-			'datelessTasks'=>$datelessTasksProvider->data,
+			'calendar'=>$calendar,
 			'showParent'=>'true',
 		));?>
 
