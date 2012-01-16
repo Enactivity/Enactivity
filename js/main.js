@@ -1,7 +1,7 @@
 /*
  * Drop down plugin
  */
-!function($) {
+$(document).ready(function() {
 
 	"use strict";
 
@@ -41,22 +41,22 @@
 		$('body').dropdown(dropdownSelector);
 	});
 
-}(window.jQuery || window.ender);
+});
 
 /*
- * Smooth scrolling plugin
- * @requires JQuery 1.7
+ * Smooth scrolling plugin @requires JQuery 1.7
  */
 $(document).ready(function() {
 
-    $('a[href*=#]').each(function() {
-            if($(this).attr('href').indexOf("#") == 0) {
-                    $(this).click(function(e) {
-                      e.preventDefault();
-                      var targetOffset = $($(this).attr('href')).offset().top;
-                      $('body').animate({scrollTop: targetOffset}, 400);
-                    });
-            }
-    });
-
+	$('a[href*=#]').each(function() {
+		if ($(this).attr('href').indexOf("#") == 0) {
+			$(this).click(function(e) {
+				e.preventDefault();
+				var targetOffset = $($(this).attr('href')).offset().top;
+				$('body').animate({
+					scrollTop : targetOffset
+				}, 400);
+			});
+		}
+	});
 });

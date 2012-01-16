@@ -483,6 +483,7 @@ textarea  {
 }
 
 .clear-field {
+	cursor: pointer;
 	float: right;
 	text-align: right;
 	white-space: nowrap;
