@@ -15,8 +15,7 @@ $this->pageTitle = 'Dashboard';
 <div class="novel">
 	<section class="tasks">
 		<?php
-		if($datedTasksProvider->itemCount > 0
-		|| $datelessTasksProvider->itemCount > 0) {
+		if($calendar->itemCount > 0) {
 			echo $this->renderPartial('_agenda', array(
 				'calendar'=>$calendar,
 				'showParent'=>true,

@@ -57,4 +57,11 @@ class TaskCalendar extends CComponent {
 		}
 		return false;
 	}
+	
+	/**
+	 * @return number of events in calendar
+	 */
+	public function getItemCount() {
+		return sizeof($this->days) + sizeof($this->someday);
+	}
 }

@@ -334,16 +334,8 @@ class TaskController extends Controller
 			)
 		);
 		
-		$dataProviderSomeday = new CArrayDataProvider(
-		Yii::app()->user->model->nextTasksSomeday,
-			array(
-				'pagination'=>false,
-			)
-		);
-		
 		$calendar = new TaskCalendar();
-		$calendar->addTasks($dataProvider);
-		$calendar->addTasks($dataProviderSomeday);
+		$calendar->addTasks($dataProvider->data);
 		
 		$feedModel = new ActiveRecordLog();
 		$feedProvider = new CActiveDataProvider(
