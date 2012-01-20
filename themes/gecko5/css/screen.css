@@ -562,6 +562,11 @@ th {
 	font-size: 3em;	
 }
 
+.greetings span {
+	display: block;
+	font-weight: bold;
+}
+
 #contact-form {
 	margin: auto;
 	padding: 16px;	
