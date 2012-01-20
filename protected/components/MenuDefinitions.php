@@ -180,7 +180,7 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Settings',
 				'itemOptions'=>array(
-					'class'=>'dropdown',
+					'class'=>'dropdown secondary',
 				),
 				'items'=>self::settings(),
 				'linkOptions'=>array(
@@ -190,7 +190,10 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Login', 
+				'label'=>'Login',
+				'itemOptions'=>array(
+					'class'=>'secondary',
+				),
 				'url'=>array('/site/login'), 
 				'visible'=>Yii::app()->user->isGuest
 			),

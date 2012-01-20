@@ -121,10 +121,6 @@ p {
     text-align: center;
 }
 
-.global-header {
-	border-bottom: 1px solid #2A2A2C; /* legacy support */
-}
-
 nav {
 	font-size: .8em;
 	position: relative;
@@ -152,6 +148,10 @@ nav li a:focus,
 .active > a:visited {
 	color: #ffffff;
 	text-decoration: none;
+}
+
+nav .secondary {
+	float: right;
 }
 
 /* Branding */
@@ -558,16 +558,8 @@ th {
 /*
 	Main page styles
 */
-.greetings {
-	background-color: #ffffff;
-	background-image: url(../images/poncla-splash-320x270.jpg);
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	height: 270px;
-}
-
 .greetings h1 {
-	display: none;	
+	font-size: 3em;	
 }
 
 #contact-form {
@@ -755,11 +747,6 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
 
-	.greetings {
-		background-image: url(../images/poncla-splash-480x380.jpg);
-		height: 380px;
-	}
-	
 }
 
 
@@ -773,8 +760,8 @@ px      68    160    252    344    436    528    620    712    */
 
 @media only screen and (min-width: 768px) {
 
-	.greetings {
-		background-image: url(../images/poncla-splash-1600x380.jpg);
+	.greetings h1 {
+		font-size: 6em;
 	}
 	
 	section {
