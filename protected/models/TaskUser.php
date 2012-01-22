@@ -49,24 +49,24 @@ class TaskUser extends CActiveRecord
 	 */
 	public function behaviors() {
 		return array(
-		// Update created and modified dates on before save events
+			// Update created and modified dates on before save events
 			'CTimestampBehavior'=>array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'created',
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
-		),
+			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
-		),
-		// Record C-UD operations to this record
+			),
+			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'focalModelClass' => 'Task',
 				'focalModelId' => 'taskId',
 				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
-		),
+			),
 		);
 	}
 
