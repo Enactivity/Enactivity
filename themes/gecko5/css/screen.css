@@ -102,21 +102,20 @@ p {
 */
 .everything {
 	height: auto;
-	margin: auto auto -150px; /* auto and footer size */
+	margin: auto auto; /* auto and footer size */
 	max-width: 1024px;
 	min-height: 100%;
 }
 
 .footer-push {
 	clear: both;
-	height: 150px; /* footer height + 16px */
+	padding-bottom: 32px;
 }
 
 .global-footer {
 	background-color: #2A2A2C;
 	box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
     clear: both;  /* Ensure footer isn't floating around anywhere */
-    height: 86px; /* 86 + 32 + 32 = 150px */
     padding: 32px;
     text-align: center;
 }
@@ -516,13 +515,13 @@ th {
 	border: none;
 	clear: both;
 	line-height: 100%;
-	margin-bottom: 16px;
-	margin-top: 16px;
 }
 
 .pager ul,
 .pager li {
 	display: inline-block; /* Display horizontally */
+	margin-bottom: 8px;
+	margin-top: 8px;
 }
 
 .pager a:link,
