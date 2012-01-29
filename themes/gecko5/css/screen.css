@@ -237,9 +237,13 @@ section > h2 {
 	padding: 8px 16px; /* Extra spacing for readability and show background */
 }
 
+.splash-content,
+.content {
+	margin: 75px auto auto auto;	
+}
+
 .content {
 	clear: both;
-	margin: 75px auto auto auto;
 	position: relative;
 }
 
