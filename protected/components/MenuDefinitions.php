@@ -145,7 +145,7 @@ class MenuDefinitions extends CComponent {
 	public static function globalMenu() {
 		return array(
 			array(
-				'label'=>'P', 
+				'label'=>'Poncla', 
 				'itemOptions'=>array(
 					'class'=>'poncla-logo',
 				),
@@ -153,7 +153,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'P', 
+				'label'=>'Poncla', 
 				'itemOptions'=>array(
 					'class'=>'poncla-logo',
 				),

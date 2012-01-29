@@ -75,12 +75,8 @@ body {
 
 /* Header stylings */
 
-h1, h2, h3,
-h4, h5, h6 {
-}
-
 h1 {
-	font-size: 2em;
+	font-size: 1.75em;
 }
 
 h2 {
@@ -105,6 +101,15 @@ p {
 	margin: auto auto; /* auto and footer size */
 	max-width: 1024px;
 	min-height: 100%;
+}
+
+.global-header {
+	background: #000000;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 999;
 }
 
 .footer-push {
@@ -234,17 +239,16 @@ section > h2 {
 
 .content {
 	clear: both;
-	margin: auto;
+	margin: 75px auto auto auto;
 	position: relative;
 }
 
 .content-header {
-	background-color: #000000;
-	padding: 32px 16px; /* Could use margin, but this way, matches stylings */
+	padding: 16px; /* Could use margin, but this way, matches stylings */
 }
 
 .content-header h1 {
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
 .menu {
@@ -656,9 +660,6 @@ select[name="Task[endTime]"]  {
 }
 
 /* Task view styles */
-.task-header-time {
-	font-size: 3em;
-}
 
 .created {
 	color: #d6d6d6;
@@ -780,8 +781,7 @@ px      68    160    252    344    436    528    620    712    */
 	}
 	
 	.content-header {
-		padding: 32px;
-		margin-bottom: 16px;
+		padding: 16px 32px;
 	}
 	
 	.novel {
