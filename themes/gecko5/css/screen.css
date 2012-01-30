@@ -112,6 +112,11 @@ p {
 	z-index: 999;
 }
 
+.global-navigation {
+	margin: auto;
+	max-width: 1024px;
+}
+
 .footer-push {
 	clear: both;
 	padding-bottom: 32px;
