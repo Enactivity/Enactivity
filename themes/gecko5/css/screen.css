@@ -101,6 +101,7 @@ p {
 	margin: auto auto; /* auto and footer size */
 	max-width: 1024px;
 	min-height: 100%;
+	padding-top: 75px;
 }
 
 .global-header {
@@ -240,11 +241,6 @@ section > h1 {
 
 section > h2 {
 	padding: 8px 16px; /* Extra spacing for readability and show background */
-}
-
-.splash-content,
-.content {
-	margin: 75px auto auto auto;	
 }
 
 .content {
