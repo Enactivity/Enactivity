@@ -16,17 +16,17 @@ class PDateTime {
 	 */
 	public static function timeZoneArray() {
 		return array( 
-			'Pacific/Samoa'=>'Pacific/Samoa',
-			'Pacific/Honolulu'=>'Pacific/Honolulu',
-			'America/Juneau'=>'America/Juneau',
-			'America/Los_Angeles'=>'America/Los Angeles', 
-			'America/Phoenix'=>'America/Phoenix',   
-			'America/Boise'=>'America/Boise', 
-			'America/Chicago'=>'America/Chicago', 
-			'America/New_York'=>'America/New York', 
-			'America/Puerto_Rico'=>'America/Puerto Rico', 
-			'Pacific/Guam'=>'Pacific/Guam', 
-			'Pacific/Wake'=>'Pacific/Wake', 
+			'Pacific/Samoa'=>'American Samoa',
+			'Pacific/Honolulu'=>'Honolulu, Hawaii',
+			'America/Juneau'=>'Juneau, Alaska',
+			'America/Los_Angeles'=>'Los Angeles, California', 
+			'America/Phoenix'=>'Phoenix, Arizona',
+			'America/Boise'=>'Boise, Idaho', 
+			'America/Chicago'=>'Chicago, Illinois', 
+			'America/New_York'=>'New York, New York', 
+			'America/Puerto_Rico'=>'Puerto Rico', 
+			'Pacific/Guam'=>'Guam', 
+			'Pacific/Wake'=>'Wake Island', 
 		); 
 	}
 	
