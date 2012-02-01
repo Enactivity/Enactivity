@@ -30,17 +30,17 @@ $this->pageTitle = $model->name;
 		</ul>
 	</div>
 
+	<h1>
 	<? if(sizeof($ancestors) > 0): ?>
-	<nav class="breadcrumb"><p>
 	<?php foreach($ancestors as $task) {
 		echo PHtml::link(
-			StringUtils::truncate(PHtml::encode($task->name), 15, "") . '&hellip;',
+			PHtml::encode($task->name),
 			array('task/view', 'id'=>$task->id)
 		);
+		echo ': ';
 	} ?>
-	</p></nav>
 	<?php endif; ?>
-	<h1><?php echo PHtml::encode($this->pageTitle); ?></h1>
+	<?php echo PHtml::encode($this->pageTitle); ?></h1>
 	<span class="task-header-time"><?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 <?php echo PHtml::endContentHeader(); ?>
 
