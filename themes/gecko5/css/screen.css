@@ -75,6 +75,10 @@ body {
 
 /* Header stylings */
 
+h1, h2, h3, h4, h5, h6 {
+	word-wrap: break-word;
+}
+
 h1 {
 	font-size: 1.75em;
 }
@@ -91,6 +95,7 @@ p {
 	font-size: .9em;
 	margin: .5em 0; /* Readability spacing */
 	max-width: 32em;
+	word-wrap: break-word;
 }
 
 /*
