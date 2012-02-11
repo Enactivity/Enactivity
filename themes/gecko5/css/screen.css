@@ -169,7 +169,7 @@ nav .secondary {
 	float: right;
 }
 
-/* Branding */
+/* Branding and mobile global settings */
 .poncla-logo {
 	vertical-align: top;
 }
@@ -185,6 +185,10 @@ nav .secondary {
 	padding: 4px;
 	text-indent: -10000px;
 	width: 60px;
+}
+
+.dash-nav-item {
+	display: none;
 }
 
 /* Drop down navigation */
@@ -762,6 +766,9 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
 
+	.dash-nav-item {
+		display: inline-block;
+	}
 }
 
 

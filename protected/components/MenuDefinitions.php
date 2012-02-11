@@ -161,6 +161,14 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
+				'label'=>'Dashboard', 
+				'itemOptions'=>array(
+					'class'=>'dash-nav-item'
+				),
+				'url'=>array('/task/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
 				'label'=>'Calendar',
 				'url'=>array('/task/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest,
