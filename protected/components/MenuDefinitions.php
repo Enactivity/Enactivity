@@ -127,9 +127,10 @@ class MenuDefinitions extends CComponent {
 			'url'=>array('user/updatepassword'),
 			'linkOptions'=>array('id'=>'user-update-password-nav-item'), 
 		);
-		
-		$menu = array_merge($menu, self::adminMenu());
-		
+		$menu[] = array('label'=>'Admin',
+			'url'=>array('site/admin'),
+			'visible'=>Yii::app()->user->isAdmin
+		);
 		$menu[] = array(
 			'label'=>'Logout', 
 			'url'=>array('/site/logout'), 
