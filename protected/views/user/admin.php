@@ -26,7 +26,7 @@ You may optionally enter a comparison operator (<strong>&lt;</strong>, <strong>&
 or <strong>=</strong>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo PHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo PHtml::link('Advanced Search','',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
