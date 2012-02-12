@@ -240,7 +240,6 @@ nav li.open ul {
 
 section {
 	clear: both;
-	max-width: 32em; /* Using ems to scale on text zoom */
 	width: 100%;
 }
 
