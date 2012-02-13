@@ -64,6 +64,22 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::inputField('email',$name,$value,$htmlOptions);
 	}
+	
+	/**
+	 * Generates a number field input.
+	 * @param string the input name
+	 * @param string the input value
+	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
+	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
+	 * @return string the generated input field
+	 * @see clientChange
+	 * @see inputField
+	*/
+	public static function numberField($name,$value='',$htmlOptions=array())
+	{
+		self::clientChange('change',$htmlOptions);
+		return self::inputField('number',$name,$value,$htmlOptions);
+	}
 
 	/**
 	 * Generates a time field input.
@@ -171,6 +187,25 @@ class PHtml extends CHtml {
 		self::clientChange('change',$htmlOptions);
 		return self::activeInputField('email',$model,$attribute,$htmlOptions);
 	}
+	
+	/**
+	 * Generates an number field input for a model attribute.
+	 * If the attribute has input error, the input field's CSS class will
+	 * be appended with {@link errorCss}.
+	 * @param CModel the data model
+	 * @param string the attribute
+	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
+	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
+	 * @return string the generated input field
+	 * @see clientChange
+	 * @see activeInputField
+	*/
+	public static function activeNumberField($model,$attribute,$htmlOptions=array())
+	{
+		self::resolveNameID($model,$attribute,$htmlOptions);
+		self::clientChange('change',$htmlOptions);
+		return self::activeInputField('number',$model,$attribute,$htmlOptions);
+	}
 
 	/**
 	 * Generates an time field input for a model attribute.
@@ -272,6 +307,15 @@ class PHtml extends CHtml {
 		return self::closeTag("header");
 	}
 
+	public static function cartClass($cart) {
+		$articleClass = array();
+		
+		$articleClass[] = "cart";
+		$articleClass[] = "cart-" . PHtml::encode($cart->id);
+		
+		return implode(" ", $articleClass);
+	}
+	
 	/**
 	 * Returns the classes values associated with a Comment object
 	 * @param Comment $comment

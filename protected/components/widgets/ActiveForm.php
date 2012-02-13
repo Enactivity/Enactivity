@@ -57,6 +57,17 @@ class ActiveForm extends CActiveForm {
 	}
 	
 	/**
+	 * Renders a number field for a model attribute.
+	 * This method is a wrapper of {@link PHtml::activeEmailField}.
+	 * Please check {@link PHtml::activeEmailField} for detailed information
+	 * about the parameters for this method.
+	*/
+	public function numberField($model,$attribute,$htmlOptions=array())
+	{
+		return PHtml::activeNumberField($model,$attribute,$htmlOptions);
+	}
+	
+	/**
 	 * Renders a time field for a model attribute.
 	 * This method is a wrapper of {@link PHtml::activeTimeField}.
 	 * Please check {@link PHtml::activeTimeField} for detailed information
