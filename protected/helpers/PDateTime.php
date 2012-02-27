@@ -11,6 +11,19 @@ class PDateTime {
 	}
 	
 	/**
+	 * Translate a timestamp into a MySQL time string
+	 * @param int $timestamp
+	 * @return string
+	 */
+	public static function timeAsMySQL($timestamp = null) {
+		$formatString = "Y-m-d H:i:s";
+		if(is_null($timestamp)) {
+			return date($formatString);
+		} 
+		return date ($formatString, $timestamp);
+	}
+	
+	/**
 	 * Get array of time zones
 	 * @return array of String keys => String values
 	 */

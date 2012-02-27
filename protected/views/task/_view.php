@@ -36,7 +36,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			); ?>
 		</h1>
 		
-		<?php $story->beginControls() ?>
+		<?php $story->beginControls(); ?>
 			<?php if($data->isParticipatable) {
 				// show complete/uncomplete buttons if user is participating
 				if($data->isUserParticipating) {

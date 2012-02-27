@@ -33,6 +33,12 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin,
 			),
 			array(
+				'label'=>'Manage Store', 
+				'url'=>array('store/admin'), 
+				'linkOptions'=>array('id'=>'store-manage-nav-item'),
+				'visible'=>Yii::app()->user->isAdmin,
+			),
+			array(
 				'label'=>'Manage Users', 
 				'url'=>array('user/admin'),
 				'linkOptions'=>array('id'=>'user-admin-nav-item'), 
@@ -119,6 +125,10 @@ class MenuDefinitions extends CComponent {
 	public static function settings() {
 
 		$menu = array();
+		$menu[] = array('label'=>'Store',
+			'url'=>array('/store/index'), 
+			'visible'=>!Yii::app()->user->isGuest,
+		);
 		$menu[] = array('label'=>'Update Profile', 
 			'url'=>array('user/update'),
 			'linkOptions'=>array('id'=>'user-update-profile-nav-item'), 
@@ -185,9 +195,9 @@ class MenuDefinitions extends CComponent {
 				),
 				'url'=>array('/group/index'), 
 				'visible'=>!Yii::app()->user->isGuest
-			),			
+			),
 			array(
-				'label'=>'Settings',
+				'label'=>'More',
 				'itemOptions'=>array(
 					'class'=>'dropdown secondary',
 				),

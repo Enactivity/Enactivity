@@ -35,6 +35,8 @@ class User extends CActiveRecord
 	const LASTNAME_MAX_LENGTH = 50;
 	const LASTNAME_MIN_LENGTH = 2;
 
+	const PHONENUMBER_MAX_LENGTH = 20;
+	
 	const TOKEN_MAX_LENGTH = 40;
 
 	const STATUS_PENDING = 'Pending';
@@ -43,6 +45,7 @@ class User extends CActiveRecord
 	const STATUS_BANNED = 'Banned';
 	const STATUS_MAX_LENGTH = 15;
 
+	const SCENARIO_CHECKOUT = 'checkout';
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
@@ -104,6 +107,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+		
+		// SCENARIO_CHECKOUT
+		array('phoneNumber', 'required',
+			'on' => self::SCENARIO_CHECKOUT
+		),
+		
 		// SCENARIO_INSERT
 		array('email, password, firstName, lastName, timeZone', 'required',
 				'on' => self::SCENARIO_INSERT
@@ -223,6 +232,17 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			
+			// all cart items the user
+			'cartItems' => array(self::HAS_MANY, 'CartItem', 'userId', 
+				'condition' => 'isPlaced IS NULL',
+			),
+			'cartItemsInProcess' => array(self::HAS_MANY, 'CartItem', 'userId',
+				'condition' => 'isPlaced IS NOT NULL AND isDelivered IS NULL',
+			),
+			'cartItemsCompleted' => array(self::HAS_MANY, 'CartItem', 'userId',
+				'condition' => 'isPlaced IS NOT NULL AND isDelivered IS NOT NULL',
+			),
+		
 			// all groups that the user is a member of
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
