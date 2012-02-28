@@ -13,6 +13,25 @@ return CMap::mergeArray(
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
 			),
+			
+			'log'=>array(
+				'class'=>'CLogRouter',
+				'routes'=>array(
+					// output errors and warning to runtime file
+					array(
+						'class'=>'CFileLogRoute',
+						'levels'=>'error, warning',
+					),
+					array(
+						'class'=>'CEmailLogRoute',
+						'levels'=>'error, warning',
+						'emails'=>'support-message-log@poncla.com',
+						'enabled'=>true,
+						'sentFrom'=>'support-message-log@poncla.com',
+						'subject'=>'Application log alpha ' . microtime(),
+					),
+				),
+			),
 		),
 	)
 );
