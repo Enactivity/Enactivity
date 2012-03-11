@@ -6,19 +6,19 @@
  * The followings are the available columns in table 'cart_item':
  * @property string $id
  * @property string $userId
- * @property string $sweater_type
- * @property string $sweater_color
- * @property string $letter_color
- * @property string $letter_thread_color
+ * @property string $sweaterType
+ * @property string $sweaterColor
+ * @property string $letterColor
+ * @property string $letterThreadColor
  * @property string $letters
- * @property string $extra_small_count
- * @property string $small_count
- * @property string $medium_count
- * @property string $large_count
- * @property string $extra_large_count
- * @property string $extra_extra_large_count
- * @property integer $isPlaced
- * @property integer $isDelivered
+ * @property string $extraSmallCount
+ * @property string $smallCount
+ * @property string $mediumCount
+ * @property string $largeCount
+ * @property string $extraLargeCount
+ * @property string $extraExtraLargeCount
+ * @property string $placed
+ * @property string $delivered
  * @property string $created
  * @property string $modified
  *
@@ -71,77 +71,77 @@ class CartItem extends CActiveRecord
         // will receive user inputs.
         return array(
             array(
-            	'sweater_type, sweater_color, letter_color, 
-            	letter_thread_color, letters, extra_small_count, 
-            	small_count, medium_count, large_count, extra_large_count, 
-            	extra_extra_large_count', 
+            	'sweaterType, sweaterColor, letterColor, 
+            	letterThreadColor, letters, extraSmallCount, 
+            	smallCount, mediumCount, largeCount, extraLargeCount, 
+            	extraExtraLargeCount', 
             	'required',
             ),
             
         	array(
-        		'sweater_type', 
+        		'sweaterType', 
             	'in',
             	'range' => array_keys(self::getSweaterChoices()),
         	),
         	
         	array(
-            	'sweater_color', 
+            	'sweaterColor', 
             	'in',
             	'range' => array_keys(self::getSweaterColors()),
         	),
         	
 	        array(
-	        	'letter_color', 
+	        	'letterColor', 
                 'in',
                 'range' => array_keys(self::getLetterColors()),
     	    ),
         
         	array(
-                'letter_thread_color', 
+                'letterThreadColor', 
                 'in',
                 'range' => array_keys(self::getLetterThreadColors()),
         	),
             
             array(
-            	'isPlaced, isDelivered', 
+            	'placed, delivered', 
             	'default', 
             	'setOnEmpty'=>true,
             	'value'=>null,
             ),
             
         	array(
-        		'extra_small_count, small_count, 
-        		medium_count, large_count, extra_large_count, 
-                extra_extra_large_count', 
+        		'extraSmallCount, smallCount, 
+        		mediumCount, largeCount, extraLargeCount, 
+                extraExtraLargeCount', 
                 'numerical', 
                 'min'=>0,
         	),
        		array(
-                'extra_small_count, small_count, 
-                medium_count, large_count, extra_large_count, 
-                extra_extra_large_count', 
+                'extraSmallCount, smallCount, 
+                mediumCount, largeCount, extraLargeCount, 
+                extraExtraLargeCount', 
                 'default', 
                 'value'=>0,
         	),
             array(
-            	'sweater_type, sweater_color, letter_color, 
-            	letter_thread_color, letters', 
+            	'sweaterType, sweaterColor, letterColor, 
+            	letterThreadColor, letters', 
             	'length', 
             	'max'=>45,
             ),
             
             array('letters', 'validateGreekWords'),
             
-            array('extra_small_count, small_count, medium_count, large_count, extra_large_count, extra_extra_large_count', 'validateAtLeastOneSize'),
+            array('extraSmallCount, smallCount, mediumCount, largeCount, extraLargeCount, extraExtraLargeCount', 'validateAtLeastOneSize'),
             
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array(
-            	'userId, sweater_type, sweater_color, 
-            	letter_color, letter_thread_color, letters, 
-            	extra_small_count, small_count, medium_count, 
-            	large_count, extra_large_count, extra_extra_large_count, 
-            	isPlaced, isDelivered, created, modified', 
+            	'userId, sweaterType, sweaterColor, 
+            	letterColor, letterThreadColor, letters, 
+            	extraSmallCount, smallCount, mediumCount, 
+            	largeCount, extraLargeCount, extraExtraLargeCount, 
+            	placed, delivered, created, modified', 
             	'safe', 
             	'on'=>'search',
             ),
@@ -182,12 +182,12 @@ class CartItem extends CActiveRecord
      */
     public function validateAtLeastOneSize($attribute,$params) {
     	if(
-    		(int) $this->extra_small_count < 1
-    		&& (int) $this->small_count < 1
-    		&& (int) $this->medium_count < 1
-    		&& (int) $this->large_count < 1
-    		&& (int) $this->extra_large_count < 1
-    		&& (int) $this->extra_extra_large_count < 1
+    		(int) $this->extraSmallCount < 1
+    		&& (int) $this->smallCount < 1
+    		&& (int) $this->mediumCount < 1
+    		&& (int) $this->largeCount < 1
+    		&& (int) $this->extraLargeCount < 1
+    		&& (int) $this->extraExtraLargeCount < 1
     	)
     	{
     		$this->addError($attribute, 'Must order at least one sweater');
@@ -214,19 +214,19 @@ class CartItem extends CActiveRecord
         return array(
             'id' => 'ID',
             'userId' => 'User',
-            'sweater_type' => 'Sweater Type',
-            'sweater_color' => 'Sweater Color',
-            'letter_color' => 'Letter Color',
-            'letter_thread_color' => 'Letter Thread Color',
+            'sweaterType' => 'Sweater Type',
+            'sweaterColor' => 'Sweater Color',
+            'letterColor' => 'Letter Color',
+            'letterThreadColor' => 'Letter Thread Color',
             'letters' => 'Letters',
-            'extra_small_count' => 'Extra Small',
-            'small_count' => 'Small',
-            'medium_count' => 'Medium',
-            'large_count' => 'Large',
-            'extra_large_count' => 'Extra Large',
-            'extra_extra_large_count' => 'Extra Extra Large',
-            'isPlaced' => 'Is Placed',
-            'isDelivered' => 'Is Delivered',
+            'extraSmallCount' => 'Extra Small',
+            'smallCount' => 'Small',
+            'mediumCount' => 'Medium',
+            'largeCount' => 'Large',
+            'extraLargeCount' => 'Extra Large',
+            'extraExtraLargeCount' => 'Extra Extra Large',
+            'placed' => 'Is Placed',
+            'delivered' => 'Is Delivered',
             'created' => 'Created',
             'modified' => 'Modified',
         );
@@ -245,19 +245,19 @@ class CartItem extends CActiveRecord
 
         $criteria->compare('id',$this->id,true);
         $criteria->compare('userId',$this->userId,true);
-        $criteria->compare('sweater_type',$this->sweater_type,true);
-        $criteria->compare('sweater_color',$this->sweater_color,true);
-        $criteria->compare('letter_color',$this->letter_color,true);
-        $criteria->compare('letter_thread_color',$this->letter_thread_color,true);
+        $criteria->compare('sweaterType',$this->sweaterType,true);
+        $criteria->compare('sweaterColor',$this->sweaterColor,true);
+        $criteria->compare('letterColor',$this->letterColor,true);
+        $criteria->compare('letterThreadColor',$this->letterThreadColor,true);
         $criteria->compare('letters',$this->letters,true);
-        $criteria->compare('extra_small_count',$this->extra_small_count,true);
-        $criteria->compare('small_count',$this->small_count,true);
-        $criteria->compare('medium_count',$this->medium_count,true);
-        $criteria->compare('large_count',$this->large_count,true);
-        $criteria->compare('extra_large_count',$this->extra_large_count,true);
-        $criteria->compare('extra_extra_large_count',$this->extra_extra_large_count,true);
-        $criteria->compare('isPlaced',$this->isPlaced);
-        $criteria->compare('isDelivered',$this->isDelivered);
+        $criteria->compare('extraSmallCount',$this->extraSmallCount,true);
+        $criteria->compare('smallCount',$this->smallCount,true);
+        $criteria->compare('mediumCount',$this->mediumCount,true);
+        $criteria->compare('largeCount',$this->largeCount,true);
+        $criteria->compare('extraLargeCount',$this->extraLargeCount,true);
+        $criteria->compare('extraExtraLargeCount',$this->extraExtraLargeCount,true);
+        $criteria->compare('placed',$this->placed);
+        $criteria->compare('delivered',$this->delivered);
         $criteria->compare('created',$this->created,true);
         $criteria->compare('modified',$this->modified,true);
 
@@ -331,7 +331,7 @@ class CartItem extends CActiveRecord
     public static function placeOrder($userId) {
     	$cartItemModel = new CartItem();
     	$updatedItemCount = $cartItemModel->updateAll(
-    		array('isPlaced'=>PDateTime::timeAsMySQL()),
+    		array('placed'=>PDateTime::timeAsMySQL()),
     		'userId=:userId',
     		array(':userId'=>$userId)
     	);
@@ -368,5 +368,22 @@ class CartItem extends CActiveRecord
 			'psi',
 			'omega',
 		);
+    }
+    
+    /**
+     * Has the cart item order been delivered?
+     * @return boolean
+    */
+    public function getIsDelivered() {
+    	return !is_null($this->delivered);
+    }
+    
+    public function setIsDelivered($delivered) {
+    	if((bool) $delivered) {
+    		$this->delivered = PDateTime::timeAsMySQL();
+    	}
+    	else {
+    		$this->delivered = null;	
+    	}
     }
 }

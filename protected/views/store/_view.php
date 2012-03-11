@@ -16,60 +16,60 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	    <h1>
 	    	<?php echo PHtml::encode($data->letters); ?>
-	    	<?php echo PHtml::encode($data->sweater_type); ?>
+	    	<?php echo PHtml::encode($data->sweaterType); ?>
 	    </h1>
 	
-	    <?php echo PHtml::encode($data->getAttributeLabel('sweater_color')); ?>:
-	    <?php echo PHtml::encode($data->sweater_color); ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('sweaterColor')); ?>:
+	    <?php echo PHtml::encode($data->sweaterColor); ?>
 	    <br />
 	
-	    <?php echo PHtml::encode($data->getAttributeLabel('letter_color')); ?>:
-	    <?php echo PHtml::encode($data->letter_color); ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('letterColor')); ?>:
+	    <?php echo PHtml::encode($data->letterColor); ?>
 	    <br />
 	
-	    <?php echo PHtml::encode($data->getAttributeLabel('letter_thread_color')); ?>:
-	    <?php echo PHtml::encode($data->letter_thread_color); ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('letterThreadColor')); ?>:
+	    <?php echo PHtml::encode($data->letterThreadColor); ?>
 	    <br />
 	
-		<?php if($data->extra_small_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extra_small_count')); ?>:
-	    <?php echo PHtml::encode($data->extra_small_count); ?>
+		<?php if($data->extraSmallCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('extraSmallCount')); ?>:
+	    <?php echo PHtml::encode($data->extraSmallCount); ?>
 	    <br />
 	    <?php endif; ?>
 	
-		<?php if($data->small_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('small_count')); ?>:
-	    <?php echo PHtml::encode($data->small_count); ?>
+		<?php if($data->smallCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('smallCount')); ?>:
+	    <?php echo PHtml::encode($data->smallCount); ?>
 	    <br />
 		<?php endif; ?>
 		
-		<?php if($data->medium_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('medium_count')); ?>:
-	    <?php echo PHtml::encode($data->medium_count); ?>
+		<?php if($data->mediumCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('mediumCount')); ?>:
+	    <?php echo PHtml::encode($data->mediumCount); ?>
 	    <br />
 		<?php endif; ?>
 		
-		<?php if($data->large_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('large_count')); ?>:
-	    <?php echo PHtml::encode($data->large_count); ?>
+		<?php if($data->largeCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('largeCount')); ?>:
+	    <?php echo PHtml::encode($data->largeCount); ?>
 	    <br />
 	    <?php endif; ?>
 	
-		<?php if($data->extra_large_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extra_large_count')); ?>:
-	    <?php echo PHtml::encode($data->extra_large_count); ?>
+		<?php if($data->extraLargeCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('extraLargeCount')); ?>:
+	    <?php echo PHtml::encode($data->extraLargeCount); ?>
 	    <br />
 	    <?php endif; ?>
 	
-		<?php if($data->extra_extra_large_count > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extra_extra_large_count')); ?>:
-	    <?php echo PHtml::encode($data->extra_extra_large_count); ?>
+		<?php if($data->extraExtraLargeCount > 0): ?>
+	    <?php echo PHtml::encode($data->getAttributeLabel('extraExtraLargeCount')); ?>:
+	    <?php echo PHtml::encode($data->extraExtraLargeCount); ?>
 	    <br />
 	    <?php endif; ?>
 
 
 
-    	<?php if(!$data->isPlaced) : ?>
+    	<?php if(!$data->placed) : ?>
     	<?php $story->beginControls(); ?>
     		<?php echo PHtml::openTag('li');
 			echo PHtml::link(

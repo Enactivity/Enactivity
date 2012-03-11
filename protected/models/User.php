@@ -234,13 +234,13 @@ class User extends CActiveRecord
 			
 			// all cart items the user
 			'cartItems' => array(self::HAS_MANY, 'CartItem', 'userId', 
-				'condition' => 'isPlaced IS NULL',
+				'condition' => 'placed IS NULL',
 			),
 			'cartItemsInProcess' => array(self::HAS_MANY, 'CartItem', 'userId',
-				'condition' => 'isPlaced IS NOT NULL AND isDelivered IS NULL',
+				'condition' => 'placed IS NOT NULL AND delivered IS NULL',
 			),
 			'cartItemsCompleted' => array(self::HAS_MANY, 'CartItem', 'userId',
-				'condition' => 'isPlaced IS NOT NULL AND isDelivered IS NOT NULL',
+				'condition' => 'placed IS NOT NULL AND delivered IS NOT NULL',
 			),
 		
 			// all groups that the user is a member of

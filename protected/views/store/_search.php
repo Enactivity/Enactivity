@@ -17,23 +17,23 @@
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'sweater_type'); ?>
-        <?php echo $form->textField($model,'sweater_type',array('size'=>45,'maxlength'=>45)); ?>
+        <?php echo $form->label($model,'sweaterType'); ?>
+        <?php echo $form->textField($model,'sweaterType',array('size'=>45,'maxlength'=>45)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'sweater_color'); ?>
-        <?php echo $form->textField($model,'sweater_color',array('size'=>45,'maxlength'=>45)); ?>
+        <?php echo $form->label($model,'sweaterColor'); ?>
+        <?php echo $form->textField($model,'sweaterColor',array('size'=>45,'maxlength'=>45)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'letter_color'); ?>
-        <?php echo $form->textField($model,'letter_color',array('size'=>45,'maxlength'=>45)); ?>
+        <?php echo $form->label($model,'letterColor'); ?>
+        <?php echo $form->textField($model,'letterColor',array('size'=>45,'maxlength'=>45)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'letter_thread_color'); ?>
-        <?php echo $form->textField($model,'letter_thread_color',array('size'=>45,'maxlength'=>45)); ?>
+        <?php echo $form->label($model,'letterThreadColor'); ?>
+        <?php echo $form->textField($model,'letterThreadColor',array('size'=>45,'maxlength'=>45)); ?>
     </div>
 
     <div class="field">
@@ -42,43 +42,43 @@
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'extra_small_count'); ?>
-        <?php echo $form->textField($model,'extra_small_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'extraSmallCount'); ?>
+        <?php echo $form->textField($model,'extraSmallCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'small_count'); ?>
-        <?php echo $form->textField($model,'small_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'smallCount'); ?>
+        <?php echo $form->textField($model,'smallCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'medium_count'); ?>
-        <?php echo $form->textField($model,'medium_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'mediumCount'); ?>
+        <?php echo $form->textField($model,'mediumCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'large_count'); ?>
-        <?php echo $form->textField($model,'large_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'largeCount'); ?>
+        <?php echo $form->textField($model,'largeCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'extra_large_count'); ?>
-        <?php echo $form->textField($model,'extra_large_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'extraLargeCount'); ?>
+        <?php echo $form->textField($model,'extraLargeCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'extra_extra_large_count'); ?>
-        <?php echo $form->textField($model,'extra_extra_large_count',array('size'=>11,'maxlength'=>11)); ?>
+        <?php echo $form->label($model,'extraExtraLargeCount'); ?>
+        <?php echo $form->textField($model,'extraExtraLargeCount',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'isPlaced'); ?>
-        <?php echo $form->textField($model,'isPlaced'); ?>
+        <?php echo $form->label($model,'placed'); ?>
+        <?php echo $form->textField($model,'placed'); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'isDelivered'); ?>
-        <?php echo $form->textField($model,'isDelivered'); ?>
+        <?php echo $form->label($model,'delivered'); ?>
+        <?php echo $form->textField($model,'delivered'); ?>
     </div>
 
     <div class="field">
