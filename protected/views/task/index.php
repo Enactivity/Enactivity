@@ -33,7 +33,7 @@ $this->pageTitle = 'Dashboard';
 		}
 		
 		// "what would you want to do input" box ?>
-		<h1><?php echo 'Start a New Task'; ?></h1>
+		<h1><?php echo 'Create a New Task'; ?></h1>
 		<?php echo $this->renderPartial('_form', array(
 			'model'=>$newTask, 
 			'inline'=>true, 
