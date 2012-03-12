@@ -367,7 +367,7 @@ class Task extends CActiveRecord
 		if(!empty($date)) {
 			if(empty($this->starts)) {
 				$soon = strtotime("+1 hour");
-				$this->starts = date("Y-m-d H:00:00", $soon);
+				$this->starts = date("Y-m-d 12:00:00", $soon);
 			}
 			
 			$dateTimeArray = explode(' ', $this->starts);
