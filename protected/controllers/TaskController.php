@@ -200,8 +200,8 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow participating via POST request
+			TaskUser::signUp($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
-			$task->participate(Yii::app()->user->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -224,8 +224,8 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow unparticipating via POST request
+			TaskUser::quit($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
-			$task->unparticipate(Yii::app()->user->id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -248,8 +248,8 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow completion via POST request
+			TaskUser::complete($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
-			$task->userComplete(Yii::app()->user->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
@@ -272,8 +272,8 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow uncomplete via POST request
+			TaskUser::signUp($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
-			$task->userUncomplete(Yii::app()->user->id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
