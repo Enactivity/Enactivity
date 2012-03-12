@@ -29,25 +29,25 @@ class TaskController extends Controller
 		}
 
 		return array(
-		array('allow',
+			array('allow',
 				'actions'=>array('index','create','calendar'),
 				'users'=>array('@'),
-		),
-		array('allow', 
+			),
+			array('allow', 
 				'actions'=>array(
 					'view','update','delete',
 					'participate','unparticipate',
 					'userComplete','userUncomplete',
-		),
+			),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
-		),
-		array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin'),
 				'expression'=>'$user->isAdmin',
-		),
-		array('deny',  // deny all users
+			),
+			array('deny',  // deny all users
 				'users'=>array('*'),
-		),
+			),
 		);
 	}
 
