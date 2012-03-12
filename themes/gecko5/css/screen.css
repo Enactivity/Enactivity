@@ -295,7 +295,6 @@ section > h2 {
 
 /* Content toolbox */
 .toolbox {
-	float: right;
 	margin-top: 0;
 }
 
@@ -774,6 +773,10 @@ px      68    160    252    344    436    */
 
 @media only screen and (min-width: 480px) {
 
+	.toolbox {
+		float: right;
+	}
+	
 	.dash-nav-item {
 		display: inline-block;
 	}
