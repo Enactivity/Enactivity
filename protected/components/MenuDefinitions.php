@@ -199,7 +199,7 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'More',
 				'itemOptions'=>array(
-					'class'=>'dropdown secondary',
+					'class'=>'dropdown',
 				),
 				'items'=>self::settings(),
 				'linkOptions'=>array(

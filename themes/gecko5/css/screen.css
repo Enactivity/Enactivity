@@ -235,6 +235,10 @@ nav li.open ul {
 	width: 0;
 }
 
+.dropdown a {
+	padding: 16px;
+}
+
 /* Content styles */
 
 section {
