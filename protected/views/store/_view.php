@@ -90,7 +90,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 					'submit'=>array('store/delete', 'id'=>$data->id),
 					'csrf'=>true,
 					'id'=>'cart-delete-menu-item-' . $data->id,
-					'class'=>'negative cart-delete-menu-item',
+					'class'=>'neutral cart-delete-menu-item',
 					'title'=>'Delete this order',
 					'confirm'=>'Are you sure?  It will be gone forever.',
 				)
