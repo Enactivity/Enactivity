@@ -146,14 +146,12 @@ class StoreController extends Controller
     	);
     	
     	$model = Yii::app()->user->model;
-    	$model->scenario = User::SCENARIO_CHECKOUT;
     	
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User'])) {
-			$model->attributes = $_POST['User'];
-			if($model->save() && CartItem::placeOrder(Yii::app()->user->id)) {
+			if($model->updateCheckOutInfo($_POST['User']) && CartItem::placeOrder($model->id)) {
 				Yii::app()->user->setFlash('success', "Your order has been placed.");
 				$this->redirect("index");
 			}

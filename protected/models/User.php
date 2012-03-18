@@ -324,6 +324,22 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	/**
+	 * Get the checkout/sales specific information about the user
+	 * @param array $attributes
+	 */
+	public function updateCheckOutInfo($attributes = null) {
+		$this->scenario = self::SCENARIO_CHECKOUT;
+		if(!$this->isNewRecord) {
+			if(is_array($attributes)) {
+				$this->attributes = $attributes;
+				return $this->save();
+			}
+			return false;
+		}
+		throw new CDbException(Yii::t('user','The user checkout information could not be updated because it is a new user.'));
+	}
 
 	/**
 	 * Inject a user into the system
