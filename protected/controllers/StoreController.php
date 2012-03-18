@@ -172,8 +172,10 @@ class StoreController extends Controller
     {
         $model=new CartItem('search');
         $model->unsetAttributes();  // clear any default values
-        if(isset($_GET['CartItem']))
+        
+        if(isset($_GET['CartItem'])) {
             $model->attributes=$_GET['CartItem'];
+        }
 
         $this->render('admin',array(
             'model'=>$model,
