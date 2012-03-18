@@ -110,7 +110,8 @@ p {
 }
 
 .global-header {
-	background: #000000;
+	background-color: #2a2a2c;
+	border-bottom: 1px solid #000000;
 	position: fixed;
 	left: 0;
 	right: 0;
