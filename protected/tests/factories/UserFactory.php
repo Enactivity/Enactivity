@@ -11,7 +11,7 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User
 	 */
-	static function make($attributes = array()) {
+	public static function make($attributes = array()) {
 		// invite
 		$user = new User();
 		$user->scenario = User::SCENARIO_INVITE;
@@ -28,7 +28,7 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User
 	 */
-	static function insertInvited($attributes = array(), $groupId = null) {
+	public static function insertInvited($attributes = array(), $groupId = null) {
 		// setup group if not defined
 		if(is_null($groupId)) {
 			$group = GroupFactory::insert();
@@ -58,7 +58,7 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User saved user
 	 */
-	static function insert($attributes = array(), $groupId = null) {
+	public static function insert($attributes = array(), $groupId = null) {
 		// invite
 		$user = self::insertInvited($attributes, $groupId);
 
@@ -90,7 +90,7 @@ class UserFactory extends AbstractFactory {
 	 * @param int $groupId
 	 * @return User saved user
 	 */
-	static function insertAdmin($attributes = array(), $groupId = null) {
+	public static function insertAdmin($attributes = array(), $groupId = null) {
 		// invite
 		$user = self::insert($attributes, $groupId);
 		$user->isAdmin = 1;

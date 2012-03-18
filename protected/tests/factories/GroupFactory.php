@@ -7,7 +7,7 @@ class GroupFactory extends AbstractFactory {
 	 * Generate a group
 	 * @return Group unsaved group
 	 */
-	static function make($attributes = array()) {
+	public static function make($attributes = array()) {
 		$group = new Group();
 		$name = StringUtils::UniqueString();
 		$slug = StringUtils::UniqueString();
@@ -23,7 +23,7 @@ class GroupFactory extends AbstractFactory {
 	 * then return the group.
 	 * @return Group saved group
 	 */
-	static function insert($attributes = array()) {
+	public static function insert($attributes = array()) {
 		$group = self::make($attributes);
 		$group->save();
 		$insertedGroup = Group::model()->findByPk($group->id);

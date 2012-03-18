@@ -10,7 +10,7 @@ class TaskFactory extends AbstractFactory {
 	 * @param attributes, overloads default attributes
 	 * @return Task unsaved task
 	 */
-	static function make($attributes = array()) {
+	public static function make($attributes = array()) {
 		$task = new Task();
 		$task->name = "ptask" . StringUtils::uniqueString();
 		
@@ -26,7 +26,7 @@ class TaskFactory extends AbstractFactory {
 	 * @param array $attributes
 	 * @return Task subtask
 	 */
-	static function insertSubTask($parentId, $attributes = array()) {
+	public static function insertSubTask($parentId, $attributes = array()) {
 		$parent = Task::model()->findByPk($parentId);
 
 		$task = self::make($attributes);
@@ -41,7 +41,7 @@ class TaskFactory extends AbstractFactory {
 	 * @param attributes, overloads default attributes
 	 * @return Task saved task
 	 */
-	static function insert($attributes = array()) {
+	public static function insert($attributes = array()) {
 		$task = self::make($attributes);
 		
 		$task->insertTask();
