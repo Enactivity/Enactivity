@@ -27,6 +27,11 @@
  */
 class CartItem extends CActiveRecord
 {
+	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_ORDER = 'order';
+	const SCENARIO_UPDATE = 'update'; // default set by Yii
+	
     /**
      * Returns the static model of the specified AR class.
      * @return CartItem the static model class
@@ -330,6 +335,7 @@ class CartItem extends CActiveRecord
      */
     public static function placeOrder($userId) {
     	$cartItemModel = new CartItem();
+    	$cartItemModel->scenario = self::SCENARIO_ORDER;
     	$updatedItemCount = $cartItemModel->updateAll(
     		array('placed'=>PDateTime::timeAsMySQL()),
     		'userId=:userId',
