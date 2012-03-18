@@ -281,6 +281,36 @@ class CartItem extends CActiveRecord
     	return false;
     }
     
+	/**
+	 * Save a new cartItem, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 */
+	public function insertCartItem($attributes=null) {
+		if($this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		else {
+			throw new CDbException(Yii::t('cartItem','The cartItem cannot be inserted because it is not new.'));
+		}
+	}
+	
+	/**
+	 * Update the cart item, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	*/
+	public function updateCartItem($attributes=null) {
+		if(!$this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		else {
+			throw new CDbException(Yii::t('cartitem','The cartitem cannot be updated because it is new.'));
+		}
+	}
+    
     /**
      * Get an array of db keys => english names
      * @return array of strings:

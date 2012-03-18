@@ -59,9 +59,9 @@ class StoreController extends Controller
 
         if(isset($_POST['CartItem']))
         {
-            $model->attributes=$_POST['CartItem'];
-            if($model->save())
+            if($model->insertCartItem($_POST['CartItem'])) {
                 $this->redirect(array('store/cart'));
+            }
         }
 
         $this->render('index',array(
@@ -83,9 +83,9 @@ class StoreController extends Controller
 
         if(isset($_POST['CartItem']))
         {
-            $model->attributes=$_POST['CartItem'];
-            if($model->save())
+            if($model->updateCartItem($_POST['CartItem'])) {
                 $this->redirect(array('cart'));
+            }
         }
 
         $this->render('update',array(
