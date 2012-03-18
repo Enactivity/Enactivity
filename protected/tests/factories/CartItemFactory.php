@@ -27,7 +27,7 @@ class CartItemFactory extends AbstractFactory {
 	public static function insert($attributes = array()) {
 		$cartItem = self::make($attributes);
 		
-		$cartItem->insertCartItem();
+		$cartItem->insertCartItem($attributes);
 		
 		return CartItem::model()->findByPk($cartItem->id);
 	}
