@@ -141,11 +141,11 @@ class StoreController extends Controller
      * Gather contact info and allow user to place order
      */
     public function actionCheckout() {
-    	$dataProvider = new CActiveDataProvider('CartItem', array(
-    		'data' => Yii::app()->user->model->cartItems)
-    	);
-    	
     	$model = Yii::app()->user->model;
+    	
+    	$dataProvider = new CActiveDataProvider('CartItem', array(
+    		'data' => $model->cartItems)
+    	);
     	
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
