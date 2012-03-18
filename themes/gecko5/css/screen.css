@@ -671,6 +671,7 @@ select[name="Task[endTime]"]  {
 /* Completed story stylings */ 
 .completed {
 	background-color: #74996e;
+	border-color: #7d907a; /* override _view borders */
 	color: #ffffff;
 }
 
