@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends CActiveRecord
+class Task extends CActiveRecord implements EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -706,4 +706,26 @@ class Task extends CActiveRecord
 		));
 		return $this;
 	}
+	
+	public function shouldEmail()
+	{
+		if(strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_UPDATE) == 0)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public function whoToNotifyByEmail()
+	{
+		//go through group and store in array with all active users
+		//return array
+		$group = Group::model()->findByPk($this->groupId);
+		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $emails;
+	}
+	
 }

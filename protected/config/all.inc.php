@@ -31,7 +31,7 @@ return array(
 				'class' => 'ext.YiiMail',
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
-				'logging' => true,
+				'logging' => false,
 				'dryRun' => true,
 		),
 	

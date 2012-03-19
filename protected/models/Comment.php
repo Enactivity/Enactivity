@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class Comment extends CActiveRecord
+class Comment extends CActiveRecord implements EmailableRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	
@@ -56,6 +56,9 @@ class Comment extends CActiveRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
+ 			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+			),
     	);
     }
 
@@ -151,4 +154,24 @@ class Comment extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
+    
+	public function shouldEmail()
+	{
+		if(strcasecmp($this->scenario, self::SCENARIO_REPLY) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public function whoToNotifyByEmail()
+	{
+		//go through group and store in array with all active users
+		//return array
+		$group = Group::model()->findByPk($this->groupId);
+		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $users;
+	}
 }

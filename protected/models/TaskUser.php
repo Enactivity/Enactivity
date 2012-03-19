@@ -16,7 +16,7 @@
  * @property Task $task
  * @property User $user
  */
-class TaskUser extends CActiveRecord
+class TaskUser extends CActiveRecord implements EmailableRecord
 {
 
 	const SCENARIO_COMPLETE = 'complete';
@@ -67,6 +67,9 @@ class TaskUser extends CActiveRecord
 				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
 			),
+			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+		),
 		);
 	}
 
@@ -334,5 +337,29 @@ class TaskUser extends CActiveRecord
 		
 		$transaction->rollback();
 		throw new CHttpException(400, "There was an error completing this task");
+	}
+	
+	public function shouldEmail()
+	{
+		if(strcasecmp($this->scenario, self::SCENARIO_COMPLETE) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_TRASH) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_UNCOMPLETE) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_UNTRASH) == 0)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public function whoToNotifyByEmail()
+	{
+		//go through group and store in array with all active users
+		//return array
+		$group = Group::model()->findByPk($this->groupId);
+		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $emails;
 	}
 }

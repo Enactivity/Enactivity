@@ -122,12 +122,12 @@ class YiiMail extends CApplicationComponent
 	* The return value is the number of recipients who were accepted for
 	* delivery.
 	* 
-	* @param YiiMailMessage $message
+	* @param MailMessage $message
 	* @param array &$failedRecipients, optional
 	* @return int
 	* @see batchSend()
 	*/
-	public function send(YiiMailMessage $message, &$failedRecipients = null) {
+	public function send($message, &$failedRecipients = null) {
 		if ($this->logging===true) self::log($message);
 		if ($this->dryRun===true) return count($message->to);
 		else return $this->getMailer()->send($message->message, $failedRecipients);
@@ -185,7 +185,7 @@ class YiiMail extends CApplicationComponent
 	* Logs a YiiMailMessage in a (hopefully) readable way using Yii::log.
 	* @return string log message
 	*/
-	public static function log(YiiMailMessage $message) {
+	public static function log(MailMessage $message) {
 		$msg = 'Sending email to '.implode(', ', array_keys($message->to))."\n".
 			implode('', $message->headers->getAll())."\n".
 			$message->body
@@ -238,5 +238,12 @@ class YiiMail extends CApplicationComponent
 		require dirname(__FILE__).'/vendors/swiftMailer/classes/Swift.php';
 		Yii::registerAutoloader(array('Swift','autoload'));
 		require dirname(__FILE__).'/vendors/swiftMailer/swift_init.php';
+	}
+	
+	public function constructMessage() {
+		if($this->dryRun===true) {
+			return new PMailMessage();
+		}
+		return new YiiMailMessage();
 	}
 }

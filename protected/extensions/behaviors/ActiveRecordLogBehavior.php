@@ -52,7 +52,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		} 
 		else { // updating existing record
 			
-			// new attributes
+			// new attributes and old attributes
 			$newAttributes = $this->Owner->getAttributes();
 			$oldAttributes = $this->getOldAttributes();
  

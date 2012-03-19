@@ -14,7 +14,7 @@
  * @property GroupUser[] $groupUsers
  * @property User[] $users
  */
-class Group extends CActiveRecord
+class Group extends CActiveRecord implements EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	const NAME_MIN_LENGTH = 3;
@@ -24,6 +24,9 @@ class Group extends CActiveRecord
 	
 	const EMAIL_MAX_LENGTH = 50;
 	const EMAIL_MIN_LENGTH = 5;
+	
+	const SCENARIO_INSERT = 'insert';
+	const SCENARIO_UPDATE = 'update';
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -56,6 +59,10 @@ class Group extends CActiveRecord
 			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
+			// Record C-UD operations to this record
+			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 			),
 		);
 	}
@@ -100,6 +107,28 @@ class Group extends CActiveRecord
 				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
 			'groupUsersPendingCount' => array(self::STAT, 'GroupUser', 'groupId', 
 				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
+			'users' => array(self::HAS_MANY, 'User', 'userId',
+		    	'through' => 'groupUsers',
+				'order' => 'users.lastname'
+			),
+			'usersActive' => array(self::HAS_MANY, 'User', 'userId',
+		    	'through' => 'groupUsers',
+				'condition' => 'groupUsers.status="' . GroupUser::STATUS_ACTIVE . '"' 
+					. ' AND usersActive.status="' . User::STATUS_ACTIVE . '"', 
+				'order' => 'usersActive.lastname'
+			),
+			'usersPending' => array(self::HAS_MANY, 'User', 'userId',
+		    	'through' => 'groupUsers',
+				'condition' => 'groupUsers.status="' . GroupUser::STATUS_PENDING . '"' 
+					. ' AND usersPending.status="' . User::STATUS_ACTIVE . '"', 
+				'order' => 'usersPending.lastname'
+			),
+			'usersInactive' => array(self::HAS_MANY, 'User', 'userId',
+		    	'through' => 'groupUsers',
+				'condition' => 'groupUsers.status="' . GroupUser::STATUS_INACTIVE . '"' 
+					. ' AND usersInactive.status="' . User::STATUS_ACTIVE . '"', 
+				'order' => 'usersInactive.lastname'
+			),
 		);
 	}
 
@@ -179,26 +208,45 @@ class Group extends CActiveRecord
 	 * @param int $groupId
 	 * @param String $status
 	 * @return IDataProvider
+	 * @deprecated
 	 */
 	public function getMembersByStatus($groupStatus) {
-		$model = new User('search');
-		$model->unsetAttributes();  // clear any default values
+		if(strcasecmp($groupStatus, GroupUser::STATUS_ACTIVE) == 0) { 
+			return new CActiveDataProvider('User', array('data' => $this->usersActive));
+		}
+		if(strcasecmp($groupStatus, GroupUser::STATUS_INACTIVE) == 0) { 
+			return new CActiveDataProvider('User', array('data' => $this->usersInactive));
+		}
+		if(strcasecmp($groupStatus, GroupUser::STATUS_PENDING) == 0) { 
+			return new CActiveDataProvider('User', array('data' => $this->usersPending));
+		}
 		
-		$dataProvider= $model->search();
-		$dataProvider->criteria->addCondition(
-			'id IN (SELECT userId AS id FROM group_user' 
-				. ' WHERE groupId=:groupId' 
-				. ' AND status = :groupStatus)'
-		);
-		$dataProvider->criteria->params[':groupId'] = $this->id;
-		$dataProvider->criteria->params[':groupStatus'] = $groupStatus;
-		
-		// ensure only active users are returned
-		$dataProvider->criteria->addCondition('status = :userStatus');
-		$dataProvider->criteria->params[':userStatus'] = User::STATUS_ACTIVE;
-		
-		$dataProvider->criteria->order = 'firstName ASC';
-		
-		return $dataProvider;
+		throw new Exception("No such status");
 	}
+	
+	/**
+	 * Returns a boolean whether user should be emailed or not
+	 * @return boolean
+	 */
+	
+	public function shouldEmail()
+	{
+		if(strcmp($this->scenario, self::SCENARIO_UPDATE) == 0)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns an array of users to be emailed
+	 * @return array of users to be notified
+	 */
+	
+	public function whoToNotifyByEmail()
+	{
+		return $this->getMembersByStatus(User::STATUS_ACTIVE);
+	}
+	
 }

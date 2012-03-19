@@ -15,7 +15,7 @@
  * @property Group $group
  * @property User $user
  */
-class GroupUser extends CActiveRecord
+class GroupUser extends CActiveRecord implements EmailableRecord
 {
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
@@ -62,6 +62,10 @@ class GroupUser extends CActiveRecord
 			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
+			// Record C-UD operations to this record
+			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 			),
 		);
 	}
@@ -235,7 +239,7 @@ class GroupUser extends CActiveRecord
 	}
 
 	public function onAfterSave($event) {
-		//parent::onAfterSave($event);
+		parent::onAfterSave($event);
 		// Send on new invite email
 		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
 			$user = User::model()->findByPk($this->userId);
@@ -278,4 +282,29 @@ class GroupUser extends CActiveRecord
 		
 		$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
 	}*/
+	
+	/**
+	 * Returns a boolean whether user should be emailed or not
+	 * @return boolean
+	 */
+	
+	public function shouldEmail()
+	{
+		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0
+		   || strcasecmp($this->scenario, self::SCENARIO_JOIN) == 0)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public function whoToNotifyByEmail()
+	{
+		//go through group and store in array with all active users
+		//return array
+		$group = Group::model()->findByPk($this->groupId);
+		$emails = $group->getMembersByStatus(self::STATUS_ACTIVE);
+		return $emails;
+	}
 }
