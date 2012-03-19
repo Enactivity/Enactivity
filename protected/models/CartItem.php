@@ -418,6 +418,36 @@ class CartItem extends CActiveRecord
     }
     
     /**
+     * Get the Name of a color
+     * @param $string $key
+     * @return string
+    */
+    public static function getSweaterColorName($key) {
+    	$colors = self::getSweaterColors();
+    	return $colors[$key];
+    }
+    
+    /**
+     * Get the Name of a color
+     * @param $string $key
+     * @return string
+    */
+    public static function getLetterColorName($key) {
+    	$colors = self::getLetterColors();
+    	return $colors[$key];
+    }
+    
+    /**
+     * Get the Name of a color
+     * @param $string $key
+     * @return string
+    */
+    public static function getLetterThreadColorName($key) {
+    	$colors = self::getLetterColors();
+    	return $colors[$key];
+    }
+    
+    /**
      * Order items in the user's cart
      * @param int $userId User id
      */

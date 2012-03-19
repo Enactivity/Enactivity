@@ -20,15 +20,15 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	    </h1>
 	
 	    <?php echo PHtml::encode($data->getAttributeLabel('sweaterColor')); ?>:
-	    <?php echo PHtml::encode($data->sweaterColor); ?>
+	    <?php echo PHtml::encode(CartItem::getSweaterColorName($data->sweaterColor)); ?>
 	    <br />
 	
 	    <?php echo PHtml::encode($data->getAttributeLabel('letterColor')); ?>:
-	    <?php echo PHtml::encode($data->letterColor); ?>
+	    <?php echo PHtml::encode(CartItem::getLetterColorName($data->letterColor)); ?>
 	    <br />
 	
 	    <?php echo PHtml::encode($data->getAttributeLabel('letterThreadColor')); ?>:
-	    <?php echo PHtml::encode($data->letterThreadColor); ?>
+	    <?php echo PHtml::encode(CartItem::getLetterThreadColorName($data->letterThreadColor)); ?>
 	    <br />
 	
 		<?php if($data->extraSmallCount > 0): ?>
