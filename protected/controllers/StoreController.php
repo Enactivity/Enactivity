@@ -52,21 +52,7 @@ class StoreController extends Controller
      */
     public function actionIndex()
     {
-        $model=new CartItem;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if(isset($_POST['CartItem']))
-        {
-            if($model->insertCartItem($_POST['CartItem'])) {
-                $this->redirect(array('store/cart'));
-            }
-        }
-
-        $this->render('index',array(
-            'model'=>$model,
-        ));
+    	$this->redirect(array('sweater/index'));
     }
 
     /**
@@ -151,9 +137,9 @@ class StoreController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User'])) {
-			if($model->updateCheckOutInfo($_POST['User']) && CartItem::placeOrder($model->id)) {
+			if($model->updateCheckOutInfo($_POST['User']) && CartItem::placeOrder($model)) {
 				Yii::app()->user->setFlash('success', "Your order has been placed.");
-				$this->redirect("index");
+				$this->redirect("cart");
 			}
 		}
 

@@ -376,6 +376,15 @@ class PHtml extends CHtml {
 	
 		return implode(" ", $articleClass);
 	}
+
+	public static function sweaterClass($sweater) {
+		$articleClass = array();
+	
+		$articleClass[] = "sweater";
+		$articleClass[] = "sweater-" . PHtml::encode($sweater->id);
+	
+		return implode(" ", $articleClass);	
+	}
 	
 	/**
 	 * Returns the classes values associated with a Task object

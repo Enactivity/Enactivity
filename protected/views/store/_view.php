@@ -2,7 +2,6 @@
 /**
  * View for individual orders
  * @var Cart $data model
- * @var boolean $showControls
  */
 
 $story = $this->beginWidget('application.components.widgets.Story', array(
@@ -15,61 +14,36 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	<?php $story->beginStoryContent(); ?>
 
 	    <h1>
-	    	<?php echo PHtml::encode($data->letters); ?>
-	    	<?php echo PHtml::encode($data->sweaterType); ?>
+	    	<?php // echo PHtml::encode($data->letters); ?>
 	    </h1>
 	
-	    <?php echo PHtml::encode($data->getAttributeLabel('sweaterColor')); ?>:
-	    <?php echo PHtml::encode(CartItem::getSweaterColorName($data->sweaterColor)); ?>
-	    <br />
-	
-	    <?php echo PHtml::encode($data->getAttributeLabel('letterColor')); ?>:
-	    <?php echo PHtml::encode(CartItem::getLetterColorName($data->letterColor)); ?>
-	    <br />
-	
-	    <?php echo PHtml::encode($data->getAttributeLabel('letterThreadColor')); ?>:
-	    <?php echo PHtml::encode(CartItem::getLetterThreadColorName($data->letterThreadColor)); ?>
-	    <br />
-	
-		<?php if($data->extraSmallCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extraSmallCount')); ?>:
-	    <?php echo PHtml::encode($data->extraSmallCount); ?>
-	    <br />
-	    <?php endif; ?>
-	
-		<?php if($data->smallCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('smallCount')); ?>:
-	    <?php echo PHtml::encode($data->smallCount); ?>
-	    <br />
+		<?php if ($data->productType == CartItem::PRODUCT_TYPE_SWEATER) : ?>
+		<b><?php echo CHtml::encode($data->product->getAttributeLabel('style')); ?>:</b>
+		<?php echo CHtml::encode($data->product->style); ?>
+		<br />
+
+		<b><?php echo CHtml::encode($data->product->getAttributeLabel('clothColor')); ?>:</b>
+		<?php echo CHtml::encode($data->product->clothColor); ?>
+		<br />
+
+		<b><?php echo CHtml::encode($data->product->getAttributeLabel('letterColor')); ?>:</b>
+		<?php echo CHtml::encode($data->product->letterColor); ?>
+		<br />
+
+		<b><?php echo CHtml::encode($data->product->getAttributeLabel('stitchingColor')); ?>:</b>
+		<?php echo CHtml::encode($data->product->stitchingColor); ?>
+		<br />
+
+		<b><?php echo CHtml::encode($data->product->getAttributeLabel('size')); ?>:</b>
+		<?php echo CHtml::encode($data->product->size); ?>
+		<br />
 		<?php endif; ?>
-		
-		<?php if($data->mediumCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('mediumCount')); ?>:
-	    <?php echo PHtml::encode($data->mediumCount); ?>
-	    <br />
-		<?php endif; ?>
-		
-		<?php if($data->largeCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('largeCount')); ?>:
-	    <?php echo PHtml::encode($data->largeCount); ?>
-	    <br />
-	    <?php endif; ?>
-	
-		<?php if($data->extraLargeCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extraLargeCount')); ?>:
-	    <?php echo PHtml::encode($data->extraLargeCount); ?>
-	    <br />
-	    <?php endif; ?>
-	
-		<?php if($data->extraExtraLargeCount > 0): ?>
-	    <?php echo PHtml::encode($data->getAttributeLabel('extraExtraLargeCount')); ?>:
-	    <?php echo PHtml::encode($data->extraExtraLargeCount); ?>
-	    <br />
-	    <?php endif; ?>
 
+		<b><?php echo CHtml::encode($data->getAttributeLabel('quantity')); ?>:</b>
+		<?php echo CHtml::encode($data->quantity); ?>
+		<br />
 
-
-    	<?php if(!$data->placed) : ?>
+    	<?php if(!$data->purchased) : ?>
     	<?php $story->beginControls(); ?>
     		<?php echo PHtml::openTag('li');
 			echo PHtml::link(
