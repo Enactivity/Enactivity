@@ -27,7 +27,7 @@ return CMap::mergeArray(
 						'levels'=>'error, warning',
 						'emails'=>'support-message-log@poncla.com',
 						'enabled'=>true,
-						'sentFrom'=>'support-message-log@poncla.com',
+						'sentFrom'=>'support-message-log@alpha.poncla.com',
 						'subject'=>'Application log alpha ' . microtime(),
 					),
 				),
