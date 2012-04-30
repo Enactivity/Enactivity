@@ -8,15 +8,17 @@ $this->pageTitle = $model->name;
 
 <!-- List of users in group -->
 <?php if(!Yii::app()->user->isGuest):?>
-<section id="users">
-	<h1><?php echo $activemembers->itemCount . ' Active Members'; ?></h1>
-	
-	<?php 
-	$this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$activemembers,
-		'itemView'=>'/user/_view',
-		'cssFile'=>false,
-	)); 
-	?>
-</section>
+<div class="novel">
+	<section id="users">
+		<h1><?php echo $activemembers->itemCount . ' Active Members'; ?></h1>
+		
+		<?php 
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$activemembers,
+			'itemView'=>'/user/_view',
+			'cssFile'=>false,
+		)); 
+		?>
+	</section>
+</div>
 <?php endif; ?>
