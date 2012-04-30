@@ -27,6 +27,12 @@ return CMap::mergeArray(
 			'log'=>array(
 				'class'=>'CLogRouter',
 				'routes'=>array(
+					// output errors and warnings to mysql
+					array(
+						'class'=>'CDbLogRoute',
+						'connectionID'=>'db',
+						'levels'=>'error, warning',
+					),
 					// output errors and warning to runtime file
 					array(
 						'class'=>'CFileLogRoute',
