@@ -65,11 +65,13 @@ $this->pageTitle = 'Build a Sweater';
 		));
 		?>
 
+		<?php if($sweater->id): ?>
 		<h2>Customize It</h2>
 		<?php 
 		echo $this->renderPartial('/cartItem/_form', array(
 			'model'=>$cartItem,
 		));
 		?>
+		<?php endif; ?>
 	</section>
 </div>
