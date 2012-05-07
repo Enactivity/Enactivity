@@ -18,6 +18,7 @@
             'product.letterColor',
             'product.stitchingColor',
             'product.size',
+            'sweaterLetters',
             'quantity',
             'purchased',
             'delivered',
