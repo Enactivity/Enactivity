@@ -1,6 +1,6 @@
 <?php 
 /**
- * View for task model delete scenario
+ * View for group model update scenario
  * 
  */
 
@@ -26,8 +26,6 @@ echo PHtml::closeTag('strong');
 echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
-//Aww. [user] deleted [taskname] that [taskCount] out of [totalTaskCount] people completed in [group name].
-echo "Aww. " . PHtml::encode($user->fullName) . "deleted " . PHtml::encode($newAttributes[name]) . " in " . PHtml::encode($data->name) . ".";
+echo "Aww. " . PHtml::encode($user->fullName) . " deleted " . PHtml::encode($data->name) . ".";
 
 echo PHtml::closeTag('article');
-?>

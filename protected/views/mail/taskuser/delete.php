@@ -27,7 +27,12 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Oh No! [user] was removed from [taskName].
-echo "Oh No! " . PHtml::encode($user->fullName) . " was removed from " . PHtml::encode($newAttributes[name]) . ".";
+//echo "Oh No! " . PHtml::encode($user->fullName) . " was removed from " . PHtml::encode($data->task->name) . ".";
+
+foreach($changedAttributes as $header)
+{
+	echo "Oh No! " . PHtml::encode($user->fullName) . " was removed from " . PHtml::encode($data->task->name) . ".";
+}
 
 echo PHtml::closeTag('article');
 ?>

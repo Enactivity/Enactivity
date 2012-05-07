@@ -27,10 +27,15 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Hey there! Just letting you know, [user] changed the start date for [taskName] from [oldStartDate] to [newStartDate].
-echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " changed the start date for [taskName] from [oldStartDate] to [newStartDate].";
+//echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " changed the start date for [taskName] from [oldStartDate] to [newStartDate].";
 
 //Hey there! Just letting you know, [user] changed the task name from [oldTaskName] to [newTaskName].
-echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " changed the task name from " . PHtml::encode($oldAttributes[name]) . " to " . PHtml::encode($newAttributes[name]) . ".";
+//echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " changed the task name from " . PHtml::encode($changedAttributes['old']) . " to " . PHtml::encode($changedAttributes['new']) . ".";
+
+foreach($changedAttributes as $header)
+{
+	echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . "to " . PHtml::encode($header['new']) . ".";
+}
 
 echo PHtml::closeTag('article');
 ?>

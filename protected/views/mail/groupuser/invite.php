@@ -27,6 +27,14 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Exciting news! [user] invited the following emails [list of emails] to [groupName].
-echo "Exiting news! " . PHtml::encode($user->fullName) . "invited the following emails [list of emails] to the " . PHtml::encode($data->name) . ".";
+//echo "Exiting news! " . PHtml::encode($user->fullName) . "invited the following emails [list of emails] to the " . PHtml::encode($data->name) . ".";
+
+echo "hello!";
+
+foreach($changedAttributes as $header)
+{
+	echo "Exiting news! " . PHtml::encode($user->fullName) . "invited more people to join " . PHtml::encode($data->group->name) . ".";
+}
+
 
 echo PHtml::closeTag('article');

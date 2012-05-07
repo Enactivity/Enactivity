@@ -27,7 +27,12 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Great news! [firstName][lastName] joined [groupName].
-echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::encode($data->name) . ".";
+//echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::encode($data->name) . ".";
+
+foreach($changedAttributes as $header)
+{
+	echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::encode($data->name) . ".";
+}
 
 echo PHtml::closeTag('article');
 ?>

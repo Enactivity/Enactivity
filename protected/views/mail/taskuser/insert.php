@@ -27,7 +27,12 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Woot! [user] signed up for [taskName] along with [taskCount] other people.
-echo "Woot! " . PHtml::encode($user->fullName) . " signed up for " . PHtml::encode($newAttributes[name]) . ".";
+//echo "Woot! " . PHtml::encode($user->fullName) . " signed up for " . PHtml::encode($data->task->name) . ".";
+
+foreach($changedAttributes as $header)
+{
+	echo "Woot! " . PHtml::encode($user->fullName) . " signed up for " . PHtml::encode($data->task->name) . ".";
+}
 
 echo PHtml::closeTag('article');
 ?>

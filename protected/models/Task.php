@@ -325,6 +325,9 @@ class Task extends CActiveRecord implements EmailableRecord
 	 */
 	public function beforeDelete() {
 		parent::beforeDelete();
+		
+		$this->scenario = self::SCENARIO_DELETE;
+		
 		$taskUsers = $this->taskUsers;
 		
 		try {

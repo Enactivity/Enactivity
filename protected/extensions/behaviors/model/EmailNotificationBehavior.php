@@ -41,10 +41,57 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	{
 		if($this->Owner->shouldEmail())
 		{
+			// store the changes 
+			$changes = array();
+			
+			// new attributes and old attributes
+			$newAttributes = $this->Owner->getAttributes();
+			$oldAttributes = $this->Owner->getOldAttributes();
+ 
+			// compare old and new
+			foreach ($newAttributes as $name => $value) {
+				// check that if the attribute should be ignored in the log
+				if (!empty($oldAttributes)) {
+					$oldValue = $oldAttributes[$name];
+				} 
+				else {
+					$oldValue = '';
+				}
+	 			if ($value != $oldValue) {
+	 				if(!in_array($name, $this->ignoreAttributes))
+	 				{
+	 					$changes[$name] = array('old'=>$oldAttributes[name], 'new'=>$newAttributes[name]);	
+	 				}
+				}
+			}
+			
 			$currentUser = Yii::app()->user->model;
 			$message = Yii::app()->mail->constructMessage();
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
-			$message->setBody(array('data'=>$this->Owner, 'newAttributes'=>$this->Owner->getAttributes(), 'oldAttributes'=>$this->getOldAttributes(), 'user'=>$currentUser), 'text/html');
+			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
+				
+			$message->setSubject('Psst. Something just happened on Poncla!');
+			$message->from = 'notifications@' . CHttpRequest::getServerName();
+			
+			$users = $this->Owner->whoToNotifyByEmail();
+			foreach($users->data as $user)
+			{
+				if(strcasecmp($user->id, $currentUser->id) != 0) {
+					$message->setTo($user->email);
+					Yii::app()->mail->send($message); 
+				}
+			}
+		}
+	}
+	
+	public function afterDelete($event) {
+		if($this->Owner->shouldEmail())
+		{
+			// store the changes 
+			$currentUser = Yii::app()->user->model;
+			$message = Yii::app()->mail->constructMessage();
+			$message->view = strtolower(get_class($this->Owner)). '/delete';
+			$message->setBody(array('data'=>$this->Owner, 'user'=>$currentUser), 'text/html');
 				
 			$message->setSubject('Psst. Something just happened on Poncla!');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();

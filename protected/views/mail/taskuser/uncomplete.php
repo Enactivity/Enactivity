@@ -27,7 +27,13 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Hey there. [user] is now again working on [taskName] along with [taskCount] other people.
-echo "Hey there. " . PHtml::encode($user->fullName) . " is now again working on " . PHtml::encode($newAttributes[name]) . ".";
+//echo "Hey there. " . PHtml::encode($user->fullName) . " is now again working on " . PHtml::encode($data->task->name) . ".";
+
+foreach($changedAttributes as $header)
+{
+	echo "Hey there. " . PHtml::encode($user->fullName) . " is now again working on " . PHtml::encode($data->task->name) . ".";
+}
+
 
 echo PHtml::closeTag('article');
 ?>
