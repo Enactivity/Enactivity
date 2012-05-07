@@ -61,7 +61,7 @@ class GroupController extends Controller
 		}
 
 		// Get the list of the active group users
-		$activemembers = $group->getMembersByStatus(GroupUser::STATUS_ACTIVE);
+		$activemembers = new CArrayDataProvider($group->usersActive);
 
 		// Get the list of the pending group users
 		//$pendingmembers = $this->getMembersByStatus($group->id,  GroupUser::STATUS_PENDING);
