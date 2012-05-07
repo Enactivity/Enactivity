@@ -30,11 +30,23 @@ return CMap::mergeArray(
 					// output errors and warning to runtime file
 					array(
 						'class'=>'CFileLogRoute',
+						'filter' => array(
+							'class' => 'CLogFilter',
+							'logUser' => true,
+							'prefixSession' => true,
+							'prefixUser' => true,
+						),
 						'levels'=>'error, warning',
 					),
 					// show log messages on web pages
 					array(
 						'class'=>'CWebLogRoute',
+						'filter' => array(
+							'class' => 'CLogFilter',
+							'logUser' => true,
+							'prefixSession' => true,
+							'prefixUser' => true,
+						),
 					),
 				),
 			),

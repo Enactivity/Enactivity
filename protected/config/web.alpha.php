@@ -20,6 +20,12 @@ return CMap::mergeArray(
 					// output errors and warning to runtime file
 					array(
 						'class'=>'CFileLogRoute',
+						'filter' => array(
+							'class' => 'CLogFilter',
+							'logUser' => true,
+							'prefixSession' => true,
+							'prefixUser' => true,
+						),
 						'levels'=>'error, warning',
 					),
 					array(
