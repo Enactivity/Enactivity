@@ -60,7 +60,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 			if ($value != $oldValue) {
 	 				if(!in_array($name, $this->ignoreAttributes))
 	 				{
-	 					$changes[$name] = array('old'=>$oldAttributes[name], 'new'=>$newAttributes[name]);	
+	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);	
 	 				}
 				}
 			}
