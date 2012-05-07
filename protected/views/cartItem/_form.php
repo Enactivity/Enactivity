@@ -6,6 +6,14 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="field">
+		<?php echo $form->labelEx($model,'sweaterLetters'); ?>
+		<?php echo $form->textField($model,'sweaterLetters', array(
+			'placeholder'=>'Pi Omicron Nu'
+		)); ?>
+		<?php echo $form->error($model,'sweaterLetters'); ?>
+	</div>
+
+	<div class="field">
 		<?php echo $form->labelEx($model,'quantity'); ?>
 		<?php echo $form->numberField($model,'quantity', array(
 			'min'=>CartItem::QUANTITY_MIN_VALUE,

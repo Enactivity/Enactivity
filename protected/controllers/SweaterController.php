@@ -141,7 +141,7 @@ class SweaterController extends Controller
 		}
 		else {
 			$sweater = $sweater->findByAttributes($_GET);
-			$cartItem = $this->handleNewSweaterPurchase($sweater->id);
+			$cartItem = $this->addToCart($sweater->id);
 		}
 
 		foreach ($sweaterSettings as $sweaterParameter => $parameterArray) {
@@ -193,16 +193,16 @@ class SweaterController extends Controller
 	 * @param CartItem
 	 * @return CartItem if not saved, directs otherwise
 	 */
-	public function handleNewSweaterPurchase($sweaterId, $model = null) {
+	public function addToCart($sweaterId, $model = null) {
 		if(is_null($model)) {
-			$model = new CartItem(CartItem::SCENARIO_INSERT);
+			$model = new CartItem();
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['CartItem'])) {
-			if($model->buySweater($sweaterId, $_POST['CartItem'])) {
+			if($model->addToCart($sweaterId, $_POST['CartItem'])) {
 				$this->redirect(array('/store/cart'));
 			}
 		}

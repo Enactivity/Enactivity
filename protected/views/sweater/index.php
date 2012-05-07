@@ -65,7 +65,7 @@ $this->pageTitle = 'Build a Sweater';
 		));
 		?>
 
-		<h2>Buy It</h2>
+		<h2>Customize It</h2>
 		<?php 
 		echo $this->renderPartial('/cartItem/_form', array(
 			'model'=>$cartItem,

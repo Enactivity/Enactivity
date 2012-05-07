@@ -1,7 +1,7 @@
 <?php
 /**
  * View for individual orders
- * @var Cart $data model
+ * @var CartItem $data model
  */
 
 $story = $this->beginWidget('application.components.widgets.Story', array(
@@ -18,29 +18,34 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	    </h1>
 	
 		<?php if ($data->productType == CartItem::PRODUCT_TYPE_SWEATER) : ?>
-		<b><?php echo CHtml::encode($data->product->getAttributeLabel('style')); ?>:</b>
-		<?php echo CHtml::encode($data->product->style); ?>
+		<b><?php echo PHtml::encode($data->product->getAttributeLabel('style')); ?>:</b>
+		<?php echo PHtml::encode($data->product->style); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->product->getAttributeLabel('clothColor')); ?>:</b>
-		<?php echo CHtml::encode($data->product->clothColor); ?>
+		<b><?php echo PHtml::encode($data->product->getAttributeLabel('clothColor')); ?>:</b>
+		<?php echo PHtml::encode($data->product->clothColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->product->getAttributeLabel('letterColor')); ?>:</b>
-		<?php echo CHtml::encode($data->product->letterColor); ?>
+		<b><?php echo PHtml::encode($data->product->getAttributeLabel('letterColor')); ?>:</b>
+		<?php echo PHtml::encode($data->product->letterColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->product->getAttributeLabel('stitchingColor')); ?>:</b>
-		<?php echo CHtml::encode($data->product->stitchingColor); ?>
+		<b><?php echo PHtml::encode($data->product->getAttributeLabel('stitchingColor')); ?>:</b>
+		<?php echo PHtml::encode($data->product->stitchingColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->product->getAttributeLabel('size')); ?>:</b>
-		<?php echo CHtml::encode($data->product->size); ?>
+		<b><?php echo PHtml::encode($data->product->getAttributeLabel('size')); ?>:</b>
+		<?php echo PHtml::encode($data->product->size); ?>
 		<br />
+
+		<b><?php echo PHtml::encode($data->getAttributeLabel('sweaterLetters')); ?>:</b>
+		<?php echo PHtml::encode($data->sweaterLetters); ?>
+		<br />
+
 		<?php endif; ?>
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('quantity')); ?>:</b>
-		<?php echo CHtml::encode($data->quantity); ?>
+		<b><?php echo PHtml::encode($data->getAttributeLabel('quantity')); ?>:</b>
+		<?php echo PHtml::encode($data->quantity); ?>
 		<br />
 
     	<?php if(!$data->purchased) : ?>

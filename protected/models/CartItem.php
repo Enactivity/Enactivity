@@ -16,6 +16,7 @@
  */
 class CartItem extends CActiveRecord
 {
+	const SCENARIO_ADD_TO_CART = 'add to cart';
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
 	const SCENARIO_PURCHASE = 'purchase';
@@ -25,6 +26,7 @@ class CartItem extends CActiveRecord
 
 	const QUANTITY_MIN_VALUE = 1;
 
+	private $_sweaterLetters = null;
 	private $_productActiveRecord = null;
 
 	/**
@@ -76,6 +78,17 @@ class CartItem extends CActiveRecord
 			),
 
 			array(
+				'sweaterLetters',
+				'required',
+				// 'on'=>self::SCENARIO_ADD_TO_CART,
+			),
+
+			array(
+				'sweaterLetters',
+				'validateGreekWords',
+			),
+
+			array(
 				'quantity',
 				'default',
 				'value'=>self::QUANTITY_MIN_VALUE, 
@@ -98,6 +111,33 @@ class CartItem extends CActiveRecord
 		);
 	}
 
+		/**
+	 * Validate that an attribute is made up of greek letters
+	 * @param string $attribute
+	 * @param string $params
+	 * @return boolean false if error, $true if not
+	 */
+	public function validateGreekWords($attribute,$params) {
+		$stringChunks = explode(' ', $this->$attribute);
+		$errors = false;
+		 
+		// Check no more than 4 letters
+		if(sizeof($stringChunks) > 4) {
+			$errors = true;
+			$this->addError($attribute, "Can't fit more than 4 letters on the front of a sweater.");
+		}
+		 
+		// Check that letters are greek
+		foreach($stringChunks as $word) {
+			if($word != '' && !in_array(strtolower($word), Sweater::getGreekLetters())) {
+				$errors = true;
+				$this->addError($attribute, $word . ' is not a greek letter.');
+			}
+		}
+
+		return !$errors;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -107,6 +147,7 @@ class CartItem extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'userId'),
+			'customFields' => array(self::HAS_MANY, 'CartItemCustomField', 'cartItemId'),
 		);
 	}
 
@@ -169,6 +210,16 @@ class CartItem extends CActiveRecord
 		return false;
 	}
 
+	public function afterSave() {
+		parent::afterSave();
+
+		Yii::log('CI id: ' . $this->id);
+		if(CartItemCustomField::saveCustomField($this->id, 'sweaterLetters', $this->_sweaterLetters)) {
+			return true;
+		}
+		throw new CDbException(Yii::t('cartItem','The cartItem custom fields failed to save.'));
+	}
+
 	/**
 	 * Save a new cartItem, runs validation
 	 * @param array $attributes
@@ -214,7 +265,21 @@ class CartItem extends CActiveRecord
 	 * @param array $attributes
 	 * @return boolean
 	 **/ 
+	public function addToCart($sweaterId, $attributes = null) {
+		$this->scenario = self::SCENARIO_ADD_TO_CART;
+		$this->productType = self::PRODUCT_TYPE_SWEATER;
+		$this->productId = $sweaterId;
+		
+		return $this->insertCartItem($attributes);
+	}
+
+	/** 
+	 * Save a new CartItem with a sweater product type
+	 * @param array $attributes
+	 * @return boolean
+	 **/ 
 	public function buySweater($sweaterId, $attributes = null) {
+		$this->scenario = self::SCENARIO_ADD_TO_CART;
 		$this->productType = self::PRODUCT_TYPE_SWEATER;
 		$this->productId = $sweaterId;
 		$this->isPurchased = true;
@@ -294,5 +359,16 @@ class CartItem extends CActiveRecord
 		$model = new $this->productType;
 		$this->_productActiveRecord = $model->findByPk($this->productId);
 		return $this->_productActiveRecord;
+	}
+
+	public function getSweaterLetters() {
+		if(is_null($this->_sweaterLetters)) {
+			$this->_sweaterLetters = CartItemCustomField::getCustomFieldValue($this->id, 'sweaterLetters');
+		}
+		return $this->_sweaterLetters;
+	}
+
+	public function setSweaterLetters($sweaterLetters) {
+		$this->_sweaterLetters = $sweaterLetters;
 	}
 }

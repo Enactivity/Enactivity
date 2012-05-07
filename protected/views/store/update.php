@@ -13,6 +13,6 @@ $this->pageTitle = 'Update Order';
 
 <div class="novel">
 	<section>
-		<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+		<?php echo $this->renderPartial('/cartItem/_form', array('model'=>$model)); ?>
 	</section>
 </div>
