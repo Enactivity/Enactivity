@@ -23,6 +23,8 @@ class Comment extends CActiveRecord implements EmailableRecord
 	
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_REPLY = 'reply';
+
+    private $_modelObject;
 	
     /**
      * Returns the static model of the specified AR class.
@@ -153,6 +155,16 @@ class Comment extends CActiveRecord implements EmailableRecord
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+    }
+
+    public function getModelObject() {
+        if(isset($this->_modelObject)) {
+            return $this->_modelObject;
+        }
+        
+        $model = new $this->model;
+        $this->_modelObject = $model->findByPk($this->modelId);
+        return $this->_modelObject;
     }
     
 	public function shouldEmail()
