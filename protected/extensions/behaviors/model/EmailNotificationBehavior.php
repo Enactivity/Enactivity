@@ -51,16 +51,15 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			// compare old and new
 			foreach ($newAttributes as $name => $value) {
 				// check that if the attribute should be ignored in the log
-				if (!empty($oldAttributes)) {
-					$oldValue = $oldAttributes[$name];
-				} 
-				else {
-					$oldValue = '';
-				}
+				$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
+
 	 			if ($value != $oldValue) {
-	 				if(!in_array($name, $this->ignoreAttributes))
+	 				if(!in_array($name, $this->ignoreAttributes) 
+	 					&& array_key_exists($name, $oldAttributes)
+	 					&& array_key_exists($name, $newAttributes)
+	 				)
 	 				{
-	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);	
+	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
 	 				}
 				}
 			}
