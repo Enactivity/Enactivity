@@ -162,10 +162,14 @@ class Comment extends CActiveRecord implements EmailableRecord
         if(isset($this->_modelObject)) {
             return $this->_modelObject;
         }
-        
-        $model = new $this->model;
-        $this->_modelObject = $model->findByPk($this->modelId);
-        return $this->_modelObject;
+
+        if(isset($this->model)) {
+            $model = new $this->model;
+            $this->_modelObject = $model->findByPk($this->modelId);
+            return $this->_modelObject;
+        }
+
+        return null;
     }
     
 	public function shouldEmail()

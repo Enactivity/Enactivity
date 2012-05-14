@@ -37,6 +37,13 @@ class TaskComment extends Comment
     	$behaviors = parent::behaviors();
     	$behaviors = CMap::mergeArray($behaviors, array(
     		// Add new behaviors here
+            'ActiveRecordLogBehavior'=>array(
+                'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+                'focalModelClass' => 'Task',
+                'focalModelId' => 'modelId',
+                'feedAttribute' => isset($this->modelObject) && isset($this->modelObject->name) ? $this->modelObject->name : "", //TODO: find out effects of "" default
+                'ignoreAttributes' => array('modified'),
+            ),
     	));
     	return $behaviors;
     }
@@ -66,11 +73,11 @@ class TaskComment extends Comment
     	return false;
     }
     
-    public function defaultScope() {
-    	return array(
-    		'model' => self::MODELTYPE,
-    	);
-    }
+    // public function defaultScope() {
+    // 	return array(
+    // 		'model' => self::MODELTYPE,
+    // 	);
+    // }
     
     /**
      * Set the TaskComment's Task
