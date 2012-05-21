@@ -22,7 +22,7 @@ class CartItem extends CActiveRecord
 	const SCENARIO_PURCHASE = 'purchase';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
 
-	const PRODUCT_TYPE_SWEATER = 'sweater';
+	const PRODUCT_TYPE_SWEATER = 'Sweater';
 
 	const QUANTITY_MIN_VALUE = 1;
 
