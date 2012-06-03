@@ -1,0 +1,7 @@
+# Yii files
+assets/*
+protected/runtime/*
+
+# Local config files
+protected/config/console.local.php
+protected/config/web.local.php
