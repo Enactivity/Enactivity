@@ -1,0 +1,53 @@
+<!-- 
+see http://www.phpunit.de/manual/current/en/appendixes.configuration.html 
+for details  
+-->
+<phpunit 
+	bootstrap="bootstrap.php"
+	colors="false"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false"
+	verbose="true"
+>
+
+	<testsuites>
+		<!--
+		<testsuite name="Functional Test Suite">
+			<directory>functional</directory>
+		</testsuite>
+		-->
+		<testsuite name="Unit Test Suite">
+			<directory>unit</directory>
+		</testsuite>
+	</testsuites>
+
+	<selenium>
+		<browser name="Internet Explorer" browser="*iexplore" />
+		<browser name="Firefox" browser="*firefox" />
+	</selenium>
+
+	<filter>
+		<blacklist>
+
+		</blacklist>
+		<whitelist>
+			<directory suffix=".php">../../protected/components</directory>
+			<directory suffix=".php">../../protected/controllers</directory>
+			<directory suffix=".php">../../protected/extensions</directory>
+			<directory suffix=".php">../../protected/helpers</directory>
+			<directory suffix=".php">../../protected/models</directory>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<!-- <log type="coverage-html" target="./report/coverage" charset="UTF-8"
+			yui="true" highlight="false"
+			lowUpperBound="35" highLowerBound="70"/>  -->
+		<log type="junit" target="./report/logfile.xml" 
+			logIncompleteSkipped="false"/>
+		<log type="tap" target="./report/logfile.tap"/>
+	</logging>
+
+</phpunit>

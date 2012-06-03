@@ -1,0 +1,611 @@
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema
+END
+Attr.DefaultTextDir.txt
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.DefaultTextDir.txt
+END
+Core.AggressivelyFixLt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.AggressivelyFixLt.txt
+END
+URI.HostBlacklist.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.HostBlacklist.txt
+END
+URI.MungeResources.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.MungeResources.txt
+END
+Filter.ExtractStyleBlocks.TidyImpl.txt
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.ExtractStyleBlocks.TidyImpl.txt
+END
+URI.DefaultScheme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DefaultScheme.txt
+END
+Test.ForceNoIconv.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Test.ForceNoIconv.txt
+END
+Core.CollectErrors.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.CollectErrors.txt
+END
+HTML.Doctype.txt
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Doctype.txt
+END
+Core.EscapeNonASCIICharacters.txt
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.EscapeNonASCIICharacters.txt
+END
+AutoFormat.RemoveEmpty.RemoveNbsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.RemoveEmpty.RemoveNbsp.txt
+END
+CSS.MaxImgLength.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.MaxImgLength.txt
+END
+Attr.EnableID.txt
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.EnableID.txt
+END
+Cache.DefinitionImpl.txt
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Cache.DefinitionImpl.txt
+END
+Filter.ExtractStyleBlocks.txt
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.ExtractStyleBlocks.txt
+END
+Core.HiddenElements.txt
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.HiddenElements.txt
+END
+Output.TidyFormat.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Output.TidyFormat.txt
+END
+AutoFormat.PurifierLinkify.DocURL.txt
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.PurifierLinkify.DocURL.txt
+END
+AutoFormat.DisplayLinkURI.txt
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.DisplayLinkURI.txt
+END
+HTML.Proprietary.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Proprietary.txt
+END
+HTML.CoreModules.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.CoreModules.txt
+END
+AutoFormat.Linkify.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.Linkify.txt
+END
+Attr.ClassUseCDATA.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.ClassUseCDATA.txt
+END
+HTML.Allowed.txt
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Allowed.txt
+END
+HTML.TidyRemove.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.TidyRemove.txt
+END
+CSS.DefinitionRev.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.DefinitionRev.txt
+END
+Core.ColorKeywords.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.ColorKeywords.txt
+END
+URI.AllowedSchemes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.AllowedSchemes.txt
+END
+URI.OverrideAllowedSchemes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.OverrideAllowedSchemes.txt
+END
+HTML.BlockWrapper.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.BlockWrapper.txt
+END
+Attr.IDPrefixLocal.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.IDPrefixLocal.txt
+END
+Output.FlashCompat.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Output.FlashCompat.txt
+END
+Attr.DefaultImageAlt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.DefaultImageAlt.txt
+END
+CSS.AllowImportant.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.AllowImportant.txt
+END
+Filter.ExtractStyleBlocks.Escaping.txt
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.ExtractStyleBlocks.Escaping.txt
+END
+Core.EscapeInvalidChildren.txt
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.EscapeInvalidChildren.txt
+END
+Attr.DefaultInvalidImageAlt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.DefaultInvalidImageAlt.txt
+END
+HTML.SafeObject.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.SafeObject.txt
+END
+Attr.IDBlacklistRegexp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.IDBlacklistRegexp.txt
+END
+URI.MakeAbsolute.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.MakeAbsolute.txt
+END
+URI.Host.txt
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.Host.txt
+END
+Core.Encoding.txt
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.Encoding.txt
+END
+Attr.AllowedClasses.txt
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.AllowedClasses.txt
+END
+HTML.SafeEmbed.txt
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.SafeEmbed.txt
+END
+HTML.AllowedModules.txt
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.AllowedModules.txt
+END
+Attr.IDPrefix.txt
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.IDPrefix.txt
+END
+HTML.AllowedElements.txt
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.AllowedElements.txt
+END
+Core.RemoveInvalidImg.txt
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.RemoveInvalidImg.txt
+END
+AutoFormat.PurifierLinkify.txt
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.PurifierLinkify.txt
+END
+AutoFormat.RemoveEmpty.RemoveNbsp.Exceptions.txt
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.RemoveEmpty.RemoveNbsp.Exceptions.txt
+END
+AutoFormat.RemoveEmpty.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.RemoveEmpty.txt
+END
+Output.Newline.txt
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Output.Newline.txt
+END
+HTML.AllowedAttributes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.AllowedAttributes.txt
+END
+URI.DefinitionID.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DefinitionID.txt
+END
+URI.DefinitionRev.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DefinitionRev.txt
+END
+Output.CommentScriptContents.txt
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Output.CommentScriptContents.txt
+END
+HTML.CustomDoctype.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.CustomDoctype.txt
+END
+Attr.AllowedFrameTargets.txt
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.AllowedFrameTargets.txt
+END
+HTML.ForbiddenAttributes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.ForbiddenAttributes.txt
+END
+Attr.DefaultInvalidImage.txt
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.DefaultInvalidImage.txt
+END
+CSS.Proprietary.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.Proprietary.txt
+END
+HTML.DefinitionID.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.DefinitionID.txt
+END
+URI.Base.txt
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.Base.txt
+END
+Core.EscapeInvalidTags.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.EscapeInvalidTags.txt
+END
+AutoFormat.RemoveSpansWithoutAttributes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.RemoveSpansWithoutAttributes.txt
+END
+Attr.ForbiddenClasses.txt
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.ForbiddenClasses.txt
+END
+HTML.Attr.Name.UseCDATA.txt
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Attr.Name.UseCDATA.txt
+END
+Filter.ExtractStyleBlocks.Scope.txt
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.ExtractStyleBlocks.Scope.txt
+END
+HTML.MaxImgLength.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.MaxImgLength.txt
+END
+Core.LexerImpl.txt
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.LexerImpl.txt
+END
+Cache.SerializerPath.txt
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Cache.SerializerPath.txt
+END
+AutoFormat.Custom.txt
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.Custom.txt
+END
+Core.MaintainLineNumbers.txt
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.MaintainLineNumbers.txt
+END
+CSS.AllowTricky.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.AllowTricky.txt
+END
+CSS.AllowedProperties.txt
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/CSS.AllowedProperties.txt
+END
+HTML.Parent.txt
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Parent.txt
+END
+Core.ConvertDocumentToFragment.txt
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.ConvertDocumentToFragment.txt
+END
+Filter.Custom.txt
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.Custom.txt
+END
+Attr.IDBlacklist.txt
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.IDBlacklist.txt
+END
+URI.DisableExternalResources.txt
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DisableExternalResources.txt
+END
+URI.Disable.txt
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.Disable.txt
+END
+Attr.AllowedRel.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.AllowedRel.txt
+END
+HTML.TidyLevel.txt
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.TidyLevel.txt
+END
+URI.DisableExternal.txt
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DisableExternal.txt
+END
+HTML.DefinitionRev.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.DefinitionRev.txt
+END
+URI.Munge.txt
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.Munge.txt
+END
+Core.Language.txt
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.Language.txt
+END
+HTML.Strict.txt
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Strict.txt
+END
+Attr.AllowedRev.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Attr.AllowedRev.txt
+END
+AutoFormat.AutoParagraph.txt
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/AutoFormat.AutoParagraph.txt
+END
+Filter.YouTube.txt
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Filter.YouTube.txt
+END
+Output.SortAttr.txt
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Output.SortAttr.txt
+END
+HTML.TidyAdd.txt
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.TidyAdd.txt
+END
+Core.RemoveScriptContents.txt
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.RemoveScriptContents.txt
+END
+URI.MungeSecretKey.txt
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.MungeSecretKey.txt
+END
+info.ini
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/info.ini
+END
+HTML.ForbiddenElements.txt
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.ForbiddenElements.txt
+END
+URI.DisableResources.txt
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/URI.DisableResources.txt
+END
+Core.DirectLexLineNumberSyncInterval.txt
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/Core.DirectLexLineNumberSyncInterval.txt
+END
+HTML.Trusted.txt
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.Trusted.txt
+END
+HTML.XHTML.txt
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema/HTML.XHTML.txt
+END

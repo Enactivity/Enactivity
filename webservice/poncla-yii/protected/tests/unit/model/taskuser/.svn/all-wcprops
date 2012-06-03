@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/webservice/!svn/ver/1196/poncla-yii/protected/tests/unit/model/taskuser
+END
+TaskUserCompleteTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/webservice/!svn/ver/1196/poncla-yii/protected/tests/unit/model/taskuser/TaskUserCompleteTest.php
+END
+TaskUserResumeTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/webservice/!svn/ver/1196/poncla-yii/protected/tests/unit/model/taskuser/TaskUserResumeTest.php
+END
+TaskUserQuitTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/webservice/!svn/ver/1196/poncla-yii/protected/tests/unit/model/taskuser/TaskUserQuitTest.php
+END
+TaskUserSignUpTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/webservice/!svn/ver/1196/poncla-yii/protected/tests/unit/model/taskuser/TaskUserSignUpTest.php
+END

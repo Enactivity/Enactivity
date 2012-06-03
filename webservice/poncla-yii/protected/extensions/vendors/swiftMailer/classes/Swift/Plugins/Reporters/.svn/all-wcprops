@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Reporters
+END
+HitReporter.php
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Reporters/HitReporter.php
+END
+HtmlReporter.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Reporters/HtmlReporter.php
+END

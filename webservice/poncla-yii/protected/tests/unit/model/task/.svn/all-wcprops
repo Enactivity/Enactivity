@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/webservice/!svn/ver/1204/poncla-yii/protected/tests/unit/model/task
+END
+CompleteTaskTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/webservice/!svn/ver/1204/poncla-yii/protected/tests/unit/model/task/CompleteTaskTest.php
+END
+GetStartDateTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/webservice/!svn/ver/1065/poncla-yii/protected/tests/unit/model/task/GetStartDateTest.php
+END
+TaskIncrementParticipantsCountTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/webservice/!svn/ver/1202/poncla-yii/protected/tests/unit/model/task/TaskIncrementParticipantsCountTest.php
+END
+TrashTaskTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/webservice/!svn/ver/1061/poncla-yii/protected/tests/unit/model/task/TrashTaskTest.php
+END
+DeleteTaskTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/webservice/!svn/ver/1199/poncla-yii/protected/tests/unit/model/task/DeleteTaskTest.php
+END
+UpdateTaskTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/webservice/!svn/ver/1065/poncla-yii/protected/tests/unit/model/task/UpdateTaskTest.php
+END
+InsertTaskTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/webservice/!svn/ver/1065/poncla-yii/protected/tests/unit/model/task/InsertTaskTest.php
+END
+TaskParticipateTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/webservice/!svn/ver/1204/poncla-yii/protected/tests/unit/model/task/TaskParticipateTest.php
+END

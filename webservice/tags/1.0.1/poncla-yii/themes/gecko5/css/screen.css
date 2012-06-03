@@ -1,0 +1,505 @@
+/**
+	Max readability = 32 em
+	Max readability @ 16 px = 512 px ~ 9 col  = 520 px 
+	Max readability @ 18 px = 576 px ~ 10 col = 580 px 
+**/
+
+/*
+	General settings
+*/
+html {
+	color: #000000;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-size: 16px; 
+	font-style: normal;
+	height: 100%;
+}
+body
+{
+	height: 100%;
+}
+
+a, a:hover, a:visited, a:active
+{
+	color: #000000;
+}
+
+input, textarea, select {
+	border: none; 
+	font-size: 16px;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+}
+
+strong 
+{
+	font-weight: bold;	
+}
+
+em {
+	font-style: italic;
+}
+
+/*
+	Global wrappers
+*/
+#globalHeader 
+{
+	overflow: hidden;
+}
+
+#globalWrapper
+{
+	min-height: 100%;
+	margin-bottom: 35px;
+}
+
+#globalFooter
+{
+	clear: both;
+	height: 35px; 
+	margin-top: -40px;
+	padding-top: 5px;
+	text-align: center;
+}
+
+/* 
+	Main layout styles
+*/
+#primaryNavigation, 
+#secondaryNavigation
+{
+	clear: both;
+	overflow: hidden;
+}
+
+#primaryNavigation ul, 
+#secondaryNavigation ul
+{
+	list-style-type: none;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+#primaryNavigation ul li,
+#secondaryNavigation ul li
+{
+	white-space: nowrap;
+}
+
+#primaryNavigation ul li a, #primaryNavigation ul li a:visited,
+#secondaryNavigation ul li a, #secondaryNavigation ul li a:visited 
+{
+	font-size: 18px;
+	font-weight: bold;
+	float: left;
+	padding: .5em 10px;
+	text-decoration: none;
+	text-transform: lowercase;
+}
+
+#primaryNavigation ul li a:hover, 
+#secondaryNavigation ul li a:hover, 
+#primaryNavigation ul li.active a,
+#secondaryNavigation ul li.active a
+{
+	background-color: #ff6600;
+	color: #ffffff;
+}
+
+/*
+	Content styles
+*/
+#content
+{
+	clear: both;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+#content h1, #content h2, #content h3, 
+#content h4, #content h5, #content h6 {
+	line-height: 1.2;
+	font-weight: bold;
+	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+#content h1 
+{
+	font-size: 70px;
+	max-width: 32em;
+}
+
+#content h2
+{
+	font-size: 24px;
+	max-width: 32em;
+}
+
+#content h3 
+{
+	font-size: 16px;
+	max-width: 32em;
+}
+
+#content section
+{
+	float: left;
+	max-width: 520px;
+	padding: 10px;
+	width: 100%;
+}
+
+#content a
+{
+
+}
+
+#content a:hover
+{
+	color: #ff6600;
+	text-decoration: underline;
+}
+
+#content p
+{
+	font-weight: normal;
+	margin-bottom: 1.25em;
+	max-width: 32em;
+}
+
+/*
+	Content flashes and errors
+*/ 
+aside.flash-error, aside.flash-notice, aside.flash-success
+{
+	padding: 10px;
+	border-bottom: 2px solid #ddd;
+	border-top: 2px solid #ddd;
+}
+
+aside.flash-error
+{
+	background:#FBE3E4;
+	color:#8a1f11;
+	border-color:#FBC2C4;
+}
+
+aside.flash-notice
+{
+	background:#FFF6BF;
+	color:#514721;
+	border-color:#FFD324;
+}
+
+aside.flash-success
+{
+	background:#E6EFC2;
+	color:#264409;
+	border-color:#C6D880;
+}
+
+aside.flash-error a
+{
+	color:#8a1f11;
+}
+
+aside.flash-notice a
+{
+	color:#7f7b5f;
+}
+
+aside.flash-success a
+{
+	color:#264409;
+}
+
+/*
+	Content lists
+*/
+#content .list-view .items .view 
+{
+	border-bottom: 1px solid #eeeeee;
+	clear: both;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	overflow: hidden;
+}
+
+#content .detail-view dl,
+#content .list-view dl
+{
+	overflow: hidden;
+}
+
+#content .detail-view dt,
+#content .list-view dt
+{
+	clear: both;
+	float: left;
+	margin: auto;
+	font-weight: bold;
+}
+
+#content .detail-view dd,
+#content .list-view dd
+{
+	clear: both;
+	float: left;
+	margin: auto;
+}
+
+/*
+	Content forms
+*/
+#content form
+{
+	background-color: #eeeeee;
+	clear: both;
+	overflow: hidden;
+	padding: 10px;
+	max-width: 520px;
+}
+
+#content form .errorSummary {
+	background-color: #E85C42;
+	border:2px solid #e8160c;
+	color: #ffffff;
+	padding: 10px;
+	margin-bottom: 1em;
+}
+
+#content form .errorSummary p {
+	margin: 0px;
+}
+
+#content form .errorSummary ul {
+	margin-left: 15px;
+}
+
+#content form .row
+{
+	clear: both;
+	overflow: hidden;
+	padding-bottom: 1em;
+}
+
+#content form .row label
+{
+	color: #777777;
+	cursor: text;
+	text-align: right;
+}
+
+#content form .row label.required
+{
+	color: #000000;
+}
+
+#content form .row input, #content form .row textarea, 
+#content form .row select 
+{
+	width: 100%;
+}
+
+#content form input[type=submit], 
+#content form input[type=button] {
+	background-color: #000000;
+	-moz-border-radius-bottomright: 10px 10px;
+	-o-border-bottom-right-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	border-bottom-right-radius: 10px 10px;
+	border: 3px solid #000000;
+	color: #ffffff;
+	cursor: pointer;
+	font-weight: bold;
+	height: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: right;
+	text-shadow: none;
+}
+
+#content form input[type=submit]:hover, 
+#content form input[type=button]:hover {
+	background-color: #ff6600;
+	border: 3px solid #ff6600;
+	-moz-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+}
+
+/* Overrides for disabled buttons */
+#content form input[type=submit].disabled ,
+#content form input[type=submit]:disabled, 
+#content form input[type=submit][disabled=disabled],
+#content form input[type=button]:disabled {
+	background-color: #ffffff;
+	border: 3px solid #000000;
+	color: #000000;
+	cursor: default;
+}
+
+#content form input[type=submit].disabled:hover,
+#content form input[type=submit]:disabled:hover,
+#content form input[type=submit][disabled=disabled],
+#content form input[type=button]:disabled:hover {
+	background-color: #ffffff;
+	border: 3px solid #000000;
+}
+
+#content form .errorMessage {
+	color: #e82c0c;
+	font-size: 12px;
+}
+
+/*
+	Content tables
+*/
+#content tr {
+	vertical-align: text-top;
+	border-bottom: 1px solid #bbbbbb;
+}
+
+#content th 
+{
+	color: #aaaaaa;
+	font-weight: bold;
+}
+
+#content td 
+{
+	max-width: 32em;
+}
+
+/*
+	Content pagination
+*/
+#content ul.yiiPager
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	line-height: 100%;
+	display: inline;
+}
+
+#content ul.yiiPager li
+{
+	display: inline;
+}
+
+#content ul.yiiPager a:link,
+#content ul.yiiPager a:visited
+{
+	border: 1px solid #555555;
+	font-weight: bold;
+	padding: 1px 6px;
+	text-decoration: none;
+}
+
+#content ul.yiiPager .page a
+{
+	font-weight: normal;
+}
+
+#content ul.yiiPager a:hover
+{
+	border: solid 1px #0e509e;
+}
+
+#content ul.yiiPager .selected a
+{
+	background: #3a3a3a;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#content ul.yiiPager .hidden a
+{
+	border: solid 1px #dedede;
+	color: #888888;
+}
+
+/**
+ * Hide first and last buttons by default.
+ */
+#content ul.yiiPager .first,
+#content ul.yiiPager .last
+{
+	display: none;
+}
+
+/* 
+	Site styles
+*/
+
+/*
+	Site: login styles
+*/
+#content #login-form .rememberMe label
+{
+}
+
+#content #login-form #UserLoginForm_rememberMe
+{
+	width: 15px;
+}
+
+#content #login-form .buttons
+{
+	margin-top: 10px;
+}
+
+/*
+	Event styles
+*/
+#content .event
+{
+	margin-bottom: 10px;
+}
+
+#content .event .eventname
+{
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#content .event .eventdate
+{
+	margin-bottom: 15px;
+}
+
+#content input#Event_startDate,
+#content input#Event_endDate {
+	width: 65%;
+}
+
+#content select#Event_startTime,
+#content select#Event_endTime {
+	width: 35%;
+}
+
+/* Reset rsvp form inputs */
+#content .rsvp
+{
+	height: 100%;
+	overflow: hidden;
+	width: 100%
+}
+
+#content .rsvp form input[type=submit], 
+#content .rsvp form input[type=button] {
+	-moz-border-radius-bottomright: 0px 0px;
+	-o-border-bottom-right-radius: 0px 0px;
+	-webkit-border-bottom-right-radius: 0px 0px;
+	border-bottom-right-radius: 0px 0px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	width: 210px;
+}
+
+/*
+	Group styles
+*/

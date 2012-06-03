@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/webservice/!svn/ver/1254/poncla-yii/protected/views/user
+END
+_view.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/webservice/!svn/ver/1128/poncla-yii/protected/views/user/_view.php
+END
+view.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/webservice/!svn/ver/1105/poncla-yii/protected/views/user/view.php
+END
+_users.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/webservice/!svn/ver/1097/poncla-yii/protected/views/user/_users.php
+END
+passwordrecovery.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/webservice/!svn/ver/1244/poncla-yii/protected/views/user/passwordrecovery.php
+END
+_form.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/webservice/!svn/ver/987/poncla-yii/protected/views/user/_form.php
+END
+update.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/webservice/!svn/ver/1244/poncla-yii/protected/views/user/update.php
+END
+_search.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/webservice/!svn/ver/790/poncla-yii/protected/views/user/_search.php
+END
+register.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/webservice/!svn/ver/1244/poncla-yii/protected/views/user/register.php
+END
+updatepassword.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/webservice/!svn/ver/1244/poncla-yii/protected/views/user/updatepassword.php
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/webservice/!svn/ver/1105/poncla-yii/protected/views/user/index.php
+END
+admin.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/webservice/!svn/ver/1254/poncla-yii/protected/views/user/admin.php
+END

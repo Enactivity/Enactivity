@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/protected/controllers
+END
+GroupController.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/protected/controllers/GroupController.php
+END
+UserController.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/protected/controllers/UserController.php
+END
+EventController.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/protected/controllers/EventController.php
+END
+SiteController.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/protected/controllers/SiteController.php
+END

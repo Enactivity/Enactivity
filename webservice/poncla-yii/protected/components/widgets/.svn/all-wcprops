@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/webservice/!svn/ver/1257/poncla-yii/protected/components/widgets
+END
+UserLink.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/webservice/!svn/ver/1097/poncla-yii/protected/components/widgets/UserLink.php
+END
+DetailView.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/webservice/!svn/ver/652/poncla-yii/protected/components/widgets/DetailView.php
+END
+ActiveForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/webservice/!svn/ver/1257/poncla-yii/protected/components/widgets/ActiveForm.php
+END
+Story.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/webservice/!svn/ver/1127/poncla-yii/protected/components/widgets/Story.php
+END
+TextSummary.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/webservice/!svn/ver/652/poncla-yii/protected/components/widgets/TextSummary.php
+END
+TaskDates.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/webservice/!svn/ver/1157/poncla-yii/protected/components/widgets/TaskDates.php
+END

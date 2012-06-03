@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/webservice/!svn/ver/1124/poncla-yii/protected/tests/unit/model/groupuser
+END
+GroupUserInsertGroupUserTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/webservice/!svn/ver/1124/poncla-yii/protected/tests/unit/model/groupuser/GroupUserInsertGroupUserTest.php
+END
+GroupUserInviteGroupUserTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/webservice/!svn/ver/1124/poncla-yii/protected/tests/unit/model/groupuser/GroupUserInviteGroupUserTest.php
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell
+END
+CrudCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/CrudCommand.php
+END
+ModelCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/ModelCommand.php
+END
+ControllerCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/ControllerCommand.php
+END
+FormCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/FormCommand.php
+END
+ModuleCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/ModuleCommand.php
+END
+HelpCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/commands/shell/HelpCommand.php
+END

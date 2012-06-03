@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/schema/pgsql
+END
+CPgsqlSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/schema/pgsql/CPgsqlSchema.php
+END
+CPgsqlTableSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/schema/pgsql/CPgsqlTableSchema.php
+END
+CPgsqlColumnSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/schema/pgsql/CPgsqlColumnSchema.php
+END

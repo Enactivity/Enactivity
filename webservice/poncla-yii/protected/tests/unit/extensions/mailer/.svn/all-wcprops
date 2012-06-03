@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/webservice/!svn/ver/676/poncla-yii/protected/tests/unit/extensions/mailer
+END
+MailerTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/webservice/!svn/ver/676/poncla-yii/protected/tests/unit/extensions/mailer/MailerTest.php
+END
+PasswordEmailTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/webservice/!svn/ver/481/poncla-yii/protected/tests/unit/extensions/mailer/PasswordEmailTest.php
+END
+InviteEmailTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/webservice/!svn/ver/481/poncla-yii/protected/tests/unit/extensions/mailer/InviteEmailTest.php
+END

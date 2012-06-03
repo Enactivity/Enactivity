@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/web/services
+END
+CWebServiceAction.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/web/services/CWebServiceAction.php
+END
+CWebService.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/web/services/CWebService.php
+END
+CWsdlGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/web/services/CWsdlGenerator.php
+END

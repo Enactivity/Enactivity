@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db
+END
+CDbTransaction.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/CDbTransaction.php
+END
+CDbDataReader.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/CDbDataReader.php
+END
+CDbCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/CDbCommand.php
+END
+CDbException.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/CDbException.php
+END
+CDbConnection.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/db/CDbConnection.php
+END

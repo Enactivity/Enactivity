@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/webservice/!svn/ver/1136/poncla-yii/protected/tests/unit/model/group
+END
+UpdateGroupTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/webservice/!svn/ver/1136/poncla-yii/protected/tests/unit/model/group/UpdateGroupTest.php
+END
+InsertGroupTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/webservice/!svn/ver/1053/poncla-yii/protected/tests/unit/model/group/InsertGroupTest.php
+END
+FindBySlugTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/webservice/!svn/ver/1052/poncla-yii/protected/tests/unit/model/group/FindBySlugTest.php
+END
+GroupRulesTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/webservice/!svn/ver/682/poncla-yii/protected/tests/unit/model/group/GroupRulesTest.php
+END

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins
+END
+BandwidthMonitorPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/BandwidthMonitorPlugin.php
+END
+AntiFloodPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/AntiFloodPlugin.php
+END
+LoggerPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/LoggerPlugin.php
+END
+Logger.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Logger.php
+END
+Sleeper.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Sleeper.php
+END
+Timer.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Timer.php
+END
+DecoratorPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/DecoratorPlugin.php
+END
+ReporterPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/ReporterPlugin.php
+END
+Reporter.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/Reporter.php
+END
+PopBeforeSmtpPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/PopBeforeSmtpPlugin.php
+END
+ThrottlerPlugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/webservice/!svn/ver/848/poncla-yii/protected/extensions/vendors/swiftMailer/classes/Swift/Plugins/ThrottlerPlugin.php
+END

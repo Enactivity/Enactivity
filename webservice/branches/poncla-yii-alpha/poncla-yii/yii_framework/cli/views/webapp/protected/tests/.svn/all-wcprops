@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/views/webapp/protected/tests
+END
+WebTestCase.php
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/views/webapp/protected/tests/WebTestCase.php
+END
+bootstrap.php
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/views/webapp/protected/tests/bootstrap.php
+END
+phpunit.xml
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/cli/views/webapp/protected/tests/phpunit.xml
+END

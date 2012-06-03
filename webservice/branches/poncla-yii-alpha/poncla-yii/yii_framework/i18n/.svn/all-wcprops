@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n
+END
+CGettextMessageSource.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CGettextMessageSource.php
+END
+CDbMessageSource.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CDbMessageSource.php
+END
+CNumberFormatter.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CNumberFormatter.php
+END
+CPhpMessageSource.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CPhpMessageSource.php
+END
+CLocale.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CLocale.php
+END
+CDateFormatter.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CDateFormatter.php
+END
+CChoiceFormat.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CChoiceFormat.php
+END
+CMessageSource.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/i18n/CMessageSource.php
+END

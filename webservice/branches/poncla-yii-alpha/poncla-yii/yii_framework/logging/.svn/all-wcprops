@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging
+END
+CDbLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CDbLogRoute.php
+END
+CLogFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CLogFilter.php
+END
+CEmailLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CEmailLogRoute.php
+END
+CWebLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CWebLogRoute.php
+END
+CLogger.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CLogger.php
+END
+CFileLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CFileLogRoute.php
+END
+CLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CLogRoute.php
+END
+CProfileLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CProfileLogRoute.php
+END
+CLogRouter.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/webservice/!svn/ver/71/branches/poncla-yii-alpha/poncla-yii/yii_framework/logging/CLogRouter.php
+END
