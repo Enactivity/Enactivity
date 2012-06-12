@@ -1,6 +1,7 @@
 # Yii files
 assets/*
 protected/runtime/*
+protected/tests/report/*
 
 # Local config files
 protected/config/console.local.php
