@@ -2,15 +2,17 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 	<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=no"/>  
+	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquery-ui.css" media="all" />
 	<!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
+
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/reset.css"); ?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/screen.css"); ?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/jquery-ui.css"); ?>
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
