@@ -14,7 +14,7 @@ return CMap::mergeArray(
 			'clientScript'=>array(
 				'packages'=>array(
 					'jquery'=>array(
-						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/',
+						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.7/',
 						'js'=>array('jquery.min.js'),
 					)
 				),
