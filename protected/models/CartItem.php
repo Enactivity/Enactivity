@@ -78,13 +78,13 @@ class CartItem extends CActiveRecord
 			),
 
 			array(
-				'sweaterLetters',
+				'sweaterLetters, firstLetter',
 				'required',
 				// 'on'=>self::SCENARIO_ADD_TO_CART,
 			),
 
 			array(
-				'sweaterLetters',
+				'firstLetter, secondLetter, thirdLetter',
 				'validateGreekWords',
 			),
 
@@ -361,6 +361,9 @@ class CartItem extends CActiveRecord
 		return $this->_productActiveRecord;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getSweaterLetters() {
 		if(is_null($this->_sweaterLetters)) {
 			$this->_sweaterLetters = CartItemCustomField::getCustomFieldValue($this->id, 'sweaterLetters');
@@ -368,7 +371,86 @@ class CartItem extends CActiveRecord
 		return $this->_sweaterLetters;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getSweaterLettersAsArray() {
+		return $this->sweaterLetters ? explode(' ', $this->sweaterLetters) : array_fill(0, 3, '');	
+	}
+
+	/**
+	 * @param string|array of letters
+	 * @return null 
+	 */
 	public function setSweaterLetters($sweaterLetters) {
+		if(is_array($sweaterLetters)) {
+			$sweaterLetters = implode(' ', $sweaterLetters);
+		}
 		$this->_sweaterLetters = $sweaterLetters;
+	}
+
+	/**
+	 * @param string
+	 * @param int
+	 * @return null
+	 */
+	public function setLetterAtIndex($letter, $index) {
+		$letters = $this->sweaterLettersAsArray;
+		$letters[$index] = $letter;
+		$this->sweaterLetters = $letters;
+	}
+
+	/**
+	 * @param int
+	 * @return string
+	 */
+	public function getLetterAtIndex($index) {
+		$letters = $this->sweaterLettersAsArray;
+		return $letters[$index];
+	}
+
+	/**
+	 * @return string
+	 **/
+	public function getFirstLetter() {
+		return $this->getLetterAtIndex(0);
+	}
+
+	/**
+	 * @param string
+	 * @return null
+	 */
+	public function setFirstLetter($letter) {
+		$this->setLetterAtIndex($letter, 0);
+	}
+
+	/**
+	 * @return string
+	 **/
+	public function getSecondLetter() {
+		return $this->getLetterAtIndex(1);
+	}
+
+	/**
+	 * @param string
+	 * @return null
+	 */
+	public function setSecondLetter($letter) {
+		$this->setLetterAtIndex($letter, 1);
+	}
+
+	/**
+	 * @return string
+	 **/
+	public function getThirdLetter() {
+		return $this->getLetterAtIndex(2);
+	}
+
+	/**
+	 * @param string
+	 * @return null
+	 */
+	public function setThirdLetter($letter) {
+		$this->setLetterAtIndex($letter, 2);
 	}
 }

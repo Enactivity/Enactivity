@@ -7,9 +7,9 @@
 
 	<div class="field">
 		<?php echo $form->labelEx($model,'sweaterLetters'); ?>
-		<?php echo $form->textField($model,'sweaterLetters', array(
-			'placeholder'=>'Pi Omicron Nu'
-		)); ?>
+		<?php echo $form->dropDownList($model,'firstLetter', PHtml::GetGreekLetters()); ?>
+		<?php echo $form->dropDownList($model,'secondLetter', PHtml::GetGreekLetters()); ?>
+		<?php echo $form->dropDownList($model,'thirdLetter', PHtml::GetGreekLetters()); ?>
 		<?php echo $form->error($model,'sweaterLetters'); ?>
 	</div>
 
