@@ -84,7 +84,7 @@ class CartItem extends CActiveRecord
 			),
 
 			array(
-				'firstLetter, secondLetter, thirdLetter',
+				'firstLetter, secondLetter, thirdLetter, fourthLetter',
 				'validateGreekWords',
 			),
 
