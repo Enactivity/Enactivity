@@ -29,10 +29,7 @@ echo PHtml::openTag('p');
 //Great! [user] just completed [taskName]. So far, [taskCount] out of [totalTaskCount] people also completed the task. note: for the future, want to indicate level of completion.
 //echo "Great! " . PHtml::encode($user->fullName) . " just completed " . PHtml::encode($data->task->name) . ".";
 
-foreach($changedAttributes as $header)
-{
-	echo "Great! " . PHtml::encode($user->fullName) . " just completed " . PHtml::encode($data->task->name) . ".";
-}
+echo "Great! " . PHtml::encode($user->fullName) . " just completed " . PHtml::encode($data->task->name) . ".";
 
 echo PHtml::closeTag('article');
 ?>
