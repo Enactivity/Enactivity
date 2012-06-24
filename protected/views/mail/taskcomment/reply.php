@@ -27,12 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Just a heads up, [user] replied to a comment for [taskName].
-//echo "Just a heads up, " . PHtml::encode($user->fullName) . " replied to a comment for " . PHtml::encode($data->task->name) . ".";
-
-foreach($changedAttributes as $header)
-{
-	echo "Just a heads up, " . PHtml::encode($user->fullName) . " replied to a comment for " . PHtml::encode($data->task->name) . ".";
-}
+echo "Just a heads up, " . PHtml::encode($user->fullName) . " replied to a comment for " . PHtml::encode($data->task->name) . ".";
 
 echo PHtml::closeTag('article');
 ?>

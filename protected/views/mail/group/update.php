@@ -26,12 +26,7 @@ echo PHtml::closeTag('strong');
 echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
-//display Hey there. Just letting you know <user> changed the group name from <oldname> to <newname>
-//echo "Hey there. Just letting you know " . PHtml::encode($user->fullName) . " updated the name of your group to " . PHtml::encode($data->name) . ".";
-
-foreach($changedAttributes as $header)
-{
-	echo "Hey there. Just letting you know " . PHtml::encode($user->fullName) . " updated the name of your group to " . PHtml::encode($data->name) . ".";
-}
+//Hey there. Just letting you know <user> changed the group name from <oldname> to <newname>
+echo "Hey there. Just letting you know " . PHtml::encode($user->fullName) . " updated the name of your group to " . PHtml::encode($data->name) . ".";
 
 echo PHtml::closeTag('article');

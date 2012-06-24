@@ -111,6 +111,9 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 		$this->setOldAttributes($this->Owner->getAttributes());
 	}
  
+ 	/**
+ 	 * Get the old attribute for the current owner
+ 	**/
 	public function getOldAttributes() {
 		return $this->_oldAttributes;
 	}
