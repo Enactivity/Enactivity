@@ -102,8 +102,9 @@ class CartItem extends CActiveRecord
 			),
 
 			array(
-				'delivered', 
+				'isDelivered', 
 				'safe',
+				// TODO: only for admin
 			),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
