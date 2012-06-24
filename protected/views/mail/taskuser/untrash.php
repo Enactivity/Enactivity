@@ -27,13 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Great news! [user] is now participating again on [taskName]..
-//echo "Great news! " . PHtml::encode($user->fullName) . " is now participating again on " . PHtml::encode($data->task->name) . ".";
-
-foreach($changedAttributes as $header)
-{
-	echo "Great news! " . PHtml::encode($user->fullName) . " is now participating again on " . PHtml::encode($data->task->name) . ".";
-	
-}
+echo "Great news! " . PHtml::encode($user->fullName) . " is now participating again on " . PHtml::encode($data->task->name) . ".";
 
 echo PHtml::closeTag('article');
 ?>

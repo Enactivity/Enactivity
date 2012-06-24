@@ -27,12 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Aww..[user] just quit [taskName].
-//echo "Aww.. " . PHtml::encode($user->fullName) . " just quit " . PHtml::encode($data->task->name) . ".";
-
-foreach($changedAttributes as $header)
-{
-	echo "Aww.. " . PHtml::encode($user->fullName) . " just quit " . PHtml::encode($data->task->name) . ".";
-}
+echo "Aww.. " . PHtml::encode($user->fullName) . " just quit " . PHtml::encode($data->task->name) . ".";
 
 echo PHtml::closeTag('article');
 ?>
