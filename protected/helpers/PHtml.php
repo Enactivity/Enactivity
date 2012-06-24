@@ -315,6 +315,14 @@ class PHtml extends CHtml {
 		
 		return implode(" ", $articleClass);
 	}
+
+	public static function GetGreekLetters() {
+		$letters = array('' => '');
+		foreach (Sweater::getGreekLetters() as $letter) {
+			$letters[$letter] = ucfirst($letter);
+		}
+		return $letters;
+	}
 	
 	/**
 	 * Returns the classes values associated with a Comment object
