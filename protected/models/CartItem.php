@@ -453,4 +453,19 @@ class CartItem extends CActiveRecord
 	public function setThirdLetter($letter) {
 		$this->setLetterAtIndex($letter, 2);
 	}
+
+	/**
+	 * @return string
+	 **/
+	public function getFourthLetter() {
+		return $this->getLetterAtIndex(3);
+	}
+
+	/**
+	 * @param string
+	 * @return null
+	 */
+	public function setFourthLetter($letter) {
+		$this->setLetterAtIndex($letter, 3);
+	}
 }

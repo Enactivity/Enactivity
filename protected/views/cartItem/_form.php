@@ -10,6 +10,7 @@
 		<?php echo $form->dropDownList($model,'firstLetter', PHtml::GetGreekLetters()); ?>
 		<?php echo $form->dropDownList($model,'secondLetter', PHtml::GetGreekLetters()); ?>
 		<?php echo $form->dropDownList($model,'thirdLetter', PHtml::GetGreekLetters()); ?>
+		<?php echo $form->dropDownList($model,'fourthLetter', PHtml::GetGreekLetters()); ?>
 		<?php echo $form->error($model,'sweaterLetters'); ?>
 	</div>
 
