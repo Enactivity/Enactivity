@@ -47,7 +47,7 @@ foreach($changedAttributes as $attributeName => $attributeArray)
 	// user removing a set date and time
 	else if(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] == '')
 	{
-		if($attributeArray['old']->metadata->columns[$attributeName]->dbType == 'datetime')
+		if($data->metadata->columns[$attributeName]->dbType == 'datetime')
 		{
 			$attributeArray['old'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['old']));
 		}
@@ -56,7 +56,7 @@ foreach($changedAttributes as $attributeName => $attributeArray)
 	// user updating a date and time originally null
 	else
 	{
-		if($attributeArray['new']->metadata->columns[$attributeName]->dbType == 'datetime')
+		if($data->metadata->columns[$attributeName]->dbType == 'datetime')
 		{
 			$attributeArray['new'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['new'])); 
 		}
