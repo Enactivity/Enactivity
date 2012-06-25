@@ -59,6 +59,12 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 					&& array_key_exists($name, $newAttributes)
 	 				)
 	 				{
+	 					// Hack: Format the datetimes into readable strings
+	 					if ($this->Owner->metadata->columns[$name]->dbType == 'datetime') {
+							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
+							$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
+						}
+
 	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
 	 				}
 				}
