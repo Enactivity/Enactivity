@@ -37,17 +37,21 @@ foreach($changedAttributes as $header)
 	// user updating a date and time originally not null
 	if(isset($header['old']) && $header['old'] != '' && $header['new'] != '')
 	{
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . " to " . PHtml::encode($header['new']) . ".";
+		$old = Yii::app()->format->formatDateTime(strtotime($header['old']));
+		$new = Yii::app()->format->formatDateTime(strtotime($header['new'])); 
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($old) . " to " . PHtml::encode($new) . ".";
 	}
 	// user removing a set date and time
 	else if(isset($header['old']) && $header['old'] != '' && $header['new'] == '')
 	{
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " removed the date and time for " . PHtml::encode($data->name) . " which used to start at ". PHtml::encode($header['old']) . ".";
+		$old = Yii::app()->format->formatDateTime(strtotime($header['old']));
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " removed the date and time for " . PHtml::encode($data->name) . " which used to start at ". PHtml::encode($old) . ".";
 	}
 	// user updating a date and time originally null
 	else
 	{
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " added a date and time for " . PHtml::encode($data->name) . " which now starts at " . PHtml::encode($header['new']) . ".";
+		$new = Yii::app()->format->formatDateTime(strtotime($header['new'])); 
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " added a date and time for " . PHtml::encode($data->name) . " which now starts at " . PHtml::encode($new) . ".";
 	}
 }
 
