@@ -34,7 +34,7 @@ echo PHtml::openTag('p');
 
 foreach($changedAttributes as $header)
 {
-	if(!isset($header['old'])
+	if(!isset($header['old']))
 	{
 		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " with " . PHtml::encode($header['new']) . ".";
 	}
