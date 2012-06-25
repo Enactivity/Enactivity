@@ -32,26 +32,35 @@ echo PHtml::openTag('p');
 //Hey there! Just letting you know, [user] changed the task name from [oldTaskName] to [newTaskName].
 //echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " changed the task name from " . PHtml::encode($changedAttributes['old']) . " to " . PHtml::encode($changedAttributes['new']) . ".";
 
-foreach($changedAttributes as $header)
+foreach($changedAttributes as $attributeName => $attributeArray)
 {
 	// user updating a date and time originally not null
-	if(isset($header['old']) && $header['old'] != '' && $header['new'] != '')
+	if(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] != '')
 	{
-		$old = Yii::app()->format->formatDateTime(strtotime($header['old']));
-		$new = Yii::app()->format->formatDateTime(strtotime($header['new'])); 
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($old) . " to " . PHtml::encode($new) . ".";
+		if ($data->metadata->columns[$attributeName]->dbType == 'datetime')
+		{
+			$attributeArray['old'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['old']));
+			$attributeArray['new'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['new'])); 
+		}
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($attributeArray['old']) . " to " . PHtml::encode($attributeArray['new']) . ".";
 	}
 	// user removing a set date and time
-	else if(isset($header['old']) && $header['old'] != '' && $header['new'] == '')
+	else if(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] == '')
 	{
-		$old = Yii::app()->format->formatDateTime(strtotime($header['old']));
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " removed the date and time for " . PHtml::encode($data->name) . " which used to start at ". PHtml::encode($old) . ".";
+		if($attributeArray['old']->metadata->columns[$attributeName]->dbType == 'datetime')
+		{
+			$attributeArray['old'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['old']));
+		}
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " removed the date and time for " . PHtml::encode($data->name) . " which used to start at ". PHtml::encode($attributeArray['old']) . ".";	
 	}
 	// user updating a date and time originally null
 	else
 	{
-		$new = Yii::app()->format->formatDateTime(strtotime($header['new'])); 
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " added a date and time for " . PHtml::encode($data->name) . " which now starts at " . PHtml::encode($new) . ".";
+		if($attributeArray['new']->metadata->columns[$attributeName]->dbType == 'datetime')
+		{
+			$attributeArray['new'] = Yii::app()->format->formatDateTime(strtotime($attributeArray['new'])); 
+		}
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " added a date and time for " . PHtml::encode($data->name) . " which now starts at " . PHtml::encode($attributeArray['new']) . ".";
 	}
 }
 
