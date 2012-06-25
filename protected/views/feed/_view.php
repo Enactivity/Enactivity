@@ -31,7 +31,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			}?>
 		</h1>	
 			
-		<?php if($data->action == ActiveRecordLog::ACTION_UPDATED) { ?>
+		<?php if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p>Changed
 		<?php // if the referred to model was actually deleted then avoid the null pointer exception
 		if(isset($data->modelObject)) {
@@ -61,15 +61,15 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	 	if(is_null($data->newAttributeValue)) {
 			echo 'nothing';
 		}
-				elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
-					echo Yii::app()->format->formatDateTime(strtotime($data->newAttributeValue));
-				}
-				else {
-					echo PHtml::encode($data->newAttributeValue);
-				}
-				echo PHtml::closeTag('em');
-				echo PHtml::closeTag('p');
-			}
+		elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
+			echo Yii::app()->format->formatDateTime(strtotime($data->newAttributeValue));
+		}
+		else {
+			echo PHtml::encode($data->newAttributeValue);
+		}
+		echo PHtml::closeTag('em');
+		echo PHtml::closeTag('p');
+		endif; 
 		?>
 		<?php $story->beginControls() ?>
 			<li>
