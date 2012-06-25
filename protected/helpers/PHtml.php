@@ -2,6 +2,25 @@
 class PHtml extends CHtml {
 
 	/**
+	 * Encodes and echos the provided text
+	 * @param string
+	 * @return null
+	 **/
+	public static function echoEncode($text) {
+		echo self::encode($text);
+	}
+
+	/**
+	 * Shorthand for echoEncode($text);
+	 * @param string
+	 * @return null
+	 * @see echoEncode
+	 **/
+	public static function e($text) {
+		self::echoEncode($text);
+	}
+
+	/**
 	 * Generates an date field input.
 	 * @param string the input name
 	 * @param string the input value
