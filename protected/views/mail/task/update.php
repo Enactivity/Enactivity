@@ -34,7 +34,14 @@ echo PHtml::openTag('p');
 
 foreach($changedAttributes as $header)
 {
-	echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . " to " . PHtml::encode($header['new']) . ".";
+	if(!isset($header['old'])
+	{
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " with " . PHtml::encode($header['new']) . ".";
+	}
+	else
+	{
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . " to " . PHtml::encode($header['new']) . ".";
+	}
 }
 
 echo PHtml::closeTag('article');
