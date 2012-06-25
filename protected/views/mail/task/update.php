@@ -34,13 +34,13 @@ echo PHtml::openTag('p');
 
 foreach($changedAttributes as $header)
 {
-	if(!isset($header['old']))
+	if(isset($header['old']) && $header['old'] != '')
 	{
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " with " . PHtml::encode($header['new']) . ".";
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . " to " . PHtml::encode($header['new']) . ".";
 	}
 	else
 	{
-		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " from ". PHtml::encode($header['old']) . " to " . PHtml::encode($header['new']) . ".";
+		echo "Hey there! Just letting you know, " . PHtml::encode($user->fullName) . " updated " . PHtml::encode($data->name) . " with " . PHtml::encode($header['new']) . ".";
 	}
 }
 
