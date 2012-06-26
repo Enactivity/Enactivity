@@ -1,6 +1,6 @@
 # Getting started
-`git clone https://github.com/Poncla/Poncla.git`
-`cd Poncla/protected`
-`./yiic system config --env='development'`
-`./yiic migrate up`
-`./yiic store loadSweatersFromFile`
+1. `git clone https://github.com/Poncla/Poncla.git`
+2. `cd Poncla/protected`
+3. `./yiic system config --env='development'`
+4. `./yiic migrate up`
+5. `./yiic store loadSweatersFromFile`
