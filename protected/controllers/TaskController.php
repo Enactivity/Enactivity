@@ -413,8 +413,9 @@ class TaskController extends Controller
 	{
 		$model=new Task('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Task']))
-		$model->attributes=$_GET['Task'];
+		if(isset($_GET['Task'])) {
+			$model->attributes=$_GET['Task'];
+		}
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -431,8 +432,9 @@ class TaskController extends Controller
 	public function loadTaskModel($id)
 	{
 		$model=Task::model()->findByPk((int)$id);
-		if($model===null)
-		throw new CHttpException(404,'The requested page does not exist.');
+		if(is_null($model)) {
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
 		return $model;
 	}
 
