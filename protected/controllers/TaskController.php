@@ -327,9 +327,9 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = TaskService::nextTasksForUser(Yii::app()->user->model);
+		$tasksDataProvider = TaskService::nextTasksForUser(Yii::app()->user->model);
 
-		$calendar = new TaskCalendar($dataProvider->data);
+		$calendar = new TaskCalendar($tasksDataProvider->data);
 		
 		$feedModel = new ActiveRecordLog();
 		$feedProvider = new CActiveDataProvider(
