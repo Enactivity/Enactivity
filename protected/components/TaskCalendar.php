@@ -5,17 +5,32 @@ class TaskCalendar extends CComponent {
 	private $someday = array();
 	
 	/**
+	 * Construct a new Task Calendar using the tasks 
+	 **/
+	public function __construct($tasksArray) {
+		foreach ($tasksArray as $task) {
+			$this->addTasks($task);
+		}
+	}
+
+	/**
 	 * Load a list of tasks into a calendar
-	 * @param array $tasks list of tasks
+	 * @param array $tasks list of tasks, allows for arrays of arrays too
 	 */
 	public function addTasks($tasks) {
 		/** @var $task Task **/
 		foreach ($tasks as $task) {
-			if(isset($task->starts)) {
-				$this->days[$task->startDate][$task->startTime][] = $task;
+
+			if(is_array($task)) {
+				$this->addTasks($task);
 			}
 			else {
-				$this->someday[] = $task;
+				if(isset($task->starts)) {
+					$this->days[$task->startDate][$task->startTime][] = $task;
+				}
+				else {
+					$this->someday[] = $task;
+				}
 			}
 		}
 	}

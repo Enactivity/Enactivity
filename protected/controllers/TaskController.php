@@ -364,9 +364,10 @@ class TaskController extends Controller
 		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
 		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
 		
-		$taskcalendar = new TaskCalendar();
-		$taskcalendar->addTasks($datedTasks->data);
-		$taskcalendar->addTasks($datelessTasks->data);
+		$taskcalendar = new TaskCalendar(array(
+			$datedTasks->data,
+			$datelessTasks->data
+		));
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
