@@ -18,6 +18,7 @@ return array(
 		'application.components.*',
 		'application.helpers.*',
 		'application.extensions.*',
+		'application.services.*',
 	),
 
 	// application components

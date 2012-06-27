@@ -359,35 +359,10 @@ class TaskController extends Controller
 	 */
 	public function actionCalendar($month=null, $year=null)
 	{
-		$monthObj = new Month($month, $year);
+		$month = new Month($month, $year);
 
-		$taskWithDateQueryModel = new Task();
-		$datedTasks = new CActiveDataProvider(
-			$taskWithDateQueryModel
-			->scopeUsersGroups(Yii::app()->user->id)
-			->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
-
-		$taskWithoutDateQueryModel = new Task();
-		$datelessTasks = new CActiveDataProvider(
-		$taskWithoutDateQueryModel
-			->scopeUsersGroups(Yii::app()->user->id)
-			->scopeNoWhen()
-			->scopeNotCompleted()
-			->roots(),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
+		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
+		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
 		
 		$taskcalendar = new TaskCalendar();
 		$taskcalendar->addTasks($datedTasks->data);
@@ -401,7 +376,7 @@ class TaskController extends Controller
 				'datedTasksProvider'=>$datedTasks,
 				'datelessTasksProvider'=>$datelessTasks,
 				'newTask'=>$newTask,
-				'month'=>$monthObj,
+				'month'=>$month,
 			)
 		);
 	}
