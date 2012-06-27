@@ -5,6 +5,21 @@
 class TaskService extends Service {
 
 	/**
+	 * Get the next tasks the user is signed up for
+	 * @param User model
+	 * @return CArrayDataProvider
+	 */
+	public static function nextTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->nextTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
+	/**
 	 * Get an ActiveDataProvider with data about tasks for a given month
 	 * @param int
 	 * @param Month 
