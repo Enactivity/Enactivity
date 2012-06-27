@@ -327,15 +327,9 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CArrayDataProvider(
-		Yii::app()->user->model->nextTasks,
-			array(
-				'pagination'=>false,
-			)
-		);
+		$dataProvider = TaskService::nextTasksForUser(Yii::app()->user->model);
 
-		$calendar = new TaskCalendar();
-		$calendar->addTasks($dataProvider->data);
+		$calendar = new TaskCalendar($dataProvider->data);
 		
 		$feedModel = new ActiveRecordLog();
 		$feedProvider = new CActiveDataProvider(
