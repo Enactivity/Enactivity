@@ -333,7 +333,7 @@ class TaskController extends Controller
 				'pagination'=>false,
 			)
 		);
-		
+
 		$calendar = new TaskCalendar();
 		$calendar->addTasks($dataProvider->data);
 		

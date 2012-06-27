@@ -6,11 +6,10 @@ class TaskCalendar extends CComponent {
 	
 	/**
 	 * Construct a new Task Calendar using the tasks 
+	 * @param array an array of Task models (allows nesting of arrays)
 	 **/
-	public function __construct($tasksArray = array()) {
-		foreach ($tasksArray as $task) {
-			$this->addTasks($task);
-		}
+	public function __construct($tasks = array()) {
+		$this->addTasks($tasks);
 	}
 
 	/**
