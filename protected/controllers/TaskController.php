@@ -332,7 +332,7 @@ class TaskController extends Controller
 		$calendar = new TaskCalendar($tasksDataProvider->data);
 		
 		$feedModel = new ActiveRecordLog();
-		$feedProvider = new CActiveDataProvider(
+		$feedDataProvider = new CActiveDataProvider(
 			$feedModel->scopeUsersGroups(Yii::app()->user->id),
 			array(
 			)
@@ -344,7 +344,7 @@ class TaskController extends Controller
 		$this->render('index', array(
 			'calendar'=>$calendar,
 			'newTask'=>$newTask,
-			'feedProvider'=>$feedProvider,
+			'feedProvider'=>$feedDataProvider,
 		));
 	}
 
