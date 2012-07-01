@@ -12,6 +12,11 @@ class TaskCalendar extends CComponent {
 		$this->addTasks($tasks);
 	}
 
+	public static function loadCalendarNextTasks() {
+		$nextTasks = TaskService::nextTasksForUser(Yii::app()->user->model);
+		return new TaskCalendar($nextTasks->data);
+	}
+
 	public static function loadCalendarByMonth($month) {
 		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
 		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
