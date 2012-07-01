@@ -61,49 +61,20 @@ echo PHtml::closeTag('thead');
 echo PHtml::openTag('tbody');
 
 while($month->valid()) {
+	// if it's the start of a week (Sunday), start a new row
 	if($month->currentWDay == 0) {
 		echo PHtml::openTag('tr');
 	}
 
-	//add styles to day
-	$htmlOptions = array(
-		'class' => 'day'
-	);
+	echo PHtml::tag('td', array(
+		'class' => PHtml::calendarDayClass($month, $calendar)
+	));
 
-	$hasTasks = $calendar->hasTasksOnDate($month->currentDate);
-	if($hasTasks) {
-		$htmlOptions['class'] .= ' has-tasks';
-	}
-	else {
-		$htmlOptions['class'] .= ' has-no-tasks';
-	}
-	
-	// clarify if current month or not
-	if($month->isPreviousMonth) {
-		$htmlOptions['class'] .= ' previous-month';
-	}
-	elseif ($month->isNextMonth) {
-		$htmlOptions['class'] .= ' next-month';
-	}
-	echo PHtml::tag('td', $htmlOptions);
+	echo PHtml::calendarDayLink($month, $calendar);
 
-	if($hasTasks) {
-		echo PHtml::link(
-			$month->currentMDay, '#'.PHtml::dateTimeId($month->currentTimestamp)
-		);
-	}
-	else {
-		echo PHtml::link(
-			$month->currentMDay, 
-			array('task/create/', 
-				'day' => $month->currentMDay,
-				'month' => $month->currentMon,
-				'year' => $month->year,
-			)
-		);
-	}
+	echo PHtml::closeTag('td');
 
-	// if it's the end of a week, end a the row
+	// if it's the end of a week, end the row
 	if($month->currentWDay == 6) {
 		echo PHtml::closeTag('tr');
 	};
