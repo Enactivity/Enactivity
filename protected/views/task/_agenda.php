@@ -62,12 +62,11 @@ foreach($calendar->datedTasks as $day => $times) {
 	}
 }
 
-$somedaytasks = $calendar->getSomedayTasks();
-if(!empty($somedaytasks)) {
+if($calendar->hasSomedayTasks) {
 	echo PHtml::openTag('h1', array('id' => 'no-start-datedTasks'));
 	echo 'Someday';
 	echo PHtml::closeTag('h1');
-	foreach($somedaytasks as $task) {
+	foreach($calendar->somedayTasks as $task) {
 		if(!isset($task->starts)) {
 			echo $this->renderPartial('_view', array(
 				'data'=>$task,

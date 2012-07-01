@@ -80,6 +80,13 @@ class TaskCalendar extends CComponent {
 		return isset($this->days[$date]) && !empty($this->days[$date]);
 	}
 	
+	/** 
+	 * @return boolean true if calendar has tasks with no start date
+	 **/
+	public function getHasSomedayTasks() {
+		return !empty($this->somedayTasks);
+	}
+
 	/**
 	 * @return number of events in calendar
 	 */
