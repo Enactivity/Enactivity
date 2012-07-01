@@ -1,34 +1,47 @@
 <?php
 /**
- * 
+ * Class representing a month of dates.  Should be iterable where
+ * key = index of dates, and value = date
  * @author ajsharma
  */
-class Month extends CComponent {
+class Month extends CComponent implements Iterator{
 	
 	/**
 	 * The integer value of the month
 	 * @var int
 	 */
-	public $intValue;
+	public $monthIndex;
 	
 	/**
 	 * The integer value of the year
 	 * @var int
 	 */
 	public $year;
+
+	/**
+	 * Array of dates in month, each in the form of an associative array
+	 * @see http://php.net/manual/en/function.getdate.php
+	 **/
+	private $dates = array();
+
+	/**
+	 * Current index of the iterator
+	 **/
+	private $iteratorPosition = 0;
 	
 	/**
-	 * Construct a new month, intValue value equals the current month and year
-	 * @param intValue int
-	 * @param year int
+	 * Construct a new month
+	 * @param monthIndex int current month index (i.e. 1 - 12)
+	 * @param year int (e.g. 2012)
+	 * @return Month
 	 */
-	public function Month($intValue = null, $year = null) {
+	public function __construct($monthIndex = null, $year = null) {
 		
-		if(is_null($intValue)) {
-			$this->intValue = date('m');
+		if(is_null($monthIndex)) {
+			$this->monthIndex = date('m');
 		}
 		else {
-			$this->intValue = $intValue;
+			$this->monthIndex = $monthIndex;
 		}
 		
 		if(is_null($year)) {
@@ -37,21 +50,35 @@ class Month extends CComponent {
 		else {
 			$this->year = $year;		
 		}
+
+		$this->fillDates();
+	}
+
+	/**
+	 * Load dates array using current month and year along with pre and post 
+	 * buffered days.
+	 * @return null
+	 */
+	protected function fillDates() {
+		for($dateIndex = $this->preBufferDays; $dateIndex <= $this->postBufferDays; $dateIndex++) {
+			$dayStartTimestamp = mktime(0, 0, 0, $this->monthIndex, $dateIndex, $this->year);
+			$this->dates[] = getdate($dayStartTimestamp);
+		}
 	}
 	
 	/**
 	 * Returns the number of days in the month
 	 */
-	public function getCalendarDays() {
-		return cal_days_in_month(CAL_GREGORIAN, $this->intValue, $this->year);
+	public function getCalendarDaysCount() {
+		return cal_days_in_month(CAL_GREGORIAN, $this->monthIndex, $this->year);
 	}
 	
 	/**
 	 * Returns the timestamp of the first moment of the month;
-	 * Enter description here ...
+	 * @return int
 	 */
-	public function getTimestamp() {
-		return mktime(0, 0, 0, $this->intValue, 1, $this->year);
+	public function getFirstDayOfMonthTimestamp() {
+		return mktime(0, 0, 0, $this->monthIndex, 1, $this->year);
 	}
 	
 	/**
@@ -60,7 +87,15 @@ class Month extends CComponent {
 	 * @return array an associative array of information related to the timestamp.
 	 */
 	public function getFirstDayOfMonth() {
-		return getdate($this->timestamp);
+		return getdate($this->firstDayOfMonthTimestamp);
+	}
+
+	/**
+	 * Returns the timestamp of the last moment of the month;
+	 * @return int
+	 */
+	public function getLastDayOfMonthTimestamp() {
+		return mktime(23, 59, 59, $this->monthIndex, $this->calendarDaysCount, $this->year);
 	}
 	
 	/**
@@ -69,7 +104,7 @@ class Month extends CComponent {
 	 * @return array an associative array of information related to the timestamp.
 	 */
 	public function getLastDayOfMonth() {
-		return getdate(mktime(0, 0, 0, $this->intValue, $this->calendarDays, $this->year));
+		return getdate($this->lastDayOfMonthTimestamp);
 	}
 	
 	/**
@@ -93,6 +128,116 @@ class Month extends CComponent {
 	public function getPostBufferDays() {
 		$lastDay = $this->lastDayOfMonth;
 		$dayoftheweek = $lastDay["wday"];
-		return $this->calendarDays + 6 - $dayoftheweek;
+		return $this->calendarDaysCount + 6 - $dayoftheweek;
 	}
+
+	/****************************
+	 * Iterator interface functions
+	 * @see http://php.net/manual/en/class.iterator.php
+	 ****************************/
+
+	public function rewind() {
+        $this->iteratorPosition = 0;
+    }
+
+    public function current() {
+        return $this->dates[$this->iteratorPosition];
+    }
+
+    public function key() {
+        return $this->iteratorPosition;
+    }
+
+    public function next() {
+        ++$this->iteratorPosition;
+    }
+
+    public function valid() {
+        return isset($this->dates[$this->iteratorPosition]);
+    }
+
+    public function getCurrentSeconds() {
+    	$current = $this->current();
+    	return $current['seconds'];
+    }
+
+    public function getCurrentMinutes() {
+    	$current = $this->current();
+    	return $current['minutes'];
+    }
+
+    public function getCurrentHours() {
+    	$current = $this->current();
+    	return $current['hours'];
+    }
+
+    public function getCurrentMDay() {
+    	$current = $this->current();
+    	$number = $current['mday'];
+    	if(strlen($number) <= 1) {
+    		$number = '0' . $number;
+    	}
+    	return $number;
+    }
+
+    public function getCurrentWDay() {
+    	$current = $this->current();
+    	return $current['wday'];
+    }
+
+    public function getCurrentMon() {
+    	$current = $this->current();
+    	$number = $current['mon'];
+    	if(strlen($number) <= 1) {
+    		$number = '0' . $number;
+    	}
+    	return $number;
+    }
+
+    public function getCurrentYear() {
+    	$current = $this->current();
+    	return $current['year'];
+    }
+
+    public function getCurrentYDay() {
+    	$current = $this->current();
+    	return $current['yday'];
+    }
+
+    public function getCurrentWeekday() {
+    	$current = $this->current();
+    	return $current['weekday'];
+    }
+
+    public function getCurrentMonth() {
+    	$current = $this->current();
+    	return $current['month'];
+    }
+
+    public function getCurrentTimestamp() {
+    	$current = $this->current();
+    	return $current['0'];
+    }
+
+    public function getCurrentDate() {
+    	return $this->currentYear . '-' . $this->currentMon . '-' . $this->currentMDay;
+    }
+
+    /**
+     * Is the current date part of the previous month?
+     * @return boolean
+     **/
+    public function getIsPreviousMonth() {
+    	$dateArray = $this->current();
+    	return $dateArray['0'] < $this->firstDayOfMonthTimestamp;
+    }
+
+	/**
+     * Is the current date part of the next month?
+     * @return boolean
+     **/
+    public function getIsNextMonth() {
+    	$dateArray = $this->current();
+    	return $dateArray['0'] > $this->lastDayOfMonthTimestamp;
+    }
 }

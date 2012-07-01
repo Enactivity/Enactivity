@@ -10,7 +10,7 @@ $showParent = empty($showParent) ? $showParent : true;
 ?>
 <?php 
 $currentDate = null;
-foreach($calendar->getDatedTasks() as $day => $times) {
+foreach($calendar->datedTasks as $day => $times) {
 	
 	$daytime = strtotime($day);
 	if($showParent) : ?>

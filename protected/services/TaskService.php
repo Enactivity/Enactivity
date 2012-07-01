@@ -30,7 +30,7 @@ class TaskService extends Service {
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
 			->scopeUsersGroups($userId)
-			->scopeByCalendarMonth($month->intValue, $month->year),
+			->scopeByCalendarMonth($month->monthIndex, $month->year),
 			array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'

@@ -12,6 +12,16 @@ class TaskCalendar extends CComponent {
 		$this->addTasks($tasks);
 	}
 
+	public static function loadCalendarByMonth($month) {
+		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
+		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
+		
+		return new TaskCalendar(array(
+			$datedTasks->data,
+			$datelessTasks->data
+		));
+	}
+
 	/**
 	 * Load a list of tasks into a calendar
 	 * @param array $tasks list of tasks, allows for arrays of arrays too
@@ -35,7 +45,7 @@ class TaskCalendar extends CComponent {
 	}
 	
 	/**
-	 * @return array of Tasks
+	 * @return array of Tasks in form $date => $time => {array of Tasks}
 	 */
 	public function getDatedTasks() {
 		return $this->days;
@@ -65,11 +75,9 @@ class TaskCalendar extends CComponent {
 	* @param string $date
 	* @return array of Tasks
 	*/
-	public function hasTasksByDate($date) {
-		if(isset($this->days[$date])) {
-			return true;
-		}
-		return false;
+	public function hasTasksOnDate($date) {
+		$date = date('m/d/Y', strtotime($date));
+		return isset($this->days[$date]) && !empty($this->days[$date]);
 	}
 	
 	/**

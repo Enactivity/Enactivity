@@ -354,22 +354,13 @@ class TaskController extends Controller
 	public function actionCalendar($month=null, $year=null)
 	{
 		$month = new Month($month, $year);
-
-		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
-		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
-		
-		$taskcalendar = new TaskCalendar(array(
-			$datedTasks->data,
-			$datelessTasks->data
-		));
+		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('calendar', array(
-				'calendar'=>$taskcalendar,
-				'datedTasksProvider'=>$datedTasks,
-				'datelessTasksProvider'=>$datelessTasks,
+				'calendar'=>$taskCalendar,
 				'newTask'=>$newTask,
 				'month'=>$month,
 			)
