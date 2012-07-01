@@ -327,18 +327,10 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CArrayDataProvider(
-		Yii::app()->user->model->nextTasks,
-			array(
-				'pagination'=>false,
-			)
-		);
-		
-		$calendar = new TaskCalendar();
-		$calendar->addTasks($dataProvider->data);
+		$calendar = TaskCalendar::loadCalendarNextTasks();
 		
 		$feedModel = new ActiveRecordLog();
-		$feedProvider = new CActiveDataProvider(
+		$feedDataProvider = new CActiveDataProvider(
 			$feedModel->scopeUsersGroups(Yii::app()->user->id),
 			array(
 			)
@@ -350,7 +342,7 @@ class TaskController extends Controller
 		$this->render('index', array(
 			'calendar'=>$calendar,
 			'newTask'=>$newTask,
-			'feedProvider'=>$feedProvider,
+			'feedProvider'=>$feedDataProvider,
 		));
 	}
 
@@ -359,49 +351,16 @@ class TaskController extends Controller
 	 */
 	public function actionCalendar($month=null, $year=null)
 	{
-		$monthObj = new Month($month, $year);
-
-		$taskWithDateQueryModel = new Task();
-		$datedTasks = new CActiveDataProvider(
-			$taskWithDateQueryModel
-			->scopeUsersGroups(Yii::app()->user->id)
-			->scopeByCalendarMonth($monthObj->intValue, $monthObj->year),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
-
-		$taskWithoutDateQueryModel = new Task();
-		$datelessTasks = new CActiveDataProvider(
-		$taskWithoutDateQueryModel
-			->scopeUsersGroups(Yii::app()->user->id)
-			->scopeNoWhen()
-			->scopeNotCompleted()
-			->roots(),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
-		
-		$taskcalendar = new TaskCalendar();
-		$taskcalendar->addTasks($datedTasks->data);
-		$taskcalendar->addTasks($datelessTasks->data);
+		$month = new Month($month, $year);
+		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
 
 		// handle new task
 		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('calendar', array(
-				'calendar'=>$taskcalendar,
-				'datedTasksProvider'=>$datedTasks,
-				'datelessTasksProvider'=>$datelessTasks,
+				'calendar'=>$taskCalendar,
 				'newTask'=>$newTask,
-				'month'=>$monthObj,
+				'month'=>$month,
 			)
 		);
 	}
