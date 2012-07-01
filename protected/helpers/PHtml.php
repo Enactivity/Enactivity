@@ -299,6 +299,51 @@ class PHtml extends CHtml {
 
 		return $id;
 	}
+
+	/**
+	 * @param Month
+	 * @param TaskCalendar
+	 * @return string
+	 **/
+	public static function calendarDayClass($month, $calendar) {
+		$class = 'day';
+
+		if($calendar->hasTasksOnDate($month->currentDate)) {
+			$class .= ' has-tasks';
+		}
+		else {
+			$class .= ' has-no-tasks';
+		}
+		
+		// clarify if current month or not
+		if($month->isPreviousMonth) {
+			$class .= ' previous-month';
+		}
+		elseif ($month->isNextMonth) {
+			$class .= ' next-month';
+		}
+
+		return $class;
+	}
+
+	public static function calendarDayLink($month, $calendar) {
+
+		if($calendar->hasTasksOnDate($month->currentDate)) {
+			return PHtml::link(
+				$month->currentMDay, '#' . PHtml::dateTimeId($month->currentTimestamp)
+			);
+		}
+		else {
+			return PHtml::link(
+				$month->currentMDay,
+				array('task/create/', 
+					'day' => $month->currentMDay,
+					'month' => $month->currentMon,
+					'year' => $month->year,
+				)
+			);
+		}
+	}
 	
 	/**
 	 * Generates an opening header tag for content.

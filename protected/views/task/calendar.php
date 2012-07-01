@@ -1,5 +1,11 @@
 <?php
-$this->pageTitle = Yii::app()->format->formatMonth($month->timestamp) . " " . $month->year;
+/**
+ * Displays calendar widget and agenda of tasks 
+ * @uses $calendar
+ * @uses $month
+ *
+ **/
+$this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>
@@ -11,7 +17,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->timestamp) . " " . $m
 	<?php 
 	// show task calendar
 	echo $this->renderPartial('_calendar', array(
-		'dataProvider'=>$datedTasksProvider,
+		'calendar'=>$calendar,
 		'month'=>$month,
 	));
 	?>

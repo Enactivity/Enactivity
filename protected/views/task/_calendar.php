@@ -1,8 +1,6 @@
 <?php 
 /**
- * @uses $datedTasksProvider
- * @uses $datelessTasksProvider
- * @uses $newTask
+ * @uses $calendar
  * @uses $month
  */
 ?>
@@ -13,8 +11,8 @@ $calendarMenu = array();
 $calendarMenu[] = array(
 	'label'=>'Previous', 
 	'url'=>array('task/calendar',
-		'month' => $month->intValue - 1 < 1 ? 12 : $month->intValue - 1,
-		'year' => $month->intValue - 1 < 1 ? $month->year - 1 : $month->year,
+		'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
+		'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
 	),
 	'linkOptions'=>array(
 		'id'=>'task-previous-month-menu-item',
@@ -25,8 +23,8 @@ $calendarMenu[] = array(
 $calendarMenu[] = array(
 	'label'=>'Next', 
 	'url'=>array('task/calendar',
-		'month' => $month->intValue + 1 > 12 ? 1 : $month->intValue + 1,
-		'year' => $month->intValue + 1 > 12 ? $month->year + 1 : $month->year,
+		'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
+		'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
 	),
 	'linkOptions'=>array(
 		'id'=>'task-next-month-menu-item',
@@ -40,7 +38,7 @@ $calendarMenu[] = array(
 		'items'=>$calendarMenu,
 	)); ?>
 </nav>
-<h1><?php echo Yii::app()->format->formatMonth($month->timestamp) . " " . $month->year; ?></h1>
+<h1><?php echo Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
 
 <?php 
@@ -62,68 +60,27 @@ echo PHtml::closeTag('thead');
 
 echo PHtml::openTag('tbody');
 
-for($day = $month->preBufferDays; $day <= $month->postBufferDays; $day++) {
-	$currentDayStart = mktime(0, 0, 0, $month->intValue, $day, $month->year);
-	$currentDayEnd = mktime(23, 59, 59, $month->intValue, $day, $month->year);
-
-	// if it's the start of a new week, start a new row
-	$currentDayStartDate = getdate($currentDayStart);
-	if($currentDayStartDate["wday"] == 0) {
+while($month->valid()) {
+	// if it's the start of a week (Sunday), start a new row
+	if($month->currentWDay == 0) {
 		echo PHtml::openTag('tr');
-	};
-
-	//add styles to day
-	$htmlOptions = array();
-	$htmlOptions['class'] = 'day';
-	
-	$hasTasks = false;
-	foreach($dataProvider->getData() as $task) {
-		if(($task->startTimestamp <= $currentDayEnd)
-		&& ($task->startTimestamp >= $currentDayStart)) {
-			$hasTasks = true;
-		}
-	}
-	if($hasTasks) {
-		$htmlOptions['class'] .= ' has-tasks';
-	}
-	else {
-		$htmlOptions['class'] .= ' has-no-tasks';
-	}
-	
-	// clarify if current month or not
-	if($day < 1) {
-		$htmlOptions['class'] .= ' previous-month';
-	}
-	elseif ($day > $month->calendarDays) {
-		$htmlOptions['class'] .= ' next-month';
-	}
-	echo PHtml::tag('td', $htmlOptions);
-
-	// print the date
-	if($day > 0 && $day <= $month->calendarDays) {
-		$day = date('d', $currentDayStart);
-		
-		if($hasTasks) {
-			echo PHtml::link(
-				$day, '#'.PHtml::dateTimeId($currentDayStart)
-			);
-		}
-		else {
-			echo PHtml::link(
-				$day, 
-				array('task/create/', 
-					'day' => $day,
-					'month' => $month->intValue,
-					'year' => $month->year,
-				)
-			);
-		}
 	}
 
-	// if it's the end of a week, end a the row
-	if($currentDayStartDate["wday"] == 6) {
+	echo PHtml::tag('td', array(
+		'class' => PHtml::calendarDayClass($month, $calendar)
+	));
+
+	echo PHtml::calendarDayLink($month, $calendar);
+
+	echo PHtml::closeTag('td');
+
+	// if it's the end of a week, end the row
+	if($month->currentWDay == 6) {
 		echo PHtml::closeTag('tr');
 	};
+
+	// iterate
+	$month->next();
 }
 
 echo PHtml::closeTag('tbody');
