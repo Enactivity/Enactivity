@@ -79,7 +79,7 @@ while($month->valid()) {
 		echo PHtml::closeTag('tr');
 	};
 
-	// implement
+	// iterate
 	$month->next();
 }
 
