@@ -418,9 +418,10 @@ class PHtml extends CHtml {
 
 	/**
 	 * Get the url for viewing this group
-	 * @param 
+	 * @param Group
+	 * @return string
 	*/
-	public function groupLink(Group $group)
+	public function groupUrl(Group $group)
 	{
 		if(!empty($group->slug)) {
 			return Yii::app()->request->hostInfo .
