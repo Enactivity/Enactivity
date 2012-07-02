@@ -125,10 +125,10 @@ class MenuDefinitions extends CComponent {
 	public static function settings() {
 
 		$menu = array();
-		$menu[] = array('label'=>'Store',
-			'url'=>array('/store/index'), 
-			'visible'=>!Yii::app()->user->isGuest,
-		);
+		// $menu[] = array('label'=>'Store',
+		// 	'url'=>array('/store/index'), 
+		// 	'visible'=>!Yii::app()->user->isGuest,
+		// );
 		$menu[] = array('label'=>'Update Profile', 
 			'url'=>array('user/update'),
 			'linkOptions'=>array('id'=>'user-update-profile-nav-item'), 
