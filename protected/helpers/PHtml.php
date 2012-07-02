@@ -435,6 +435,21 @@ class PHtml extends CHtml {
 				)
 			);
 	}
+
+	/**
+	 * Get the url for viewing this task
+	 * @param Task
+	 * @return string containing the taskURL
+	*/
+	public function taskURL(Task $task)
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('task/view',
+				array(
+					'id'=>$task->id,
+				)
+			);
+	}
 	
 	/**
 	 * Returns the classes values associated with a Task object
