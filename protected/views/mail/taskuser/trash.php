@@ -27,7 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Aww..[user] just quit [taskName].
-echo "Aww.. " . PHtml::encode($user->fullName) . " just quit " . PHtml::encode($data->task->name) . ".";
+echo "Aww.. " . PHtml::encode($user->fullName) . " just quit " . PHtml::link(PHtml::encode($data->task->name), PHtml::taskURL($data->task)) . ".";
 
 echo PHtml::closeTag('article');
 ?>

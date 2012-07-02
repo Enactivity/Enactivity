@@ -27,7 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Exciting news! [user] invited the following emails [list of emails] to [groupName].
-echo "Exiting news! " . PHtml::encode($user->fullName) . " invited more people to join " . PHtml::encode($data->group->name) . ".";
+echo "Exiting news! " . PHtml::encode($user->fullName) . " invited more people to join " . PHtml::link(PHtml::encode($data->group->name), PHtml::groupUrl($data->group)) . ".";
 
 
 echo PHtml::closeTag('article');
