@@ -9,6 +9,37 @@ $this->pageTitle = 'Dashboard';
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>
+	<div class="menu toolbox">
+		<ul>
+			<li>
+				<?php
+				echo PHtml::link(
+					PHtml::encode('Calendar'), 
+					array('task/calendar'),
+					array(
+						'id'=>'view-calendar-menu-item-' . $model->id,
+						'class'=>'neutral view-calendar-menu-item',
+						'title'=>'View calendar',
+					)
+				);
+				?>
+			</li>
+			<li>
+				<?php
+				echo PHtml::link(
+					PHtml::encode('Recent Activity'), 
+					array('feed/index'),
+					array(
+						'id'=>'view-feed-menu-item-' . $model->id,
+						'class'=>'neutral view-feed-menu-item',
+						'title'=>'View feed',
+					)
+				);
+				?>
+			</li>
+		</ul>
+	</div>
+
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
 <?php echo PHtml::endContentHeader(); ?>
 
@@ -50,6 +81,14 @@ $this->pageTitle = 'Dashboard';
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$feedProvider,
 			'itemView'=>'/feed/_view',
+			'enablePagination'=>false,
 		));?>
+		<?php if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
+		<div class="pager">
+			<ul>
+				<li><?php echo PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
+			<ul>
+		</div>
+		<?php endif; ?>
 	</section>	
 </div>
