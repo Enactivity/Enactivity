@@ -50,6 +50,14 @@ $this->pageTitle = 'Dashboard';
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$feedProvider,
 			'itemView'=>'/feed/_view',
+			'enablePagination'=>false,
 		));?>
+		<?php if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
+		<div class="pager">
+			<ul>
+				<li><?php echo PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
+			<ul>
+		</div>
+		<?php endif; ?>
 	</section>	
 </div>
