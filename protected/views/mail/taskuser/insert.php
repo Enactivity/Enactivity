@@ -28,7 +28,7 @@ echo PHtml::openTag('p');
 
 //Woot! [user] signed up for [taskName] along with [taskCount] other people.
 
-echo "Woot! " . PHtml::encode($user->fullName) . " signed up for " . PHtml::encode($data->task->name) . ".";
+echo "Woot! " . PHtml::encode($user->fullName) . " signed up for " . PHtml::link(PHtml::encode($data->task->name), PHtml::taskURL($data->task)) . ".";
 
 
 echo PHtml::closeTag('article');

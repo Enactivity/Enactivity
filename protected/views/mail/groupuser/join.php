@@ -27,7 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Great news! [firstName][lastName] joined [groupName].
-echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::encode($data->name) . ".";
+echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::link(PHtml::encode($data->name), PHtml::groupUrl($data)) . ".";
 
 echo PHtml::closeTag('article');
 ?>
