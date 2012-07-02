@@ -30,7 +30,11 @@ class FeedController extends Controller
 		}
 		
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			array('allow',// allow authenticated user
+				'actions'=>array('index'),
+				'users'=>array('@'),
+			),
+			array('allow', 
 				'actions'=>array('view'),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -43,6 +47,25 @@ class FeedController extends Controller
 			),
 		);
 	}
+
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		
+		$feedModel = new ActiveRecordLog();
+		$feedDataProvider = new CActiveDataProvider(
+			$feedModel->scopeUsersGroups(Yii::app()->user->id),
+			array(
+			)
+		);
+
+		$this->render('index', array(
+			'dataProvider'=>$feedDataProvider,
+		));
+	}
+
 
 	/**
 	 * Displays a particular model.
