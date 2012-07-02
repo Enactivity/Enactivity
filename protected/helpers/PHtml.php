@@ -423,17 +423,40 @@ class PHtml extends CHtml {
 	*/
 	public function groupUrl(Group $group)
 	{
-		if(!empty($group->slug)) {
-			return Yii::app()->request->hostInfo .
-			Yii::app()->getBaseUrl() .
-				"/" . $group->slug;
-		}
 		return Yii::app()->request->hostInfo .
 			Yii::app()->createUrl('group/view',
 				array(
 	            	'id'=>$group->id,
 				)
 			);
+	}
+
+	/**
+	 * Get the url for viewing this task
+	 * @param Task
+	 * @return string containing the taskURL
+	*/
+	public function taskURL(Task $task)
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('task/view',
+				array(
+					'id'=>$task->id,
+				)
+			);
+	}
+
+	/**
+	 * Get the url for viewing the site index
+	 * @param 
+	 * @return string containing the siteIndexURL
+	 *
+	*/
+
+	public function siteIndexURL()
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('site/index');
 	}
 	
 	/**

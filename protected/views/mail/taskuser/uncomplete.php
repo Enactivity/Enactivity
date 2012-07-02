@@ -27,7 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Hey there. [user] is now again working on [taskName] along with [taskCount] other people.
-echo "Hey there. " . PHtml::encode($user->fullName) . " is now again working on " . PHtml::encode($data->task->name) . ".";
+echo "Hey there. " . PHtml::encode($user->fullName) . " is now again working on " . PHtml::link(PHtml::encode($data->task->name), PHtml::taskURL($data->task)) . ".";
 
 echo PHtml::closeTag('article');
 ?>

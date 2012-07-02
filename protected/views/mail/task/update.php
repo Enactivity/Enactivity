@@ -18,15 +18,15 @@
 
 			<?php // user updating a date and time originally not null
 			if(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] != '') : ?>		
-			updated <?php PHtml::e($data->name); ?> from <?php PHtml::e($attributeArray['old']); ?> to <?php PHtml::e($attributeArray['new']); ?>
+			updated <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> from <?php PHtml::e($attributeArray['old']); ?> to <?php PHtml::e($attributeArray['new']); ?>
 			
 			<?php // user removing a set date and time
 			elseif(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] == '') : ?>
-			removed the date and time for <?php PHtml::e($data->name); ?> which used to start at <?php PHtml::e($attributeArray['old']); ?>
+			removed the date and time for <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data->task)); ?> which used to start at <?php PHtml::e($attributeArray['old']); ?>
 			
 			<?php // user updating a date and time originally null
 			else : ?>
-			added a date and time for <?php PHtml::e($data->name); ?> which now starts at <?php PHtml::e($attributeArray['new']); ?>			
+			added a date and time for <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> which now starts at <?php PHtml::e($attributeArray['new']); ?>			
 			<?php endif; ?>
 			.
 		</li>

@@ -31,7 +31,7 @@ echo PHtml::openTag('p');
 
 foreach($changedAttributes as $header)
 {
-	echo "Oh No! " . PHtml::encode($user->fullName) . " was removed from " . PHtml::encode($data->task->name) . ".";
+	echo "Oh No! " . PHtml::encode($user->fullName) . " was removed from " . PHtml::link(PHtml::encode($data->task->name), PHtml::taskURL($data->task)) . ".";
 }
 
 echo PHtml::closeTag('article');

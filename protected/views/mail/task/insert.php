@@ -29,12 +29,7 @@ echo PHtml::openTag('p');
 //Fantastic! [user] created [taskname] (that starts on [date])?
 //echo "Fantastic! " . PHtml::encode($user->fullName) . " created " . PHtml::encode($changedAttributes['new']) . ".";
 
-//foreach($changedAttributes as $header)
-//{
-//	echo "Fantastic! " . PHtml::encode($user->fullName) . " created " . PHtml::encode($header['new']) . ".";	
-//}
-
-echo "Fantastic! " . PHtml::encode($user->fullName) . " created " . PHtml::encode($data->name) . ".";	
+echo "Fantastic! " . PHtml::encode($user->fullName) . " created " . PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)) . ".";	
 
 echo PHtml::closeTag('article');
 ?>

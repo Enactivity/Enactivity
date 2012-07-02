@@ -26,6 +26,6 @@ echo PHtml::closeTag('strong');
 echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
-echo "Aww. " . PHtml::encode($user->fullName) . " deleted " . PHtml::encode($data->name) . ".";
+echo "Aww. " . PHtml::encode($user->fullName) . " deleted " . PHtml::encode($data->name) . " from " . PHtml::link(PHtml::encode("Poncla"), PHtml::siteIndexURL()) . ".";
 
 echo PHtml::closeTag('article');
