@@ -9,37 +9,6 @@ $this->pageTitle = 'Dashboard';
 ?>
 
 <?php echo PHtml::beginContentHeader(); ?>
-	<div class="menu toolbox">
-		<ul>
-			<li>
-				<?php
-				echo PHtml::link(
-					PHtml::encode('Calendar'), 
-					array('task/calendar'),
-					array(
-						'id'=>'view-calendar-menu-item-' . $model->id,
-						'class'=>'neutral view-calendar-menu-item',
-						'title'=>'View calendar',
-					)
-				);
-				?>
-			</li>
-			<li>
-				<?php
-				echo PHtml::link(
-					PHtml::encode('Recent Activity'), 
-					array('feed/index'),
-					array(
-						'id'=>'view-feed-menu-item-' . $model->id,
-						'class'=>'neutral view-feed-menu-item',
-						'title'=>'View feed',
-					)
-				);
-				?>
-			</li>
-		</ul>
-	</div>
-
 	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
 <?php echo PHtml::endContentHeader(); ?>
 
