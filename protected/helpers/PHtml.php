@@ -445,6 +445,19 @@ class PHtml extends CHtml {
 				)
 			);
 	}
+
+	/**
+	 * Get the url for viewing the site index
+	 * @param 
+	 * @return string containing the siteIndexURL
+	 *
+	*/
+
+	public function siteIndexURL()
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('site/index');
+	}
 	
 	/**
 	 * Returns the classes values associated with a Task object
