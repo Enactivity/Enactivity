@@ -27,6 +27,6 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Hey there. Just letting you know <user> changed the group name from <oldname> to <newname>
-echo "Hey there. Just letting you know " . PHtml::encode($user->fullName) . " updated the name of your group to " . PHtml::encode($data->name) . ".";
+echo "Hey there. Just letting you know " . PHtml::encode($user->fullName) . " updated the name of your group to " . PHtml::link(PHtml::encode($data->name), PHtml::groupUrl($data)) . ".";
 
 echo PHtml::closeTag('article');

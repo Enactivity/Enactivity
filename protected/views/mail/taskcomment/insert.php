@@ -27,9 +27,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Yo! [user] just left a comment for [taskName]
-//echo "Yo! " . PHtml::encode($user->fullName) . " just left a comment for " . PHtml::encode($data->task->name) . "." ;
-
-echo "Yo! " . PHtml::encode($user->fullName) . " just left a comment for " . PHtml::encode($data->getModelObject()->name) . "." ;
+echo "Yo! " . PHtml::encode($user->fullName) . " just left a comment for " . PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())) . "." ;
 
 echo PHtml::closeTag('article');
 ?>
