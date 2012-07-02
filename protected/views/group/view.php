@@ -10,7 +10,7 @@ $this->pageTitle = $model->name;
 <?php if(!Yii::app()->user->isGuest):?>
 <div class="novel">
 	<section id="users">
-		<h1><?php echo $activemembers->itemCount . ' Active Members'; ?></h1>
+		<h1><?php echo $activemembers->totalItemCount . ' Active Members'; ?></h1>
 		
 		<?php 
 		$this->widget('zii.widgets.CListView', array(
