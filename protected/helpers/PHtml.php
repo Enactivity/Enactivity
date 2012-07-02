@@ -423,11 +423,6 @@ class PHtml extends CHtml {
 	*/
 	public function groupUrl(Group $group)
 	{
-		if(!empty($group->slug)) {
-			return Yii::app()->request->hostInfo .
-			Yii::app()->getBaseUrl() .
-				"/" . $group->slug;
-		}
 		return Yii::app()->request->hostInfo .
 			Yii::app()->createUrl('group/view',
 				array(

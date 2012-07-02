@@ -26,6 +26,6 @@ echo PHtml::closeTag('strong');
 echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
-echo "Aww. " . PHtml::encode($user->fullName) . " deleted " . PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)) . ".";
+echo "Aww. " . PHtml::encode($user->fullName) . " deleted " . PHtml::encode($data->name) . "from " . PHtml::link(PHtml::encode("Poncla"), Yii::app()->createUrl('site/index')) . " .";
 
 echo PHtml::closeTag('article');
