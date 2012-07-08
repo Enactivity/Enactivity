@@ -39,7 +39,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 	public function afterSave($event)
 	{
-		if($this->Owner->shouldEmail())
+		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
 			$changes = array();
@@ -90,7 +90,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	}
 	
 	public function afterDelete($event) {
-		if($this->Owner->shouldEmail())
+		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
 			$currentUser = Yii::app()->user->model;
