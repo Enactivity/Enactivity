@@ -184,6 +184,14 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 		));
 		return $this;
 	}
+
+	public function scopeHasStatus($status) {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'status = :status',
+			'params' => array(':status' => $status),
+		));
+		return $this;
+	}
 	
 	/**
 	 * Get whether the user is a member of the group
@@ -195,6 +203,7 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 		$groupuser = GroupUser::model()
 			->scopeGroup($groupId)
 			->scopeUser($userId)
+			->scopeHasStatus(self::STATUS_ACTIVE)
 			->find();
 		return isset($groupuser);
 	}
