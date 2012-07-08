@@ -16,7 +16,6 @@ $this->pageTitle = $model->name;
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$activemembers,
 			'itemView'=>'/user/_view',
-			'cssFile'=>false,
 		)); 
 		?>
 	</section>
