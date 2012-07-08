@@ -438,7 +438,14 @@ class User extends CActiveRecord
 		if(is_array($attributes)) {
 			$this->attributes = $attributes;
 			$this->status = User::STATUS_ACTIVE;
-			return $this->save();
+			if($this->save()) {
+				// activate groups too
+				// FIXME: handle failure of a group activation
+				foreach ($this->groupUsers as $groupUser) {
+					$groupUser->joinGroupUser();
+				}
+				return true;
+			}
 		}
 		return false;
 	}
