@@ -11,6 +11,6 @@
 			Yii::app()->format->formatDateTime(time())
 		); ?></time></strong>
 	</p>
-	<p>Yo! <?php PHtml::e($user->fullName); ?> just left a comment for <?php PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
+	<p>Yo! <?php PHtml::e($user->fullName); ?> just left a comment for <?php echo PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
 	<blockquote><p><?php PHtml::e($data->content); ?></p></blockquote>
 </article>
