@@ -53,6 +53,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 		// based on the given scenario, construct the appropriate subject
 
 		$class = get_class($owner);
+		var_dump($class);
 		switch($class)
 		{
 			case group:
