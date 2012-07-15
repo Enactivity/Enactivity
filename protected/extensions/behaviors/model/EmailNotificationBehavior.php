@@ -89,7 +89,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
-			EmailNotificationBehavior::createSubject($this->Owner, $message, $this->Owner->scenario);	
+			self::createSubject($this->Owner, $message, $this->Owner->scenario);	
 
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
