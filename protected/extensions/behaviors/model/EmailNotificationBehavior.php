@@ -37,6 +37,20 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
+	public function createSubject($message, $scenario, $owner)
+	{
+		// based on the given scenario, construct the appropriate subject
+		if(strcasecmp($scenario, self::SCENARIO_DELETE) == 0)
+		{
+			return $message->setSubject( $owner->name . ' was deleted on Poncla.');
+		}
+		elseif(strcasecmp($scenario, self::SCENARIO_INSERT) == 0)
+		{
+			return $message->setSubject( $owner->name . ' was created on Poncla.');			
+		}
+
+	}
+
 	public function afterSave($event)
 	{
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
@@ -129,17 +143,4 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 		$this->_oldAttributes = $value;
 	}
 
-	public function createSubject($message, $scenario, $owner)
-	{
-		// based on the given scenario, construct the appropriate subject
-		if(strcasecmp($scenario, self::SCENARIO_DELETE) == 0)
-		{
-			return $message->setSubject( $owner->name . ' was deleted on Poncla.');
-		}
-		elseif(strcasecmp($scenario, self::SCENARIO_INSERT) == 0)
-		{
-			return $message->setSubject( $owner->name . ' was created on Poncla.');			
-		}
-
-	}
 }
