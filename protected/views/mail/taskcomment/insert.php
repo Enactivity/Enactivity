@@ -12,5 +12,7 @@
 		); ?></time></strong>
 	</p>
 	<p>Yo! <?php PHtml::e($user->fullName); ?> just left a comment for <?php echo PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
-	<blockquote><p><?php PHtml::e($data->content); ?></p></blockquote>
+	<blockquote>
+		<?php echo Yii::app()->format->formatStyledText($data->content); ?>
+	</blockquote>
 </article>
