@@ -72,25 +72,25 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			case task:
 				if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 				{
-					return $owner->name . ' was deleted from ' . $owner->group->name . ' on Poncla.'
+					return $owner->name . ' was deleted from ' . $owner->group->name . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return $owner->name . ' was created on ' . $owner->group->name . ' on Poncla.'	
+					return $owner->name . ' was created on ' . $owner->group->name . ' on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return $owner->name . ' updated ' . $owner->group->name . ' on Poncla.'
+					return $owner->name . ' updated ' . $owner->group->name . ' on Poncla.';
 				}
 					
 			case taskcomment:
 				if(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone left a comment for ' . $owner->group->name . ' on Poncla.'
+					return 'Someone left a comment for ' . $owner->group->name . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_REPLY) == 0)
 				{
-					return 'Someone replied to a comment in ' . $owner->group->name . ' on Poncla.'
+					return 'Someone replied to a comment in ' . $owner->group->name . ' on Poncla.';
 				}
 
 			case taskuser:
