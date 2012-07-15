@@ -37,6 +37,20 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
+	public function createSubject($message, $scenario, $owner)
+	{
+		// based on the given scenario, construct the appropriate subject
+		if(strcasecmp($scenario, self::SCENARIO_DELETE) == 0)
+		{
+			return $message->setSubject( $owner->name . ' was deleted on Poncla.');
+		}
+		elseif(strcasecmp($scenario, self::SCENARIO_INSERT) == 0)
+		{
+			return $message->setSubject( $owner->name . ' was created on Poncla.');			
+		}
+
+	}
+
 	public function afterSave($event)
 	{
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
@@ -74,8 +88,9 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message = Yii::app()->mail->constructMessage();
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
-				
-			$message->setSubject('Psst. Something just happened on Poncla!');
+			
+			createSubject($this->Owner, $message, $this->Owner->scenario);	
+
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
