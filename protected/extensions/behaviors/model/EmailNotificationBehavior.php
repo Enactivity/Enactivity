@@ -19,7 +19,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	const SCENARIO_JOIN = 'join'; 
 	const SCENARIO_COMPLETE = 'complete';
 	const SCENARIO_UNCOMPLETE = 'uncomplete';
-	const SCENARIO_UNTRASH = 'untrash';
 
 	/**
 	 * List of attributes that should be ignored by the log
