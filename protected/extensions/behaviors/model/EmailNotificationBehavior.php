@@ -9,6 +9,13 @@
  */
 class EmailNotificationBehavior extends CActiveRecordBehavior
 {
+
+	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_UPDATE = 'update'; // default set by Yii
+
 	/**
 	 * List of attributes that should be ignored by the log
 	 * when the ActiveRecord is updated.
@@ -41,11 +48,11 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	{
 		// based on the given scenario, construct the appropriate subject
 		var_dump($owner->scenario);
-		if(strcasecmp($owner->scenario, SCENARIO_DELETE) == 0)
+		if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 		{
 			return $owner->name . ' was deleted from Poncla.';
 		}
-		elseif(strcasecmp($owner->scenario, SCENARIO_INSERT) == 0)
+		elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 		{
 			return $owner->name . ' was created on Poncla.';		
 		}
