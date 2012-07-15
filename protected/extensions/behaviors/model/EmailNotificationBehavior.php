@@ -37,16 +37,16 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
-	public function createSubject($message, $scenario, $owner)
+	public function createSubject($owner)
 	{
 		// based on the given scenario, construct the appropriate subject
 		if(strcasecmp($scenario, SCENARIO_DELETE) == 0)
 		{
-			return $message->setSubject( $owner->name . ' was deleted on Poncla.');
+			return $owner->name . ' was deleted from Poncla.';
 		}
 		elseif(strcasecmp($scenario, SCENARIO_INSERT) == 0)
 		{
-			return $message->setSubject( $owner->name . ' was created on Poncla.');			
+			return $owner->name . ' was created on Poncla.';		
 		}
 
 	}
@@ -89,7 +89,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
-			self::createSubject($this->Owner, $message, $this->Owner->scenario);	
+			$message->setSubject(self::createSubject($this->Owner));	
 
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
