@@ -15,6 +15,8 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
+	const SCENARIO_INVITE = 'invite';
+	const SCENARIO_JOIN = 'join'; // default set by Yii
 
 	/**
 	 * List of attributes that should be ignored by the log
@@ -47,14 +49,55 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function createSubject($owner)
 	{
 		// based on the given scenario, construct the appropriate subject
-		var_dump($owner->scenario);
-		if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
+
+		$class = get_class($owner);
+		switch($class)
 		{
-			return $owner->name . ' was deleted from Poncla.';
-		}
-		elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
-		{
-			return $owner->name . ' was created on Poncla.';		
+			case group:
+				if(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
+				{
+					return 'Your group\'s name was updated to ' . $owner->name . ' on Poncla.';
+				}
+
+			case groupuser:
+				if(strcasecmp($owner->scenario, self::SCENARIO_INVITE) == 0)
+				{
+					return 'More people were invited to ' . $owner->group->name . ' on Poncla.';
+				}
+				elseif(strcasecmp($owner->scenario, self::SCENARIO_JOIN) == 0)
+				{
+					return 'Someone just joined ' . $owner->name . ' on Poncla.';		
+				}
+
+			case task:
+				if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
+				{
+					return $owner->name . ' was deleted from ' . $owner->group->name . ' on Poncla.'
+				}
+				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
+				{
+					return $owner->name . ' was created on ' . $owner->group->name . ' on Poncla.'	
+				}
+				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
+				{
+					return $owner->name . ' updated ' . $owner->group->name . ' on Poncla.'
+				}
+					
+			case taskcomment:
+				if(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
+				{
+					return 'Someone left a comment for ' . $owner->group->name . ' on Poncla.'
+				}
+				elseif(strcasecmp($owner->scenario, self::SCENARIO_REPLY) == 0)
+				{
+					return 'Someone replied to a comment in ' . $owner->group->name . ' on Poncla.'
+				}
+
+			case taskuser:
+				return "class is taskuser";
+			default:
+				return "Psst! Something exciting just happened on Poncla!";
+
 		}
 
 	}
