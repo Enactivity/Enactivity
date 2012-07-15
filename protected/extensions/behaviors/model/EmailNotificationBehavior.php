@@ -40,6 +40,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function createSubject($owner)
 	{
 		// based on the given scenario, construct the appropriate subject
+		var_dump($owner->scenario);
 		if(strcasecmp($owner->scenario, SCENARIO_DELETE) == 0)
 		{
 			return $owner->name . ' was deleted from Poncla.';
