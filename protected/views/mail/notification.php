@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for individual email notifications
  * 

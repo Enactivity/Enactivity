@@ -1,49 +1,49 @@
-<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
+<? $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'sweater-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?= $form->errorSummary($model); ?>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('id')); ?>:</b>
-		<?php echo PHtml::encode($model->id); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('id')); ?>:</b>
+		<?= PHtml::encode($model->id); ?>
 	</div>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('style')); ?>:</b>
-		<?php echo PHtml::encode($model->style); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('style')); ?>:</b>
+		<?= PHtml::encode($model->style); ?>
 	</div>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('clothColor')); ?>:</b>
-		<?php echo PHtml::encode($model->clothColor); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('clothColor')); ?>:</b>
+		<?= PHtml::encode($model->clothColor); ?>
 	</div>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('letterColor')); ?>:</b>
-		<?php echo PHtml::encode($model->letterColor); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('letterColor')); ?>:</b>
+		<?= PHtml::encode($model->letterColor); ?>
 
 	</div>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('stitchingColor')); ?>:</b>
-		<?php echo PHtml::encode($model->stitchingColor); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('stitchingColor')); ?>:</b>
+		<?= PHtml::encode($model->stitchingColor); ?>
 	</div>
 
 	<div class="field">
-		<b><?php echo PHtml::encode($model->getAttributeLabel('size')); ?>:</b>
-		<?php echo PHtml::encode($model->size); ?>
+		<b><?= PHtml::encode($model->getAttributeLabel('size')); ?>:</b>
+		<?= PHtml::encode($model->size); ?>
 	</div>
 
 	<div class="field">
-		<?php echo $form->labelEx($model,'available'); ?>
-		<?php echo $form->checkBox($model,'available'); ?>
-		<?php echo $form->error($model,'available'); ?>
+		<?= $form->labelEx($model,'available'); ?>
+		<?= $form->checkBox($model,'available'); ?>
+		<?= $form->error($model,'available'); ?>
 	</div>
 
 	<div class="field buttons">
-		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<? $this->endWidget(); ?>

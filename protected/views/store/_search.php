@@ -1,50 +1,50 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<? $form=$this->beginWidget('CActiveForm', array(
     'action'=>Yii::app()->createUrl($this->route),
     'method'=>'get',
 )); ?>
 
     <div class="field">
-        <?php echo $form->label($model,'id'); ?>
-        <?php echo $form->textField($model,'id',array('size'=>11,'maxlength'=>11)); ?>
+        <?= $form->label($model,'id'); ?>
+        <?= $form->textField($model,'id',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'userId'); ?>
-        <?php echo $form->textField($model,'userId',array('size'=>11,'maxlength'=>11)); ?>
+        <?= $form->label($model,'userId'); ?>
+        <?= $form->textField($model,'userId',array('size'=>11,'maxlength'=>11)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'productType'); ?>
-        <?php echo $form->textField($model,'productType',array('size'=>45,'maxlength'=>45)); ?>
+        <?= $form->label($model,'productType'); ?>
+        <?= $form->textField($model,'productType',array('size'=>45,'maxlength'=>45)); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'purchased'); ?>
-        <?php echo $form->textField($model,'purchased'); ?>
+        <?= $form->label($model,'purchased'); ?>
+        <?= $form->textField($model,'purchased'); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'delivered'); ?>
-        <?php echo $form->textField($model,'delivered'); ?>
+        <?= $form->label($model,'delivered'); ?>
+        <?= $form->textField($model,'delivered'); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'created'); ?>
-        <?php echo $form->textField($model,'created'); ?>
+        <?= $form->label($model,'created'); ?>
+        <?= $form->textField($model,'created'); ?>
     </div>
 
     <div class="field">
-        <?php echo $form->label($model,'modified'); ?>
-        <?php echo $form->textField($model,'modified'); ?>
+        <?= $form->label($model,'modified'); ?>
+        <?= $form->textField($model,'modified'); ?>
     </div>
 
     <div class="field buttons">
-        <?php echo CHtml::submitButton('Search'); ?>
+        <?= CHtml::submitButton('Search'); ?>
     </div>
 
-<?php $this->endWidget(); ?>
+<? $this->endWidget(); ?>
 
 </div><!-- search-form -->

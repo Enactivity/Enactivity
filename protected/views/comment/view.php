@@ -1,6 +1,6 @@
-<h1>View Comment #<?php echo $model->id; ?></h1>
+<h1>View Comment #<?= $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<? $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',

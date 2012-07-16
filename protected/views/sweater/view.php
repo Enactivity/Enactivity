@@ -1,9 +1,9 @@
-<?php
+<?
 ?>
 
-<h1>View Sweater #<?php echo $model->id; ?></h1>
+<h1>View Sweater #<?= $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<? $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',

@@ -1,59 +1,59 @@
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<? $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>10,'maxlength'=>10)); ?>
+		<?= $form->label($model,'id'); ?>
+		<?= $form->textField($model,'id',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'userId'); ?>
-		<?php echo $form->textField($model,'userId',array('size'=>10,'maxlength'=>10)); ?>
+		<?= $form->label($model,'userId'); ?>
+		<?= $form->textField($model,'userId',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'productType'); ?>
-		<?php echo $form->textField($model,'productType',array('size'=>60,'maxlength'=>255)); ?>
+		<?= $form->label($model,'productType'); ?>
+		<?= $form->textField($model,'productType',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'productId'); ?>
-		<?php echo $form->textField($model,'productId',array('size'=>10,'maxlength'=>10)); ?>
+		<?= $form->label($model,'productId'); ?>
+		<?= $form->textField($model,'productId',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'quantity'); ?>
-		<?php echo $form->textField($model,'quantity'); ?>
+		<?= $form->label($model,'quantity'); ?>
+		<?= $form->textField($model,'quantity'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'purchased'); ?>
-		<?php echo $form->textField($model,'purchased'); ?>
+		<?= $form->label($model,'purchased'); ?>
+		<?= $form->textField($model,'purchased'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'delivered'); ?>
-		<?php echo $form->textField($model,'delivered'); ?>
+		<?= $form->label($model,'delivered'); ?>
+		<?= $form->textField($model,'delivered'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
+		<?= $form->label($model,'created'); ?>
+		<?= $form->textField($model,'created'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
+		<?= $form->label($model,'modified'); ?>
+		<?= $form->textField($model,'modified'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?= CHtml::submitButton('Search'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<? $this->endWidget(); ?>
 
 </div><!-- search-form -->

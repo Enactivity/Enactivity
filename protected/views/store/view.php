@@ -1,10 +1,10 @@
 
-<?php
+<?
 ?>
 
-<h1>View Cart #<?php echo $model->id; ?></h1>
+<h1>View Cart #<?= $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', 
+<? $this->widget('zii.widgets.CDetailView', 
     array(
         'data'=>$model,
         'attributes'=>array(
