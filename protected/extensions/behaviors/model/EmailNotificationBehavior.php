@@ -44,7 +44,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 		if(isset($owner->getModelObject()))
 		{
-			return PHtml::encode($user->fullName) . ' ' . PHtml::encode($owner->getModelObject()->getScenarioLabel($owner->scenario)) . ' ' . PHtml::encode($owner->name);
+			//return PHtml::encode($user->fullName) . ' ' . PHtml::encode($owner->getModelObject()->getScenarioLabel($owner->scenario)) . ' ' . PHtml::encode($owner->name);
 		}
 
 		/*
