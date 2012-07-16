@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120506_213544_create_cart_item_custom_field extends CDbMigration
 {

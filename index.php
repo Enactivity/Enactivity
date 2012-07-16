@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Used only for including corresponding
  * server configuration file,

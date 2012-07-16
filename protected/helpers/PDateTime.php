@@ -1,4 +1,4 @@
-<?php
+<?
 class PDateTime {
 	
 	public static function MySQLDateOffset($dateTimeString, $year_offset='', $month_offset='', $day_offset='') { 

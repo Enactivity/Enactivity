@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Class representing a month of dates.  Should be iterable where
  * key = index of dates, and value = date

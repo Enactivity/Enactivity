@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for User::registerUser
  * @author ajsharma

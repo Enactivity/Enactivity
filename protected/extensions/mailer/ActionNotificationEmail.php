@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Contains various elements for the invitation email.
  * @author Long Huynh

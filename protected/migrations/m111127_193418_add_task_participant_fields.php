@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m111127_193418_add_task_participant_fields extends CDbMigration
 {

@@ -1,4 +1,4 @@
-<?php
+<?
 // This is the test Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(

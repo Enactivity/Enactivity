@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120415_224755_create_sweater_table extends CDbMigration
 {

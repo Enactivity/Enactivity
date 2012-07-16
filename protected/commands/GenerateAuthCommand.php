@@ -1,4 +1,4 @@
-<?php
+<?
 Yii::import('system.console.CConsoleCommand');
 
 class GenerateAuthCommand extends CConsoleCommand

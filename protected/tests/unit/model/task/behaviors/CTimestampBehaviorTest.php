@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests related to the CTimestampBehavior of a Task model
  * @author ajsharma

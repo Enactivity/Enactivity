@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for {@link User::getFullName}
  * @author ajsharma

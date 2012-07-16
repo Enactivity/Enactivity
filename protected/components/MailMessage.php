@@ -1,4 +1,4 @@
-<?php
+<?
 interface MailMessage {
 	
 	public function setBody($body = '', $contentType = null, $charset = null);

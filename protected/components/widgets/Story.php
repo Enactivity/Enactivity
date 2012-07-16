@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Story class file.
  *
@@ -19,11 +19,11 @@
  * The following is a piece of sample view code showing how to use Story:
  *
  * <pre>
- * <?php $form = $this->beginWidget('Story', array(
+ * <? $form = $this->beginWidget('Story', array(
  *     'htmlOptions'=>array(),
  * )); ?>
  *
- * <?php $this->endWidget(); ?>
+ * <? $this->endWidget(); ?>
  * </pre>
  */
 class Story extends CWidget

@@ -1,4 +1,4 @@
-<?php 
+<? 
 
 /**
  * This is the behavior class for behavior "ActiveRecordLogBehavior".

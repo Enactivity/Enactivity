@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Defined constants that can be used for tests.  Should not
  * be confused with fixtures

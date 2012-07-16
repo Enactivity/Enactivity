@@ -1,4 +1,4 @@
-<?php
+<?
 
 /*
  CharacterStream implementation using an array in Swift Mailer.

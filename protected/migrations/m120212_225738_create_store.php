@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120212_225738_create_store extends CDbMigration
 {

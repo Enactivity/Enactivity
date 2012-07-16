@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m110925_222858_create_table_comments extends CDbMigration
 {

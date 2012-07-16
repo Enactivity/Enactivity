@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * User model _view
  * @uses $data User model
@@ -10,9 +10,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		'class'=>PHtml::userClass($data),
 	),
 )); ?>
-	<?php $story->beginStoryContent(); ?>
-		<?php $this->widget('application.components.widgets.UserLink', array(
+	<? $story->beginStoryContent(); ?>
+		<? $this->widget('application.components.widgets.UserLink', array(
 					'userModel' => $data,
 		)); ?>
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

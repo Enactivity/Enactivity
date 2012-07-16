@@ -1,4 +1,4 @@
-<?php
+<?
 class ActiveRecord extends CActiveRecord {
 	
 	protected function beforeDelete() {

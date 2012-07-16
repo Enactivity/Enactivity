@@ -1,4 +1,4 @@
-<?php
+<?
 
 /*
  * This file is part of SwiftMailer.
@@ -31,7 +31,7 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
    * Creates a new DateHeader with $name and $timestamp.
    * Example:
    * <code>
-   * <?php
+   * <?
    * $header = new Swift_Mime_Headers_DateHeader('Date', time());
    * ?>
    * </code>

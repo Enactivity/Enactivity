@@ -1,4 +1,4 @@
-<?php
+<?
 
 // change the following paths if necessary
 //$yiit=dirname(__FILE__).'/../../../../../yii_framework/yiit.php';

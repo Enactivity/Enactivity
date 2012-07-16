@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Abstract class for a service
  */

@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m110925_194344_drop_group_profile extends CDbMigration
 {

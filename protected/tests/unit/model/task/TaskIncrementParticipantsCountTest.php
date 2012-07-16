@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests {@link Task::incrementParticipantCounts}
  * @author ajsharma

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Unit test for Mailer extension, Mailer parent class
  * PasswordEmail arbitrarily chosen as the type of Mailer to test send()

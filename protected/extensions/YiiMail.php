@@ -1,4 +1,4 @@
-<?php
+<?
 /**
 * YiiMail class file.
 *

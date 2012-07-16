@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * UserLink php class widget file
  */

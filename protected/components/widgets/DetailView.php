@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * DetailView class file.
  *

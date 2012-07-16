@@ -1,4 +1,4 @@
-<?php
+<?
 //FIXME: add inheritedTrash, participantsCount, participantsCompletedCount, participatableChildren 
 /**
  * This is the model class for table "task".

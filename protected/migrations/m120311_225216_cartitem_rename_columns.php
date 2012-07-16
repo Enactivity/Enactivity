@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120311_225216_cartitem_rename_columns extends CDbMigration
 {

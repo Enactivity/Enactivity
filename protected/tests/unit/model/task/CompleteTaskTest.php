@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests around completing a task
  * @author ajsharma

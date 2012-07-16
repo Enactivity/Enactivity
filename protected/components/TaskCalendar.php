@@ -1,4 +1,4 @@
-<?php
+<?
 class TaskCalendar extends CComponent {
 	
 	private $days = array();

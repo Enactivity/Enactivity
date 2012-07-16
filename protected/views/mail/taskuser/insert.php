@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for taskuser model insert scenario
  * 

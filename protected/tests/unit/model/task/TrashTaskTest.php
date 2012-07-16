@@ -1,4 +1,4 @@
-<?php
+<?
 
 class TrashTaskTest extends DbTestCase
 {

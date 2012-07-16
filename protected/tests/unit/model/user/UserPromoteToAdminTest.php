@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for User::PromoteToAdmin
  * @author ajsharma

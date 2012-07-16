@@ -1,4 +1,4 @@
-<?php
+<?
 
 Swift_DependencyContainer::getInstance()
   

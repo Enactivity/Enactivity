@@ -1,4 +1,4 @@
-<?php
+<?
 
 /**
  * Interface to control notification emails

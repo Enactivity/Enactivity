@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Task TrashButton class file
  * @author Ajay Sharma

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Abstract Button Widget class file
  * @author Ajay Sharma

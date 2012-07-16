@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for updating group notification
  * @author hvuong

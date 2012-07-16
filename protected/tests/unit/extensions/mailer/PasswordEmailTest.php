@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Unit test for Mailer extension, PasswordEmail child class
  * @author Long Huynh

@@ -1,4 +1,4 @@
-<?php
+<?
 
 /**
  * UserPasswordRecoveryForm class.

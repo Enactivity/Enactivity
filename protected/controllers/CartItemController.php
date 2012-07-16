@@ -1,4 +1,4 @@
-<?php
+<?
 
 class CartItemController extends Controller
 {

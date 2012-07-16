@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests around deleting a task
  * @author ajsharma

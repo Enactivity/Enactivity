@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for {@link GroupUser::insertGroupUser}
  * @author ajsharma

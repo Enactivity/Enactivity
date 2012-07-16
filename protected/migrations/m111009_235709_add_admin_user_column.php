@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Adding isAdmin column to user table
  * @author ajsharma

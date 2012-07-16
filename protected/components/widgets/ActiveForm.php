@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Override of Yii's {@link CActiveForm} class, with
  * redirects to {@link PHtml} instead of {@link CHtml} 

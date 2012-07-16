@@ -1,4 +1,4 @@
-<?php
+<?
 
 class GroupbanterController extends Controller
 {

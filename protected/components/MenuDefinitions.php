@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Class file for MenuDefinitions
  * @author Ajay Sharma
