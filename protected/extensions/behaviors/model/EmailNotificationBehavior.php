@@ -59,7 +59,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return 'Your group\'s name was updated to ' . PHtml::e($owner->name) . ' on Poncla.';
+					return 'Your group\'s name was updated to ' . PHtml::encode($owner->name) . ' on Poncla.';
 				}
 
 			case groupuser:
@@ -77,15 +77,15 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 				{
-					return '"' . PHtml::e($owner->name) . '"' . ' was deleted from ' . PHtml::encode($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::encode($owner->name) . '"' . ' was deleted from ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return '"' . PHtml::e($owner->name) . '"' . ' was created for ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
+					return '"' . PHtml::encode($owner->name) . '"' . ' was created for ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return '"' . PHtml::e($owner->name) . '"' . ' was updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::encode($owner->name) . '"' . ' was updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 					
 			case taskcomment:
