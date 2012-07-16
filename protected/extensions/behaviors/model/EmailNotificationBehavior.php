@@ -10,16 +10,6 @@
 class EmailNotificationBehavior extends CActiveRecordBehavior
 {
 
-	const SCENARIO_DELETE = 'delete';
-	const SCENARIO_INSERT = 'insert'; 
-	const SCENARIO_TRASH = 'trash';
-	const SCENARIO_UNTRASH = 'untrash';
-	const SCENARIO_UPDATE = 'update'; 
-	const SCENARIO_INVITE = 'invite';
-	const SCENARIO_JOIN = 'join'; 
-	const SCENARIO_COMPLETE = 'complete';
-	const SCENARIO_UNCOMPLETE = 'uncomplete';
-
 	/**
 	 * List of attributes that should be ignored by the log
 	 * when the ActiveRecord is updated.
@@ -52,6 +42,12 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	{
 		// based on the given scenario, construct the appropriate subject
 
+		if(isset($owner->modelObject))
+		{
+			return PHtml::encode($user->fullName) . ' ' . PHtml::encode($owner->modelObject->getScenarioLabel($owner->scenario)) . ' ' . PHtml::encode($owner->name);
+		}
+
+		/*
 		$class = strtolower(get_class($owner));
 		switch($class)
 		{
@@ -131,6 +127,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				return "Psst! Something exciting just happened on Poncla!";
 
 		}
+		*/
 
 	}
 
