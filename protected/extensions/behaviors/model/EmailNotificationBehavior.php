@@ -66,44 +66,44 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_INVITE) == 0)
 				{
-					return 'More people were invited to ' . PHtml::e($owner->group->name) . ' on Poncla.';
+					return 'More people were invited to ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_JOIN) == 0)
 				{
-					return 'Someone just joined ' . PHtml::e($owner->name) . ' on Poncla.';		
+					return 'Someone just joined ' . PHtml::encode($owner->name) . ' on Poncla.';		
 				}
 
 			case task:
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 				{
-					return '\"' . PHtml::e($owner->name) . '\"' . ' was deleted from ' . PHtml::e($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::e($owner->name) . '"' . ' was deleted from ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return '\"' . PHtml::e($owner->name) . '\"' . ' was created on ' . PHtml::e($owner->group->name) . ' on Poncla.';	
+					return '"' . PHtml::e($owner->name) . '"' . ' was created on ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return '\"' . PHtml::e($owner->name) . '\"' . ' updated ' . PHtml::e($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::e($owner->name) . '"' . ' updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 					
 			case taskcomment:
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone left a comment for ' . PHtml::e($owner->getModelObject()) . ' on Poncla.';
+					return 'Someone left a comment for ' . PHtml::encode($owner->getModelObject()) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_REPLY) == 0)
 				{
-					return 'Someone replied to a comment in ' . PHtml::e($owner->task->name) . ' on Poncla.';
+					return 'Someone replied to a comment in ' . PHtml::encode($owner->task->name) . ' on Poncla.';
 				}
 
 			case taskuser:
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_COMPLETE) == 0)
 				{
-					return 'Someone completed ' . '\"' . PHtml::e($owner->task->name) . '\"' . ' on Poncla.com';
+					return 'Someone completed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 				{
@@ -111,19 +111,19 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone signed up for ' . '\"' . PHtml::e($owner->task->name) . '\"' . ' on Poncla.com.';
+					return 'Someone signed up for ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_TRASH) == 0)
 				{
-					return 'Someone quit ' . '\"' . PHtml::e($owner->task->name) . '\"' . ' on Poncla.com.';
+					return 'Someone quit ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UNCOMPLETE) == 0)
 				{
-					return 'Someone resumed ' . '\"' . PHtml::e($owner->task->name) . '\"' . ' on Poncla.com.';
+					return 'Someone resumed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UNTRASH) == 0)
 				{
-					return 'Someone is now participating continuing ' . '\"' . PHtml::e($owner->task->name) . '\"' . ' on Poncla.com';
+					return 'Someone is now participating continuing ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
 				}
 
 			default:
