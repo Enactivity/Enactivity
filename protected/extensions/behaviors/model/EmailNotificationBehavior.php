@@ -48,7 +48,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
-	public function createSubject($owner)
+	public function createSubject($owner, $user)
 	{
 		// based on the given scenario, construct the appropriate subject
 
@@ -70,7 +70,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_JOIN) == 0)
 				{
-					return 'Someone just joined ' . PHtml::encode($owner->name) . ' on Poncla.';		
+					return 'A new member just joined ' . PHtml::encode($owner->name) . ' on Poncla.';		
 				}
 
 			case task:
@@ -81,49 +81,49 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return '"' . PHtml::encode($owner->name) . '"' . ' was created for ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
+					return '"' . PHtml::encode($owner->name) . '"' . ' was created in ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return '"' . PHtml::encode($owner->name) . '"' . ' was updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::encode($owner->name) . '"' . ' was updated in ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 					
 			case taskcomment:
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone left a comment for ' . PHtml::encode($owner->getModelObject()->name) . ' on Poncla.';
+					return PHtml::encode($user->fullName) . ' left a comment for ' . PHtml::encode($owner->getModelObject()->name) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_REPLY) == 0)
 				{
-					return 'Someone replied to a comment in ' . PHtml::encode($owner->task->name) . ' on Poncla.';
+					return PHtml::encode($user->fullName) . ' replied to a comment in ' . PHtml::encode($owner->task->name) . ' on Poncla.';
 				}
 
 			case taskuser:
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_COMPLETE) == 0)
 				{
-					return 'Someone completed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
+					return PHtml::encode($user->fullName) . ' completed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_DELETE) == 0)
 				{
-					return 'Someone was deleted on Poncla.';	
+					return PHtml::encode($user->fullName) . ' was deleted on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone signed up for ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
+					return PHtml::encode($user->fullName) . ' signed up for ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_TRASH) == 0)
 				{
-					return 'Someone quit ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
+					return PHtml::encode($user->fullName) . ' quit ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UNCOMPLETE) == 0)
 				{
-					return 'Someone resumed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
+					return PHtml::encode($user->fullName) . ' resumed ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UNTRASH) == 0)
 				{
-					return 'Someone is now participating continuing ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
+					return PHtml::encode($user->fullName) . ' is now participating in ' . '"' . PHtml::encode($owner->task->name) . '"' . ' on Poncla.com';
 				}
 
 			default:
@@ -172,7 +172,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
-			$message->setSubject(self::createSubject($this->Owner));	
+			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
 
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
