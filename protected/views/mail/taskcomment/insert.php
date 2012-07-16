@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for taskcomment model insert scenario
  * 
@@ -6,13 +6,13 @@
 ?>
 <article class="view email">
 	<p>
-		<strong><time><?php echo PHtml::encode(
+		<strong><time><?= PHtml::encode(
 			//FIXME: use actual event time
 			Yii::app()->format->formatDateTime(time())
 		); ?></time></strong>
 	</p>
-	<p>Yo! <?php PHtml::e($user->fullName); ?> just left a comment for <?php echo PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
+	<p>Yo! <? PHtml::e($user->fullName); ?> just left a comment for <?= PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
 	<blockquote>
-		<?php echo Yii::app()->format->formatStyledText($data->content); ?>
+		<?= Yii::app()->format->formatStyledText($data->content); ?>
 	</blockquote>
 </article>

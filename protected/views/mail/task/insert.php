@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for task model insert scenario
  * 

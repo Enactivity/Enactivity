@@ -1,11 +1,11 @@
-<?php 
+<? 
 /**
  * @uses $calendar
  * @uses $month
  */
 ?>
 
-<?php 
+<? 
 // nav
 $calendarMenu = array();
 $calendarMenu[] = array(
@@ -34,14 +34,14 @@ $calendarMenu[] = array(
 ?>
 
 <nav class="novel-controls">
-	<?php $this->widget('zii.widgets.CMenu', array(
+	<? $this->widget('zii.widgets.CMenu', array(
 		'items'=>$calendarMenu,
 	)); ?>
 </nav>
-<h1><?php echo Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
+<h1><?= Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
 
-<?php 
+<? 
 echo PHtml::openTag('article', array('class'=>'story calendar'));
 // start calendar table
 echo PHtml::openTag('table');

@@ -1,18 +1,18 @@
-<?php
+<?
 $this->pageTitle = $model->name;
 ?>
 
-<?php echo PHtml::beginContentHeader(); ?>
-	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-<?php echo PHtml::endContentHeader(); ?>
+<?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
+<?= PHtml::endContentHeader(); ?>
 
 <!-- List of users in group -->
-<?php if(!Yii::app()->user->isGuest):?>
+<? if(!Yii::app()->user->isGuest):?>
 <div class="novel">
 	<section id="users">
-		<h1><?php echo $activemembers->totalItemCount . ' Active Members'; ?></h1>
+		<h1><?= $activemembers->totalItemCount . ' Active Members'; ?></h1>
 		
-		<?php 
+		<? 
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$activemembers,
 			'itemView'=>'/user/_view',
@@ -20,4 +20,4 @@ $this->pageTitle = $model->name;
 		?>
 	</section>
 </div>
-<?php endif; ?>
+<? endif; ?>

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Lists user's upcoming tasks
  * @uses calendar
@@ -8,13 +8,13 @@
 $this->pageTitle = 'Dashboard';
 ?>
 
-<?php echo PHtml::beginContentHeader(); ?>
-	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-<?php echo PHtml::endContentHeader(); ?>
+<?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
+<?= PHtml::endContentHeader(); ?>
 
 <div class="novel">
 	<section class="tasks">
-		<?php
+		<?
 		if($calendar->itemCount > 0) {
 			echo $this->renderPartial('_agenda', array(
 				'calendar'=>$calendar,
@@ -33,8 +33,8 @@ $this->pageTitle = 'Dashboard';
 		}
 		
 		// "what would you want to do input" box ?>
-		<h1><?php echo 'Create a New Task'; ?></h1>
-		<?php echo $this->renderPartial('_form', array(
+		<h1><?= 'Create a New Task'; ?></h1>
+		<?= $this->renderPartial('_form', array(
 			'model'=>$newTask, 
 			'inline'=>true, 
 			'action'=>'create')
@@ -43,21 +43,21 @@ $this->pageTitle = 'Dashboard';
 </div>
 
 <div class="novel">
-<?php // Show history ?>
+<? // Show history ?>
 	<section id="feed">
-		<h1><?php echo 'Recent Activity'; ?></h1>
-		<?php 
+		<h1><?= 'Recent Activity'; ?></h1>
+		<? 
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$feedProvider,
 			'itemView'=>'/feed/_view',
 			'enablePagination'=>false,
 		));?>
-		<?php if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
+		<? if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
 		<div class="pager">
 			<ul>
-				<li><?php echo PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
+				<li><?= PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
 			<ul>
 		</div>
-		<?php endif; ?>
+		<? endif; ?>
 	</section>	
 </div>

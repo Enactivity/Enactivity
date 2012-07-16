@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * @param $calendar TaskCalendar 
  * @param $showParent boolean defaults to true
@@ -8,7 +8,7 @@
 $showParent = empty($showParent) ? $showParent : true;
 
 ?>
-<?php 
+<? 
 $currentDate = null;
 foreach($calendar->datedTasks as $day => $times) {
 	
@@ -17,7 +17,7 @@ foreach($calendar->datedTasks as $day => $times) {
 	<div class="menu novel-controls">
 		<ol>
 			<li>
-				<?php
+				<?
 				echo PHtml::link(
 					'Add Task',
 					array('task/create/',
@@ -30,7 +30,7 @@ foreach($calendar->datedTasks as $day => $times) {
 			</li>
 		</ol>
 	</div>
-	<?php
+	<?
 	endif;
 	
 	// Display date heading
