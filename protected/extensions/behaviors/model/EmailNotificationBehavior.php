@@ -85,7 +85,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
-					return '"' . PHtml::e($owner->name) . '"' . ' updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
+					return '"' . PHtml::e($owner->name) . '"' . ' was updated ' . PHtml::encode($owner->group->name) . ' on Poncla.';
 				}
 					
 			case taskcomment:
