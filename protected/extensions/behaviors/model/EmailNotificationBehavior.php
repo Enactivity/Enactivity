@@ -81,7 +81,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return '"' . PHtml::e($owner->name) . '"' . ' was created on ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
+					return '"' . PHtml::e($owner->name) . '"' . ' was created for ' . PHtml::encode($owner->group->name) . ' on Poncla.';	
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_UPDATE) == 0)
 				{
