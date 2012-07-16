@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for taskcomment model reply scenario
  * 

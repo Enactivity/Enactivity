@@ -1,7 +1,7 @@
-<?php $this->beginContent('//layouts/main'); ?>
+<? $this->beginContent('//layouts/main'); ?>
 
 <div class="splash-content">
-<?php echo $content; ?>
+<?= $content; ?>
 </div>
 
-<?php $this->endContent(); ?>
+<? $this->endContent(); ?>

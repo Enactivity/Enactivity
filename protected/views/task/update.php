@@ -1,8 +1,8 @@
-<?php 
+<? 
 $this->pageTitle = 'Edit Task';
 ?>
 
-<?php echo PHtml::beginContentHeader(); ?>
+<?= PHtml::beginContentHeader(); ?>
 	<div class="menu toolbox">
 		<ul>
 	<?
@@ -36,11 +36,11 @@ $this->pageTitle = 'Edit Task';
 	?>
 	</ul>
 	</div>
-	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-<?php echo PHtml::endContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
+<?= PHtml::endContentHeader(); ?>
 
 <div class="novel">
 	<section>
-		<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+		<?= $this->renderPartial('_form', array('model'=>$model)); ?>
 	</section>
 </div>

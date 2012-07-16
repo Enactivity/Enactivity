@@ -1,4 +1,4 @@
-<?php 
+<? 
 
 $story = $this->beginWidget('application.components.widgets.Story', array(
 	'htmlOptions'=>array(
@@ -7,27 +7,27 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	),
 )); ?>
 
-	<?php $story->beginStoryContent(); ?>
+	<? $story->beginStoryContent(); ?>
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('style')); ?>:</b>
-		<?php echo CHtml::encode($data->style); ?>
+		<b><?= CHtml::encode($data->getAttributeLabel('style')); ?>:</b>
+		<?= CHtml::encode($data->style); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('clothColor')); ?>:</b>
-		<?php echo CHtml::encode($data->clothColor); ?>
+		<b><?= CHtml::encode($data->getAttributeLabel('clothColor')); ?>:</b>
+		<?= CHtml::encode($data->clothColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('letterColor')); ?>:</b>
-		<?php echo CHtml::encode($data->letterColor); ?>
+		<b><?= CHtml::encode($data->getAttributeLabel('letterColor')); ?>:</b>
+		<?= CHtml::encode($data->letterColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('stitchingColor')); ?>:</b>
-		<?php echo CHtml::encode($data->stitchingColor); ?>
+		<b><?= CHtml::encode($data->getAttributeLabel('stitchingColor')); ?>:</b>
+		<?= CHtml::encode($data->stitchingColor); ?>
 		<br />
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('size')); ?>:</b>
-		<?php echo CHtml::encode($data->size); ?>
+		<b><?= CHtml::encode($data->getAttributeLabel('size')); ?>:</b>
+		<?= CHtml::encode($data->size); ?>
 		<br />
 
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>
