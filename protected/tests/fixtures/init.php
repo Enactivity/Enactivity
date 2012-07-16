@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * This is the procedural initialization for running database tests.
  * The order of objects that need to be created is:

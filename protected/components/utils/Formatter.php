@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Formatter class file.
  *

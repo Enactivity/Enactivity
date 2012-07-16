@@ -1,4 +1,4 @@
-<?php
+<?
 
 class FeedController extends Controller
 {

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for User::SendInvitation
  * @author ajsharma

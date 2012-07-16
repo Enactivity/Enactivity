@@ -1,4 +1,4 @@
-<?php
+<?
 
 $hostname = "mysql.alpha.poncla.com";   // eg. mysql.yourdomain.com (unique)
 $username = "poncla_alpha";   // the username specified when setting-up the database

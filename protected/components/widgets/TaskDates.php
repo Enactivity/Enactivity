@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * TaskDates class file.
  *

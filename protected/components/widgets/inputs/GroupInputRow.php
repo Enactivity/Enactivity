@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * GroupInputRow class file
  * @author Ajay Sharma

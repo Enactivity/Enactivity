@@ -1,4 +1,4 @@
-<?php
+<?
 
 class SweaterController extends Controller
 {

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Task Participate class file
  * @author Ajay Sharma

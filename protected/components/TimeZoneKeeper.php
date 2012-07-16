@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Component for translating timezones between database and server.
  * TimeZone keeper is designed to be preloaded by the application and

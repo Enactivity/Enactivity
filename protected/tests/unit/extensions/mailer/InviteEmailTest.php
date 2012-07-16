@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Unit test for Mailer extension, InviteEmail child class
  * @author Long Huynh

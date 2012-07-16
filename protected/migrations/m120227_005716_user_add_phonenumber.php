@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120227_005716_user_add_phonenumber extends CDbMigration
 {

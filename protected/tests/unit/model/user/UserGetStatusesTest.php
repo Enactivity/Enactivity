@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for User::GetStatuses
  * @author ajsharma

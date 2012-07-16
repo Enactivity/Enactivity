@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for groupuser model invite scenario
  * 

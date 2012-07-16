@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for Task->getStartDate()
  */

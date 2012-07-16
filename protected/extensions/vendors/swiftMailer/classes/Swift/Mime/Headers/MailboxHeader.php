@@ -1,4 +1,4 @@
-<?php
+<?
 
 /*
  * This file is part of SwiftMailer.
@@ -78,7 +78,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
    * key=>value pairs where (email => personalName).
    * Example:
    * <code>
-   * <?php
+   * <?
    * //Sets two mailboxes in the Header, one with a personal name
    * $header->setNameAddresses(array(
    *  'chris@swiftmailer.org' => 'Chris Corbyn',
@@ -102,7 +102,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
    * Get the full mailbox list of this Header as an array of valid RFC 2822 strings.
    * Example:
    * <code>
-   * <?php
+   * <?
    * $header = new Swift_Mime_Headers_MailboxHeader('From',
    *  array('chris@swiftmailer.org' => 'Chris Corbyn',
    *  'mark@swiftmailer.org' => 'Mark Corbyn')
@@ -129,7 +129,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
    * The key is the address and the value is the name (or null if none set).
    * Example:
    * <code>
-   * <?php
+   * <?
    * $header = new Swift_Mime_Headers_MailboxHeader('From',
    *  array('chris@swiftmailer.org' => 'Chris Corbyn',
    *  'mark@swiftmailer.org' => 'Mark Corbyn')
@@ -154,7 +154,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
    * Makes this Header represent a list of plain email addresses with no names.
    * Example:
    * <code>
-   * <?php
+   * <?
    * //Sets three email addresses as the Header data
    * $header->setAddresses(
    *  array('one@domain.tld', 'two@domain.tld', 'three@domain.tld')

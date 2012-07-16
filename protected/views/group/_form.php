@@ -1,31 +1,31 @@
-<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
+<? $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'group-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?= $form->errorSummary($model); ?>
 
 	<div class="field">
-		<div class="formlabel"><?php echo $form->labelEx($model,'name'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'name',
+		<div class="formlabel"><?= $form->labelEx($model,'name'); ?></div>
+		<div class="forminput"><?= $form->textField($model,'name',
 			array(
 				'maxlength'=>Group::NAME_MAX_LENGTH, 
 				'autofocus'=>'autofocus'
 			)
 			); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'name'); ?></div>
+		<div class="formerrors"><?= $form->error($model,'name'); ?></div>
 	</div>
 
 	<div class="field">
-		<div class="formlabel"><?php echo $form->labelEx($model,'slug'); ?></div>
-		<div class="forminput"><?php echo $form->textField($model,'slug',
+		<div class="formlabel"><?= $form->labelEx($model,'slug'); ?></div>
+		<div class="forminput"><?= $form->textField($model,'slug',
 			array('maxlength'=>Group::SLUG_MAX_LENGTH)
 			); ?></div>
-		<div class="formerrors"><?php echo $form->error($model,'slug'); ?></div>
+		<div class="formerrors"><?= $form->error($model,'slug'); ?></div>
 	</div>
 	
 	<div class="field buttons">
-		<?php echo PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<? $this->endWidget(); ?>

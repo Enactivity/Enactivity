@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Factory used to quickly generate models
  * @author ajsharma

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * TextSummary php class widget file
  */

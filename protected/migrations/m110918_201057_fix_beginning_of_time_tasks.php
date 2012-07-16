@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m110918_201057_fix_beginning_of_time_tasks extends CDbMigration
 {

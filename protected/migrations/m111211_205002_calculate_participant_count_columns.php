@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Recalculates the counters for task table.
  * WARNING: Will destroy data and eat lots of memory

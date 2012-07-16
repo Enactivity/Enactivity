@@ -1,15 +1,15 @@
-<?php
+<?
 /**
  * @uses $error Error message
  */
 $this->pageTitle = PHtml::encode($error['code'] . ' Error'); 
 ?>
 
-<?php echo PHtml::beginContentHeader(); ?>
-	<h1><?php echo PHtml::encode($this->pageTitle);?></h1>
-<?php echo PHtml::endContentHeader(); ?>
+<?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
+<?= PHtml::endContentHeader(); ?>
 
-<div class="error"><p><?php
+<div class="error"><p><?
 	if(isset($error['message']) && strcasecmp($error['type'], 'CHttpException') == 0) {
 		echo PHtml::encode($error['message']); 
 	}

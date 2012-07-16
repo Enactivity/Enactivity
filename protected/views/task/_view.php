@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for individual task models
  * 
@@ -15,29 +15,29 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	),
 )); ?>
 
-	<?php $story->beginStoryContent(); ?>
-		<?php // task name ?>
+	<? $story->beginStoryContent(); ?>
+		<? // task name ?>
 		<h1 class="story-title">
-			<?php if($showParent && !$data->isRoot()): ?>
+			<? if($showParent && !$data->isRoot()): ?>
 			<span class="parent-tasks story-subtitle">
-				<?php if($data->parent->id != $data->rootId): ?>
+				<? if($data->parent->id != $data->rootId): ?>
 				<span class="parent-task-name top-parent-task-name">
-					<?php echo PHtml::encode(StringUtils::truncate($data->root->name, 32)); ?>
+					<?= PHtml::encode(StringUtils::truncate($data->root->name, 32)); ?>
 				</span>
-				<?php endif; ?>
+				<? endif; ?>
 				<span class="parent-task-name">
-					<?php echo PHtml::encode(StringUtils::truncate($data->parent->name, 32)); ?>
+					<?= PHtml::encode(StringUtils::truncate($data->parent->name, 32)); ?>
 				</span>
 			</span>
-			<?php endif; ?>
-			<?php echo PHtml::link(
+			<? endif; ?>
+			<?= PHtml::link(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
 		
-		<?php $story->beginControls(); ?>
-			<?php if($data->isParticipatable) {
+		<? $story->beginControls(); ?>
+			<? if($data->isParticipatable) {
 				// show complete/uncomplete buttons if user is participating
 				if($data->isUserParticipating) {
 					echo PHtml::openTag('li');
@@ -117,6 +117,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 					echo PHtml::closeTag('li');
 				}
 			} ?>
-		<?php $story->endControls() ?>
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+		<? $story->endControls() ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

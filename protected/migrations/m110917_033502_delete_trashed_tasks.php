@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m110917_033502_delete_trashed_tasks extends CDbMigration
 {

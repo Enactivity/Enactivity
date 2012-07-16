@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * View for individual orders
  * @var CartItem $data model
@@ -11,46 +11,46 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	),
 )); ?>
 
-	<?php $story->beginStoryContent(); ?>
+	<? $story->beginStoryContent(); ?>
 
 	    <h1>
-	    	<?php // echo PHtml::encode($data->letters); ?>
+	    	<? // echo PHtml::encode($data->letters); ?>
 	    </h1>
 	
-		<?php if ($data->productType == CartItem::PRODUCT_TYPE_SWEATER) : ?>
-		<b><?php echo PHtml::encode($data->product->getAttributeLabel('style')); ?>:</b>
-		<?php echo PHtml::encode($data->product->style); ?>
+		<? if ($data->productType == CartItem::PRODUCT_TYPE_SWEATER) : ?>
+		<b><?= PHtml::encode($data->product->getAttributeLabel('style')); ?>:</b>
+		<?= PHtml::encode($data->product->style); ?>
 		<br />
 
-		<b><?php echo PHtml::encode($data->product->getAttributeLabel('clothColor')); ?>:</b>
-		<?php echo PHtml::encode($data->product->clothColor); ?>
+		<b><?= PHtml::encode($data->product->getAttributeLabel('clothColor')); ?>:</b>
+		<?= PHtml::encode($data->product->clothColor); ?>
 		<br />
 
-		<b><?php echo PHtml::encode($data->product->getAttributeLabel('letterColor')); ?>:</b>
-		<?php echo PHtml::encode($data->product->letterColor); ?>
+		<b><?= PHtml::encode($data->product->getAttributeLabel('letterColor')); ?>:</b>
+		<?= PHtml::encode($data->product->letterColor); ?>
 		<br />
 
-		<b><?php echo PHtml::encode($data->product->getAttributeLabel('stitchingColor')); ?>:</b>
-		<?php echo PHtml::encode($data->product->stitchingColor); ?>
+		<b><?= PHtml::encode($data->product->getAttributeLabel('stitchingColor')); ?>:</b>
+		<?= PHtml::encode($data->product->stitchingColor); ?>
 		<br />
 
-		<b><?php echo PHtml::encode($data->product->getAttributeLabel('size')); ?>:</b>
-		<?php echo PHtml::encode($data->product->size); ?>
+		<b><?= PHtml::encode($data->product->getAttributeLabel('size')); ?>:</b>
+		<?= PHtml::encode($data->product->size); ?>
 		<br />
 
-		<b><?php echo PHtml::encode($data->getAttributeLabel('sweaterLetters')); ?>:</b>
-		<?php echo PHtml::encode($data->sweaterLetters); ?>
+		<b><?= PHtml::encode($data->getAttributeLabel('sweaterLetters')); ?>:</b>
+		<?= PHtml::encode($data->sweaterLetters); ?>
 		<br />
 
-		<?php endif; ?>
+		<? endif; ?>
 
-		<b><?php echo PHtml::encode($data->getAttributeLabel('quantity')); ?>:</b>
-		<?php echo PHtml::encode($data->quantity); ?>
+		<b><?= PHtml::encode($data->getAttributeLabel('quantity')); ?>:</b>
+		<?= PHtml::encode($data->quantity); ?>
 		<br />
 
-    	<?php if(!$data->purchased) : ?>
-    	<?php $story->beginControls(); ?>
-    		<?php echo PHtml::openTag('li');
+    	<? if(!$data->purchased) : ?>
+    	<? $story->beginControls(); ?>
+    		<?= PHtml::openTag('li');
 			echo PHtml::link(
 				PHtml::encode('Edit'), 
 				array('update', 'id'=>$data->id),
@@ -76,8 +76,8 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			); 
 			echo PHtml::closeTag('li');
 			?>
-		<?php $story->endControls(); ?>
-		<?php endif; ?>
+		<? $story->endControls(); ?>
+		<? endif; ?>
 		
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

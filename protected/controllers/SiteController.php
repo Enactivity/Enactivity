@@ -1,4 +1,4 @@
-<?php
+<?
 //TODO: investigate this class and redesign for Poncla
 class SiteController extends Controller
 {

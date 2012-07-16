@@ -1,4 +1,4 @@
-<?php
+<?
 /* factory to generate models quickly. */
 
 class GroupFactory extends AbstractFactory {

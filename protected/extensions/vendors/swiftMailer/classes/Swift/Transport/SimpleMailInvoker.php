@@ -1,4 +1,4 @@
-<?php
+<?
 
 /*
  Invokes the mail() function in Swift Mailer.

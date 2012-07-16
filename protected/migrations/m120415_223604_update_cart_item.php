@@ -1,4 +1,4 @@
-<?php
+<?
 
 class m120415_223604_update_cart_item extends CDbMigration
 {

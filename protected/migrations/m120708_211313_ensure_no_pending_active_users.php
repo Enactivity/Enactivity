@@ -1,4 +1,4 @@
-<?php
+<?
 
 /**
  * Migration that sets all Active user's group memberships as active

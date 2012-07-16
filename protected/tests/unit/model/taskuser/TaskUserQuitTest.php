@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for {@link TaskUser::quit}
  * @author ajsharma

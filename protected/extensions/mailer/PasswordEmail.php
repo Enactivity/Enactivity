@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Contains various elements for the password recovery email.
  * @author Long Huynh

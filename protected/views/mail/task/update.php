@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for task model update scenario
  * 
@@ -7,29 +7,29 @@
 
 <article class="email">
 	<p>
-		<strong><time><?php PHtml::e(Yii::app()->format->formatDateTime(time())); ?></time></strong>
+		<strong><time><? PHtml::e(Yii::app()->format->formatDateTime(time())); ?></time></strong>
 	</p>
 	<p>Hey there! Just letting you know:</p>
 	<ul>
 		
-		<?php foreach($changedAttributes as $attributeName => $attributeArray) : ?>
+		<? foreach($changedAttributes as $attributeName => $attributeArray) : ?>
 		<li>
-			<?php PHtml::e($user->fullName); ?> 
+			<? PHtml::e($user->fullName); ?> 
 
-			<?php // user updating a date and time originally not null
+			<? // user updating a date and time originally not null
 			if(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] != '') : ?>		
-			updated <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> from <?php PHtml::e($attributeArray['old']); ?> to <?php PHtml::e($attributeArray['new']); ?>
+			updated <?= PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> from <? PHtml::e($attributeArray['old']); ?> to <? PHtml::e($attributeArray['new']); ?>
 			
-			<?php // user removing a set date and time
+			<? // user removing a set date and time
 			elseif(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] == '') : ?>
-			removed the date and time for <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data->task)); ?> which used to start at <?php PHtml::e($attributeArray['old']); ?>
+			removed the date and time for <?= PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data->task)); ?> which used to start at <? PHtml::e($attributeArray['old']); ?>
 			
-			<?php // user updating a date and time originally null
+			<? // user updating a date and time originally null
 			else : ?>
-			added a date and time for <?php echo PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> which now starts at <?php PHtml::e($attributeArray['new']); ?>			
-			<?php endif; ?>
+			added a date and time for <?= PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> which now starts at <? PHtml::e($attributeArray['new']); ?>			
+			<? endif; ?>
 			.
 		</li>
-		<?php endforeach; ?>
+		<? endforeach; ?>
 	</ul>
 </article>

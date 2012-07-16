@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * Form for creating/updating tasks
  * @uses model Task model
@@ -26,9 +26,9 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	),
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?= $form->errorSummary($model); ?>
 	
-	<?php
+	<?
 	// only show row when is root task
 	if(!isset($model->parentId)) {
 		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
@@ -40,7 +40,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	?>
 	
 	<div class="field">
-		<?php
+		<?
 		echo $form->labelEx($model,'name');
 		echo $form->textField($model,'name',
 			array(
@@ -49,12 +49,12 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 				'placeholder'=>"What's next?",
 			)); 
 		?>
-		<?php echo $form->error($model,'name'); ?>
+		<?= $form->error($model,'name'); ?>
 	</div>
 	
 	
 	<div class="field">
-		<?php if(!$inline):
+		<? if(!$inline):
 		// preformat date before loading into widget 
 		$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 			array(
@@ -70,11 +70,11 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 			)
 		);
 		endif; ?>
-		<?php echo $form->error($model,'starts'); ?>
+		<?= $form->error($model,'starts'); ?>
 	</div>
 	
 	<div class="field buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?= CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<? $this->endWidget(); ?>

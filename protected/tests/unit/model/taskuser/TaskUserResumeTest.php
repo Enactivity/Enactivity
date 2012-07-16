@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for {@link TaskUser::signup}
  * @author ajsharma

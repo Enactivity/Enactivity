@@ -1,4 +1,4 @@
-<?php
+<?
 
 /**
  * ContactForm class.

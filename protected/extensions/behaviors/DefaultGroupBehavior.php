@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * DefaultGroupBehavior class file.
  *

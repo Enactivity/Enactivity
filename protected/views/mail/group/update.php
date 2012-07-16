@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for group model update scenario
  * 

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Utilities functions for strings
  */

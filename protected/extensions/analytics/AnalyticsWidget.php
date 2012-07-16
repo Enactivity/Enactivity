@@ -1,4 +1,4 @@
-<?php
+<?
 /**
 * AnalyticsWidget class file
 * 

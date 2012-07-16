@@ -1,4 +1,4 @@
-<?php
+<?
 
 class UpdateTaskTest extends DbTestCase
 {

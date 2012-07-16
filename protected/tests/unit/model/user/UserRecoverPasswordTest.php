@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests for User::RecoverPassword
  * @author ajsharma

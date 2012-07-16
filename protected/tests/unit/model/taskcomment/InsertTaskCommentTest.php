@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Tests related to the initial insertion of a TaskComment model
  * @author ajsharma

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Parent class for test factories
  * 

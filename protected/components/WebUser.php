@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Overrides CWebUser to provide access to the User model
  * @author Ajay Sharma

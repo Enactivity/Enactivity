@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Mailer sends out emails using PHPmailer and can handle various
  * transactions such as registration, passwords requests, and notifications.

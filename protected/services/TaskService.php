@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * Service layer for interacting with Tasks
  **/
