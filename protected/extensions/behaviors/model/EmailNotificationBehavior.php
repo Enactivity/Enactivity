@@ -41,13 +41,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function createSubject($owner, $user)
 	{
 		// based on the given scenario, construct the appropriate subject
-
-		if(isset($owner->getModelObject()))
-		{
-			//return PHtml::encode($user->fullName) . ' ' . PHtml::encode($owner->getModelObject()->getScenarioLabel($owner->scenario)) . ' ' . PHtml::encode($owner->name);
-		}
-
-		/*
 		$class = strtolower(get_class($owner));
 		switch($class)
 		{
@@ -127,8 +120,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 				return "Psst! Something exciting just happened on Poncla!";
 
 		}
-		*/
-
 	}
 
 	public function afterSave($event)
