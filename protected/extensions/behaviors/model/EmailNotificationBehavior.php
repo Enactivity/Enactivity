@@ -92,7 +92,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 				if(strcasecmp($owner->scenario, self::SCENARIO_INSERT) == 0)
 				{
-					return 'Someone left a comment for ' . PHtml::encode($owner->getModelObject()) . ' on Poncla.';
+					return 'Someone left a comment for ' . PHtml::encode($owner->getModelObject()->name) . ' on Poncla.';
 				}
 				elseif(strcasecmp($owner->scenario, self::SCENARIO_REPLY) == 0)
 				{
