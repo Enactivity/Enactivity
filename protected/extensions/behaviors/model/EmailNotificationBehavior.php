@@ -38,15 +38,16 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
-	public function createSubject($owner, $user)
+	public function createSubject($data, $user)
 	{
 		// based on the given scenario, construct the appropriate subject
-		$class = get_class($owner);
-
-		if(isset($class))
+		if(isset($data->modelObject))
 		{
-			//do stuff
-			echo PHtml::encode($user) . ' ' . PHtml::encode($owner->$class->getScenarioLabel($owner->action)) . ' ' . PHtml::encode($owner->name);
+			return PHtml::encode($user->fullName) . ' ' . PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
+		}
+		else
+		{
+			return "Psst. Something exciting happened on Poncla";
 		}
 	}
 
@@ -89,7 +90,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
 			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
-
+			//$message->setSubject('Psst. Something exciting happened on Poncla');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
