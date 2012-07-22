@@ -41,12 +41,12 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function createSubject($owner, $user)
 	{
 		// based on the given scenario, construct the appropriate subject
-		//$class = strtolower(get_class($owner));
+		$class = get_class($owner);
 
 		if(isset($class))
 		{
 			//do stuff
-			echo PHtml::encode($user) . ' ' . PHtml::encode($owner->get_class($owner)->getScenarioLabel($owner->action)) . ' ' . PHtml::encode($owner->name);
+			echo PHtml::encode($user) . ' ' . PHtml::encode($owner->$class->getScenarioLabel($owner->action)) . ' ' . PHtml::encode($owner->name);
 		}
 	}
 
