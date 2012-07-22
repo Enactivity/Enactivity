@@ -130,7 +130,7 @@ if($model->isParticipatable):
 </section>
 <? endif; ?>
 
-<? if($model->isSubtaskable): ?>
+<? if($model->isSubtaskable || $model->hasChildren): ?>
 <section id="agenda">
 
 	<? if(!empty($subtasks)) :
@@ -138,12 +138,14 @@ if($model->isParticipatable):
 			'calendar'=>$calendar,
 			'showParent'=>false,
 	));
-	else: ?>
+	elseif($model->isSubtaskable): ?>
 	<p class="blurb">Since no one has signed up for this task yet, you can break it down into more specific tasks below.</p>
 	<? endif; ?>
 	
+	<? if($model->isSubtaskable) : ?>
 	<h1><?= 'Break Down Task'; ?></h1>
 	<?= $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+	<? endif; ?>
 </section>
 <? endif; ?>
 </div>
