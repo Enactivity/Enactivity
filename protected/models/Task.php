@@ -532,10 +532,12 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * @return boolean
 	 */
 	public function getIsSubtaskable() {
-		if(sizeof($this->participants) == 0) {
-			return true;
-		}
 		return false;
+
+		// if(sizeof($this->participants) == 0) {
+		// 	return true;
+		// }
+		// return false;
 	}
 	
 	/**
