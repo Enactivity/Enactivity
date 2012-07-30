@@ -66,7 +66,7 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'emailAttribute' => $this->group->name,
+				'emailAttribute' => isset($this->group->name) ? $this->group->name : "",
 				'ignoreAttributes' => array('modified', 'starts'),
 			),
 		);
