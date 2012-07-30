@@ -60,7 +60,6 @@ class Comment extends CActiveRecord implements EmailableRecord
     		),
  			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                'emailAttribute' => $this->name,
 				'ignoreAttributes' => array('modified', 'starts'),
 			),
     	);
