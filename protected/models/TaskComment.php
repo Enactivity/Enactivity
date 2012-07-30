@@ -62,7 +62,7 @@ class TaskComment extends Comment
     
     /**
      * Ensure model is set to 'Task'
-     * @see CActiveRecord::beforeValidate()
+     * @see ActiveRecord::beforeValidate()
      */
     public function beforeValidate() {
     	if(parent::beforeValidate()) {
