@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property CartItem $id0
  */
-class CartItemCustomField extends CActiveRecord
+class CartItemCustomField extends ActiveRecord
 {
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii

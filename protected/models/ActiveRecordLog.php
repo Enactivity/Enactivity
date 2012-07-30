@@ -22,7 +22,7 @@
  * @property User $user
  * @property Group $group
  */
-class ActiveRecordLog extends CActiveRecord
+class ActiveRecordLog extends ActiveRecord
 {
 	const ACTION_POSTED = 'insert';
 	const ACTION_DELETED = 'delete';
@@ -30,7 +30,7 @@ class ActiveRecordLog extends CActiveRecord
 	
 	/**
 	 * The instanced focal model, loaded by afterFind
-	 * @var CActiveRecord
+	 * @var ActiveRecord
 	 */
 	private $_focalModelObject;
 	
@@ -227,7 +227,7 @@ class ActiveRecordLog extends CActiveRecord
 	
 	/**
 	 * The instanced model, loaded by afterFind
-	 * @var CActiveRecord
+	 * @var ActiveRecord
 	*/
 	public function getModelObject() {
 		if(isset($this->_modelObject)) {

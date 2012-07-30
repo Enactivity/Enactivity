@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends CActiveRecord implements EmailableRecord
+class Task extends ActiveRecord implements EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -321,7 +321,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Delete any TaskUsers attached to the task.  
-	 * @see CActiveRecord::beforeDelete()
+	 * @see ActiveRecord::beforeDelete()
 	 */
 	public function beforeDelete() {
 		parent::beforeDelete();
@@ -648,7 +648,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * Scope for events taking place in a particular Month
 	 * @param int $starts unix timestamp of start time
 	 * @param int $ends unix timestamp of end time
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -665,7 +665,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * Scope definition for events that share group value with
 	 * the user's groups
 	 * @param int $userId
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -679,7 +679,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Named scope. Gets the nodes that have no start value.
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeNoWhen() {
 		$this->getDbCriteria()->mergeWith(array(
@@ -691,7 +691,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Named scope. Gets leaf node(s).
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeLeaves() {
 		$this->getDbCriteria()->mergeWith(array(

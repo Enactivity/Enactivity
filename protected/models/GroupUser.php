@@ -15,7 +15,7 @@
  * @property Group $group
  * @property User $user
  */
-class GroupUser extends CActiveRecord implements EmailableRecord
+class GroupUser extends ActiveRecord implements EmailableRecord
 {
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
