@@ -69,7 +69,7 @@ class TaskUser extends CActiveRecord implements EmailableRecord
 			),
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'feedAttribute' => isset($this->task->name) ? $this->task->name : "",
+				'emailAttribute' => isset($this->task->name) ? $this->task->name : "",
 				'ignoreAttributes' => array('modified'),
 		),
 		);
