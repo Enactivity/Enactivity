@@ -38,13 +38,13 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	* @param CEvent $event
 	*/
 
-	public function createSubject($model, $user)
+	public function createSubject($model, $currentUser)
 	{
 		// based on the given scenario, construct the appropriate subject
 		$class = get_class($model);
 		$label = $model->getScenarioLabel($model->scenario);
 		$name = $model->feedAttribute;
-		return $model->user->fullName . " " . $label . " " . $name;
+		return $currentUser . " " . $label . " " . $name;
 
 	}
 
