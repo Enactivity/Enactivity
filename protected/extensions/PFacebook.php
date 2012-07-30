@@ -22,7 +22,7 @@ class PFacebook extends CApplicationComponent {
 	/**
 	 * @var boolean whether file uploads are enabled.
 	 */
-	public $fileUpload;
+	public $isFileUploadEnabled;
 
 	protected $_facebook;
 
@@ -36,8 +36,8 @@ class PFacebook extends CApplicationComponent {
 			'secret' => $this->appSecret
 		);
 
-		if ($this->fileUpload !== null)
-			$config['fileUpload'] = $this->fileUpload;
+		if ($this->isFileUploadEnabled !== null)
+			$config['isFileUploadEnabled'] = $this->isFileUploadEnabled;
 
 		$this->_facebook = new Facebook($config);
 	}
