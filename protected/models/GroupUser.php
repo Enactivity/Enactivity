@@ -136,6 +136,14 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 		);
 	}
 
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_INSERT => 'was inserted into',
+			self::SCENARIO_INVITE => 'was invited to',
+			self::SCENARIO_JOIN => 'joined',
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
