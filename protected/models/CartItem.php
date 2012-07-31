@@ -14,7 +14,7 @@
  * @property string $created
  * @property string $modified
  */
-class CartItem extends CActiveRecord
+class CartItem extends ActiveRecord
 {
 	const SCENARIO_ADD_TO_CART = 'add to cart';
 	const SCENARIO_DELETE = 'delete';
@@ -350,7 +350,7 @@ class CartItem extends CActiveRecord
 
 	/**
 	 * The instanced model, loaded by afterFind
-	 * @var CActiveRecord
+	 * @var ActiveRecord
 	*/
 	public function getProduct() {
 		if(isset($this->_productActiveRecord)) {

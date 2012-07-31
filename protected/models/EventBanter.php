@@ -15,7 +15,7 @@
  * @property Event $event
  * @property User $creator
  */
-class EventBanter extends CActiveRecord
+class EventBanter extends ActiveRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	

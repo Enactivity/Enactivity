@@ -16,7 +16,7 @@
  * @property Task $task
  * @property User $user
  */
-class TaskUser extends CActiveRecord implements EmailableRecord
+class TaskUser extends ActiveRecord implements EmailableRecord
 {
 
 	const SCENARIO_COMPLETE = 'complete';

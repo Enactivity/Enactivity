@@ -19,7 +19,7 @@
  * @property GroupBanter[] $replies
  * @property int repliesCount 
  */
-class GroupBanter extends CActiveRecord
+class GroupBanter extends ActiveRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	

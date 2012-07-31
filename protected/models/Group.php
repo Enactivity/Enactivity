@@ -14,7 +14,7 @@
  * @property GroupUser[] $groupUsers
  * @property User[] $users
  */
-class Group extends CActiveRecord implements EmailableRecord
+class Group extends ActiveRecord implements EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	const NAME_MIN_LENGTH = 3;
@@ -179,7 +179,7 @@ class Group extends CActiveRecord implements EmailableRecord
 	}
 	
 	/**
-	 * @see CActiveRecord::beforeValidate()
+	 * @see ActiveRecord::beforeValidate()
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
