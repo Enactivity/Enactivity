@@ -6,10 +6,10 @@
 abstract class ActiveRecord extends CActiveRecord {
 
 	/**
-	 * @see ActiveRecord::scenarioLabels()
+	 * @return array scenario string => label string
 	 **/
 	public function scenarioLabels() {
-		throw new Exception("Needs implementation");
+		throw new Exception("scenarioLabels() has not been implemented for this class");
 	}
 
 	/**
