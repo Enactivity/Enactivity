@@ -58,10 +58,6 @@ class Comment extends ActiveRecord implements EmailableRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
- 			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'ignoreAttributes' => array('modified', 'starts'),
-			),
     	);
     }
 
