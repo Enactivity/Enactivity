@@ -47,7 +47,7 @@ class TaskComment extends Comment
             'EmailNotificationBehavior'=>array(
                 'class' => 'ext.behaviors.model.EmailNotificationBehavior',
                 'emailAttribute' => isset($this->modelObject) && isset($this->modelObject->name) ? $this->modelObject->name : "", //TODO: find out effects of "" default
-                'ignoreAttributes' => array('modified', 'starts'),
+                'ignoreAttributes' => array('modified'),
             ),
     	));
     	return $behaviors;
