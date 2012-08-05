@@ -22,7 +22,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
 				echo ' ';
 				echo PHtml::link(
-					StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80),
+					StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
 					array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
 				);
 			}
