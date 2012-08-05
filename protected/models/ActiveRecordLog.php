@@ -80,7 +80,7 @@ class ActiveRecordLog extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groupId, focalModel, focalModelId, model, modelId', 'required'),
+			array('groupId, focalModel, focalModelId, focalModelName, model, modelId', 'required'),
 			array('groupId, modelId, userId', 'numerical', 'integerOnly'=>true),
 			array('focalModel, model, modelAttribute', 'length', 'max'=>45),
 			
