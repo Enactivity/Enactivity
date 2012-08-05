@@ -27,7 +27,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				);
 			}
 			else {
-				echo 'deleted something';
+				echo 'deleted ' . StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
 			}?>
 		</h1>	
 			
