@@ -100,8 +100,7 @@ class Task extends ActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'emailAttribute' => $this->name,
-				'notifyAttribute' => 'descendantParticipants',
+				//'notifyAttribute' => 'descendantParticipants',
 				'ignoreAttributes' => array('modified'),
 			),
 		);
@@ -732,5 +731,9 @@ class Task extends ActiveRecord implements EmailableRecord
 		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $emails;
 	}
+
+    public function getEmailName() {
+        return $this->name;
+    }
 	
 }
