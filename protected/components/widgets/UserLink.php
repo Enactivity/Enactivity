@@ -30,7 +30,7 @@ class UserLink extends CWidget {
 	
 	protected function renderLink() {
 		if(isset($this->userModel)) {
-			echo PHtml::encode($this->userModel->fullName != "" ? $this->userModel->fullName : $this->userModel->email);
+			echo PHtml::encode($this->userModel->nickname);
 		}
 		else {
 			echo 'Deleted user account';
