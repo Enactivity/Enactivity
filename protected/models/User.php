@@ -644,7 +644,7 @@ class User extends ActiveRecord
 	 **/
 	public function getNickname() {
 		if($this->fullName) {
-			return $this->fullName();
+			return $this->fullName;
 		}
 		return $this->userModel->email;
 	}
