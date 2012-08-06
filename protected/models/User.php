@@ -634,9 +634,19 @@ class User extends ActiveRecord
 		&& $this->lastName != NULL) {
 			return $this->firstName . ' ' . $this->lastName;
 		}
-		else {
-			return NULL;
+		
+		return NULL;
+	}
+
+	/**
+	 * Get the proper name for the user depending on their information available
+	 * @return string
+	 **/
+	public function getNickname() {
+		if($this->fullName) {
+			return $this->fullName();
 		}
+		return $this->userModel->email);
 	}
 
 	/**
