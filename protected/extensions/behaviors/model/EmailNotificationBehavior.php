@@ -73,7 +73,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
 			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
-			//$message->setSubject('Psst. Something exciting happened on Poncla');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
