@@ -30,6 +30,7 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 			$log->save();
 			
 			$log->unsetModels();
+			unset($log);
 		}
 		echo "\n done";
 	}
