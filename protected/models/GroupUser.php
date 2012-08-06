@@ -137,8 +137,8 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 
 	public function scenarioLabels() {
 		return array(
-			self::SCENARIO_INSERT => 'was inserted into',
-			self::SCENARIO_INVITE => 'was invited to',
+			self::SCENARIO_INSERT => 'inserted more people into',
+			self::SCENARIO_INVITE => 'invited more people to join',
 			self::SCENARIO_JOIN => 'joined',
 		);
 	}
