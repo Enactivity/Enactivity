@@ -238,4 +238,12 @@ class ActiveRecordLog extends ActiveRecord
 		$this->_modelObject = $model->findByPk($this->modelId);
 		return $this->_modelObject;
 	}
+
+	/**
+	 * Unset focal and model objects to clear memory
+	 **/
+	public function unsetModels() {
+		unset($this->_modelObject);
+		unset($this->_focalModelObject);
+	}
 }

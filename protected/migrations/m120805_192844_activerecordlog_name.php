@@ -29,7 +29,7 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 			$log->focalModelName = $model->name;
 			$log->save();
 			
-			unset($model);
+			$model->unsetModels();
 		}
 		echo "\n done";
 	}
