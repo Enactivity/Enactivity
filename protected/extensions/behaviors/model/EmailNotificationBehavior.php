@@ -17,20 +17,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 */
 	public $ignoreAttributes = array();
 	
-	/**
-	 * The attribute that the email should use to identify the model
-	 * to the user
-	 * @var string
-	 */
-	public $emailAttribute = '';
-	
-	/**
-	 * The attribute that the behavior should use to get the list of 
-	 * users who should be emailed.  Should return User[].
-	 * @var string
-	 */
-	public $notifyAttribute = '';
-	
 	private $_oldAttributes = array();
  
 	/**
@@ -41,9 +27,8 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function createSubject($model, $currentUser)
 	{
 		// based on the given scenario, construct the appropriate subject
-		$class = get_class($model);
 		$label = $model->getScenarioLabel($model->scenario);
-		$name = $model->emailAttribute;
+		$name = $model->emailName;
 		$userName = $currentUser->fullName;
 		return $userName . " " . $label . " " . $name;
 
