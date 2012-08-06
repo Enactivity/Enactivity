@@ -63,7 +63,6 @@ class Group extends ActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'emailAttribute' => $this->name,
 				'ignoreAttributes' => array('modified', 'starts'),
 			),
 		);
@@ -257,5 +256,9 @@ class Group extends ActiveRecord implements EmailableRecord
 	{
 		return $this->getMembersByStatus(User::STATUS_ACTIVE);
 	}
+
+    public function getEmailName() {
+        return $this->name;
+    }
 	
 }

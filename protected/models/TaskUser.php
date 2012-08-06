@@ -69,7 +69,6 @@ class TaskUser extends ActiveRecord implements EmailableRecord
 			),
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'emailAttribute' => isset($this->task->name) ? $this->task->name : "",
 				'ignoreAttributes' => array('modified'),
 		),
 		);
@@ -364,4 +363,8 @@ class TaskUser extends ActiveRecord implements EmailableRecord
 		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $emails;
 	}
+
+    public function getEmailName() {
+        return isset($this->task->name) ? $this->task->name : "";
+    }
 }

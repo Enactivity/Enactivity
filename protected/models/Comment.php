@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class Comment extends ActiveRecord implements EmailableRecord
+class Comment extends ActiveRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	

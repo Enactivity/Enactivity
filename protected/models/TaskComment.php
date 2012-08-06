@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class TaskComment extends Comment
+class TaskComment extends Comment implements EmailableRecord
 {
 	const MODELTYPE = 'Task';
 	
