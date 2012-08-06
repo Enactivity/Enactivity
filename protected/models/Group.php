@@ -149,6 +149,13 @@ class Group extends ActiveRecord implements EmailableRecord
 		);
 	}
 
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_INSERT => 'created',
+			self::SCENARIO_UPDATE => 'updated',
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -249,5 +256,9 @@ class Group extends ActiveRecord implements EmailableRecord
 	{
 		return $this->getMembersByStatus(User::STATUS_ACTIVE);
 	}
+
+    public function getEmailName() {
+        return $this->name;
+    }
 	
 }

@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class TaskComment extends Comment
+class TaskComment extends Comment implements EmailableRecord
 {
 	const MODELTYPE = 'Task';
 	
@@ -42,6 +42,10 @@ class TaskComment extends Comment
                 'focalModelClass' => 'Task',
                 'focalModelId' => 'modelId',
                 'feedAttribute' => isset($this->modelObject) && isset($this->modelObject->name) ? $this->modelObject->name : "", //TODO: find out effects of "" default
+                'ignoreAttributes' => array('modified'),
+            ),
+            'EmailNotificationBehavior'=>array(
+                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
                 'ignoreAttributes' => array('modified'),
             ),
     	));
@@ -86,5 +90,9 @@ class TaskComment extends Comment
     public function setTask(Task $task) {
     	$this->modelId = $task->id;
     	$this->groupId = $task->groupId;
+    }
+
+    public function getEmailName() {
+        return $this->modelObject->name;
     }
 }
