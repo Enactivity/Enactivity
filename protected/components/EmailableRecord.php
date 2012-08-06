@@ -11,6 +11,14 @@ interface EmailableRecord
 	 **/
 	public function getEmailName();
 
+
+	/**
+	 * @return boolean based on the scenario for the model
+	 **/
 	public function shouldEmail();
+
+	/**
+	 * @return array of emails that will be notified
+	 **/
 	public function whoToNotifyByEmail();
 }
