@@ -23,14 +23,16 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 
 		foreach ($logs as $log) {
 			echo "\n Updating log: " . $log->id;
-
-			$model = $log->focalModelObject;
 			
-			$log->focalModelName = $model->name;
+			$log->focalModelName = $log->focalModelObject->name;
 			$log->save();
+
+			echo "\n before: " . memory_get_usage();
 			
 			$log->unsetModels();
 			unset($log);
+
+			echo "\n  after: " . memory_get_usage();
 		}
 		echo "\n done";
 	}

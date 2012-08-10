@@ -245,5 +245,6 @@ class ActiveRecordLog extends ActiveRecord
 	public function unsetModels() {
 		unset($this->_modelObject);
 		unset($this->_focalModelObject);
+		$this->detachBehaviors();
 	}
 }
