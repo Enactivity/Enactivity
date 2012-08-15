@@ -4,6 +4,8 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 {
 	public function up()
 	{
+		YII_DEBUG = false;
+
 		$this->addColumn('activerecordlog', 'focalModelName', 'TEXT NOT NULL AFTER  `focalModelId`');
 
 		try {
