@@ -241,10 +241,17 @@ class ActiveRecordLog extends ActiveRecord
 
 	/**
 	 * Unset focal and model objects to clear memory
+	 * @return null
 	 **/
 	public function unsetModels() {
-		unset($this->_modelObject);
-		unset($this->_focalModelObject);
-		$this->detachBehaviors();
+		if($this->_focalModelObject) {
+			$this->_focalModelObject->detachBehaviors();
+			unset($this->_focalModelObject);
+		}
+
+		if($this->_modelObject) {
+			$this->_modelObject->detachBehaviors();
+			unset($this->_modelObject);
+		}
 	}
 }

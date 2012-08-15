@@ -12,24 +12,19 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 
 			foreach ($logs as $log) {
 				echo "\n Updating log: " . $log->id;
+				echo "\n   1: " . memory_get_usage();
 				
-				$model = $log->focalModelObject;
-				$log->focalModelName = $model ? $model->name : "Something";
+				$log->focalModelName = $log->focalModelObject ? $log->focalModelObject->name : "Something";
 				echo "\n name: " . $log->focalModelName;
 				$log->save();
 
-				echo "\n before: " . memory_get_usage();
+				echo "\n   2: " . memory_get_usage();
 				
-				if($model) {
-					$model->detachBehaviors();
-					unset($model);
-				}
-
 				$log->detachBehaviors();
 				$log->unsetModels();
 				unset($log);
 
-				echo "\n  after: " . memory_get_usage();
+				echo "\n   3: " . memory_get_usage();
 			}
 		}
 		catch(Exception $e) {
@@ -45,10 +40,4 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 	// 	echo "m120805_192844_activerecordlog_name does not support migration down.\n";
 	// 	return false;
 	// }
-
-	
-	public function up()
-	{
-
-	}	
 }
