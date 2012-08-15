@@ -2,6 +2,8 @@
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
+defined('YII_DEBUG') or define('YII_DEBUG', false); // otherwise is set to true in framework
+
 return CMap::mergeArray(
 	require(dirname(__FILE__).'/all.inc.php'),
 	array(
