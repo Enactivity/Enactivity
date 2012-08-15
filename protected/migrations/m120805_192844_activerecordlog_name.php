@@ -4,13 +4,21 @@ class m120805_192844_activerecordlog_name extends CDbMigration
 {
 	public function up()
 	{
-		YII_DEBUG = false;
+		try {
+			$this->addColumn('activerecordlog', 'focalModelName', 'TEXT NOT NULL AFTER  `focalModelId`');
+		}
+		catch(Exception $e) {
+			echo "EXCEPTION encountered when adding column: " . $e;
+		}
 
-		$this->addColumn('activerecordlog', 'focalModelName', 'TEXT NOT NULL AFTER  `focalModelId`');
+		$log = null;
+		$logs = null;
 
 		try {
-			$log = new ActiveRecordLog();
-			$logs = $log->findAll();
+			$logRecord = new ActiveRecordLog();
+			$logs = $logRecord->findAllByAttributes(array(
+				'focalModelName' => '',
+			));
 
 			foreach ($logs as $log) {
 				echo "\n Updating log: " . $log->id;
