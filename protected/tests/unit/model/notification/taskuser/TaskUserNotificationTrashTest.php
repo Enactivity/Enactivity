@@ -12,6 +12,9 @@ class TaskUserNotificationTrashTest extends DbTestCase
 	
 	public function testTaskUserNotificationTrash()
 	{
+		$this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
 	}
 	
 	protected function tearDown()
