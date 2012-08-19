@@ -49,7 +49,9 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = null;
 			$log->userId = Yii::app()->user->id;
-			$log->save();
+			if(!$log->save()) {
+				throw new CDbException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+			}
 		} 
 		else { // updating existing record
 			
@@ -81,7 +83,9 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 						$log->oldAttributeValue = $oldValue;
 						$log->newAttributeValue = $value;
 						$log->userId = Yii::app()->user->id;
-						$log->save();
+						if(!$log->save()) {
+							throw new CDbException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+						}
 					}
 				}
 			}
@@ -98,11 +102,14 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		$log->action = ActiveRecordLog::ACTION_DELETED;
 		$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
 		$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+		$log->focalModelName = $this->feedAttribute;
 		$log->model = get_class($this->Owner);
 		$log->modelId = $this->Owner->getPrimaryKey();
 		$log->modelAttribute = '';
 		$log->userId = Yii::app()->user->id;
-		$log->save();
+		if(!$log->save()) {
+			throw new CDbException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+		}
 	}
  
 	/**
