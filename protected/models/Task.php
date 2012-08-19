@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends ActiveRecord implements EmailableRecord
+class Task extends ActiveRecord implements EmailableRecord, LogableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -94,7 +94,6 @@ class Task extends ActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'feedAttribute' => $this->name,
 				'ignoreAttributes' => array('modified'),
 			),
 			// Record C-UD operations to this record
@@ -709,6 +708,27 @@ class Task extends ActiveRecord implements EmailableRecord
 			. ' OR (participantsCount != participantsCompletedCount))',
 		));
 		return $this;
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelClassForLog() {
+		return get_class($this);
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelIdForLog() {
+		return $this->primaryKey;
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelNameForLog() {
+		return $this->name;
 	}
 	
 	public function shouldEmail()

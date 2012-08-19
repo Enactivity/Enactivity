@@ -16,7 +16,7 @@
  * @property Task $task
  * @property User $user
  */
-class TaskUser extends ActiveRecord implements EmailableRecord
+class TaskUser extends ActiveRecord implements EmailableRecord, LogableRecord
 {
 
 	const SCENARIO_COMPLETE = 'complete';
@@ -62,9 +62,6 @@ class TaskUser extends ActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'focalModelClass' => 'Task',
-				'focalModelId' => 'taskId',
-				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
 			),
 			'EmailNotificationBehavior'=>array(
@@ -338,6 +335,27 @@ class TaskUser extends ActiveRecord implements EmailableRecord
 		
 		$transaction->rollback();
 		throw new CHttpException(400, "There was an error completing this task");
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelClassForLog() {
+		return get_class($this->task);
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelIdForLog() {
+		return $this->task->primaryKey;
+	}
+
+	/**
+	 * @see LogableRecord
+	 **/
+	public function getFocalModelNameForLog() {
+		return $this->task->name;
 	}
 	
 	public function shouldEmail()

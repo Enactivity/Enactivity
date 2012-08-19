@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class TaskComment extends Comment implements EmailableRecord
+class TaskComment extends Comment implements EmailableRecord, LogableRecord
 {
 	const MODELTYPE = 'Task';
 	
@@ -39,9 +39,6 @@ class TaskComment extends Comment implements EmailableRecord
     		// Add new behaviors here
             'ActiveRecordLogBehavior'=>array(
                 'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-                'focalModelClass' => 'Task',
-                'focalModelId' => 'modelId',
-                'feedAttribute' => isset($this->modelObject) && isset($this->modelObject->name) ? $this->modelObject->name : "", //TODO: find out effects of "" default
                 'ignoreAttributes' => array('modified'),
             ),
             'EmailNotificationBehavior'=>array(
@@ -90,6 +87,27 @@ class TaskComment extends Comment implements EmailableRecord
     public function setTask(Task $task) {
     	$this->modelId = $task->id;
     	$this->groupId = $task->groupId;
+    }
+
+    /**
+     * @see LogableRecord
+     **/
+    public function getFocalModelClassForLog() {
+        return get_class($this->modelObject);
+    }
+
+    /**
+     * @see LogableRecord
+     **/
+    public function getFocalModelIdForLog() {
+        return $this->modelObject->primaryKey;
+    }
+
+    /**
+     * @see LogableRecord
+     **/
+    public function getFocalModelNameForLog() {
+        return $this->modelObject->name;
     }
 
     public function getEmailName() {
