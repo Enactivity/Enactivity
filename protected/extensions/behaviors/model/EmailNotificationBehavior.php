@@ -95,7 +95,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/delete';
 			$message->setBody(array('data'=>$this->Owner, 'user'=>$currentUser), 'text/html');
 				
-			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . 'Something was deleted on Poncla!');
+			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' Something was deleted on Poncla!');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
