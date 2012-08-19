@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class TaskComment extends Comment implements EmailableRecord, LogableRecord
+class TaskComment extends Comment implements EmailableRecord, LoggableRecord
 {
 	const MODELTYPE = 'Task';
 	
@@ -90,21 +90,21 @@ class TaskComment extends Comment implements EmailableRecord, LogableRecord
     }
 
     /**
-     * @see LogableRecord
+     * @see LoggableRecord
      **/
     public function getFocalModelClassForLog() {
         return get_class($this->modelObject);
     }
 
     /**
-     * @see LogableRecord
+     * @see LoggableRecord
      **/
     public function getFocalModelIdForLog() {
         return $this->modelObject->primaryKey;
     }
 
     /**
-     * @see LogableRecord
+     * @see LoggableRecord
      **/
     public function getFocalModelNameForLog() {
         return $this->modelObject->name;

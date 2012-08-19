@@ -3,7 +3,7 @@
 /**
  * Interface to control notifications
  */
-interface LogableRecord
+interface LoggableRecord
 {
 	/**
 	 * @return string The central model of the record, not necessarily the one that changed, but the one that can stand-alone  

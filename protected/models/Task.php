@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends ActiveRecord implements EmailableRecord, LogableRecord
+class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -711,21 +711,21 @@ class Task extends ActiveRecord implements EmailableRecord, LogableRecord
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelClassForLog() {
 		return get_class($this);
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelIdForLog() {
 		return $this->primaryKey;
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelNameForLog() {
 		return $this->name;

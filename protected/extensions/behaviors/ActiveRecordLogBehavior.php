@@ -124,13 +124,13 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	}
 
 	/**
-	 * Confirm that the class is a LogableRecord and thus compatible with this
+	 * Confirm that the class is a LoggableRecord and thus compatible with this
 	 * behavior
 	 * @param CComponent owner class of this record
 	 **/
 	protected function checkIsLoggable() {
-		if(!($this->Owner instanceof LogableRecord)) {
-			throw new CException("Class " . get_class($this->owner) . " does not implement LogableRecord");
+		if(!($this->Owner instanceof LoggableRecord)) {
+			throw new CException("Class " . get_class($this->owner) . " does not implement LoggableRecord");
 		}
 	}
 }

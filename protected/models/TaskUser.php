@@ -16,7 +16,7 @@
  * @property Task $task
  * @property User $user
  */
-class TaskUser extends ActiveRecord implements EmailableRecord, LogableRecord
+class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 
 	const SCENARIO_COMPLETE = 'complete';
@@ -338,21 +338,21 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LogableRecord
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelClassForLog() {
 		return get_class($this->task);
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelIdForLog() {
 		return $this->task->primaryKey;
 	}
 
 	/**
-	 * @see LogableRecord
+	 * @see LoggableRecord
 	 **/
 	public function getFocalModelNameForLog() {
 		return $this->task->name;
