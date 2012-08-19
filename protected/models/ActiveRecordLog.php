@@ -8,6 +8,7 @@
  * @property integer $groupId
  * @property string $focalModel
  * @property integer $focalModelId
+ * @property string $focalModelName
  * @property string $model
  * @property integer $modelId
  * @property string $action
