@@ -14,22 +14,23 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	
 	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
-			<? $this->widget('application.components.widgets.UserLink', array(
+			<?
+			$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->user,
 			)); 
 			echo ' ';
-			if(isset($data->modelObject)) {
-				echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
-				echo ' ';
-				echo PHtml::link(
-					StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
-					array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
-				);
-			}
-			else {
-				echo 'deleted ' . StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
-			}?>
-		</h1>	
+			echo PHtml::encode(strtolower($data->modelLabel));
+			echo ' ';
+			if(isset($data->modelObject)):
+			echo PHtml::link(
+				StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
+				array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
+			);
+			else:
+			echo StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
+			endif;
+			?>
+		</h1>
 			
 		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p>Changed
