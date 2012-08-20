@@ -14,21 +14,21 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	
 	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
-			<? $this->widget('application.components.widgets.UserLink', array(
+			<?
+			if(isset($data->modelObject)):
+			$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->user,
 			)); 
 			echo ' ';
-			if(isset($data->modelObject)) {
-				echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
-				echo ' ';
-				echo PHtml::link(
-					StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
-					array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
-				);
-			}
-			else {
-				echo 'deleted ' . StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
-			}
+			echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
+			echo ' ';
+			echo PHtml::link(
+				StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
+				array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
+			);
+			else:
+			echo 'Redacted';
+			endif;
 			?>
 		</h1>
 			
