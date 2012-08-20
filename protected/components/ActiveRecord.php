@@ -20,7 +20,7 @@ abstract class ActiveRecord extends CActiveRecord {
 	public function getScenarioLabel($scenario)
 	{
 		$labels = $this->scenarioLabels();
-		if(isset($labels[$scenario])) {
+		if(array_key_exists($scenario, $labels)) {
 			return $labels[$scenario];
 		}
 		return $this->generateAttributeLabel($scenario);
