@@ -1,12 +1,9 @@
-<?php 
+<? 
 /**
  * View for groupuser model join scenario
- * 
+ * @uses GroupUser $data
+ * @uses User $user
  */
-
-// calculate article class
-$articleClass = "view";
-$articleClass .= " email";
 
 // start article
 echo PHtml::openTag('article', array(
@@ -27,7 +24,7 @@ echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
 //Great news! [firstName][lastName] joined [groupName].
-echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::link(PHtml::encode($data->name), PHtml::groupUrl($data)) . ".";
+echo "Great news! " . PHtml::encode($user->fullName) . " joined " . PHtml::link(PHtml::encode($data->group->name), PHtml::groupUrl($data->group)) . ".";
 
 echo PHtml::closeTag('article');
 ?>

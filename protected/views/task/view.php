@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * @uses $model 
  * @uses $subtasks
@@ -11,11 +11,11 @@
 $this->pageTitle = $model->name;
 ?>
 
-<?php echo PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
+<?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
 	<div class="menu toolbox">
 		<ul>
 			<li>
-				<?php
+				<?
 				echo PHtml::link(
 					PHtml::encode('Edit'), 
 					array('task/update', 'id'=>$model->id),
@@ -32,33 +32,33 @@ $this->pageTitle = $model->name;
 
 	<h1>
 	<? if(sizeof($ancestors) > 0): ?>
-	<?php foreach($ancestors as $task) {
+	<? foreach($ancestors as $task) {
 		echo PHtml::link(
 			PHtml::encode($task->name),
 			array('task/view', 'id'=>$task->id)
 		);
 		echo ': ';
 	} ?>
-	<?php endif; ?>
-	<?php echo PHtml::encode($this->pageTitle); ?></h1>
-	<span class="task-header-time"><?php $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
-<?php echo PHtml::endContentHeader(); ?>
+	<? endif; ?>
+	<?= PHtml::encode($this->pageTitle); ?></h1>
+	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
+<?= PHtml::endContentHeader(); ?>
 
 <div class="novel">
-<?php
+<?
 // show participants
 if($model->isParticipatable):
 ?>
 <section id="users-participating" class="novel">
 	<div class="menu novel-controls">
 	<ul>
-	<?php
+	<?
 	if($model->isParticipatable) {
 		// show complete/uncomplete buttons if user is participating
 		if($model->isUserParticipating) {
 			?>
 				<li>
-				<?php
+				<?
 					if($model->isUserComplete) {
 						echo PHtml::button(
 							PHtml::encode('Resume'),
@@ -86,7 +86,7 @@ if($model->isParticipatable):
 					?>
 					</li>
 					
-					<?php
+					<?
 					// 'participate' button
 					echo PHtml::openTag('li');
 					echo PHtml::button(
@@ -119,8 +119,8 @@ if($model->isParticipatable):
 			?>
 			</ul>
 		</div>
-		<h1><?php echo PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
-	<?php 
+		<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
+	<? 
 	foreach($model->participatingTaskUsers as $usertask) {
 		echo $this->renderPartial('/taskuser/_view', array(
 			'data'=>$usertask,
@@ -128,32 +128,34 @@ if($model->isParticipatable):
 	}
 	?>
 </section>
-<?php endif; ?>
+<? endif; ?>
 
-<?php if($model->isSubtaskable): ?>
+<? if($model->isSubtaskable || $model->hasChildren): ?>
 <section id="agenda">
 
-	<?php if(!empty($subtasks)) :
+	<? if(!empty($subtasks)) :
 	echo $this->renderPartial('_agenda', array(
 			'calendar'=>$calendar,
 			'showParent'=>false,
 	));
-	else: ?>
+	elseif($model->isSubtaskable): ?>
 	<p class="blurb">Since no one has signed up for this task yet, you can break it down into more specific tasks below.</p>
-	<?php endif; ?>
+	<? endif; ?>
 	
-	<h1><?php echo 'Break Down Task'; ?></h1>
-	<?php echo $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+	<? if($model->isSubtaskable) : ?>
+	<h1><?= 'Break Down Task'; ?></h1>
+	<?= $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
+	<? endif; ?>
 </section>
-<?php endif; ?>
+<? endif; ?>
 </div>
 
-<?php // show comments ?>
+<? // show comments ?>
 <div class="novel">
 	<section id="task-comments">
-		<h1><?php echo 'Comments'; ?></h1>
+		<h1><?= 'Comments'; ?></h1>
 		
-		<?php
+		<?
 		if($commentsDataProvider->totalItemCount > 0) :
 			// show list of comments
 			$this->widget('zii.widgets.CListView', array(
@@ -163,18 +165,18 @@ if($model->isParticipatable):
 			)); 
 		else: ?>
 		<p class="blurb">No one has written any comments yet, be the first!</p>
-		<?php endif; ?>
+		<? endif; ?>
 		
 		
-		<?php // show new comment form ?>
-		<?php echo $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+		<? // show new comment form ?>
+		<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 	</section>
 	
-	<?php // Show history ?>
+	<? // Show history ?>
 	<section id="task-activity">
-		<h1><?php echo 'Recent Activity'; ?></h1>
+		<h1><?= 'Recent Activity'; ?></h1>
 		
-		<?php 
+		<? 
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$feedDataProvider,
 			'itemView'=>'/feed/_view',

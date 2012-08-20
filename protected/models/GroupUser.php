@@ -15,7 +15,7 @@
  * @property Group $group
  * @property User $user
  */
-class GroupUser extends CActiveRecord implements EmailableRecord
+class GroupUser extends ActiveRecord implements EmailableRecord
 {
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
@@ -132,6 +132,14 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 			'status' => 'Status',
 			'created' => 'Invited on',
 			'modified' => 'Invite last modified on',
+		);
+	}
+
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_INSERT => 'inserted more people into',
+			self::SCENARIO_INVITE => 'invited more people to join',
+			self::SCENARIO_JOIN => 'joined',
 		);
 	}
 
@@ -317,4 +325,8 @@ class GroupUser extends CActiveRecord implements EmailableRecord
 		$emails = $group->getMembersByStatus(self::STATUS_ACTIVE);
 		return $emails;
 	}
+
+    public function getEmailName() {
+        return isset($this->group->name) ? $this->group->name : "";
+    }
 }

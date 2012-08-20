@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class Comment extends CActiveRecord implements EmailableRecord
+class Comment extends ActiveRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	
@@ -58,10 +58,6 @@ class Comment extends CActiveRecord implements EmailableRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
- 			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'ignoreAttributes' => array('modified', 'starts'),
-			),
     	);
     }
 

@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends CActiveRecord implements EmailableRecord
+class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -94,14 +94,12 @@ class Task extends CActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'feedAttribute' => $this->name,
 				'ignoreAttributes' => array('modified'),
 			),
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'emailAttribute' => $this->name,
-				'notifyAttribute' => 'descendantParticipants',
+				//'notifyAttribute' => 'descendantParticipants',
 				'ignoreAttributes' => array('modified'),
 			),
 		);
@@ -321,7 +319,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Delete any TaskUsers attached to the task.  
-	 * @see CActiveRecord::beforeDelete()
+	 * @see ActiveRecord::beforeDelete()
 	 */
 	public function beforeDelete() {
 		parent::beforeDelete();
@@ -532,10 +530,12 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * @return boolean
 	 */
 	public function getIsSubtaskable() {
-		if(sizeof($this->participants) == 0) {
-			return true;
-		}
 		return false;
+
+		// if(sizeof($this->participants) == 0) {
+		// 	return true;
+		// }
+		// return false;
 	}
 	
 	/**
@@ -646,7 +646,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * Scope for events taking place in a particular Month
 	 * @param int $starts unix timestamp of start time
 	 * @param int $ends unix timestamp of end time
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -663,7 +663,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	 * Scope definition for events that share group value with
 	 * the user's groups
 	 * @param int $userId
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
@@ -677,7 +677,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Named scope. Gets the nodes that have no start value.
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeNoWhen() {
 		$this->getDbCriteria()->mergeWith(array(
@@ -689,7 +689,7 @@ class Task extends CActiveRecord implements EmailableRecord
 	
 	/**
 	 * Named scope. Gets leaf node(s).
-	 * @return CActiveRecord the Task
+	 * @return ActiveRecord the Task
 	 */
 	public function scopeLeaves() {
 		$this->getDbCriteria()->mergeWith(array(
@@ -708,6 +708,27 @@ class Task extends CActiveRecord implements EmailableRecord
 			. ' OR (participantsCount != participantsCompletedCount))',
 		));
 		return $this;
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelClassForLog() {
+		return get_class($this);
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelIdForLog() {
+		return $this->primaryKey;
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelNameForLog() {
+		return $this->name;
 	}
 	
 	public function shouldEmail()
@@ -730,5 +751,9 @@ class Task extends CActiveRecord implements EmailableRecord
 		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $emails;
 	}
+
+    public function getEmailName() {
+        return $this->name;
+    }
 	
 }

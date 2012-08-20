@@ -14,7 +14,7 @@
  * @property string $created
  * @property string $modified
  */
-class Sweater extends CActiveRecord
+class Sweater extends ActiveRecord
 {
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii

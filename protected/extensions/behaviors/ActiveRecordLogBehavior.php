@@ -15,20 +15,8 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	public $ignoreAttributes = array();
 	
 	/**
-	 * The attribute that the feed should use to identify the model
-	 * to the user
-	 * @var string
-	 */
-	public $feedAttribute = '';
-	
-	/**
-	 * The central model of the record, not necessarily the one that
-	 * changed, but the one that can stand-alone  
-	 * @var string
-	 */
-	public $focalModelClass = null;
-	public $focalModelId = null;
-	
+	 * Private function to hold old attributes of record
+	 **/	
 	private $_oldAttributes = array();
 	
 	/**
@@ -36,19 +24,27 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	 * @param CEvent $event
 	 */
 	public function afterSave($event) {
+		$this->checkIsLoggable();
+
 		// is new record?
 		if ($this->Owner->isNewRecord) {
 			
 			$log = new ActiveRecordLog;
 			$log->groupId = $this->Owner->groupId;
 			$log->action = $this->Owner->scenario;
-			$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
-			$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+			// $log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
+			// $log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+			// $log->focalModelName = $this->feedAttribute; 
+			$log->focalModel = $this->Owner->focalModelClassForLog;
+			$log->focalModelId = $this->Owner->focalModelIdForLog;
+			$log->focalModelName = $this->Owner->focalModelNameForLog;
 			$log->model = get_class($this->Owner);
 			$log->modelId = $this->Owner->getPrimaryKey();
 			$log->modelAttribute = null;
 			$log->userId = Yii::app()->user->id;
-			$log->save();
+			if(!$log->save()) {
+				throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+			}
 		} 
 		else { // updating existing record
 			
@@ -71,15 +67,18 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 						$log = new ActiveRecordLog;
 						$log->groupId = $this->Owner->groupId;
 						$log->action = $this->Owner->scenario;
-						$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
-						$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+						$log->focalModel = $this->Owner->focalModelClassForLog;
+						$log->focalModelId = $this->Owner->focalModelIdForLog;
+						$log->focalModelName = $this->Owner->focalModelNameForLog;
 						$log->model = get_class($this->Owner);
 						$log->modelId = $this->Owner->getPrimaryKey();
 						$log->modelAttribute = $name;
 						$log->oldAttributeValue = $oldValue;
 						$log->newAttributeValue = $value;
 						$log->userId = Yii::app()->user->id;
-						$log->save();
+						if(!$log->save()) {
+							throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+						}
 					}
 				}
 			}
@@ -91,16 +90,21 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	 * @param CEvent $event
 	 */
 	public function afterDelete($event) {
+		$this->checkIsLoggable();
+
 		$log = new ActiveRecordLog;
 		$log->groupId = $this->Owner->groupId;
 		$log->action = ActiveRecordLog::ACTION_DELETED;
-		$log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
-		$log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
+		$log->focalModel = $this->Owner->focalModelClassForLog;
+		$log->focalModelId = $this->Owner->focalModelIdForLog;
+		$log->focalModelName = $this->Owner->focalModelNameForLog;
 		$log->model = get_class($this->Owner);
 		$log->modelId = $this->Owner->getPrimaryKey();
 		$log->modelAttribute = '';
 		$log->userId = Yii::app()->user->id;
-		$log->save();
+		if(!$log->save()) {
+			throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+		}
 	}
  
 	/**
@@ -110,38 +114,6 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	public function afterFind($event) {
 		$this->setOldAttributes($this->Owner->getAttributes());
 	}
-	
-	/**
-	 * Returns the text label for the specified scenario.
-	 * In particular, if the attribute name is in the form of "post.author.name",
-	 * then this method will derive the label from the "author" relation's "name" attribute.
-	 * @param string $attribute the attribute name
-	 * @return string the attribute label
-	 */
-	public function getScenarioLabel($scenario)
-	{
-		$labels = $this->Owner->scenarioLabels();
-		if(isset($labels[$scenario])) {
-			return $labels[$scenario];
-		}
-		else if(strpos($scenario, '.') !== false)
-		{
-			$segs=explode('.',$scenario);
-			$name=array_pop($segs);
-			$model=$this;
-			foreach($segs as $seg)
-			{
-				$relations=$model->getMetaData()->relations;
-				if(isset($relations[$seg]))
-					$model=CActiveRecord::model($relations[$seg]->className);
-				else
-					break;
-			}
-			return $model->getScenarioLabel($name);
-		}
-		else
-			return $this->Owner->generateAttributeLabel($scenario);
-	}
  
 	public function getOldAttributes() {
 		return $this->_oldAttributes;
@@ -149,5 +121,16 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
  
 	public function setOldAttributes($value) {
 		$this->_oldAttributes = $value;
+	}
+
+	/**
+	 * Confirm that the class is a LoggableRecord and thus compatible with this
+	 * behavior
+	 * @param CComponent owner class of this record
+	 **/
+	protected function checkIsLoggable() {
+		if(!($this->Owner instanceof LoggableRecord)) {
+			throw new CException("Class " . get_class($this->owner) . " does not implement LoggableRecord");
+		}
 	}
 }

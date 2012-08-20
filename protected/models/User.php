@@ -21,7 +21,7 @@
  * @property GroupUser[] $groupUsers
  * @property Group[] $groups
  */
-class User extends CActiveRecord
+class User extends ActiveRecord
 {
 	const EMAIL_MAX_LENGTH = 50;
 	const EMAIL_MIN_LENGTH = 3;
@@ -345,7 +345,7 @@ class User extends CActiveRecord
 	 * Inject a user into the system
 	 * @param array $attributes
 	 * @return boolean
-	 * @see CActiveRecord::save()
+	 * @see ActiveRecord::save()
 	 */
 	public function insertUser($attributes = null) {
 		$this->scenario = self::SCENARIO_INSERT;
@@ -420,7 +420,7 @@ class User extends CActiveRecord
 	 * Register a pending user, saves.
 	 * @param array $attributes
 	 * @return boolean
-	 * @see CActiveRecord::save()
+	 * @see ActiveRecord::save()
 	 * @throws CDbException if User is not a new record
 	 * @throws CHttpException if User is already registered
 	 */
@@ -454,7 +454,7 @@ class User extends CActiveRecord
 	 * Updates a user's password, saves.
 	 * @param array $attributes
 	 * @return boolean
-	 * @see CActiveRecord::save()
+	 * @see ActiveRecord::save()
 	 */
 	public function updatePassword($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE_PASSWORD;
@@ -472,7 +472,7 @@ class User extends CActiveRecord
 	 * Updates a user's profile, saves.
 	 * @param array $attributes
 	 * @return boolean
-	 * @see CActiveRecord::save()
+	 * @see ActiveRecord::save()
 	 */
 	public function updateUser($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE;
@@ -489,7 +489,7 @@ class User extends CActiveRecord
 	/**
 	 * Promote the user to admin level
 	 * @return boolean
-	 * @see CActiveRecord::save();
+	 * @see ActiveRecord::save();
 	 */
 	public function promoteToAdmin() {
 		$this->scenario = self::SCENARIO_PROMOTE_TO_ADMIN;
@@ -634,9 +634,19 @@ class User extends CActiveRecord
 		&& $this->lastName != NULL) {
 			return $this->firstName . ' ' . $this->lastName;
 		}
-		else {
-			return NULL;
+		
+		return NULL;
+	}
+
+	/**
+	 * Get the proper name for the user depending on their information available
+	 * @return string
+	 **/
+	public function getNickname() {
+		if($this->fullName) {
+			return $this->fullName;
 		}
+		return $this->userModel->email;
 	}
 
 	/**

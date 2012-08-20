@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for individual comments
  * @uses $data Comment model
@@ -10,36 +10,36 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		'class'=>PHtml::commentClass($data),
 ),
 ));?>
-	<?php $story->beginAvatar(); ?>
+	<? $story->beginAvatar(); ?>
 		<span class="creator">
-			<?php //author 
+			<? //author 
 				$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->creator,
 			));  ?>
 		</span>
-	<?php $story->endAvatar(); ?>
-	<?php $story->beginStoryContent(); ?>
+	<? $story->endAvatar(); ?>
+	<? $story->beginStoryContent(); ?>
 
 	
 			<div class="story-details">
-				<?php echo Yii::app()->format->formatStyledText($data->content); ?>
+				<?= Yii::app()->format->formatStyledText($data->content); ?>
 			</div>
 	
-		<?php $story->beginControls() ?>
+		<? $story->beginControls() ?>
 		<li>
-			<?php if(isset($model)) : ?>
-			<span><?php echo PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
-			<?php else: ?>
+			<? if(isset($model)) : ?>
+			<span><?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
+			<? else: ?>
 			<span class="created">
-				<?php echo PHtml::link(
+				<?= PHtml::link(
 					PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
 					array(Yii::app()->request->pathInfo, 
 						'#' => 'comment-' . $data->id,
 					)
 				); ?>
 			</span>
-			<?php endif; ?>
+			<? endif; ?>
 		</li>
-		<?php $story->endControls() ?>
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+		<? $story->endControls() ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

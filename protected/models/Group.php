@@ -14,7 +14,7 @@
  * @property GroupUser[] $groupUsers
  * @property User[] $users
  */
-class Group extends CActiveRecord implements EmailableRecord
+class Group extends ActiveRecord implements EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	const NAME_MIN_LENGTH = 3;
@@ -149,6 +149,13 @@ class Group extends CActiveRecord implements EmailableRecord
 		);
 	}
 
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_INSERT => 'created',
+			self::SCENARIO_UPDATE => 'updated',
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -178,7 +185,7 @@ class Group extends CActiveRecord implements EmailableRecord
 	}
 	
 	/**
-	 * @see CActiveRecord::beforeValidate()
+	 * @see ActiveRecord::beforeValidate()
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
@@ -249,5 +256,9 @@ class Group extends CActiveRecord implements EmailableRecord
 	{
 		return $this->getMembersByStatus(User::STATUS_ACTIVE);
 	}
+
+    public function getEmailName() {
+        return $this->name;
+    }
 	
 }

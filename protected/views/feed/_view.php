@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for individual feed models
  * 
@@ -12,9 +12,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	),
 ));?>
 	
-	<?php $story->beginStoryContent(); ?>
+	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
-			<?php $this->widget('application.components.widgets.UserLink', array(
+			<? $this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->user,
 			)); 
 			echo ' ';
@@ -22,18 +22,18 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				echo PHtml::encode(strtolower($data->modelObject->getScenarioLabel($data->action)));
 				echo ' ';
 				echo PHtml::link(
-					StringUtils::truncate(PHtml::encode($data->modelObject->feedAttribute), 80),
+					StringUtils::truncate(PHtml::encode($data->focalModelName), 80),
 					array(strtolower($data->focalModel) . '/view', 'id'=>$data->focalModelId)
 				);
 			}
 			else {
-				echo 'deleted something';
+				echo 'deleted ' . StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
 			}?>
 		</h1>	
 			
-		<?php if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
+		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p>Changed
-		<?php // if the referred to model was actually deleted then avoid the null pointer exception
+		<? // if the referred to model was actually deleted then avoid the null pointer exception
 		if(isset($data->modelObject)) {
 			echo PHtml::openTag('span', array(
 				'class' => 'feed-model-attribute'
@@ -71,15 +71,15 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		echo PHtml::closeTag('p');
 		endif; 
 		?>
-		<?php $story->beginControls() ?>
+		<? $story->beginControls() ?>
 			<li>
 				<span class="created">
-					<?php echo PHtml::link(
+					<?= PHtml::link(
 						PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
 						array('feed/view', 'id'=>$data->id)
 					); ?>
 				</span>
 			</li>
-		<?php $story->endControls() ?>
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+		<? $story->endControls() ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

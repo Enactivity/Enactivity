@@ -17,7 +17,7 @@
  * @property Group $group
  * @property User $creator
  */
-class TaskComment extends Comment
+class TaskComment extends Comment implements EmailableRecord, LoggableRecord
 {
 	const MODELTYPE = 'Task';
 	
@@ -39,9 +39,10 @@ class TaskComment extends Comment
     		// Add new behaviors here
             'ActiveRecordLogBehavior'=>array(
                 'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-                'focalModelClass' => 'Task',
-                'focalModelId' => 'modelId',
-                'feedAttribute' => isset($this->modelObject) && isset($this->modelObject->name) ? $this->modelObject->name : "", //TODO: find out effects of "" default
+                'ignoreAttributes' => array('modified'),
+            ),
+            'EmailNotificationBehavior'=>array(
+                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
                 'ignoreAttributes' => array('modified'),
             ),
     	));
@@ -62,7 +63,7 @@ class TaskComment extends Comment
     
     /**
      * Ensure model is set to 'Task'
-     * @see CActiveRecord::beforeValidate()
+     * @see ActiveRecord::beforeValidate()
      */
     public function beforeValidate() {
     	if(parent::beforeValidate()) {
@@ -86,5 +87,30 @@ class TaskComment extends Comment
     public function setTask(Task $task) {
     	$this->modelId = $task->id;
     	$this->groupId = $task->groupId;
+    }
+
+    /**
+     * @see LoggableRecord
+     **/
+    public function getFocalModelClassForLog() {
+        return get_class($this->modelObject);
+    }
+
+    /**
+     * @see LoggableRecord
+     **/
+    public function getFocalModelIdForLog() {
+        return $this->modelObject->primaryKey;
+    }
+
+    /**
+     * @see LoggableRecord
+     **/
+    public function getFocalModelNameForLog() {
+        return $this->modelObject->name;
+    }
+
+    public function getEmailName() {
+        return $this->modelObject->name;
     }
 }

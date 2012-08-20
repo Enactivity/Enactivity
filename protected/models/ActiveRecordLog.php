@@ -8,6 +8,7 @@
  * @property integer $groupId
  * @property string $focalModel
  * @property integer $focalModelId
+ * @property string $focalModelName
  * @property string $model
  * @property integer $modelId
  * @property string $action
@@ -22,7 +23,7 @@
  * @property User $user
  * @property Group $group
  */
-class ActiveRecordLog extends CActiveRecord
+class ActiveRecordLog extends ActiveRecord
 {
 	const ACTION_POSTED = 'insert';
 	const ACTION_DELETED = 'delete';
@@ -30,7 +31,7 @@ class ActiveRecordLog extends CActiveRecord
 	
 	/**
 	 * The instanced focal model, loaded by afterFind
-	 * @var CActiveRecord
+	 * @var ActiveRecord
 	 */
 	private $_focalModelObject;
 	
@@ -80,7 +81,7 @@ class ActiveRecordLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groupId, focalModel, focalModelId, model, modelId', 'required'),
+			array('groupId, focalModel, focalModelId, focalModelName, model, modelId', 'required'),
 			array('groupId, modelId, userId', 'numerical', 'integerOnly'=>true),
 			array('focalModel, model, modelAttribute', 'length', 'max'=>45),
 			
@@ -227,7 +228,7 @@ class ActiveRecordLog extends CActiveRecord
 	
 	/**
 	 * The instanced model, loaded by afterFind
-	 * @var CActiveRecord
+	 * @var ActiveRecord
 	*/
 	public function getModelObject() {
 		if(isset($this->_modelObject)) {
@@ -237,5 +238,21 @@ class ActiveRecordLog extends CActiveRecord
 		$model = new $this->model;
 		$this->_modelObject = $model->findByPk($this->modelId);
 		return $this->_modelObject;
+	}
+
+	/**
+	 * Unset focal and model objects to clear memory
+	 * @return null
+	 **/
+	public function unsetModels() {
+		if($this->_focalModelObject) {
+			$this->_focalModelObject->detachBehaviors();
+			unset($this->_focalModelObject);
+		}
+
+		if($this->_modelObject) {
+			$this->_modelObject->detachBehaviors();
+			unset($this->_modelObject);
+		}
 	}
 }

@@ -9,6 +9,7 @@
  */
 class EmailNotificationBehavior extends CActiveRecordBehavior
 {
+
 	/**
 	 * List of attributes that should be ignored by the log
 	 * when the ActiveRecord is updated.
@@ -16,26 +17,22 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 */
 	public $ignoreAttributes = array();
 	
-	/**
-	 * The attribute that the email should use to identify the model
-	 * to the user
-	 * @var string
-	 */
-	public $emailAttribute = '';
-	
-	/**
-	 * The attribute that the behavior should use to get the list of 
-	 * users who should be emailed.  Should return User[].
-	 * @var string
-	 */
-	public $notifyAttribute = '';
-	
 	private $_oldAttributes = array();
  
 	/**
 	* After the model saves, record the attributes
 	* @param CEvent $event
 	*/
+
+	public function createSubject($model, $currentUser)
+	{
+		// based on the given scenario, construct the appropriate subject
+		$label = $model->getScenarioLabel($model->scenario);
+		$name = $model->emailName;
+		$userName = $currentUser->fullName;
+		return $userName . " " . $label . " " . $name;
+
+	}
 
 	public function afterSave($event)
 	{
@@ -74,8 +71,8 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message = Yii::app()->mail->constructMessage();
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
-				
-			$message->setSubject('Psst. Something just happened on Poncla!');
+			
+			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
@@ -98,7 +95,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/delete';
 			$message->setBody(array('data'=>$this->Owner, 'user'=>$currentUser), 'text/html');
 				
-			$message->setSubject('Psst. Something just happened on Poncla!');
+			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' something was deleted on Poncla!');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 			
 			$users = $this->Owner->whoToNotifyByEmail();
@@ -127,4 +124,5 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	public function setOldAttributes($value) {
 		$this->_oldAttributes = $value;
 	}
+
 }

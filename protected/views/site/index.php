@@ -1,4 +1,4 @@
-<?php 
+<? 
 $this->pageTitle = 'Discover a better way to collaborate with your group'; 
 ?>
 

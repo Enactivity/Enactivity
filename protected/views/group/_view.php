@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * View for individual group models
  * 
@@ -11,11 +11,11 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		'class'=>PHtml::groupClass($data),
 	),
 ));?>
-	<?php $story->beginStoryContent(); ?>
+	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
-			<?php echo PHtml::link(PHtml::encode($data->name), 
+			<?= PHtml::link(PHtml::encode($data->name), 
 				array('view', 'id'=>$data->id)
 			); ?>
 		</h1>
-	<?php $story->endStoryContent(); ?>
-<?php $this->endWidget(); ?>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>

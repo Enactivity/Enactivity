@@ -16,7 +16,7 @@
  * @property Task $task
  * @property User $user
  */
-class TaskUser extends CActiveRecord implements EmailableRecord
+class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 
 	const SCENARIO_COMPLETE = 'complete';
@@ -62,9 +62,6 @@ class TaskUser extends CActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'focalModelClass' => 'Task',
-				'focalModelId' => 'taskId',
-				'feedAttribute' => isset($this->task->name) ? $this->task->name : "", //TODO: find out effects of "" default
 				'ignoreAttributes' => array('modified'),
 			),
 			'EmailNotificationBehavior'=>array(
@@ -339,6 +336,27 @@ class TaskUser extends CActiveRecord implements EmailableRecord
 		$transaction->rollback();
 		throw new CHttpException(400, "There was an error completing this task");
 	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelClassForLog() {
+		return get_class($this->task);
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelIdForLog() {
+		return $this->task->primaryKey;
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelNameForLog() {
+		return $this->task->name;
+	}
 	
 	public function shouldEmail()
 	{
@@ -363,4 +381,8 @@ class TaskUser extends CActiveRecord implements EmailableRecord
 		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $emails;
 	}
+
+    public function getEmailName() {
+        return isset($this->task->name) ? $this->task->name : "";
+    }
 }

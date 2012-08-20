@@ -1,50 +1,47 @@
 <?php
-class ActiveRecord extends CActiveRecord {
-	
-	protected function beforeDelete() {
-		
-		if(parent::beforeDelete()) {
-			
-			// check security for access rules
-			$params = array(get_class($this) => $this); 
-			return Yii::app()->user->checkAccess('delete' . get_class($this), $params);
+/**
+ * ActiveRecord is the customized base active record class.
+ * All model classes for this application should extend from this base class.
+ **/
+abstract class ActiveRecord extends CActiveRecord {
+
+	/**
+	 * @return array scenario string => label string
+	 **/
+	public function scenarioLabels() {
+		throw new Exception("scenarioLabels() has not been implemented for this class");
+	}
+
+	/**
+	 * Returns the text label for the specified scenario.
+	 * In particular, if the attribute name is in the form of "post.author.name",
+	 * then this method will derive the label from the "author" relation's "name" attribute.
+	 * @param string $attribute the attribute name
+	 * @return string the attribute label
+	 */
+	public function getScenarioLabel($scenario)
+	{
+		$labels = $this->Owner->scenarioLabels();
+		if(isset($labels[$scenario])) {
+			return $labels[$scenario];
 		}
-		
-		return false;
+		else if(strpos($scenario, '.') !== false)
+		{
+			$segs=explode('.',$scenario);
+			$name=array_pop($segs);
+			$model=$this;
+			foreach($segs as $seg)
+			{
+				$relations=$model->getMetaData()->relations;
+				if(isset($relations[$seg]))
+					$model=CActiveRecord::model($relations[$seg]->className);
+				else
+					break;
+			}
+			return $model->getScenarioLabel($name);
+		}
+		else
+			return $this->Owner->generateAttributeLabel($scenario);
 	}
 	
-	protected function beforeFind() {
-		
-		if(parent::beforeFind()) {
-			
-			// check security for access rules
-			$params = array(get_class($this) => $this); 
-			return Yii::app()->user->checkAccess('find' . get_class($this), $params);
-		}
-		
-		return false;
-	}
-	
-	protected function beforeSave() {
-		
-		if(parent::beforeSave()) {
-			
-			// check security for access rules
-			if($this->isNewRecord) {
-				$accessOperation = 'create' . get_class($this);
-			}
-			else {
-				$accessOperation = 'update' . get_class($this);
-			}
-			// load model into parameters
-			$params = array(get_class($this) => $this); 
-			
-			if(Yii::app()->user->checkAccess($accessOperation, $params)) {
-				return true;
-			}
-			throw new CHttpException(401, 'Sorry, you\'re not authorized to do that');
-		}
-		
-		return false;
-	}
 }
