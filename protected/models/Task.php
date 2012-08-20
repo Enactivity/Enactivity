@@ -206,7 +206,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 	
 	public function scenarioLabels() {
 		return array(
-			self::SCENARIO_DELETE => 'delete',
+			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'posted', // default set by Yii
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
