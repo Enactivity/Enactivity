@@ -28,8 +28,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			}
 			else {
 				echo 'deleted ' . StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
-			}?>
-		</h1>	
+			}
+			?>
+		</h1>
 			
 		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p>Changed
