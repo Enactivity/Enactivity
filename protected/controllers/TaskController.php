@@ -35,7 +35,7 @@ class TaskController extends Controller
 			),
 			array('allow', 
 				'actions'=>array(
-					'view','update','delete',
+					'view','update','trash','untrash',
 					'participate','unparticipate',
 					'userComplete','userUncomplete',
 			),

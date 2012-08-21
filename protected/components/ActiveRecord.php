@@ -14,34 +14,15 @@ abstract class ActiveRecord extends CActiveRecord {
 
 	/**
 	 * Returns the text label for the specified scenario.
-	 * In particular, if the attribute name is in the form of "post.author.name",
-	 * then this method will derive the label from the "author" relation's "name" attribute.
-	 * @param string $attribute the attribute name
-	 * @return string the attribute label
+	 * @param string $scenario the scenario name
+	 * @return string the scenario label
 	 */
 	public function getScenarioLabel($scenario)
 	{
-		$labels = $this->Owner->scenarioLabels();
-		if(isset($labels[$scenario])) {
+		$labels = $this->scenarioLabels();
+		if(array_key_exists($scenario, $labels)) {
 			return $labels[$scenario];
 		}
-		else if(strpos($scenario, '.') !== false)
-		{
-			$segs=explode('.',$scenario);
-			$name=array_pop($segs);
-			$model=$this;
-			foreach($segs as $seg)
-			{
-				$relations=$model->getMetaData()->relations;
-				if(isset($relations[$seg]))
-					$model=CActiveRecord::model($relations[$seg]->className);
-				else
-					break;
-			}
-			return $model->getScenarioLabel($name);
-		}
-		else
-			return $this->Owner->generateAttributeLabel($scenario);
+		return $this->generateAttributeLabel($scenario);
 	}
-	
 }

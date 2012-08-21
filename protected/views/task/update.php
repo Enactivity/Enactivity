@@ -23,12 +23,11 @@ $this->pageTitle = 'Edit Task';
 		echo PHtml::button(
 		PHtml::encode('Trash'),
 		array( //html
-				'submit'=>array('task/delete', 'id'=>$model->id),
+				'submit'=>array('task/trash', 'id'=>$model->id),
 				'csrf'=>true,
 				'id'=>'task-trash-menu-item-' . $model->id,
 				'class'=>'negative task-trash-menu-item',
 				'title'=>'Trash this task',
-				'confirm'=>'Are you sure?  It will be gone forever.',
 		)
 		);
 	}

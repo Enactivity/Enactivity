@@ -206,13 +206,7 @@ class ActiveRecordLog extends ActiveRecord
 	}
 	
 	protected function afterFind() {
-		parent::afterFind();
-		
-// 		$focalModel = new $this->focalModel;
-// 		$this->focalModelObject = $focalModel->findByPk($this->focalModelId);
-		
-// 		$model = new $this->model;
-// 		$this->modelObject = $model->findByPk($this->modelId);
+		parent::afterFind();		
 	}
 	
 	
@@ -238,6 +232,22 @@ class ActiveRecordLog extends ActiveRecord
 		$model = new $this->model;
 		$this->_modelObject = $model->findByPk($this->modelId);
 		return $this->_modelObject;
+	}
+
+	/** 
+	 * Gets the scenario label for a model based on the action
+	 * @return string
+	 **/
+	public function getModelLabel() {
+		$model;
+		if($this->modelObject) {
+			$model = $this->modelObject;
+		}
+		else {
+			$model = new $this->model;
+		}
+
+		return $model->getScenarioLabel($this->action);
 	}
 
 	/**
