@@ -12,8 +12,8 @@ html {
 }
 
 html, body {
-	background-color: #ffffff;
-	color: #aaaaaa;
+	background-color: #333436;
+	color: #d6d6d6;
 	font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
@@ -416,12 +416,12 @@ input[type="button"] {
 }
 
 input[type="button"].neutral {
-	background-color: #aaaaaa; /* gray */
-	background-image: -moz-linear-gradient(top, #aaaaaa, #d1d1d1);
-	background-image: -ms-linear-gradient(top, #aaaaaa, #d1d1d1);
-	background-image: -o-linear-gradient(top, #aaaaaa, #d1d1d1);
-	background-image: -webkit-linear-gradient(top, #aaaaaa, #d1d1d1);
-	background-image: linear-gradient(top, #aaaaaa, #d1d1d1);
+	background-color: #d6d6d6; /* gray */
+	background-image: -moz-linear-gradient(top, #d6d6d6, #d1d1d1);
+	background-image: -ms-linear-gradient(top, #d6d6d6, #d1d1d1);
+	background-image: -o-linear-gradient(top, #d6d6d6, #d1d1d1);
+	background-image: -webkit-linear-gradient(top, #d6d6d6, #d1d1d1);
+	background-image: linear-gradient(top, #d6d6d6, #d1d1d1);
 }
 
 input[type="button"].negative {
