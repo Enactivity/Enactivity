@@ -642,20 +642,6 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
-<<<<<<< Updated upstream
-=======
-	background-color: transparent;
-	-moz-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
-	-webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
-	color: #aaaaaa;
-	padding: 16px; /* Increase right margin to account for menu */
-	position: relative; /* Set position so menu can be absolute */
-	margin: 16px inherit;
-}
-
-.story-primary {
->>>>>>> Stashed changes
 	background-color: #ffffff;
 	border-bottom: 1px solid #D6D6D6;
 	-moz-box-shadow: 0 16px 16px -16px rgba(0, 0, 0, 0.25);
