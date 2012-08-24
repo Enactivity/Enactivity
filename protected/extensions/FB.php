@@ -4,7 +4,7 @@
  */
 Yii::import('ext.vendors.facebook.*');
 
-class PFacebook extends CApplicationComponent {
+class FB extends CApplicationComponent {
 {
 
 	/**
