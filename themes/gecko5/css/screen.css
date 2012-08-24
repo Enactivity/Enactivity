@@ -12,8 +12,8 @@ html {
 }
 
 html, body {
-	background-color: #333436;
-	color: #d6d6d6;
+	background-color: #ffffff;
+	color: #aaaaaa;
 	font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
@@ -416,12 +416,12 @@ input[type="button"] {
 }
 
 input[type="button"].neutral {
-	background-color: #d6d6d6; /* gray */
-	background-image: -moz-linear-gradient(top, #d6d6d6, #d1d1d1);
-	background-image: -ms-linear-gradient(top, #d6d6d6, #d1d1d1);
-	background-image: -o-linear-gradient(top, #d6d6d6, #d1d1d1);
-	background-image: -webkit-linear-gradient(top, #d6d6d6, #d1d1d1);
-	background-image: linear-gradient(top, #d6d6d6, #d1d1d1);
+	background-color: #aaaaaa; /* gray */
+	background-image: -moz-linear-gradient(top, #aaaaaa, #d1d1d1);
+	background-image: -ms-linear-gradient(top, #aaaaaa, #d1d1d1);
+	background-image: -o-linear-gradient(top, #aaaaaa, #d1d1d1);
+	background-image: -webkit-linear-gradient(top, #aaaaaa, #d1d1d1);
+	background-image: linear-gradient(top, #aaaaaa, #d1d1d1);
 }
 
 input[type="button"].negative {
@@ -642,6 +642,20 @@ select[name="Task[endTime]"]  {
 
 /* Story stylings */
 .story {
+<<<<<<< Updated upstream
+=======
+	background-color: transparent;
+	-moz-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
+	color: #aaaaaa;
+	padding: 16px; /* Increase right margin to account for menu */
+	position: relative; /* Set position so menu can be absolute */
+	margin: 16px inherit;
+}
+
+.story-primary {
+>>>>>>> Stashed changes
 	background-color: #ffffff;
 	border-bottom: 1px solid #D6D6D6;
 	-moz-box-shadow: 0 16px 16px -16px rgba(0, 0, 0, 0.25);
