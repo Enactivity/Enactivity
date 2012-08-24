@@ -29,19 +29,19 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		// is new record?
 		if ($this->Owner->isNewRecord) {
 			
-			$log = new ActiveRecordLog;
-			$log->groupId = $this->Owner->groupId;
-			$log->action = $this->Owner->scenario;
-			// $log->focalModel = isset($this->focalModelClass) ? $this->focalModelClass : get_class($this->Owner); 
-			// $log->focalModelId = isset($this->focalModelId) ? $this->Owner->{$this->focalModelId} : $this->Owner->getPrimaryKey();
-			// $log->focalModelName = $this->feedAttribute; 
-			$log->focalModel = $this->Owner->focalModelClassForLog;
-			$log->focalModelId = $this->Owner->focalModelIdForLog;
-			$log->focalModelName = $this->Owner->focalModelNameForLog;
-			$log->model = get_class($this->Owner);
-			$log->modelId = $this->Owner->getPrimaryKey();
-			$log->modelAttribute = null;
-			$log->userId = Yii::app()->user->id;
+			$log = new ActiveRecordLog();
+			$log->attributes = array(
+				"groupId" => $this->Owner->groupId,
+				"action" => $this->Owner->scenario,
+				"focalModel" => $this->Owner->focalModelClassForLog,
+				"focalModelId" => $this->Owner->focalModelIdForLog,
+				"focalModelName" => $this->Owner->focalModelNameForLog,
+				"model" => get_class($this->Owner),
+				"modelId" => $this->Owner->getPrimaryKey(),
+				"modelAttribute" => null,
+				"userId" => Yii::app()->user->id,
+			);
+
 			if(!$log->save()) {
 				throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
 			}
@@ -64,18 +64,20 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 					}
 	 
 					if ($value != $oldValue) {
-						$log = new ActiveRecordLog;
-						$log->groupId = $this->Owner->groupId;
-						$log->action = $this->Owner->scenario;
-						$log->focalModel = $this->Owner->focalModelClassForLog;
-						$log->focalModelId = $this->Owner->focalModelIdForLog;
-						$log->focalModelName = $this->Owner->focalModelNameForLog;
-						$log->model = get_class($this->Owner);
-						$log->modelId = $this->Owner->getPrimaryKey();
-						$log->modelAttribute = $name;
-						$log->oldAttributeValue = $oldValue;
-						$log->newAttributeValue = $value;
-						$log->userId = Yii::app()->user->id;
+						$log = new ActiveRecordLog();
+						$log->attributes = array(
+							"groupId" => $this->Owner->groupId,
+							"action" => $this->Owner->scenario,
+							"focalModel" => $this->Owner->focalModelClassForLog,
+							"focalModelId" => $this->Owner->focalModelIdForLog,
+							"focalModelName" => $this->Owner->focalModelNameForLog,
+							"model" => get_class($this->Owner),
+							"modelId" => $this->Owner->getPrimaryKey(),
+							"modelAttribute" => $name,
+							"oldAttributeValue" => $oldValue,
+							"newAttributeValue" => $value,
+							"userId" => Yii::app()->user->id,
+						);
 						if(!$log->save()) {
 							throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
 						}
@@ -92,16 +94,18 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	public function afterDelete($event) {
 		$this->checkIsLoggable();
 
-		$log = new ActiveRecordLog;
-		$log->groupId = $this->Owner->groupId;
-		$log->action = ActiveRecordLog::ACTION_DELETED;
-		$log->focalModel = $this->Owner->focalModelClassForLog;
-		$log->focalModelId = $this->Owner->focalModelIdForLog;
-		$log->focalModelName = $this->Owner->focalModelNameForLog;
-		$log->model = get_class($this->Owner);
-		$log->modelId = $this->Owner->getPrimaryKey();
-		$log->modelAttribute = '';
-		$log->userId = Yii::app()->user->id;
+		$log = new ActiveRecordLog();
+		$log->attributes = array(
+			"groupId" => $this->Owner->groupId,
+			"action" => ActiveRecordLog::ACTION_DELETED,
+			"focalModel" => $this->Owner->focalModelClassForLog,
+			"focalModelId" => $this->Owner->focalModelIdForLog,
+			"focalModelName" => $this->Owner->focalModelNameForLog,
+			"model" => get_class($this->Owner),
+			"modelId" => $this->Owner->getPrimaryKey(),
+			"modelAttribute" => '',
+			"userId" => Yii::app()->user->id,
+		);
 		if(!$log->save()) {
 			throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
 		}
