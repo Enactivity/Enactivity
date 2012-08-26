@@ -9,8 +9,17 @@ class UserIdentity extends CUserIdentity
 	// Additional error codes to CBaseUserIdentity
 	const ERROR_STATUS_NOT_ACTIVE=3;
 	const ERROR_STATUS_BANNED=4;
+	const ERROR_STATUS_INVALID_FACEBOOK_ID=5;
 	
 	private $_id;
+
+	private $_code;
+	private $_access_token;
+
+	public function __construct($code) {
+		$this->_code = $code;
+	}
+
 	
 	/**
 	 * Authenticates a user based on {@link username} (which is actually
@@ -19,17 +28,21 @@ class UserIdentity extends CUserIdentity
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate()
-	{		
-		$user = User::model()->findByAttributes(
-			array(
-				'email' => $this->username,
-			)
-		);
-		
-		if(is_null($user)) { // user does not exist
-			$this->errorCode = self::ERROR_USERNAME_INVALID;	
-		}
-		else if($user->isPassword($this->password)) { //valid log in
+	{
+		$facebookId = Yii::app()->FB->facebookUserId;
+
+		if($facebookId) {
+			$user = User::model()->findByAttributes(
+				array(
+					'facebookId' => $facebookId,
+				)
+			);
+
+			if(is_null($user)) { // user does not exist
+				// Create a new user
+				$user = User::register(array());
+			}
+
 			// check user status, re-activate inactive user
 			if($user->isBanned) {
 				$this->errorCode = self::ERROR_STATUS_BANNED;
@@ -43,10 +56,10 @@ class UserIdentity extends CUserIdentity
 				$this->errorCode = self::ERROR_STATUS_NOT_ACTIVE;
 			}
 		}
-		else { //user exists, but invalid log in attempt
-			$this->errorCode = self::ERROR_PASSWORD_INVALID;
+		else {
+			$this->errorCode = self::ERROR_STATUS_INVALID_FACEBOOK_ID;
 		}
-		
+
 		return $this->errorCode == self::ERROR_NONE;
 	}
 

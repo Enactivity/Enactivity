@@ -12,6 +12,7 @@
  * @property string $lastName user configurable
  * @property string $timeZone user configurable
  * @property string $status
+ * @property string $facebookId
  * @property integer $isAdmin admin configurable
  * @property string $created
  * @property string $modified
@@ -58,11 +59,6 @@ class User extends ActiveRecord
 	 * DO NOT CHANGE THE SALT!  YOU WILL BREAK ALL SIGN-INS
 	******************************************************/
 	const SALT = 'yom0mm4wasap455w0rd';
-
-	/**
-	 * @var string
-	 */
-	public $confirmPassword;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -117,17 +113,17 @@ class User extends ActiveRecord
 		array('email, password, firstName, lastName, timeZone', 'required',
 				'on' => self::SCENARIO_INSERT
 		),
-		array('confirmPassword',
-				'unsafe',
-				'on' => self::SCENARIO_INSERT
-		),
 			
 		// SCENARIO_INVITE
 		array('email',
 				'required', 
 				'on' => self::SCENARIO_INVITE
 		),
-		array('password, confirmPassword, firstName, lastName, timeZone',
+		array('facebookId',
+				'required', 
+				'on' => self::SCENARIO_INVITE
+		),
+		array('password, firstName, lastName, timeZone',
 				'unsafe',
 				'on' => self::SCENARIO_INVITE
 		),
@@ -137,7 +133,7 @@ class User extends ActiveRecord
 		// SCENARIO_RECOVER_PASSWORD has no rules
 			
 		// SCENARIO_REGISTER
-		array('email, password, confirmPassword, firstName, lastName, timeZone',
+		array('email, password, firstName, lastName, timeZone',
 				'required',
 				'on' => self::SCENARIO_REGISTER
 		),
@@ -146,18 +142,9 @@ class User extends ActiveRecord
 		array('email, firstName, lastName, timeZone', 'required',
 				'on' => self::SCENARIO_UPDATE
 		),
-		array('password, confirmPassword',
+		array('password',
 				'unsafe',
 				'on' => self::SCENARIO_UPDATE
-		),
-
-		// SCENARIO_UPDATE_PASSWORD
-		array('password, confirmPassword', 'required',
-				'on' => self::SCENARIO_UPDATE_PASSWORD
-		),
-		array('email, firstName, lastName, timeZone',
-				'unsafe',
-				'on' => self::SCENARIO_UPDATE_PASSWORD
 		),
 
 		// trim inputs
@@ -197,14 +184,6 @@ class User extends ActiveRecord
 				'min'=>self::PASSWORD_MIN_LENGTH, 
 				'max'=>self::PASSWORD_MAX_LENGTH,
 		),
-			
-		// confirm password required
-		array('confirmPassword',
-				'compare',
-				'allowEmpty'=>true,
-				'compareAttribute'=>'password',
-				'message' => 'Passwords do not match',
-		),
 
 		// timeZone
 		array('timeZone',
@@ -219,7 +198,7 @@ class User extends ActiveRecord
 			
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
-		array('id, email, password, confirmPassword, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
+		array('id, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -416,38 +395,36 @@ class User extends ActiveRecord
 		return false;
 	}
 
-	/**
-	 * Register a pending user, saves.
-	 * @param array $attributes
-	 * @return boolean
-	 * @see ActiveRecord::save()
-	 * @throws CDbException if User is not a new record
-	 * @throws CHttpException if User is already registered
-	 */
-	public function registerUser($attributes = null) {
-		$this->scenario = self::SCENARIO_REGISTER;
-
-		if($this->isNewRecord) {
-			throw new CDbException(Yii::t('user','The user could not be registered because it is a new user.'));
-		}
-
-		if($this->status != User::STATUS_PENDING) {
-			throw new CHttpException(400, 'Invalid request. This account has already registered.');
-		}
-
+	public static function register($attributes = array()) {
+		$user = new User();
 		if(is_array($attributes)) {
-			$this->attributes = $attributes;
-			$this->status = User::STATUS_ACTIVE;
-			if($this->save()) {
-				// activate groups too
-				// FIXME: handle failure of a group activation
-				foreach ($this->groupUsers as $groupUser) {
-					$groupUser->joinGroupUser();
-				}
-				return true;
+			$user->syncFacebook();
+			$user->attributes = $attributes;
+			$user->status = User::STATUS_ACTIVE;
+			$user->password = 'blahblahblah' . time(); // HACK!  Remove pw column
+			
+			if($user->save()) {
+				return $user;	
 			}
 		}
 		return false;
+	}
+
+	public function syncFacebook() {
+		$details = Yii::app()->FB->userDetails;
+		$this->attributes = array(
+			'facebookId' => $details['id'],
+			'firstName'  => $details['first_name'],
+			'lastName'   => $details['last_name'],
+			'email'		 => $details['email'],
+			'timeZone' 	 => PDateTime::timeZoneByOffset($details['timezone']) ? PDateTime::timeZoneByOffset($details['timezone']) : 'America/Los_Angeles',
+		);
+
+		$this->syncGroups();
+	}
+
+	public function syncGroups() {
+		// TODO: import groups from facebook
 	}
 
 	/**

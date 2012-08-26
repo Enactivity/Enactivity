@@ -213,16 +213,7 @@ class MenuDefinitions extends CComponent {
 				'itemOptions'=>array(
 					'class'=>'secondary',
 				),
-				'url'=>'https://www.facebook.com/dialog/oauth?' . 
-					http_build_query(array(
-					'client_id' => Yii::app()->FB->appID,
-					'redirect_uri' => Yii::app()->FB->redirectURI,
-					'scope' => implode(',', array(
-						'email',
-						'user_groups',
-					)),
-					'state' => '7',
-				)),
+				'url'=>Yii::app()->FB->loginUrl,
 				'visible'=>Yii::app()->user->isGuest
 			),
 		);

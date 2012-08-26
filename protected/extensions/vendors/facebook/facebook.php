@@ -87,4 +87,8 @@ class Facebook extends BaseFacebook
                               $this->getAppId(),
                               $key));
   }
+
+  protected static function errorLog($msg) {
+    Yii::log($msg, 'error', 'facebook');
+  }
 }

@@ -50,36 +50,6 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the home page.
-	 * Users are created via Group Invites
-	 */
-	public function actionRegister($token)
-	{		
-		$model = $this->loadModelByToken($token);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-		
-		//if user is already registered, get them outta here
-		if(!Yii::app()->user->isGuest) {
-			throw new CHttpException(400, 'Invalid request. You are currently logged in as a registered user.');
-		}
-		else if($model->status != User::STATUS_PENDING) {
-			throw new CHttpException(400, 'Invalid request. This account has already registered.');
-		}
-
-		if($model->registerUser($_POST['User'])) {
-			Yii::app()->user->setFlash('success', 'Your registration is complete, please sign-in.');
-			$this->redirect(array('site/login'));
-		}
-
-		$this->render('register',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
 	 * Form for recovering password
 	 */
 	public function actionRecoverPassword() {
