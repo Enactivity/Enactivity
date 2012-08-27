@@ -150,4 +150,8 @@ class FB extends CApplicationComponent {
 		// TODO: use fbid instead of me?
 		return $this->api('me/groups');
 	}
+
+	public function getUserPicture() {
+		return $this->api('me/picture');
+	}
 }
