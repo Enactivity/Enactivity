@@ -7,7 +7,6 @@
  * @property integer $id
  * @property string $email user configurable
  * @property string $token
- * @property string $password user configurable
  * @property string $firstName user configurable
  * @property string $lastName user configurable
  * @property string $timeZone user configurable
@@ -30,9 +29,6 @@ class User extends ActiveRecord
 	const FIRSTNAME_MAX_LENGTH = 50;
 	const FIRSTNAME_MIN_LENGTH = 2;
 
-	const PASSWORD_MAX_LENGTH = 40;
-	const PASSWORD_MIN_LENGTH = 4;
-
 	const LASTNAME_MAX_LENGTH = 50;
 	const LASTNAME_MIN_LENGTH = 2;
 
@@ -48,12 +44,8 @@ class User extends ActiveRecord
 
 	const SCENARIO_CHECKOUT = 'checkout';
 	const SCENARIO_INSERT = 'insert';
-	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
-	const SCENARIO_RECOVER_PASSWORD = 'recoverPassword';
-	const SCENARIO_REGISTER = 'register';
 	const SCENARIO_UPDATE = 'update';
-	const SCENARIO_UPDATE_PASSWORD = 'updatePassword';
 
 	/******************************************************
 	 * DO NOT CHANGE THE SALT!  YOU WILL BREAK ALL SIGN-INS
@@ -110,40 +102,14 @@ class User extends ActiveRecord
 		),
 		
 		// SCENARIO_INSERT
-		array('email, password, firstName, lastName, timeZone, facebookId', 'required',
+		array('email, firstName, lastName, timeZone, facebookId', 'required',
 				'on' => self::SCENARIO_INSERT
-		),
-			
-		// SCENARIO_INVITE
-		array('email',
-				'required', 
-				'on' => self::SCENARIO_INVITE
-		),
-		array('facebookId',
-				'required', 
-				'on' => self::SCENARIO_INVITE
-		),
-		array('password, firstName, lastName, timeZone',
-				'unsafe',
-				'on' => self::SCENARIO_INVITE
 		),
 
 		// SCENARIO_PROMOTE_TO_ADMIN has no rules
-			
-		// SCENARIO_RECOVER_PASSWORD has no rules
-			
-		// SCENARIO_REGISTER
-		array('email, password, firstName, lastName, timeZone',
-				'required',
-				'on' => self::SCENARIO_REGISTER
-		),
 
 		// SCENARIO_UPDATE
 		array('email, firstName, lastName, timeZone', 'required',
-				'on' => self::SCENARIO_UPDATE
-		),
-		array('password',
-				'unsafe',
 				'on' => self::SCENARIO_UPDATE
 		),
 
@@ -178,13 +144,6 @@ class User extends ActiveRecord
 				'allowEmpty' => false, 
 				'pattern' => '/^[a-zA-Z]*$/'),
 
-		// password length
-		array('password',
-				'length', 
-				'min'=>self::PASSWORD_MIN_LENGTH, 
-				'max'=>self::PASSWORD_MAX_LENGTH,
-		),
-
 		// timeZone
 		array('timeZone',
 				'default',
@@ -198,7 +157,7 @@ class User extends ActiveRecord
 			
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
-		array('id, email, password, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
+		array('id, email, firstName, lastName, status, created, modified, lastLogin', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -266,7 +225,6 @@ class User extends ActiveRecord
 			'id' => 'Id',
 			'email' => 'Email',
 			'token' => 'Token',
-			'password' => 'Password',
 			'firstName' => 'First name',
 			'lastName' => 'Last name',
 			'timeZone' => 'Time zone',
@@ -291,7 +249,6 @@ class User extends ActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('token',$this->token,true);
-		$criteria->compare('password',$this->password,true);
 		$criteria->compare('firstName',$this->firstName,true);
 		$criteria->compare('lastName',$this->lastName,true);
 		$criteria->compare('status',$this->status,true);
@@ -358,50 +315,15 @@ class User extends ActiveRecord
 	}
 
 	/**
-	 * Reset the user's password and send an email notifying them of the
-	 * update.
-	 * Also sets flash for user.
-	 * @return boolean
-	 * @throws CDbException if error saving password
-	 */
-	public function recoverPassword() {
-		// set scenario to encrypt on save
-		$this->scenario = self::SCENARIO_RECOVER_PASSWORD;
-		$newPassword = self::generatePassword(); // store unencrypted for email
-		$this->password = $newPassword;
-
-		if($this->isRegistered) {
-			if($this->save()) {
-				// email user
-				Yii::import('application.extensions.mailer.PasswordEmail');
-				$mail = new PasswordEmail;
-				$mail->to = $this->email;
-				$mail->newpassword = $newPassword;
-				$mail->shouldEmail = true;
-				Yii::app()->mailer->send($mail);
-
-				// notify end user
-				Yii::app()->user->setFlash('success', 'We\'ve emailed you your new password.');
-
-				return true;
-			}
-			else {
-				$errors = $this->getErrors('password');
-				throw new CDbException('There was an error generating a new password.',
-				500, $errors[0]);
-			}
-		}
-		$this->addError('email', 'No user was found with that email');
-		return false;
-	}
-
+	 * Register a new user with us
+	 * @return User|false
+	 **/
 	public static function register($attributes = array()) {
 		$user = new User();
 		if(is_array($attributes)) {
 			$user->syncFacebook();
 			$user->attributes = $attributes;
 			$user->status = User::STATUS_ACTIVE;
-			$user->password = 'blahblahblah' . time(); // HACK!  Remove pw column
 			
 			if($user->save()) {
 				return $user;	
@@ -410,6 +332,9 @@ class User extends ActiveRecord
 		return false;
 	}
 
+	/**
+	 * @return User|false
+	 **/
 	public function syncFacebook() {
 		$details = Yii::app()->FB->userDetails;
 		$this->attributes = array(
@@ -420,29 +345,29 @@ class User extends ActiveRecord
 			'timeZone' 	 => PDateTime::timeZoneByOffset($details['timezone']) ? PDateTime::timeZoneByOffset($details['timezone']) : 'America/Los_Angeles',
 		);
 
-		$this->syncGroups();
-	}
-
-	public function syncGroups() {
-		// TODO: import groups from facebook
+		if($this->syncGroups()) {
+			return this;
+		}
+		return false;
 	}
 
 	/**
-	 * Updates a user's password, saves.
-	 * @param array $attributes
 	 * @return boolean
-	 * @see ActiveRecord::save()
-	 */
-	public function updatePassword($attributes = null) {
-		$this->scenario = self::SCENARIO_UPDATE_PASSWORD;
-		if(!$this->isNewRecord) {
-			if(is_array($attributes)) {
-				$this->attributes = $attributes;
-				return $this->save();
+	 **/
+	public function syncGroups() {
+		$facebookGroups = Yii::app()->FB->userGroups;
+		foreach ($facebookGroups['data'] as $group) {
+			// Sync in the group
+			$group = Group::syncWithFacebookAttributes($group);
+			
+			// Add the user to the group internally
+			$groupUser = new groupUser();
+			if(!$groupUser->insertGroupUser($group->id, $this->id)) {
+				throw new CException("Group user failed to insert: " . CVarDumper::dumpAsString($groupUser->errors));
 			}
-			return false;
 		}
-		throw new CDbException(Yii::t('user','The user password could not be updated because it is a new user.'));
+
+		return true;
 	}
 
 	/**
@@ -486,41 +411,10 @@ class User extends ActiveRecord
 		return false;
 	}
 
-	/**
-	 * Generate new token on new record.  Encrypt password if needed.
-	 */
-	protected function beforeSave()
-	{
-		if(parent::beforeSave()) {
-			if($this->isNewRecord) {
-				//encrypt token and password
-				$this->token = self::generateToken();
-			}
-			if($this->getScenario() == self::SCENARIO_INSERT
-			|| $this->getScenario() == self::SCENARIO_REGISTER
-			|| $this->getScenario() == self::SCENARIO_RECOVER_PASSWORD
-			|| $this->getScenario() == self::SCENARIO_UPDATE_PASSWORD) {
-				$this->password = self::encrypt($this->password, $this->token);
-			}
-			return true;
-		}
-		return false;
-	}
-
 	public function defaultScope() {
 		return array(
 			'order' => 'firstName ASC',
 		);
-	}
-
-	/**
-	 * Checks if the given password is correct.
-	 * @param string the password to be validated
-	 * @return boolean whether the password is valid
-	 */
-	public function isPassword($password)
-	{
-		return self::encrypt($password, $this->token) === $this->password;
 	}
 
 	/**
@@ -593,13 +487,6 @@ class User extends ActiveRecord
 		}
 
 		return self::generateToken();
-	}
-
-	/**
-	 * @return string a new random password
-	 */
-	public static function generatePassword() {
-		return StringUtils::createRandomString(10);
 	}
 
 	/**

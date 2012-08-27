@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'group':
  * @property integer $id
  * @property string $name
- * @property string $slug
+ * @property string $facebookId
  * @property string $created
  * @property string $modified
  *
@@ -19,8 +19,8 @@ class Group extends ActiveRecord implements EmailableRecord
 	const NAME_MAX_LENGTH = 255;
 	const NAME_MIN_LENGTH = 3;
 	
-	const SLUG_MAX_LENGTH = 255;
-	const SLUG_MIN_LENGTH = 3;
+	const FACEBOOKID_MAX_LENGTH = 255;
+	const FACEBOOKID_MIN_LENGTH = 3;
 	
 	const EMAIL_MAX_LENGTH = 50;
 	const EMAIL_MIN_LENGTH = 5;
@@ -76,19 +76,20 @@ class Group extends ActiveRecord implements EmailableRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-		array('name, slug', 'required'),
-		array('name', 'length', 'max'=>255),
-		array('slug', 'length', 'max'=>50),
+		array('name, facebookId', 'required'),
+		array('name', 'length', 'max'=>self::NAME_MAX_LENGTH),
+		array('facebookId', 'length', 'max'=>self::FACEBOOKID_MAX_LENGTH),
 		
 		// trim inputs
-		array('name, slug', 'filter', 'filter'=>'trim'),
-		array('name, slug', 'unique', 'allowEmpty' => false, 
-			'caseSensitive'=>false),
+		array('name, facebookId', 'filter', 'filter'=>'trim'),
+		array('name, facebookId', 'unique', 
+			'allowEmpty' => false, 
+			'caseSensitive'=>false
+		),
 		// The following rule is used by search().
 		// Please remove those attributes that should not be searched.
-		array('id, name, slug, created, modified', 'safe', 'on'=>'search'),
+		array('id, name, facebookId, created, modified', 'safe', 'on'=>'search'),
 		);
-		//FIXME: users can use restricted words for slug
 	}
 
 	/**
@@ -141,7 +142,7 @@ class Group extends ActiveRecord implements EmailableRecord
 		return array(
 			'id' => 'Group',
 			'name' => 'Name',
-			'slug' => 'Slug',
+			'facebookId' => 'Facebook Id',
 			'created' => 'Created',
 			'modified' => 'Last modified',
 			'groupUsersActiveCount' => 'Number of Active Users',
@@ -169,7 +170,7 @@ class Group extends ActiveRecord implements EmailableRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('slug',$this->slug,true);
+		$criteria->compare('facebookId',$this->facebookId,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 
@@ -185,29 +186,29 @@ class Group extends ActiveRecord implements EmailableRecord
 	}
 	
 	/**
-	 * @see ActiveRecord::beforeValidate()
-	 */
-	protected function beforeValidate() {
-		if(parent::beforeValidate()) {
-			//lowercase unique values
-			$this->slug = strtolower($this->slug);
-			return true;
+	 * Import/update a group based on the facebook attributes
+	 * @param array of attributes using the facebook mapping from me/groups
+	 * @return Group the new/updated group
+	 **/
+	public static function syncWithFacebookAttributes($attributes) {
 
+		$group = Group::model()->findByAttributes(array(
+			'facebookId' => $attributes['id'],
+		));
+
+		if(is_null($group)) {
+			$group = new Group();
 		}
-		return false;
-	}
-	
-	/**
-	 * Find a group by its slug attribute
-	 * @param string $slug
-	 * @return group model or null if none is found
-	 */
-	public function findBySlug($slug) {
-		return Group::model()->findByAttributes(
-				array(
-					'slug'=>$slug,
-				)
+
+		$group->attributes = array(
+			'name' => $attributes['name'],
+			'facebookId' => $attributes['id'],
 		);
+		if($group->save()) {
+			return $group;
+		}
+
+		throw new CException("Group could not be synchronized: " . CVarDumper::dumpAsString($group->errors));
 	}
 	
 	/**

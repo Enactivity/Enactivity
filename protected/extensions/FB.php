@@ -142,6 +142,12 @@ class FB extends CApplicationComponent {
 	 * @return array
 	 **/
 	public function getUserDetails() {
-		return $this->facebook->api('/me');
+		// TODO: use fbid instead of me?
+		return $this->api('me');
+	}
+
+	public function getUserGroups() {
+		// TODO: use fbid instead of me?
+		return $this->api('me/groups');
 	}
 }

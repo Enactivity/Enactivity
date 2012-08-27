@@ -146,6 +146,8 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->user->model->syncGroups();
+
 		$dataProvider = new CActiveDataProvider('Group', array(
 			'data' => Yii::app()->user->model->groups)
 		);
