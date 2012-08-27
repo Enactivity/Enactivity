@@ -368,6 +368,7 @@ class User extends ActiveRecord
 		}
 
 		// TODO: remove any groups NOT in the facebook list
+		// TODO: resync membership list for each group (do it in group sync)
 
 		return true;
 	}
