@@ -152,13 +152,6 @@ class GroupController extends Controller
 			'data' => Yii::app()->user->model->groups)
 		);
 
-		// If user is only in one group, redirect them to view group
-// 		if($dataProvider->getItemCount() == 1) {
-// 			$data = $dataProvider->getData();
-// 			$id = reset($data)->id;
-// 			$this->redirect(array('view','id'=>$id));
-// 		}
-
 		$this->render('index', array(
 		        'dataProvider'=>$dataProvider,
 		));

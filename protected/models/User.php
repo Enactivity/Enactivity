@@ -361,11 +361,13 @@ class User extends ActiveRecord
 			$group = Group::syncWithFacebookAttributes($group);
 			
 			// Add the user to the group internally
-			$groupUser = new groupUser();
-			if(!$groupUser->insertGroupUser($group->id, $this->id)) {
+			$groupUser = new GroupUser();
+			if(!$groupUser->saveAsActiveMember($group->id, $this->id)) {
 				throw new CException("Group user failed to insert: " . CVarDumper::dumpAsString($groupUser->errors));
 			}
 		}
+
+		// TODO: remove any groups NOT in the facebook list
 
 		return true;
 	}
