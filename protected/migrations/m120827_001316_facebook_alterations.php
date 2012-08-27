@@ -12,6 +12,7 @@ class m120827_001316_facebook_alterations extends CDbMigration
 
 		// add group->facebookId
 		$this->addColumn('group', 'facebookId', 'VARCHAR( 255 ) NULL DEFAULT NULL AFTER  `name`');
+		$this->dropIndex('name', 'group');
 		$this->createIndex('facebookId', 'group', 'facebookId', true);
 	}
 
