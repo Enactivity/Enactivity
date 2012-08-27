@@ -74,28 +74,6 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
-	 * @param Group $model Group currently under scrutiny
-	 * @return array of menu items for groups
-	 */
-	public static function group() {
-		return array(
-			array(
-				'label'=>'View Groups', 
-				'linkOptions'=>array(
-					'class'=>'groups',
-				),
-				'url'=>array('/group/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Invite People', 
-				'url'=>array('group/invite'),
-				'linkOptions'=>array('id'=>'group-invite-nav-item'),
-			),
-		);
-	}
-	
-	/**
 	 * @return array of menu items
 	 */
 	public static function task() {
@@ -178,12 +156,8 @@ class MenuDefinitions extends CComponent {
 			),
 			array(
 				'label'=>'Groups', 
-				'itemOptions'=>array(
-					'class'=>'dropdown',
-				),
-				'items'=>self::group(),
 				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
+					'class'=>'groups',
 				),
 				'url'=>array('/group/index'), 
 				'visible'=>!Yii::app()->user->isGuest
