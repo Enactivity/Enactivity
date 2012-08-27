@@ -37,6 +37,10 @@ return array(
 			'appSecret' => '0bd60d2a765da09c12bc2d1b37aa20c5',
 			'appNamespace' => 'ponclainc',
 			'isFileUploadEnabled' => false,
+			'scope' => array(
+				'email',
+				'user_groups',
+			),
         ),
         
 		'mail' => array(
