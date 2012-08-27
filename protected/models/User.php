@@ -110,7 +110,7 @@ class User extends ActiveRecord
 		),
 		
 		// SCENARIO_INSERT
-		array('email, password, firstName, lastName, timeZone', 'required',
+		array('email, password, firstName, lastName, timeZone, facebookId', 'required',
 				'on' => self::SCENARIO_INSERT
 		),
 			
