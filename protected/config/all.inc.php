@@ -11,7 +11,6 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array(
-		'FB',
 		'log', 
 		'timezonekeeper'
 	),
