@@ -250,10 +250,39 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * Have a user join a group
 	 * @return boolean
 	 */
-	public function joinGroupUser() {
+	public function joinGroup() {
 		$this->scenario = self::SCENARIO_JOIN;
 		$this->status = self::STATUS_ACTIVE;
 		return $this->save();
+	}
+
+	/**
+	 * Find a GroupUser with the given group and user id,
+	 * if no such group user exists, a model is created.
+	 * @param int $groupId
+	 * @param int $userId
+	 * @return GroupUser unsaved GroupUser model
+	 * @throws CDbException if no groupId or userId is passed in
+	 */
+	public static function loadGroupUser($groupId, $userId) {
+		if($groupId == null) {
+			throw new CDbException("No group id provided in loadGroupUser call");
+		}
+		if($userId == null) {
+			throw new CDbException("No user id provided in loadGroupUser call");
+		}
+		
+		$groupUser = GroupUser::model()->findByAttributes(array(
+			'groupId' => $groupId,
+			'userId' => $userId,
+		));
+		if(is_null($groupUser)) {
+			$groupUser = new GroupUser();
+			$groupUser->groupId = $groupId;
+			$groupUser->userId = $userId;
+		}
+
+		return $groupUser;
 	}
 
 	/**
@@ -261,17 +290,8 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @return boolean 
 	 **/
 	public static function saveAsActiveMember($groupId, $userId) {
-		$groupUser = GroupUser::model()->findByAttributes(array(
-			'groupId' => $groupId,
-			'userId' => $userId,
-		));
-
-		if($groupUser) {
-			return $groupUser->joinGroupUser();
-		}
-
-		return $groupUser->insertGroupUser($groupId, $userId);
-
+		$groupUser = self::loadGroupUser($groupId, $userId);
+		return $groupUser->joinGroup();
 	}
 
 	public function onAfterSave($event) {
