@@ -326,6 +326,7 @@ class User extends ActiveRecord
 			$user->status = User::STATUS_ACTIVE;
 			
 			if($user->save()) {
+				$user->syncFacebookGroups();
 				return $user;	
 			}
 		}
@@ -333,7 +334,8 @@ class User extends ActiveRecord
 	}
 
 	/**
-	 * @return User|false
+	 * Set the user's attributes to the values from Facebook
+	 * @return User unsaved user
 	 **/
 	public function syncFacebook() {
 		$details = Yii::app()->FB->currentUserDetails;
@@ -344,17 +346,13 @@ class User extends ActiveRecord
 			'email'		 => $details['email'],
 			'timeZone' 	 => PDateTime::timeZoneByOffset($details['timezone']) ? PDateTime::timeZoneByOffset($details['timezone']) : 'America/Los_Angeles',
 		);
-
-		if($this->syncGroups()) {
-			return this;
-		}
-		return false;
+		return $this;
 	}
 
 	/**
 	 * @return boolean
 	 **/
-	public function syncGroups() {
+	public function syncFacebookGroups() {
 		$facebookGroups = Yii::app()->FB->currentUserGroups;
 		foreach ($facebookGroups['data'] as $group) {
 			// Sync in the group
