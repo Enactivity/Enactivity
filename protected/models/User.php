@@ -350,6 +350,7 @@ class User extends ActiveRecord
 	}
 
 	/**
+	 * Set the user's group memberships to match their list in Facebook
 	 * @return boolean
 	 **/
 	public function syncFacebookGroups() {
@@ -512,6 +513,10 @@ class User extends ActiveRecord
 			return $this->fullName;
 		}
 		return $this->userModel->email;
+	}
+
+	public function getPictureURL() {
+		return Yii::app()->FB->currentUserPictureURL;
 	}
 
 	/**

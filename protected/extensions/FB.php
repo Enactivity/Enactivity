@@ -167,10 +167,7 @@ class FB extends CApplicationComponent {
 	 * @return string absolute url of image file
 	 **/
 	public function getCurrentUserPictureURL() {
-		$user = $this->api('me', array(
-			'fields' => 'picture',
-    		'type' => 'large',
-    	));
-    	return $user['picture']['data']['url'];
+		$id = $this->currentUserFacebookId;
+		return "https://graph.facebook.com/$id/picture";
 	}
 }
