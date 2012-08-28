@@ -233,6 +233,10 @@ class Group extends ActiveRecord implements EmailableRecord
 		throw new Exception("No such status");
 	}
 	
+	public function getPictureURL() {
+		return Yii::app()->FB->getGroupPictureURL($this->facebookId);
+	}
+
 	/**
 	 * Returns a boolean whether user should be emailed or not
 	 * @return boolean

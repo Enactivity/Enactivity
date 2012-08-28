@@ -163,11 +163,19 @@ class FB extends CApplicationComponent {
 	}
 
 	/**
-	 * Maps to facebook/me/picture
+	 * Get the image url of the user
 	 * @return string absolute url of image file
 	 **/
 	public function getCurrentUserPictureURL() {
 		$id = $this->currentUserFacebookId;
 		return "https://graph.facebook.com/$id/picture";
+	}
+
+	/**
+	 * Maps to facebook/me/picture
+	 * @return string absolute url of image file
+	 **/
+	public function getGroupPictureURL($groupFacebookId) {
+		return "https://graph.facebook.com/$groupFacebookId/picture";
 	}
 }
