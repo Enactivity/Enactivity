@@ -129,11 +129,20 @@ class FB extends CApplicationComponent {
 
 	// FACEBOOK WRAPPERS
 
+	/**
+	 * Get the application or user access token from FB
+	 * @return string
+	 **/
 	public function getAccessToken() {
 		return $this->facebook->getAccessToken();
 	}
 
-	public function getFacebookUserId() {
+	/**
+	 * Gets the current user's facebook id from Facebook
+	 * Note: this kicks off massive side-effects (like, signing the user in)
+	 * @return int|null the current user's facebook id
+	 **/
+	public function getCurrentUserFacebookId() {
 		return $this->facebook->getUser();
 	}
 
@@ -141,17 +150,23 @@ class FB extends CApplicationComponent {
 	 * Maps to facebook/me
 	 * @return array
 	 **/
-	public function getUserDetails() {
-		// TODO: use fbid instead of me?
+	public function getCurrentUserDetails() {
 		return $this->api('me');
 	}
 
-	public function getUserGroups() {
-		// TODO: use fbid instead of me?
+	/**
+	 * Maps to facebook/me/groups
+	 * @return array
+	 **/
+	public function getCurrentUserGroups() {
 		return $this->api('me/groups');
 	}
 
-	public function getUserPicture() {
+	/**
+	 * Maps to facebook/me/picture
+	 * @return string absolute url of image file
+	 **/
+	public function getCurrentUserPicture() {
 		return $this->api('me/picture');
 	}
 }

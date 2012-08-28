@@ -336,7 +336,7 @@ class User extends ActiveRecord
 	 * @return User|false
 	 **/
 	public function syncFacebook() {
-		$details = Yii::app()->FB->userDetails;
+		$details = Yii::app()->FB->currentUserDetails;
 		$this->attributes = array(
 			'facebookId' => $details['id'],
 			'firstName'  => $details['first_name'],
@@ -355,7 +355,7 @@ class User extends ActiveRecord
 	 * @return boolean
 	 **/
 	public function syncGroups() {
-		$facebookGroups = Yii::app()->FB->userGroups;
+		$facebookGroups = Yii::app()->FB->currentUserGroups;
 		foreach ($facebookGroups['data'] as $group) {
 			// Sync in the group
 			$group = Group::syncWithFacebookAttributes($group);

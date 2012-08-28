@@ -29,7 +29,7 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$facebookId = Yii::app()->FB->facebookUserId;
+		$facebookId = Yii::app()->FB->currentUserFacebookId;
 
 		if($facebookId) {
 			$user = User::model()->findByAttributes(
