@@ -66,7 +66,7 @@ class FB extends CApplicationComponent {
 	 * @param array $params the query parameters.
 	 * @return array the response.
 	 */
-	public function api($query, $params=array())
+	protected function api($query, $params=array())
 	{
 		$data = array();
 
@@ -107,7 +107,7 @@ class FB extends CApplicationComponent {
 	 * Returns the Facebook application instance.
 	 * @return Facebook the instance.
 	 */
-	public function getFacebook()
+	protected function getFacebook()
 	{
 		return $this->_facebook;
 	}
