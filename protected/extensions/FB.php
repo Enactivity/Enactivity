@@ -166,7 +166,11 @@ class FB extends CApplicationComponent {
 	 * Maps to facebook/me/picture
 	 * @return string absolute url of image file
 	 **/
-	public function getCurrentUserPicture() {
-		return $this->api('me/picture');
+	public function getCurrentUserPictureURL() {
+		$user = $this->api('me', array(
+			'fields' => 'picture',
+    		'type' => 'large',
+    	));
+    	return $user['picture']['data']['url'];
 	}
 }
