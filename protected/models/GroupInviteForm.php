@@ -126,7 +126,7 @@ class GroupInviteForm extends CFormModel {
 			$group = Group::model()->findByPk($this->groupId);
 			if(!GroupUser::model()->isGroupMember($group->id, $user->id)) {
 				$groupuser = new GroupUser();
-				if(!$groupuser->inviteGroupUser($group->id, $user->id)) {
+				if(!$groupuser->inviteToGroup($group->id, $user->id)) {
 					throw new Exception(CVarDumper::dumpAsString($groupuser->errors));
 				}
 		

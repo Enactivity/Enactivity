@@ -239,7 +239,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @param int $userId
 	 * @return boolean
 	 */
-	public function inviteGroupUser($groupId, $userId) {
+	public function inviteToGroup($groupId, $userId) {
 		$this->scenario = self::SCENARIO_INVITE;
 		$this->groupId = $groupId;
 		$this->userId = $userId;
