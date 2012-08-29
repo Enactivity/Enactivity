@@ -413,6 +413,20 @@ class User extends ActiveRecord
 		return false;
 	}
 
+	/**
+	 * Generate new token on new record.  Encrypt password if needed.
+	 */
+	protected function beforeSave()
+	{
+		if(parent::beforeSave()) {
+			if($this->isNewRecord) {
+				$this->token = self::generateToken();
+			}
+			return true;
+		}
+		return false;
+	}
+
 	public function defaultScope() {
 		return array(
 			'order' => 'firstName ASC',
