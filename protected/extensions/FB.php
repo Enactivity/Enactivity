@@ -2,7 +2,9 @@
 /**
  * Wrapper component around Facebook library
  */
-Yii::import('ext.vendors.facebook.*');
+
+// Require rather than import because of facebook file name case mismatching.
+require_once(Yii::getPathOfAlias('ext.vendors.facebook') . '/facebook.php');
 
 class FB extends CApplicationComponent {
 
