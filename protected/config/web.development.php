@@ -23,6 +23,12 @@ return CMap::mergeArray(
 				'charset' => 'utf8',
 				'enableParamLogging'=>true,
 			),
+
+			'FB'=>array(
+				'appID' => '454101737963215',
+				'appSecret' => '30fa98515c5f35ddc2f9176920dca10c',
+				'appNamespace' => 'ponclatest',
+	        ),
 			
 			'log'=>array(
 				'class'=>'CLogRouter',

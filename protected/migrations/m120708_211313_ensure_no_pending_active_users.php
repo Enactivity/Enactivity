@@ -18,7 +18,7 @@ class m120708_211313_ensure_no_pending_active_users extends CDbMigration
 		foreach ($users as $user) {
 			foreach ($user->groupUsers as $groupUser) {
 				echo "\n Updating groupUser: " . $groupUser->id;
-				$groupUser->joinGroupUser();
+				$groupUser->joinGroup();
 			}
 			unset($user->groupUsers);
 		}

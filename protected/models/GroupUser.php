@@ -239,7 +239,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @param int $userId
 	 * @return boolean
 	 */
-	public function inviteGroupUser($groupId, $userId) {
+	public function inviteToGroup($groupId, $userId) {
 		$this->scenario = self::SCENARIO_INVITE;
 		$this->groupId = $groupId;
 		$this->userId = $userId;
@@ -250,10 +250,48 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * Have a user join a group
 	 * @return boolean
 	 */
-	public function joinGroupUser() {
+	public function joinGroup() {
 		$this->scenario = self::SCENARIO_JOIN;
 		$this->status = self::STATUS_ACTIVE;
 		return $this->save();
+	}
+
+	/**
+	 * Find a GroupUser with the given group and user id,
+	 * if no such group user exists, a model is created.
+	 * @param int $groupId
+	 * @param int $userId
+	 * @return GroupUser unsaved GroupUser model
+	 * @throws CDbException if no groupId or userId is passed in
+	 */
+	public static function loadGroupUser($groupId, $userId) {
+		if($groupId == null) {
+			throw new CDbException("No group id provided in loadGroupUser call");
+		}
+		if($userId == null) {
+			throw new CDbException("No user id provided in loadGroupUser call");
+		}
+		
+		$groupUser = GroupUser::model()->findByAttributes(array(
+			'groupId' => $groupId,
+			'userId' => $userId,
+		));
+		if(is_null($groupUser)) {
+			$groupUser = new GroupUser();
+			$groupUser->groupId = $groupId;
+			$groupUser->userId = $userId;
+		}
+
+		return $groupUser;
+	}
+
+	/**
+	 * Add/Update the user as an active member of the group
+	 * @return boolean 
+	 **/
+	public static function saveAsActiveMember($groupId, $userId) {
+		$groupUser = self::loadGroupUser($groupId, $userId);
+		return $groupUser->joinGroup();
 	}
 
 	public function onAfterSave($event) {
@@ -270,37 +308,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 			}
 		}
 	}
-	
-	/**
-	 * Handler inviteGroupUser event
-	 * @param CEvent $event
-	 * @return null
-	 */
-	/*
-	public function onAfterInviteGroupUser($event) {
-		// Send on new invite email
-		CVarDumper::dump("in onAfterInviteGroupUser");
-		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0) {
-			$user = User::model()->findByPk($this->userId);
-			CVarDumper::dump("found user");
-			$group = Group::model()->findByPk($this->groupId);
-			CVarDumper::dump("found groupid");
-			
-			if ($user->getIsActive()) {
-				CVarDumper::dump("sending invitation to actives");
-				//send invitation to group
-			}
-			elseif ($user->getIsPending()) {
-				CVarDumper::dump("sending invitation");
-				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
-			}
-		}
-		$user = User::model()->findByPk($this->userId);
-		$group = Group::model()->findByPk($this->groupId);
-		
-		$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
-	}*/
-	
+
 	/**
 	 * Returns a boolean whether user should be emailed or not
 	 * @return boolean

@@ -74,28 +74,6 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
-	 * @param Group $model Group currently under scrutiny
-	 * @return array of menu items for groups
-	 */
-	public static function group() {
-		return array(
-			array(
-				'label'=>'View Groups', 
-				'linkOptions'=>array(
-					'class'=>'groups',
-				),
-				'url'=>array('/group/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Invite People', 
-				'url'=>array('group/invite'),
-				'linkOptions'=>array('id'=>'group-invite-nav-item'),
-			),
-		);
-	}
-	
-	/**
 	 * @return array of menu items
 	 */
 	public static function task() {
@@ -129,14 +107,6 @@ class MenuDefinitions extends CComponent {
 		// 	'url'=>array('/store/index'), 
 		// 	'visible'=>!Yii::app()->user->isGuest,
 		// );
-		$menu[] = array('label'=>'Update Profile', 
-			'url'=>array('user/update'),
-			'linkOptions'=>array('id'=>'user-update-profile-nav-item'), 
-		);
-		$menu[] = array('label'=>'Update Password', 
-			'url'=>array('user/updatepassword'),
-			'linkOptions'=>array('id'=>'user-update-password-nav-item'), 
-		);
 		$menu[] = array('label'=>'Admin',
 			'url'=>array('site/admin'),
 			'visible'=>Yii::app()->user->isAdmin
@@ -186,12 +156,8 @@ class MenuDefinitions extends CComponent {
 			),
 			array(
 				'label'=>'Groups', 
-				'itemOptions'=>array(
-					'class'=>'dropdown',
-				),
-				'items'=>self::group(),
 				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
+					'class'=>'groups',
 				),
 				'url'=>array('/group/index'), 
 				'visible'=>!Yii::app()->user->isGuest
@@ -209,11 +175,11 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Login',
+				'label'=>'Login with Facebook',
 				'itemOptions'=>array(
 					'class'=>'secondary',
 				),
-				'url'=>array('/site/login'), 
+				'url'=>Yii::app()->FB->loginUrl,
 				'visible'=>Yii::app()->user->isGuest
 			),
 		);

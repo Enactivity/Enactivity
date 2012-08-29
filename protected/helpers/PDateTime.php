@@ -50,6 +50,15 @@ class PDateTime {
 	public static function timeZoneArrayValues() {
 		return array_keys(self::timeZoneArray());
 	}
+
+	/**
+	 * Returns a timezone based on a numeric offset value
+	 * 
+	 **/
+	public static function timeZoneByOffset($offset) {
+		// TODO: implement me!
+		return null;
+	}
 	
 	/**
 	 * Gets a random time zone from the list of time zones

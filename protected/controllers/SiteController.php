@@ -114,30 +114,31 @@ class SiteController extends Controller
 	    }
 	}
 
+	public function actionRegister() {
+		// TODO?
+	}
+
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
-		$model = new UserLoginForm;
-
-		// if it is ajax validation request
-//		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-//		{
-//			echo CActiveForm::validate($model);
-//			Yii::app()->end(); 
-//		}
+		$model = new UserLoginForm();
 
 		// collect user input data
-		if(isset($_POST['UserLoginForm']))
+		if(isset($_GET['code']))
 		{
-			$model->attributes = $_POST['UserLoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if($model->login($_GET)) {
 				$this->redirect(Yii::app()->user->returnUrl);
+			}
 		}
+		elseif(isset($_GET['error_reason'])) { // Facebook login returned an error
+			throw new CHttpException(401, $_GET['error_description']);
+		}
+
 		// display the login form
-		$this->render('login', array('model'=>$model));
+		throw new CHttpException(401, "Facebook login failed.  Please try again.");
 	}
 
 	/**
