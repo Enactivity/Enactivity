@@ -17,8 +17,5 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				array('view', 'id'=>$data->id)
 			); ?>
 		</h1>
-		<h2>
-			Last updated <?= PHtml::encode($data->modifiedAsTimeAgo); ?>
-		</h2>
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
