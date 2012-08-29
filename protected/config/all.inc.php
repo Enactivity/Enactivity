@@ -10,7 +10,10 @@ return array(
 	'name'=>'Poncla',
 
 	// preloading 'log' component
-	'preload'=>array('log', 'timezonekeeper'),
+	'preload'=>array(
+		'log', 
+		'timezonekeeper'
+	),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -26,6 +29,18 @@ return array(
 	
 		'authManager'=>array(
             'class' => 'CPhpAuthManager',
+        ),
+
+        'FB'=>array(
+        	'class'=>'ext.FB',
+			'appID' => '292638224164928',
+			'appSecret' => '0bd60d2a765da09c12bc2d1b37aa20c5',
+			'appNamespace' => 'ponclainc',
+			'isFileUploadEnabled' => false,
+			'scope' => array(
+				'email',
+				'user_groups',
+			),
         ),
         
 		'mail' => array(
