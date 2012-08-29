@@ -232,6 +232,10 @@ class Group extends ActiveRecord implements EmailableRecord
 		
 		throw new Exception("No such status");
 	}
+
+	public function getModifiedAsTimeAgo() {
+		return Yii::app()->format->formatDateTimeAsAgo(strtotime($this->modified));
+	}
 	
 	public function getPictureURL() {
 		return Yii::app()->FB->getGroupPictureURL($this->facebookId);
