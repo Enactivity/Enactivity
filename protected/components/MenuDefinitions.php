@@ -107,6 +107,14 @@ class MenuDefinitions extends CComponent {
 		// 	'url'=>array('/store/index'), 
 		// 	'visible'=>!Yii::app()->user->isGuest,
 		// );
+		$menu[] = array(
+			'label'=>'Groups', 
+			'linkOptions'=>array(
+				'class'=>'groups',
+			),
+			'url'=>array('/group/index'), 
+			'visible'=>!Yii::app()->user->isGuest
+		);
 		$menu[] = array('label'=>'Admin',
 			'url'=>array('site/admin'),
 			'visible'=>Yii::app()->user->isAdmin
@@ -153,14 +161,6 @@ class MenuDefinitions extends CComponent {
 				'label'=>'Calendar',
 				'url'=>array('/task/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
-				'label'=>'Groups', 
-				'linkOptions'=>array(
-					'class'=>'groups',
-				),
-				'url'=>array('/group/index'), 
-				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
 				'label'=>'More',
