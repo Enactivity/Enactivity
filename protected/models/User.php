@@ -316,21 +316,22 @@ class User extends ActiveRecord
 
 	/**
 	 * Register a new user with us
-	 * @return User|false
+	 * @return User
+	 * @throws CDbException if save fails
 	 **/
 	public static function register($attributes = array()) {
 		$user = new User();
-		if(is_array($attributes)) {
-			$user->syncFacebook();
-			$user->attributes = $attributes;
-			$user->status = User::STATUS_ACTIVE;
-			
-			if($user->save()) {
-				$user->syncFacebookGroups();
-				return $user;	
-			}
+
+		$user->syncFacebook();
+		$user->attributes = $attributes;
+		$user->status = User::STATUS_ACTIVE;
+		
+		if($user->save()) {
+			$user->syncFacebookGroups();
+			return $user;	
 		}
-		return false;
+		throw new CDbException("User could not be registered: " . CVarDumper::dumpAsString($user->errors));
+		
 	}
 
 	/**
@@ -362,7 +363,7 @@ class User extends ActiveRecord
 			// Add the user to the group internally
 			$groupUser = new GroupUser();
 			if(!$groupUser->saveAsActiveMember($group->id, $this->id)) {
-				throw new CException("Group user failed to insert: " . CVarDumper::dumpAsString($groupUser->errors));
+				throw new CDbException("Group user failed to insert: " . CVarDumper::dumpAsString($groupUser->errors));
 			}
 		}
 

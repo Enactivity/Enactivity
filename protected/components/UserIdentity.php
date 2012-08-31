@@ -40,7 +40,9 @@ class UserIdentity extends CUserIdentity
 
 			if(is_null($user)) { // user does not exist
 				// Create a new user
-				$user = User::register(array());
+				$user = User::register(array(
+					'facebookId' => $facebookId
+				));
 			}
 
 			// check user status, re-activate inactive user
