@@ -29,6 +29,12 @@ class WebUser extends CWebUser {
 			&& !is_null($id)) {
 			$this->_model = User::model()->findByPk($id);
 		}
+
+		// FIXME: Hacky? Yes please.
+		if(is_null($this->_model)) {
+			Yii::app()->user->logout();
+		}
+
 		return $this->_model;
 	}
 	

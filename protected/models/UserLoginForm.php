@@ -43,7 +43,8 @@ class UserLoginForm extends CFormModel
 		
 		if($this->_identity->errorCode === UserIdentity::ERROR_NONE)
 		{
-			$duration = 3600*24*30; // 30 days
+			// FIXME: set duration to match FB expiration value
+			$duration = 3600*24*1; // 1 days
 			Yii::app()->user->login($this->_identity, $duration);
 			//TODO: update last login of user
 			return true;
