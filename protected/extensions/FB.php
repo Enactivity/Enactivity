@@ -114,6 +114,10 @@ class FB extends CApplicationComponent {
 		return $this->_facebook;
 	}
 
+	public function logout() {
+		$this->facebook->destroySession();
+	}
+
 	public function getLoginUrl() {
 		return $this->facebook->getLoginUrl(array(
 			'redirect_uri'=>$this->redirectURI,

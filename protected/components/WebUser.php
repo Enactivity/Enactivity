@@ -20,6 +20,12 @@ class WebUser extends CWebUser {
 		return $user;
 	}
 
+	protected function afterLogout()
+	{
+		parent::afterLogout();
+		Yii::app()->FB->logout();
+	}
+
 	/**
 	 * Load user model.
 	 * @param int id User's id
@@ -28,11 +34,6 @@ class WebUser extends CWebUser {
 		if(is_null($this->_model)
 			&& !is_null($id)) {
 			$this->_model = User::model()->findByPk($id);
-		}
-
-		// FIXME: Hacky? Yes please.
-		if(is_null($this->_model)) {
-			Yii::app()->user->logout();
 		}
 
 		return $this->_model;
