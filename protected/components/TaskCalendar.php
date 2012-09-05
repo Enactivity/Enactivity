@@ -74,6 +74,22 @@ class TaskCalendar extends CComponent {
 		}
 		return array();
 	}
+
+	/**
+	 * Are there any tasks in this calendar?
+	 * @return boolean
+	 **/
+	public function getHasTasks() {
+		foreach ($this->days as $date => $times) {
+			foreach ($times as $time => $tasks) {
+				if(isset($time[$task])) {
+					return true;
+				}
+			}
+		}
+
+		return $this->hasSomedayTasks;
+	}
 	
 	/**
 	* Get if has tasks on a given day
@@ -93,9 +109,37 @@ class TaskCalendar extends CComponent {
 	}
 
 	/**
-	 * @return number of events in calendar
+	 * @return int number of tasks that occur in the calendar window 
+	**/
+	public function getDatedTaskCount() {
+		$taskCount = 0;
+
+		foreach ($this->days as $date => $times) {
+			foreach ($times as $time => $tasks) {
+				$taskCount += sizeof($tasks);
+			}
+		}
+		return $taskCount;
+	}
+
+	/**
+	 * @return int number of tasks that have no someday
+	**/
+	public function getSomedayTasksCount() {
+		return sizeof($this->someday);
+	}
+
+	/**
+	 * @return int number of events in calendar
 	 */
+	public function getTaskCount() {
+		return $this->datedTaskCount + $this->somedayTasksCount;
+	}
+
+	/**
+	 * @see getTaskCount
+	 **/
 	public function getItemCount() {
-		return sizeof($this->days) + sizeof($this->someday);
+		return $this->taskCount;
 	}
 }
