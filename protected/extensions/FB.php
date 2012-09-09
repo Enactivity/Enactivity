@@ -78,6 +78,11 @@ class FB extends CApplicationComponent {
 
 		try {
 			$data = $this->_facebook->api('/'.$query);
+			Yii::trace(
+				CVarDumper::dumpAsString($query)
+				. ": " 
+				. CVarDumper::dumpAsString($data)
+				, 'facebook');
 		}
 		catch (FacebookApiException $e)
 		{
