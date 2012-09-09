@@ -82,6 +82,7 @@ class FB extends CApplicationComponent {
 		catch (FacebookApiException $e)
 		{
 			//TODO: Throw casted exception
+			throw $e;
 		}
 
 		return $data;
