@@ -39,6 +39,7 @@ return array(
 			'isFileUploadEnabled' => false,
 			'scope' => array(
 				'email',
+				'publish_stream',
 				'user_groups',
 			),
         ),
