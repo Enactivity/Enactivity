@@ -7,13 +7,13 @@
 interface FacebookFeedableRecord
 {
 	/**
-	 * @return a URL for facebook group feed posts
+	 * @return string a URL for facebook group feed posts
 	 **/
 	public function getViewURL();
 
 
 	/**
-	 * @return a string used for facebook group feeds
+	 * @return string a model name used for facebook group feed
 	 **/
 	public function getFacebookFeedableName();
 
