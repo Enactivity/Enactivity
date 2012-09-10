@@ -63,7 +63,7 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 			$groupFacebookId = $this->Owner->group->facebookId;
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
 				'message' => $message,
-				'link' => PHtml::link(PHtml::encode($this->Owner->name), PHtml::taskURL($this->Owner)),
+				'link' => $this->Owner->getViewLink(),
 				));
 		}
 	}
