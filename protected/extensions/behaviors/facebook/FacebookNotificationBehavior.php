@@ -58,7 +58,7 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 			$currentUser = Yii::app()->user->model;
 			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
 			$name = $this->Owner->emailName;
-			$message = ucfirst($label . " " . $name);
+			$message = ucfirst($label . " " . "\"" . $name . "\"");
 			$link = 
 			$groupFacebookId = $this->Owner->group->facebookId;
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
@@ -73,6 +73,15 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 		{
 			// store the changes 
 			$currentUser = Yii::app()->user->model;
+			$name = $this->Owner->emailName;
+			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
+			$message = ucfirst($time) . " something was deleted off Poncla.";
+			$link = 
+			$groupFacebookId = $this->Owner->group->facebookId;
+			Yii::app()->FB->addGroupPost($groupFacebookId, array(
+				'message' => $message,
+				'link' => PHtml::link(PHtml::encode($this->Owner->name), PHtml::taskURL($this->Owner)),
+				));
 		}
 	}
 	
