@@ -37,7 +37,7 @@ return CMap::mergeArray(
 						'emails'=>'support-message-log@poncla.com',
 						'enabled'=>true,
 						'sentFrom'=>'support-message-log@' . CHttpRequest::getServerName(),
-						'subject'=>'Error on ' . CHttpRequest::getServerName() . microtime(),
+						'subject'=>'Error on ' . CHttpRequest::getServerName() . ' ' . microtime(),
 					),
 				),
 			),
