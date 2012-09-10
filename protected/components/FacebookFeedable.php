@@ -9,6 +9,6 @@ interface FacebookFeedable
 	/**
 	 * @return string a email for facebook group feed posts
 	 **/
-	public function getViewLink();
+	public function getViewURL();
 
 }

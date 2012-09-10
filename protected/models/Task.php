@@ -759,8 +759,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
         return $this->name;
     }
 
-    public function getViewLink() {
-    	return PHtml::taskurl($this->task);
+    public function getViewURL() {
+    	return PHtml::taskURL($this);
     }
 	
 }
