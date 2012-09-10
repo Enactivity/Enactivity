@@ -86,7 +86,24 @@ class FB extends CApplicationComponent {
 		}
 		catch (FacebookApiException $e)
 		{
-			//TODO: Throw casted exception
+			throw $e;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Calls the Facebook API with a POST command.
+	 * @param string $query the query to send.
+	 * @param array $params the query parameters.
+	 * @return array the response.
+	 */
+	protected function post($query, $params) {
+		try {
+			$data = $this->_facebook->api('/'.$query, 'POST', $params);
+		}
+		catch (FacebookApiException $e)
+		{
 			throw $e;
 		}
 
