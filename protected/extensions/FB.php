@@ -87,7 +87,7 @@ class FB extends CApplicationComponent {
 		}
 		catch (FacebookApiException $e)
 		{
-			throw new CException($e->message
+			throw new CException($e->getMessage()
 				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
 				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
 				, $e->code);
@@ -114,7 +114,7 @@ class FB extends CApplicationComponent {
 		}
 		catch (FacebookApiException $e)
 		{
-			throw new CException($e->message
+			throw new CException($e->getMessage()
 				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
 				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
 				, $e->code);
