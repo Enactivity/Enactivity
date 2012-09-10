@@ -90,7 +90,7 @@ class FB extends CApplicationComponent {
 			throw new CException($e->getMessage()
 				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
 				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
-				, $e->code);
+				, $e->getCode(), $e);
 		}
 
 		return $data;
@@ -117,7 +117,7 @@ class FB extends CApplicationComponent {
 			throw new CException($e->getMessage()
 				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
 				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
-				, $e->code);
+				, $e->getCode(), $e);
 		}
 
 		return $data;
