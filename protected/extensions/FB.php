@@ -190,4 +190,9 @@ class FB extends CApplicationComponent {
 	public function getGroupPictureURL($groupFacebookId) {
 		return "https://graph.facebook.com/$groupFacebookId/picture";
 	}
+
+	public function addGroupPost($groupFacebookId, $params) {
+		$params['method'] = 'post';
+		return $this->api($groupFacebookId . '/feed', $params);
+	}
 }

@@ -102,6 +102,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 				//'notifyAttribute' => 'descendantParticipants',
 				'ignoreAttributes' => array('modified'),
 			),
+			'FacebookNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.facebook.FacebookNotificationBehavior',
+				//'notifyAttribute' => 'descendantParticipants',
+				'ignoreAttributes' => array('modified'),
+			),
 		);
 	}
 
