@@ -209,7 +209,6 @@ class FB extends CApplicationComponent {
 	}
 
 	public function addGroupPost($groupFacebookId, $params) {
-		$params['method'] = 'post';
-		return $this->api($groupFacebookId . '/feed', $params);
+		return $this->post($groupFacebookId . '/feed', $params);
 	}
 }

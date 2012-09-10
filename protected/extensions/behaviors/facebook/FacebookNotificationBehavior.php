@@ -56,10 +56,9 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 				}
 			}
 			$currentUser = Yii::app()->user->model;
-			$label = $this->Owner->getScenarioLabel($model->scenario);
+			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
 			$name = $this->Owner->emailName;
-			$userName = $currentUser->fullName;
-			$message = $userName . " " . $label . " " . $name;
+			$message = ucfirst($label . " " . $name);
 			$link = 
 			$groupFacebookId = $this->Owner->group->facebookId;
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
