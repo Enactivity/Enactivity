@@ -80,13 +80,17 @@ class FB extends CApplicationComponent {
 			$data = $this->_facebook->api('/'.$query);
 			Yii::trace(
 				CVarDumper::dumpAsString($query)
-				. ": " 
+				. " with params: " . CVarDumper::dumpAsString($params)
+				. PHP_EOL . "   returns: " 
 				. CVarDumper::dumpAsString($data)
 				, 'facebook');
 		}
 		catch (FacebookApiException $e)
 		{
-			throw $e;
+			throw new CException($e->message
+				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
+				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
+				, $e->code);
 		}
 
 		return $data;
@@ -101,10 +105,19 @@ class FB extends CApplicationComponent {
 	protected function post($query, $params) {
 		try {
 			$data = $this->_facebook->api('/'.$query, 'POST', $params);
+			Yii::trace(
+				CVarDumper::dumpAsString($query)
+				. " with params: " . CVarDumper::dumpAsString($params)
+				. PHP_EOL . "   returns: " 
+				. CVarDumper::dumpAsString($data)
+				, 'facebook');
 		}
 		catch (FacebookApiException $e)
 		{
-			throw $e;
+			throw new CException($e->message
+				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
+				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
+				, $e->code);
 		}
 
 		return $data;
