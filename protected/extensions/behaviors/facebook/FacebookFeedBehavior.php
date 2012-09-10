@@ -6,7 +6,7 @@
 /**
  * This is the behavior class for behavior "FacebookNotificationBehavior".
  */
-class FacebookNotificationBehavior extends CActiveRecordBehavior
+class FacebookFeedBehavior extends CActiveRecordBehavior
 {
 
 	/**
@@ -57,9 +57,8 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 			}
 			$currentUser = Yii::app()->user->model;
 			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
-			$name = $this->Owner->emailName;
+			$name = $this->Owner->facebookFeedableName;
 			$message = ucfirst($label . " " . "\"" . $name . "\"");
-			$link = 
 			$groupFacebookId = $this->Owner->group->facebookId;
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
 				'message' => $message,
@@ -73,10 +72,9 @@ class FacebookNotificationBehavior extends CActiveRecordBehavior
 		{
 			// store the changes 
 			$currentUser = Yii::app()->user->model;
-			$name = $this->Owner->emailName;
+			$name = $this->Owner->facebookFeedableName;
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
 			$message = ucfirst($time) . " something was deleted off Poncla.";
-			$link = 
 			$groupFacebookId = $this->Owner->group->facebookId;
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
 				'message' => $message,
