@@ -36,7 +36,7 @@
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
+class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookFeedableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -99,7 +99,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				//'notifyAttribute' => 'descendantParticipants',
+				'ignoreAttributes' => array('modified'),
+			),
+			'FacebookFeedBehavior'=>array(
+				'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
 		);
@@ -754,6 +757,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord
 
     public function getEmailName() {
         return $this->name;
+    }
+
+    public function getFacebookFeedableName() {
+        return $this->name;
+    }
+
+    public function getViewURL() {
+    	return PHtml::taskURL($this);
     }
 	
 }

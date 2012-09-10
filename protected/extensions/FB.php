@@ -80,14 +80,44 @@ class FB extends CApplicationComponent {
 			$data = $this->_facebook->api('/'.$query);
 			Yii::trace(
 				CVarDumper::dumpAsString($query)
-				. ": " 
+				. " with params: " . CVarDumper::dumpAsString($params)
+				. PHP_EOL . "   returns: " 
 				. CVarDumper::dumpAsString($data)
 				, 'facebook');
 		}
 		catch (FacebookApiException $e)
 		{
-			//TODO: Throw casted exception
-			throw $e;
+			throw new CException($e->getMessage()
+				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
+				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
+				, $e->getCode());
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Calls the Facebook API with a POST command.
+	 * @param string $query the query to send.
+	 * @param array $params the query parameters.
+	 * @return array the response.
+	 */
+	protected function post($query, $params) {
+		try {
+			$data = $this->_facebook->api('/'.$query, 'POST', $params);
+			Yii::trace(
+				CVarDumper::dumpAsString($query)
+				. " with params: " . CVarDumper::dumpAsString($params)
+				. PHP_EOL . "   returns: " 
+				. CVarDumper::dumpAsString($data)
+				, 'facebook');
+		}
+		catch (FacebookApiException $e)
+		{
+			throw new CException($e->getMessage()
+				. PHP_EOL . 'Query:  ' . CVarDumper::dumpAsString($query)
+				. PHP_EOL . 'Params: ' . CVarDumper::dumpAsString($params)
+				, $e->getCode());
 		}
 
 		return $data;
@@ -189,5 +219,9 @@ class FB extends CApplicationComponent {
 	 **/
 	public function getGroupPictureURL($groupFacebookId) {
 		return "https://graph.facebook.com/$groupFacebookId/picture";
+	}
+
+	public function addGroupPost($groupFacebookId, $params) {
+		return $this->post($groupFacebookId . '/feed', $params);
 	}
 }
