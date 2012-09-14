@@ -63,7 +63,8 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
 				'message' => $message,
 				'link' => $this->Owner->viewURL,
-				));
+				'name' => $name,
+			));
 		}
 	}
 	
@@ -79,7 +80,8 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			Yii::app()->FB->addGroupPost($groupFacebookId, array(
 				'message' => $message,
 				'link' => $this->Owner->viewURL,
-				));
+				'name' => $name,
+			));
 		}
 	}
 	
