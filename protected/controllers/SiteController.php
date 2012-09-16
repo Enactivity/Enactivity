@@ -137,8 +137,8 @@ class SiteController extends Controller
 			throw new CHttpException(401, $_GET['error_description']);
 		}
 
-		// display the login form
-		throw new CHttpException(401, "Facebook login failed.  Please try again.");
+		// If the user came here directly, kick them back to Facebook for login
+		$this->redirect(Yii::app()->FB->loginUrl);
 	}
 
 	/**
