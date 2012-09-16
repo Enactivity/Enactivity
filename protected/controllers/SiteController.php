@@ -1,5 +1,4 @@
 <?php
-//TODO: investigate this class and redesign for Poncla
 class SiteController extends Controller
 {
 	/**
@@ -79,26 +78,6 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Displays the contact page
-	 */
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
-				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
-	
-	/**
 	 * This is the action to handle external exceptions.
 	 */
 	public function actionError()
@@ -112,10 +91,6 @@ class SiteController extends Controller
 	    			'error' => $error,
 	    	));
 	    }
-	}
-
-	public function actionRegister() {
-		// TODO?
 	}
 
 	/**
@@ -148,14 +123,6 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}
-	
-	/**
-	 * Redirection for user settings
-	 */
-	public function actionSettings() 
-	{
-		$this->redirect(array('user/update'));
 	}
 	
 	public function actionAdmin() {
