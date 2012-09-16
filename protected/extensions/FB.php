@@ -214,11 +214,19 @@ class FB extends CApplicationComponent {
 	}
 
 	/**
-	 * Maps to facebook/me/picture
+	 * Maps to facebook/<groupId>/picture
 	 * @return string absolute url of image file
 	 **/
 	public function getGroupPictureURL($groupFacebookId) {
 		return "https://graph.facebook.com/$groupFacebookId/picture";
+	}
+
+	/**
+	 * Maps to facebook/<groupId>/members
+	 * @return array
+	 **/
+	public function getGroupMembers($groupFacebookId) {
+		return "https://graph.facebook.com/$groupFacebookId/members";	
 	}
 
 	public function addGroupPost($groupFacebookId, $params) {
