@@ -18,9 +18,9 @@
 	<? Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
 
 	<link rel="shortcut icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>
-	<link rel="apple-touch-icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon-57x57.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon-114x114.png"> 
+	<link rel="apple-touch-icon" href="<?= Yii::app()->theme->baseUrl; ?>/images/favicon-57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="<?= Yii::app()->theme->baseUrl; ?>/images/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="<?= Yii::app()->theme->baseUrl; ?>/images/favicon-114x114.png"> 
 
 	<title><?= CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
 	
