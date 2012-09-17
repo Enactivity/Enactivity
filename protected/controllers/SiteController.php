@@ -61,15 +61,6 @@ class SiteController extends Controller
 		
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
-			$model=new ContactForm;
-			if(isset($_POST['ContactForm']))
-			{
-				$model->attributes = $_POST['ContactForm'];
-				if($model->validate())
-				{
-					$model->sendEmail();
-				}
-			}
 			$this->render('index', array('model'=>$model));
 		} 
 		else {
