@@ -315,6 +315,18 @@ class User extends ActiveRecord
 	}
 
 	/**
+	 * Find a user by their facebook Id
+	 * @return User|null
+	 * @see User::findByAttributes
+	 **/
+	public static function findByFacebookId($facebookId) {
+		return User::model()->findByAttributes(array(
+				'facebookId' => $facebookId,
+			)
+		);
+	}
+
+	/**
 	 * Register a new user with us
 	 * @return User
 	 * @throws CDbException if save fails
