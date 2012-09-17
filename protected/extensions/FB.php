@@ -226,7 +226,7 @@ class FB extends CApplicationComponent {
 	 * @return array
 	 **/
 	public function getGroupMembers($groupFacebookId) {
-		return "https://graph.facebook.com/$groupFacebookId/members";	
+		return $this->api("$groupFacebookId/members");	
 	}
 
 	public function addGroupPost($groupFacebookId, $params) {
