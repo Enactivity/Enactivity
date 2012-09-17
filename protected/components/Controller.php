@@ -10,9 +10,14 @@ class Controller extends CController
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
 	 */
 	public $layout='//layouts/defaultlayout';
-	
+
 	/**
-	 * @var array controller level context menu items. This property will be assigned to {@link CMenu::items}.
+	 * @return array action filters
 	 */
-	public $menu = array();
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+		);
+	}
 }
