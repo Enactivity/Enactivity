@@ -350,7 +350,7 @@ class User extends ActiveRecord
 	 * Set the user's attributes to the values from Facebook
 	 * @return User unsaved user
 	 **/
-	public function syncFacebook() {
+	public static function syncFacebook($user) {
 		$details = Yii::app()->FB->currentUserDetails;
 		$this->attributes = array(
 			'facebookId' => $details['id'],
@@ -368,19 +368,11 @@ class User extends ActiveRecord
 	 **/
 	public function syncFacebookGroups() {
 		$facebookGroups = Yii::app()->FB->currentUserGroups;
+		
 		foreach ($facebookGroups['data'] as $group) {
-			// Sync in the group
 			$group = Group::syncWithFacebookAttributes($group);
-			
-			// Add the user to the group internally
-			$groupUser = new GroupUser();
-			if(!$groupUser->saveAsActiveMember($group->id, $this->id)) {
-				throw new CDbException("Group user failed to insert: " . CVarDumper::dumpAsString($groupUser->errors));
-			}
+			$group->syncFacebookMembers();
 		}
-
-		// TODO: remove any groups NOT in the facebook list
-		// TODO: resync membership list for each group (do it in group sync)
 
 		return true;
 	}
