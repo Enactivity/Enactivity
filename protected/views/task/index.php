@@ -14,19 +14,6 @@ $this->pageTitle = 'Next';
 			<li>
 				<?
 				echo PHtml::link(
-					PHtml::encode('Calendar'), 
-					array('task/calendar'),
-					array(
-						'id'=>'task-calendar-menu-item',
-						'class'=>'neutral task-calendar-menu-item',
-						'title'=>'View tasks as a calendar',
-					)
-				);
-				?>
-			</li>
-			<li>
-				<?
-				echo PHtml::link(
 					PHtml::encode('Recent Activity'), 
 					array('feed/index'),
 					array(
