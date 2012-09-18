@@ -318,17 +318,9 @@ class TaskController extends Controller
 	public function actionIndex()
 	{
 		$calendar = TaskCalendar::loadCalendarNextTasks();
-		
-		$feedModel = new ActiveRecordLog();
-		$feedDataProvider = new CActiveDataProvider(
-			$feedModel->scopeUsersGroups(Yii::app()->user->id),
-			array(
-			)
-		);
 
 		$this->render('index', array(
 			'calendar'=>$calendar,
-			'feedProvider'=>$feedDataProvider,
 		));
 	}
 
