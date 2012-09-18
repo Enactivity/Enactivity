@@ -27,18 +27,11 @@ $this->pageTitle = 'Dashboard';
 			echo 'You haven\'t signed up for any tasks.  Why not check out the ';
 			echo PHtml::link('calendar', array('task/calendar'));
 			echo ' to see what is listed or ';
-			echo PHtml::link('start a new task', '#task-form');
+			echo PHtml::link('start a new task', array('task/create'));
 			echo '?'; 
 			echo PHtml::closeTag('p');
 		}
-		
-		// "what would you want to do input" box ?>
-		<h1><?= 'Create a New Task'; ?></h1>
-		<?= $this->renderPartial('_form', array(
-			'model'=>$newTask, 
-			'inline'=>true, 
-			'action'=>'create')
-		); ?>
+		?>		
 	</section>
 </div>
 
