@@ -5,10 +5,40 @@
  * @uses newTask
  */
 
-$this->pageTitle = 'Dashboard';
+$this->pageTitle = 'Next';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
+	<div class="menu toolbox">
+		<ul>
+			<li>
+				<?
+				echo PHtml::link(
+					PHtml::encode('Calendar'), 
+					array('task/calendar'),
+					array(
+						'id'=>'task-calendar-menu-item',
+						'class'=>'neutral task-calendar-menu-item',
+						'title'=>'View tasks as a calendar',
+					)
+				);
+				?>
+			</li>
+			<li>
+				<?
+				echo PHtml::link(
+					PHtml::encode('Recent Activity'), 
+					array('feed/index'),
+					array(
+						'id'=>'feed-index-menu-item',
+						'class'=>'neutral feed-index-menu-item',
+						'title'=>'View recent history in your group',
+					)
+				);
+				?>
+			</li>
+		</ul>
+	</div>
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
@@ -33,24 +63,4 @@ $this->pageTitle = 'Dashboard';
 		}
 		?>		
 	</section>
-</div>
-
-<div class="novel">
-<? // Show history ?>
-	<section id="feed">
-		<h1><?= 'Recent Activity'; ?></h1>
-		<? 
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$feedProvider,
-			'itemView'=>'/feed/_view',
-			'enablePagination'=>false,
-		));?>
-		<? if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
-		<div class="pager">
-			<ul>
-				<li><?= PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
-			<ul>
-		</div>
-		<? endif; ?>
-	</section>	
 </div>
