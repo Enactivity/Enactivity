@@ -326,12 +326,8 @@ class TaskController extends Controller
 			)
 		);
 
-		// handle new task
-		$newTask = $this->handleNewTaskForm();
-
 		$this->render('index', array(
 			'calendar'=>$calendar,
-			'newTask'=>$newTask,
 			'feedProvider'=>$feedDataProvider,
 		));
 	}
