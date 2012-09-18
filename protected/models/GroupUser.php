@@ -20,6 +20,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_JOIN = 'join';
+	const SCENARIO_LEAVE = 'leave';
 	
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
@@ -257,6 +258,16 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	}
 
 	/**
+	 * Have a user leave a group
+	 * @return boolean
+	 */
+	public function leaveGroup() {
+		$this->scenario = self::SCENARIO_LEAVE;
+		$this->status = self::STATUS_INACTIVE;
+		return $this->save();
+	}
+
+	/**
 	 * Find a GroupUser with the given group and user id,
 	 * if no such group user exists, a model is created.
 	 * @param int $groupId
@@ -265,10 +276,10 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @throws CDbException if no groupId or userId is passed in
 	 */
 	public static function loadGroupUser($groupId, $userId) {
-		if($groupId == null) {
+		if(is_null($groupId)) {
 			throw new CDbException("No group id provided in loadGroupUser call");
 		}
-		if($userId == null) {
+		if(is_null($userId)) {
 			throw new CDbException("No user id provided in loadGroupUser call");
 		}
 		
@@ -292,6 +303,15 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	public static function saveAsActiveMember($groupId, $userId) {
 		$groupUser = self::loadGroupUser($groupId, $userId);
 		return $groupUser->joinGroup();
+	}
+
+	/**
+	 * Add/Update the user as an active member of the group
+	 * @return boolean 
+	 **/
+	public static function saveAsInactiveMember($groupId, $userId) {
+		$groupUser = self::loadGroupUser($groupId, $userId);
+		return $groupUser->leaveGroup();
 	}
 
 	public function onAfterSave($event) {
