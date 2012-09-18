@@ -368,7 +368,7 @@ section > h2 {
 form {
 	clear: both;
 	max-width: 32em; /* Readability */
-	padding: 0 16px;
+	padding: 16px;
 }
 
 form .errorSummary {
@@ -792,20 +792,11 @@ px      68    160    252    344    436    528    620    712    */
 	.greetings h1 {
 		font-size: 7em;
 	}
-	
-	section {
-		margin-left: 16px;
-		margin-right: 16px;
-	}
-	
+
 	nav li ul {
 		left: auto;
 		max-width: 12em;
 		right: auto;	
-	}
-	
-	.content-header {
-		padding: 16px 32px;
 	}
 }
 
