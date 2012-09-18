@@ -31,14 +31,9 @@ class UserIdentity extends CUserIdentity
 	{
 		$facebookId = Yii::app()->FB->currentUserFacebookId;
 		if($facebookId) {
-			$user = User::model()->findByAttributes(
-				array(
-					'facebookId' => $facebookId,
-				)
-			);
+			$user = User::findByFacebookId($facebookId);
 
-			if(is_null($user)) { // user does not exist
-				// Create a new user
+			if(is_null($user)) { // user does not exist, create a new user
 				$user = User::register(array(
 					'facebookId' => $facebookId
 				));
