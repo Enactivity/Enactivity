@@ -187,10 +187,6 @@ nav .secondary {
 	width: 60px;
 }
 
-.dash-nav-item {
-	display: none;
-}
-
 /* Drop down navigation */
 nav li ul {
 	background-color: #ffffff;
@@ -776,10 +772,6 @@ px      68    160    252    344    436    */
 
 	.toolbox {
 		float: right;
-	}
-	
-	.dash-nav-item {
-		display: inline-block;
 	}
 }
 
