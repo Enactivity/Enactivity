@@ -57,9 +57,9 @@ return CMap::mergeArray(
 				),
 			),
 		
-			'urlManager'=>array(
-				'rules'=>null, //to allow gii
-			),
+			// 'urlManager'=>array(
+			// 	'rules'=>null, //to allow gii
+			// ),
 		),
 		
 		'modules'=>array(

@@ -51,14 +51,16 @@ return CMap::mergeArray(
 			// uncomment the following to enable URLs in path-format
 			
 			'urlManager'=>array(
-				'urlFormat'=>'path', //enabled to allow for slugs
-// 				'rules'=>array(
-					//'<slug:\w+>'=>'group/view/slug/<slug>',
-					//'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-					//'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-					//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-// 				),
+				// 'caseSensitive'=>false,
+				// 'matchValue'=>true,
+				'rules'=>array(
+					'<controller:\w+>'=>'<controller>/index',
+					'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+					'<controller:\w+>/<action:(view|update|delete)>/<id:\d+>'=>'<controller>/<action>',
+					'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				),
 				'showScriptName'=>false,
+				'urlFormat'=>'path', //enabled to allow for slugs
 			),
 			
 			'widgetFactory'=>array(
