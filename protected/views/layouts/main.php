@@ -60,23 +60,20 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 	</aside>
 	<? endif; ?>
 
-	
 	<?= $content; ?>
-	
-	<div class="footer-push"></div>
 </div>
 
 <footer class="global-footer">
-	<span class="copyright"><?= PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
+	<p class="copyright"><?= PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
 		All Rights Reserved.
-	</span>
-	<span class="credits">Created by 
+	</p>
+	<p class="credits">Created by 
 		<?= PHtml::link("Reed Musselman", "http://twitter.com/#!/blue21japan"); ?>, 
 		<?= PHtml::link("Andy Fong", "http://twitter.com/#!/andysfong"); ?>, 
 		<?= PHtml::link("Harrison Vuong", "http://twitter.com/#!/harrisonvuong"); ?>, and 
 		<?= PHtml::link("Ajay Sharma", "http://twitter.com/#!/ajsharma"); ?>.
 		<!-- Also, chicken wings and beer, lots of beer. --> 
-	</span>
+	</p>
 </footer>
 
 </body>

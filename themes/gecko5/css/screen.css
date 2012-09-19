@@ -12,7 +12,7 @@ html {
 }
 
 html, body {
-	background-color: #333436;
+	background-color: #2a2a2c;
 	color: #d6d6d6;
 	font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	height: 100%;
@@ -102,6 +102,7 @@ p {
 	Global wrappers
 */
 .everything {
+	background-color: #333436;
 	height: auto;
 	margin: auto auto; /* auto and footer size */
 	max-width: 1024px;
@@ -124,17 +125,16 @@ p {
 	max-width: 32em;
 }
 
-.footer-push {
-	clear: both;
-	padding-bottom: 32px;
-}
-
 .global-footer {
-	background-color: #2a2a2c;
-	box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
     clear: both;  /* Ensure footer isn't floating around anywhere */
     padding: 32px;
+    margin: auto;
+    max-width: 32em;
     text-align: center;
+}
+
+.global-footer p {
+	font-size: 1.1em;
 }
 
 nav {
@@ -584,6 +584,7 @@ th {
 */
 .greetings h1 {
 	font-size: 3em;	
+	padding: 16px;
 }
 
 .greetings span {
@@ -790,7 +791,7 @@ px      68    160    252    344    436    528    620    712    */
 @media only screen and (min-width: 768px) {
 
 	.greetings h1 {
-		font-size: 7em;
+		font-size: 4em;
 	}
 
 	nav li ul {
