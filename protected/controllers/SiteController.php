@@ -47,7 +47,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->layout='splashlayout';
+		// $this->layout='splashlayout';
 		
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
