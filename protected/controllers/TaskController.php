@@ -20,7 +20,7 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','create','calendar'),
+				'actions'=>array('index','feed','create','calendar'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -63,9 +63,6 @@ class TaskController extends Controller
 		
 		$commentsDataProvider = new CArrayDataProvider($model->comments);
 		
-		// Feed
-		$feedDataProvider = new CArrayDataProvider($model->feed);
-
 		$this->render(
 			'view', 
 			array(
@@ -76,6 +73,21 @@ class TaskController extends Controller
 				'newTask' => $newTask,
 				'comment' => $comment,
 				'commentsDataProvider' => $commentsDataProvider,
+			)
+		);
+	}
+
+	public function actionFeed($id) {
+		// load model
+		$model = $this->loadTaskModel($id);
+
+		// Feed
+		$feedDataProvider = new CArrayDataProvider($model->feed);
+
+		$this->render(
+			'feed', 
+			array(
+				'model' => $model,
 				'feedDataProvider' => $feedDataProvider,
 			)
 		);
