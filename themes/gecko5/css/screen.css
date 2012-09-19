@@ -105,7 +105,6 @@ p {
 	background-color: #333436;
 	height: auto;
 	margin: auto auto; /* auto and footer size */
-	max-width: 1024px;
 	min-height: 100%;
 	padding-top: 75px;
 }
