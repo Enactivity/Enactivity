@@ -15,14 +15,27 @@ $this->pageTitle = $model->name;
 	<div class="menu toolbox">
 		<ul>
 			<li>
-				<?
-				echo PHtml::link(
+				<?=
+				PHtml::link(
 					PHtml::encode('Edit'), 
 					array('task/update', 'id'=>$model->id),
 					array(
 						'id'=>'task-update-menu-item-' . $model->id,
 						'class'=>'neutral task-update-menu-item',
 						'title'=>'Edit this task',
+					)
+				);
+				?>
+			</li>
+			<li>
+				<?=
+				PHtml::link(
+					PHtml::encode('Recent Activity'), 
+					array('task/feed', 'id'=>$model->id),
+					array(
+						'id'=>'task-feed-menu-item',
+						'class'=>'neutral task-feed-menu-item',
+						'title'=>'View recent history of this task',
 					)
 				);
 				?>
@@ -171,15 +184,5 @@ if($model->isParticipatable):
 		<? // show new comment form ?>
 		<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 	</section>
-	
-	<? // Show history ?>
-	<section id="task-activity">
-		<h1><?= 'Recent Activity'; ?></h1>
-		
-		<? 
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$feedDataProvider,
-			'itemView'=>'/feed/_view',
-		));?>
-	</section>	
+
 </div>
