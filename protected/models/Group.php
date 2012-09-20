@@ -222,12 +222,13 @@ class Group extends ActiveRecord implements EmailableRecord
 		$groupUsers = $this->groupUsers;
 		$groupUserIds = array();
 		foreach ($groupUsers as $groupUser) {
-			$groupUserIds[] = $groupUser->userId;
+			$groupUserIds[$groupUser->userId] = true; // sneaky reverse hash!
 		}
 
 		// Activate all the facebook members
 		foreach ($facebookMembers as $facebookMember) {
 			$user = User::findByFacebookId($facebookMember['id']);
+
 			if($user) {
 				GroupUser::saveAsActiveMember($this->id, $user->id);
 				unset($groupUserIds[$user->id]);
