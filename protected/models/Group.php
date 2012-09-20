@@ -210,6 +210,38 @@ class Group extends ActiveRecord implements EmailableRecord
 
 		throw new CException("Group could not be synchronized: " . CVarDumper::dumpAsString($group->errors));
 	}
+
+	/** 
+	 * Synchronize the list of members from facebook for this group.
+	 * @return boolean
+	 */
+	public function syncFacebookMembers() {
+		$facebookResponse = Yii::app()->FB->getGroupMembers($this->facebookId);
+		$facebookMembers = $facebookResponse['data'];
+
+		$groupUsers = $this->groupUsers;
+		$groupUserIds = array();
+		foreach ($groupUsers as $groupUser) {
+			$groupUserIds[$groupUser->userId] = true; // sneaky reverse hash!
+		}
+
+		// Activate all the facebook members
+		foreach ($facebookMembers as $facebookMember) {
+			$user = User::findByFacebookId($facebookMember['id']);
+
+			if($user) {
+				GroupUser::saveAsActiveMember($this->id, $user->id);
+				unset($groupUserIds[$user->id]);
+			}
+		}
+
+		// De-activate users who are in our system's list, but not facebook's list
+		foreach ($groupUserIds as $userId) {
+			GroupUser::saveAsInactiveMember($this->id, $userId);
+		}
+
+		return true;
+	}
 	
 	/**
 	 * Get the list of Active users in this group filtered by 
