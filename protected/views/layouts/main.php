@@ -10,9 +10,7 @@
 	<![endif]-->
 
 
-	<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/reset.css"); ?>
 	<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/screen.css"); ?>
-	<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/css/jquery-ui.css"); ?>
 
 	<? Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<? Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
