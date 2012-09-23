@@ -9,3 +9,4 @@ protected/config/web.local.php
 
 # SASS
 .sass-cache
+themes/gecko5/css/*.css
