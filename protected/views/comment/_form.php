@@ -1,9 +1,10 @@
 <div class="form">
-
 <? $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'comment-form',
 	'enableAjaxValidation'=>false,
 )); ?>
+
+	<h1>Write a comment</h1>
 
 	<?= $form->errorSummary($model); ?>
 

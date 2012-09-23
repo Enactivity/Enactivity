@@ -14,7 +14,7 @@ html {
 }
 
 html, body {
-	background-color: #333436;
+	background-color: #2a2a2c;
 	color: #d6d6d6;
 	font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	height: 100%;
@@ -35,6 +35,10 @@ a:hover, a:focus {
 input, textarea, select {
 	border: 1px solid #bfbfbf;
 	border-radius: 3px;
+	-khtml-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box; /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	height: 2.5em;
@@ -100,9 +104,9 @@ p {
 	Global wrappers
 */
 .everything {
+	background-color: #333436;
 	height: auto;
 	margin: auto auto; /* auto and footer size */
-	max-width: 1024px;
 	min-height: 100%;
 	padding-top: 75px;
 }
@@ -119,24 +123,22 @@ p {
 
 .global-navigation {
 	margin: auto;
-	max-width: 1024px;
-}
-
-.footer-push {
-	clear: both;
-	padding-bottom: 32px;
+	max-width: 32em;
 }
 
 .global-footer {
-	background-color: #2a2a2c;
-	box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
     clear: both;  /* Ensure footer isn't floating around anywhere */
     padding: 32px;
+    margin: auto;
+    max-width: 32em;
     text-align: center;
 }
 
+.global-footer p {
+	font-size: 1.1em;
+}
+
 nav {
-	font-size: .8em;
 	position: relative;
 }
 
@@ -151,6 +153,7 @@ nav li {
 nav li a,
 nav li a:visited {
 	display: block;	
+	font-size: .8em;
 	padding: 24px 8px;
 	text-transform: lowercase;
 }
@@ -252,6 +255,9 @@ section > h2 {
 .content {
 	clear: both;
 	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 34em;
 }
 
 .content-header {
@@ -363,7 +369,7 @@ section > h2 {
 form {
 	clear: both;
 	max-width: 32em; /* Readability */
-	padding: 0 16px;
+	padding: 16px;
 }
 
 form .errorSummary {
@@ -579,6 +585,7 @@ th {
 */
 .greetings h1 {
 	font-size: 3em;	
+	padding: 16px;
 }
 
 .greetings span {
@@ -785,28 +792,13 @@ px      68    160    252    344    436    528    620    712    */
 @media only screen and (min-width: 768px) {
 
 	.greetings h1 {
-		font-size: 7em;
+		font-size: 4em;
 	}
-	
-	section {
-		margin-left: 16px;
-		margin-right: 16px;
-	}
-	
+
 	nav li ul {
 		left: auto;
 		max-width: 12em;
 		right: auto;	
-	}
-	
-	.content-header {
-		padding: 16px 32px;
-	}
-	
-	.novel {
-		float:left;
-		margin-right: 1em;
-		width: 360px; /* iPad resolution/2 - 16px */
 	}
 }
 
@@ -814,7 +806,4 @@ px      68    160    252    344    436    528    620    712    */
 	Desktop layout
 */
 @media only screen and (min-width: 991px) {
-	.novel {
-		width: 488px; /* iPad resolution/2 - 16px */
-	}
 }
