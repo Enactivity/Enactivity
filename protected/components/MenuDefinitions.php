@@ -150,7 +150,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Dashboard', 
+				'label'=>'Next', 
 				'itemOptions'=>array(
 					'class'=>'dash-nav-item'
 				),
@@ -160,6 +160,11 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'Calendar',
 				'url'=>array('/task/calendar'), 
+				'visible'=>!Yii::app()->user->isGuest,
+			),
+			array(
+				'label'=>'New',
+				'url'=>array('/task/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(

@@ -4,3 +4,6 @@
 3. `./yiic system config --env='development'`
 4. `./yiic migrate up`
 5. `./yiic store loadSweatersFromFile`
+
+# Develop
+1. `sass --watch themes/gecko5/css/screen.scss:screen.css`

@@ -5,10 +5,27 @@
  * @uses newTask
  */
 
-$this->pageTitle = 'Dashboard';
+$this->pageTitle = 'Next';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
+	<div class="menu toolbox">
+		<ul>
+			<li>
+				<?
+				echo PHtml::link(
+					PHtml::encode('Recent Activity'), 
+					array('feed/index'),
+					array(
+						'id'=>'feed-index-menu-item',
+						'class'=>'neutral feed-index-menu-item',
+						'title'=>'View recent history in your group',
+					)
+				);
+				?>
+			</li>
+		</ul>
+	</div>
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
@@ -27,37 +44,10 @@ $this->pageTitle = 'Dashboard';
 			echo 'You haven\'t signed up for any tasks.  Why not check out the ';
 			echo PHtml::link('calendar', array('task/calendar'));
 			echo ' to see what is listed or ';
-			echo PHtml::link('start a new task', '#task-form');
+			echo PHtml::link('create a new task', array('task/create'));
 			echo '?'; 
 			echo PHtml::closeTag('p');
 		}
-		
-		// "what would you want to do input" box ?>
-		<h1><?= 'Create a New Task'; ?></h1>
-		<?= $this->renderPartial('_form', array(
-			'model'=>$newTask, 
-			'inline'=>true, 
-			'action'=>'create')
-		); ?>
+		?>		
 	</section>
-</div>
-
-<div class="novel">
-<? // Show history ?>
-	<section id="feed">
-		<h1><?= 'Recent Activity'; ?></h1>
-		<? 
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$feedProvider,
-			'itemView'=>'/feed/_view',
-			'enablePagination'=>false,
-		));?>
-		<? if($feedProvider->totalItemCount > $feedProvider->pagination->pageSize): ?>
-		<div class="pager">
-			<ul>
-				<li><?= PHtml::link('More recent activity', array('feed/index', 'ActiveRecordLog_page' => 2)); ?></li>
-			<ul>
-		</div>
-		<? endif; ?>
-	</section>	
 </div>
