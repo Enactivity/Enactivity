@@ -33,9 +33,15 @@ return CMap::mergeArray(
 					),
 					array(
 						'class'=>'CEmailLogRoute',
-						'levels'=>'error, warning',
 						'emails'=>'support-message-log@poncla.com',
+						'filter' => array(
+							'class' => 'CLogFilter',
+							'logUser' => true,
+							'prefixSession' => true,
+							'prefixUser' => true,
+						),
 						'enabled'=>true,
+						'levels'=>'error, warning',
 						'sentFrom'=>'support-message-log@' . CHttpRequest::getServerName(),
 						'subject'=>'Error on ' . CHttpRequest::getServerName() . ' ' . microtime(),
 					),
