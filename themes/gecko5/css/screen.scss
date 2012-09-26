@@ -7,6 +7,14 @@
 **/
 
 /*
+	Colors
+*/
+$dark-gray: #2a2a2a;
+$light-gray: #bfbfbf;
+$gray: #d6d6d6;
+
+
+/*
 	General settings
 */
 html {
@@ -14,8 +22,8 @@ html {
 }
 
 html, body {
-	background-color: #2a2a2c;
-	color: #d6d6d6;
+	background-color: $dark-gray;
+	color: $light-gray;
 	font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
@@ -104,7 +112,8 @@ p {
 	Global wrappers
 */
 .everything {
-	background-color: #333436;
+	background-color: $light-gray;
+	color: $dark-gray;
 	height: auto;
 	margin: auto auto; /* auto and footer size */
 	min-height: 100%;
@@ -112,7 +121,7 @@ p {
 }
 
 .global-header {
-	background-color: #2a2a2c;
+	background-color: $dark-gray;
 	border-bottom: 1px solid #000000;
 	position: fixed;
 	left: 0;
