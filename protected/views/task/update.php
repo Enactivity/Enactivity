@@ -26,7 +26,7 @@ $this->pageTitle = 'Edit Task';
 				'submit'=>array('task/trash', 'id'=>$model->id),
 				'csrf'=>true,
 				'id'=>'task-trash-menu-item-' . $model->id,
-				'class'=>'negative task-trash-menu-item',
+				'class'=>'neutral task-trash-menu-item',
 				'title'=>'Trash this task',
 		)
 		);
