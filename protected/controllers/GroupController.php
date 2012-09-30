@@ -19,7 +19,7 @@ class GroupController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'invite'),
+				'actions'=>array('index', 'syncWithFacebook'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -136,15 +136,20 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->user->model->syncFacebookGroups();
-
 		$dataProvider = new CActiveDataProvider('Group', array(
 			'data' => Yii::app()->user->model->groups)
 		);
 
 		$this->render('index', array(
-		        'dataProvider'=>$dataProvider,
+		    'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionSyncWithFacebook() {
+		Yii::app()->user->model->syncFacebookGroups();
+		Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
+
+		$this->redirect(array('index'));
 	}
 
 	/**
