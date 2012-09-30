@@ -43,6 +43,10 @@ return array(
 				'user_groups',
 			),
         ),
+
+        'FacebookGroupFeedPost'=>array(
+        	'class'=>'FacebookGroupFeedPost',
+        ),
         
 		'mail' => array(
 				'class' => 'ext.YiiMail',

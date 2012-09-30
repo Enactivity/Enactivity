@@ -63,14 +63,8 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$name = $this->Owner->facebookFeedableName;
 			$message = ucfirst($label . " " . "\"" . $name . "\"");
 			$groupFacebookId = $this->Owner->group->facebookId;
-
-			//Yii::app()->FacebookGroupFeedPost->
-
-			Yii::app()->FB->addGroupPost($groupFacebookId, array(
-				'message' => $message,
-				'link' => $this->Owner->viewURL,
-				'name' => $name,
-			));
+			$viewPath = '/' . 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
 		}
 	}
 	
@@ -83,11 +77,7 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
 			$message = ucfirst($time) . " something was deleted off Poncla.";
 			$groupFacebookId = $this->Owner->group->facebookId;
-			Yii::app()->FB->addGroupPost($groupFacebookId, array(
-				'message' => $message,
-				'link' => $this->Owner->viewURL,
-				'name' => $name,
-			));
+			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
 		}
 	}
 	

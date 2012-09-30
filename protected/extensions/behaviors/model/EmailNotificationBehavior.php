@@ -34,7 +34,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 	}
 
-	public function afterSave($event)
+	public function R($event)
 	{
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
@@ -69,7 +69,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			
 			$currentUser = Yii::app()->user->model;
 			$message = Yii::app()->mail->constructMessage();
-			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			$message->view = 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 			
 			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
