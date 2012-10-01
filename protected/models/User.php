@@ -191,9 +191,6 @@ class User extends ActiveRecord
 				'through' => 'groupUsers',
 				'order' => 'groups.name',
 			),
-			'groupsCount' => array(self::STAT, 'Group', 
-				'group_user(userId, groupId)',
-			),
 			
 			// all tasks that belong to the groups the user belongs to
 			'groupsTasks' => array(self::HAS_MANY, 'Task', 'groupId',
@@ -354,7 +351,7 @@ class User extends ActiveRecord
 	 * Set the user's attributes to the values from Facebook
 	 * @return User unsaved user
 	 **/
-	public static function syncFacebook($user) {
+	public function syncFacebook() {
 		$details = Yii::app()->FB->currentUserDetails;
 		$this->attributes = array(
 			'facebookId' => $details['id'],
@@ -540,6 +537,10 @@ class User extends ActiveRecord
 
 	public function getPictureURL() {
 		return Yii::app()->FB->currentUserPictureURL;
+	}
+
+	public function getGroupsCount() {
+		return sizeof($this->groups);
 	}
 
 	/**
