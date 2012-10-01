@@ -137,7 +137,7 @@ class GroupController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider('Group', array(
-			'data' => Yii::app()->user->model->groups)
+			'data' => Yii::app()->user->model->groupUsers)
 		);
 
 		$this->render('index', array(
@@ -145,22 +145,15 @@ class GroupController extends Controller
 		));
 	}
 
+	/**
+	 * Synchronize the current user's groups with facebook
+	 */
 	public function actionSyncWithFacebook() {
-		Yii::app()->user->model->syncFacebookGroups();
-		Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
+		if(Yii::app()->user->model->syncFacebookGroups()) {
+			Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
+		}
 
 		$this->redirect(array('index'));
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionAll()
-	{
-		$dataProvider=new CActiveDataProvider('Group');
-		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
 
 	/**

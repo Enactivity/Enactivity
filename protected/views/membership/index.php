@@ -1,5 +1,5 @@
 <?
-$this->pageTitle = 'Groups';
+$this->pageTitle = 'Group Membership';
 
 ?>
 
@@ -25,7 +25,6 @@ $this->pageTitle = 'Groups';
 <?= PHtml::endContentHeader(); ?>
 
 <section class="novel">
-	<h1>Member of</h1>
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_view',
