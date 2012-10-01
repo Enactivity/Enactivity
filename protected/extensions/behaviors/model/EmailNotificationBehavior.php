@@ -16,7 +16,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 * @var array
 	 */
 	public $ignoreAttributes = array();
-	
+
 	private $_oldAttributes = array();
  
 	/**
@@ -34,13 +34,13 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 	}
 
-	public function R($event)
+	public function afterSave($event)
 	{
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
 			$changes = array();
-			
+
 			// new attributes and old attributes
 			$newAttributes = $this->Owner->getAttributes();
 			$oldAttributes = $this->Owner->getOldAttributes();
@@ -66,15 +66,15 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 				}
 				}
 			}
-			
+
 			$currentUser = Yii::app()->user->model;
 			$message = Yii::app()->mail->constructMessage();
-			$message->view = 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
-			
+
 			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
-			
+
 			$users = $this->Owner->whoToNotifyByEmail();
 			foreach($users->data as $user)
 			{
@@ -85,7 +85,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			}
 		}
 	}
-	
+
 	public function afterDelete($event) {
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
@@ -94,10 +94,10 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message = Yii::app()->mail->constructMessage();
 			$message->view = strtolower(get_class($this->Owner)). '/delete';
 			$message->setBody(array('data'=>$this->Owner, 'user'=>$currentUser), 'text/html');
-				
+
 			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' something was deleted on Poncla!');
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
-			
+
 			$users = $this->Owner->whoToNotifyByEmail();
 			foreach($users->data as $user)
 			{
@@ -108,7 +108,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			}
 		}
 	}
-	
+
 	public function afterFind($event) {
 		// Save old values
 		$this->setOldAttributes($this->Owner->getAttributes());
