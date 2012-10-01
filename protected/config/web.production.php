@@ -49,11 +49,11 @@ return CMap::mergeArray(
 			),
 			
 			'mail'=>array(
-				'dryRun'=>false,
+				'dryRun'=>true,
 			),
 			
 			'mailer'=>array(
-				'shouldEmail'=>true,  
+				'shouldEmail'=>false,  
 			),
 		),
 		
