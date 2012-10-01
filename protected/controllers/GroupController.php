@@ -19,7 +19,7 @@ class GroupController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'syncWithFacebook'),
+				'actions'=>array('syncWithFacebook'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -27,7 +27,7 @@ class GroupController extends Controller
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create', 'admin', 'delete', 'update', 'view'),
+				'actions'=>array('index', 'create', 'admin', 'delete', 'update', 'view'),
 				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
@@ -153,7 +153,7 @@ class GroupController extends Controller
 			Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
 		}
 
-		$this->redirect(array('index'));
+		$this->redirect(array('membership/index'));
 	}
 
 	/**

@@ -201,6 +201,10 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 		));
 		return $this;
 	}
+
+	public function getIsActive() {
+		return strcasecmp($this->status, self::STATUS_ACTIVE) == 0;
+	}
 	
 	/**
 	 * Get whether the user is a member of the group
