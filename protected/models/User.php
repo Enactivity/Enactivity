@@ -181,11 +181,15 @@ class User extends ActiveRecord
 				'condition' => 'purchased IS NOT NULL AND delivered IS NOT NULL',
 			),
 		
-			// all groups that the user is a member of
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId',
+				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"',
+			),
+			'groupUsersAll' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
+				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
 				'through' => 'groupUsers',
-				'order' => 'groups.name'
+				'order' => 'groups.name',
 			),
 			'groupsCount' => array(self::STAT, 'Group', 
 				'group_user(userId, groupId)',

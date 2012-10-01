@@ -26,7 +26,7 @@ class MembershipController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider('Group', array(
-			'data' => Yii::app()->user->model->groupUsers)
+			'data' => Yii::app()->user->model->groupUsersAll)
 		);
 
 		$this->render('index', array(
