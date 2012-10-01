@@ -50,7 +50,6 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
 							$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
 						}
-
 	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
 	 				}
 				}
@@ -60,11 +59,9 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$name = $this->Owner->facebookFeedableName;
 			$message = ucfirst($label . " " . "\"" . $name . "\"");
 			$groupFacebookId = $this->Owner->group->facebookId;
-			Yii::app()->FB->addGroupPost($groupFacebookId, array(
-				'message' => $message,
-				'link' => $this->Owner->viewURL,
-				'name' => $name,
-			));
+			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
+			$viewPath = '/' . 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
 		}
 	}
 	
@@ -77,11 +74,7 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
 			$message = ucfirst($time) . " something was deleted off Poncla.";
 			$groupFacebookId = $this->Owner->group->facebookId;
-			Yii::app()->FB->addGroupPost($groupFacebookId, array(
-				'message' => $message,
-				'link' => $this->Owner->viewURL,
-				'name' => $name,
-			));
+			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
 		}
 	}
 	
