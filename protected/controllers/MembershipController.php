@@ -11,7 +11,7 @@ class MembershipController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index'),
+				'actions'=>array('index', 'join', 'leave'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -34,6 +34,49 @@ class MembershipController extends Controller
 		));
 	}
 
+	/** 
+	 * Adds the current user to the specifiec group
+	**/
+	public function actionJoin($id) {
+
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$model = $this->loadModel($id);
+			$model->joinGroup();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/membership/_view', array('data'=>$model), false, true);
+				Yii::app()->end();
+			}
+
+			$this->redirect(array('index'));
+		}
+		
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+	public function actionLeave($id) {
+		
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$model = $this->loadModel($id);
+			$model->leaveGroup();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/membership/_view', array('data'=>$model), false, true);
+				Yii::app()->end();
+			}
+
+			$this->redirect(array('index'));
+		}
+		
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -41,7 +84,7 @@ class MembershipController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model = Group::model()->findByPk((int) $id);
+		$model = GroupUser::model()->findByPk((int) $id);
 		if(isset($model)) {
 			return $model;
 		}

@@ -17,11 +17,33 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				array('group/view', 'id'=>$data->group->id)
 			); ?>
 		</h1>
-		<? if($data->isActive): ?>
-		Click to deactivate
-		<? else: ?>
-		Click to Activate
-		<? endif; ?>
+		<? $story->beginControls(); ?>
+			<li>
+				<? if($data->isActive): ?>
+				<?= PHtml::button(
+					PHtml::encode('Deactivate'),
+					array( //html
+							'submit'=>array('membership/leave', 'id'=>$data->id),
+							'csrf'=>true,
+							'id'=>'membership-leave-menu-item-' . $data->id,
+							'class'=>'neutral membership-leave-menu-item',
+							'title'=>'Stop using this group with Poncla',
+					)
+				); ?>
+				<? else: ?>
+				<?= PHtml::button(
+					PHtml::encode('Activate'),
+					array( //html
+							'submit'=>array('membership/join', 'id'=>$data->id),
+							'csrf'=>true,
+							'id'=>'membership-join-menu-item-' . $data->id,
+							'class'=>'positive membership-join-menu-item',
+							'title'=>'Start using this group with Poncla',
+					)
+				); ?>
+				<? endif; ?>
+			</li>
+		<? $story->endControls(); ?>
 
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
