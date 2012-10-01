@@ -181,14 +181,15 @@ class User extends ActiveRecord
 				'condition' => 'purchased IS NOT NULL AND delivered IS NOT NULL',
 			),
 		
-			// all groups that the user is a member of
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
-			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
-				'through' => 'groupUsers',
-				'order' => 'groups.name'
+			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId',
+				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"',
 			),
-			'groupsCount' => array(self::STAT, 'Group', 
-				'group_user(userId, groupId)',
+			'groupUsersAll' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+		
+			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
+				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
+				'through' => 'groupUsers',
+				'order' => 'groups.name',
 			),
 			
 			// all tasks that belong to the groups the user belongs to
@@ -350,7 +351,7 @@ class User extends ActiveRecord
 	 * Set the user's attributes to the values from Facebook
 	 * @return User unsaved user
 	 **/
-	public static function syncFacebook($user) {
+	public function syncFacebook() {
 		$details = Yii::app()->FB->currentUserDetails;
 		$this->attributes = array(
 			'facebookId' => $details['id'],
@@ -536,6 +537,10 @@ class User extends ActiveRecord
 
 	public function getPictureURL() {
 		return Yii::app()->FB->currentUserPictureURL;
+	}
+
+	public function getGroupsCount() {
+		return sizeof($this->groups);
 	}
 
 	/**

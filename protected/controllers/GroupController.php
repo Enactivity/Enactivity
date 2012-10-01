@@ -19,7 +19,7 @@ class GroupController extends Controller
 		}
 		return array(
 			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'invite'),
+				'actions'=>array('syncWithFacebook'),
 				'users'=>array('@'),
 			),
 			array('allow',  // allow only group members to perform 'updateprofile' actions
@@ -27,7 +27,7 @@ class GroupController extends Controller
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create', 'admin', 'delete', 'update', 'view'),
+				'actions'=>array('index', 'create', 'admin', 'delete', 'update', 'view'),
 				'expression'=>'$user->isAdmin',
 			),
 			array('deny',  // deny all users
@@ -136,26 +136,24 @@ class GroupController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->user->model->syncFacebookGroups();
-
 		$dataProvider = new CActiveDataProvider('Group', array(
-			'data' => Yii::app()->user->model->groups)
+			'data' => Yii::app()->user->model->groupUsers)
 		);
 
 		$this->render('index', array(
-		        'dataProvider'=>$dataProvider,
+		    'dataProvider'=>$dataProvider,
 		));
 	}
 
 	/**
-	 * Lists all models.
+	 * Synchronize the current user's groups with facebook
 	 */
-	public function actionAll()
-	{
-		$dataProvider=new CActiveDataProvider('Group');
-		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
-		));
+	public function actionSyncWithFacebook() {
+		if(Yii::app()->user->model->syncFacebookGroups()) {
+			Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
+		}
+
+		$this->redirect(array('membership/index'));
 	}
 
 	/**
