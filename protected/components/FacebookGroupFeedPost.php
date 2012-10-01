@@ -1,14 +1,14 @@
 <?php
 class FacebookGroupFeedPost extends CApplicationComponent {
 
-    protected function renderView($viewPath) {
-		Yii::app()->controller->renderPartial($viewPath, $return = true);
+    protected function renderView($viewPath, $descriptionData) {
+		return Yii::app()->controller->renderPartial($viewPath, $descriptionData, true);
     }
 
-    public function post($groupFacebookId, $link, $name, $message, $viewPath) {
+    public function post($groupFacebookId, $link, $name, $message, $viewPath, $descriptionData) {
         Yii::app()->FB->addGroupPost($groupFacebookId, array(
             'link' => $link,
-            'description' => $this->renderView($viewPath),
+            'description' => $this->renderView($viewPath, $descriptionData),
             'name' => $name,
             'message' => $message,
         ));
