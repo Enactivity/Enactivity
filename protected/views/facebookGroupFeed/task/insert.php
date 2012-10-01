@@ -6,7 +6,7 @@
  * @author Harrison Vuong
  */
 
-echo "Fantastic! " . '"' . PHtml::encode($data->name) . '"' . " was created on Poncla";	
+echo "Fantastic! " . '"' . PHtml::encode($data->name) . '"' . " was created on Poncla.";	
 
 
 ?>

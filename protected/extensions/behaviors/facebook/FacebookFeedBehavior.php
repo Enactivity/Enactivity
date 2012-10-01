@@ -29,9 +29,6 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 		{
 			// store the changes 
 			$changes = array();
-
-			// flag to check if anything was actually changed
-			$changes[$status] = false;
 			
 			// new attributes and old attributes
 			$newAttributes = $this->Owner->getAttributes();
@@ -53,7 +50,6 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
 							$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
 						}
-						$changes[$status] = true;
 	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
 	 				}
 				}

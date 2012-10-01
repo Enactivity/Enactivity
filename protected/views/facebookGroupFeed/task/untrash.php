@@ -2,10 +2,10 @@
 
 /*
  * View used to return a description string
- * for facebook group feed post when trashing post
+ * for facebook group feed post when restoring post
  * @author Harrison Vuong
  */
 
-echo "Woohoo! " . '"' . PHtml::encode($data->name) . '"' . "was restored on Poncla";	
+echo "Woohoo! " . '"' . PHtml::encode($data->name) . '"' . " was restored on Poncla.";	
 
 ?>
