@@ -1,4 +1,10 @@
 <?php
+
+/*
+ * Class used to post to facebook group feed
+ * @author Harrison Vuong
+ */
+
 class FacebookGroupFeedPost extends CApplicationComponent {
 
     protected function renderView($viewPath, $descriptionData) {
