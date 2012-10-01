@@ -112,7 +112,7 @@ class MenuDefinitions extends CComponent {
 			'linkOptions'=>array(
 				'class'=>'groups',
 			),
-			'url'=>array('/group/index'), 
+			'url'=>array('/membership/index'), 
 			'visible'=>!Yii::app()->user->isGuest
 		);
 		$menu[] = array('label'=>'Admin',
