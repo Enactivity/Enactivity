@@ -230,7 +230,7 @@ class Group extends ActiveRecord implements EmailableRecord
 			$user = User::findByFacebookId($facebookMember['id']);
 
 			if($user) {
-				GroupUser::saveAsActiveMember($this->id, $user->id);
+				GroupUser::saveAsInactiveMemberIfNewRecord($this->id, $user->id);
 				unset($groupUserIds[$user->id]);
 			}
 		}

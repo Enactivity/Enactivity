@@ -310,12 +310,25 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	}
 
 	/**
-	 * Add/Update the user as an active member of the group
+	 * Add/Update the user as an inactive member of the group
 	 * @return boolean 
 	 **/
 	public static function saveAsInactiveMember($groupId, $userId) {
 		$groupUser = self::loadGroupUser($groupId, $userId);
 		return $groupUser->leaveGroup();
+	}
+
+	/**
+	 * Add/Update the user as an inactive member of the group if they didn't have an existing
+	 * membership.  Useful for initial sync of user to group
+	 * @return boolean 
+	 **/
+	public static function saveAsInactiveMemberIfNewRecord($groupId, $userId) {
+		$groupUser = self::loadGroupUser($groupId, $userId);
+		if($groupUser->isNewRecord) {
+			return $groupUser->leaveGroup();
+		}
+		return true;
 	}
 
 	public function onAfterSave($event) {
