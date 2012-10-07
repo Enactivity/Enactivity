@@ -30,7 +30,7 @@ $this->pageTitle = $model->name;
 			<li>
 				<?=
 				PHtml::link(
-					PHtml::encode('Recent Activity'), 
+					PHtml::encode('Timeline'), 
 					array('task/feed', 'id'=>$model->id),
 					array(
 						'id'=>'task-feed-menu-item',

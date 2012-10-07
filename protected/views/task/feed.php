@@ -25,7 +25,7 @@ $this->pageTitle = $model->name;
 		</ul>
 	</div>
 
-	<h1>Recent Activity for 
+	<h1>Timeline for 
 	<?= PHtml::encode($this->pageTitle); ?></h1>
 <?= PHtml::endContentHeader(); ?>
 

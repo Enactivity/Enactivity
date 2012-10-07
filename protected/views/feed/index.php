@@ -2,7 +2,7 @@
 /**
  *
  **/
-$this->pageTitle = 'Recent Activity';
+$this->pageTitle = 'Timeline';
 ?>
 <?= PHtml::beginContentHeader(); ?>
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>

@@ -14,7 +14,7 @@ $this->pageTitle = 'Next';
 			<li>
 				<?
 				echo PHtml::link(
-					PHtml::encode('Recent Activity'), 
+					PHtml::encode('Timeline'), 
 					array('feed/index'),
 					array(
 						'id'=>'feed-index-menu-item',
