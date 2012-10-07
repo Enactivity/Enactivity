@@ -33,11 +33,11 @@ $calendarMenu[] = array(
 );
 ?>
 
-<nav class="novel-controls">
+<div class="calendar-nav">
 	<? $this->widget('zii.widgets.CMenu', array(
 		'items'=>$calendarMenu,
 	)); ?>
-</nav>
+</div>
 <h1><?= Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
 

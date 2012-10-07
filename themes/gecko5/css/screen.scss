@@ -740,6 +740,14 @@ select[name="Task[endTime]"]  {
 
 .calendar-nav {
 	float: right;
+
+	li {
+		display: inline-block;
+		list-style-type: none;
+		margin-bottom: 4px;
+		margin-right: 4px;
+		white-space: nowrap;
+	}
 }
 
 /* Feed */
