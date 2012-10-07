@@ -48,6 +48,9 @@ class Formatter extends CFormatter {
 		else if($date == date('d/m/Y', time() + (24 * 60 * 60))) {
 			$prefix = 'Tomorrow, ';
 		}
+		else {
+			$prefix = date('l, ', $value);
+		}
 		
 		return $prefix . parent::formatDate($value);
 	}
