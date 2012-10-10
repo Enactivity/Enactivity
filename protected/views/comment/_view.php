@@ -17,29 +17,25 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				'userModel' => $data->creator,
 			));  ?>
 		</span>
+		@
+		<? if(isset($model)) : ?>
+		<span class="created">
+			<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
+			<? else: ?>
+			<?= PHtml::link(
+				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
+				array(Yii::app()->request->pathInfo, 
+					'#' => 'comment-' . $data->id,
+				)
+			); ?>
+		</span>
+		<? endif; ?>
 	<? $story->endAvatar(); ?>
 	<? $story->beginStoryContent(); ?>
 
+		<div class="story-details">
+			<?= Yii::app()->format->formatStyledText($data->content); ?>
+		</div>
 	
-			<div class="story-details">
-				<?= Yii::app()->format->formatStyledText($data->content); ?>
-			</div>
-	
-		<? $story->beginControls() ?>
-		<li>
-			<? if(isset($model)) : ?>
-			<span><?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
-			<? else: ?>
-			<span class="created">
-				<?= PHtml::link(
-					PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
-					array(Yii::app()->request->pathInfo, 
-						'#' => 'comment-' . $data->id,
-					)
-				); ?>
-			</span>
-			<? endif; ?>
-		</li>
-		<? $story->endControls() ?>
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
