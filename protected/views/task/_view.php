@@ -17,6 +17,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	<? $story->beginStoryContent(); ?>
 		<? // task name ?>
+		<time>
+			<?= PHtml::encode(Yii::app()->format->formatTime($data->starts)); ?>
+		</time>
 		<h1 class="story-title">
 			<? if($showParent && !$data->isRoot()): ?>
 			<span class="parent-tasks story-subtitle">
@@ -36,7 +39,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			); ?>
 		</h1>
 		
-		<? $story->beginControls(); ?>
+<!-- 		<? $story->beginControls(); ?>
 			<? if($data->isParticipatable) {
 				// show complete/uncomplete buttons if user is participating
 				if($data->isUserParticipating) {
@@ -117,6 +120,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 					echo PHtml::closeTag('li');
 				}
 			} ?>
-		<? $story->endControls() ?>
+		<? $story->endControls() ?> -->
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>

@@ -44,13 +44,13 @@ foreach($calendar->datedTasks as $day => $times) {
 	foreach($times as $time => $tasks) {
 		
 		// Display time heading
-		$timestamp = strtotime($day . ' ' . $time);
-		echo PHtml::openTag('h2', array(
-			'id' => PHtml::dateTimeId($timestamp),
-			'class' => 'agenda-date',
-		));
-		echo PHtml::encode(Yii::app()->format->formatTime($timestamp));
-		echo PHtml::closeTag('h2');
+		// $timestamp = strtotime($day . ' ' . $time);
+		// echo PHtml::openTag('h2', array(
+		// 	'id' => PHtml::dateTimeId($timestamp),
+		// 	'class' => 'agenda-date',
+		// ));
+		// echo PHtml::encode(Yii::app()->format->formatTime($timestamp));
+		// echo PHtml::closeTag('h2');
 	
 		// display list of tasks
 		foreach($tasks as $task) {

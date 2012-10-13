@@ -35,8 +35,38 @@ class Formatter extends CFormatter {
 		return $enrichedText;
 	}
 	
+	/**
+	 * Format a datetime timestamp as a time
+	 * @param mixed $value time or timestamp
+	 * @return String
+	 */
+	public function formatTime($value) {
+		if(empty($value)) {
+			return null;
+		}
+
+		if(is_string($value)) {
+			$value = strtotime($value);
+		}
+
+		return parent::formatTime($value);
+	}
+
+	/**
+	 * Format a datetime timestamp as a day
+	 * @param mixed $value time or timestamp
+	 * @return String
+	 */
 	public function formatDate($value)
 	{
+		if(empty($value)) {
+			return null;
+		}
+
+		if(is_string($value)) {
+			$value = strtotime($value);
+		}
+
 		$date = date('d/m/Y', $value);
 		$prefix = '';
 		if($date == date('d/m/Y')) {
@@ -57,11 +87,19 @@ class Formatter extends CFormatter {
 	
 	/**
 	 * Format a datetime timestamp
-	 * @param int $value timestamp
+	 * @param mixed $value time or timestamp
 	 * @return String
 	 */
 	public function formatDateTime($value)
 	{
+		if(empty($value)) {
+			return null;
+		}
+
+		if(is_string($value)) {
+			$value = strtotime($value);
+		}
+
 		$date = date('d/m/Y', $value);
 		if($date == date('d/m/Y')) {
 			return 'Today at ' . parent::formatTime($value);
@@ -77,21 +115,37 @@ class Formatter extends CFormatter {
 	}
 	
 	/**
-	 * @param int $value timestamp
+	 * @param mixed $value time or timestamp
 	 * @return String
 	 */
 	public function formatMonth($value)
 	{
+		if(empty($value)) {
+			return null;
+		}
+
+		if(is_string($value)) {
+			$value = strtotime($value);
+		}
+
 		return date('F', $value);
 	}
 	
 	/**
 	 * Format the datetime as a string such as "5 minutes ago" or 
 	 * "2 days from now".
-	 * @param int $value timestamp
+	 * @param mixed $value time or timestamp
 	 * @return string
 	 */
 	function formatDateTimeAsAgo($value) {
+		if(empty($value)) {
+			return null;
+		}
+
+		if(is_string($value)) {
+			$value = strtotime($value);
+		}
+
 		$periods = array("second", "minute", "hour");
 		$lengths = array("60","60","24");
 		$now = strtotime(TimeZoneKeeper::serverTimeToUserTime(null));
