@@ -40,49 +40,39 @@ $calendarMenu[] = array(
 </div>
 <h1><?= Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
+<article class="story calendar">
+	<table>
+		<? $weekdays = array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"); ?>
+		<thead>
+			<tr>
 
-<? 
-echo PHtml::openTag('article', array('class'=>'story calendar'));
-// start calendar table
-echo PHtml::openTag('table');
+				<? foreach ($weekdays as $weekdayname): ?>
+				<th>
+				<?= PHtml::encode($weekdayname); ?>
+				</th>
+				<? endforeach; ?>
+			</tr>
+		</thead>
 
-// row of days of the week
-$weekdays = array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
-echo PHtml::openTag('thead');
-echo PHtml::openTag('tr');
-foreach ($weekdays as $weekdayname) {
-	echo PHtml::openTag('th');
-	echo PHtml::encode($weekdayname);
-	echo PHtml::closeTag('th');
-}
-echo PHtml::closeTag('tr');
-echo PHtml::closeTag('thead');
+		<tbody>
+			<? while($month->valid()) : ?>
+			<? // if it's the start of a week (Sunday), start a new row ?>
+			<? if($month->currentWDay == 0): ?>
+			<tr>
+			<? endif; ?>
 
-echo PHtml::openTag('tbody');
+				<?= PHtml::tag('td', array('class' => PHtml::calendarDayClass($month, $calendar))); ?>
+				<?= PHtml::calendarDayLink($month, $calendar); ?>
+				</td>
 
-while($month->valid()) {
-	// if it's the start of a week (Sunday), start a new row
-	if($month->currentWDay == 0) {
-		echo PHtml::openTag('tr');
-	}
+			<? // if it's the end of a week, end the row ?>
+			<? if($month->currentWDay == 6) : ?>
+			</tr>
+			<? endif; ?>
 
-	echo PHtml::tag('td', array(
-		'class' => PHtml::calendarDayClass($month, $calendar)
-	));
-
-	echo PHtml::calendarDayLink($month, $calendar);
-
-	echo PHtml::closeTag('td');
-
-	// if it's the end of a week, end the row
-	if($month->currentWDay == 6) {
-		echo PHtml::closeTag('tr');
-	};
-
-	// iterate
-	$month->next();
-}
-
-echo PHtml::closeTag('tbody');
-echo PHtml::closeTag('table');
-echo PHtml::closeTag('article');
+			<? // iterate ?>
+			<? $month->next(); ?>
+			<? endwhile; ?>
+		</tbody>
+	</table>
+</article>
