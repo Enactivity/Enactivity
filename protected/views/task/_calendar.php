@@ -42,11 +42,10 @@ $calendarMenu[] = array(
 
 <article class="story calendar">
 	<table>
-		<? $weekdays = array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"); ?>
 		<thead>
 			<tr>
 
-				<? foreach ($weekdays as $weekdayname): ?>
+				<? foreach (array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat") as $weekdayname): ?>
 				<th>
 				<?= PHtml::encode($weekdayname); ?>
 				</th>
