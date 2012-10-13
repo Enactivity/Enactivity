@@ -5,38 +5,31 @@
  */
 ?>
 
-<? 
-// nav
-$calendarMenu = array();
-$calendarMenu[] = array(
-	'label'=>'Previous', 
-	'url'=>array('task/calendar',
-		'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
-		'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
-	),
-	'linkOptions'=>array(
-		'id'=>'task-previous-month-menu-item',
-		'class'=>'task-previous-month-menu-item',
-	),
-);
-
-$calendarMenu[] = array(
-	'label'=>'Next', 
-	'url'=>array('task/calendar',
-		'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
-		'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
-	),
-	'linkOptions'=>array(
-		'id'=>'task-next-month-menu-item',
-		'class'=>'task-next-month-menu-item',
-	),
-);
-?>
-
 <div class="calendar-nav">
-	<? $this->widget('zii.widgets.CMenu', array(
-		'items'=>$calendarMenu,
-	)); ?>
+	<? $this->widget('zii.widgets.CMenu', array('items'=>array(
+		array(
+			'label'=>'Previous', 
+			'url'=>array('task/calendar',
+				'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
+				'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
+			),
+			'linkOptions'=>array(
+				'id'=>'task-previous-month-menu-item',
+				'class'=>'task-previous-month-menu-item',
+			),
+		),
+		array(
+			'label'=>'Next', 
+			'url'=>array('task/calendar',
+				'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
+				'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
+			),
+			'linkOptions'=>array(
+				'id'=>'task-next-month-menu-item',
+				'class'=>'task-next-month-menu-item',
+			),
+		)
+	))); ?>
 </div>
 <h1><?= Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
@@ -45,7 +38,7 @@ $calendarMenu[] = array(
 		<thead>
 			<tr>
 
-				<? foreach (array ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat") as $weekdayname): ?>
+				<? foreach (array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat") as $weekdayname): ?>
 				<th>
 				<?= PHtml::encode($weekdayname); ?>
 				</th>
