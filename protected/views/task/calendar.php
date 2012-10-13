@@ -32,12 +32,5 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 			'calendar'=>$calendar,
 			'showParent'=>'true',
 		));?>
-
-		<h1><?= 'Start a New Task'; ?></h1>
-		<?= $this->renderPartial('_form', array(
-			'model'=>$newTask, 
-			'inline'=>true, 
-			'action'=>'create')
-		); ?>
 	</section>
 </div>

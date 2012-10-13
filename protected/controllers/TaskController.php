@@ -343,9 +343,6 @@ class TaskController extends Controller
 	{
 		$month = new Month($month, $year);
 		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
-
-		// handle new task
-		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('calendar', array(
 				'calendar'=>$taskCalendar,
