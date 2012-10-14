@@ -6,5 +6,5 @@
 5. `./yiic store loadSweatersFromFile`
 
 # Develop
-1. cd themes/gecko5/css/
+1. `cd themes/gecko5/css/`
 1. `sass --watch screen.scss:screen.css`
