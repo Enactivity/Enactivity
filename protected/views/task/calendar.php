@@ -8,8 +8,7 @@
 $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
 ?>
 
-<div class="novel">
-	<section id="calendar-container">
+<section id="calendar-container">
 	<? 
 	// show task calendar
 	echo $this->renderPartial('_calendar', array(
@@ -17,16 +16,13 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 		'month'=>$month,
 	));
 	?>
-	</section>
-</div>
+</section>
 
-<div class="novel">
-	<section id="agenda-container" class="agenda">
-		<?
-		// agenda
-		echo $this->renderPartial('_agenda', array(
-			'calendar'=>$calendar,
-			'showParent'=>'true',
-		));?>
-	</section>
-</div>
+<section id="agenda-container" class="agenda">
+	<?
+	// agenda
+	echo $this->renderPartial('_agenda', array(
+		'calendar'=>$calendar,
+		'showParent'=>'true',
+	));?>
+</section>

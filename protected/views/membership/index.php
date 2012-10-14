@@ -24,7 +24,7 @@ $this->pageTitle = 'Group Membership';
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<section class="novel">
+<section>
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_view',

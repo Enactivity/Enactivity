@@ -29,12 +29,10 @@ $this->pageTitle = $model->name;
 	<?= PHtml::encode($this->pageTitle); ?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-	<section id="task-activity">		
-		<? 
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$feedDataProvider,
-			'itemView'=>'/feed/_view',
-		));?>
-	</section>	
-</div>
+<section id="task-activity">		
+	<? 
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$feedDataProvider,
+		'itemView'=>'/feed/_view',
+	));?>
+</section>	

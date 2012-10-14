@@ -61,9 +61,9 @@ $this->pageTitle = $model->name;
 <? // show participants
 if($model->isParticipatable):
 ?>
-<section id="participating" class="novel">
+<section id="participating">
 	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
-	<div class="menu novel-controls">
+	<div class="menu controls">
 	<ul>
 	<?
 	if($model->isParticipatable) {
