@@ -418,6 +418,13 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		}
 		return $this->participantsCount == $this->participantsCompletedCount;
 	}
+
+	/**
+	 * @return int
+	 **/
+	public function getCommentCount() {
+		return sizeof($this->comments);
+	}
 	
 	/**
 	 * Increment the participant count for a task and its ancestors

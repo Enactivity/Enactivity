@@ -176,7 +176,7 @@ return CMap::mergeArray(
 			'googleAnalyticsOn'=>false,
 		),
 		
-		'theme'=>'gecko5',
+		'theme'=>'basilisk',
 		
 		// uncomment to set the default controller
 		//'defaultController' => 'login',

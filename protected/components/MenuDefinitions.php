@@ -16,6 +16,52 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
+	 * @return array main menu items
+	 */
+	public static function applicationMenu() {
+		return array(
+			array(
+				'label'=>'Next', 
+				'itemOptions'=>array(
+					'class'=>'dash-nav-item'
+				),
+				'url'=>array('/task/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'Calendar',
+				'url'=>array('/task/calendar'), 
+				'visible'=>!Yii::app()->user->isGuest,
+			),
+			array(
+				'label'=>'New',
+				'url'=>array('/task/create'), 
+				'visible'=>!Yii::app()->user->isGuest,
+			),
+			array(
+				'label'=>'More',
+				'itemOptions'=>array(
+					'class'=>'dropdown',
+				),
+				'items'=>self::settings(),
+				'linkOptions'=>array(
+					'class'=>'dropdown-toggle',
+				),
+				'url'=>array('/site/settings'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'Login with Facebook',
+				'itemOptions'=>array(
+					'class'=>'secondary',
+				),
+				'url'=>Yii::app()->FB->loginUrl,
+				'visible'=>Yii::app()->user->isGuest
+			),
+		);
+	}
+	
+	/**
 	 * @return array of menu items for admins
 	 */
 	public static function adminMenu() {
@@ -126,67 +172,5 @@ class MenuDefinitions extends CComponent {
 		);
 		
 		return $menu;
-	}
-	
-	/**
-	 * @return array main menu items
-	 */
-	public static function globalMenu() {
-		return array(
-			array(
-				'label'=>'Poncla', 
-				'itemOptions'=>array(
-					'class'=>'poncla-logo',
-				),
-				'url'=>array('/site/index'), 
-				'visible'=>Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Poncla', 
-				'itemOptions'=>array(
-					'class'=>'poncla-logo',
-				),
-				'url'=>array('/task/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Next', 
-				'itemOptions'=>array(
-					'class'=>'dash-nav-item'
-				),
-				'url'=>array('/task/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Calendar',
-				'url'=>array('/task/calendar'), 
-				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
-				'label'=>'New',
-				'url'=>array('/task/create'), 
-				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
-				'label'=>'More',
-				'itemOptions'=>array(
-					'class'=>'dropdown',
-				),
-				'items'=>self::settings(),
-				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
-				),
-				'url'=>array('/site/settings'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Login with Facebook',
-				'itemOptions'=>array(
-					'class'=>'secondary',
-				),
-				'url'=>Yii::app()->FB->loginUrl,
-				'visible'=>Yii::app()->user->isGuest
-			),
-		);
 	}
 }

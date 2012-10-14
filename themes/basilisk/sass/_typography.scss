@@ -1,0 +1,79 @@
+/** Variables **/
+$base-font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-size: 16px;
+
+html {
+  color: $dark-slate-gray;
+  font-family: $base-font-family;
+  font-size: 100%;
+}
+
+strong {
+  font-weight: bold;  
+}
+
+em {
+  font-style: italic;
+}
+
+/* Header stylings */
+h1, h2, h3, 
+h4, h5, h6 {
+  font-family: inherit;
+  line-height: 1;
+  color: inherit;
+  text-rendering: optimizelegibility;
+  word-wrap: break-word;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+  
+h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+h4 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+h5 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h6 {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+/** 
+ * Text styles
+ **/
+p {
+  max-width: 32em;
+  word-wrap: break-word;
+}
+
+/**
+ * Link styles
+ */
+a, a:active, a:visited {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: $cerulean;
+  text-decoration: underline;
+}

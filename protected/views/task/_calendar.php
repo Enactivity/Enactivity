@@ -4,11 +4,12 @@
  * @uses $month
  */
 ?>
+<h1><?= PHtml::encode($month->name . " " . $month->year); ?></h1>
 
 <div class="calendar-nav">
 	<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 		array(
-			'label'=>'Previous', 
+			'label'=>PHtml::encode($month->nameOfPreviousMonth), 
 			'url'=>array('task/calendar',
 				'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
 				'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
@@ -19,7 +20,7 @@
 			),
 		),
 		array(
-			'label'=>'Next', 
+			'label'=>PHtml::encode($month->nameOfNextMonth), 
 			'url'=>array('task/calendar',
 				'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
 				'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
@@ -31,7 +32,6 @@
 		)
 	))); ?>
 </div>
-<h1><?= Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year; ?></h1>
 
 <article class="story calendar">
 	<table>

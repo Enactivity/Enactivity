@@ -1,0 +1,126 @@
+/** 
+ * Styles for forms
+ **/
+
+form {
+ 	margin: auto;
+ 	max-width: $base-max-readability-width;
+}
+
+input, textarea, select {
+	border: 1px solid $dim-gray;
+	@include border-radius($base-border-radius);
+	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
+	font: inherit; /* Match overall font settings */
+	height: 2.5em;
+	margin: $base-margin 0;
+	padding: $base-padding / 2;
+	width: 100%;
+}
+
+textarea  {
+	height: 3em;
+}
+
+input[type="submit"], 
+input[type="button"] {
+	@include appearance(none); // Avoid gradient defaults in some browsers 
+	background-color: $cerulean;
+	border: none;
+	@include border-radius($base-border-radius);
+	color: $white;
+	cursor: pointer; // Finger cursor 
+	display: inline-block;
+	font-weight: bold;
+	text-align: left;
+	@include text-shadow(0 1px rgba(0, 0, 0, 0.1));
+	text-transform: lowercase;
+	white-space: nowrap; // Don't break sentence
+}
+
+input[type="button"].neutral {
+	background-color: #d6d6d6; /* gray */
+}
+
+input[type="button"].negative {
+	background-color: #f56200; /* red */
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus, 
+input[type="button"]:hover,
+input[type="button"]:focus {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+	color: #ffffff;
+}
+
+input[type="submit"]:active,
+input[type="button"]:active {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Overrides for disabled buttons */
+.disabled,
+input[type="submit"]:disabled, 
+input[type="submit"][disabled="disabled"],
+input[type="button"]:disabled {
+	opacity: .25; /* Blarg, cheap, color better */
+	cursor: default;
+}
+
+.disabled:hover,
+input[type="submit"]:disabled:hover,
+input[type="submit"][disabled="disabled"],
+input[type="button"]:disabled:hover {
+	opacity: .25; /* Blarg, cheap, color better */
+}
+
+.field {
+	@include clearfix;
+	margin: $base-margin 0;
+	position: relative;
+}
+
+label {
+	cursor: text; /* To help user realize it's clickable */
+	// display: inline-block;
+	// margin-bottom: 4px;
+}
+	
+label:not(.required) {
+	@include opacity(.8);
+}
+
+label:not(.required):after {
+	content: ' (optional)';
+}
+
+// Datetime pickers
+.field.datetime {
+	input {
+		margin-right: 2%; /* spacing between date and time */
+		width: 48%; /* 48 + 2 = 50 */
+	}
+
+	select {
+		width: 50%;
+	}
+}
+
+.clear-field {
+	cursor: pointer;
+	float: right;
+	text-align: right;
+	white-space: nowrap;
+}
+
+input.error, textarea.error, select.error {
+	border: 1px solid $red;
+}
+
+.errorMessage,
+.errorSummary {
+	background-color: $red;
+	color: $white;
+	padding: $base-padding;
+}
