@@ -5,7 +5,6 @@
  */
 ?>
 <h1><?= PHtml::encode($month->name . " " . $month->year); ?></h1>
-
 <div class="calendar-nav">
 	<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 		array(
@@ -37,7 +36,6 @@
 	<table>
 		<thead>
 			<tr>
-
 				<? foreach (array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat") as $weekdayname): ?>
 				<th>
 				<?= PHtml::encode($weekdayname); ?>

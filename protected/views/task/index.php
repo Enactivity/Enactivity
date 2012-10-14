@@ -9,6 +9,7 @@ $this->pageTitle = 'Next';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 	<div class="menu toolbox">
 		<ul>
 			<li>
@@ -26,7 +27,6 @@ $this->pageTitle = 'Next';
 			</li>
 		</ul>
 	</div>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
 <section class="tasks">

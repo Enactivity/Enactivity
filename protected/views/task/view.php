@@ -12,6 +12,8 @@ $this->pageTitle = $model->name;
 ?>
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
+	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 	<div class="menu toolbox">
 		<ul>
 			<li>
@@ -42,19 +44,6 @@ $this->pageTitle = $model->name;
 			</li>
 		</ul>
 	</div>
-
-	<h1>
-	<? if(sizeof($ancestors) > 0): ?>
-	<? foreach($ancestors as $task) {
-		echo PHtml::link(
-			PHtml::encode($task->name),
-			array('task/view', 'id'=>$task->id)
-		);
-		echo ': ';
-	} ?>
-	<? endif; ?>
-	<?= PHtml::encode($this->pageTitle); ?></h1>
-	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 <?= PHtml::endContentHeader(); ?>
 
 

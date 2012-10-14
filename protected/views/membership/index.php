@@ -4,6 +4,7 @@ $this->pageTitle = 'Group Membership';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 	<div class="menu toolbox">
 		<ul>
 			<li>
@@ -21,7 +22,6 @@ $this->pageTitle = 'Group Membership';
 			</li>
 		</ul>
 	</div>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
 <section>
