@@ -1,13 +1,29 @@
+$nav-bar-background: $white;
+
 .nav-bar {
-	position: relative;
+	background: $nav-bar-background;
+	position: fixed;
 	overflow: visible; // to enable dropdowns
+	top: 0;
+	width: 100%;
+
+	> ul {
+		@extend .content-block;
+		padding: 0;
+	}
 
 	ul {
+		background: $nav-bar-background;
 		list-style-type: none;
 	}
 
 	li {
-		display: inline-block; /* List horizontally, not vertically */
+		// /display: inline-block; /* List horizontally, not vertically */
+		float: left;
+
+		li {
+			float: none;
+		}
 	}
 
 	a, a:visited {

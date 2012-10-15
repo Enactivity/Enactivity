@@ -8,32 +8,35 @@ html, body {
 	position: relative;
 }
 
+body {
+	padding-top: $base-padding * 3;
+}
+
 .application-header {
+	position: fixed
 }
 
 .application-navigation {
 	@extend .nav-bar;
-	position: fixed;
-	top: 0;
 }
 
 .application-footer {
-	@include content-block;
+	@extend .content-block;
 }
 
 .content-header {
-	@include content-block;
+	@extend .content-block;
 }
 
 aside {
-	@include content-block;
+	@extend .content-block;
 }
 
 section {
-	@include content-block;
+	@extend .content-block;
 }
 
 article {
-	@include content-block;
+	@extend .content-block;
 	padding: $base-padding 0;
 }
