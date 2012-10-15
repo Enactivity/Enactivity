@@ -1,0 +1,10 @@
+/**
+ * Generates a block or widget or whatever of content that
+ * should appear to exist just inside the body wrapper
+**/
+@mixin content-block {
+	@include clearfix;
+	margin: auto;
+	max-width: $base-max-readability-width;
+	padding: $base-padding;
+}

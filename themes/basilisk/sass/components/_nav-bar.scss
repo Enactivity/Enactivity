@@ -1,0 +1,29 @@
+.nav-bar {
+	position: relative;
+	overflow: visible; // to enable dropdowns
+
+	ul {
+		list-style-type: none;
+	}
+
+	li {
+		display: inline-block; /* List horizontally, not vertically */
+	}
+
+	a, a:visited {
+		color: inherit;
+		display: block;	
+		padding: $base-padding;
+		text-transform: lowercase;
+	}
+
+	a:hover, a:focus,
+	.active > a,
+	.active > a:visited {
+		text-decoration: none;
+	}
+
+	.secondary {
+		float: right;
+	}
+}

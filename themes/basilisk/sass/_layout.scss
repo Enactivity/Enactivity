@@ -1,72 +1,3 @@
-
-
-/**
- * Media queries mixin
- * Example:
- * @include respond-to(thin-phone) {
- * 	color: red;
- * }
-**/
-@mixin respond-to($media) {
-	@if $media == thin-phone {
-			@content;
-	}
-	@if $media == wide-phone {
-		@media only screen and (min-width: 480px) { 
-			@content; 
-		}
-	}
-	@else if $media == thin-tablet {
-		@media only screen and (min-width: 768px) { 
-			@content; 
-		}
-	}
-	@else if $media == desktop {
-		@media only screen and (min-width: 991px) { 
-			@content; 
-		}
-	}
-}
-
-/**
- * 
-**/
-@mixin content-block {
-	@include clearfix;
-	margin: auto;
-	max-width: $base-max-readability-width;
-	padding: $base-padding;
-}
-
-@mixin horizontal-fixed-navigation {
-	position: relative;
-
-	ul {
-		list-style-type: none;
-	}
-
-	li {
-		display: inline-block; /* List horizontally, not vertically */
-	}
-
-	a, a:visited {
-		color: inherit;
-		display: block;	
-		padding: $base-padding;
-		text-transform: lowercase;
-	}
-
-	a:hover, a:focus,
-	.active > a,
-	.active > a:visited {
-		text-decoration: none;
-	}
-
-	.secondary {
-		float: right;
-	}
-}
-
 html {
 	overflow-y: scroll;
 }
@@ -78,13 +9,10 @@ html, body {
 }
 
 .application-header {
-	@include content-block;
 }
 
 .application-navigation {
-	@include content-block;
-	@include horizontal-fixed-navigation;
-	overflow: visible; // to enable dropdowns
+	@extend .nav-bar;
 }
 
 .application-footer {
@@ -95,6 +23,15 @@ html, body {
 	@include content-block;
 }
 
+aside {
+	@include content-block;
+}
+
 section {
 	@include content-block;
+}
+
+article {
+	@include content-block;
+	padding: $base-padding 0;
 }

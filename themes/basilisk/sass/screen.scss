@@ -11,3 +11,21 @@
 
 // various imports
 @import "components/dropdown";
+
+
+.menu {
+
+	li {
+		@include inline-block('middle');
+		list-style-type: none;
+		white-space: nowrap;
+		margin-right: $base-margin;
+	}
+	
+	a {
+		display: block; /* So it fills area and icon is clickable */
+		// min-width: 50px; /* Should be at least 44px for touch screens */
+		padding: $base-padding 0; /* override nav padding for nav menus */
+		text-align: center;
+	}
+}

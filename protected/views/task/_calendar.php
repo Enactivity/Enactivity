@@ -5,7 +5,7 @@
  */
 ?>
 <h1><?= PHtml::encode($month->name . " " . $month->year); ?></h1>
-<div class="calendar-nav">
+<div class="menu">
 	<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 		array(
 			'label'=>PHtml::encode($month->nameOfPreviousMonth), 

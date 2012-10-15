@@ -15,7 +15,7 @@
 <?= PHtml::encode(Yii::app()->format->formatDate($daytime)); ?>
 <?= PHtml::closeTag('h1'); ?>
 
-<div class="day-controls">
+<div class="menu">
 	<ol>
 		<li>
 			<?= PHtml::link(

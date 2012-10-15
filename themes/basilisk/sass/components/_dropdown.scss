@@ -11,13 +11,15 @@
 		top: 100%;
 		z-index: 1000; /* So early dropdowns can cover lower nav links */
 
-	@include respond-to(thin-tablet) {
+		// dropdown smaller on tablet and larger
+		@include respond-to(thin-tablet) {
 			left: auto;
 			max-width: 12em;
 			right: auto;
 		}
 	}
 
+	// show dropdown on open state
 	&.open ul { 
 		display: block;
 	}
@@ -26,7 +28,8 @@
 		display: block; /* to fill menu dropdown */
 	}
 
-	.dropdown-toggle::after { /* dropdown arrow using border fanciness */
+	// dropdown arrow using border fanciness
+	.dropdown-toggle::after { 
 		border-left: 4px solid transparent;
 		border-right: 4px solid transparent;
 		border-top: 4px solid #cccccc;

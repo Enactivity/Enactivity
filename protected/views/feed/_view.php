@@ -72,15 +72,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		echo PHtml::closeTag('p');
 		endif; 
 		?>
-		<? $story->beginControls() ?>
-			<li>
-				<span class="created">
-					<?= PHtml::link(
-						PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
-						array('feed/view', 'id'=>$data->id)
-					); ?>
-				</span>
-			</li>
-		<? $story->endControls() ?>
+
+		<span class="created">
+			<?= PHtml::link(
+				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
+				array('feed/view', 'id'=>$data->id)
+			); ?>
+		</span>
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
