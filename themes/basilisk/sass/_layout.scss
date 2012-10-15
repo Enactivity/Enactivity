@@ -13,6 +13,8 @@ html, body {
 
 .application-navigation {
 	@extend .nav-bar;
+	position: fixed;
+	top: 0;
 }
 
 .application-footer {
