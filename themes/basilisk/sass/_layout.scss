@@ -13,7 +13,8 @@ body {
 }
 
 .application-header {
-	position: fixed
+	position: fixed;
+	padding: $base-padding;
 }
 
 .application-navigation {
