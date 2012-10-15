@@ -10,4 +10,4 @@ protected/config/web.local.php
 # SASS
 .sass-cache
 themes/gecko5/css/*.css
-themes/basilisk/stylesheets/*.css
+themes/basilisk/stylesheets/*
