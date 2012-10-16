@@ -30,4 +30,4 @@ $this->pageTitle = 'Group Membership';
 		'itemView'=>'_view',
 		'cssFile'=>false,
 	)); ?>
-<section>
+</section>
