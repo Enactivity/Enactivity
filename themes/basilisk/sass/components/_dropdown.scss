@@ -5,7 +5,7 @@
 		// background-color: $gray-dark;
 		// border-color: $black;
 		@include border-radius(0 0 $base-border-radius $base-border-radius);
-		@include box-shadow(0 2px 4px rgba(0,0,0,.2));
+		// @include box-shadow(0 2px 4px rgba(0,0,0,.2));
 		display: none;
 		position: absolute;
 		top: 100%;

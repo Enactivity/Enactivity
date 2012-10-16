@@ -8,6 +8,10 @@
 $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
 ?>
 
+<?= PHtml::beginContentHeader(); ?>
+<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+<?= PHtml::endContentHeader(); ?>
+
 <section id="calendar-container">
 	<? 
 	// show task calendar

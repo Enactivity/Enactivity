@@ -1,11 +1,16 @@
-$nav-bar-background: $white;
+$nav-bar-background-color: $gray;
+$nav-bar-color: $white;
 
 .nav-bar {
-	background: $nav-bar-background;
+	background: $nav-bar-background-color;
+	color: $nav-bar-color;
 	position: fixed;
 	overflow: visible; // to enable dropdowns
 	top: 0;
 	width: 100%;
+
+	@include respond-to(thin-tablet) {
+	}
 
 	> ul {
 		@extend .content-block;
@@ -13,7 +18,7 @@ $nav-bar-background: $white;
 	}
 
 	ul {
-		background: $nav-bar-background;
+		background: $nav-bar-background-color;
 		list-style-type: none;
 	}
 
@@ -27,7 +32,6 @@ $nav-bar-background: $white;
 	}
 
 	a, a:visited {
-		color: inherit;
 		display: block;	
 		padding: $base-padding;
 		text-transform: lowercase;

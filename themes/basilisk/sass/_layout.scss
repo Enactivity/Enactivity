@@ -1,3 +1,5 @@
+$top-of-page-nav-bar-height: $base-padding * 3;
+
 html {
 	overflow-y: scroll;
 }
@@ -9,16 +11,16 @@ html, body {
 }
 
 body {
-	padding-top: $base-padding * 3;
+	padding-top: $top-of-page-nav-bar-height;
 }
 
 .application-header {
-	position: fixed;
 	padding: $base-padding;
 }
 
 .application-navigation {
 	@extend .nav-bar;
+	height: $top-of-page-nav-bar-height;
 }
 
 .application-footer {
