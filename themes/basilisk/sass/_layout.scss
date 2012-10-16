@@ -15,7 +15,13 @@ body {
 }
 
 .application-header {
+	background: $black;
+	color: $gray;
 	padding: $base-padding;
+
+	a {
+		@include unstyled-link;
+	}
 }
 
 .application-navigation {

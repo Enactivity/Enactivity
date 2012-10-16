@@ -49,9 +49,10 @@ $gallery: #eeeeee;
  //TODO:;
 
 // compass imports
-@import "compass/reset.scss";
+@import "reset";
 @import "compass";
 @import "compass/css3";
+@import "compass/typography";
 
 @import "mixins/all";
 @import "functions/all";

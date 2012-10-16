@@ -32,11 +32,6 @@
 		<header class="application-header">
 			<a href="/" >Enactivity</a>
 		</header>
-		<nav class="application-navigation">
-			<? $this->widget('zii.widgets.CMenu', array(
-				'items'=>MenuDefinitions::applicationMenu()
-			));?>
-		</nav><!-- end of primaryNavigation -->
 		
 		<!-- flash notices -->
 		<? if(Yii::app()->user->hasFlash('error')):?>
@@ -56,6 +51,12 @@
 		<? endif; ?>
 
 		<?= $content; ?>
+
+		<nav class="application-navigation">
+			<? $this->widget('zii.widgets.CMenu', array(
+				'items'=>MenuDefinitions::applicationMenu()
+			));?>
+		</nav><!-- end of primaryNavigation -->		
 
 		<footer class="application-footer">
 			<p class="copyright"><?= PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
