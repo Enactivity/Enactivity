@@ -7,7 +7,9 @@
 **/
 @mixin respond-to($media) {
 	@if $media == thin-phone {
+		@media only screen and (min-width: 320px) { 
 			@content;
+		}
 	}
 	@if $media == wide-phone {
 		@media only screen and (min-width: 480px) { 

@@ -30,7 +30,13 @@ body {
 }
 
 .application-footer {
-	@extend .content-block;
+	background: $black;
+	color: $white;
+	padding: $base-padding;
+
+	p {
+		@extend .content-block;
+	}
 }
 
 .content-header {

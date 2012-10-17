@@ -6,10 +6,10 @@ $nav-bar-color: $white;
 	color: $nav-bar-color;
 	position: fixed;
 	overflow: visible; // to enable dropdowns
-	top: 0;
 	width: 100%;
 
-	@include respond-to(thin-tablet) {
+	@include respond-to(thin-phone) {
+		top: 0;
 	}
 
 	> ul {

@@ -29,8 +29,9 @@
 	</head>
 	<body class="<?= $this->id . '-' . $this->action->id; ?>">
 
-		<header class="application-header">
+		<header class="application-header" id="application-header">
 			<a href="/" >Enactivity</a>
+			<a id="show-menu" href="#application-navigation">Menu</a>
 		</header>
 		
 		<!-- flash notices -->
@@ -52,7 +53,7 @@
 
 		<?= $content; ?>
 
-		<nav class="application-navigation">
+		<nav class="application-navigation" id="application-navigation">
 			<? $this->widget('zii.widgets.CMenu', array(
 				'items'=>MenuDefinitions::applicationMenu()
 			));?>
