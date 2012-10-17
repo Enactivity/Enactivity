@@ -13,7 +13,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 ));?>
 	
 	<? $story->beginStoryContent(); ?>
-		<h1 class="story-title">
+		<p class="story-title">
 			<?
 			$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->user,
@@ -30,7 +30,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			echo StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
 			endif;
 			?>
-		</h1>
+		</p>
 			
 		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p>Changed
@@ -39,7 +39,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			echo PHtml::openTag('span', array(
 				'class' => 'feed-model-attribute'
 			));
-			echo PHtml::encode($data->modelObject->getAttributeLabel($data->modelAttribute));
+			echo PHtml::encode(strtolower($data->modelObject->getAttributeLabel($data->modelAttribute)));
 			echo PHtml::closeTag('span');
 		}
 		else {
