@@ -79,12 +79,11 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model = new UserLoginForm();
-
 		// collect user input data
 		if(isset($_GET['code']))
 		{
 			// validate user input and redirect to the previous page if valid
+			$model = new UserLoginForm();
 			if($model->login($_GET)) {
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
