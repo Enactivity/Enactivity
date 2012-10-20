@@ -19,7 +19,6 @@ class UserIdentity extends CUserIdentity
 	public function __construct($code) {
 		$this->_code = $code;
 	}
-
 	
 	/**
 	 * Authenticates a user based on {@link username} (which is actually
