@@ -15,8 +15,6 @@ body {
 }
 
 .application-header {
-	background: $black;
-	color: $gray;
 	padding: $base-padding;
 
 	a {
@@ -30,8 +28,6 @@ body {
 }
 
 .application-footer {
-	background: $black;
-	color: $white;
 	padding: $base-padding;
 
 	p {
@@ -54,4 +50,7 @@ section {
 article {
 	@extend .content-block;
 	padding: $base-padding 0;
+}
+
+.blurb {
 }
