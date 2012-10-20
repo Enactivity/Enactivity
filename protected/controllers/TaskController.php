@@ -28,7 +28,7 @@ class TaskController extends Controller
 					'view','update','trash','untrash',
 					'participate','unparticipate',
 					'userComplete','userUncomplete',
-			),
+				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions

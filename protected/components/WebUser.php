@@ -38,6 +38,14 @@ class WebUser extends CWebUser {
 
 		return $this->_model;
 	}
+
+	/**
+	 * Returns a value indicating whether the user is authenticated/logged in (not a guest).
+	 * @return boolean
+	 **/
+	public function getIsAuthenticated() {
+		return !$this->isGuest;
+	}
 	
 	/**
 	 * @return boolean whether the current application user is a guest.
