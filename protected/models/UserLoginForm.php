@@ -35,7 +35,7 @@ class UserLoginForm extends CFormModel
 	{
 		$this->attributes = $attributes;
 
-		if($this->_identity === null)
+		if(is_null($this->_identity))
 		{
 			$this->_identity = new UserIdentity($this->code);
 			$this->_identity->authenticate();
