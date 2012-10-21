@@ -6,6 +6,6 @@
  * @author Harrison Vuong
  */
 
-echo "Aww. " . '"' . PHtml::encode($data->name) . '"' . " was trashed on Poncla.";	
+echo "Aww. " . '"' . PHtml::encode($data->name) . '"' . " was trashed on " . Yii::app()->name . ".";	
 
 ?>

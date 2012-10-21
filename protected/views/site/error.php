@@ -14,6 +14,6 @@ $this->pageTitle = PHtml::encode($error['code'] . ' Error');
 		echo PHtml::encode($error['message']); 
 	}
 	else {
-		echo PHtml::encode("Sorry, you've run into an unexpected error. The Poncla team's been notified and will work hard to make sure it doesn't happen again.");
+		echo PHtml::encode("Sorry, you've run into an unexpected error. The " . Yii::app()->name . " team's been notified and will work hard to make sure it doesn't happen again.");
 	}
 ?></p></div>

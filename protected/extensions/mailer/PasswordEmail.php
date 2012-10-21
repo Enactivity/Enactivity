@@ -30,7 +30,7 @@ class PasswordEmail extends Mailer {
 		}
 
 		$from = "no-reply@" . Yii::app()->request->serverName;
-		$subject = 'Your Poncla password has been reset';
+		$subject = 'Your ' . Yii::app()->name . ' password has been reset';
 		$body = 'Someone has requested that your password for your account'
 			. ' be reset.  We\'ve generated the new password: '
 			. $this->newpassword . ' for you.  You can change it once you log in.'
