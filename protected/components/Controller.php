@@ -30,7 +30,7 @@ class Controller extends CController
 	 **/
 	public function filterEnsureAtLeastOneActiveMembershipForUser($filterChain) {
 		if(Yii::app()->user->isAuthenticated && Yii::app()->user->model->groupsCount <= 0) {
-			Yii::app()->user->setFlash("notice", "Please select at least one group to use with Poncla.");
+			Yii::app()->user->setFlash("notice", "Please select at least one group to use with " . Yii::app()->name);
 			$this->redirect(array('membership/index'));
 		}
 		else {

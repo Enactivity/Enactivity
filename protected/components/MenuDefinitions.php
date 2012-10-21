@@ -5,7 +5,7 @@
  */
 
 /**
- * Used to define the menus in Poncla
+ * Used to define the application menus
  * @see CMenu
  * @author Ajay Sharma
  */
@@ -134,17 +134,17 @@ class MenuDefinitions extends CComponent {
 	public static function globalMenu() {
 		return array(
 			array(
-				'label'=>'Poncla', 
+				'label'=>Yii::app()->name, 
 				'itemOptions'=>array(
-					'class'=>'poncla-logo',
+					'class'=>'application-logo',
 				),
 				'url'=>array('/site/index'), 
 				'visible'=>Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Poncla', 
+				'label'=>Yii::app()->name, 
 				'itemOptions'=>array(
-					'class'=>'poncla-logo',
+					'class'=>'application-logo',
 				),
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest

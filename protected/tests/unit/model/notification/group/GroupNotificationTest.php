@@ -43,7 +43,7 @@ class GroupNotificationTest extends DbTestCase
 	
 	public function testGroupNotificationSubject()
 	{
-		$subject = 'Psst. Something just happened on Poncla!';
+		$subject = 'Psst. Something just happened on ' . Yii::app()->name . '!';
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 		$groupUser = new GroupUser();

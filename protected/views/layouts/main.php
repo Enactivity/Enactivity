@@ -62,7 +62,7 @@ $this->widget('ext.analytics.AnalyticsWidget', array());
 </div>
 
 <footer class="global-footer">
-	<p class="copyright"><?= PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
+	<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
 		All Rights Reserved.
 	</p>
 	<p class="credits">Created by 
