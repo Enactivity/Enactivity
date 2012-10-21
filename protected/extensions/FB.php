@@ -59,7 +59,8 @@ class FB extends CApplicationComponent {
 	 */
 	public function registerAction($action, $params=array())
 	{
-		$this->api('me/'.$this->appNamespace.':'.$action, $params);
+		$id = $this->currentUserFacebookId;
+		$this->api($id . '/'.$this->appNamespace.':'.$action, $params);
 	}
 
 	/**
@@ -193,7 +194,8 @@ class FB extends CApplicationComponent {
 	 * @return array
 	 **/
 	public function getCurrentUserDetails() {
-		return $this->api('me');
+		$id = $this->currentUserFacebookId;
+		return $this->api($id);
 	}
 
 	/**
@@ -201,7 +203,8 @@ class FB extends CApplicationComponent {
 	 * @return array
 	 **/
 	public function getCurrentUserGroups() {
-		return $this->api('me/groups');
+		$id = $this->currentUserFacebookId;
+		return $this->api($id . '/groups');
 	}
 
 	/**
@@ -210,7 +213,7 @@ class FB extends CApplicationComponent {
 	 **/
 	public function getCurrentUserPictureURL() {
 		$id = $this->currentUserFacebookId;
-		return "https://graph.facebook.com/$id/picture";
+		return "https://graph.facebook.com/{$id}/picture";
 	}
 
 	/**
@@ -218,7 +221,7 @@ class FB extends CApplicationComponent {
 	 * @return string absolute url of image file
 	 **/
 	public function getGroupPictureURL($groupFacebookId) {
-		return "https://graph.facebook.com/$groupFacebookId/picture";
+		return "https://graph.facebook.com/{$groupFacebookId}/picture";
 	}
 
 	/**
@@ -226,7 +229,7 @@ class FB extends CApplicationComponent {
 	 * @return array
 	 **/
 	public function getGroupMembers($groupFacebookId) {
-		return $this->api("$groupFacebookId/members");	
+		return $this->api("{$groupFacebookId}/members");	
 	}
 
 	public function addGroupPost($groupFacebookId, $params) {
