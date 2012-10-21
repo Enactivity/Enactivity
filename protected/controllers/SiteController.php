@@ -100,7 +100,9 @@ class SiteController extends Controller
 			}
 		}
 		elseif(isset($_GET['error_reason'])) { // Facebook login returned an error
-			throw new CHttpException(401, $_GET['error_description']);
+			Yii::log('Facebook login failed', 'error', 'facebook');
+			Yii::app()->user->setFlash('error', "Logging in with Facebook failed.  Please try again.");
+			$this->redirect(Yii::app()->homeUrl);
 		}
 
 		// If the user came here directly, kick them back to Facebook for login

@@ -17,37 +17,6 @@ return CMap::mergeArray(
 				'enableParamLogging'=>false,
 			),
 			
-			'log'=>array(
-				'class'=>'CLogRouter',
-				'routes'=>array(
-					// output errors and warning to runtime file
-					array(
-						'class'=>'CFileLogRoute',
-						'filter' => array(
-							'class' => 'CLogFilter',
-							'logUser' => true,
-							'prefixSession' => true,
-							'prefixUser' => true,
-						),
-						'levels'=>'error, warning',
-					),
-					array(
-						'class'=>'CEmailLogRoute',
-						'emails'=>'support-message-log@poncla.com',
-						'filter' => array(
-							'class' => 'CLogFilter',
-							'logUser' => true,
-							'prefixSession' => true,
-							'prefixUser' => true,
-						),
-						'enabled'=>true,
-						'levels'=>'error, warning',
-						'sentFrom'=>'support-message-log@' . CHttpRequest::getServerName(),
-						'subject'=>'Error on ' . CHttpRequest::getServerName() . ' ' . microtime(),
-					),
-				),
-			),
-			
 			'mail'=>array(
 				'dryRun'=>true,
 			),
