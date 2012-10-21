@@ -14,9 +14,9 @@ class ActionNotificationEmail extends Mailer {
 	 */
 	public function send() {
 		$this->from = "no-reply@" . Yii::app()->request->serverName;
-		$subject = "{$this->userName} invites you to join {$this->groupName} on Poncla";
+		$subject = "{$this->userName} invites you to join {$this->groupName} on " . Yii::app()->name;
 		$body = $this->userName . " has invited you to join the {$this->groupName} group"
-			. " on Poncla. To accept this invitation, go to "
+			. " on " . Yii::app()->name . ". To accept this invitation, go to "
 			. Yii::app()->request->hostInfo . "/index.php/user/register?token="
 			. $this->token . " and complete your registration.";
 

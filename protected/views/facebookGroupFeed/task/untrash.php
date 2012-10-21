@@ -6,6 +6,6 @@
  * @author Harrison Vuong
  */
 
-echo "Woohoo! " . '"' . PHtml::encode($data->name) . '"' . " was restored on Poncla.";	
+echo "Woohoo! " . '"' . PHtml::encode($data->name) . '"' . " was restored on " . Yii::app()->name . ".";	
 
 ?>
