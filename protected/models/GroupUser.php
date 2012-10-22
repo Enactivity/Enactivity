@@ -17,6 +17,7 @@
  */
 class GroupUser extends ActiveRecord implements EmailableRecord
 {
+	const SCENARIO_DEACTIVATE = 'deactivate';
 	const SCENARIO_INSERT = 'insert';
 	const SCENARIO_INVITE = 'invite';
 	const SCENARIO_JOIN = 'join';
@@ -24,6 +25,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	
 	const STATUS_PENDING = 'Pending';
 	const STATUS_ACTIVE = 'Active';
+	const STATUS_DEACTIVATED = 'Deactivated';	
 	const STATUS_INACTIVE = 'Inactive';
 
 	/**
@@ -171,9 +173,12 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @return array of the available statuses
 	 */
 	public static function getStatuses() {
-		return array(self::STATUS_ACTIVE,
-		self::STATUS_INACTIVE,
-		self::STATUS_PENDING);
+		return array(
+			self::STATUS_ACTIVE,
+			self::STATUS_DEACTIVATED,
+			self::STATUS_INACTIVE,
+			self::STATUS_PENDING
+		);
 	}
 	
 	public function scopeGroup($groupId)
@@ -204,6 +209,14 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 
 	public function getIsActive() {
 		return strcasecmp($this->status, self::STATUS_ACTIVE) == 0;
+	}
+
+	public function getIsDeactivated() {
+		return strcasecmp($this->status, self::STATUS_DEACTIVATED) == 0;
+	}
+
+	public function getIsInactive() {
+		return strcasecmp($this->status, self::STATUS_INACTIVE) == 0;
 	}
 	
 	/**
@@ -271,6 +284,17 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 		return $this->save();
 	}
 
+	/** 
+	 * Mark a user's membership as deactivated.
+	 * Used in the case where Facebook membership is removed
+	 * @return boolean
+	 **/
+	public function deactivate() {
+		$this->scenario = self::SCENARIO_DEACTIVATE;
+		$this->status = self::STATUS_DEACTIVATED;
+		return $this->save();	
+	}
+
 	/**
 	 * Find a GroupUser with the given group and user id,
 	 * if no such group user exists, a model is created.
@@ -302,31 +326,52 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Add/Update the user as an active member of the group
-	 * @return boolean 
+	 * @return GroupUser 
 	 **/
 	public static function saveAsActiveMember($groupId, $userId) {
 		$groupUser = self::loadGroupUser($groupId, $userId);
-		return $groupUser->joinGroup();
+		if($groupUser->joinGroup()) {
+			return $groupUser;
+		}
+		throw new CException("Activating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
+	}
+
+	/**
+	 * Add/Update the user as a deactivated member of the group
+	 * @return GroupUser 
+	 **/
+	public static function saveAsDeactiveMember($groupId, $userId) {
+		$groupUser = self::loadGroupUser($groupId, $userId);
+		if($groupUser->deactivate()) {
+			return $groupUser;
+		}
+		throw new CException("Deactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
 	}
 
 	/**
 	 * Add/Update the user as an inactive member of the group
-	 * @return boolean 
+	 * @return GroupUser 
 	 **/
 	public static function saveAsInactiveMember($groupId, $userId) {
 		$groupUser = self::loadGroupUser($groupId, $userId);
-		return $groupUser->leaveGroup();
+		if($groupUser->leaveGroup()) {
+			return $groupUser;
+		}
+		throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
 	}
 
 	/**
 	 * Add/Update the user as an inactive member of the group if they didn't have an existing
 	 * membership.  Useful for initial sync of user to group
-	 * @return boolean 
+	 * @return GroupUser 
 	 **/
 	public static function saveAsInactiveMemberIfNewRecord($groupId, $userId) {
 		$groupUser = self::loadGroupUser($groupId, $userId);
 		if($groupUser->isNewRecord) {
-			return $groupUser->leaveGroup();
+			if($groupUser->leaveGroup()) {
+				return $groupUser;
+			}
+			throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
 		}
 		return true;
 	}

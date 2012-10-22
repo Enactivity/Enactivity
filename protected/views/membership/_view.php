@@ -30,7 +30,8 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 							'title'=>'Stop using this group with ' . Yii::app()->name,
 					)
 				); ?>
-				<? else: ?>
+				<? endif; ?>
+				<? if($data->isInactive): ?>
 				<?= PHtml::button(
 					PHtml::encode('Activate'),
 					array( //html
@@ -41,6 +42,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 							'title'=>'Start using this group with ' . Yii::app()->name,
 					)
 				); ?>
+				<? endif; ?>
+				<? if($data->isDeactivated): ?>
+				<p>Rejoin this group on Facebook to use it with <?= Yii::app()->name ?></p>
 				<? endif; ?>
 			</li>
 		<? $story->endControls(); ?>

@@ -237,7 +237,7 @@ class Group extends ActiveRecord implements EmailableRecord
 
 		// De-activate users who are in our system's list, but not facebook's list
 		foreach ($groupUserIds as $userId) {
-			GroupUser::saveAsInactiveMember($this->id, $userId);
+			GroupUser::saveAsDeactiveMember($this->id, $userId);
 		}
 
 		return true;
