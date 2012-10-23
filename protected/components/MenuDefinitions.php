@@ -47,7 +47,7 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array(
 					'class'=>'dropdown-toggle',
 				),
-				'url'=>array('/site/settings'), 
+				'url'=>array(), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
