@@ -60,7 +60,7 @@
 		</nav><!-- end of primaryNavigation -->		
 
 		<footer class="application-footer">
-			<p class="copyright"><?= PHtml::link("Poncla", "http://twitter.com/#!/poncla"); ?> &copy; <?= date('Y'); ?> 
+			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://twitter.com/#!/Enactivity"); ?> &copy; <?= date('Y'); ?> 
 				All Rights Reserved.
 			</p>
 			<p class="credits">Created by 
@@ -71,6 +71,5 @@
 				<!-- Also, chicken wings and beer, lots of beer. --> 
 			</p>
 		</footer>
-
 	</body>
 </html>

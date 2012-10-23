@@ -1,6 +1,17 @@
 <?php
 class SiteController extends Controller
 {	
+
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+		);
+	}
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -79,18 +90,19 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model = new UserLoginForm();
-
 		// collect user input data
 		if(isset($_GET['code']))
 		{
 			// validate user input and redirect to the previous page if valid
+			$model = new UserLoginForm();
 			if($model->login($_GET)) {
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
 		elseif(isset($_GET['error_reason'])) { // Facebook login returned an error
-			throw new CHttpException(401, $_GET['error_description']);
+			Yii::log('Facebook login failed', 'error', 'facebook');
+			Yii::app()->user->setFlash('error', "Logging in with Facebook failed.  Please try again.");
+			$this->redirect(Yii::app()->homeUrl);
 		}
 
 		// If the user came here directly, kick them back to Facebook for login

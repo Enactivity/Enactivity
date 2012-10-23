@@ -5,7 +5,7 @@
  */
 
 /**
- * Used to define the menus in Poncla
+ * Used to define the application menus
  * @see CMenu
  * @author Ajay Sharma
  */

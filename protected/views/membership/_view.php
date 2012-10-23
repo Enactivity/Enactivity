@@ -31,7 +31,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 							'csrf'=>true,
 							'id'=>'membership-leave-menu-item-' . $data->id,
 							'class'=>'neutral membership-leave-menu-item',
-							'title'=>'Stop using this group with Poncla',
+							'title'=>'Stop using this group with ' . Yii::app()->name,
 					)
 				); ?>
 				<? else: ?>
@@ -42,7 +42,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 							'csrf'=>true,
 							'id'=>'membership-join-menu-item-' . $data->id,
 							'class'=>'positive membership-join-menu-item',
-							'title'=>'Start using this group with Poncla',
+							'title'=>'Start using this group with ' . Yii::app()->name,
 					)
 				); ?>
 				<? endif; ?>
