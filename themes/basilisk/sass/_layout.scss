@@ -19,12 +19,6 @@ body {
 	@extend .nav-bar;
 }
 
-.application-footer {
-	p {
-		@extend .content-block;
-	}
-}
-
 .content-header {
 	@extend .content-block;
 }
