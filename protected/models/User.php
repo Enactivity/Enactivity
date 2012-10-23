@@ -184,12 +184,17 @@ class User extends ActiveRecord
 			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId',
 				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"',
 			),
-			'groupUsersAll' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+			'allGroupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
 		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
 				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
 				'through' => 'groupUsers',
 				'order' => 'groups.name',
+			),
+
+			'allGroups'  => array(self::HAS_MANY, 'Group', 'groupId',
+				'through' => 'allGroupUsers',
+				'order' => 'allGroups.name',
 			),
 			
 			// all tasks that belong to the groups the user belongs to
@@ -209,10 +214,10 @@ class User extends ActiveRecord
 				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasks.isTrash=0',
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
-							'through' => 'taskUsers',
-							'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0' 
-								. ' AND nextTasksSomeday.isTrash=0'
-								. ' AND nextTasksSomeday.starts IS NULL',
+				'through' => 'taskUsers',
+				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0' 
+					. ' AND nextTasksSomeday.isTrash=0'
+					. ' AND nextTasksSomeday.starts IS NULL',
 			),
 		);
 	}
@@ -368,11 +373,21 @@ class User extends ActiveRecord
 	 * @return boolean
 	 **/
 	public function syncFacebookGroups() {
+
+		$syncedGroups = array();
 		$facebookGroups = Yii::app()->FB->currentUserGroups;
 		
-		foreach ($facebookGroups['data'] as $group) {
+		foreach($facebookGroups['data'] as $group) {
 			$group = Group::syncWithFacebookAttributes($group);
 			$group->syncFacebookMembers();
+			$syncedGroups[$group->id] = true;
+		}
+
+		// Remove user from remaining groups
+		foreach($this->allGroups as $group) {
+			if(!isset($syncedGroups[$group->id])) {
+				GroupUser::saveAsDeactiveMember($group->id, $this->id);
+			}
 		}
 
 		return true;
