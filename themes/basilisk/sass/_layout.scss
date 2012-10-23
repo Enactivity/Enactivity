@@ -1,30 +1,22 @@
-$top-of-page-nav-bar-height: $base-padding * 3;
-
 html {
 	overflow-y: scroll;
 }
 
 html, body {
+	background: $white;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
 	position: relative;
 }
 
 body {
-	padding-top: $top-of-page-nav-bar-height;
-}
-
-.application-header {
-	padding: $base-padding;
-
-	a {
-		@include unstyled-link;
+	@include respond-to('thin-phone') {
+		padding-top: $top-of-page-nav-bar-height;
 	}
 }
 
 .application-navigation {
 	@extend .nav-bar;
-	height: $top-of-page-nav-bar-height;
 }
 
 .application-footer {

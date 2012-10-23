@@ -57,7 +57,7 @@
 			<? $this->widget('zii.widgets.CMenu', array(
 				'items'=>MenuDefinitions::applicationMenu()
 			));?>
-		</nav><!-- end of primaryNavigation -->		
+		</nav>
 
 		<footer class="application-footer">
 			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://twitter.com/#!/Enactivity"); ?> &copy; <?= date('Y'); ?> 

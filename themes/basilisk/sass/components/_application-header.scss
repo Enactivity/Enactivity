@@ -1,0 +1,16 @@
+.application-header {
+	padding: $base-padding;
+
+	a {
+		@include unstyled-link;
+	}
+}
+
+// The show menu button is only for really small phones when nav is at the bottom
+#show-menu {
+	@include float-right;
+
+	@include respond-to(thin-phone) {
+		display: none;
+	}
+}

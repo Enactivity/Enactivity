@@ -2,13 +2,15 @@ $nav-bar-background-color: $mine-shaft;
 $nav-bar-color: $white;
 
 .nav-bar {
+	@include clearfix;
 	background: $nav-bar-background-color;
 	color: $nav-bar-color;
-	position: fixed;
 	overflow: visible; // to enable dropdowns
 	width: 100%;
 
 	@include respond-to(thin-phone) {
+		height: $top-of-page-nav-bar-height;
+		position: fixed;
 		top: 0;
 	}
 
@@ -23,8 +25,9 @@ $nav-bar-color: $white;
 	}
 
 	li {
-		// /display: inline-block; /* List horizontally, not vertically */
-		float: left;
+		@include respond-to(thin-phone) {
+			float: left;
+		}
 
 		li {
 			float: none;
@@ -43,6 +46,8 @@ $nav-bar-color: $white;
 	}
 
 	.secondary {
-		float: right;
+		@include respond-to(thin-phone) {
+			float: right;
+		}
 	}
 }
