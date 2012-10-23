@@ -219,25 +219,24 @@ class Group extends ActiveRecord implements EmailableRecord
 		$facebookResponse = Yii::app()->FB->getGroupMembers($this->facebookId);
 		$facebookMembers = $facebookResponse['data'];
 
-		$groupUsers = $this->groupUsers;
-		$groupUserIds = array();
-		foreach ($groupUsers as $groupUser) {
-			$groupUserIds[$groupUser->userId] = true; // sneaky reverse hash!
+		$unsyncedUserIds = array();
+		foreach ($this->groupUsers as $groupUser) {
+			$unsyncedUserIds[$groupUser->userId] = true; // sneaky reverse hash!
 		}
 
-		// Activate all the facebook members
+		// Load all the new facebook members into our system as inactive members
 		foreach ($facebookMembers as $facebookMember) {
 			$user = User::findByFacebookId($facebookMember['id']);
 
 			if($user) {
-				GroupUser::saveAsInactiveMemberIfNewRecord($this->id, $user->id);
-				unset($groupUserIds[$user->id]);
+				GroupUser::saveAsInactiveMemberIfNotActive($this->id, $user->id);
+				unset($unsyncedUserIds[$user->id]);
 			}
 		}
 
 		// De-activate users who are in our system's list, but not facebook's list
-		foreach ($groupUserIds as $userId) {
-			GroupUser::saveAsInactiveMember($this->id, $userId);
+		foreach ($unsyncedUserIds as $userId => $value) {
+			GroupUser::saveAsDeactiveMember($this->id, $userId);
 		}
 
 		return true;
