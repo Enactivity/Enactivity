@@ -27,24 +27,28 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				<?= PHtml::button(
 					PHtml::encode('Deactivate'),
 					array( //html
-							'submit'=>array('membership/leave', 'id'=>$data->id),
-							'csrf'=>true,
-							'id'=>'membership-leave-menu-item-' . $data->id,
-							'class'=>'neutral membership-leave-menu-item',
-							'title'=>'Stop using this group with ' . Yii::app()->name,
+						'submit'=>array('membership/leave', 'id'=>$data->id),
+						'csrf'=>true,
+						'id'=>'membership-leave-menu-item-' . $data->id,
+						'class'=>'neutral membership-leave-menu-item',
+						'title'=>'Stop using this group with ' . Yii::app()->name,
 					)
 				); ?>
-				<? else: ?>
+				<? endif; ?>
+				<? if($data->isInactive): ?>
 				<?= PHtml::button(
 					PHtml::encode('Activate'),
 					array( //html
-							'submit'=>array('membership/join', 'id'=>$data->id),
-							'csrf'=>true,
-							'id'=>'membership-join-menu-item-' . $data->id,
-							'class'=>'positive membership-join-menu-item',
-							'title'=>'Start using this group with ' . Yii::app()->name,
+						'submit'=>array('membership/join', 'id'=>$data->id),
+						'csrf'=>true,
+						'id'=>'membership-join-menu-item-' . $data->id,
+						'class'=>'positive membership-join-menu-item',
+						'title'=>'Start using this group with ' . Yii::app()->name,
 					)
 				); ?>
+				<? endif; ?>
+				<? if($data->isDeactivated): ?>
+				<p>Rejoin this group on Facebook to use it with <?= Yii::app()->name ?></p>
 				<? endif; ?>
 			</li>
 		<? $story->endControls(); ?>
