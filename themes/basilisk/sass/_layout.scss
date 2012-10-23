@@ -28,8 +28,6 @@ body {
 }
 
 .application-footer {
-	padding: $base-padding;
-
 	p {
 		@extend .content-block;
 	}
