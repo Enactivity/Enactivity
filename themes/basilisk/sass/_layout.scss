@@ -3,7 +3,7 @@ html {
 }
 
 html, body {
-	background: $white;
+	background: $gallery;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
 	position: relative;
@@ -39,7 +39,9 @@ section {
 
 article {
 	@extend .content-block;
-	padding: $base-padding 0;
+	background-color: $white;
+	margin: $base-margin 0;
+	padding: $base-padding;
 }
 
 .blurb {
