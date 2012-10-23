@@ -31,16 +31,15 @@ $nav-bar-color: $white;
 		}
 	}
 
-	a, a:visited {
-		display: block;	
-		padding: $base-padding;
-		text-transform: lowercase;
-	}
-
+	a, a:visited,
 	a:hover, a:focus,
 	.active > a,
-	.active > a:visited {
+	.active > a:visited  {
+		display: block;	
+		font-weight: normal;
+		padding: $base-padding;
 		text-decoration: none;
+		text-transform: lowercase;
 	}
 
 	.secondary {
