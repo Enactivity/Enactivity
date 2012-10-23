@@ -8,7 +8,7 @@ form {
 }
 
 input, textarea, select {
-	border: 1px solid $dim-gray;
+	border: 1px solid $gainsboro;
 	@include border-radius($base-border-radius);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
