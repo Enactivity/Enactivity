@@ -1,7 +1,5 @@
 <?php
 
-Yii::import("application.components.db.ar.ActiveRecord");
-
 /**
  * UserLoginForm class.
  * UserLoginForm is the data structure for keeping
