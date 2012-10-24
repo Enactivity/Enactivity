@@ -176,6 +176,8 @@ return CMap::mergeArray(
 					'CLinkPager' => array(
 						'cssFile' => false,
 						'header' => "",
+						'firstPageLabel' => 'First',
+						'lastPageLabel' => 'Last',
 						'nextPageLabel' => 'Next',
 						'prevPageLabel' => 'Previous',
 					),
