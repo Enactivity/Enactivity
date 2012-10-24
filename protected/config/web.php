@@ -75,7 +75,7 @@ return CMap::mergeArray(
 			
 			'user'=>array(
 				// Map current user to our custom class
-				'class' => 'WebUser',
+				'class' => 'application.components.auth.WebUser',
 				// enable cookie-based authentication
 				'allowAutoLogin'=>true,
 			),

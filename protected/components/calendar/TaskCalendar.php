@@ -1,4 +1,7 @@
 <?php
+
+Yii::import("application.components.calendar.Month");
+
 class TaskCalendar extends CComponent {
 	
 	private $days = array();

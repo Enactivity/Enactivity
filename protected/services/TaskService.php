@@ -1,4 +1,7 @@
 <?php 
+
+Yii::import("application.components.services.Service");
+
 /**
  * Service layer for interacting with Tasks
  **/

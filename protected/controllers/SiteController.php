@@ -1,4 +1,7 @@
 <?php
+
+Yii::import("application.components.web.Controller");
+
 class SiteController extends Controller
 {	
 

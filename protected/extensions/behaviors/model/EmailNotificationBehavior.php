@@ -3,6 +3,8 @@
  * Class file for EmailNotificationBehavior
  */
 
+Yii::import("applications.componets.ar.db.EmailableRecord");
+
 /**
  * This is the behavior class for behavior "EmailNotificationBehavior".
  * The EmailNotificationBehavior implements EmailRecord Model

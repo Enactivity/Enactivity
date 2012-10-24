@@ -5,6 +5,8 @@
  * @author Ajay Sharma
  */
 
+Yii::import("application.components.utils.TimeZoneKeeper");
+
 /**
  * Formatter extends CFormatter to provides a set of commonly used 
  * data formatting methods.

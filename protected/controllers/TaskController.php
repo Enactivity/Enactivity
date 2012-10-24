@@ -1,5 +1,9 @@
 <?php
 
+Yii::import("application.components.calendar.Month");
+Yii::import("application.components.calendar.TaskCalendar");
+Yii::import("application.components.web.Controller");
+
 class TaskController extends Controller
 {
 	/**
