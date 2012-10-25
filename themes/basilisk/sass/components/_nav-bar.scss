@@ -37,7 +37,8 @@ $nav-bar-color: $white;
 	a, a:visited,
 	a:hover, a:focus,
 	.active > a,
-	.active > a:visited  {
+	.active > a:visited,
+	span  {
 		display: block;	
 		font-weight: normal;
 		padding: $base-padding;
