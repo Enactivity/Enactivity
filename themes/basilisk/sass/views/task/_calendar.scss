@@ -23,6 +23,7 @@
 			}
 
 			.task {
+				margin: $base-margin 0;
 				h1 {
 					@extend h3;
 				}
