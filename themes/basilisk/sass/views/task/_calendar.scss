@@ -1,3 +1,4 @@
+@import "compass/utilities/general/clearfix";
 
 #calendar-container {
 	max-width: 100%;
@@ -17,7 +18,14 @@
 			}
 
 			header {
-				@extend h1;
+				@extend h2;
+				@include ellipsis;
+			}
+
+			.task {
+				h1 {
+					@extend h3;
+				}
 			}
 		}
 	}

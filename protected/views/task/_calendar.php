@@ -44,15 +44,21 @@
 					<?= PHtml::encode($month->currentMDay); ?>
 					<span class="weekday-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?><span>
 				</header>
-				<? foreach ($calendar->getTasksByDate($month->currentDate) as $times) {
-				foreach ($times as $task) {
-				
-				echo $this->renderPartial('_view', array(
-					'data'=>$task,
-				));
-				}
-				}
-				?>
+				<? foreach ($calendar->getTasksByDate($month->currentDate) as $times): ?>
+				<? foreach ($times as $task): ?>
+				<article class="task">
+					<time>
+						<?= PHtml::encode(Yii::app()->format->formatTime($task->starts)); ?>
+					</time>
+					<h1>
+						<?= PHtml::link(
+							PHtml::encode($task->name), 
+							array('/task/view', 'id'=>$task->id)
+						); ?>
+					</h1>
+				</article>
+				<? endforeach; ?>
+				<? endforeach; ?>
 			</article>
 
 			<? // if it's the end of a week, end the row ?>
