@@ -4,7 +4,7 @@
  * key = index of dates, and value = date
  * @author ajsharma
  */
-class Month extends CComponent implements Iterator{
+class Month extends CComponent implements Iterator {
 	
 	/**
 	 * The integer value of the month
@@ -66,6 +66,31 @@ class Month extends CComponent implements Iterator{
 		}
 	}
 	
+	/** 
+	 * Get the name of the current month
+	 * @return string
+	 */
+	public function getName() {
+		return Yii::app()->format->formatMonth($this->firstDayOfMonthTimestamp);
+	}
+
+	/** 
+	 * Get the name of the previous month
+	 * @return string
+	 */
+	public function getNameOfPreviousMonth() {
+		return Yii::app()->format->formatMonth($this->firstDayOfMonthTimestamp - 1);
+	}
+
+	/** 
+	 * Get the name of the next month
+	 * @return string
+	 */
+	public function getNameOfNextMonth() {
+		return Yii::app()->format->formatMonth($this->lastDayOfMonthTimestamp + 1);
+	}
+
+
 	/**
 	 * Returns the number of days in the month
 	 */
@@ -207,6 +232,10 @@ class Month extends CComponent implements Iterator{
     public function getCurrentWeekday() {
     	$current = $this->current();
     	return $current['weekday'];
+    }
+
+    public function getCurrentWeekdayShorthand() {
+    	return substr($this->currentWeekday, 0, 3);
     }
 
     public function getCurrentMonth() {

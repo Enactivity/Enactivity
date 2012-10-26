@@ -16,6 +16,57 @@ class MenuDefinitions extends CComponent {
 	}
 	
 	/**
+	 * @return array main menu items
+	 */
+	public static function applicationMenu() {
+		return array(
+			array(
+				'label'=>'Next', 
+				'itemOptions'=>array(
+					'class'=>'dash-nav-item'
+				),
+				'url'=>array('/task/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'Calendar',
+				'url'=>array('/task/calendar'), 
+				'visible'=>!Yii::app()->user->isGuest,
+			),
+			array(
+				'label'=>'New',
+				'url'=>array('/task/create'), 
+				'visible'=>!Yii::app()->user->isGuest,
+			),
+			array(
+				'label'=>'Groups', 
+				'linkOptions'=>array(
+					'class'=>'groups',
+				),
+				'url'=>array('/membership/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array('label'=>'Admin',
+				'url'=>array('site/admin'),
+				'visible'=>Yii::app()->user->isAdmin
+			),
+			array(
+				'label'=>'Logout', 
+				'url'=>array('/site/logout'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'Login with Facebook',
+				'itemOptions'=>array(
+					'class'=>'secondary',
+				),
+				'url'=>Yii::app()->FB->loginUrl,
+				'visible'=>Yii::app()->user->isGuest
+			),
+		);
+	}
+	
+	/**
 	 * @return array of menu items for admins
 	 */
 	public static function adminMenu() {
@@ -95,98 +146,5 @@ class MenuDefinitions extends CComponent {
 	 */
 	public static function user() {
 		return null;
-	}
-	
-	/**
-	 * @return array of menu items for user controller
-	 */
-	public static function settings() {
-
-		$menu = array();
-		// $menu[] = array('label'=>'Store',
-		// 	'url'=>array('/store/index'), 
-		// 	'visible'=>!Yii::app()->user->isGuest,
-		// );
-		$menu[] = array(
-			'label'=>'Groups', 
-			'linkOptions'=>array(
-				'class'=>'groups',
-			),
-			'url'=>array('/membership/index'), 
-			'visible'=>!Yii::app()->user->isGuest
-		);
-		$menu[] = array('label'=>'Admin',
-			'url'=>array('site/admin'),
-			'visible'=>Yii::app()->user->isAdmin
-		);
-		$menu[] = array(
-			'label'=>'Logout', 
-			'url'=>array('/site/logout'), 
-			'visible'=>!Yii::app()->user->isGuest
-		);
-		
-		return $menu;
-	}
-	
-	/**
-	 * @return array main menu items
-	 */
-	public static function globalMenu() {
-		return array(
-			array(
-				'label'=>Yii::app()->name, 
-				'itemOptions'=>array(
-					'class'=>'application-logo',
-				),
-				'url'=>array('/site/index'), 
-				'visible'=>Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>Yii::app()->name, 
-				'itemOptions'=>array(
-					'class'=>'application-logo',
-				),
-				'url'=>array('/task/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Next', 
-				'itemOptions'=>array(
-					'class'=>'dash-nav-item'
-				),
-				'url'=>array('/task/index'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Calendar',
-				'url'=>array('/task/calendar'), 
-				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
-				'label'=>'New',
-				'url'=>array('/task/create'), 
-				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
-				'label'=>'More',
-				'itemOptions'=>array(
-					'class'=>'dropdown',
-				),
-				'items'=>self::settings(),
-				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
-				),
-				'url'=>array('/site/settings'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
-				'label'=>'Login with Facebook',
-				'itemOptions'=>array(
-					'class'=>'secondary',
-				),
-				'url'=>Yii::app()->FB->loginUrl,
-				'visible'=>Yii::app()->user->isGuest
-			),
-		);
 	}
 }

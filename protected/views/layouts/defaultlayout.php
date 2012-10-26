@@ -1,7 +1,5 @@
 <? $this->beginContent('//layouts/main'); ?>
 
-<div class="content">
-<?= $content; ?>
-</div>
+	<?= $content; ?>
 
 <? $this->endContent(); ?>

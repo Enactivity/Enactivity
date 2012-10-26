@@ -4,6 +4,7 @@ $this->pageTitle = 'Group Membership';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
+	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 	<div class="menu toolbox">
 		<ul>
 			<li>
@@ -21,21 +22,20 @@ $this->pageTitle = 'Group Membership';
 			</li>
 		</ul>
 	</div>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
 <? if($dataProvider->totalItemCount > 0): ?>
-<section class="novel">
+<section>
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_view',
 		'cssFile'=>false,
 	)); ?>
-<section>
+</section>
 
 <section>
 	<p class="blurb">Or <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?>.</p>
-<section>
+</section>
 <? else: ?>
 <section>
 	<p class="blurb">We couldn't find any groups for you on Facebook, why not <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?> and then refresh this page?</p>

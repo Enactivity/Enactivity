@@ -1,4 +1,7 @@
 <?php
+
+Yii::import("application.components.mail.MailMessage");
+
 //FIXME: Harrison explain what this class is for 
 class PMailMessage extends CComponent implements MailMessage {
 	

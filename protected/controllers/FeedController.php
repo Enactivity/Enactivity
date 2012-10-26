@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("application.components.web.Controller");
+
 class FeedController extends Controller
 {
 
@@ -63,7 +65,7 @@ class FeedController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('_view',array(
+		$this->render('view',array(
 			'data'=>$this->loadModel($id),
 		));
 	}

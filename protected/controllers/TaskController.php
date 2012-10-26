@@ -1,5 +1,9 @@
 <?php
 
+Yii::import("application.components.calendar.Month");
+Yii::import("application.components.calendar.TaskCalendar");
+Yii::import("application.components.web.Controller");
+
 class TaskController extends Controller
 {
 	/**
@@ -343,9 +347,6 @@ class TaskController extends Controller
 	{
 		$month = new Month($month, $year);
 		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
-
-		// handle new task
-		$newTask = $this->handleNewTaskForm();
 		
 		$this->render('calendar', array(
 				'calendar'=>$taskCalendar,

@@ -1,0 +1,49 @@
+@mixin dropdown {
+
+	ul {
+		@include background-clip(padding-box);
+		// background-color: $gray-dark;
+		// border-color: $black;
+		@include border-radius(0 0 $base-border-radius $base-border-radius);
+		// @include box-shadow(0 2px 4px rgba(0,0,0,.2));
+		display: none;
+		position: absolute;
+		top: 100%;
+		z-index: 1000; /* So early dropdowns can cover lower nav links */
+
+		// dropdown smaller on tablet and larger
+		@include respond-to(thin-tablet) {
+			left: auto;
+			max-width: 12em;
+			right: auto;
+		}
+	}
+
+	// show dropdown on open state
+	&.open ul { 
+		display: block;
+	}
+
+	li {
+		display: block; /* to fill menu dropdown */
+	}
+
+	// dropdown arrow using border fanciness
+	.dropdown-toggle::after { 
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 4px solid #cccccc;
+		content: "&darr;";
+		display: inline-block;
+		height: 0;	
+		margin-top: 8px;
+		margin-left: 4px;
+		text-indent: -99999px;
+		vertical-align: top;
+		width: 0;
+	}
+}
+
+.dropdown {
+	@include dropdown;
+}

@@ -75,7 +75,7 @@ return CMap::mergeArray(
 			
 			'user'=>array(
 				// Map current user to our custom class
-				'class' => 'WebUser',
+				'class' => 'application.components.auth.WebUser',
 				// enable cookie-based authentication
 				'allowAutoLogin'=>true,
 			),
@@ -176,6 +176,8 @@ return CMap::mergeArray(
 					'CLinkPager' => array(
 						'cssFile' => false,
 						'header' => "",
+						'firstPageLabel' => 'First',
+						'lastPageLabel' => 'Last',
 						'nextPageLabel' => 'Next',
 						'prevPageLabel' => 'Previous',
 					),
@@ -207,7 +209,7 @@ return CMap::mergeArray(
 			'googleAnalyticsOn'=>false,
 		),
 		
-		'theme'=>'gecko5',
+		'theme'=>'basilisk',
 		
 		// uncomment to set the default controller
 		//'defaultController' => 'login',

@@ -11,8 +11,7 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array(
-		'log', 
-		'timezonekeeper'
+		'log',
 	),
 
 	// autoloading model and component classes
@@ -45,7 +44,7 @@ return array(
         ),
 
         'FacebookGroupFeedPost'=>array(
-        	'class'=>'FacebookGroupFeedPost',
+        	'class'=>'application.components.db.ar.FacebookGroupFeedPost',
         ),
         
 		'mail' => array(
@@ -60,10 +59,6 @@ return array(
         		'class'=>'application.extensions.mailer.Mailer',
         		'mailTransferAgent'=>'php',
 				'shouldEmail'=>false,  
-		),
-	
-		'timezonekeeper' => array(
-			'class' => 'TimeZoneKeeper'
 		),
 	),
 );

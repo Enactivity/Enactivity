@@ -12,6 +12,8 @@ $this->pageTitle = $model->name;
 ?>
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
+	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 	<div class="menu toolbox">
 		<ul>
 			<li>
@@ -42,28 +44,15 @@ $this->pageTitle = $model->name;
 			</li>
 		</ul>
 	</div>
-
-	<h1>
-	<? if(sizeof($ancestors) > 0): ?>
-	<? foreach($ancestors as $task) {
-		echo PHtml::link(
-			PHtml::encode($task->name),
-			array('task/view', 'id'=>$task->id)
-		);
-		echo ': ';
-	} ?>
-	<? endif; ?>
-	<?= PHtml::encode($this->pageTitle); ?></h1>
-	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-<?
-// show participants
+
+<? // show participants
 if($model->isParticipatable):
 ?>
-<section id="users-participating" class="novel">
-	<div class="menu novel-controls">
+<section id="participating">
+	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
+	<div class="menu controls">
 	<ul>
 	<?
 	if($model->isParticipatable) {
@@ -132,7 +121,6 @@ if($model->isParticipatable):
 			?>
 			</ul>
 		</div>
-		<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<? 
 	foreach($model->participatingTaskUsers as $usertask) {
 		echo $this->renderPartial('/taskuser/_view', array(
@@ -143,46 +131,23 @@ if($model->isParticipatable):
 </section>
 <? endif; ?>
 
-<? if($model->isSubtaskable || $model->hasChildren): ?>
-<section id="agenda">
-
-	<? if(!empty($subtasks)) :
-	echo $this->renderPartial('_agenda', array(
-			'calendar'=>$calendar,
-			'showParent'=>false,
-	));
-	elseif($model->isSubtaskable): ?>
-	<p class="blurb">Since no one has signed up for this task yet, you can break it down into more specific tasks below.</p>
+<? // show comments ?>
+<section id="comments">
+	<h1><?= 'Comments'; ?></h1>
+	
+	<?
+	if($commentsDataProvider->totalItemCount > 0) :
+		// show list of comments
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$commentsDataProvider,
+			'itemView'=>'/comment/_view',
+			'emptyText'=>''
+		)); 
+	else: ?>
+	<p class="blurb">No one has written any comments yet, be the first!</p>
 	<? endif; ?>
 	
-	<? if($model->isSubtaskable) : ?>
-	<h1><?= 'Break Down Task'; ?></h1>
-	<?= $this->renderPartial('_form', array('model'=>$newTask, 'inline'=>true)); ?>
-	<? endif; ?>
+	
+	<? // show new comment form ?>
+	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
 </section>
-<? endif; ?>
-</div>
-
-<? // show comments ?>
-<div class="novel">
-	<section id="task-comments">
-		<h1><?= 'Comments'; ?></h1>
-		
-		<?
-		if($commentsDataProvider->totalItemCount > 0) :
-			// show list of comments
-			$this->widget('zii.widgets.CListView', array(
-				'dataProvider'=>$commentsDataProvider,
-				'itemView'=>'/comment/_view',
-				'emptyText'=>''
-			)); 
-		else: ?>
-		<p class="blurb">No one has written any comments yet, be the first!</p>
-		<? endif; ?>
-		
-		
-		<? // show new comment form ?>
-		<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
-	</section>
-
-</div>

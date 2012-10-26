@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("application.components.auth.UserIdentity");
+
 /**
  * UserLoginForm class.
  * UserLoginForm is the data structure for keeping

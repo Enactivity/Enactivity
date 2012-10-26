@@ -1,0 +1,35 @@
+html {
+	overflow-y: scroll;
+}
+
+html, body {
+	background: $gallery;
+	height: 100%;
+	min-height: 100%; /* Ensure vertical scrollbar always shows */
+	position: relative;
+}
+
+body {
+	@include respond-to('thin-phone') {
+		padding-top: $top-of-page-nav-bar-height;
+	}
+}
+
+.content-header {
+	@extend .content-block;
+}
+
+aside {
+	@extend .content-block;
+}
+
+section {
+	@extend .content-block;
+}
+
+article {
+	background-color: $white;
+}
+
+.blurb {
+}

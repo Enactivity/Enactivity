@@ -29,17 +29,15 @@ $this->pageTitle = 'Checkout';
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-	<section class="contact-form">
-		<p class="blurb">Once you place your order, Reed will contact you regarding
-		delivery and payment.</p>
-		<?= $this->renderPartial('_checkoutform', array('model' => $model)); ?>
-	</section>
-	<section class="carts">
-		<h1>Your Items For This Order</h1>
-		<? $this->widget('zii.widgets.CListView', array(
-		    'dataProvider'=>$dataProvider,
-		    'itemView'=>'_view',
-		)); ?>
-	</section>
-</div>
+<section class="contact-form">
+	<p class="blurb">Once you place your order, Reed will contact you regarding
+	delivery and payment.</p>
+	<?= $this->renderPartial('_checkoutform', array('model' => $model)); ?>
+</section>
+<section class="carts">
+	<h1>Your Items For This Order</h1>
+	<? $this->widget('zii.widgets.CListView', array(
+	    'dataProvider'=>$dataProvider,
+	    'itemView'=>'_view',
+	)); ?>
+</section>

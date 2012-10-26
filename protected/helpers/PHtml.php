@@ -328,14 +328,16 @@ class PHtml extends CHtml {
 
 	public static function calendarDayLink($month, $calendar) {
 
+		$text = $month->currentMDay . ' ' . $month->currentWeekdayShorthand;
+
 		if($calendar->hasTasksOnDate($month->currentDate)) {
 			return PHtml::link(
-				$month->currentMDay, '#' . PHtml::dateTimeId($month->currentTimestamp)
+				$text, '#' . PHtml::dateTimeId($month->currentTimestamp)
 			);
 		}
 		else {
 			return PHtml::link(
-				$month->currentMDay,
+				$text,
 				array('task/create/', 
 					'day' => $month->currentMDay,
 					'month' => $month->currentMon,

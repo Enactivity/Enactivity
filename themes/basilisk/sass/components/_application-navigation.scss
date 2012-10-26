@@ -1,0 +1,54 @@
+$nav-bar-background-color: $mine-shaft;
+$nav-bar-color: $white;
+
+.application-navigation {
+	@include clearfix;
+	background: $nav-bar-background-color;
+	color: $nav-bar-color;
+	overflow: visible; // to enable dropdowns
+	width: 100%;
+
+	@include respond-to(thin-phone) {
+		height: $top-of-page-nav-bar-height;
+		position: fixed;
+		top: 0;
+	}
+
+	> ul {
+		@extend .content-block;
+		padding: 0;
+	}
+
+	ul {
+		background: $nav-bar-background-color;
+		list-style-type: none;
+	}
+
+	li {
+		@include respond-to(thin-phone) {
+			float: left;
+		}
+
+		li {
+			float: none;
+		}
+	}
+
+	a, a:visited,
+	a:hover, a:focus,
+	.active > a,
+	.active > a:visited,
+	span  {
+		display: block;	
+		font-weight: normal;
+		padding: $base-padding;
+		text-decoration: none;
+		text-transform: lowercase;
+	}
+
+	.secondary {
+		@include respond-to(thin-phone) {
+			float: right;
+		}
+	}
+}

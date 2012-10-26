@@ -1,5 +1,8 @@
 <?php
 
+Yii::import("application.components.db.ar.ActiveRecord");
+Yii::import("application.components.db.ar.EmailableRecord");
+
 /**
  * This is the model class for table "group".
  *
