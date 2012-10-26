@@ -1,7 +1,7 @@
 $nav-bar-background-color: $mine-shaft;
 $nav-bar-color: $white;
 
-.nav-bar {
+.application-navigation {
 	@include clearfix;
 	background: $nav-bar-background-color;
 	color: $nav-bar-color;

@@ -39,15 +39,20 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
-				'label'=>'More',
-				'itemOptions'=>array(
-					'class'=>'dropdown secondary',
-				),
-				'items'=>self::settings(),
+				'label'=>'Groups', 
 				'linkOptions'=>array(
-					'class'=>'dropdown-toggle',
+					'class'=>'groups',
 				),
-				'url'=>null, 
+				'url'=>array('/membership/index'), 
+				'visible'=>!Yii::app()->user->isGuest
+			),
+			array('label'=>'Admin',
+				'url'=>array('site/admin'),
+				'visible'=>Yii::app()->user->isAdmin
+			),
+			array(
+				'label'=>'Logout', 
+				'url'=>array('/site/logout'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
@@ -141,36 +146,5 @@ class MenuDefinitions extends CComponent {
 	 */
 	public static function user() {
 		return null;
-	}
-	
-	/**
-	 * @return array of menu items for user controller
-	 */
-	public static function settings() {
-
-		$menu = array();
-		// $menu[] = array('label'=>'Store',
-		// 	'url'=>array('/store/index'), 
-		// 	'visible'=>!Yii::app()->user->isGuest,
-		// );
-		$menu[] = array(
-			'label'=>'Groups', 
-			'linkOptions'=>array(
-				'class'=>'groups',
-			),
-			'url'=>array('/membership/index'), 
-			'visible'=>!Yii::app()->user->isGuest
-		);
-		$menu[] = array('label'=>'Admin',
-			'url'=>array('site/admin'),
-			'visible'=>Yii::app()->user->isAdmin
-		);
-		$menu[] = array(
-			'label'=>'Logout', 
-			'url'=>array('/site/logout'), 
-			'visible'=>!Yii::app()->user->isGuest
-		);
-		
-		return $menu;
 	}
 }
