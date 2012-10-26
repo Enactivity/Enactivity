@@ -53,7 +53,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</div>
 	
 	
-	<div class="field">
+	<div class="field datetime">
 		<? if(!$inline):
 		// preformat date before loading into widget 
 		$this->widget('application.components.widgets.jui.JuiDateTimePicker', 

@@ -1,0 +1,14 @@
+/** 
+ * A component is a style that does not need 
+ * to take any variables and can be used
+ * with the 'extend' command
+ **/
+
+@import "content-block";
+@import "application-header";
+@import "application-footer";
+@import "application-navigation";
+@import "dropdown";
+@import 'pager';
+@import "menu";
+@import "calendar";

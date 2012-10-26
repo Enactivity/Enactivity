@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("application.components.web.Controller");
+
 class SweaterController extends Controller
 {
 	/**

@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("application.components.utils.TimeZoneKeeper");
+
 /*
  * DateTimeZoneBehavior
  * Automatically converts datetime fields to server time zone on saves 
@@ -9,7 +11,6 @@
  * @version: 1.0
  * @requires: TimeZoneKeeper  
  */
-
 class DateTimeZoneBehavior extends CActiveRecordBehavior
 {
 	public function beforeSave($event){

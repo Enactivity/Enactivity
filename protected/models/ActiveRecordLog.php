@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("application.components.db.ar.ActiveRecord");
+
 /**
  * This is the model class for table "activerecordlog".
  *

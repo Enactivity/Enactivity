@@ -9,11 +9,10 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
-<h1>Calendar</h1>
+<h1><?= PHtml::encode($this->pageTitle); ?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-	<section id="calendar-container">
+<section id="calendar-container">
 	<? 
 	// show task calendar
 	echo $this->renderPartial('_calendar', array(
@@ -21,23 +20,4 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 		'month'=>$month,
 	));
 	?>
-	</section>
-</div>
-
-<div class="novel">
-	<section id="agenda-container" class="agenda">
-		<?
-		// agenda
-		echo $this->renderPartial('_agenda', array(
-			'calendar'=>$calendar,
-			'showParent'=>'true',
-		));?>
-
-		<h1><?= 'Start a New Task'; ?></h1>
-		<?= $this->renderPartial('_form', array(
-			'model'=>$newTask, 
-			'inline'=>true, 
-			'action'=>'create')
-		); ?>
-	</section>
-</div>
+</section>

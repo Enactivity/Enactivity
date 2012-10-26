@@ -17,26 +17,37 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	<? $story->beginStoryContent(); ?>
 		<? // task name ?>
-		<h1 class="story-title">
-			<? if($showParent && !$data->isRoot()): ?>
-			<span class="parent-tasks story-subtitle">
-				<? if($data->parent->id != $data->rootId): ?>
-				<span class="parent-task-name top-parent-task-name">
-					<?= PHtml::encode(StringUtils::truncate($data->root->name, 32)); ?>
-				</span>
-				<? endif; ?>
-				<span class="parent-task-name">
-					<?= PHtml::encode(StringUtils::truncate($data->parent->name, 32)); ?>
-				</span>
-			</span>
-			<? endif; ?>
+		<time>
+			<?= PHtml::encode(Yii::app()->format->formatTime($data->starts)); ?>
+		</time>
+		<h1>
 			<?= PHtml::link(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
+
+<!-- 		<span class="comment-count">
+			<?= PHtml::link(
+				PHtml::tag('span', array(), PHtml::encode($data->commentCount)) . " Comments",
+				array('/task/view', 'id'=>$data->id, '#' => 'comments')
+			); ?>
+		</span>
+		<span class="participant-count">
+			<?= PHtml::link(
+				PHtml::tag('span', array(), PHtml::encode($data->participantsCount)) . " Signed Up",
+				array('/task/view', 'id'=>$data->id, '#' => 'participating')
+			); ?>
+		</span>
+		<span class="participant-completed-count">
+			<?= PHtml::link(
+				PHtml::tag('span', array(), PHtml::encode($data->participantsCompletedCount)) . " Completed",
+				array('/task/view', 'id'=>$data->id, '#' => 'participating')
+			); ?>
+		</span>
+ -->
 		
-		<? $story->beginControls(); ?>
+<!-- 		<? $story->beginControls(); ?>
 			<? if($data->isParticipatable) {
 				// show complete/uncomplete buttons if user is participating
 				if($data->isUserParticipating) {
@@ -117,6 +128,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 					echo PHtml::closeTag('li');
 				}
 			} ?>
-		<? $story->endControls() ?>
+		<? $story->endControls() ?> -->
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>

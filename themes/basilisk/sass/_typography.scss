@@ -1,0 +1,82 @@
+
+/** Variables **/
+$base-font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// $base-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$base-font-size: 16px;
+
+html {
+  color: $mine-shaft;
+  font-family: $base-font-family;
+  font-size: 100%;
+}
+
+strong {
+  font-weight: bold;  
+}
+
+em {
+  font-style: italic;
+}
+
+/* Header stylings */
+h1, h2, h3, 
+h4, h5, h6 {
+  font-family: inherit;
+  line-height: 1;
+  color: inherit;
+  text-rendering: optimizelegibility;
+  word-wrap: break-word;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+  
+h2, section h1 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+h3, section h2, article h1 {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+h4, section h3, article h2 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+h5, section h4, article h3 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h6, section h5, article h6 {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+/** 
+ * Text styles
+ **/
+p {
+  max-width: 32em;
+  word-wrap: break-word;
+  margin-bottom: 1.5em;
+}
+
+/**
+ * Link styles
+ */
+a, a:active, a:visited {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: $cerulean;
+  text-decoration: underline;
+}

@@ -45,36 +45,34 @@ $this->pageTitle = 'Cart';
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-	<section class="cart">
-		<h1>Items to Buy</h1>
-		<? $this->widget('zii.widgets.CListView', array(
-		    'dataProvider'=>$cartItems,
-			'emptyText'=>"No orders?  Why not " . 
-				PHtml::link(
-					'build some sweaters', 
-					array('store/index'),
-					array(
-						'title'=>'Build Some Sweaters',
-					)
-				) . "?",
-		    'itemView'=>'_view',
-		)); ?>
-	</section>
-	<section class="cart">
-		<h1>In Progress Orders</h1>
-		<? $this->widget('zii.widgets.CListView', array(
-		    'dataProvider'=>$cartItemsInProcess,
-		    'emptyText'=>"You don't have any outstanding orders.  Once you place an order, you'll see it here.",
-		    'itemView'=>'_view',
-		)); ?>
-	</section>
-	<section class="cart">
-		<h1>Completed Orders</h1>
-		<? $this->widget('zii.widgets.CListView', array(
-		    'dataProvider'=>$cartItemsCompleted,
-			'emptyText'=>"You haven't bought anything in the past.  What's up with that?  We want your money.",
-		    'itemView'=>'_view',
-		)); ?>
-	</section>
-</div>
+<section class="cart">
+	<h1>Items to Buy</h1>
+	<? $this->widget('zii.widgets.CListView', array(
+	    'dataProvider'=>$cartItems,
+		'emptyText'=>"No orders?  Why not " . 
+			PHtml::link(
+				'build some sweaters', 
+				array('store/index'),
+				array(
+					'title'=>'Build Some Sweaters',
+				)
+			) . "?",
+	    'itemView'=>'_view',
+	)); ?>
+</section>
+<section class="cart">
+	<h1>In Progress Orders</h1>
+	<? $this->widget('zii.widgets.CListView', array(
+	    'dataProvider'=>$cartItemsInProcess,
+	    'emptyText'=>"You don't have any outstanding orders.  Once you place an order, you'll see it here.",
+	    'itemView'=>'_view',
+	)); ?>
+</section>
+<section class="cart">
+	<h1>Completed Orders</h1>
+	<? $this->widget('zii.widgets.CListView', array(
+	    'dataProvider'=>$cartItemsCompleted,
+		'emptyText'=>"You haven't bought anything in the past.  What's up with that?  We want your money.",
+	    'itemView'=>'_view',
+	)); ?>
+</section>

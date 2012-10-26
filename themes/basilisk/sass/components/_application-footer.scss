@@ -1,0 +1,6 @@
+.application-footer {
+	p {
+		@extend .content-block;
+		color: $silver;
+	}
+}

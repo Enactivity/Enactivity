@@ -29,49 +29,45 @@ $this->pageTitle = 'Build a Sweater';
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<div class="novel">
-	<section>
-	<? foreach($sweaters as $sweaterKey => $attributes): ?>
-		<h2><?= PHtml::encode($sweater->getAttributeLabel($sweaterKey)); ?></h3>
-		<? foreach($attributes as $attributeKey => $attributeValue): ?>
-		<? 
-			$story = $this->beginWidget('application.components.widgets.Story', array(
-				'htmlOptions'=>array(
-				'id'=>"sweater-" . PHtml::encode($data->id),
-				'class'=>PHtml::sweaterClass($data),
-			),
-		)); ?>
+<section>
+<? foreach($sweaters as $sweaterKey => $attributes): ?>
+	<h2><?= PHtml::encode($sweater->getAttributeLabel($sweaterKey)); ?></h3>
+	<? foreach($attributes as $attributeKey => $attributeValue): ?>
+	<? 
+		$story = $this->beginWidget('application.components.widgets.Story', array(
+			'htmlOptions'=>array(
+			'id'=>"sweater-" . PHtml::encode($data->id),
+			'class'=>PHtml::sweaterClass($data),
+		),
+	)); ?>
 
-			<? $story->beginStoryContent(); ?>
-				<h1 class="story-title">
-					<span>
-					<? 
-					echo PHtml::link(PHtml::encode($attributeKey), $attributeValue); 
-					?>
-					</span>
-				</h1>
-			<? $story->endStoryContent(); ?>
-		<? $this->endWidget(); ?>
-		<? endforeach;?>	
-	<? endforeach;?>
-	</section>
-</div>
-<div class="novel">
-	<section>
-		<h2>Current Selection</h2>
-		<? 
-		echo $this->renderPartial('_view', array(
-			'data'=>$sweater,
-		));
-		?>
+		<? $story->beginStoryContent(); ?>
+			<h1 class="story-title">
+				<span>
+				<? 
+				echo PHtml::link(PHtml::encode($attributeKey), $attributeValue); 
+				?>
+				</span>
+			</h1>
+		<? $story->endStoryContent(); ?>
+	<? $this->endWidget(); ?>
+	<? endforeach;?>	
+<? endforeach;?>
+</section>
+<section>
+	<h2>Current Selection</h2>
+	<? 
+	echo $this->renderPartial('_view', array(
+		'data'=>$sweater,
+	));
+	?>
 
-		<? if($sweater->id): ?>
-		<h2>Customize It</h2>
-		<? 
-		echo $this->renderPartial('/cartItem/_form', array(
-			'model'=>$cartItem,
-		));
-		?>
-		<? endif; ?>
-	</section>
-</div>
+	<? if($sweater->id): ?>
+	<h2>Customize It</h2>
+	<? 
+	echo $this->renderPartial('/cartItem/_form', array(
+		'model'=>$cartItem,
+	));
+	?>
+	<? endif; ?>
+</section>
