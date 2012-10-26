@@ -4,6 +4,8 @@ Yii::import("application.components.calendar.Month");
 
 class TaskCalendar extends CComponent {
 	
+	private $months = array();
+	private $weeks = array();
 	private $days = array();
 	private $someday = array();
 	
@@ -16,13 +18,13 @@ class TaskCalendar extends CComponent {
 	}
 
 	public static function loadCalendarNextTasks() {
-		$nextTasks = TaskService::nextTasksForUser(Yii::app()->user->model);
+		$nextTasks = Task::nextTasksForUser(Yii::app()->user->model);
 		return new TaskCalendar($nextTasks->data);
 	}
 
 	public static function loadCalendarByMonth($month) {
-		$datedTasks = TaskService::tasksForUserInMonth(Yii::app()->user->id, $month);
-		$datelessTasks = TaskService::tasksForUserWithNoStart(Yii::app()->user->id);
+		$datedTasks = Task::tasksForUserInMonth(Yii::app()->user->id, $month);
+		$datelessTasks = Task::tasksForUserWithNoStart(Yii::app()->user->id);
 		
 		return new TaskCalendar(array(
 			$datedTasks->data,
@@ -72,6 +74,7 @@ class TaskCalendar extends CComponent {
 	 * @return array of Tasks
 	 */
 	public function getTasksByDate($date) {
+		$date = date('m/d/Y', strtotime($date));
 		if(isset($this->days[$date])) {
 			return $this->days[$date];
 		}

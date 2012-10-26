@@ -31,37 +31,37 @@
 	))); ?>
 </div>
 
-<article class="story calendar">
-	<table>
-		<thead>
-			<tr>
-				<? foreach (array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat") as $weekdayname): ?>
-				<th>
-				<?= PHtml::encode($weekdayname); ?>
-				</th>
-				<? endforeach; ?>
-			</tr>
-		</thead>
+<article class="calendar">
+	<div class="month">
+		<? while($month->valid()) : ?>
+		<? // if it's the start of a week (Sunday), start a new row ?>
+		<? if($month->currentWDay == 0): ?>
+		<div class="week">
+		<? endif; ?>
 
-		<tbody>
-			<? while($month->valid()) : ?>
-			<? // if it's the start of a week (Sunday), start a new row ?>
-			<? if($month->currentWDay == 0): ?>
-			<tr>
-			<? endif; ?>
-
-				<?= PHtml::tag('td', array('class' => PHtml::calendarDayClass($month, $calendar))); ?>
-				<?= PHtml::calendarDayLink($month, $calendar); ?>
-				</td>
+			<article class="<?= PHtml::calendarDayClass($month, $calendar); ?>">
+				<header>
+					<?= PHtml::encode($month->currentMDay); ?>
+					<span class="weekday-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?><span>
+				</header>
+				<? foreach ($calendar->getTasksByDate($month->currentDate) as $times) {
+				foreach ($times as $task) {
+				
+				echo $this->renderPartial('_view', array(
+					'data'=>$task,
+				));
+				}
+				}
+				?>
+			</article>
 
 			<? // if it's the end of a week, end the row ?>
-			<? if($month->currentWDay == 6) : ?>
-			</tr>
-			<? endif; ?>
+		<? if($month->currentWDay == 6) : ?>
+		</div>
+		<? endif; ?>
 
-			<? // iterate ?>
-			<? $month->next(); ?>
-			<? endwhile; ?>
-		</tbody>
-	</table>
+		<? // iterate ?>
+		<? $month->next(); ?>
+		<? endwhile; ?>
+	</div>
 </article>

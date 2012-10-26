@@ -1,0 +1,25 @@
+
+#calendar-container {
+	max-width: 100%;
+}
+
+.calendar {
+
+	.week {
+		@include clearfix;
+		min-height: 4 * $base-padding;
+
+		.day {
+			@include respond-to('thin-tablet') {
+				@include float-left;
+				padding: $base-padding;
+				width: 1 / 7 * 100%;
+			}
+
+			header {
+				@extend h1;
+			}
+		}
+	}
+
+}

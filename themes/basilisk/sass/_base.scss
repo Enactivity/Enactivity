@@ -60,6 +60,7 @@ $tundora: 			#444444;
 @import "mixins/all";
 @import "functions/all";
 @import "components/all";
+@import "views/all";
 
 * {
 	@include box-sizing(border-box);

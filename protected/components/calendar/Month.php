@@ -4,7 +4,7 @@
  * key = index of dates, and value = date
  * @author ajsharma
  */
-class Month extends CComponent implements Iterator{
+class Month extends CComponent implements Iterator {
 	
 	/**
 	 * The integer value of the month
@@ -232,6 +232,10 @@ class Month extends CComponent implements Iterator{
     public function getCurrentWeekday() {
     	$current = $this->current();
     	return $current['weekday'];
+    }
+
+    public function getCurrentWeekdayShorthand() {
+    	return substr($this->currentWeekday, 0, 3);
     }
 
     public function getCurrentMonth() {

@@ -21,12 +21,3 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 	));
 	?>
 </section>
-
-<section id="agenda-container" class="agenda">
-	<?
-	// agenda
-	echo $this->renderPartial('_agenda', array(
-		'calendar'=>$calendar,
-		'showParent'=>'true',
-	));?>
-</section>

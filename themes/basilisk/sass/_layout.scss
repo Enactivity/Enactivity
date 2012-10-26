@@ -32,10 +32,7 @@ section {
 }
 
 article {
-	@extend .content-block;
 	background-color: $white;
-	margin: $base-margin 0;
-	padding: $base-padding;
 }
 
 .blurb {
