@@ -1,0 +1,4 @@
+.blurb {
+	color: $gray;
+	@include text-shadow(0px, 1px, 2px, false, white);
+}
