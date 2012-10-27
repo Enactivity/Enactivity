@@ -553,7 +553,7 @@ class User extends ActiveRecord
 	}
 
 	public function getPictureURL() {
-		return Yii::app()->FB->currentUserPictureURL;
+		return Yii::app()->FB->getUserPictureURL($this->facebookId);
 	}
 
 	public function getGroupsCount() {

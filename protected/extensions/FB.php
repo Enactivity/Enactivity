@@ -216,6 +216,10 @@ class FB extends CApplicationComponent {
 		return "https://graph.facebook.com/{$id}/picture";
 	}
 
+	public function getUserPictureURL($facebookId) {
+		return "https://graph.facebook.com/{$facebookId}/picture";
+	}
+
 	/**
 	 * Maps to facebook/<groupId>/picture
 	 * @return string absolute url of image file
