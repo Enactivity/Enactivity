@@ -37,6 +37,11 @@
 				h1 {
 					@extend h3;
 				}
+
+				time {
+					font-size: .75em;
+					white-space: nowrap;
+				}
 			}
 		}
 	}
