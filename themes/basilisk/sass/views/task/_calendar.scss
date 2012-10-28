@@ -10,9 +10,10 @@
 		@include clearfix;
 
 		.day {
+			padding: $base-padding;
+			
 			@include respond-to('thin-tablet') {
 				@include float-left;
-				padding: $base-padding;
 				min-height: 6 * $base-padding;
 				width: 1 / 7 * 100%;
 			}
