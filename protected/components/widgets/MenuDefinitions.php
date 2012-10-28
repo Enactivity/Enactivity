@@ -34,17 +34,17 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
-				'label'=>'New',
-				'url'=>array('/task/create'), 
-				'visible'=>!Yii::app()->user->isGuest,
-			),
-			array(
 				'label'=>'Groups', 
 				'linkOptions'=>array(
 					'class'=>'groups',
 				),
 				'url'=>array('/membership/index'), 
 				'visible'=>!Yii::app()->user->isGuest
+			),
+			array(
+				'label'=>'New',
+				'url'=>array('/task/create'), 
+				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array('label'=>'Admin',
 				'url'=>array('site/admin'),
