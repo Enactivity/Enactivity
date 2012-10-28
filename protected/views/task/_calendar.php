@@ -52,7 +52,7 @@
 					</time>
 					<h1>
 						<?= PHtml::link(
-							PHtml::encode($task->name), 
+							PHtml::encode($task->shortName), 
 							array('/task/view', 'id'=>$task->id)
 						); ?>
 					</h1>

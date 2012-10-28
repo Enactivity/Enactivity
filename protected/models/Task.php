@@ -347,6 +347,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		}
 		return true;
 	}
+
+	/** 
+	 * Get a truncated version of the name
+	 * @return string
+	 **/
+	public function getShortName() {
+		return StringUtils::truncate($this->name, 30);
+	}
 	
 	public function getStartDate() {
 		if(empty($this->starts)) return null;

@@ -10,9 +10,10 @@
 		@include clearfix;
 
 		.day {
+			padding: $base-padding;
+			
 			@include respond-to('thin-tablet') {
 				@include float-left;
-				padding: $base-padding;
 				min-height: 6 * $base-padding;
 				width: 1 / 7 * 100%;
 			}
@@ -20,6 +21,15 @@
 			header {
 				@extend h2;
 				@include ellipsis;
+
+				border-bottom: 1px solid $alto;
+				border-top: 4px solid $alto;
+				word-spacing: -.1em;
+
+				.weekday-name {
+					font-size: .5em;
+					text-transform: uppercase;
+				}
 			}
 
 			.task {
