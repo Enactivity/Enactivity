@@ -1,10 +1,13 @@
 @import "compass/utilities/general/clearfix";
 
+
 #calendar-container {
 	max-width: 100%;
 }
 
 .calendar {
+	background: $white;
+
 	.week {
 		@include clearfix;
 
