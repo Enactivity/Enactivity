@@ -1,7 +1,12 @@
 .application-header {
+	background-color: $black;
 	padding: $base-padding;
+	position: fixed;
+	top: 0;
+	width: 100%;
 
 	a {
+		@include link-colors($white, $white, $white, $white, $white);
 		@include unstyled-link;
 	}
 }

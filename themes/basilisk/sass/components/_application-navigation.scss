@@ -9,9 +9,14 @@ $nav-bar-color: $white;
 	width: 100%;
 
 	@include respond-to(thin-phone) {
+		bottom: 0;
 		height: $top-of-page-nav-bar-height;
 		position: fixed;
-		top: 0;
+	}
+
+	@include respond-to(thin-tablet) {
+		bottom: auto;
+		top: $top-of-page-nav-bar-height;
 	}
 
 	> ul {
@@ -32,6 +37,10 @@ $nav-bar-color: $white;
 		li {
 			float: none;
 		}
+	}
+
+	a {
+		@include link-colors($white, $white, $white, $white, $white);
 	}
 
 	a, a:visited,
