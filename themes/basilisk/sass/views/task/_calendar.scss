@@ -20,6 +20,15 @@
 			header {
 				@extend h2;
 				@include ellipsis;
+
+				border-bottom: 1px solid $alto;
+				border-top: 4px solid $mine-shaft;
+				word-spacing: -.1em;
+
+				.weekday-name {
+					font-size: .5em;
+					text-transform: uppercase;
+				}
 			}
 
 			.task {
