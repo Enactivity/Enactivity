@@ -51,11 +51,6 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
-				'label'=>'Logout', 
-				'url'=>array('/site/logout'), 
-				'visible'=>!Yii::app()->user->isGuest
-			),
-			array(
 				'label'=>'Login with Facebook',
 				'itemOptions'=>array(
 					'class'=>'secondary',

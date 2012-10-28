@@ -70,6 +70,11 @@
 				<?= PHtml::link("Ajay Sharma", "http://twitter.com/#!/ajsharma"); ?>.
 				<!-- Also, chicken wings and beer, lots of beer. --> 
 			</p>
+
+			<? if(Yii::app()->user->isAuthenticated): ?>
+			<p class="logout">
+				<?= PHtml::link("Logout", '/site/logout'); ?>
+			<? endif; ?>
 		</footer>
 	</body>
 </html>
