@@ -32,9 +32,9 @@ return array(
 
         'FB'=>array(
         	'class'=>'ext.FB',
-			'appID' => '292638224164928',
-			'appSecret' => '0bd60d2a765da09c12bc2d1b37aa20c5',
-			'appNamespace' => 'ponclainc',
+			'appID' => '284699434983364',
+			'appSecret' => '53924a0540f0e41b7ea4befcfc09a1b9',
+			'appNamespace' => 'enactivity',
 			'isFileUploadEnabled' => false,
 			'scope' => array(
 				'email',
