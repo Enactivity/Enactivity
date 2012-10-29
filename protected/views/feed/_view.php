@@ -30,10 +30,16 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			echo StringUtils::truncate(PHtml::encode($data->focalModelName), 80);
 			endif;
 			?>
+			<span class="created">@
+			<?= PHtml::link(
+				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
+				array('feed/view', 'id'=>$data->id)
+			); ?>
+			</span>
 		</p>
 			
 		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
-		<p>Changed
+		<p class="feed-change">Changed
 		<? // if the referred to model was actually deleted then avoid the null pointer exception
 		if(isset($data->modelObject)) {
 			echo PHtml::openTag('span', array(
@@ -72,12 +78,5 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		echo PHtml::closeTag('p');
 		endif; 
 		?>
-
-		<span class="created">
-			<?= PHtml::link(
-				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
-				array('feed/view', 'id'=>$data->id)
-			); ?>
-		</span>
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
