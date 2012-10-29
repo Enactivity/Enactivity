@@ -10,9 +10,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		'class'=>PHtml::userClass($data),
 	),
 )); ?>
-	<? $story->beginStoryContent(); ?>
+	<h1>
 		<? $this->widget('application.components.widgets.UserLink', array(
 					'userModel' => $data,
 		)); ?>
-	<? $story->endStoryContent(); ?>
+	<h1>
 <? $this->endWidget(); ?>

@@ -1,0 +1,7 @@
+#task-index {
+	
+	.task {
+		@extend .content-block;
+		background: $white;
+	}
+}

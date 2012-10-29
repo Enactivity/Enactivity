@@ -59,7 +59,7 @@ class Story extends CWidget
 	 */
 	public function beginAvatar() {
 		echo PHtml::openTag('div', array(
-			'class'=>'story-avatar',
+			'class'=>'story-avatar avatar',
 		));
 	}
 
@@ -75,16 +75,16 @@ class Story extends CWidget
 	 * This renders the div start tag
 	 */
 	public function beginStoryContent() {
-		echo PHtml::openTag('div', array(
-			'class'=>'story-content',
-		));
+		// echo PHtml::openTag('div', array(
+		// 	'class'=>'story-content',
+		// ));
 	}
 
 	/**
 	 * End the story's content section
 	 */
 	public function endStoryContent() {
-		echo PHtml::closeTag('div');
+		// echo PHtml::closeTag('div');
 	}
 
 	/**

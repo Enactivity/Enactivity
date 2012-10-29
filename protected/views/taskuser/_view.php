@@ -9,9 +9,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		'class'=>PHtml::taskUserClass($data),
 	),
 )); ?>
-	<? $story->beginStoryContent(); ?>
+	<? $story->beginAvatar(); ?>
+		<?= PHtml::image($data->user->pictureUrl); ?>
+	<? $story->endAvatar(); ?>
+	<h1>
 		<? $this->widget('application.components.widgets.UserLink', array(
-			'userModel' => $data->user,
-		)); ?>
-	<? $story->endStoryContent(); ?>
+		'userModel' => $data->user,
+	)); ?>
+	</h1>
 <? $this->endWidget(); ?>

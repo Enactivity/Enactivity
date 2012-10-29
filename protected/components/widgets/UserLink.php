@@ -30,7 +30,6 @@ class UserLink extends CWidget {
 	
 	protected function renderLink() {
 		if(isset($this->userModel)) {
-			echo PHtml::image($this->userModel->pictureUrl);
 			echo PHtml::encode($this->userModel->nickname);
 		}
 		else {
