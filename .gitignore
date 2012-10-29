@@ -1,13 +1,11 @@
 # Yii files
-assets/*
+www/assets/*
 protected/runtime/*
 protected/tests/report/*
 
 # Local config files
-protected/config/console.local.php
-protected/config/web.local.php
+protected/config/*.local.php
 
 # SASS
 .sass-cache
-themes/gecko5/css/*.css
-themes/basilisk/stylesheets/*
+www/stylesheets/*

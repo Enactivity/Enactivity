@@ -210,9 +210,7 @@ return CMap::mergeArray(
 			'adminEmail'=>'ajsharma@poncla.com',
 			'googleAnalyticsOn'=>false,
 		),
-		
-		'theme'=>'basilisk',
-		
+
 		// uncomment to set the default controller
 		//'defaultController' => 'login',
 	)
