@@ -1,6 +1,7 @@
 .comment {
 	@extend .content-block;
 	background: $white;
+	margin-bottom: 1px;
 
 	p {
 		margin-top: 1.5em;
