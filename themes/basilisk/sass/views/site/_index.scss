@@ -1,0 +1,5 @@
+#site-index {
+	.greetings {
+		@extend .content-block;
+	}
+}
