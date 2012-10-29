@@ -15,10 +15,9 @@
 				'userModel' => $data->creator,
 			));  ?>
 		</h1>
-		@
-		<? if(isset($model)) : ?>
-		<span class="created">
-			<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?></span>
+		<span class="created">@
+			<? if(isset($model)) : ?>
+			<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?>
 			<? else: ?>
 			<?= PHtml::link(
 				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
@@ -26,8 +25,8 @@
 					'#' => 'comment-' . $data->id,
 				)
 			); ?>
-		</span>
 		<? endif; ?>
+		</span>
 	</header>
 
 	<?= Yii::app()->format->formatStyledText($data->content); ?>

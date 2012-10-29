@@ -1,8 +1,7 @@
 .feed {
 
 	.created {
-		color: $gray;
-		font-size: .75em;
+		@extend .metadata;
 	}
 
 	.feed-change {

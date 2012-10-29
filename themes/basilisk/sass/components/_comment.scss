@@ -3,6 +3,10 @@
 	background: $white;
 	margin-bottom: 1px;
 
+	.created {
+		@extend .metadata;
+	}
+
 	p {
 		margin-top: 1.5em;
 	}
