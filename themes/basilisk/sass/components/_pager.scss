@@ -1,12 +1,5 @@
 .pager {
+	@extend .menu;
 
-	li {
-		text-align: left;
-	}
-	
-	a {
-		display: block; /* So it fills area and icon is clickable */
-		padding: $base-padding; /* override nav padding for nav menus */
-		text-align: left;
-	}
+
 }
