@@ -29,7 +29,7 @@ $this->pageTitle = 'Next';
 	</div>
 <?= PHtml::endContentHeader(); ?>
 
-<section class="tasks">
+<section class="tasks agenda">
 	<?
 	if($calendar->itemCount > 0) {
 		echo $this->renderPartial('_agenda', array(

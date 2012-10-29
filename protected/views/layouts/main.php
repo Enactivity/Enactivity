@@ -27,7 +27,7 @@
 	?>
 			
 	</head>
-	<body class="<?= $this->id . '-' . $this->action->id; ?>">
+	<body id="<?= $this->id . '-' . $this->action->id; ?>">
 
 		<header class="application-header" id="application-header">
 			<a href="/" >Enactivity</a>

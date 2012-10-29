@@ -1,0 +1,7 @@
+#task-view {
+	
+	.participant {
+		@extend .content-block;
+		background: $white;
+	}
+}

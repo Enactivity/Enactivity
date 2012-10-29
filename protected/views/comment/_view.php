@@ -3,20 +3,18 @@
  * View for individual comments
  * @uses $data Comment model
  */
-
-$story = $this->beginWidget('application.components.widgets.Story', array(
-	'htmlOptions'=>array(
-		'id'=>"comment-" . PHtml::encode($data->id),
-		'class'=>PHtml::commentClass($data),
-),
-));?>
-	<? $story->beginAvatar(); ?>
-		<span class="creator">
+?>
+<article id="comment-<?= PHtml::encode($data->id); ?>" class="<?= PHtml::commentClass($data); ?>">
+	<div class="avatar">
+		<?= PHtml::image($data->creator->pictureUrl); ?>
+	</div>
+	<header>
+		<h1 class="creator">
 			<? //author 
 				$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->creator,
 			));  ?>
-		</span>
+		</h1>
 		@
 		<? if(isset($model)) : ?>
 		<span class="created">
@@ -30,12 +28,8 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			); ?>
 		</span>
 		<? endif; ?>
-	<? $story->endAvatar(); ?>
-	<? $story->beginStoryContent(); ?>
+	</header>
 
-		<div class="story-details">
-			<?= Yii::app()->format->formatStyledText($data->content); ?>
-		</div>
+	<?= Yii::app()->format->formatStyledText($data->content); ?>
 	
-	<? $story->endStoryContent(); ?>
-<? $this->endWidget(); ?>
+</article>
