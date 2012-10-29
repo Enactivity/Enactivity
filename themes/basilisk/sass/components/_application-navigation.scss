@@ -55,6 +55,10 @@ $nav-bar-color: $white;
 		text-transform: lowercase;
 	}
 
+	.active > a {
+		background-color: $emperor;
+	}
+
 	.secondary {
 		@include respond-to(thin-phone) {
 			float: right;
