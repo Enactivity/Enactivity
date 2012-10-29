@@ -1,0 +1,6 @@
+#group-view {
+	.user {
+		@extend .content-block;
+		background-color: $white;
+	}
+}
