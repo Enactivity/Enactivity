@@ -1,5 +1,9 @@
 #task-index {
 	
+	.day {
+		margin-bottom: $base-margin;
+	}
+
 	.task {
 		@extend .content-block;
 		background: $white;
