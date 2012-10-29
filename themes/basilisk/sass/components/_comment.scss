@@ -1,0 +1,8 @@
+.comment {
+	@extend .content-block;
+	background: $white;
+
+	p {
+		margin-top: 1.5em;
+	}
+}
