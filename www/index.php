@@ -1,6 +1,6 @@
 <?php
 
-$path = dirname(__FILE__) . '/../../yii_framework/yii.php';
+$path = dirname(__FILE__) . '/../yii_framework/yii.php';
 require_once($path);
 
 #must be included before Yii to define YII_DEBUG, YII_TRACE_LEVEL
