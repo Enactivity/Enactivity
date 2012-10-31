@@ -10,9 +10,7 @@ html, body {
 }
 
 body {
-	@include respond-to('thin-phone') {
-		padding-top: $top-of-page-nav-bar-height;
-	}
+	padding-top: $top-of-page-nav-bar-height;
 
 	@include respond-to('thin-tablet') {
 		padding-top: 2 * $top-of-page-nav-bar-height;
