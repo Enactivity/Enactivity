@@ -5,6 +5,6 @@
 .content-block {
 	@include clearfix;
 	margin: auto;
-	max-width: $base-max-readability-width;
+	// max-width: $base-max-readability-width;
 	padding: $base-padding;
 }

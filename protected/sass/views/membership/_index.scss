@@ -1,6 +1,7 @@
 #membership-index {
 	.group {
 		@extend .content-block;
-		background-color: $white;	
+		background-color: $white;
+		margin-bottom: 1px;
 	}
 }
