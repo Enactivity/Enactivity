@@ -234,6 +234,11 @@ class Month extends CComponent implements Iterator {
     	return $current['weekday'];
     }
 
+    /** 
+     * Get the shorthand (three letter) version of the current weekday
+     * (e.g. 'Sun', 'Mon')
+     * @return string
+     **/
     public function getCurrentWeekdayShorthand() {
     	return substr($this->currentWeekday, 0, 3);
     }
@@ -243,6 +248,22 @@ class Month extends CComponent implements Iterator {
     	return $current['month'];
     }
 
+	/** 
+     * Get the shorthand (three or four letter) version of the current month
+     * (e.g. 'Jan', 'June')
+     * @return string
+     **/
+    public function getCurrentMonthShorthand() {
+    	$currentMonth = $this->currentMonth;
+    	
+    	// Handle four letter months (June, July)
+    	if(strlen($currentMonth) <= 4) {
+    		return $currentMonth;
+    	}
+
+    	return substr($this->currentMonth, 0, 3);
+    }
+
     public function getCurrentTimestamp() {
     	$current = $this->current();
     	return $current['0'];
@@ -250,6 +271,15 @@ class Month extends CComponent implements Iterator {
 
     public function getCurrentDate() {
     	return $this->currentYear . '-' . $this->currentMon . '-' . $this->currentMDay;
+    }
+
+    public function getIsCurrentlyFirstOfTheMonth() {
+    	$current = $this->current();
+    	$number = $current['mday'];
+    	if(intval($number) == 1) {
+    		return true;
+    	}
+    	return false;
     }
 
     /**

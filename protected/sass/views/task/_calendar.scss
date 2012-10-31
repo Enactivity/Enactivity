@@ -27,7 +27,8 @@
 				border-top: 4px solid $alto;
 				word-spacing: -.1em;
 
-				.weekday-name {
+				.month-shorthand-name,
+				.weekday-shorthand-name {
 					font-size: .5em;
 					text-transform: uppercase;
 				}
