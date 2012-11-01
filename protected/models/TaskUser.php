@@ -11,7 +11,8 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property integer $id
  * @property integer $userId
  * @property integer $taskId
- * @property string $status
+ * @property integer $isCompleted
+ * @property integer $isTrash is TaskUser link still active
  * @property string $created
  * @property string $modified
  *
@@ -120,9 +121,9 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 	public function scenarioLabels() {
 		return array(
-		self::SCENARIO_COMPLETE => 'finished doing',
+		self::SCENARIO_COMPLETE => 'finished working on',
 		self::SCENARIO_DELETE => 'delete',
-		self::SCENARIO_INSERT => 'signed up to do', // default set by Yii
+		self::SCENARIO_INSERT => 'signed up for', // default set by Yii
 		self::SCENARIO_TRASH => 'quit',
 		self::SCENARIO_UNCOMPLETE => 'is once again working on',
 		self::SCENARIO_UNTRASH => 'signed back up for',
