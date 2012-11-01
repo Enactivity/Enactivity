@@ -270,14 +270,22 @@ class Month extends CComponent implements Iterator {
      * @return string
      **/
     public function getCurrentMonthShorthand() {
-    	$currentMonth = $this->currentMonth;
-    	
-    	// Handle four letter months (June, July)
-    	if(strlen($currentMonth) <= 4) {
-    		return $currentMonth;
-    	}
+    	$monthShorthandMap = array(
+    		"January" => "Jan",
+    		"February" => "Feb",
+    		"March" => "Mar",
+    		"April" => "Apr",
+    		"May" => "May",
+    		"June" => "June",
+    		"July" => "July",
+    		"August" => "Aug",
+    		"September" => "Sept",
+    		"October" => "Oct",
+    		"November" => "Nov",
+    		"December" => "Dec",
+    	);
 
-    	return substr($this->currentMonth, 0, 3);
+    	return $monthShorthandMap[$this->currentMonth];
     }
 
     public function getCurrentTimestamp() {
@@ -303,6 +311,11 @@ class Month extends CComponent implements Iterator {
     		if($previous['mon'] < $this->current['mon']) {
     			return true;
     		}
+    		// handle december
+    		if($previous['mon'] == 12 && $this->current['mon'] == 1) {
+    			return true;
+    		}
+    		
     		return false;
     	}
     	return true;

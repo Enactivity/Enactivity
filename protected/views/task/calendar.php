@@ -50,9 +50,6 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 				<article class="<?= PHtml::calendarDayClass($month, $calendar); ?>">
 					<header>
 						<span class="day-of-month"><?= PHtml::encode($month->currentMDay); ?></span>
-						<? if($month->isCurrentlyFirstOfTheMonth): ?>
-						<span class="month-shorthand-name"><?= PHtml::encode($month->currentMonthShorthand); ?></span>
-						<? endif; ?>
 						<span class="weekday-shorthand-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?></span>
 					</header>
 					<? foreach ($calendar->getTasksByDate($month->currentDate) as $times): ?>
