@@ -169,6 +169,10 @@ class Month extends CComponent implements Iterator {
         return $this->dates[$this->iteratorPosition];
     }
 
+    public function getCurrent() {
+    	return $this->current();
+    }
+
     public function key() {
         return $this->iteratorPosition;
     }
@@ -179,6 +183,18 @@ class Month extends CComponent implements Iterator {
 
     public function valid() {
         return isset($this->dates[$this->iteratorPosition]);
+    }
+
+    /** 
+     * Get the previous date's date array
+     * @return array|null
+     **/
+    public function getPrevious() {
+		$previousIteratorPosition = $this->iteratorPosition - 1;
+		if($previousIteratorPosition >= 0) {
+			return $this->dates[$previousIteratorPosition];
+		}
+		return null;
     }
 
     public function getCurrentSeconds() {
@@ -280,6 +296,16 @@ class Month extends CComponent implements Iterator {
     		return true;
     	}
     	return false;
+    }
+
+    public function getIsFirstAppearanceOfMonth() {
+    	if($previous = $this->previous) {
+    		if($previous['mon'] < $this->current['mon']) {
+    			return true;
+    		}
+    		return false;
+    	}
+    	return true;
     }
 
     /**
