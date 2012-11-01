@@ -53,81 +53,68 @@ if($model->isParticipatable):
 <section id="participating">
 	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<div class="menu controls">
-	<ul>
-	<?
-	if($model->isParticipatable) {
-		// show complete/uncomplete buttons if user is participating
-		if($model->isUserParticipating) {
-			?>
-				<li>
-				<?
-					if($model->isUserComplete) {
-						echo PHtml::button(
-							PHtml::encode('Resume'),
-							array( //html
-								'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
-								'csrf'=>true,
-								'id'=>'task-useruncomplete-menu-item-' . $model->id,
-								'class'=>'neutral task-useruncomplete-menu-item',
-								'title'=>'Resume work on this task',
-							)
-						);
-					}
-					else {
-						echo PHtml::button(
-							PHtml::encode('Complete'),
-							array( //html
-								'submit'=>array('/task/usercomplete', 'id'=>$model->id),
-								'csrf'=>true,
-								'id'=>'task-usercomplete-menu-item-' . $model->id,
-								'class'=>'positive task-usercomplete-menu-item',
-								'title'=>'Finish working on this task',
-							)
-						);
-					}
-					?>
-					</li>
-					
-					<?
-					// 'participate' button
-					echo PHtml::openTag('li');
-					echo PHtml::button(
-						PHtml::encode('Quit'), 
-						array( //html
-							'submit' => array('task/unparticipate', 'id'=>$model->id),
-							'csrf' => true,
-							'id'=>'task-unparticipate-menu-item-' . $model->id,
-							'class'=>'neutral task-unparticipate-menu-item',
-							'title'=>'Quit this task',
-						)
-					);
-					echo PHtml::closeTag('li');
-				}
-				else {
-					echo PHtml::openTag('li');
-					echo PHtml::button(
-						PHtml::encode('Sign up'), 
-						array( //html
-							'submit'=>array('task/participate', 'id'=>$model->id),
-							'csrf'=>true,
-							'id'=>'task-participate-menu-item-' . $model->id,
-							'class'=>'positive task-participate-menu-item',
-							'title'=>'Sign up for task',
-						)
-					);
-					echo PHtml::closeTag('li');
-				}
-			}
-			?>
-			</ul>
-		</div>
-	<? 
-	foreach($model->participatingTaskUsers as $usertask) {
+		<ul>
+			<? if($model->isParticipatable): ?>
+			<? if($model->isUserParticipating): ?>
+			<li>
+				<? if($model->isUserComplete): ?>
+				<?= PHtml::button(
+					"I've got more to do",
+					array( //html
+						'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-useruncomplete-menu-item-' . $model->id,
+						'class'=>'neutral task-useruncomplete-menu-item',
+						'title'=>'Resume work on this task',
+					)
+				); ?>
+				<? else: ?>
+				<?= PHtml::button(
+					"I've done this",
+					array( //html
+						'submit'=>array('/task/usercomplete', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-usercomplete-menu-item-' . $model->id,
+						'class'=>'positive task-usercomplete-menu-item',
+						'title'=>'Finish working on this task',
+					)
+				); ?>
+				<? endif; ?>
+			</li>
+			<li>
+				<?= PHtml::button(
+					"Quit", 
+					array( //html
+						'submit' => array('task/unparticipate', 'id'=>$model->id),
+						'csrf' => true,
+						'id'=>'task-unparticipate-menu-item-' . $model->id,
+						'class'=>'neutral task-unparticipate-menu-item',
+						'title'=>'Quit this task',
+					)
+				); ?>
+			</li>
+			<? else: ?>
+			<li>
+				<?= PHtml::button(
+					"I'll do this", 
+					array( //html
+						'submit'=>array('task/participate', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-participate-menu-item-' . $model->id,
+						'class'=>'positive task-participate-menu-item',
+						'title'=>'Sign up for task',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+			<? endif; ?>
+		</ul>
+	</div>
+	<? foreach($model->participatingTaskUsers as $usertask) {
 		echo $this->renderPartial('/taskuser/_view', array(
 			'data'=>$usertask,
 		));
-	}
-	?>
+	} ?>
 </section>
 <? endif; ?>
 
