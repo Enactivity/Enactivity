@@ -53,28 +53,17 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadTaskModel($id);
-		$subtasks = $model->children()->findAll();
-		$ancestors = $model->ancestors()->findAll();
+		$taskUser = TaskUser::loadTaskUser($model->id, Yii::app()->user->id);
 		
-		$calendar = new TaskCalendar();
-		$calendar->addTasks($subtasks);
-
-		// handle new task
-		$newTask = $this->handleNewTaskForm($id);
-
 		// Comments
 		$comment = $this->handleNewTaskComment($model);
-		
 		$commentsDataProvider = new CArrayDataProvider($model->comments);
 		
 		$this->render(
-			'view', 
+			'view',
 			array(
 				'model' => $model,
-				'subtasks' => $subtasks,
-				'ancestors' => $ancestors,
-				'calendar' => $calendar,
-				'newTask' => $newTask,
+				'taskUser' => $taskUser,
 				'comment' => $comment,
 				'commentsDataProvider' => $commentsDataProvider,
 			)
@@ -201,7 +190,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionParticipate($id, $showParent = true)
+	public function actionSignUp($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -225,7 +214,7 @@ class TaskController extends Controller
 	 * If remove is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUnparticipate($id, $showParent = true)
+	public function actionQuit($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -249,7 +238,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUserComplete($id, $showParent = true)
+	public function actionComplete($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -269,11 +258,11 @@ class TaskController extends Controller
 	}
 
 	/**
-	 * Marks the user as having completed the task
+	 * Marks the user as having uncompleted the task
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUserUncomplete($id, $showParent = true)
+	public function actionResume($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{

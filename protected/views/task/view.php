@@ -54,59 +54,75 @@ if($model->isParticipatable):
 	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<div class="menu controls">
 		<ul>
-			<? if($model->isParticipatable): ?>
-			<? if($model->isUserParticipating): ?>
-			<li>
-				<? if($model->isUserComplete): ?>
-				<?= PHtml::button(
-					"I've got more to do",
-					array( //html
-						'submit'=>array('/task/useruncomplete', 'id'=>$model->id),
-						'csrf'=>true,
-						'id'=>'task-useruncomplete-menu-item-' . $model->id,
-						'class'=>'neutral task-useruncomplete-menu-item',
-						'title'=>'Resume work on this task',
-					)
-				); ?>
-				<? else: ?>
-				<?= PHtml::button(
-					"I've done this",
-					array( //html
-						'submit'=>array('/task/usercomplete', 'id'=>$model->id),
-						'csrf'=>true,
-						'id'=>'task-usercomplete-menu-item-' . $model->id,
-						'class'=>'positive task-usercomplete-menu-item',
-						'title'=>'Finish working on this task',
-					)
-				); ?>
-				<? endif; ?>
-			</li>
-			<li>
-				<?= PHtml::button(
-					"Quit", 
-					array( //html
-						'submit' => array('task/unparticipate', 'id'=>$model->id),
-						'csrf' => true,
-						'id'=>'task-unparticipate-menu-item-' . $model->id,
-						'class'=>'neutral task-unparticipate-menu-item',
-						'title'=>'Quit this task',
-					)
-				); ?>
-			</li>
-			<? else: ?>
+			<? if($taskUser->canSignUp): ?>
 			<li>
 				<?= PHtml::button(
 					"I'll do this", 
 					array( //html
-						'submit'=>array('task/participate', 'id'=>$model->id),
+						'submit'=>array('task/signup', 'id'=>$model->id),
 						'csrf'=>true,
-						'id'=>'task-participate-menu-item-' . $model->id,
-						'class'=>'positive task-participate-menu-item',
+						'id'=>'task-sign-up-menu-item-' . $model->id,
+						'class'=>'positive task-sign-up-menu-item',
 						'title'=>'Sign up for task',
 					)
 				); ?>
 			</li>
 			<? endif; ?>
+			<? if($taskUser->canComplete): ?>
+			<li>
+				<?= PHtml::button(
+					"I've done this",
+					array( //html
+						'submit'=>array('/task/complete', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-complete-menu-item-' . $model->id,
+						'class'=>'positive task-complete-menu-item',
+						'title'=>'Finish working on this task',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+			<? if($taskUser->canResume): ?>
+			<li>
+				<?= PHtml::button(
+					"I've got more to do",
+					array( //html
+						'submit'=>array('/task/resume', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-resume-menu-item-' . $model->id,
+						'class'=>'neutral task-resume-menu-item',
+						'title'=>'Resume work on this task',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+			<? if($taskUser->canQuit): ?>
+			<li>
+				<?= PHtml::button(
+					"Quit", 
+					array( //html
+						'submit' => array('task/quit', 'id'=>$model->id),
+						'csrf' => true,
+						'id'=>'task-quit-menu-item-' . $model->id,
+						'class'=>'neutral task-quit-menu-item',
+						'title'=>'Quit this task',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+			<? if($taskUser->canIgnore): ?>
+			<li>
+				<?= PHtml::button(
+					"Ignore", 
+					array( //html
+						'submit'=>array('task/ignore', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-ignore-menu-item-' . $model->id,
+						'class'=>'neutral task-ignore-menu-item',
+						'title'=>'Ignore this task',
+					)
+				); ?>
+			</li>
 			<? endif; ?>
 		</ul>
 	</div>

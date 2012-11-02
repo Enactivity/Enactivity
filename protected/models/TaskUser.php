@@ -11,8 +11,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property integer $id
  * @property integer $userId
  * @property integer $taskId
- * @property integer $isCompleted
- * @property integer $isTrash is TaskUser link still active
+ * @property string $status
  * @property string $created
  * @property string $modified
  *
@@ -20,21 +19,25 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property Task $task
  * @property User $user
  */
+// TODO: rename to ActivityResponse or TaskResponse
 class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 
-	const SCENARIO_COMPLETE = 'complete';
-	const SCENARIO_DELETE = 'delete';
-	const SCENARIO_INSERT = 'insert'; // default set by Yii
-	const SCENARIO_TRASH = 'trash';
-	const SCENARIO_UNCOMPLETE = 'uncomplete';
-	const SCENARIO_UNTRASH = 'untrash';
-	const SCENARIO_UPDATE = 'update';
-
-	const STATUS_PENDING = 'Pending';
+	const STATUS_PENDING = 'Pending'; // user has yet to respond
+	const STATUS_SIGNED_UP = 'Signed Up';
+	const STATUS_STARTED = 'Started';
+	const STATUS_COMPLETED = 'Completed';
 	const STATUS_IGNORED = 'Ignored';
-	const STATUS_COMPLETED = 'Completed';	
-	const STATUS_PARTICIPATING = 'Inactive';
+
+	const SCENARIO_INSERT = 'insert'; 			// default set by Yii
+	const SCENARIO_SIGN_UP = 'sign up';			// pending 		-> signed up
+												// ignored 		-> signed up
+	const SCENARIO_IGNORE = 'ignore'; 			// pending 		-> ignored
+	const SCENARIO_START = 'start';				// signed up 	-> started
+	const SCENARIO_QUIT = 'quit'; 				// signed up 	-> pending
+	const SCENARIO_STOP ='stop';				// participating -> pending
+	const SCENARIO_COMPLETE = 'complete'; 		// participating -> completed
+	const SCENARIO_RESUME = 'resume'; 			// completed 	-> started
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -76,7 +79,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 				'ignoreAttributes' => array('modified'),
-		),
+			),
 		);
 	}
 
@@ -112,8 +115,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			'id' => 'Id',
 			'userId' => 'User',
 			'taskId' => 'Task',
-			'isCompleted' => 'Is Completed',
-			'isTrash' => 'Is Trash',
+			'status' => 'Status',
 			'created' => 'Created',
 			'modified' => 'Modified',
 		);
@@ -121,13 +123,11 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 	public function scenarioLabels() {
 		return array(
-		self::SCENARIO_COMPLETE => 'finished working on',
-		self::SCENARIO_DELETE => 'delete',
-		self::SCENARIO_INSERT => 'signed up for', // default set by Yii
-		self::SCENARIO_TRASH => 'quit',
-		self::SCENARIO_UNCOMPLETE => 'is once again working on',
-		self::SCENARIO_UNTRASH => 'signed back up for',
-		self::SCENARIO_UPDATE => 'updated',
+			self::SCENARIO_SIGN_UP => 'signed up for',
+			self::SCENARIO_START => 'started work on',
+			self::SCENARIO_QUIT => 'quit',
+			self::SCENARIO_COMPLETE => 'finished working on',
+			self::SCENARIO_RESUME => 'is once again working on'
 		);
 	}
 
@@ -145,8 +145,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('userId',$this->userId);
 		$criteria->compare('taskId',$this->taskId);
-		$criteria->compare('isCompleted',$this->isCompleted);
-		$criteria->compare('isTrash',$this->isTrash);
+		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 
@@ -164,6 +163,90 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			$this->task = Task::model()->findByPk($this->taskId);
 		}
 		return $this->task->groupId;
+	}
+
+	public function getIsPending() {
+		return strcasecmp($this->status, self::STATUS_PENDING) == 0;
+	}
+
+	public function getIsSignedUp() {
+		return strcasecmp($this->status, self::STATUS_SIGNED_UP) == 0;
+	}
+
+	public function getIsStarted() {
+		return strcasecmp($this->status, self::STATUS_STARTED) == 0;
+	}
+
+	public function getIsCompleted() {
+		return strcasecmp($this->status, self::STATUS_COMPLETED) == 0;
+	}
+
+	public function getIsIgnored() {
+		return strcasecmp($this->status, self::STATUS_IGNORED) == 0;
+	}
+
+	public function getCanPend() {
+		return !$this->isNewRecord;
+	}
+
+	public function getCanSignUp() {
+		if($this->isPending || $this->isIgnored) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanStart() {
+		if($this->isSignedUp) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanStop() {
+		if($this->isStarted) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanComplete() {
+		if($this->isStarted) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanResume() {
+		if($this->isCompleted) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanQuit() {
+		if($this->isSignedUp || $this->isStarted) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getCanIgnore() {
+		if($this->isPending) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @return array of strings where the user has actions they should do.
+	 */
+	public static function getNextableStatuses() {
+		return array(
+			TaskUser::STATUS_PENDING,
+			TaskUser::STATUS_SIGNED_UP,
+			TaskUser::STATUS_STARTED,
+		);
 	}
 
 	/**
@@ -194,6 +277,27 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 		return $taskUser;
 	}
+
+	public static function pend($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->isPending) {
+			throw new CHttpException("User is already pending");
+		}
+
+		// scenario will be insert since it's new
+
+		if($taskUser->isNewRecord) {
+			$taskUser->scenario = self::SCENARIO_INSERT;
+			$taskUser->status = self::STATUS_PENDING;
+
+			if($taskUser->save()) {
+				return true;
+			}
+			throw new CException("There was an error setting up the pending TaskUser");
+		}
+		throw new CException("TaskUser already exists");
+	}
 	
 	/**
 	 * User signs up for task, if user is already
@@ -208,34 +312,35 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function signUp($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->isNewRecord) {
-			$taskUser->scenario = self::SCENARIO_INSERT;
+		if($taskUser->canSignUp) {
+			throw new CHttpException("User cannot sign up for this task.");
 		}
-		elseif($taskUser->isTrash == 1) { // user quit the task before
-			$taskUser->scenario = self::SCENARIO_UNTRASH;
+
+		// Set scenario
+		if($taskUser->isCompleted) {
+			$taskUser->scenario = self::SCENARIO_RESUME;
 		}
-		else { // user had completed task previously
-			$taskUser->scenario = self::SCENARIO_UNCOMPLETE;
+		else {
+			$taskUser->scenario = self::SCENARIO_SIGN_UP;
 		}
 		
 		// calculate Task count incrementations to ensure they are correct
 		$incrementCount = 0;
 		$incrementCompletedCount = 0;
 		 
-		if($taskUser->isNewRecord || $taskUser->isTrash == 1) {
-			$incrementCount = 1;
+		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
+			$incrementCount++;
 		}
-		if($taskUser->isCompleted == 1) {
-			$incrementCompletedCount = -1;
+		if($taskUser->isCompleted) {
+			$incrementCompletedCount--;
 		}
 		
 		$transaction = $taskUser->getDbConnection()->beginTransaction();
 		try {
 			$task = Task::model()->findByPk($taskId);
 			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-	
-			$taskUser->isCompleted = 0;
-			$taskUser->isTrash = 0;
+
+			$taskUser->status = self::STATUS_SIGNED_UP;
 	
 			if($taskUser->save()) {
 				$transaction->commit();
@@ -250,32 +355,69 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 		$transaction->rollback();
 		throw new CHttpException("There was an error signing up for this task");
 	}
+
+	public static function start($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->canStart) {
+			throw new CHttpException("User cannot start this task.");
+		}
+
+		$taskUser->scenario = self::SCENARIO_START;
+
+		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
+			$incrementCount++;
+		}
+		if($taskUser->isCompleted) {
+			$incrementCompletedCount--;
+		}
+
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->status = self::STATUS_STARTED;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException(400, "There was an error starting this task");
+
+	}
 	
 	/**
 	 * User quits task
 	 * @param int $taskId
 	 * @param int $userId
 	 * @return boolean true
-	 * @throws CHttpException if user never signed up for task
 	 */
 	public static function quit($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->isNewRecord) {
-			throw new CHttpException(400, "Can't quit a task you never signed up for");
+		if($taskUser->canQuit) {
+			throw new CHttpException("User cannot quit this task.");
 		}
 
-		$taskUser->scenario = self::SCENARIO_TRASH;
+		$taskUser->scenario = self::SCENARIO_QUIT;
 		
 		// calculate Task count incrementations to ensure they are correct
 		$incrementCount = 0;
 		$incrementCompletedCount = 0;
 			
-		if($taskUser->isNewRecord || $taskUser->isTrash == 0) {
-			$incrementCount = -1;
+		if($taskUser->isSignedUp || $taskUser->isStarted || $taskUser->isCompleted) {
+			$incrementCount--;
 		}
-		if($taskUser->isCompleted == 1) {
-			$incrementCompletedCount = -1;
+		if($taskUser->isCompleted) {
+			$incrementCompletedCount--;
 		}
 		
 		$transaction = $taskUser->getDbConnection()->beginTransaction();
@@ -283,8 +425,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			$task = Task::model()->findByPk($taskId);
 			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
 		
-			$taskUser->isTrash = 1;
-			$taskUser->isCompleted = 0;
+			$taskUser->status = self::STATUS_PENDING;
 		
 			if($taskUser->save()) {
 				$transaction->commit();
@@ -301,6 +442,102 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	/**
+	 * User ignores task
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 */
+	public static function ignore($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->canIgnore) {
+			throw new CHttpException("User cannot ignore this task.");
+		}
+
+		$taskUser->scenario = self::SCENARIO_IGNORE;
+		
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+			
+		if($taskUser->isSignedUp || $taskUser->isStarted || $taskUser->isCompleted) {
+			$incrementCount--;
+		}
+		if($taskUser->isCompleted) {
+			$incrementCompletedCount--;
+		}
+		
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->status = self::STATUS_IGNORED;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException(400, "There was an error quitting this task");
+	}
+
+	/**
+	 * Mark the TaskUser as stopped
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 * @throws CHttpException if TaskUser was not saved
+	 */
+	public static function stop($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if($taskUser->canStop) {
+			throw new CHttpException("User cannot stop working on this task.");
+		}
+
+		$taskUser->scenario = self::SCENARIO_STOP;
+		
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+			
+		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
+			$incrementCount++;
+		}
+		if(!$taskUser->isCompleted) {
+			$incrementCompletedCount--;
+		}
+		
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			/* @var $task Task */
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->status = self::STATUS_SIGNED_UP;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException(400, "There was an error completing this task");
+	}
+
+	/**
 	 * Mark the TaskUser as completed
 	 * @param int $taskId
 	 * @param int $userId
@@ -310,17 +547,21 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function complete($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
+		if($taskUser->canComplete) {
+			throw new CHttpException("User cannot complete this task.");
+		}
+
 		$taskUser->scenario = self::SCENARIO_COMPLETE;
 		
 		// calculate Task count incrementations to ensure they are correct
 		$incrementCount = 0;
 		$incrementCompletedCount = 0;
 			
-		if($taskUser->isNewRecord || $taskUser->isTrash == 1) {
-			$incrementCount = 1;
+		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
+			$incrementCount++;
 		}
-		if($taskUser->isCompleted == 0) {
-			$incrementCompletedCount = 1;
+		if(!$taskUser->isCompleted) {
+			$incrementCompletedCount++;
 		}
 		
 		$transaction = $taskUser->getDbConnection()->beginTransaction();
@@ -329,8 +570,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			$task = Task::model()->findByPk($taskId);
 			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
 		
-			$taskUser->isTrash = 0;
-			$taskUser->isCompleted = 1;
+			$taskUser->status = self::STATUS_COMPLETED;
 		
 			if($taskUser->save()) {
 				$transaction->commit();
@@ -371,10 +611,9 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	{
 		if(strcasecmp($this->scenario, self::SCENARIO_COMPLETE) == 0
 		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_TRASH) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UNCOMPLETE) == 0
 		   || strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UNTRASH) == 0)
+
+		   )
 		{
 			return true;
 		}

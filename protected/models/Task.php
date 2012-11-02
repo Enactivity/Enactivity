@@ -166,6 +166,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function relations()
 	{
+		// stupid hacky way of escaping statuses
+		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
+
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -177,10 +180,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			
 			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'participatingTaskUsers.isTrash=0',
+				'condition' => 'participatingTaskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'condition' => 'participatingTaskUsers.isTrash=0',
+				'condition' => 'participatingTaskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
 				'through' => 'participatingTaskUsers',
 			),
 			
@@ -500,16 +503,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return true if user is a participant, false if not
 	 */
 	public function getIsUserParticipating() {
+
+		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
 		
-		$model = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>Yii::app()->user->id,
-				'taskId'=>$this->id,
-				'isTrash'=>0,
-			)
-		);
-		
-		if(isset($model)) {
+		if($taskUser->isSignedUp || $taskUser->isStarted) {
 			return true;
 		}
 		return false;
@@ -811,15 +808,20 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return CActiveDataProvider
 	 */
 	public static function tasksForUserInMonth($userId, $month) {
+		$criteria = new CDbCriteria();
+		$criteria->addInCondition('status', array(
+			TaskUser::STATUS_PENDING,
+			TaskUser::STATUS_SIGNED_UP,
+			TaskUser::STATUS_STARTED,
+		));
+
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
 			->scopeUsersGroups($userId)
 			->scopeByCalendarMonth($month->monthIndex, $month->year),
 			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
+				'criteria'=>$criteria,
 				'pagination'=>false,
 			)
 		);
@@ -833,6 +835,13 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return CActiveDataProvider
 	 */
 	public static function tasksForUserWithNoStart($userId) {
+		$criteria = new CDbCriteria();
+		$criteria->addInCondition('status', array(
+			TaskUser::STATUS_PENDING,
+			TaskUser::STATUS_SIGNED_UP,
+			TaskUser::STATUS_STARTED,
+		));
+
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
 		$taskWithoutDateQueryModel
@@ -841,9 +850,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			->scopeNotCompleted()
 			->roots(),
 			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
+				'criteria'=>$criteria,
 				'pagination'=>false,
 			)
 		);
