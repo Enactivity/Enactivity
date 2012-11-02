@@ -168,6 +168,9 @@ class User extends ActiveRecord
 	 */
 	public function relations()
 	{
+		// stupid hacky way of escaping statuses
+		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
+
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below
 		return array(
@@ -213,12 +216,11 @@ class User extends ActiveRecord
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0 AND nextTasks.isTrash=0',
+				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'taskUsers',
-				'condition' => 'taskUsers.isTrash=0 AND taskUsers.isCompleted=0' 
-					. ' AND nextTasksSomeday.isTrash=0'
+				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
 					. ' AND nextTasksSomeday.starts IS NULL',
 			),
 		);

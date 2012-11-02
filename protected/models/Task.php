@@ -166,6 +166,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function relations()
 	{
+		// stupid hacky way of escaping statuses
+		$participatingWhereIn = '\'' . implode('\', \'', TaskUser::getParticipatingStatuses()) . '\'';
+
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -177,10 +180,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			
 			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'participatingTaskUsers.isTrash=0',
+				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'condition' => 'participatingTaskUsers.isTrash=0',
+				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
 				'through' => 'participatingTaskUsers',
 			),
 			
@@ -215,7 +218,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function scenarioLabels() {
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
-			self::SCENARIO_INSERT => 'posted', // default set by Yii
+			self::SCENARIO_INSERT => 'created', // default set by Yii
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
 			self::SCENARIO_UPDATE => 'updated',
@@ -500,16 +503,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return true if user is a participant, false if not
 	 */
 	public function getIsUserParticipating() {
+
+		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
 		
-		$model = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>Yii::app()->user->id,
-				'taskId'=>$this->id,
-				'isTrash'=>0,
-			)
-		);
-		
-		if(isset($model)) {
+		if($taskUser->isSignedUp || $taskUser->isStarted) {
 			return true;
 		}
 		return false;
@@ -522,16 +519,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$model = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>Yii::app()->user->id,
-				'taskId'=>$this->id,
-				'isTrash'=>0,
-				'isCompleted'=>1
-			)
-		);
+		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
 		
-		if(isset($model)) {
+		if($taskUser->isCompleted) {
 			return true;
 		}
 		return false;

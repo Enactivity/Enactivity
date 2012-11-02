@@ -30,8 +30,8 @@ class TaskController extends Controller
 			array('allow', 
 				'actions'=>array(
 					'view','update','trash','untrash',
-					'participate','unparticipate',
-					'userComplete','userUncomplete',
+					'signup','start','resume',
+					'complete','quit',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -53,28 +53,17 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadTaskModel($id);
-		$subtasks = $model->children()->findAll();
-		$ancestors = $model->ancestors()->findAll();
+		$taskUser = TaskUser::loadTaskUser($model->id, Yii::app()->user->id);
 		
-		$calendar = new TaskCalendar();
-		$calendar->addTasks($subtasks);
-
-		// handle new task
-		$newTask = $this->handleNewTaskForm($id);
-
 		// Comments
 		$comment = $this->handleNewTaskComment($model);
-		
 		$commentsDataProvider = new CArrayDataProvider($model->comments);
 		
 		$this->render(
-			'view', 
+			'view',
 			array(
 				'model' => $model,
-				'subtasks' => $subtasks,
-				'ancestors' => $ancestors,
-				'calendar' => $calendar,
-				'newTask' => $newTask,
+				'taskUser' => $taskUser,
 				'comment' => $comment,
 				'commentsDataProvider' => $commentsDataProvider,
 			)
@@ -168,8 +157,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -192,8 +182,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
+		else {
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -201,7 +192,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionParticipate($id, $showParent = true)
+	public function actionSignUp($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -216,8 +207,34 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
+	/**
+	 * Starts the current user on the task
+	 * If add is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionStart($id, $showParent = true)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow participating via POST request
+			TaskUser::start($id, Yii::app()->user->id);
+			$task = $this->loadTaskModel($id);
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($task);
+		}
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -225,7 +242,7 @@ class TaskController extends Controller
 	 * If remove is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUnparticipate($id, $showParent = true)
+	public function actionQuit($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -240,8 +257,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -249,7 +267,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUserComplete($id, $showParent = true)
+	public function actionComplete($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -264,21 +282,22 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
-	 * Marks the user as having completed the task
+	 * Marks the user as having uncompleted the task
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionUserUncomplete($id, $showParent = true)
+	public function actionResume($id, $showParent = true)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow uncomplete via POST request
-			TaskUser::signUp($id, Yii::app()->user->id);
+			TaskUser::resume($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -288,8 +307,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 
