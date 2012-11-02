@@ -519,16 +519,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$model = TaskUser::model()->findByAttributes(
-			array(
-				'userId'=>Yii::app()->user->id,
-				'taskId'=>$this->id,
-				'isTrash'=>0,
-				'isCompleted'=>1
-			)
-		);
+		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
 		
-		if(isset($model)) {
+		if($taskUser->isCompleted) {
 			return true;
 		}
 		return false;
