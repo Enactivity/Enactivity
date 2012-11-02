@@ -5,5 +5,9 @@
 		@extend .content-block;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
+
+		.status {
+			@extend .metadata;
+		}
 	}
 }
