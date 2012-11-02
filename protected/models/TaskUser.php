@@ -38,6 +38,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	const SCENARIO_STOP ='stop';				// participating -> pending
 	const SCENARIO_COMPLETE = 'complete'; 		// participating -> completed
 	const SCENARIO_RESUME = 'resume'; 			// completed 	-> started
+	const SCENARIO_DELETE = 'delete';
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -250,6 +251,17 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	/**
+	 * @return array of strings where the user has is participating
+	 */
+	public static function getParticipatingStatuses() {
+		return array(
+			TaskUser::STATUS_SIGNED_UP,
+			TaskUser::STATUS_STARTED,
+			TaskUser::STATUS_COMPLETED,
+		);
+	}
+
+	/**
 	 * Find a TaskUser with the given task and user id,
 	 * if no such task user exists, a model is created.
 	 * @param int $taskId
@@ -280,6 +292,10 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 	public static function pend($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if(!$taskUser->isNewRecord) {
+			throw new CHttpException("TaskUser already exists");
+		}
 
 		if($taskUser->isPending) {
 			throw new CHttpException("User is already pending");
@@ -312,7 +328,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function signUp($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canSignUp) {
+		if(!$taskUser->canSignUp) {
 			throw new CHttpException("User cannot sign up for this task.");
 		}
 
@@ -359,11 +375,15 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function start($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canStart) {
+		if(!$taskUser->canStart) {
 			throw new CHttpException("User cannot start this task.");
 		}
 
 		$taskUser->scenario = self::SCENARIO_START;
+
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
 
 		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
 			$incrementCount++;
@@ -403,7 +423,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function quit($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canQuit) {
+		if(!$taskUser->canQuit) {
 			throw new CHttpException("User cannot quit this task.");
 		}
 
@@ -450,7 +470,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function ignore($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canIgnore) {
+		if(!$taskUser->canIgnore) {
 			throw new CHttpException("User cannot ignore this task.");
 		}
 
@@ -498,7 +518,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function stop($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canStop) {
+		if(!$taskUser->canStop) {
 			throw new CHttpException("User cannot stop working on this task.");
 		}
 
@@ -547,7 +567,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function complete($taskId, $userId) {
 		$taskUser = self::loadTaskUser($taskId, $userId);
 
-		if($taskUser->canComplete) {
+		if(!$taskUser->canComplete) {
 			throw new CHttpException("User cannot complete this task.");
 		}
 

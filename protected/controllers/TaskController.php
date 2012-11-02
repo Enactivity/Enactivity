@@ -30,8 +30,8 @@ class TaskController extends Controller
 			array('allow', 
 				'actions'=>array(
 					'view','update','trash','untrash',
-					'participate','unparticipate',
-					'userComplete','userUncomplete',
+					'signup','start',
+					'complete','quit',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -205,8 +205,34 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
+	/**
+	 * Starts the current user on the task
+	 * If add is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionStart($id, $showParent = true)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow participating via POST request
+			TaskUser::start($id, Yii::app()->user->id);
+			$task = $this->loadTaskModel($id);
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($task);
+		}
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -229,8 +255,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -253,8 +280,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 	/**
@@ -277,8 +305,9 @@ class TaskController extends Controller
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
-		else
-		throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
 	}
 
 

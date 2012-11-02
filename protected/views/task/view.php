@@ -46,10 +46,6 @@ $this->pageTitle = $model->name;
 	</div>
 <?= PHtml::endContentHeader(); ?>
 
-
-<? // show participants
-if($model->isParticipatable):
-?>
 <section id="participating">
 	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
 	<div class="menu controls">
@@ -68,6 +64,22 @@ if($model->isParticipatable):
 				); ?>
 			</li>
 			<? endif; ?>
+
+			<? if($taskUser->canStart): ?>
+			<li>
+				<?= PHtml::button(
+					"I'm doing this", 
+					array( //html
+						'submit'=>array('task/start', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'task-start-menu-item-' . $model->id,
+						'class'=>'positive task-start-menu-item',
+						'title'=>'Show that you\'ve started working on this task',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+
 			<? if($taskUser->canComplete): ?>
 			<li>
 				<?= PHtml::button(
@@ -82,6 +94,7 @@ if($model->isParticipatable):
 				); ?>
 			</li>
 			<? endif; ?>
+
 			<? if($taskUser->canResume): ?>
 			<li>
 				<?= PHtml::button(
@@ -96,6 +109,7 @@ if($model->isParticipatable):
 				); ?>
 			</li>
 			<? endif; ?>
+
 			<? if($taskUser->canQuit): ?>
 			<li>
 				<?= PHtml::button(
@@ -110,6 +124,7 @@ if($model->isParticipatable):
 				); ?>
 			</li>
 			<? endif; ?>
+
 			<? if($taskUser->canIgnore): ?>
 			<li>
 				<?= PHtml::button(
@@ -132,7 +147,6 @@ if($model->isParticipatable):
 		));
 	} ?>
 </section>
-<? endif; ?>
 
 <? // show comments ?>
 <section id="comments">

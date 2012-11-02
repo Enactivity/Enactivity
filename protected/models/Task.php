@@ -167,7 +167,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function relations()
 	{
 		// stupid hacky way of escaping statuses
-		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
+		$participatingWhereIn = '\'' . implode('\', \'', TaskUser::getParticipatingStatuses()) . '\'';
 
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
@@ -180,10 +180,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
 			
 			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'participatingTaskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
+				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'condition' => 'participatingTaskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
+				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
 				'through' => 'participatingTaskUsers',
 			),
 			
