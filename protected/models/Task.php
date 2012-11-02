@@ -23,10 +23,6 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property string $name
  * @property integer $isTrash
  * @property string $starts
- * @property int $rootId
- * @property int $lft
- * @property int $rgt
- * @property int $level
  * @property int $participantsCount
  * @property int $participantsCompletedCount
  * @property string $created
@@ -86,15 +82,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
-			),
-			// Nested Set Behavior
-			'NestedSetBehavior'=>array(
-				'class'=>'ext.behaviors.NestedSetBehavior',
-				'hasManyRoots'=>true,
-				'rootAttribute'=>'rootId',
-				'leftAttribute'=>'lft',
-				'rightAttribute'=>'rgt',
-				'levelAttribute'=>'level',
 			),
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
@@ -172,8 +159,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'root' => array(self::BELONGS_TO, 'Task', 'rootId'),
-			
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
@@ -253,12 +238,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Save a new task, runs validation
 	 * @param array $attributes
 	 * @return boolean
-	 * @see NestedSetBehavior::saveNode()
 	 */
 	public function insertTask($attributes=null) {
 		if($this->isNewRecord) {
 			$this->attributes = $attributes;
-			return $this->saveNode();
+			return $this->save();
 		}
 		else {
 			throw new CDbException(Yii::t('task','The task cannot be inserted because it is not new.'));
@@ -266,31 +250,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * Save this task as a new subtask, runs validation
-	 * @param Task $parentTask
-	 * @param array $attributes
-	 * @return boolean
-	 * @see NestedSetBehavior::appendTo()
-	 */
-	public function insertSubtask($parentTask, $attributes=null) {
-		if(is_null($parentTask)) {
-			throw new CDbException(Yii::t('task','The subtask cannot be inserted because no parent is specified'));
-		}
-		
-		$this->attributes = $attributes;
-		return $this->appendTo($parentTask);
-	}
-	
-	/**
 	 * Update the task, runs validation
 	 * @param array $attributes
 	 * @return boolean
-	 * @see NestedSetBehavior::saveNode()
 	 */
 	public function updateTask($attributes=null) {
 		if(!$this->isNewRecord) {
 			$this->attributes = $attributes;
-			return $this->saveNode();
+			return $this->save();
 		}
 		else {
 			throw new CDbException(Yii::t('task','The task cannot be updated because it is new.'));
@@ -300,23 +267,22 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	/**
 	 * Saves the task as trash
 	 * @return boolean whether the saving succeeds.
-	 * @see NestedSetBehavior::saveNode()
 	*/
 	public function trash() {
 		$this->isTrash = 1;
 		$this->setScenario(self::SCENARIO_TRASH);
-		return $this->saveNode();
+		return $this->save();
 	}
 	
 	/**
 	 * Saves the task as not trash
 	 * @return boolean whether the saving succeeds.
-	 * @see NestedSetBehavior::saveNode()
+	 * @see NestedSetBehavior::save()
 	 */
 	public function untrash() {
 		$this->isTrash = 0;
 		$this->setScenario(self::SCENARIO_UNTRASH);
-		return $this->saveNode();
+		return $this->save();
 	}
 	
 	public function afterFind() {
@@ -446,7 +412,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Increment the participant count for a task and its ancestors
 	 * @param int $participantsIncrement number of times to increment participantsCount
 	 * @param int $participantsIncrement number of times to increment participantsCompletedCount
-	 * @return int number of Tasks updated
+	 * @return boolean
 	 */
 	public function incrementParticipantCounts($participantsIncrement, $participantsCompletedIncrement) {
 		if(!is_numeric($participantsIncrement) || !is_numeric($participantsCompletedIncrement)) {
@@ -454,47 +420,19 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		}
 		
 		if(($participantsIncrement == 0) && ($participantsCompletedIncrement == 0)) {
-			return 0;
+			return true;
 		}
-		
-		if(!$this->isParticipatable) {
-			throw new CDbException("Cannot increment tasks that are not participatable");
-		}
-		
-		$ancestors = $this->ancestors()->findAll();
-		$ancestors[] = $this; // so all objects are dealt with in a single loop
 		
 		/* @var $task Task */
-		foreach ($ancestors as $task) {
-			if($task->saveCounters(
-				array( // column => increment value
-					'participantsCount'=>$participantsIncrement,
-					'participantsCompletedCount'=>$participantsCompletedIncrement,
-				)
-			) == false) {
-				throw new CDbException("Task counters were not incremented");
-			}
+		if($this->saveCounters(
+			array( // column => increment value
+				'participantsCount'=>$participantsIncrement,
+				'participantsCompletedCount'=>$participantsCompletedIncrement,
+		))) {
+			return true;
 		}
 		
-		return count($ancestors);
-	}
-	
-	/**
-	 * Does the Task have a parent Task?
-	 * @return boolean
-	 * @deprecated use !isRoot instead
-	 */
-	public function getHasParent() {
-		return !$this->isRoot;
-	}
-	
-	/**
-	 * Does the Task have any children?
-	 * @return boolean
-	 */
-	public function getHasChildren() {
-		//FIXME: doesn't account for deleted children
-		return !$this->isLeaf();
+		throw new CDbException("Task counters were not incremented");
 	}
 	
 	/**
@@ -525,110 +463,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			return true;
 		}
 		return false;
-	}	
-	
-	/**
-	 * Can a user sign up for the task?
-	 * @return boolean
-	 */
-	public function getIsParticipatable() {
-		if($this->isLeaf) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Can subtasks be added to this task?
-	 * @return boolean
-	 */
-	public function getIsSubtaskable() {
-		return false;
-
-		// if(sizeof($this->participants) == 0) {
-		// 	return true;
-		// }
-		// return false;
-	}
-	
-	/**
-	 * Get all participants of the task and its children.
-	 * @return array User[]
-	 */
-	public function getDescendantParticipants() {
-		$participants = array();
-		
-		if($this->isParticipatable) {
-			$participants = CMap::mergeArray($participants, $this->participants);
-		}
-		else {
-			foreach($this->descendants()->with('participants')->findAll() as $task) {
-				$participants = CMap::mergeArray($participants, $task->descendantParticipants);
-			}
-		}
-		
-		// we need to remove duplicates
-		$serialized = array();
-		$unserialized = array();
-		foreach ($participants as $k=>$na) {
-			$serialized[$k] = serialize($na);
-		}
-		$uniq = array_unique($serialized);
-		foreach($uniq as $k=>$ser) {
-			$unserialized[$k] = unserialize($ser);
-		}
-		return $unserialized;
-	}
-	
-	/**
-	 * Marks the current user as participating in the task.
-	 * Saves TaskUser
-	 * @return boolean
-	 * @throws CHttpException if TaskUser was not saved
-	 * @see TaskUser::signup()
-	 */
-	public function participate($userId) {
-		return TaskUser::signUp($this->id, $userId);
-	}
-	
-	/**
-	 * Marks the current user as not participating in the task.
-	 * Saves TaskUser
-	 * @return boolean
-	 * @throws CHttpException if TaskUser was not saved
-	 * @see TaskUser::quit()
-	 */
-	public function unparticipate($userId) {
-		return TaskUser::quit($this->id, $userId);
-	}
-	
-	/**
-	 * Marks the current user as done with the task.
-	 * Saves TaskUser
-	 * @return boolean
-	 * @throws CHttpException if TaskUser was not saved
-	 * @see TaskUser::complete()
-	 */
-	public function userComplete($userId) {
-		return TaskUser::complete($this->id, $userId);
-	}
-	
-	/**
-	 * Marks the current user as not done with the task.
-	 * Saves TaskUser
-	 * @return boolean
-	 * @throws CHttpException if TaskUser was not saved
-	 * @see TaskUser::signUp()
-	 */
-	public function userUncomplete($userId) {
-		return TaskUser::signUp($this->id, $userId);
 	}
 	
 	public function defaultScope() {
 		return array(
 			'order' => 'starts ASC'
-				. ', ' . $this->getTableAlias(false, false) . '.rootId ASC'
-				. ', ' . $this->getTableAlias(false, false) . '.lft ASC'
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
 	}
@@ -697,17 +536,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'condition'=>'starts IS NULL',
 			)
 		);
-		return $this;
-	}
-	
-	/**
-	 * Named scope. Gets leaf node(s).
-	 * @return ActiveRecord the Task
-	 */
-	public function scopeLeaves() {
-		$this->getDbCriteria()->mergeWith(array(
-					'condition'=>'rgt - lft = 1',
-		));
 		return $this;
 	}
 	
@@ -828,8 +656,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithoutDateQueryModel
 			->scopeUsersGroups($userId)
 			->scopeNoWhen()
-			->scopeNotCompleted()
-			->roots(),
+			->scopeNotCompleted(),
 			array(
 				'criteria'=>array(
 					'condition'=>'isTrash=0'

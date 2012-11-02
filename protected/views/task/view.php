@@ -47,7 +47,7 @@ $this->pageTitle = $model->name;
 <?= PHtml::endContentHeader(); ?>
 
 <section id="participating">
-	<h1><?= PHtml::encode(sizeof($model->participants)) . ' Signed Up'; ?></h1>
+	<h1><?= PHtml::encode($model->participantsCount) . ' Signed Up'; ?></h1>
 	<div class="menu controls">
 		<ul>
 			<? if($taskUser->canSignUp): ?>
