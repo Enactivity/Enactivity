@@ -801,20 +801,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return CActiveDataProvider
 	 */
 	public static function tasksForUserInMonth($userId, $month) {
-		$criteria = new CDbCriteria();
-		$criteria->addInCondition('status', array(
-			TaskUser::STATUS_PENDING,
-			TaskUser::STATUS_SIGNED_UP,
-			TaskUser::STATUS_STARTED,
-		));
-
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
 			->scopeUsersGroups($userId)
 			->scopeByCalendarMonth($month->monthIndex, $month->year),
 			array(
-				'criteria'=>$criteria,
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				),
 				'pagination'=>false,
 			)
 		);
@@ -828,13 +823,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return CActiveDataProvider
 	 */
 	public static function tasksForUserWithNoStart($userId) {
-		$criteria = new CDbCriteria();
-		$criteria->addInCondition('status', array(
-			TaskUser::STATUS_PENDING,
-			TaskUser::STATUS_SIGNED_UP,
-			TaskUser::STATUS_STARTED,
-		));
-
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
 		$taskWithoutDateQueryModel
@@ -843,7 +831,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			->scopeNotCompleted()
 			->roots(),
 			array(
-				'criteria'=>$criteria,
+				'criteria'=>array(
+					'condition'=>'isTrash=0'
+				),
 				'pagination'=>false,
 			)
 		);
