@@ -413,6 +413,53 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 		throw new CHttpException(400, "There was an error starting this task");
 
 	}
+
+	/**
+	 * User resumes task
+	 * @param int $taskId
+	 * @param int $userId
+	 * @return boolean true
+	 */
+	public static function resume($taskId, $userId) {
+		$taskUser = self::loadTaskUser($taskId, $userId);
+
+		if(!$taskUser->canResume) {
+			throw new CHttpException("User cannot resume this task.");
+		}
+
+		$taskUser->scenario = self::SCENARIO_RESUME;
+		
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+			
+		if($taskUser->isNewRecord || $taskUser->isPending || $taskUser->isIgnored) {
+			$incrementCount++;
+		}
+		if($taskUser->isCompleted) {
+			$incrementCompletedCount--;
+		}
+		
+		$transaction = $taskUser->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$taskUser->status = self::STATUS_STARTED;
+		
+			if($taskUser->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException(400, "There was an error quitting this task");
+	}
 	
 	/**
 	 * User quits task

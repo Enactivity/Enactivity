@@ -30,7 +30,7 @@ class TaskController extends Controller
 			array('allow', 
 				'actions'=>array(
 					'view','update','trash','untrash',
-					'signup','start',
+					'signup','start','resume',
 					'complete','quit',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
@@ -295,7 +295,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow uncomplete via POST request
-			TaskUser::signUp($id, Yii::app()->user->id);
+			TaskUser::resume($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
