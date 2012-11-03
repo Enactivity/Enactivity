@@ -2,15 +2,15 @@
 -- version 3.3.10.4
 -- http://www.phpmyadmin.net
 --
--- Host: mysql.alpha.poncla.com
--- Generation Time: Oct 30, 2012 at 12:04 PM
+-- Host: mysql.ajsharma.dev.poncla.com
+-- Generation Time: Nov 02, 2012 at 04:54 PM
 -- Server version: 5.1.53
--- PHP Version: 5.2.17
+-- PHP Version: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Database: `poncla_alpha`
+-- Database: `poncla_ajsharma`
 --
 
 -- --------------------------------------------------------
@@ -37,42 +37,6 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart_item`
---
-
-CREATE TABLE IF NOT EXISTS `cart_item` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(10) unsigned NOT NULL,
-  `productType` varchar(255) NOT NULL,
-  `productId` int(10) unsigned NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `purchased` datetime DEFAULT NULL,
-  `delivered` datetime DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart_item_custom_field`
---
-
-CREATE TABLE IF NOT EXISTS `cart_item_custom_field` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `cartItemId` int(10) unsigned NOT NULL,
-  `key` varchar(50) NOT NULL,
-  `value` varchar(255) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cartItemId` (`cartItemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -93,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -109,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `group` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `facebookId` (`facebookId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -128,26 +92,6 @@ CREATE TABLE IF NOT EXISTS `group_user` (
   UNIQUE KEY `groupId_2` (`groupId`,`userId`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sweater`
---
-
-CREATE TABLE IF NOT EXISTS `sweater` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `style` varchar(20) NOT NULL,
-  `clothColor` varchar(50) NOT NULL,
-  `letterColor` varchar(50) NOT NULL,
-  `stitchingColor` varchar(50) NOT NULL,
-  `size` varchar(20) NOT NULL,
-  `available` tinyint(1) NOT NULL DEFAULT '0',
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `style` (`style`,`clothColor`,`letterColor`,`stitchingColor`,`size`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -162,21 +106,13 @@ CREATE TABLE IF NOT EXISTS `task` (
   `name` varchar(255) NOT NULL,
   `isTrash` tinyint(1) NOT NULL DEFAULT '0',
   `starts` datetime DEFAULT NULL,
-  `rootId` int(11) unsigned NOT NULL,
-  `lft` int(11) unsigned NOT NULL,
-  `rgt` int(11) unsigned NOT NULL,
-  `level` int(11) unsigned NOT NULL,
   `participantsCount` int(11) NOT NULL DEFAULT '0',
   `participantsCompletedCount` int(11) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `groupId` (`groupId`),
-  KEY `lft` (`lft`),
-  KEY `rgt` (`rgt`),
-  KEY `level` (`level`),
-  KEY `root` (`rootId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+  KEY `groupId` (`groupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -188,15 +124,14 @@ CREATE TABLE IF NOT EXISTS `task_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(11) unsigned DEFAULT NULL,
   `taskId` int(11) unsigned NOT NULL,
-  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
-  `isTrash` tinyint(1) NOT NULL DEFAULT '0',
+  `status` varchar(15) NOT NULL DEFAULT 'Pending',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
   KEY `userId` (`userId`),
   KEY `taskId` (`taskId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -233,17 +168,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cart_item_custom_field`
---
-ALTER TABLE `cart_item_custom_field`
-  ADD CONSTRAINT `cart_item_cffk_1` FOREIGN KEY (`cartItemId`) REFERENCES `cart_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`

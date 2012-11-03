@@ -23,8 +23,8 @@ class MembershipController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to view lists
-				'actions'=>array('index', 'join', 'leave'),
+			array('allow', // allow authenticated user
+				'actions'=>array('index', 'join', 'leave', 'syncWithFacebook'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -88,6 +88,17 @@ class MembershipController extends Controller
 		}
 		
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+		/**
+	 * Synchronize the current user's groups with facebook
+	 */
+	public function actionSyncWithFacebook() {
+		if(Yii::app()->user->model->syncFacebookGroups()) {
+			Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
+		}
+
+		$this->redirect(array('membership/index'));
 	}
 
 	/**
