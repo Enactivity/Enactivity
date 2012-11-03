@@ -5,7 +5,6 @@
  * @uses GroupUser $data model
  */
 
-echo CVarDumper::dump($data);
 $story = $this->beginWidget('application.components.widgets.Story', array(
 	'htmlOptions'=>array(
 		'id'=>"membership-" . PHtml::encode($data->group->id),
