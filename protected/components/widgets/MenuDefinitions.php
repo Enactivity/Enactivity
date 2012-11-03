@@ -123,16 +123,7 @@ class MenuDefinitions extends CComponent {
 	 * @return array of menu items
 	 */
 	public static function task() {
-		return array(
-			array(
-				'label'=>'Dashboard', 
-				'url'=>array('/task/index'), 
-			),
-			array(
-				'label'=>'Calendar', 
-				'url'=>array('/task/calendar'), 
-			),
-		);
+		return null;
 	}
 	
 	/**

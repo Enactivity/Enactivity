@@ -13,13 +13,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 ));?>
 	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
-			<? if($data->isActive): ?>
-			<?= PHtml::link(PHtml::encode($data->group->name), 
-				array('group/view', 'id'=>$data->group->id)
-			); ?>
-			<? else:  ?>
-			<span><?= PHtml::encode($data->group->name); ?></span>
-			<? endif; ?>
+			<?= PHtml::encode($data->group->name); ?>
 		</h1>
 		<? $story->beginControls(); ?>
 			<li>
