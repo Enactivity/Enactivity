@@ -24,7 +24,7 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','feed','create','calendar'),
+				'actions'=>array('index','feed','create','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -397,6 +397,15 @@ class TaskController extends Controller
 				'calendar'=>$taskCalendar,
 				'newTask'=>$newTask,
 				'month'=>$month,
+			)
+		);
+	}
+
+	public function actionSomeday() {
+		$taskCalendar = TaskCalendar::loadCalendarWithNoStart();
+
+		$this->render('someday', array(
+				'calendar'=>$taskCalendar,
 			)
 		);
 	}

@@ -24,12 +24,13 @@ class TaskCalendar extends CComponent {
 
 	public static function loadCalendarByMonth($month) {
 		$datedTasks = Task::tasksForUserInMonth(Yii::app()->user->id, $month);
-		$datelessTasks = Task::tasksForUserWithNoStart(Yii::app()->user->id);
 		
-		return new TaskCalendar(array(
-			$datedTasks->data,
-			$datelessTasks->data
-		));
+		return new TaskCalendar($datedTasks->data);
+	}
+
+	public static function loadCalendarWithNoStart() {
+		$datelessTasks = Task::tasksForUserWithNoStart(Yii::app()->user->id);
+		return new TaskCalendar($datelessTasks->data);
 	}
 
 	/**
