@@ -1,0 +1,18 @@
+aside.flash {
+
+}
+
+.flash-error {
+	background-color: $red; /* red */
+	color: $white;
+}
+
+.flash-notice {
+	background-color: $egg-white; /* yellow */
+	color: $metallic-bronze;
+}
+
+.flash-success {
+	background-color: $green; /* green */
+	color: $white;
+}
