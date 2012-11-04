@@ -4,4 +4,8 @@
 		color: $silver;
 		margin: 0;
 	}
+
+	a, a:active, a:visited {
+		color: inherit;
+	}
 }

@@ -6,9 +6,9 @@
 	width: 100%;
 	z-index: 1000;
 
-	a {
-		@include link-colors($white, $white, $white, $white, $white);
+	a, a:active, a:visited {
 		@include unstyled-link;
+		color: $white;
 	}
 }
 
