@@ -408,7 +408,7 @@ class User extends ActiveRecord
 		
 		foreach($facebookGroups['data'] as $group) {
 			$group = Group::syncWithFacebookAttributes($group);
-			$syncedGroups[$group->id] = true;
+			GroupUser::saveAsActiveMember($group->id, $this->id);
 		}
 
 		return true;
