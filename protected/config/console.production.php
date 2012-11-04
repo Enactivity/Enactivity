@@ -10,7 +10,7 @@ return CMap::mergeArray(
 			// MySQL database settings for production
 			'db'=>array(
 				'class'=>'CDbConnection',
-				'connectionString' => 'mysql:dbname=poncla_live_dont_mess_with_me;host=173.236.204.211',
+				'connectionString' => 'mysql:dbname=enactivity_production;host=173.236.204.211',
 				'emulatePrepare' => true,
 				'username' => 'poncla_live',
 				'password' => '1f3870be274f6c4',
