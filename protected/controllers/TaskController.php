@@ -31,7 +31,7 @@ class TaskController extends Controller
 				'actions'=>array(
 					'view','update','trash','untrash',
 					'signup','start','resume',
-					'complete','quit',
+					'complete','quit','ignore',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -248,6 +248,31 @@ class TaskController extends Controller
 		{
 			// we only allow unparticipating via POST request
 			TaskUser::quit($id, Yii::app()->user->id);
+			$task = $this->loadTaskModel($id);
+				
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($task);
+		}
+		else {
+			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
+	/**
+	 * Removes current user from task
+	 * If remove is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionIgnore($id, $showParent = true)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow unparticipating via POST request
+			TaskUser::ignore($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
