@@ -55,7 +55,8 @@ $nav-bar-color: $white;
 		text-transform: lowercase;
 	}
 
-	.active > a {
+	.active > a, 
+	a:hover, a:focus {
 		background-color: $emperor;
 	}
 
