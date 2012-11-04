@@ -1,4 +1,9 @@
-.metadata {
+.metadata, .metadata:active, .metadata:visited {
 	color: $silver-chalice;
 	font-size: .75em;
+
+	a, a:active, a:visited,
+	a:hover, a:focus {
+		color: inherit;
+	}
 }
