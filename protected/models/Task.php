@@ -179,7 +179,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			
 			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
 				'condition' => 'comments.model=\'Task\'',
-				'order' => 'comments.created DESC',
+				'order' => 'comments.created ASC',
 			),
 		);
 	}
