@@ -349,7 +349,7 @@ class User extends ActiveRecord
 		$user->status = User::STATUS_ACTIVE;
 		
 		if($user->save()) {
-			$user->syncFacebookGroups();
+			$user->importFacebookGroups();
 			return $user;	
 		}
 		throw new CDbException("User could not be registered: " . CVarDumper::dumpAsString($user->errors));
@@ -392,6 +392,23 @@ class User extends ActiveRecord
 			if(!isset($syncedGroups[$group->id])) {
 				GroupUser::saveAsDeactiveMember($group->id, $this->id);
 			}
+		}
+
+		return true;
+	}
+
+	/** 
+	 * Pull the user's group memberships from Facebook.
+	 * Does not delete old groups.  Useful for initial import of user info.
+	 * @return boolean
+	 **/
+	public function importFacebookGroups() {
+		$syncedGroups = array();
+		$facebookGroups = Yii::app()->FB->currentUserGroups;
+		
+		foreach($facebookGroups['data'] as $group) {
+			$group = Group::syncWithFacebookAttributes($group);
+			$syncedGroups[$group->id] = true;
 		}
 
 		return true;
