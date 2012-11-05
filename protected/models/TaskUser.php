@@ -233,6 +233,9 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanIgnore() {
+		// TODO: reenable after issue 114
+		return false;
+
 		if($this->isPending) {
 			return true;
 		}
@@ -492,7 +495,10 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			$task = Task::model()->findByPk($taskId);
 			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
 		
-			$taskUser->status = self::STATUS_PENDING;
+			// TODO: reenable after issue 114
+			$taskUser->status = self::STATUS_IGNORED;
+
+			// $taskUser->status = self::STATUS_PENDING;
 		
 			if($taskUser->save()) {
 				$transaction->commit();
