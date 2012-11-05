@@ -22,7 +22,7 @@
 			
 			<? // user removing a set date and time
 			elseif(isset($attributeArray['old']) && $attributeArray['old'] != '' && $attributeArray['new'] == '') : ?>
-			removed the date and time for <?= PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data->task)); ?> which used to start at <? PHtml::e($attributeArray['old']); ?>
+			removed the date and time for <?= PHtml::link(PHtml::encode($data->name), PHtml::taskURL($data)); ?> which used to start at <? PHtml::e($attributeArray['old']); ?>
 			
 			<? // user updating a date and time originally null
 			else : ?>
