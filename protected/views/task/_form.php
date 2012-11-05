@@ -30,7 +30,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	
 	<?
 	// only show row when is root task
-	if(!isset($model->parentId)) {
+	if($model->isNewRecord) {
 		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
 				'form' => $form,
 				'model' => $model,
