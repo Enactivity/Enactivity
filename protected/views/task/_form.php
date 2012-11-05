@@ -65,7 +65,6 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 				// additional javascript options for the date picker plugin
 				'options'=>array(
 					'showAnim'=>'fold',
-					'minDate' => 0,
 				),
 			)
 		);
