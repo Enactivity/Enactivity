@@ -3,5 +3,9 @@
 		@extend .content-block;
 		background-color: $white;
 		margin-bottom: 1px;
+
+		.status {
+			@extend .metadata;
+		}
 	}
 }

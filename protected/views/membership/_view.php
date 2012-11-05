@@ -14,6 +14,14 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	<? $story->beginStoryContent(); ?>
 		<h1 class="story-title">
 			<?= PHtml::encode($data->group->name); ?>
+			<span class="status">
+				<? if($data->isActive): ?>
+				Active
+				<? endif; ?>
+				<? if($data->isInactive): ?>
+				Inactive
+				<? endif; ?>
+			</span>
 		</h1>
 		<? $story->beginControls(); ?>
 			<li>
