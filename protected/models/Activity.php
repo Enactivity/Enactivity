@@ -24,6 +24,14 @@ Yii::import("application.components.db.ar.ActiveRecord");
  */
 class Activity extends ActiveRecord
 {
+	const NAME_MAX_LENGTH = 255;
+
+	const SCENARIO_DELETE = 'delete';
+	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_TRASH = 'trash';
+	const SCENARIO_UNTRASH = 'untrash';
+	const SCENARIO_UPDATE = 'update'; // default set by Yii
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -43,6 +51,37 @@ class Activity extends ActiveRecord
 	}
 
 	/**
+	 * @return array behaviors that this model should behave as
+	 */
+	public function behaviors() {
+		return array(
+			// Update created and modified dates on before save events
+			'CTimestampBehavior'=>array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'created',
+				'updateAttribute' => 'modified',
+				'setUpdateOnCreate' => true,
+			),
+			// Set the groupId automatically when user is in only one group
+			'DefaultGroupBehavior'=>array(
+				'class' => 'ext.behaviors.DefaultGroupBehavior',
+			),
+			'DateTimeZoneBehavior'=>array(
+				'class' => 'ext.behaviors.DateTimeZoneBehavior',
+			),
+			// Record C-UD operations to this record
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'ignoreAttributes' => array('modified'),
+			),
+			// 'FacebookFeedBehavior'=>array(
+			// 	'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
+			// 	'ignoreAttributes' => array('modified'),
+			// ),
+		);
+	}
+
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -50,10 +89,9 @@ class Activity extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('authorId, name, status, created, modified', 'required'),
-			array('groupId, authorId, participantsCount, participantsCompletedCount', 'length', 'max'=>10),
-			array('facebookId, name', 'length', 'max'=>255),
-			array('status', 'length', 'max'=>15),
+			array('groupId, name', 'required'),
+			array('groupId', 'length', 'max'=>10),
+			array('name', 'length', 'max'=>255),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

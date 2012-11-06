@@ -28,9 +28,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 
 	<?= $form->errorSummary($model); ?>
 	
-	<?
-	// only show row when is root task
-	if($model->isNewRecord) {
+	<?  if($model->isNewRecord) {
 		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
 				'form' => $form,
 				'model' => $model,
