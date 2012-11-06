@@ -68,6 +68,7 @@ return CMap::mergeArray(
 			'gii'=>array(
 				'class'=>'system.gii.GiiModule',
 				'password'=>'notsochewy',
+				// 'ipFilters'=>false,
 			),
 		),
 	)

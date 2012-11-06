@@ -85,6 +85,9 @@ return CMap::mergeArray(
 				// 'caseSensitive'=>false,
 				// 'matchValue'=>true,
 				'rules'=>array(
+					// 'gii'=>'gii',
+					// 'gii/<controller:\w+>'=>'gii/<controller>',
+					// 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 					'next'=>'task/index',
 					'calendar'=>'task/calendar',
 					'<controller:\w+>'=>'<controller>/index',
