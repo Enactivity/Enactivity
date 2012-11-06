@@ -43,7 +43,7 @@ class MenuDefinitions extends CComponent {
 			),
 			array(
 				'label'=>'New',
-				'url'=>array('/task/create'), 
+				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array('label'=>'Admin',
