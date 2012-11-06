@@ -6,6 +6,7 @@ css_dir = "../www/stylesheets"
 sass_dir = "sass"
 images_dir = "images"
 generated_images_dir = "../www/assets" # not images b/c images is in source control
+http_generated_images_dir = "assets"
 javascripts_dir = "javascripts"
 
 # You can select your preferred output style here (can be overridden via the command line):
