@@ -25,7 +25,7 @@ class ActivityController extends Controller
 	{
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
-			$task = $this->loadModel($_GET['id']);
+			$task = $this->loadActivityModel($_GET['id']);
 			$groupId = $task->groupId;
 		}
 		else {
@@ -39,9 +39,7 @@ class ActivityController extends Controller
 			),
 			array('allow', 
 				'actions'=>array(
-					'view','update','trash','untrash',
-					'signup','start','resume',
-					'complete','quit','ignore',
+					'view','update','trash','untrash','start','resume',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -61,7 +59,7 @@ class ActivityController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = $this->loadModel($id);
+		$model = $this->loadActivityModel($id);
 
 		// Comments
 		$comment = $this->handleNewActivityComment($model);
@@ -104,7 +102,7 @@ class ActivityController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model=$this->loadActivityModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -122,13 +120,63 @@ class ActivityController extends Controller
 	}
 
 	/**
+	 * Trashes a particular model.
+	 * If trash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionTrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$activity = $this->loadActivityModel($id);
+			$activity->trash();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/activity/_view', array('data'=>$activity), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($activity);
+		}
+		else {
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
+	/**
+	 * Untrashes a particular model.
+	 * If untrash is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionUntrash($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow untrashing via POST request
+			$activity = $this->loadActivityModel($id);
+			$activity->untrash();
+				
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/activity/_view', array('data'=>$activity), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($activity);
+		}
+		else {
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
+	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$this->loadActivityModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -166,7 +214,7 @@ class ActivityController extends Controller
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
 	 */
-	public function loadModel($id)
+	public function loadActivityModel($id)
 	{
 		$model = Activity::model()->findByPk($id);
 		if(is_null($model)) {
@@ -186,6 +234,25 @@ class ActivityController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	/**
+	 * Redirect the current view to the return url value or
+	 * to the activity/view page if no return url is specified.
+	 *
+	 * If activity is null, redirect to 'activity/index'
+	 *
+	 * @param Activity $activity
+	 */
+	private function redirectReturnUrlOrView($activity) {
+		if(is_null($activity)) {
+			$this->redirect(array('activity/index'));
+		}
+
+		$this->redirect(
+			isset($_POST['returnUrl'])
+			? $_POST['returnUrl']
+			: array('activity/view', 'id'=>$activity->id,));
 	}
 
 		/**
