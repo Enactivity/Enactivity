@@ -1,6 +1,9 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
+Yii::import("application.components.db.ar.FacebookFeedableRecord");
+Yii::import("application.components.db.ar.LoggableRecord");
+
 
 /**
  * This is the model class for table "activity".
@@ -23,7 +26,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property Group $group
  * @property User $author
  */
-class Activity extends ActiveRecord
+class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 
@@ -76,10 +79,10 @@ class Activity extends ActiveRecord
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
 			// Record C-UD operations to this record
-			// 'ActiveRecordLogBehavior'=>array(
-			// 	'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// ),
+			'ActiveRecordLogBehavior'=>array(
+				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+				'ignoreAttributes' => array('modified'),
+			),
 			// 'FacebookFeedBehavior'=>array(
 			// 	'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
 			// 	'ignoreAttributes' => array('modified'),
@@ -130,8 +133,18 @@ class Activity extends ActiveRecord
 		return array(
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
+
+			// 'tasks' => array(self::HAS_MANY, 'Task', 'activityId');
+
+			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
+				'condition' => 'comments.model=\'Activity\'',
+				'order' => 'comments.created ASC',
+			),
 		);
 	}
+
+	// FIXME: replace with relations
+	public function getTasks() {return array();}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -221,9 +234,10 @@ class Activity extends ActiveRecord
 		/**
 	 * Save a new task, runs validation
 	 * @param array $attributes
+	 * @param array $tasks array of Task to assign to this Activity
 	 * @return boolean
 	 */
-	public function insertActivity($attributes=null) {
+	public function insertActivity($attributes=null, $tasks = array()) {
 		if($this->isNewRecord) {
 			$this->attributes = $attributes;
 			$this->authorId = Yii::app()->user->id;
@@ -275,5 +289,35 @@ class Activity extends ActiveRecord
 		$this->isTrash = 0;
 		$this->setScenario(self::SCENARIO_UNTRASH);
 		return $this->save();
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelClassForLog() {
+		return get_class($this);
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelIdForLog() {
+		return $this->primaryKey;
+	}
+
+	/**
+	 * @see LoggableRecord
+	 **/
+	public function getFocalModelNameForLog() {
+		return $this->name;
+	}
+
+
+	public function getFacebookFeedableName() {
+		return $this->name;
+    }
+
+	public function getViewURL() {
+		return PHtml::taskURL($this);
 	}
 }

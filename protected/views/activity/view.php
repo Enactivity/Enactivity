@@ -1,23 +1,72 @@
-<?php
-/* @var $this ActivityController */
-/* @var $model Activity */
-
+<?
+/**
+ * @uses $model 
+ * @uses $comment
+ * @uses $commentsDataProvider
+ */
 $this->pageTitle = $model->name;
 ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'group.name',
-		'author.fullname',
-		'facebookId',
-		'name',
-		'description',
-		'status',
-		'participantsCount',
-		'participantsCompletedCount',
-		'created',
-		'modified',
-	),
-)); ?>
+<?= PHtml::beginContentHeader(array('class'=>PHtml::activityClass($model) )); ?>
+	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+	<div class="menu toolbox">
+		<ul>
+			<li>
+				<?=
+				PHtml::link(
+					PHtml::encode('Edit'), 
+					array('activity/update', 'id'=>$model->id),
+					array(
+						'id'=>'activity-update-menu-item-' . $model->id,
+						'class'=>'neutral activity-update-menu-item',
+						'title'=>'Edit this activity',
+					)
+				);
+				?>
+			</li>
+			<li>
+				<?=
+				PHtml::link(
+					PHtml::encode('Timeline'), 
+					array('activity/feed', 'id'=>$model->id),
+					array(
+						'id'=>'activity-feed-menu-item',
+						'class'=>'neutral activity-feed-menu-item',
+						'title'=>'View recent history of this activity',
+					)
+				);
+				?>
+			</li>
+		</ul>
+	</div>
+<?= PHtml::endContentHeader(); ?>
+
+<section id="tasks">
+	<h1># Tasks</h1>
+	<? foreach($model->tasks as $task) {
+		echo $this->renderPartial('/task/_view', array(
+			'data'=>$task,
+		));
+	} ?>
+</section>
+
+<? // show comments ?>
+<section id="comments">
+	<h1><?= 'Comments'; ?></h1>
+	
+	<?
+	if($commentsDataProvider->totalItemCount > 0) :
+		// show list of comments
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$commentsDataProvider,
+			'itemView'=>'/comment/_view',
+			'emptyText'=>''
+		)); 
+	else: ?>
+	<p class="blurb">No one has written any comments yet, be the first!</p>
+	<? endif; ?>
+	
+	
+	<? // show new comment form ?>
+	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+</section>

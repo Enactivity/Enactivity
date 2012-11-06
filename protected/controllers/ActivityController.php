@@ -61,8 +61,16 @@ class ActivityController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+
+		// Comments
+		$comment = $this->handleNewActivityComment($model);
+		$commentsDataProvider = new CArrayDataProvider($model->comments);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'comment' => $comment,
+			'commentsDataProvider' => $commentsDataProvider,
 		));
 	}
 
@@ -178,5 +186,32 @@ class ActivityController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+		/**
+	 * Return a new activity comment based on post data
+	 * @param Activit $activity Activity the user is commenting on
+	 * @param Comment $comment
+	 * @return Comment
+	 */
+	public function handleNewActivityComment($activity, $comment = null) {
+		if(is_null($comment)) {
+			$comment = new ActivityComment(ActivityComment::SCENARIO_INSERT);
+		}
+		
+		$comment->activity = $activity;
+		
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performCommentAjaxValidation($comment);
+	
+		if(isset($_POST['ActivityComment'])) {
+			$comment->attributes=$_POST['ActivityComment'];
+	
+			if($comment->save()) {
+				$this->redirect(array('view','id'=>$activity->id, '#'=>'comment-' . $comment->id));
+			}
+		}
+	
+		return $comment;
 	}
 }

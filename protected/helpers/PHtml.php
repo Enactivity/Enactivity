@@ -483,6 +483,20 @@ class PHtml extends CHtml {
 	
 		return implode(" ", $articleClass);	
 	}
+
+	/**
+	 * Returns the classes values associated with an Activity object
+	 * @param Activity $activity
+	 * @return string space-separated html class string
+	 */
+	public static function activityClass($activity) {
+		$articleClass = array();
+
+		$articleClass[] = "activity";
+		$articleClass[] = "activity-" . PHtml::encode($activity->id);
+
+		return implode(" ", $articleClass);
+	}
 	
 	/**
 	 * Returns the classes values associated with a Task object
