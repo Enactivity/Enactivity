@@ -66,3 +66,27 @@ $nav-bar-color: $white;
 		}
 	}
 }
+
+#application-navigation-task-index {
+
+}
+
+#application-navigation-task-calendar {
+
+}
+
+#application-navigation-membership-index {
+
+}
+
+#application-navigation-task-create {
+
+}
+
+#application-navigation-site-admin {
+
+}
+
+#application-navigation-facebook-login {
+	@extend .glyphicons-glyphicons_410_facebook;	
+}

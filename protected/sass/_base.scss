@@ -61,6 +61,11 @@ $tundora: 			#444444;
 @import "compass/css3";
 @import "compass/typography";
 
+// images
+@import "glyphicons/*.png";
+@include all-glyphicons-sprites;
+
+// mixins & functions
 @import "mixins/all";
 @import "functions/all";
 
