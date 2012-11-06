@@ -10,13 +10,13 @@ $nav-bar-color: $white;
 
 	@include respond-to(thin-phone) {
 		bottom: 0;
-		height: $top-of-page-nav-bar-height;
+		height: $application-navigation-fixed-height;
 		position: fixed;
 	}
 
 	@include respond-to(thin-tablet) {
 		bottom: auto;
-		top: $top-of-page-nav-bar-height;
+		top: $application-header-fixed-height;
 	}
 
 	> ul {
@@ -30,8 +30,14 @@ $nav-bar-color: $white;
 	}
 
 	li {
+		text-align: center;
+
 		@include respond-to(thin-phone) {
 			float: left;
+		}
+
+		@include respond-to(thin-tablet) {
+			min-width: 10em;
 		}
 
 		li {
@@ -65,4 +71,29 @@ $nav-bar-color: $white;
 			float: right;
 		}
 	}
+
+	i {
+		@extend .icon-large;
+		display: block;
+	}
+}
+
+#application-navigation-task-index i {
+	@extend .icon-list-ul;
+}
+
+#application-navigation-task-calendar i {
+	@extend .icon-calendar;
+}
+
+#application-navigation-membership-index i {
+	@extend .icon-group;
+}
+
+#application-navigation-task-create i {
+	@extend .icon-plus;
+}
+
+#application-navigation-facebook-login i {
+	@extend .icon-facebook;
 }

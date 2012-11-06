@@ -21,37 +21,50 @@ class MenuDefinitions extends CComponent {
 	public static function applicationMenu() {
 		return array(
 			array(
-				'label'=>'Next', 
-				'itemOptions'=>array(
-					'class'=>'dash-nav-item'
+				'label'=>'<i></i> Next', 
+				'linkOptions'=>array(
+					'id'=>'application-navigation-task-index',
 				),
 				'url'=>array('/task/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'Calendar',
+				'label'=>'<i></i> Calendar',
+				'linkOptions'=>array(
+					'id'=>'application-navigation-task-calendar',
+				),
 				'url'=>array('/task/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
-				'label'=>'Groups', 
+				'label'=>'<i></i> Groups', 
 				'linkOptions'=>array(
-					'class'=>'groups',
+					'id'=>'application-navigation-membership-index',
 				),
 				'url'=>array('/membership/index'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'New',
+				'label'=>'<i></i> New',
+				'linkOptions'=>array(
+					'id'=>'application-navigation-task-create',
+				),
 				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
-			array('label'=>'Admin',
+			array(
+				'label'=>'Admin',
+				'linkOptions'=>array(
+					'id'=>'application-navigation-site-admin',
+				),
 				'url'=>array('site/admin'),
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
-				'label'=>'Sign in with Facebook',
+				'label'=>'<i></i> Sign in with Facebook',
+				'linkOptions'=>array(
+					'id'=>'application-navigation-facebook-login',
+				),
 				'itemOptions'=>array(
 					'class'=>'secondary',
 				),
