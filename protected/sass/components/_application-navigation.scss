@@ -30,6 +30,8 @@ $nav-bar-color: $white;
 	}
 
 	li {
+		text-align: center;
+
 		@include respond-to(thin-phone) {
 			float: left;
 		}
@@ -65,28 +67,33 @@ $nav-bar-color: $white;
 			float: right;
 		}
 	}
+
+	i {
+		// @extend .icon;
+		// margin-bottom: 4px;
+	}
 }
 
-#application-navigation-task-index {
-
+#application-navigation-task-index i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }
 
-#application-navigation-task-calendar {
-
+#application-navigation-task-calendar i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }
 
-#application-navigation-membership-index {
-
+#application-navigation-membership-index i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }
 
-#application-navigation-task-create {
-
+#application-navigation-task-create i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }
 
-#application-navigation-site-admin {
-
+#application-navigation-site-admin i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }
 
-#application-navigation-facebook-login {
-	@extend .glyphicons-glyphicons_410_facebook;	
+#application-navigation-facebook-login i {
+	// @extend .glyphicons-glyphicons_410_facebook;
 }

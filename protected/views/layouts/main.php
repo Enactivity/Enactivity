@@ -55,6 +55,7 @@
 
 		<nav class="application-navigation" id="application-navigation">
 			<? $this->widget('zii.widgets.CMenu', array(
+				'encodeLabel'=>false,
 				'items'=>MenuDefinitions::applicationMenu()
 			));?>
 		</nav>
