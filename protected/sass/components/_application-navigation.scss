@@ -36,6 +36,10 @@ $nav-bar-color: $white;
 			float: left;
 		}
 
+		@include respond-to(thin-tablet) {
+			min-width: 10em;
+		}
+
 		li {
 			float: none;
 		}
