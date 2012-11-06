@@ -25,7 +25,7 @@ class ActivityController extends Controller
 	{
 		// get the group assigned to the event
 		if(!empty($_GET['id'])) {
-			$task = $this->loadTaskModel($_GET['id']);
+			$task = $this->loadModel($_GET['id']);
 			$groupId = $task->groupId;
 		}
 		else {
@@ -79,9 +79,9 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			$model->attributes=$_POST['Activity'];
-			if($model->save())
+			if($model->insertActivity($_POST['Activity'])) {
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -103,9 +103,9 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			$model->attributes=$_POST['Activity'];
-			if($model->save())
+			if($model->updateActivity($_POST['Activity'])) {
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(

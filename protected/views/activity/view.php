@@ -9,8 +9,8 @@ $this->pageTitle = $model->name;
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'groupId',
-		'authorId',
+		'group.name',
+		'author.fullname',
 		'facebookId',
 		'name',
 		'description',

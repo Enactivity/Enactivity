@@ -13,6 +13,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property string $name
  * @property string $description
  * @property string $status
+ * @property integer $isTrash
  * @property string $participantsCount
  * @property string $participantsCompletedCount
  * @property string $created
@@ -28,9 +29,14 @@ class Activity extends ActiveRecord
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
+
+	const STATUS_PENDING = 'Pending';
+	const STATUS_ACTIVE = 'Active';
+	const STATUS_DEACTIVATED = 'Trash';	
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -70,10 +76,10 @@ class Activity extends ActiveRecord
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
 			// Record C-UD operations to this record
-			'ActiveRecordLogBehavior'=>array(
-				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
-			),
+			// 'ActiveRecordLogBehavior'=>array(
+			// 	'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+			// 	'ignoreAttributes' => array('modified'),
+			// ),
 			// 'FacebookFeedBehavior'=>array(
 			// 	'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
 			// 	'ignoreAttributes' => array('modified'),
@@ -90,9 +96,24 @@ class Activity extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('groupId, name', 'required'),
-			array('groupId', 'length', 'max'=>10),
-			array('name', 'length', 'max'=>255),
-			array('description', 'safe'),
+
+			// groupId can be any integer > 0 when set by user
+			array('groupId',
+				'numerical',
+				'min' => 1,
+				'integerOnly'=>true
+			),
+
+			array('name',
+				'length', 
+				'max'=>self::NAME_MAX_LENGTH
+			),
+
+			array('name, description', 
+				'filter', 
+				'filter'=>'trim'
+			),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, groupId, authorId, facebookId, name, description, status, participantsCount, participantsCompletedCount, created, modified', 'safe', 'on'=>'search'),
@@ -118,10 +139,11 @@ class Activity extends ActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Id',
 			'groupId' => 'Group',
 			'authorId' => 'Author',
-			'facebookId' => 'Facebook',
+			'author.fullname' => 'Created By',
+			'facebookId' => 'Facebook Id',
 			'name' => 'Name',
 			'description' => 'Description',
 			'status' => 'Status',
@@ -132,12 +154,21 @@ class Activity extends ActiveRecord
 		);
 	}
 
+	public function scenarioLabels() {
+		return array(
+			self::SCENARIO_DELETE => 'deleted',
+			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_TRASH => 'trashed',
+			self::SCENARIO_UNTRASH => 'untrashed',
+			self::SCENARIO_UPDATE => 'updated',
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -158,5 +189,91 @@ class Activity extends ActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Increment the participant count for an activity
+	 * @param int $participantsIncrement number of times to increment participantsCount
+	 * @param int $participantsIncrement number of times to increment participantsCompletedCount
+	 * @return boolean
+	 */
+	public function incrementParticipantCounts($participantsIncrement, $participantsCompletedIncrement) {
+		if(!is_numeric($participantsIncrement) || !is_numeric($participantsCompletedIncrement)) {
+			throw new CDbException("Arguments must be numeric for increment participants counts");
+		}
+		
+		if(($participantsIncrement == 0) && ($participantsCompletedIncrement == 0)) {
+			return true;
+		}
+		
+		/* @var $task Task */
+		if($this->saveCounters(
+			array( // column => increment value
+				'participantsCount'=>$participantsIncrement,
+				'participantsCompletedCount'=>$participantsCompletedIncrement,
+		))) {
+			return true;
+		}
+		
+		throw new CDbException("Task counters were not incremented");
+	}
+
+		/**
+	 * Save a new task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 */
+	public function insertActivity($attributes=null) {
+		if($this->isNewRecord) {
+			$this->attributes = $attributes;
+			$this->authorId = Yii::app()->user->id;
+			$this->status = self::STATUS_PENDING;
+			return $this->save();
+		}
+		else {
+			throw new CDbException(Yii::t('activity','The activity cannot be inserted because it is not new.'));
+		}
+	}
+
+	public function publishActivity($attributes=null) {
+		$this->setScenario(self::SCENARIO_PUBLISH);
+		$this->attributes = $attributes;
+		$this->status = self::STATUS_ACTIVE;
+		return $this->save;
+	}
+	
+	/**
+	 * Update the task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 */
+	public function updateActivity($attributes=null) {
+		if(!$this->isNewRecord) {
+			$this->attributes = $attributes;
+			return $this->save();
+		}
+		else {
+			throw new CDbException(Yii::t('activity','The activity cannot be updated because it is new.'));
+		}
+	}
+
+		/**
+	 * Saves the activity as trash
+	 * @return boolean whether the saving succeeds.
+	*/
+	public function trash() {
+		$this->isTrash = 1;
+		$this->setScenario(self::SCENARIO_TRASH);
+		return $this->save();
+	}
+	
+	/**
+	 * Saves the activity as not trash
+	 * @return boolean whether the saving succeeds.
+	 */
+	public function untrash() {
+		$this->isTrash = 0;
+		$this->setScenario(self::SCENARIO_UNTRASH);
+		return $this->save();
 	}
 }
