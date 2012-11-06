@@ -10,10 +10,10 @@ $this->pageTitle = 'Group Membership';
 			<li>
 				<?=
 				PHtml::link(
-					PHtml::encode('Sync with Facebook'), 
+					'<i></i> Sync with Facebook', 
 					array('membership/syncWithFacebook'),
 					array(
-						'id'=>'membership-sync-menu-item-' . $model->id,
+						'id'=>'membership-sync-with-facebook-menu-item',
 						'class'=>'neutral membership-sync-menu-item',
 						'title'=>'Get the latest list of your groups from Facebook',
 					)

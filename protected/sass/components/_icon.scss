@@ -1,6 +1,17 @@
+
 .icon {
-	display: block;
-	height: 24px; // glyph size
-	margin: auto;
-	width: 24px; // glyph size
+	&:before {
+		font-family: FontAwesome;
+		font-weight: normal;
+		font-style: normal;
+	}
+}
+
+/* makes the font 33% larger relative to the icon container */
+.icon-large {
+	@extend .icon;
+	&:before {
+		font-size: 1.5em;
+		vertical-align: middle;
+	}
 }
