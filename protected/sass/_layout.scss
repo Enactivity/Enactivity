@@ -10,10 +10,10 @@ html, body {
 }
 
 body {
-	padding-top: $top-of-page-nav-bar-height;
+	padding-top: $application-header-fixed-height;
 
 	@include respond-to('thin-tablet') {
-		padding-top: 2 * $top-of-page-nav-bar-height;
+		padding-top: $application-header-fixed-height + $application-navigation-fixed-height;
 	}
 }
 

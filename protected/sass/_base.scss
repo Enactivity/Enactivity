@@ -5,7 +5,8 @@ $base-max-readability-width: 32em;
 $base-padding: 16px;
 
 // page variables
-$top-of-page-nav-bar-height: $base-padding * 3;
+$application-header-fixed-height: $base-padding * 3;
+$application-navigation-fixed-height: $base-padding * 4;
 
 /**
  * color definitions
