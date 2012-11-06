@@ -75,25 +75,21 @@ $nav-bar-color: $white;
 }
 
 #application-navigation-task-index i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-list-ul;
 }
 
 #application-navigation-task-calendar i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-calendar;
 }
 
 #application-navigation-membership-index i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-group;
 }
 
 #application-navigation-task-create i {
-	// @extend .glyphicons-glyphicons_410_facebook;
-}
-
-#application-navigation-site-admin i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-plus;
 }
 
 #application-navigation-facebook-login i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-facebook;
 }

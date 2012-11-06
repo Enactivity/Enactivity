@@ -21,7 +21,7 @@ class MenuDefinitions extends CComponent {
 	public static function applicationMenu() {
 		return array(
 			array(
-				'label'=>'<i></i>Next', 
+				'label'=>'<i class="icon"></i> Next', 
 				'linkOptions'=>array(
 					'id'=>'application-navigation-task-index',
 				),
@@ -29,7 +29,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'<i></i>Calendar',
+				'label'=>'<i class="icon"></i> Calendar',
 				'linkOptions'=>array(
 					'id'=>'application-navigation-task-calendar',
 				),
@@ -37,7 +37,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
-				'label'=>'<i></i>Groups', 
+				'label'=>'<i class="icon"></i> Groups', 
 				'linkOptions'=>array(
 					'id'=>'application-navigation-membership-index',
 				),
@@ -45,7 +45,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
-				'label'=>'<i></i>New',
+				'label'=>'<i class="icon"></i> New',
 				'linkOptions'=>array(
 					'id'=>'application-navigation-task-create',
 				),
@@ -61,7 +61,7 @@ class MenuDefinitions extends CComponent {
 				'visible'=>Yii::app()->user->isAdmin
 			),
 			array(
-				'label'=>'<i></i>Sign in with Facebook',
+				'label'=>'<i class="icon"></i> Sign in with Facebook',
 				'linkOptions'=>array(
 					'id'=>'application-navigation-facebook-login',
 				),

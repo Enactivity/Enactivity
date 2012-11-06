@@ -1,6 +1,16 @@
+.icon:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+}
+
 .icon {
-	display: block;
-	height: 24px; // glyph size
-	margin: auto;
-	width: 24px; // glyph size
+  text-decoration: inherit;
+}
+
+/* makes the font 33% larger relative to the icon container */
+.icon-large:before {
+  vertical-align: middle;
+  font-size: 4/3em;
 }
