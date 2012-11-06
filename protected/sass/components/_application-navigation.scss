@@ -10,13 +10,13 @@ $nav-bar-color: $white;
 
 	@include respond-to(thin-phone) {
 		bottom: 0;
-		height: $top-of-page-nav-bar-height;
+		height: $application-navigation-fixed-height;
 		position: fixed;
 	}
 
 	@include respond-to(thin-tablet) {
 		bottom: auto;
-		top: $top-of-page-nav-bar-height;
+		top: $application-header-fixed-height;
 	}
 
 	> ul {
@@ -34,6 +34,10 @@ $nav-bar-color: $white;
 
 		@include respond-to(thin-phone) {
 			float: left;
+		}
+
+		@include respond-to(thin-tablet) {
+			min-width: 10em;
 		}
 
 		li {
@@ -69,31 +73,27 @@ $nav-bar-color: $white;
 	}
 
 	i {
-		// @extend .icon;
-		// margin-bottom: 4px;
+		@extend .icon-large;
+		display: block;
 	}
 }
 
 #application-navigation-task-index i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-list-ul;
 }
 
 #application-navigation-task-calendar i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-calendar;
 }
 
 #application-navigation-membership-index i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-group;
 }
 
 #application-navigation-task-create i {
-	// @extend .glyphicons-glyphicons_410_facebook;
-}
-
-#application-navigation-site-admin i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-plus;
 }
 
 #application-navigation-facebook-login i {
-	// @extend .glyphicons-glyphicons_410_facebook;
+	@extend .icon-facebook;
 }
