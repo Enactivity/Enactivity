@@ -43,6 +43,21 @@ $this->pageTitle = $model->name;
 
 <section id="tasks" class="tasks agenda">
 	<h1><?= PHtml::encode($calendar->taskCount); ?> Tasks</h1>
+	<div class="menu">
+		<ul>
+			<li>
+				<?= PHtml::link(
+					PHtml::encode('Add Task'), 
+					array('task/create', 'activityId'=>$model->id),
+					array(
+						'id'=>'task-create-menu-item-' . $model->id,
+						'class'=>'neutral task-create-menu-item',
+						'title'=>'Add a new task to this activity',
+					)
+				); ?>
+			</li>
+		</ul>
+	</div>
 	<?= $this->renderPartial('/task/_agenda', array(
 		'calendar'=>$calendar,
 	)); ?>

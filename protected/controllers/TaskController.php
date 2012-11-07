@@ -111,6 +111,7 @@ class TaskController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'activity'=>$activity,
 		));
 	}
 
