@@ -86,7 +86,7 @@ class ActivityController extends Controller
 		if(isset($_POST['Activity']))
 		{
 			if($model->insertActivity($_POST['Activity'])) {
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('task/create','activityId'=>$model->id));
 			}
 		}
 
@@ -207,20 +207,6 @@ class ActivityController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadActivityModel($id)
-	{
-		$model = Activity::model()->findByPk($id);
-		if(is_null($model)) {
-			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $model;
 	}
 
 	/**

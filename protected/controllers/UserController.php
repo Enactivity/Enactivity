@@ -33,7 +33,7 @@ class UserController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadUserModel($id),
 		));
 	}
 
@@ -75,7 +75,7 @@ class UserController extends Controller
 			$model = Yii::app()->user->model;
 		}
 		else { 
-			$model = $this->loadModel($id);
+			$model = $this->loadUserModel($id);
 		}
 
 		// Uncomment the following line if AJAX validation is needed
@@ -103,7 +103,7 @@ class UserController extends Controller
 			$model = Yii::app()->user->model;
 		}
 		else {
-			$model = $this->loadModel($id);
+			$model = $this->loadUserModel($id);
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
@@ -133,7 +133,7 @@ class UserController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadUserModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])) {
@@ -158,33 +158,6 @@ class UserController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=User::model()->findByPk((int)$id);
-		if($model===null)
-		throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-	
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param token the token of the model to be loaded
-	 */
-	public function loadModelByToken($token)
-	{
-		$model=User::model()->findByAttributes(array('token'=>$token));
-		if($model === null) {
-			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $model;
 	}
 
 	/**

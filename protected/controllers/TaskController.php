@@ -91,8 +91,9 @@ class TaskController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($year = null, $month = null, $day = null)
+	public function actionCreate($activityId, $year = null, $month = null, $day = null)
 	{
+		$activity = $this->loadActivityModel($activityId);
 		$model = new Task();
 
 		$attributes = array();
@@ -427,28 +428,12 @@ class TaskController extends Controller
 	}
 
 	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 * @return Task
-	 * @throws CHttpException
-	 */
-	public function loadTaskModel($id)
-	{
-		$model=Task::model()->findByPk((int)$id);
-		if(is_null($model)) {
-			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $model;
-	}
-
-	/**
 	 * Return a new task based on POST data
-	 * @param int $parentId the id of the new task's parent
+	 * @param int $activity the id of the new task's parent
 	 * @param array $attributes attributes used to set default values
 	 * @return Task if not saved, directs otherwise
 	 */
-	public function handleNewTaskForm($parentId = null, $model = null) {
+	public function handleNewTaskForm($activity = null, $model = null) {
 		if(is_null($model)) {
 			$model = new Task(Task::SCENARIO_INSERT);
 		}

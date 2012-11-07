@@ -134,7 +134,9 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
-			// 'tasks' => array(self::HAS_MANY, 'Task', 'activityId');
+			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
+				'order' => 'task.created DESC',
+			),
 
 			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
 				'condition' => 'comments.model=\'Activity\'',

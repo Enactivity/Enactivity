@@ -20,6 +20,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * The followings are the available columns in table 'task':
  * @property integer $id
  * @property integer $groupId
+ * @property integer $taskId
  * @property string $name
  * @property integer $isTrash
  * @property string $starts
@@ -160,6 +161,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// class name for the relations automatically generated below.
 		return array(
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
+			'group' => array(self::BELONGS_TO, 'Activity', 'activityId'),
 			
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
