@@ -41,7 +41,7 @@ $this->pageTitle = $model->name;
 	</div>
 <?= PHtml::endContentHeader(); ?>
 
-<section id="tasks">
+<section id="tasks" class="tasks agenda">
 	<h1><?= PHtml::encode($calendar->taskCount); ?> Tasks</h1>
 	<?= $this->renderPartial('/task/_agenda', array(
 		'calendar'=>$calendar,
