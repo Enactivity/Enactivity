@@ -5,23 +5,22 @@
  */
 
 ?>
-<? foreach($calendar->datedTasks as $day => $times) : ?>
+<? foreach($calendar->datedTasks as $date => $times) : ?>
 <article class="day">
-	<? $daytime = strtotime($day); ?>
-		
 	<?= PHtml::openTag('h1', array(
-		'id' => PHtml::dateTimeId($daytime),
+		'id' => PHtml::dateTimeId($date),
 		'class' => 'agenda-date',
 	)); ?>
-	<?= PHtml::encode(Yii::app()->format->formatDate($daytime)); ?>
-	<?= PHtml::closeTag('h1'); ?>
+		<?= PHtml::encode(Yii::app()->format->formatDate($date)); ?>
+	</h1>
 
-	<? foreach($times as $time => $tasks): ?>
-	<? foreach($tasks as $task): ?>
+	<? foreach($times as $time => $activities): ?>
+	<? foreach($activities as $activityInfo): ?>
+	<? foreach($activityInfo['tasks'] as $task): ?>
 	<?= $this->renderPartial('/task/_view', array(
 		'data'=>$task, 
-		'showParent'=>$showParent,
 	)); ?>
+	<? endforeach; ?>
 	<? endforeach; ?>
 	<? endforeach; ?>
 </article>

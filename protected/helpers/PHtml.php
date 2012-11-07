@@ -292,6 +292,10 @@ class PHtml extends CHtml {
 	 * @return string id value
 	 */
 	public static function dateTimeId($dateTime) {
+		if(!is_numeric($dateTime)) {
+			$dateTime = strtotime($dateTime);
+		}
+
 		$id = "day-";
 		$id .= date('Y', $dateTime);
 		$id .= '-' . date('m', $dateTime);
