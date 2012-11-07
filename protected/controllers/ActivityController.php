@@ -1,5 +1,6 @@
 <?php
 
+Yii::import("application.components.calendar.TaskCalendar");
 Yii::import("application.components.web.Controller");
 
 class ActivityController extends Controller
@@ -60,6 +61,7 @@ class ActivityController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadActivityModel($id);
+		$calendar = new TaskCalendar($model->tasks);
 
 		// Comments
 		$comment = $this->handleNewActivityComment($model);
@@ -67,6 +69,7 @@ class ActivityController extends Controller
 
 		$this->render('view',array(
 			'model'=>$model,
+			'calendar'=>$calendar,
 			'comment' => $comment,
 			'commentsDataProvider' => $commentsDataProvider,
 		));

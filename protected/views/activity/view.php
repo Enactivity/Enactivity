@@ -42,12 +42,10 @@ $this->pageTitle = $model->name;
 <?= PHtml::endContentHeader(); ?>
 
 <section id="tasks">
-	<h1><?= PHtml::encode($model->tasksCount); ?> Tasks</h1>
-	<? foreach($model->tasks as $task) {
-		echo $this->renderPartial('/task/_view', array(
-			'data'=>$task,
-		));
-	} ?>
+	<h1><?= PHtml::encode($calendar->taskCount); ?> Tasks</h1>
+	<?= $this->renderPartial('/task/_agenda', array(
+		'calendar'=>$calendar,
+	)); ?>
 </section>
 
 <? // show comments ?>

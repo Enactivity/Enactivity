@@ -18,7 +18,7 @@
 
 	<? foreach($times as $time => $tasks): ?>
 	<? foreach($tasks as $task): ?>
-	<?= $this->renderPartial('_view', array(
+	<?= $this->renderPartial('/task/_view', array(
 		'data'=>$task, 
 		'showParent'=>$showParent,
 	)); ?>
@@ -33,7 +33,7 @@
 	echo PHtml::closeTag('h1');
 	foreach($calendar->somedayTasks as $task) {
 		if(!isset($task->starts)) {
-			echo $this->renderPartial('_view', array(
+			echo $this->renderPartial('/task/_view', array(
 				'data'=>$task,
 				'showParent'=>$showParent,
 			));
