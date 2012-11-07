@@ -135,8 +135,9 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'order' => 'task.created DESC',
+				'order' => 'tasks.created DESC',
 			),
+			'tasksCount' => array(self::STAT, 'Task', 'activityId'),
 
 			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
 				'condition' => 'comments.model=\'Activity\'',
@@ -144,9 +145,6 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			),
 		);
 	}
-
-	// FIXME: replace with relations
-	public function getTasks() {return array();}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

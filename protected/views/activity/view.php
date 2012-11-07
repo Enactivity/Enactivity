@@ -42,7 +42,7 @@ $this->pageTitle = $model->name;
 <?= PHtml::endContentHeader(); ?>
 
 <section id="tasks">
-	<h1># Tasks</h1>
+	<h1><?= PHtml::encode($model->tasksCount); ?> Tasks</h1>
 	<? foreach($model->tasks as $task) {
 		echo $this->renderPartial('/task/_view', array(
 			'data'=>$task,

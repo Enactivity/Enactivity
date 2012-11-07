@@ -86,7 +86,6 @@ class TaskController extends Controller
 		);
 	}
 
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -94,20 +93,21 @@ class TaskController extends Controller
 	public function actionCreate($activityId, $year = null, $month = null, $day = null)
 	{
 		$activity = $this->loadActivityModel($activityId);
-		$model = new Task();
 
-		$attributes = array();
+		$model = new Task();
+		$model->activityId = $activity->id;
+		$model->groupId = $activity->groupId;
 		
 		if(isset($year)
 		&& isset($month)
 		&& isset($day)) {
-			$model->startDate = $month . "/" . $day . "/" . $year;
+			$attributes['startDate'] = $month . "/" . $day . "/" . $year;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$model = $this->handleNewTaskForm(null, $model);
+		$model = $this->handleNewTaskForm($model);
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -433,7 +433,7 @@ class TaskController extends Controller
 	 * @param array $attributes attributes used to set default values
 	 * @return Task if not saved, directs otherwise
 	 */
-	public function handleNewTaskForm($activity = null, $model = null) {
+	public function handleNewTaskForm($model = null) {
 		if(is_null($model)) {
 			$model = new Task(Task::SCENARIO_INSERT);
 		}
