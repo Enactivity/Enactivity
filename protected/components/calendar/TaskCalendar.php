@@ -40,18 +40,36 @@ class TaskCalendar extends CComponent {
 	public function addTasks($tasks) {
 		/** @var $task Task **/
 		foreach ($tasks as $task) {
-
 			if(is_array($task)) {
 				$this->addTasks($task);
 			}
 			else {
-				if(isset($task->starts)) {
-					$this->days[$task->startDate][$task->startTime][] = $task;
-				}
-				else {
-					$this->someday[] = $task;
-				}
+				$this->addTask($task);
 			}
+		}
+	}
+	
+	/**
+	 * Adds a task to the calendar.
+	 * @param Task
+	 * @return null
+	 **/
+	public function addTask(Task $task) {
+		if(isset($task->starts)) {
+			// [date][time][activityId]['tasks'][]
+			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][] = $task;
+
+			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+			}
+			else {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity->name;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
+			}
+		}
+		else {
+			// [activityId]['tasks']
+			$this->someday[$task->activityId]['tasks'] = $task;
 		}
 	}
 	

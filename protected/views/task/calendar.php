@@ -52,17 +52,22 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 						<span class="day-of-month"><?= PHtml::encode($month->currentMDay); ?></span>
 						<span class="weekday-shorthand-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?></span>
 					</header>
-					<? foreach ($calendar->getTasksByDate($month->currentDate) as $times): ?>
-					<? foreach ($times as $task): ?>
+					<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
+					<? foreach ($activities as $activityIndex => $activityInfo): ?>
 					<article class="task">
 						<time>
-							<?= PHtml::encode(Yii::app()->format->formatTime($task->starts)); ?>
+							<?= PHtml::encode($time); ?>
 						</time>
 						<h1>
 							<?= PHtml::link(
-								PHtml::encode($task->shortName), 
-								array('/task/view', 'id'=>$task->id)
+								PHtml::encode($activityInfo['activity']),
+								array('activity/view', 'id'=>$activityIndex)
 							); ?>
+							<span class="count">
+								<?= PHtml::link(
+									PHtml::encode($activityInfo['taskCount']) . ' tasks',
+									array('activity/view', 'id'=>$activityIndex, '#'=>'tasks')
+								); ?></span>
 						</h1>
 					</article>
 					<? endforeach; ?>

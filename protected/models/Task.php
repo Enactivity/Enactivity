@@ -346,6 +346,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		}
 		return strtotime($this->starts);
 	}
+
+	/**
+	 * @return string formatted start time
+	 * @see Formatter->formatTime()
+	 **/
+	public function getFormattedStartTime() {
+		return Yii::app()->format->formatTime($this->starts);
+	}
 	
 	public function setStartDate($date) {
 		if(!empty($date)) {
