@@ -17,6 +17,8 @@
 
 	<p>First, create a new activity, next we'll add some tasks that people can sign up for.</p>
 
+	<?= $form->errorSummary($model); ?>
+
 	<? if($model->isNewRecord) {
 		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
 				'form' => $form,
