@@ -157,7 +157,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// class name for the relations automatically generated below.
 		return array(
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
-			'group' => array(self::BELONGS_TO, 'Activity', 'activityId'),
+			'activity' => array(self::BELONGS_TO, 'Activity', 'activityId'),
 			
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),

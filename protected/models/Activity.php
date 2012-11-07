@@ -318,6 +318,6 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
     }
 
 	public function getViewURL() {
-		return PHtml::taskURL($this);
+		return PHtml::activityURL($this);
 	}
 }

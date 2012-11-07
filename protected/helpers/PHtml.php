@@ -438,6 +438,21 @@ class PHtml extends CHtml {
 	 * @param Task
 	 * @return string containing the taskURL
 	*/
+	public function activityURL(Activity $activity)
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('activity/view',
+				array(
+					'id'=>$activity->id,
+				)
+			);
+	}
+
+	/**
+	 * Get the url for viewing this task
+	 * @param Task
+	 * @return string containing the taskURL
+	*/
 	public function taskURL(Task $task)
 	{
 		return Yii::app()->request->hostInfo .

@@ -8,11 +8,17 @@
  * @uses $commentsDataProvider
  * @uses $feedDataProvider
  */
-$this->pageTitle = $model->name;
+$this->pageTitle = $model->name . ' - ' . $model->activity->name;
 ?>
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
-	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+	<h1><?= PHtml::link(
+		PHtml::encode($model->activity->name),
+			$model->activity->viewUrl,
+			array(
+				'class'=>'activity-name'
+			)); ?>: 
+		<?= PHtml::encode($model->name); ?></h1>
 	<span class="task-header-time"><? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 	<div class="menu toolbox">
 		<ul>
