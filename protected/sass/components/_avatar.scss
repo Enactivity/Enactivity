@@ -1,4 +1,9 @@
 .avatar {
+
+	float: left;
+	margin-right: $base-margin;
+	margin-top: $base-margin / 2; // to align with text top
+
 	img {
 		@include border-radius(4px, 4px);
 	}
