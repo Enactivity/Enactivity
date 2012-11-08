@@ -3,53 +3,48 @@
 /* @var $model Activity */
 ?>
 
-<div class="view">
+<? $story = $this->beginWidget('application.components.widgets.Story', array(
+	'htmlOptions'=>array(
+		'id'=>"activity-" . PHtml::encode($data->id),
+		'class'=>PHtml::activityClass($data),
+	),
+)); ?>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<? $story->beginStoryContent(); ?>
+	<h1>
+		<?= PHtml::link(
+			PHtml::encode($data->name), 
+			array('/activity/view', 'id'=>$data->id)
+		); ?>
+	</h1>
+
+	<b><?= PHtml::encode($data->getAttributeLabel('id')); ?>:</b>
+	<?= PHtml::link(PHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
-	<?php echo CHtml::encode($data->groupId); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
+	<?= PHtml::encode($data->groupId); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('authorId')); ?>:</b>
-	<?php echo CHtml::encode($data->authorId); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('authorId')); ?>:</b>
+	<?= PHtml::encode($data->authorId); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('facebookId')); ?>:</b>
-	<?php echo CHtml::encode($data->facebookId); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('facebookId')); ?>:</b>
+	<?= PHtml::encode($data->facebookId); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('name')); ?>:</b>
+	<?= PHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+	<?= PHtml::encode($data->description); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?= PHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+	<?= PHtml::encode($data->status); ?>
 	<br />
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('participantsCount')); ?>:</b>
-	<?php echo CHtml::encode($data->participantsCount); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('participantsCompletedCount')); ?>:</b>
-	<?php echo CHtml::encode($data->participantsCompletedCount); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode($data->modified); ?>
-	<br />
-
-	*/ ?>
-
-</div>
+	<? $story->endStoryContent(); ?>
+<? $this->endWidget(); ?>
