@@ -26,16 +26,14 @@
 </article>
 <? endforeach; ?>
 
-<? if($calendar->hasSomedayTasks) {
-	echo PHtml::openTag('h1', array('id' => 'someday-tasks'));
-	echo 'Someday';
-	echo PHtml::closeTag('h1');
-	foreach($calendar->somedayTasks as $task) {
-		if(!isset($task->starts)) {
-			echo $this->renderPartial('/task/_view', array(
-				'data'=>$task,
-				'showParent'=>$showParent,
-			));
-		}
-	}
-} ?>
+<? if($calendar->hasSomedayTasks): ?>
+<?= PHtml::openTag('h1', array('id' => 'someday-tasks')); ?>Someday</h1>
+<? foreach($calendar->somedayTasks as $activityInfo): ?>
+<? foreach($activityInfo['tasks'] as $task): ?>
+<?= $this->renderPartial('/task/_view', array(
+	'data'=>$task,
+	'showParent'=>$showParent,
+)); ?>
+<? endforeach; ?>
+<? endforeach; ?>
+<? endif; ?>

@@ -18,33 +18,9 @@
 		); ?>
 	</h1>
 
-	<b><?= PHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?= PHtml::link(PHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('groupId')); ?>:</b>
-	<?= PHtml::encode($data->groupId); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('authorId')); ?>:</b>
-	<?= PHtml::encode($data->authorId); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('facebookId')); ?>:</b>
-	<?= PHtml::encode($data->facebookId); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?= PHtml::encode($data->name); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?= PHtml::encode($data->description); ?>
-	<br />
-
-	<b><?= PHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?= PHtml::encode($data->status); ?>
-	<br />
+	<? if($data->description): ?>
+	<p><?= PHtml::encode($data->description); ?></p>
+	<? endif; ?>
 
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>

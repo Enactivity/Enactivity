@@ -1,0 +1,11 @@
+.agenda {
+	.day {
+		margin-bottom: $base-margin;
+	}
+
+	.activity {
+		@extend .content-block;
+		background: $white;
+		margin-bottom: 1px; // mimic a border
+	}
+}

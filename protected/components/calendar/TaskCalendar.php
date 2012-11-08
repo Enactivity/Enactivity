@@ -69,7 +69,15 @@ class TaskCalendar extends CComponent {
 		}
 		else {
 			// [activityId]['tasks']
-			$this->someday[$task->activityId]['tasks'] = $task;
+			$this->someday[$task->activityId]['tasks'][] = $task;
+
+			if(isset($this->someday[$task->activityId]['activity'])) {
+				$this->someday[$task->activityId]['taskCount']++;
+			}
+			else {
+				$this->someday[$task->activityId]['activity'] = $task->activity->name;
+				$this->someday[$task->activityId]['taskCount'] = 1;
+			}
 		}
 	}
 	
