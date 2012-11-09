@@ -24,14 +24,14 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','feed','create','calendar','someday'),
+				'actions'=>array('index','create','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
 				'actions'=>array(
 					'view','update','trash','untrash',
 					'signup','start','resume',
-					'complete','quit','ignore',
+					'complete','quit','ignore','feed',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),

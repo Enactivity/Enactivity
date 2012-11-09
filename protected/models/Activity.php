@@ -139,6 +139,12 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			),
 			'taskCount' => array(self::STAT, 'Task', 'activityId'),
 
+			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
+				'condition' => 'feed.focalModel=\'Activity\''
+					. ' OR feed.model=\'Activity\'',
+				'order' => 'feed.created DESC',
+			),
+
 			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
 				'condition' => 'comments.model=\'Activity\'',
 				'order' => 'comments.created ASC',

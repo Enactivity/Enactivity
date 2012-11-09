@@ -6,20 +6,20 @@
 $this->pageTitle = $model->name;
 ?>
 
-<?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
+<?= PHtml::beginContentHeader(array('class'=>PHtml::activityClass($model) )); ?>
 	<h1>Timeline for <?= PHtml::link(
 		PHtml::encode($model->name), 
-			array('task/view', 'id'=>$model->id),
+			array('activity/view', 'id'=>$model->id),
 			array(
-				'id'=>'task-view-menu-item',
-				'class'=>'neutral task-view-menu-item',
-				'title'=>'View recent history of this task',
+				'id'=>'activity-view-menu-item',
+				'class'=>'neutral activity-view-menu-item',
+				'title'=>'View recent history of this activity',
 			)
 		); ?>
 	</h1>
 <?= PHtml::endContentHeader(); ?>
 
-<section id="task-log">		
+<section id="activity-log">		
 	<? 
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$feedDataProvider,

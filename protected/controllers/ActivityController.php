@@ -35,12 +35,15 @@ class ActivityController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','feed','create','calendar','someday'),
+				'actions'=>array('index','create','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
 				'actions'=>array(
-					'view','update','trash','untrash','start','resume',
+					'view','update',
+					'trash','untrash',
+					'start','resume',
+					'feed',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -184,6 +187,23 @@ class ActivityController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+
+	public function actionFeed($id) {
+		// load model
+		$model = $this->loadActivityModel($id);
+
+		// Feed
+		$feedDataProvider = new CArrayDataProvider($model->feed);
+
+		$this->render(
+			'feed', 
+			array(
+				'model' => $model,
+				'feedDataProvider' => $feedDataProvider,
+			)
+		);
 	}
 
 	/**
