@@ -231,13 +231,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		throw new CDbException("Task counters were not incremented");
 	}
 
-		/**
+	/**
 	 * Save a new task, runs validation
 	 * @param array $attributes
 	 * @param array $tasks array of Task to assign to this Activity
 	 * @return boolean
 	 */
-	public function insertActivity($attributes=null, $tasks = array()) {
+	public function draft($attributes=null, $tasks = array()) {
 		if($this->isNewRecord) {
 			$this->attributes = $attributes;
 			$this->authorId = Yii::app()->user->id;
@@ -249,7 +249,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		}
 	}
 
-	public function publishActivity($attributes=null) {
+	public function publish($attributes=null) {
 		$this->setScenario(self::SCENARIO_PUBLISH);
 		$this->attributes = $attributes;
 		$this->status = self::STATUS_ACTIVE;
@@ -257,7 +257,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 	}
 	
 	/**
-	 * Update the task, runs validation
+	 * Update the activity, runs validation
 	 * @param array $attributes
 	 * @return boolean
 	 */

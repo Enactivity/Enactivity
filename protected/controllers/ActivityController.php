@@ -88,7 +88,7 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			if($model->insertActivity($_POST['Activity'])) {
+			if($model->draft($_POST['Activity'])) {
 				$this->redirect(array('task/create','activityId'=>$model->id));
 			}
 		}
