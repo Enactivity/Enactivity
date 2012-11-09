@@ -16,7 +16,6 @@
 
 	<? foreach($times as $time => $activities): ?>
 	<? foreach($activities as $activityId => $activityInfo): ?>
-	<h2><time><?= PHtml::encode($time); ?><time></h2>
 	<ol>
 	<? foreach($activityInfo['tasks'] as $task): ?>
 		<li>

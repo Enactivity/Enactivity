@@ -17,7 +17,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	<? $story->beginStoryContent(); ?>
 		<? // task name ?>
-		<h1>
+		<h1><time><?= PHtml::encode($data->formattedStartTime); ?><time>
 			<?= PHtml::link(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
