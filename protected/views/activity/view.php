@@ -13,10 +13,10 @@ $this->pageTitle = $model->name;
 		<ul>
 			<li>
 				<?= PHtml::link(
-					PHtml::encode('Add more tasks'), 
+					'<i></i> Add more tasks', 
 					array('task/create', 'activityId'=>$model->id),
 					array(
-						'id'=>'task-create-menu-item-' . $model->id,
+						'id'=>'task-create-menu-item',
 						'class'=>'neutral task-create-menu-item',
 						'title'=>'Add a new task to this activity',
 					)

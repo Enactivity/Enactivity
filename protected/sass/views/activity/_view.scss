@@ -11,3 +11,8 @@
 		}
 	}
 }
+
+#task-create-menu-item {
+	@extend .icon;
+	@extend .icon-plus;
+}
