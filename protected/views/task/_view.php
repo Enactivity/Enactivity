@@ -17,9 +17,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	<? $story->beginStoryContent(); ?>
 		<? // task name ?>
-		<time>
-			<?= PHtml::encode(Yii::app()->format->formatTime($data->starts)); ?>
-		</time>
 		<h1>
 			<?= PHtml::link(
 				PHtml::encode($data->name), 

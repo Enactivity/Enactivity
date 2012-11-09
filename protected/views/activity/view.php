@@ -58,7 +58,7 @@ $this->pageTitle = $model->name;
 			</li>
 		</ul>
 	</div>
-	<?= $this->renderPartial('/task/_agenda', array(
+	<?= $this->renderPartial('_tasks', array(
 		'calendar'=>$calendar,
 	)); ?>
 </section>

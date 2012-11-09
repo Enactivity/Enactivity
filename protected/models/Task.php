@@ -413,7 +413,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function getCommentCount() {
 		return sizeof($this->comments);
 	}
-	
+
 	/**
 	 * Increment the participant count for a task and its ancestors
 	 * @param int $participantsIncrement number of times to increment participantsCount
@@ -441,6 +441,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
+	public function getCurrentTaskUser() {
+		return TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+	}
+
 	/**
 	 * Check if the current user is participating in the task
 	 * and hasn't stopped (deleted the connection)
