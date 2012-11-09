@@ -51,14 +51,17 @@
 	}
 
 	.task {
-		@extend .content-block;
+		@extend .inline-content-block;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
-		margin-left: $base-margin * -1 + 1;
-		margin-right: $base-margin * -1 + 1;
 
 		h1 {
-			@extend .heading4;
+			@extend .heading5;
+		}
+
+		time {
+			font-size: .75em;
+			white-space: nowrap;
 		}
 	}
 }

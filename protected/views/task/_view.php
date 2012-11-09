@@ -19,7 +19,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 		<? // task name ?>
 		<h1>
 			<? if($data->starts): ?>
-			<time><?= PHtml::encode($data->formattedStartTime); ?><time>
+			<time><?= PHtml::encode($data->formattedStartTime); ?></time>
 			<? endif; ?>
 			<?= PHtml::link(
 				PHtml::encode($data->name), 
