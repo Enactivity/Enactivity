@@ -291,6 +291,14 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		return $this->save();
 	}
 
+	/** 
+	 * Get a truncated version of the name
+	 * @return string
+	 **/
+	public function getShortName() {
+		return StringUtils::truncate($this->name, 30);
+	}
+
 	/**
 	 * @see LoggableRecord
 	 **/

@@ -26,25 +26,5 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
-		
-		<!-- <span class="comment-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->commentCount)) . " Comments",
-				array('/task/view', 'id'=>$data->id, '#' => 'comments')
-			); ?>
-		</span>
-		<span class="participant-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->participantsCount)) . " Signed Up",
-				array('/task/view', 'id'=>$data->id, '#' => 'participating')
-			); ?>
-		</span>
-		<span class="participant-completed-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->participantsCompletedCount)) . " Completed",
-				array('/task/view', 'id'=>$data->id, '#' => 'participating')
-			); ?>
-		</span> -->
-
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>

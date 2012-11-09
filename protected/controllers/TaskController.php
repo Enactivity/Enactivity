@@ -380,7 +380,7 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$calendar = TaskCalendar::loadCalendarNextTasks();
+		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
 
 		$this->render('index', array(
 			'calendar'=>$calendar,
@@ -388,12 +388,12 @@ class TaskController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists all tasks in a calendar.
 	 */
 	public function actionCalendar($month=null, $year=null)
 	{
 		$month = new Month($month, $year);
-		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
+		$taskCalendar = TaskCalendar::loadCalendarByMonth(Yii::app()->user->model, $month);
 		
 		$this->render('calendar', array(
 				'calendar'=>$taskCalendar,
@@ -403,8 +403,11 @@ class TaskController extends Controller
 		);
 	}
 
+	/**
+	 * Lists all tasks with no start date
+	 **/
 	public function actionSomeday() {
-		$taskCalendar = TaskCalendar::loadCalendarWithNoStart();
+		$taskCalendar = TaskCalendar::loadCalendarWithNoStart(Yii::app()->user->model);
 
 		$this->render('someday', array(
 				'calendar'=>$taskCalendar,

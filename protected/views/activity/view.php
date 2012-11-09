@@ -42,12 +42,12 @@ $this->pageTitle = $model->name;
 <?= PHtml::endContentHeader(); ?>
 
 <section id="tasks" class="tasks agenda">
-	<h1><?= PHtml::encode($calendar->taskCount); ?> Tasks</h1>
+	<h1>Here's what needs doing</h1>
 	<div class="menu">
 		<ul>
 			<li>
 				<?= PHtml::link(
-					PHtml::encode('Add Task'), 
+					PHtml::encode('Add more tasks'), 
 					array('task/create', 'activityId'=>$model->id),
 					array(
 						'id'=>'task-create-menu-item-' . $model->id,

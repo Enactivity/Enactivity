@@ -8,3 +8,10 @@
 	// max-width: $base-max-readability-width;
 	padding: $base-padding;
 }
+
+.inline-content-block {
+	@extend .content-block;
+	padding: $base-padding;
+	margin-left: $base-padding * -1;
+	margin-right: $base-padding * -1;
+}

@@ -17,19 +17,19 @@ class TaskCalendar extends CComponent {
 		$this->addTasks($tasks);
 	}
 
-	public static function loadCalendarNextTasks() {
-		$nextTasks = Task::nextTasksForUser(Yii::app()->user->model);
+	public static function loadCalendarNextTasks(User $user) {
+		$nextTasks = Task::nextTasksForUser($user);
 		return new TaskCalendar($nextTasks->data);
 	}
 
-	public static function loadCalendarByMonth($month) {
-		$datedTasks = Task::tasksForUserInMonth(Yii::app()->user->id, $month);
+	public static function loadCalendarByMonth($user, $month) {
+		$datedTasks = Task::tasksForUserInMonth($user->id, $month);
 		
 		return new TaskCalendar($datedTasks->data);
 	}
 
-	public static function loadCalendarWithNoStart() {
-		$datelessTasks = Task::tasksForUserWithNoStart(Yii::app()->user->id);
+	public static function loadCalendarWithNoStart($user) {
+		$datelessTasks = Task::tasksForUserWithNoStart($user->id);
 		return new TaskCalendar($datelessTasks->data);
 	}
 
@@ -63,7 +63,7 @@ class TaskCalendar extends CComponent {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
 			}
 			else {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity->name;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
 			}
 		}
@@ -75,7 +75,7 @@ class TaskCalendar extends CComponent {
 				$this->someday[$task->activityId]['taskCount']++;
 			}
 			else {
-				$this->someday[$task->activityId]['activity'] = $task->activity->name;
+				$this->someday[$task->activityId]['activity'] = $task->activity;
 				$this->someday[$task->activityId]['taskCount'] = 1;
 			}
 		}

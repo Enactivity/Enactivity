@@ -60,7 +60,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 						</time>
 						<h1>
 							<?= PHtml::link(
-								PHtml::encode($activityInfo['activity']),
+								PHtml::encode($activityInfo['activity']->shortName),
 								array('activity/view', 'id'=>$activityIndex)
 							); ?>
 							<span class="count">

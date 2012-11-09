@@ -15,25 +15,54 @@
 	</h1>
 
 	<? foreach($times as $time => $activities): ?>
-	<? foreach($activities as $activityInfo): ?>
-	<? foreach($activityInfo['tasks'] as $task): ?>
-	<?= $this->renderPartial('/task/_view', array(
-		'data'=>$task, 
-	)); ?>
-	<? endforeach; ?>
+	<? foreach($activities as $activityId => $activityInfo): ?>
+	<h2><time><?= PHtml::encode($time); ?><time></h2>
+	<article class="activity">
+		<h1 class="activity-name">
+			<i></i>
+			<?= PHtml::link(PHtml::encode($activityInfo['activity']->shortName),
+				array('activity/view', 'id'=>$activityId)
+			); ?>
+		</h1>
+		<ol>
+		<? foreach($activityInfo['tasks'] as $task): ?>
+			<li>
+				<?= $this->renderPartial('/task/_view', array(
+					'data'=>$task,
+					'showParent'=>$showParent,
+				)); ?>
+			</li>
+		<? endforeach; ?>
+		</ol>
+	</article>
 	<? endforeach; ?>
 	<? endforeach; ?>
 </article>
 <? endforeach; ?>
 
 <? if($calendar->hasSomedayTasks): ?>
-<?= PHtml::openTag('h1', array('id' => 'someday-tasks')); ?>Someday</h1>
-<? foreach($calendar->somedayTasks as $activityInfo): ?>
-<? foreach($activityInfo['tasks'] as $task): ?>
-<?= $this->renderPartial('/task/_view', array(
-	'data'=>$task,
-	'showParent'=>$showParent,
-)); ?>
-<? endforeach; ?>
-<? endforeach; ?>
+<article class="someday">
+	<?= PHtml::openTag('h1', array('id' => 'someday-tasks')); ?>Someday</h1>
+	<? foreach($calendar->somedayTasks as $activityInfo): ?>
+	<article class="activity">
+		<h1 class='activity-name'>
+			<i></i>
+			<?= PHtml::link(
+				PHtml::encode($activityInfo['activity']->shortName),
+				array('activity/view', 'id'=>$activityId)
+			); ?>
+		</h1>
+		<ol>
+			<? foreach($activityInfo['tasks'] as $task): ?>
+			<li>
+				<?= $this->renderPartial('/task/_view', array(
+					'data'=>$task,
+					'showParent'=>$showParent,
+				)); ?>
+			</li>
+			<? endforeach; ?>
+		</ol>
+	</article>
+	<? endforeach; ?>
+</article>
 <? endif; ?>
