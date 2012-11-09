@@ -12,6 +12,17 @@ $this->pageTitle = $model->name;
 	<div class="menu toolbox">
 		<ul>
 			<li>
+				<?= PHtml::link(
+					PHtml::encode('Add more tasks'), 
+					array('task/create', 'activityId'=>$model->id),
+					array(
+						'id'=>'task-create-menu-item-' . $model->id,
+						'class'=>'neutral task-create-menu-item',
+						'title'=>'Add a new task to this activity',
+					)
+				); ?>
+			</li>
+			<li>
 				<?=
 				PHtml::link(
 					PHtml::encode('Edit'), 
@@ -39,25 +50,15 @@ $this->pageTitle = $model->name;
 			</li>
 		</ul>
 	</div>
+
+	<? if($model->description): ?>
+	<div id="details">
+		<?= Yii::app()->format->formatStyledText($model->description); ?>
+	</div>
+	<? endif; ?>
 <?= PHtml::endContentHeader(); ?>
 
 <section id="tasks" class="tasks agenda">
-	<h1>Here's what needs doing</h1>
-	<div class="menu">
-		<ul>
-			<li>
-				<?= PHtml::link(
-					PHtml::encode('Add more tasks'), 
-					array('task/create', 'activityId'=>$model->id),
-					array(
-						'id'=>'task-create-menu-item-' . $model->id,
-						'class'=>'neutral task-create-menu-item',
-						'title'=>'Add a new task to this activity',
-					)
-				); ?>
-			</li>
-		</ul>
-	</div>
 	<?= $this->renderPartial('_tasks', array(
 		'calendar'=>$calendar,
 	)); ?>
