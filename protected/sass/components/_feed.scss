@@ -6,6 +6,16 @@
 
 	.feed-change {
 		background: $white;
+		color: $silver-chalice;
 		padding: $base-padding;
+
+		.feed-model-attribute {
+			font-style: italic;
+		}
+
+		em, i {
+			color: $mine-shaft;
+			font-style: normal;
+		}
 	}
 }
