@@ -22,7 +22,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
 			); ?>
-			<span class="status metadata"><?= PHtml::encode($data->currentTaskUser->status); ?></span>
+			<span class="status metadata"><?= PHtml::encode($data->currentTaskUser->statusLabel); ?></span>
 		</h1>
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>
