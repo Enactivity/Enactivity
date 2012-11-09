@@ -13,7 +13,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
 	<h1><?= PHtml::link(
-		PHtml::encode($model->activity->name),
+		PHtml::encode($model->activity->shortName),
 			$model->activity->viewUrl,
 			array(
 				'class'=>'activity-name'
