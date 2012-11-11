@@ -5,38 +5,63 @@
  */
 
 ?>
-<? foreach($calendar->datedTasks as $day => $times) : ?>
+<? foreach($calendar->datedTasks as $date => $times) : ?>
 <article class="day">
-	<? $daytime = strtotime($day); ?>
-		
 	<?= PHtml::openTag('h1', array(
-		'id' => PHtml::dateTimeId($daytime),
+		'id' => PHtml::dateTimeId($date),
 		'class' => 'agenda-date',
 	)); ?>
-	<?= PHtml::encode(Yii::app()->format->formatDate($daytime)); ?>
-	<?= PHtml::closeTag('h1'); ?>
+		<?= PHtml::encode(Yii::app()->format->formatDate($date)); ?>
+	</h1>
 
-	<? foreach($times as $time => $tasks): ?>
-	<? foreach($tasks as $task): ?>
-	<?= $this->renderPartial('_view', array(
-		'data'=>$task, 
-		'showParent'=>$showParent,
-	)); ?>
+	<? foreach($times as $time => $activities): ?>
+	<? foreach($activities as $activityId => $activityInfo): ?>
+	<article class="activity">
+		<h1 class="activity-name">
+			<i></i>
+			<?= PHtml::link(PHtml::encode($activityInfo['activity']->shortName),
+				array('activity/view', 'id'=>$activityId)
+			); ?>
+		</h1>
+		<ol>
+		<? foreach($activityInfo['tasks'] as $task): ?>
+			<li>
+				<?= $this->renderPartial('/task/_view', array(
+					'data'=>$task,
+					'showParent'=>$showParent,
+				)); ?>
+			</li>
+		<? endforeach; ?>
+		</ol>
+	</article>
 	<? endforeach; ?>
 	<? endforeach; ?>
 </article>
 <? endforeach; ?>
 
-<? if($calendar->hasSomedayTasks) {
-	echo PHtml::openTag('h1', array('id' => 'someday-tasks'));
-	echo 'Someday';
-	echo PHtml::closeTag('h1');
-	foreach($calendar->somedayTasks as $task) {
-		if(!isset($task->starts)) {
-			echo $this->renderPartial('_view', array(
-				'data'=>$task,
-				'showParent'=>$showParent,
-			));
-		}
-	}
-} ?>
+<? if($calendar->hasSomedayTasks): ?>
+<article class="someday">
+	<?= PHtml::openTag('h1', array('id' => 'someday-tasks')); ?>Someday</h1>
+	<? foreach($calendar->somedayTasks as $activityInfo): ?>
+	<article class="activity">
+		<h1 class='activity-name'>
+			<i></i>
+			<?= PHtml::link(
+				PHtml::encode($activityInfo['activity']->shortName),
+				array('activity/view', 'id'=>$activityId)
+			); ?>
+		</h1>
+		<ol>
+			<? foreach($activityInfo['tasks'] as $task): ?>
+			<li>
+				<?= $this->renderPartial('/task/_view', array(
+					'data'=>$task,
+					'showParent'=>$showParent,
+				)); ?>
+			</li>
+			<? endforeach; ?>
+		</ol>
+	</article>
+	<? endforeach; ?>
+</article>
+<? endif; ?>

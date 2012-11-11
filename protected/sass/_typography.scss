@@ -3,6 +3,7 @@
 // $base-font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $base-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $base-font-size: 16px;
+$golden-ratio: 1.61803398875;
 
 html {
   color: $mine-shaft;
@@ -22,39 +23,39 @@ em {
 h1, h2, h3, 
 h4, h5, h6 {
   font-family: inherit;
-  line-height: 1;
+  line-height: 1.1;
   color: inherit;
   text-rendering: optimizelegibility;
   word-wrap: break-word;
 }
 
-h1 {
+.heading1 {
   font-size: 36px;
   line-height: 40px;
 }
   
-h2, section h1 {
+.heading2 {
   font-size: 30px;
   line-height: 40px;
 }
 
-h3, section h2, article h1 {
+.heading3 {
   font-size: 24px;
   line-height: 40px;
 }
 
-h4, section h3, article h2 {
+.heading4 {
   font-size: 18px;
   line-height: 20px;
 }
 
-h5, section h4, article h3 {
-  font-size: 14px;
+.heading5 {
+  font-size: $base-font-size;
   line-height: 20px;
 }
 
-h6, section h5, article h6 {
-  font-size: 12px;
+.heading6 {
+  font-size: 14px;
   line-height: 20px;
 }
 
@@ -62,6 +63,7 @@ h6, section h5, article h6 {
  * Text styles
  **/
 p {
+  font-size: $base-font-size;
   max-width: 32em;
   word-wrap: break-word;
   margin-bottom: 1.5em;

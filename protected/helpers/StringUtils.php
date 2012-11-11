@@ -100,5 +100,18 @@ class StringUtils {
 		return "pemail+" . StringUtils::uniqueString() . "@alpha.poncla.com";
 	}
 
+	/** 
+	 * @return boolean if string is blank
+	 **/
+	public static function isBlank($value) {
+		if(is_string($value)) {
+			$value = trim($value);
+		}
+		return empty($value) && !is_numeric($value);
+	}
+
+	public static function isNotBlank($value) {
+		return !self::isBlank($value);
+	}
 }
 ?>

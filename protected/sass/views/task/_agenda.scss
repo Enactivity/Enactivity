@@ -1,0 +1,67 @@
+.agenda {
+	.day {
+		margin-bottom: $base-margin;
+
+		h1 {
+			// @extend h2;
+		}
+
+		h2 time {
+			@extend .heading3;
+		}
+	}
+
+	.activity {
+		@extend .content-block;
+		@include border-radius($base-border-radius);
+
+		border: 1px solid $alto;
+		background: $alto; 
+		padding-bottom: 0;
+		margin-bottom: $base-margin;
+
+		.activity-name {
+			@extend .heading4;
+
+			color: $mine-shaft;
+			padding-bottom: $base-padding;
+
+			// i {
+			// 	@extend .icon;
+			// 	@extend .icon-chevron-down;
+			// 	float: right;
+			// }
+
+			a {
+				color: $mine-shaft;
+			}
+		}
+
+		ol {
+			li {
+				&:first-child {
+					// border-top: 3px solid $gallery;
+				}
+
+				&:last-child {
+					// border-bottom: none;
+				}
+			}
+		}
+	}
+
+	.task {
+		@extend .inline-content-block;
+		background: $white;
+		margin-bottom: 1px; // mimic a border
+
+		h1 {
+			@extend .heading5;
+		}
+
+		time {
+			font-size: .75em;
+			white-space: nowrap;
+		}
+	}
+}

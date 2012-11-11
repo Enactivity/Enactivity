@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: mysql.ajsharma.dev.poncla.com
--- Generation Time: Nov 02, 2012 at 04:54 PM
+-- Generation Time: Nov 11, 2012 at 09:26 AM
 -- Server version: 5.1.53
 -- PHP Version: 5.3.13
 
@@ -37,7 +37,32 @@ CREATE TABLE IF NOT EXISTS `activerecordlog` (
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity`
+--
+
+CREATE TABLE IF NOT EXISTS `activity` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `groupId` int(10) unsigned DEFAULT NULL,
+  `authorId` int(10) unsigned NOT NULL,
+  `facebookId` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `status` varchar(15) NOT NULL,
+  `isTrash` tinyint(1) NOT NULL DEFAULT '0',
+  `participantsCount` int(10) unsigned NOT NULL DEFAULT '0',
+  `participantsCompletedCount` int(10) unsigned NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `groupId` (`groupId`),
+  KEY `authorId` (`authorId`),
+  KEY `facebookId` (`facebookId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -57,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `creatorId` (`creatorId`),
   KEY `groupId` (`groupId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -73,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `group` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `facebookId` (`facebookId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
@@ -92,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
   UNIQUE KEY `groupId_2` (`groupId`,`userId`),
   KEY `groupId` (`groupId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -103,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
 CREATE TABLE IF NOT EXISTS `task` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `groupId` int(11) unsigned NOT NULL,
+  `activityId` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `isTrash` tinyint(1) NOT NULL DEFAULT '0',
   `starts` datetime DEFAULT NULL,
@@ -111,8 +137,9 @@ CREATE TABLE IF NOT EXISTS `task` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `groupId` (`groupId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `groupId` (`groupId`),
+  KEY `activityId` (`activityId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -131,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `task_user` (
   UNIQUE KEY `userId_taskId` (`userId`,`taskId`),
   KEY `userId` (`userId`),
   KEY `taskId` (`taskId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -168,11 +195,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `activity`
+--
+ALTER TABLE `activity`
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`authorId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`
@@ -185,6 +219,7 @@ ALTER TABLE `comment`
 -- Constraints for table `task`
 --
 ALTER TABLE `task`
+  ADD CONSTRAINT `task_ibfk_3` FOREIGN KEY (`activityId`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `task_ibfk_2` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
