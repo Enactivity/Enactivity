@@ -90,7 +90,7 @@ class TaskController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($activityId, $year = null, $month = null, $day = null)
+	public function actionCreate($activityId, $year = null, $month = null, $day = null, $time = null)
 	{
 		$activity = $this->loadActivityModel($activityId);
 
@@ -102,6 +102,10 @@ class TaskController extends Controller
 		&& StringUtils::isNotBlank($month)
 		&& StringUtils::isNotBlank($day)) {
 			$model->startDate = $month . "/" . $day . "/" . $year;
+		}
+
+		if(StringUtils::isNotBlank($time)) {
+			$model->startTime = $time;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
@@ -115,8 +119,9 @@ class TaskController extends Controller
 						'activityId'=>$activity->id, 
 						'year' => $model->startYear, 
 						'month' => $model->startMonth, 
-						'day' => $model->startDay)
-					);	
+						'day' => $model->startDay,
+						'time' => $model->startTime,
+					));	
 				}
 				$this->redirect(array('/activity/view','id'=>$activity->id));
 			}
