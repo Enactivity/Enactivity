@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="field buttons">
-		<?= CHtml::submitButton($model->isNewRecord ? 'I\'m ready to add some tasks' : 'Update'); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'I\'m ready to add some tasks' : 'Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

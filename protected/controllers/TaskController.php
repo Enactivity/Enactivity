@@ -107,7 +107,11 @@ class TaskController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$model = $this->handleNewTaskForm($model);
+		if(isset($_POST['Task'])) {
+			if($model->insertTask($_POST['Task'])) {
+				$this->redirect(array('/activity/view','id'=>$activity->id));
+			}
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -445,11 +449,7 @@ class TaskController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Task'])) {
-			if($model->insertTask($_POST['Task'])) {
-				$this->redirect(array('view','id'=>$model->id));
-			}
-		}
+		
 
 		return $model;
 	}
