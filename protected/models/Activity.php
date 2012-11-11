@@ -138,7 +138,9 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 				'condition' => 'isTrash = 0',
 				'order' => 'tasks.created DESC',
 			),
-			'taskCount' => array(self::STAT, 'Task', 'activityId'),
+			'taskCount' => array(self::STAT, 'Task', 'activityId',
+				'condition' => 'isTrash = 0',
+			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
 				'condition' => 'feed.focalModel=\'Activity\''
