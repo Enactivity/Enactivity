@@ -1,18 +1,3 @@
 #task-index {
 	
-	.day {
-		margin-bottom: $base-margin;
-	}
-
-	.task {
-		@extend .content-block;
-		background: $white;
-		margin-bottom: 1px; // mimic a border
-
-		.comment-count, 
-		.participant-count,
-		.participant-completed-count {
-			@extend .metadata;
-		}
-	}
 }

@@ -4,8 +4,12 @@
  * with the 'extend' command
  **/
 
+// General components
 @import "content-block";
 @import "icon";
+@import "metadata";
+
+// Actual things
 @import "application-header";
 @import "application-footer";
 @import "application-navigation";
@@ -13,7 +17,7 @@
 @import "dropdown";
 @import 'pager';
 @import "menu";
-@import "metadata";
+
 @import "avatar";
 @import "comment";
 @import "feed";

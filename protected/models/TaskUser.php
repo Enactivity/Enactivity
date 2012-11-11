@@ -132,6 +132,16 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 		);
 	}
 
+	public function getStatusLabels() {
+		return array(
+			self::STATUS_PENDING => 'Haven\'t responded',
+			self::STATUS_SIGNED_UP => 'Signed Up',
+			self::STATUS_STARTED => 'Started',
+			self::STATUS_COMPLETED => 'Completed',
+			self::STATUS_IGNORED => 'Ignored',
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -164,6 +174,10 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 			$this->task = Task::model()->findByPk($this->taskId);
 		}
 		return $this->task->groupId;
+	}
+
+	public function getStatusLabel() {
+		return $this->statusLabels[$this->status];
 	}
 
 	public function getIsPending() {

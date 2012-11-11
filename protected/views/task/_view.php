@@ -17,34 +17,15 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 	<? $story->beginStoryContent(); ?>
 		<? // task name ?>
-		<time>
-			<?= PHtml::encode(Yii::app()->format->formatTime($data->starts)); ?>
-		</time>
 		<h1>
+			<? if($data->starts): ?>
+			<time><?= PHtml::encode($data->formattedStartTime); ?></time>
+			<? endif; ?>
 			<?= PHtml::link(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
 			); ?>
+			<span class="status metadata"><?= PHtml::encode($data->currentTaskUser->statusLabel); ?></span>
 		</h1>
-		
-		<!-- <span class="comment-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->commentCount)) . " Comments",
-				array('/task/view', 'id'=>$data->id, '#' => 'comments')
-			); ?>
-		</span>
-		<span class="participant-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->participantsCount)) . " Signed Up",
-				array('/task/view', 'id'=>$data->id, '#' => 'participating')
-			); ?>
-		</span>
-		<span class="participant-completed-count">
-			<?= PHtml::link(
-				PHtml::tag('span', array(), PHtml::encode($data->participantsCompletedCount)) . " Completed",
-				array('/task/view', 'id'=>$data->id, '#' => 'participating')
-			); ?>
-		</span> -->
-
 	<? $story->endStoryContent(); ?>
 <? $this->endWidget(); ?>

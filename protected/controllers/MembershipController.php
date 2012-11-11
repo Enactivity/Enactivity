@@ -55,7 +55,7 @@ class MembershipController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$model = $this->loadModel($id);
+			$model = $this->loadGroupUserModel($id);
 			$model->joinGroup();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -75,7 +75,7 @@ class MembershipController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$model = $this->loadModel($id);
+			$model = $this->loadGroupUserModel($id);
 			$model->leaveGroup();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -90,7 +90,7 @@ class MembershipController extends Controller
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-		/**
+	/**
 	 * Synchronize the current user's groups with facebook
 	 */
 	public function actionSyncWithFacebook() {
@@ -99,21 +99,6 @@ class MembershipController extends Controller
 		}
 
 		$this->redirect(array('membership/index'));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param mixed the integer ID or string slug of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model = GroupUser::model()->findByPk((int) $id);
-		if(isset($model)) {
-			return $model;
-		}
-
-		throw new CHttpException(404, 'The requested page does not exist.');
 	}
 
 	/**

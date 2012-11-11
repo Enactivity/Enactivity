@@ -292,6 +292,10 @@ class PHtml extends CHtml {
 	 * @return string id value
 	 */
 	public static function dateTimeId($dateTime) {
+		if(!is_numeric($dateTime)) {
+			$dateTime = strtotime($dateTime);
+		}
+
 		$id = "day-";
 		$id .= date('Y', $dateTime);
 		$id .= '-' . date('m', $dateTime);
@@ -438,6 +442,21 @@ class PHtml extends CHtml {
 	 * @param Task
 	 * @return string containing the taskURL
 	*/
+	public function activityURL(Activity $activity)
+	{
+		return Yii::app()->request->hostInfo .
+			Yii::app()->createUrl('activity/view',
+				array(
+					'id'=>$activity->id,
+				)
+			);
+	}
+
+	/**
+	 * Get the url for viewing this task
+	 * @param Task
+	 * @return string containing the taskURL
+	*/
 	public function taskURL(Task $task)
 	{
 		return Yii::app()->request->hostInfo .
@@ -482,6 +501,20 @@ class PHtml extends CHtml {
 		$articleClass[] = "sweater-" . PHtml::encode($sweater->id);
 	
 		return implode(" ", $articleClass);	
+	}
+
+	/**
+	 * Returns the classes values associated with an Activity object
+	 * @param Activity $activity
+	 * @return string space-separated html class string
+	 */
+	public static function activityClass($activity) {
+		$articleClass = array();
+
+		$articleClass[] = "activity";
+		$articleClass[] = "activity-" . PHtml::encode($activity->id);
+
+		return implode(" ", $articleClass);
 	}
 	
 	/**
