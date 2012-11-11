@@ -72,9 +72,11 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$currentUser = Yii::app()->user->model;
 			$name = $this->Owner->facebookFeedableName;
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
-			$message = ucfirst($time) . " something was deleted off " . Yii::app()->name .  ".";
+			$message = ucfirst($time) . " something was deleted on " . Yii::app()->name .  ".";
 			$groupFacebookId = $this->Owner->group->facebookId;
-			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
+			$descriptionData = array('data'=>$this->Owner, 'user'=>$currentUser);
+			$viewPath = '/' . 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
 		}
 	}
 	
