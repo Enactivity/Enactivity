@@ -40,5 +40,89 @@ class Controller extends CController
 			$filterChain->run();
 		}
 	}
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadActivityModel($id)
+	{
+		$model = Activity::model()->findByPk($id);
+		if(is_null($model)) {
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
+		return $model;
+	}
 
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadCommentModel($id)
+	{
+		$model=Comment::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadFeedModel($id)
+	{
+		$model=ActiveRecordLog::model()->findByPk((int)$id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param mixed the integer ID or string slug of the model to be loaded
+	 */
+	public function loadGroupUserModel($id)
+	{
+		$model = GroupUser::model()->findByPk((int) $id);
+		if(isset($model)) {
+			return $model;
+		}
+
+		throw new CHttpException(404, 'The requested page does not exist.');
+	}	
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 * @return Task
+	 * @throws CHttpException
+	 */
+	public function loadTaskModel($id)
+	{
+		$model=Task::model()->findByPk((int)$id);
+		if(is_null($model)) {
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
+		return $model;
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadUserModel($id)
+	{
+		$model=User::model()->findByPk((int)$id);
+		if(is_null($model)) {
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
+		return $model;
+	}
 }

@@ -17,19 +17,19 @@ class TaskCalendar extends CComponent {
 		$this->addTasks($tasks);
 	}
 
-	public static function loadCalendarNextTasks() {
-		$nextTasks = Task::nextTasksForUser(Yii::app()->user->model);
+	public static function loadCalendarNextTasks(User $user) {
+		$nextTasks = Task::nextTasksForUser($user);
 		return new TaskCalendar($nextTasks->data);
 	}
 
-	public static function loadCalendarByMonth($month) {
-		$datedTasks = Task::tasksForUserInMonth(Yii::app()->user->id, $month);
+	public static function loadCalendarByMonth($user, $month) {
+		$datedTasks = Task::tasksForUserInMonth($user->id, $month);
 		
 		return new TaskCalendar($datedTasks->data);
 	}
 
-	public static function loadCalendarWithNoStart() {
-		$datelessTasks = Task::tasksForUserWithNoStart(Yii::app()->user->id);
+	public static function loadCalendarWithNoStart($user) {
+		$datelessTasks = Task::tasksForUserWithNoStart($user->id);
 		return new TaskCalendar($datelessTasks->data);
 	}
 
@@ -40,17 +40,43 @@ class TaskCalendar extends CComponent {
 	public function addTasks($tasks) {
 		/** @var $task Task **/
 		foreach ($tasks as $task) {
-
 			if(is_array($task)) {
 				$this->addTasks($task);
 			}
 			else {
-				if(isset($task->starts)) {
-					$this->days[$task->startDate][$task->startTime][] = $task;
-				}
-				else {
-					$this->someday[] = $task;
-				}
+				$this->addTask($task);
+			}
+		}
+	}
+	
+	/**
+	 * Adds a task to the calendar.
+	 * @param Task
+	 * @return null
+	 **/
+	public function addTask(Task $task) {
+		if(isset($task->starts)) {
+			// [date][time][activityId]['tasks'][]
+			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][] = $task;
+
+			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+			}
+			else {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
+			}
+		}
+		else {
+			// [activityId]['tasks']
+			$this->someday[$task->activityId]['tasks'][] = $task;
+
+			if(isset($this->someday[$task->activityId]['activity'])) {
+				$this->someday[$task->activityId]['taskCount']++;
+			}
+			else {
+				$this->someday[$task->activityId]['activity'] = $task->activity;
+				$this->someday[$task->activityId]['taskCount'] = 1;
 			}
 		}
 	}

@@ -49,7 +49,7 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array(
 					'id'=>'application-navigation-task-create',
 				),
-				'url'=>array('/task/create'), 
+				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(

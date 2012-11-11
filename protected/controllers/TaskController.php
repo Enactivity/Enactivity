@@ -24,14 +24,14 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','feed','create','calendar','someday'),
+				'actions'=>array('index','create','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
 				'actions'=>array(
 					'view','update','trash','untrash',
 					'signup','start','resume',
-					'complete','quit','ignore',
+					'complete','quit','ignore','feed',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -86,30 +86,45 @@ class TaskController extends Controller
 		);
 	}
 
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($year = null, $month = null, $day = null)
+	public function actionCreate($activityId, $year = null, $month = null, $day = null)
 	{
-		$model = new Task();
+		$activity = $this->loadActivityModel($activityId);
 
-		$attributes = array();
+		$model = new Task();
+		$model->activityId = $activity->id;
+		$model->groupId = $activity->groupId;
 		
-		if(isset($year)
-		&& isset($month)
-		&& isset($day)) {
+		if(StringUtils::isNotBlank($year) 
+		&& StringUtils::isNotBlank($month)
+		&& StringUtils::isNotBlank($day)) {
 			$model->startDate = $month . "/" . $day . "/" . $year;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$model = $this->handleNewTaskForm(null, $model);
+		if(isset($_POST['Task'])) {
+			if($model->insertTask($_POST['Task'])) {
+				Yii::app()->user->setFlash('success', $model->name . ' was created');
+				if($_POST['add_more']) {
+					$this->redirect(array('create',
+						'activityId'=>$activity->id, 
+						'year' => $model->startYear, 
+						'month' => $model->startMonth, 
+						'day' => $model->startDay)
+					);	
+				}
+				$this->redirect(array('/activity/view','id'=>$activity->id));
+			}
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'activity'=>$activity,
 		));
 	}
 
@@ -378,7 +393,7 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$calendar = TaskCalendar::loadCalendarNextTasks();
+		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
 
 		$this->render('index', array(
 			'calendar'=>$calendar,
@@ -386,12 +401,12 @@ class TaskController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists all tasks in a calendar.
 	 */
 	public function actionCalendar($month=null, $year=null)
 	{
 		$month = new Month($month, $year);
-		$taskCalendar = TaskCalendar::loadCalendarByMonth($month);
+		$taskCalendar = TaskCalendar::loadCalendarByMonth(Yii::app()->user->model, $month);
 		
 		$this->render('calendar', array(
 				'calendar'=>$taskCalendar,
@@ -401,8 +416,11 @@ class TaskController extends Controller
 		);
 	}
 
+	/**
+	 * Lists all tasks with no start date
+	 **/
 	public function actionSomeday() {
-		$taskCalendar = TaskCalendar::loadCalendarWithNoStart();
+		$taskCalendar = TaskCalendar::loadCalendarWithNoStart(Yii::app()->user->model);
 
 		$this->render('someday', array(
 				'calendar'=>$taskCalendar,
@@ -427,54 +445,20 @@ class TaskController extends Controller
 	}
 
 	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 * @return Task
-	 * @throws CHttpException
-	 */
-	public function loadTaskModel($id)
-	{
-		$model=Task::model()->findByPk((int)$id);
-		if(is_null($model)) {
-			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $model;
-	}
-
-	/**
 	 * Return a new task based on POST data
-	 * @param int $parentId the id of the new task's parent
+	 * @param int $activity the id of the new task's parent
 	 * @param array $attributes attributes used to set default values
 	 * @return Task if not saved, directs otherwise
 	 */
-	public function handleNewTaskForm($parentId = null, $model = null) {
+	public function handleNewTaskForm($model = null) {
 		if(is_null($model)) {
 			$model = new Task(Task::SCENARIO_INSERT);
-		}
-		
-		$parentTask = null;
-		if(isset($parentId)) {
-			// tasks inherit parent time
-			$parentTask = Task::model()->findByPk($parentId);
-			$model->starts = $parentTask->starts;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Task'])) {
-			if(isset($parentId)) {
-				if($model->insertSubtask($parentTask, $_POST['Task'])) {
-					$this->redirect(array('view','id'=>$parentTask->id));
-				}
-			}
-			else {
-				if($model->insertTask($_POST['Task'])) {
-					$this->redirect(array('view','id'=>$model->id));
-				}
-			}
-		}
+		
 
 		return $model;
 	}

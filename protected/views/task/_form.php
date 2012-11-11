@@ -25,30 +25,17 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		'class'=>$classForm,
 	),
 )); ?>
-
+	
 	<?= $form->errorSummary($model); ?>
 	
-	<?
-	// only show row when is root task
-	if($model->isNewRecord) {
-		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
-				'form' => $form,
-				'model' => $model,
-				'groups' => Yii::app()->user->model->groups,
-		));
-	}
-	?>
-	
 	<div class="field">
-		<?
-		echo $form->labelEx($model,'name');
-		echo $form->textField($model,'name',
+		<?= $form->labelEx($model,'name'); ?>
+		<?= $form->textField($model,'name',
 			array(
 				'size'=>60,
 				'maxlength'=>255,
 				'placeholder'=>"What's next?",
-			)); 
-		?>
+			)); ?>
 		<?= $form->error($model,'name'); ?>
 	</div>
 	
@@ -73,7 +60,12 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</div>
 	
 	<div class="field buttons">
-		<?= CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Create and Add Another Task' : 'Update and Add Another Task', 
+			array('name'=>'add_more')
+		); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? "Create" : 'Update', 
+			array('name'=>'add_no_more')
+		); ?>
 	</div>
 
 <? $this->endWidget(); ?>

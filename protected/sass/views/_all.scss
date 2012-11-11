@@ -5,10 +5,13 @@
 
 @import "site/index";
 
+@import "activity/view";
+
 @import "group/index";
 
 @import "membership/index";
 
 @import "task/index";
+@import "task/agenda";
 @import "task/calendar";
 @import "task/view"; 

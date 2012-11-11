@@ -20,6 +20,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * The followings are the available columns in table 'task':
  * @property integer $id
  * @property integer $groupId
+ * @property integer $taskId
  * @property string $name
  * @property integer $isTrash
  * @property string $starts
@@ -75,10 +76,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'createAttribute' => 'created',
 				'updateAttribute' => 'modified',
 				'setUpdateOnCreate' => true,
-			),
-			// Set the groupId automatically when user is in only one group
-			'DefaultGroupBehavior'=>array(
-				'class' => 'ext.behaviors.DefaultGroupBehavior',
 			),
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
@@ -160,6 +157,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// class name for the relations automatically generated below.
 		return array(
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
+			'activity' => array(self::BELONGS_TO, 'Activity', 'activityId'),
 			
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
 			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
@@ -348,6 +346,35 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		}
 		return strtotime($this->starts);
 	}
+
+	public function getStartYear() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('Y', $this->startTimestamp);
+	}
+
+	public function getStartMonth() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('m', $this->startTimestamp);	
+	}
+
+	public function getStartDay() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('d', $this->startTimestamp);
+	}
+
+	/**
+	 * @return string formatted start time
+	 * @see Formatter->formatTime()
+	 **/
+	public function getFormattedStartTime() {
+		return Yii::app()->format->formatTime($this->starts);
+	}
 	
 	public function setStartDate($date) {
 		if(!empty($date)) {
@@ -407,7 +434,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function getCommentCount() {
 		return sizeof($this->comments);
 	}
-	
+
 	/**
 	 * Increment the participant count for a task and its ancestors
 	 * @param int $participantsIncrement number of times to increment participantsCount
@@ -435,6 +462,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
+	public function getCurrentTaskUser() {
+		return TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+	}
+
 	/**
 	 * Check if the current user is participating in the task
 	 * and hasn't stopped (deleted the connection)
