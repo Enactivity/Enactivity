@@ -223,6 +223,10 @@ class User extends ActiveRecord
 				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
 					. ' AND nextTasksSomeday.starts IS NULL',
 			),
+
+			'nextActivities' => array(self::HAS_MANY, 'Activity', 'activityId',
+				'through' => 'nextTasks',
+			),
 		);
 	}
 

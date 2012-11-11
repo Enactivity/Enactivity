@@ -37,17 +37,17 @@
 		<!-- flash notices -->
 		<? if(Yii::app()->user->hasFlash('error')):?>
 		<aside class="flash flash-error">
-			<span><?= Yii::app()->user->getFlash('error'); ?></span>
+			<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('notice')):?>
 		<aside class="flash flash-notice">
-			<span><?= Yii::app()->user->getFlash('notice'); ?></span>
+			<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('success')):?>
 		<aside class="flash flash-success">
-			<span><?= Yii::app()->user->getFlash('success'); ?></span>
+			<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
 		</aside>
 		<? endif; ?>
 

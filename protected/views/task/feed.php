@@ -19,7 +19,7 @@ $this->pageTitle = $model->name;
 	</h1>
 <?= PHtml::endContentHeader(); ?>
 
-<section id="task-activity">		
+<section id="task-log">		
 	<? 
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$feedDataProvider,

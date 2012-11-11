@@ -19,6 +19,9 @@ body {
 
 .content-header {
 	@extend .content-block;
+	h1 {
+		@extend .heading1;
+	}
 }
 
 aside {
@@ -27,7 +30,15 @@ aside {
 
 section {
 	@extend .content-block;
+
+	h1 {
+		@extend .heading2;
+	}
 }
 
 article {
+	
+	h1 {
+		@extend .heading3;
+	}
 }

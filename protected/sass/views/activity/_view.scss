@@ -1,0 +1,18 @@
+
+#activity-view {
+	
+	.task {
+		@extend .content-block;
+		background: $white;
+		margin-bottom: 1px; // mimic a border
+
+		.status {
+			@extend .metadata;
+		}
+	}
+}
+
+#task-create-menu-item {
+	@extend .icon;
+	@extend .icon-plus;
+}

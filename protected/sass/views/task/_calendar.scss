@@ -21,7 +21,7 @@
 			}
 
 			header {
-				@extend h2;
+				@extend .heading2;
 				@include ellipsis;
 
 				border-top: 4px solid $alto;
@@ -37,12 +37,16 @@
 			.task {
 				margin: $base-margin 0;
 				h1 {
-					@extend h3;
+					@extend .heading5;
 				}
 
 				time {
 					font-size: .75em;
 					white-space: nowrap;
+				}
+
+				.count {
+					@extend .metadata;
 				}
 			}
 		}
