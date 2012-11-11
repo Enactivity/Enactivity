@@ -98,10 +98,10 @@ class TaskController extends Controller
 		$model->activityId = $activity->id;
 		$model->groupId = $activity->groupId;
 		
-		if(isset($year)
-		&& isset($month)
-		&& isset($day)) {
-			$attributes['startDate'] = $month . "/" . $day . "/" . $year;
+		if(StringUtils::isNotBlank($year) 
+		&& StringUtils::isNotBlank($month)
+		&& StringUtils::isNotBlank($day)) {
+			$model->startDate = $month . "/" . $day . "/" . $year;
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
@@ -109,6 +109,15 @@ class TaskController extends Controller
 
 		if(isset($_POST['Task'])) {
 			if($model->insertTask($_POST['Task'])) {
+				Yii::app()->user->setFlash('success', $model->name . ' was created');
+				if($_POST['add_more']) {
+					$this->redirect(array('create',
+						'activityId'=>$activity->id, 
+						'year' => $model->startYear, 
+						'month' => $model->startMonth, 
+						'day' => $model->startDay)
+					);	
+				}
 				$this->redirect(array('/activity/view','id'=>$activity->id));
 			}
 		}

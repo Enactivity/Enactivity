@@ -347,6 +347,27 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return strtotime($this->starts);
 	}
 
+	public function getStartYear() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('Y', $this->startTimestamp);
+	}
+
+	public function getStartMonth() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('m', $this->startTimestamp);	
+	}
+
+	public function getStartDay() {
+		if(empty($this->startTimestamp)) {
+			return null;
+		}
+		return date('d', $this->startTimestamp);
+	}
+
 	/**
 	 * @return string formatted start time
 	 * @see Formatter->formatTime()
