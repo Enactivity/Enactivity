@@ -135,6 +135,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
+				'condition' => 'isTrash = 0',
 				'order' => 'tasks.created DESC',
 			),
 			'taskCount' => array(self::STAT, 'Task', 'activityId'),
