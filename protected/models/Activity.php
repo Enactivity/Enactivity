@@ -262,7 +262,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		$this->setScenario(self::SCENARIO_PUBLISH);
 		$this->attributes = $attributes;
 		$this->status = self::STATUS_ACTIVE;
-		return $this->save;
+		return $this->save();
 	}
 	
 	/**
