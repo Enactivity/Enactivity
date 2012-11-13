@@ -228,10 +228,10 @@ class User extends ActiveRecord
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')',
 			),
-			'ignorableTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
+			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')'
-					. ' AND nextTasksSomeday.starts IS NULL',
+					. ' AND ignorableSomedayTasks.starts IS NULL',
 			),
 
 			'nextActivities' => array(self::HAS_MANY, 'Activity', 'activityId',

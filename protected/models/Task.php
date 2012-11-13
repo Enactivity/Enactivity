@@ -678,6 +678,16 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		);
 	}
 
+	public static function ignorableSomedayTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->ignorableSomedayTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
 	/**
 	 * Get an ActiveDataProvider with data about tasks for a given month
 	 * @param int

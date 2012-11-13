@@ -24,8 +24,13 @@ class TaskCalendar extends CComponent {
 			$nextTasks->data, 
 			$futureTasks->data
 		));
+
 		$ignorableTasks = Task::ignorableTasksForUser($user);
 		$calendar->removeTasks($ignorableTasks);
+
+		$ignorableSomedayTasks = Task::ignorableSomedayTasksForUser($user);
+		$calendar->removeTasks($ignorableSomedayTasks);
+
 		return $calendar;
 	}
 
