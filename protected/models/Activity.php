@@ -258,11 +258,19 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		}
 	}
 
+	/** 
+	 * When an activity is published, invite all the users in
+	 * the group to participate
+	 * @return boolean
+	 **/
 	public function publish($attributes=null) {
 		$this->setScenario(self::SCENARIO_PUBLISH);
 		$this->attributes = $attributes;
 		$this->status = self::STATUS_ACTIVE;
-		return $this->save();
+		if($this->save()) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
