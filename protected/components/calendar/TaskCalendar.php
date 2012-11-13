@@ -115,6 +115,14 @@ class TaskCalendar extends CComponent {
 
 				if($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] <= 0) {
 					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
+
+					if(empty($this->days[$task->startDate][$task->formattedStartTime])) {
+						unset($this->days[$task->startDate][$task->formattedStartTime]);
+					}
+
+					if(empty($this->days[$task->startDate])) {
+						unset($this->days[$task->startDate]);
+					}
 				}
 			}
 			
