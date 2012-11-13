@@ -212,30 +212,31 @@ class User extends ActiveRecord
 			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'groupId'), 
 				'through' => 'groups',
 				'condition' => 'futureTasks.starts >= NOW()',
+				'scopes' => 'scopeAlive',
 			),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
+				'scopes' => 'scopeAlive',
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
 					. ' AND nextTasksSomeday.starts IS NULL',
+				'scopes' => 'scopeAlive',
 			),
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')',
+				'scopes' => 'scopeAlive',
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')'
 					. ' AND ignorableSomedayTasks.starts IS NULL',
-			),
-
-			'nextActivities' => array(self::HAS_MANY, 'Activity', 'activityId',
-				'through' => 'nextTasks',
+				'scopes' => 'scopeAlive',
 			),
 		);
 	}

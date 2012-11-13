@@ -502,6 +502,16 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
 	}
+
+	/**
+	 * Tasks which are not alive
+	 **/
+	public function scopeAlive() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'isTrash=0',
+		));
+		return $this;
+	}
 	
 	/**
 	* Scope for events taking place in a particular Month
@@ -698,12 +708,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
+			->scopeAlive()
 			->scopeUsersGroups($userId)
 			->scopeByCalendarMonth($month->monthIndex, $month->year),
 			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
 				'pagination'=>false,
 			)
 		);
@@ -720,6 +728,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
 		$taskWithoutDateQueryModel
+			->scopeAlive()
 			->scopeUsersGroups($userId)
 			->scopeNoWhen()
 			->scopeNotCompleted(),
