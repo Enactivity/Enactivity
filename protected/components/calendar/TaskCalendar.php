@@ -108,27 +108,29 @@ class TaskCalendar extends CComponent {
 	public function removeTask($task) {
 		if(isset($task->starts)) {
 			// [date][time][activityId]['tasks'][]
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
+			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
 
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
+
+				if($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] <= 0) {
+					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
+				}
 			}
-			else {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
-			}
+			
 		}
 		else {
 			// [activityId]['tasks']
-			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
+			unset($this->someday[$task->activityId]['tasks'][$task->id]);
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
-				$this->someday[$task->activityId]['taskCount']++;
+				$this->someday[$task->activityId]['taskCount']--;
+
+				if($this->someday[$task->activityId]['taskCount'] <= 0) {
+					unset($this->someday[$task->activityId]);
+				}
 			}
-			else {
-				$this->someday[$task->activityId]['activity'] = $task->activity;
-				$this->someday[$task->activityId]['taskCount'] = 1;
-			}
+			
 		}
 	}
 	
