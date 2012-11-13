@@ -170,6 +170,7 @@ class User extends ActiveRecord
 	{
 		// stupid hacky way of escaping statuses
 		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
+		$taskUserIgnorableStatusWhereIn = '\'' . implode('\', \'', TaskUser::getIgnorableStatuses()) . '\'';
 
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below
@@ -202,16 +203,15 @@ class User extends ActiveRecord
 				'order' => 'allGroups.name',
 			),
 			
-			// all tasks that belong to the groups the user belongs to
-			'groupsTasks' => array(self::HAS_MANY, 'Task', 'groupId',
-				'through' => 'groups',
-			),
-			
-			// all tasks that the user is actively signed up for
 			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'taskUsers',
+			),
+
+			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'groupId'), 
+				'through' => 'groups',
+				'condition' => 'futureTasks.starts >= NOW()',
 			),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
@@ -222,6 +222,16 @@ class User extends ActiveRecord
 				'through' => 'taskUsers',
 				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
 					. ' AND nextTasksSomeday.starts IS NULL',
+			),
+
+			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
+				'through' => 'taskUsers',
+				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')',
+			),
+			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
+				'through' => 'taskUsers',
+				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')'
+					. ' AND ignorableSomedayTasks.starts IS NULL',
 			),
 
 			'nextActivities' => array(self::HAS_MANY, 'Activity', 'activityId',

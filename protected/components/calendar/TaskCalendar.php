@@ -19,7 +19,19 @@ class TaskCalendar extends CComponent {
 
 	public static function loadCalendarNextTasks(User $user) {
 		$nextTasks = Task::nextTasksForUser($user);
-		return new TaskCalendar($nextTasks->data);
+		$futureTasks = Task::futureTasksForUser($user);
+		$calendar = new TaskCalendar(array(
+			$nextTasks->data, 
+			$futureTasks->data
+		));
+
+		$ignorableTasks = Task::ignorableTasksForUser($user);
+		$calendar->removeTasks($ignorableTasks);
+
+		$ignorableSomedayTasks = Task::ignorableSomedayTasksForUser($user);
+		$calendar->removeTasks($ignorableSomedayTasks);
+
+		return $calendar;
 	}
 
 	public static function loadCalendarByMonth($user, $month) {
@@ -57,7 +69,7 @@ class TaskCalendar extends CComponent {
 	public function addTask(Task $task) {
 		if(isset($task->starts)) {
 			// [date][time][activityId]['tasks'][]
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][] = $task;
+			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
 
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
@@ -69,7 +81,7 @@ class TaskCalendar extends CComponent {
 		}
 		else {
 			// [activityId]['tasks']
-			$this->someday[$task->activityId]['tasks'][] = $task;
+			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
 				$this->someday[$task->activityId]['taskCount']++;
@@ -78,6 +90,47 @@ class TaskCalendar extends CComponent {
 				$this->someday[$task->activityId]['activity'] = $task->activity;
 				$this->someday[$task->activityId]['taskCount'] = 1;
 			}
+		}
+	}
+
+	public function removeTasks($tasks) {
+		/** @var $task Task **/
+		foreach ($tasks as $task) {
+			if(is_array($task)) {
+				$this->removeTasks($task);
+			}
+			else {
+				$this->removeTask($task);
+			}
+		}
+	}
+
+	public function removeTask($task) {
+		if(isset($task->starts)) {
+			// [date][time][activityId]['tasks'][]
+			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
+
+			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
+
+				if($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] <= 0) {
+					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
+				}
+			}
+			
+		}
+		else {
+			// [activityId]['tasks']
+			unset($this->someday[$task->activityId]['tasks'][$task->id]);
+
+			if(isset($this->someday[$task->activityId]['activity'])) {
+				$this->someday[$task->activityId]['taskCount']--;
+
+				if($this->someday[$task->activityId]['taskCount'] <= 0) {
+					unset($this->someday[$task->activityId]);
+				}
+			}
+			
 		}
 	}
 	
