@@ -202,41 +202,36 @@ class User extends ActiveRecord
 				'through' => 'allGroupUsers',
 				'order' => 'allGroups.name',
 			),
-			
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
-
-			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-			),
 
 			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'groupId'), 
 				'through' => 'groups',
-				'condition' => 'futureTasks.starts >= NOW()',
-				'scopes' => 'scopeAlive',
+				'scopes' => array('scopeAlive','scopeFuture'),
+			),
+
+			'nextableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+				'scopes' => array('scopeNextable'),
+			),
+
+			'ignoreableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+				'scopes' => array('scopeIgnorable'),
 			),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
-				'scopes' => 'scopeAlive',
+				'through' => 'nextableTaskUsers',
+				'scopes' => array('scopeAlive'),
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
-					. ' AND nextTasksSomeday.starts IS NULL',
-				'scopes' => 'scopeAlive',
+				'through' => 'nextableTaskUsers',
+				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')',
-				'scopes' => 'scopeAlive',
+				'through' => 'ignoreableTaskUsers',
+				'scopes' => array('scopeAlive'),
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')'
-					. ' AND ignorableSomedayTasks.starts IS NULL',
-				'scopes' => 'scopeAlive',
+				'through' => 'ignoreableTaskUsers',
+				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 		);
 	}

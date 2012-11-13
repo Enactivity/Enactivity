@@ -560,10 +560,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
-				'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-		.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
-		. ' WHERE userId=:userId))',
-				'params' => array(':userId' => $userId)
+			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+				. ' WHERE userId=:userId))',
+			'params' => array(':userId' => $userId)
 		));
 		return $this;
 	}
@@ -572,7 +572,18 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Named scope. Gets the nodes that have no start value.
 	 * @return ActiveRecord the Task
 	 */
-	public function scopeNoWhen() {
+	public function scopeFuture() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'futureTasks.starts >= NOW()',
+		));
+		return $this;
+	}
+
+	/**
+	 * Named scope. Gets the nodes that have no start value.
+	 * @return ActiveRecord the Task
+	 */
+	public function scopeSomeday() {
 		$this->getDbCriteria()->mergeWith(array(
 			'condition'=>'starts IS NULL',
 			)
@@ -581,8 +592,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * 
-	 * Enter description here ...
+	 * Named scope. Tasks which are not completed
 	 */
 	public function scopeNotCompleted() {
 		$this->getDbCriteria()->mergeWith(array(
@@ -730,7 +740,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithoutDateQueryModel
 			->scopeAlive()
 			->scopeUsersGroups($userId)
-			->scopeNoWhen()
+			->scopeSomeday()
 			->scopeNotCompleted(),
 			array(
 				'criteria'=>array(
