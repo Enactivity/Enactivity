@@ -638,7 +638,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     	return PHtml::taskURL($this);
     }
 
-    	/**
+    /**
 	 * Get the next tasks the user is signed up for
 	 * @param User model
 	 * @return CArrayDataProvider
@@ -646,6 +646,31 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public static function nextTasksForUser($user) {
 		return new CArrayDataProvider(
 			$user->nextTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
+	 /**
+	 * Get the tasks in the future the user is signed up for
+	 * @param User model
+	 * @return CArrayDataProvider
+	 */
+	public static function futureTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->futureTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
+	public static function ignorableTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->ignorableTasks(
 				array(
 					'pagination'=>false,
 				)
