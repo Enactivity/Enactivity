@@ -3,6 +3,8 @@
  * Class file for FacebookNotificationBehavior
  */
 
+Yii::import("ext.facebook.components.FacebookGroupFeedPost");
+
 /**
  * This is the behavior class for behavior "FacebookNotificationBehavior".
  */
@@ -62,7 +64,8 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
 			$viewPath = '/' . 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			
-			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
+			$post = new FacebookGroupFeedPost();
+			$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
 		}
 	}
 	

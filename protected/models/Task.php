@@ -4,7 +4,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
 Yii::import("application.components.db.ar.EmailableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
-Yii::import("ext.facebook.db.ar.FacebookFeedableRecord");
+Yii::import("ext.facebook.components.db.ar.FacebookFeedableRecord");
 
 /**
  * This is the model class for table "task".
@@ -92,7 +92,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'ignoreAttributes' => array('modified'),
 			),
 			'FacebookFeedBehavior'=>array(
-				'class' => 'ext.facebook.db.ar.FacebookFeedBehavior',
+				'class' => 'ext.facebook.components.db.ar.FacebookFeedBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
 		);

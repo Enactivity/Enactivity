@@ -42,10 +42,6 @@ return array(
 				'user_groups',
 			),
         ),
-
-        'FacebookGroupFeedPost'=>array(
-        	'class'=>'application.components.db.ar.FacebookGroupFeedPost',
-        ),
         
 		'mail' => array(
 				'class' => 'ext.YiiMail',
