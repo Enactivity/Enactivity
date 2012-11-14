@@ -91,7 +91,8 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			if($model->draft($_POST['Activity'])) {
+			// FIXME: should be model->draft instead
+			if($model->publish($_POST['Activity'])) {
 				$this->redirect(array('task/create','activityId'=>$model->id));
 			}
 		}

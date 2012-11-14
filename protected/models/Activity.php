@@ -177,6 +177,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_PUBLISH => 'published',
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
 			self::SCENARIO_UPDATE => 'updated',
