@@ -36,18 +36,25 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			}
 
 			$currentUser = Yii::app()->user->model;
-			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
-			
-			$name = $this->Owner->facebookFeedableName;
-			
-			$message = ucfirst($label . " " . "\"" . $name . "\"");
 
 			$groupFacebookId = $this->Owner->group->facebookId;
-			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
-			$viewPath = 'ext.facebook.views.' . 'facebookGroupPost' . '.' . strtolower(get_class($this->Owner)). '.' . $this->Owner->scenario;
+
+			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
+			$name = $this->Owner->facebookFeedableName;
+			$message = ucfirst($label . " " . "\"" . $name . "\"");
+						
+			$viewPath = 'ext.facebook.views.facebookGroupPost.' 
+				. strtolower(get_class($this->Owner)) 
+				. '.' . $this->Owner->scenario;
+
+			$viewData = array(
+				'data'=>$this->Owner, 
+				'changedAttributes'=>$changes,
+				'user'=>$currentUser
+			);
 			
 			$post = new FacebookGroupPost();
-			$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
+			$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $viewData);
 		}
 	}
 	
