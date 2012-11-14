@@ -54,30 +54,35 @@ abstract class ActiveRecord extends CActiveRecord {
 		return $this->_oldAttributes;
 	}
 
+	/** 
+	 * @return array in form of:
+	 *	'attributeName' => 'old' => old value
+	 *	                   'new' => new value
+	 **/
 	public function getChangedAttributesExcept($ignoreAttributes = array()) {
 		// new attributes and old attributes
-		$newAttributes = $this->attributes;
+		$currentAttributes = $this->attributes;
 		$oldAttributes = $this->oldAttributes;
 
 		$changes = array();
 
 		// compare old and new
-		foreach ($newAttributes as $name => $value) {
-			// check that if the attribute should be ignored in the log
+		foreach ($currentAttributes as $name => $currentValue) {
+			// check that if the attribute should be ignored
 			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
 
- 			if ($value != $oldValue) {
+ 			if ($currentValue != $oldValue) {
  				if(!in_array($name, $ignoreAttributes) 
  					&& array_key_exists($name, $oldAttributes)
- 					&& array_key_exists($name, $newAttributes)
+ 					&& array_key_exists($name, $currentAttributes)
  				)
  				{
  					// Hack: Format the datetimes into readable strings
  					if ($this->metadata->columns[$name]->dbType == 'datetime') {
 						$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
-						$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
+						$currentAttributes[$name] = isset($currentAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($currentAttributes[$name])) : '';
 					}
- 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
+ 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$currentAttributes[$name]);
  				}
 			}
 		}
