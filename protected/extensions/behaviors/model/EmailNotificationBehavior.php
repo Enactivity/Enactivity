@@ -3,7 +3,7 @@
  * Class file for EmailNotificationBehavior
  */
 
-Yii::import("applications.componets.ar.db.EmailableRecord");
+Yii::import("applications.components.ar.db.EmailableRecord");
 
 /**
  * This is the behavior class for behavior "EmailNotificationBehavior".
@@ -18,8 +18,6 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	 * @var array
 	 */
 	public $ignoreAttributes = array();
-
-	private $_oldAttributes = array();
  
 	/**
 	* After the model saves, record the attributes
@@ -43,30 +41,9 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			// store the changes 
 			$changes = array();
 
-			// new attributes and old attributes
-			$newAttributes = $this->Owner->getAttributes();
-			$oldAttributes = $this->Owner->getOldAttributes();
- 
-			// compare old and new
-			foreach ($newAttributes as $name => $value) {
-				// check that if the attribute should be ignored in the log
-				$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
-
-	 			if ($value != $oldValue) {
-	 				if(!in_array($name, $this->ignoreAttributes) 
-	 					&& array_key_exists($name, $oldAttributes)
-	 					&& array_key_exists($name, $newAttributes)
-	 				)
-	 				{
-	 					// Hack: Format the datetimes into readable strings
-	 					if ($this->Owner->metadata->columns[$name]->dbType == 'datetime') {
-							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
-							$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
-						}
-
-	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
-	 				}
-				}
+			// calculate changes
+			if (!$this->Owner->isNewRecord) {
+				$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
 			}
 
 			$currentUser = Yii::app()->user->model;
@@ -110,21 +87,4 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			}
 		}
 	}
-
-	public function afterFind($event) {
-		// Save old values
-		$this->setOldAttributes($this->Owner->getAttributes());
-	}
- 
- 	/**
- 	 * Get the old attribute for the current owner
- 	**/
-	public function getOldAttributes() {
-		return $this->_oldAttributes;
-	}
- 
-	public function setOldAttributes($value) {
-		$this->_oldAttributes = $value;
-	}
-
 }
