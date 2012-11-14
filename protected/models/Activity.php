@@ -355,7 +355,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	}
 
 
-	public function getFacebookFeedableName() {
+	public function getFacebookGroupPostName() {
 		return $this->name;
     }
 

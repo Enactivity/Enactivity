@@ -652,7 +652,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
         return $this->name;
     }
 
-    public function getFacebookFeedableName() {
+    public function getFacebookGroupPostName() {
         return $this->name;
     }
 
