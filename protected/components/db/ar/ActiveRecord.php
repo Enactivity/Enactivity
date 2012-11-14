@@ -47,6 +47,41 @@ abstract class ActiveRecord extends CActiveRecord {
  	 * Get the old attribute for the current owner
  	**/
 	public function getOldAttributes() {
+		if($this->isNewRecord) {
+			throw new CException("Record is new and has no old values.");
+		}
+
 		return $this->_oldAttributes;
+	}
+
+	public function getChangedAttributesExcept($ignoreAttributes = array()) {
+		// new attributes and old attributes
+		$newAttributes = $this->attributes;
+		$oldAttributes = $this->oldAttributes;
+
+		$changes = array();
+
+		// compare old and new
+		foreach ($newAttributes as $name => $value) {
+			// check that if the attribute should be ignored in the log
+			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
+
+ 			if ($value != $oldValue) {
+ 				if(!in_array($name, $ignoreAttributes) 
+ 					&& array_key_exists($name, $oldAttributes)
+ 					&& array_key_exists($name, $newAttributes)
+ 				)
+ 				{
+ 					// Hack: Format the datetimes into readable strings
+ 					if ($this->metadata->columns[$name]->dbType == 'datetime') {
+						$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
+						$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
+					}
+ 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
+ 				}
+			}
+		}
+
+		return $changes;
 	}
 }

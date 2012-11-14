@@ -30,34 +30,18 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			// store the changes 
 			$changes = array();
 			
-			// new attributes and old attributes
-			$newAttributes = $this->Owner->attributes;
-			$oldAttributes = $this->Owner->oldAttributes;
- 
-			// compare old and new
-			foreach ($newAttributes as $name => $value) {
-				// check that if the attribute should be ignored in the log
-				$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
-
-	 			if ($value != $oldValue) {
-	 				if(!in_array($name, $this->ignoreAttributes) 
-	 					&& array_key_exists($name, $oldAttributes)
-	 					&& array_key_exists($name, $newAttributes)
-	 				)
-	 				{
-	 					// Hack: Format the datetimes into readable strings
-	 					if ($this->Owner->metadata->columns[$name]->dbType == 'datetime') {
-							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
-							$newAttributes[$name] = isset($newAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($newAttributes[$name])) : '';
-						}
-	 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$newAttributes[$name]);
-	 				}
-				}
+			// calculate changes
+			if (!$this->Owner->isNewRecord) {
+				$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
 			}
+
 			$currentUser = Yii::app()->user->model;
 			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
+			
 			$name = $this->Owner->facebookFeedableName;
+			
 			$message = ucfirst($label . " " . "\"" . $name . "\"");
+
 			$groupFacebookId = $this->Owner->group->facebookId;
 			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
 			$viewPath = 'ext.facebook.views.' . 'facebookGroupPost' . '.' . strtolower(get_class($this->Owner)). '.' . $this->Owner->scenario;
@@ -70,7 +54,6 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	public function afterDelete($event) {
 		if(isset(Yii::app()->user))
 		{
-			// store the changes 
 			$currentUser = Yii::app()->user->model;
 			$name = $this->Owner->facebookFeedableName;
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
