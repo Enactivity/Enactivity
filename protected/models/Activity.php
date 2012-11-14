@@ -1,9 +1,9 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
-Yii::import("application.components.db.ar.FacebookFeedableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
+Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 
 /**
  * This is the model class for table "activity".
@@ -26,7 +26,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property Group $group
  * @property User $author
  */
-class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableRecord
+class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 
@@ -83,10 +83,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			// 'FacebookFeedBehavior'=>array(
-			// 	'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// ),
+			'FacebookGroupPostBehavior'=>array(
+				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+				'ignoreAttributes' => array('modified'),
+				'scenarios' => array('publish'),
+			),
 		);
 	}
 
@@ -176,6 +177,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_PUBLISH => 'published',
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
 			self::SCENARIO_UPDATE => 'updated',
@@ -262,6 +264,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 	public function publish($attributes=null) {
 		$this->setScenario(self::SCENARIO_PUBLISH);
 		$this->attributes = $attributes;
+
+		if(!$this->authorId) {
+			$this->authorId = Yii::app()->user->id;
+		}
+		
 		$this->status = self::STATUS_ACTIVE;
 		if($this->save()) {
 			return true;
@@ -319,6 +326,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 		return sizeof($this->tasks);
 	}
 
+	/** 
+	 * @return boolean is pending
+	**/
+	public function getIsDraft() {
+		return strcasecmp($this->status, self::STATUS_PENDING) == 0;
+	}
+
 	/**
 	 * @see LoggableRecord
 	 **/
@@ -341,7 +355,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 	}
 
 
-	public function getFacebookFeedableName() {
+	public function getFacebookGroupPostName() {
 		return $this->name;
     }
 

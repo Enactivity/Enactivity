@@ -15,11 +15,6 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	public $ignoreAttributes = array();
 	
 	/**
-	 * Private function to hold old attributes of record
-	 **/	
-	private $_oldAttributes = array();
-	
-	/**
 	 * After the model saves, record the attributes
 	 * @param CEvent $event
 	 */
@@ -49,8 +44,8 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		else { // updating existing record
 			
 			// new attributes and old attributes
-			$newAttributes = $this->Owner->getAttributes();
-			$oldAttributes = $this->getOldAttributes();
+			$newAttributes = $this->Owner->attributes;
+			$oldAttributes = $this->Owner->oldAttributes;
  
 			// compare old and new
 			foreach ($newAttributes as $name => $value) {
@@ -111,23 +106,7 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 		}
 	}
  
-	/**
-	 * Save old values
-	 * @param CEvent $event
-	 */
-	public function afterFind($event) {
-		$this->setOldAttributes($this->Owner->getAttributes());
-	}
- 
-	public function getOldAttributes() {
-		return $this->_oldAttributes;
-	}
- 
-	public function setOldAttributes($value) {
-		$this->_oldAttributes = $value;
-	}
-
-	/**
+ 	/**
 	 * Confirm that the class is a LoggableRecord and thus compatible with this
 	 * behavior
 	 * @param CComponent owner class of this record

@@ -4,7 +4,7 @@
  */
 
 // Require rather than import because of facebook file name case mismatching.
-require_once(Yii::getPathOfAlias('ext.vendors.facebook') . '/facebook.php');
+require_once(Yii::getPathOfAlias('ext.facebook.sdk') . '/facebook.php');
 
 class FB extends CApplicationComponent {
 
