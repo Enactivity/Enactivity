@@ -320,6 +320,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return sizeof($this->tasks);
 	}
 
+	/** 
+	 * @return boolean is pending
+	**/
+	public function getIsDraft() {
+		return strcasecmp($this->status, self::STATUS_PENDING) == 0;
+	}
+
 	/**
 	 * @see LoggableRecord
 	 **/
