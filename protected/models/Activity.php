@@ -83,10 +83,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			// 'FacebookGroupPostBehavior'=>array(
-			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// ),
+			'FacebookGroupPostBehavior'=>array(
+				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+				'ignoreAttributes' => array('modified'),
+				'scenarios' => array('publish'),
+			),
 		);
 	}
 
