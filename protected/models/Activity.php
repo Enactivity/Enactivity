@@ -264,6 +264,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	public function publish($attributes=null) {
 		$this->setScenario(self::SCENARIO_PUBLISH);
 		$this->attributes = $attributes;
+
+		if(!$this->authorId) {
+			$this->authorId = Yii::app()->user->id;
+		}
+		
 		$this->status = self::STATUS_ACTIVE;
 		if($this->save()) {
 			return true;

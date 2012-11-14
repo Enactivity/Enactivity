@@ -1,1 +1,3 @@
-With <?= PHtml::encode($data->taskCount) ?> tasks.
+With <?= PHtml::encode($data->taskCount); ?> tasks.
+
+<?= PHtml::encode($data->description); ?>
