@@ -48,7 +48,7 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 				$groupFacebookId = $this->Owner->group->facebookId;
 
 				$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
-				$name = $this->Owner->facebookFeedableName;
+				$name = $this->Owner->facebookGroupPostName;
 				$message = ucfirst($label . " " . "\"" . $name . "\"");
 							
 				$viewPath = 'ext.facebook.views.facebookGroupPost.' 
@@ -71,7 +71,7 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 		if(isset(Yii::app()->user))
 		{
 			$currentUser = Yii::app()->user->model;
-			$name = $this->Owner->facebookFeedableName;
+			$name = $this->Owner->facebookGroupPostName;
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
 			$message = ucfirst($time) . " something was deleted off " . Yii::app()->name .  ".";
 			$groupFacebookId = $this->Owner->group->facebookId;
