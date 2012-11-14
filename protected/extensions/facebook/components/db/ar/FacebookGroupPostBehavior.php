@@ -17,8 +17,6 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	 * @var array
 	 */
 	public $ignoreAttributes = array();
-	
-	private $_oldAttributes = array();
  
 	/**
 	* After the model saves, record the attributes
@@ -33,8 +31,8 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			$changes = array();
 			
 			// new attributes and old attributes
-			$newAttributes = $this->Owner->getAttributes();
-			$oldAttributes = $this->Owner->getOldAttributes();
+			$newAttributes = $this->Owner->attributes;
+			$oldAttributes = $this->Owner->oldAttributes;
  
 			// compare old and new
 			foreach ($newAttributes as $name => $value) {
@@ -83,21 +81,4 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			$feedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
 		}
 	}
-	
-	public function afterFind($event) {
-		// Save old values
-		$this->setOldAttributes($this->Owner->getAttributes());
-	}
- 
- 	/**
- 	 * Get the old attribute for the current owner
- 	**/
-	public function getOldAttributes() {
-		return $this->_oldAttributes;
-	}
- 
-	public function setOldAttributes($value) {
-		$this->_oldAttributes = $value;
-	}
-
 }

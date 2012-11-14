@@ -207,11 +207,6 @@ class ActiveRecordLog extends ActiveRecord
 		return $this;
 	}
 	
-	protected function afterFind() {
-		parent::afterFind();		
-	}
-	
-	
 	public function getFocalModelObject() {
 		if(isset($this->_focalModelObject)) {
 			return $this->_focalModelObject;

@@ -6,6 +6,11 @@
 abstract class ActiveRecord extends CActiveRecord {
 
 	/**
+	 * @var array that contains attributes of the record at the time it was found
+	 **/
+	private $_oldAttributes = array();
+
+	/**
 	 * @return array scenario string => label string
 	 **/
 	public function scenarioLabels() {
@@ -24,5 +29,24 @@ abstract class ActiveRecord extends CActiveRecord {
 			return $labels[$scenario];
 		}
 		return $this->generateAttributeLabel($scenario);
+	}
+
+
+	/**
+	 * Saves the initial attributes into oldAttributes
+	 * @see CActiveRecord::afterFind
+	 */ 
+	public function afterFind() {
+		parent::afterFind();
+
+		// Save initial attributes for later review
+		$this->_oldAttributes = $this->attributes;
+	}
+ 
+ 	/**
+ 	 * Get the old attribute for the current owner
+ 	**/
+	public function getOldAttributes() {
+		return $this->_oldAttributes;
 	}
 }
