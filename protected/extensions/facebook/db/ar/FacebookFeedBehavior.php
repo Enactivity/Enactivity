@@ -61,6 +61,7 @@ class FacebookFeedBehavior extends CActiveRecordBehavior
 			$groupFacebookId = $this->Owner->group->facebookId;
 			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
 			$viewPath = '/' . 'facebookGroupFeed' . '/' . strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
+			
 			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
 		}
 	}

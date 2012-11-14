@@ -1,9 +1,9 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
-Yii::import("application.components.db.ar.FacebookFeedableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
+Yii::import("ext.facebook.db.ar.FacebookFeedableRecord");
 
 /**
  * This is the model class for table "activity".
@@ -83,10 +83,10 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			// 'FacebookFeedBehavior'=>array(
-			// 	'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// ),
+			'FacebookFeedBehavior'=>array(
+				'class' => 'ext.facebook.db.ar.FacebookFeedBehavior',
+				'ignoreAttributes' => array('modified'),
+			),
 		);
 	}
 

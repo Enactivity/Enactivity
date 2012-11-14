@@ -31,7 +31,7 @@ return array(
         ),
 
         'FB'=>array(
-        	'class'=>'ext.FB',
+        	'class'=>'ext.facebook.FB',
 			'appID' => '284699434983364',
 			'appSecret' => '53924a0540f0e41b7ea4befcfc09a1b9',
 			'appNamespace' => 'enactivity',
