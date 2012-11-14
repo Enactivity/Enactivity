@@ -83,8 +83,8 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			// 'FacebookFeedBehavior'=>array(
-			// 	'class' => 'ext.facebook.components.db.ar.FacebookFeedBehavior',
+			// 'FacebookGroupPostBehavior'=>array(
+			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
 			// 	'ignoreAttributes' => array('modified'),
 			// ),
 		);
