@@ -4,7 +4,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
 Yii::import("application.components.db.ar.EmailableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
-Yii::import("ext.facebook.components.db.ar.FacebookFeedableRecord");
+Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 
 /**
  * This is the model class for table "task".
@@ -39,7 +39,7 @@ Yii::import("ext.facebook.components.db.ar.FacebookFeedableRecord");
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookFeedableRecord
+class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	

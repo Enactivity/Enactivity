@@ -5,7 +5,7 @@
  * @author Harrison Vuong
  */
 
-class FacebookGroupFeedPost extends CComponent {
+class FacebookGroupPost extends CComponent {
 
     protected function renderView($viewPath, $descriptionData) {
 		return Yii::app()->controller->renderPartial($viewPath, $descriptionData, true);

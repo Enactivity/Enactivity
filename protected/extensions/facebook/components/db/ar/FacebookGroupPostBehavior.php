@@ -3,7 +3,7 @@
  * Class file for FacebookNotificationBehavior
  */
 
-Yii::import("ext.facebook.components.FacebookGroupFeedPost");
+Yii::import("ext.facebook.components.FacebookGroupPost");
 
 /**
  * This is the behavior class for behavior "FacebookNotificationBehavior".
@@ -64,7 +64,7 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			$descriptionData = array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser);
 			$viewPath = 'ext.facebook.views.' . 'facebookGroupPost' . '.' . strtolower(get_class($this->Owner)). '.' . $this->Owner->scenario;
 			
-			$post = new FacebookGroupFeedPost();
+			$post = new FacebookGroupPost();
 			$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $descriptionData);
 		}
 	}
@@ -78,7 +78,9 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 			$time = PHtml::encode(Yii::app()->format->formatDateTime(time())); 
 			$message = ucfirst($time) . " something was deleted off " . Yii::app()->name .  ".";
 			$groupFacebookId = $this->Owner->group->facebookId;
-			Yii::app()->FacebookGroupFeedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
+
+			$feedPost = new FacebookGroupPost();
+			$feedPost->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath);
 		}
 	}
 	

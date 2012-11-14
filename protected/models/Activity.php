@@ -3,7 +3,7 @@
 Yii::import("application.components.db.ar.ActiveRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
-Yii::import("ext.facebook.components.db.ar.FacebookFeedableRecord");
+Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 
 /**
  * This is the model class for table "activity".
@@ -26,7 +26,7 @@ Yii::import("ext.facebook.components.db.ar.FacebookFeedableRecord");
  * @property Group $group
  * @property User $author
  */
-class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableRecord
+class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 

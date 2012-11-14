@@ -4,7 +4,7 @@
  * Interface to control facebook group feeds
  */
 
-interface FacebookFeedableRecord
+interface FacebookGroupPostableRecord
 {
 	/**
 	 * @return string a URL for facebook group feed posts
