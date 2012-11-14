@@ -502,6 +502,16 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
 		);
 	}
+
+	/**
+	 * Tasks which are not alive
+	 **/
+	public function scopeAlive() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'isTrash=0',
+		));
+		return $this;
+	}
 	
 	/**
 	* Scope for events taking place in a particular Month
@@ -550,10 +560,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
-				'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-		.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
-		. ' WHERE userId=:userId))',
-				'params' => array(':userId' => $userId)
+			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+				. ' WHERE userId=:userId))',
+			'params' => array(':userId' => $userId)
 		));
 		return $this;
 	}
@@ -562,7 +572,18 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Named scope. Gets the nodes that have no start value.
 	 * @return ActiveRecord the Task
 	 */
-	public function scopeNoWhen() {
+	public function scopeFuture() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'futureTasks.starts >= NOW()',
+		));
+		return $this;
+	}
+
+	/**
+	 * Named scope. Gets the nodes that have no start value.
+	 * @return ActiveRecord the Task
+	 */
+	public function scopeSomeday() {
 		$this->getDbCriteria()->mergeWith(array(
 			'condition'=>'starts IS NULL',
 			)
@@ -571,8 +592,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * 
-	 * Enter description here ...
+	 * Named scope. Tasks which are not completed
 	 */
 	public function scopeNotCompleted() {
 		$this->getDbCriteria()->mergeWith(array(
@@ -698,12 +718,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithDateQueryModel = new Task();
 		$datedTasks = new CActiveDataProvider(
 			$taskWithDateQueryModel
+			->scopeAlive()
 			->scopeUsersGroups($userId)
 			->scopeByCalendarMonth($month->monthIndex, $month->year),
 			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
 				'pagination'=>false,
 			)
 		);
@@ -720,8 +738,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		$taskWithoutDateQueryModel = new Task();
 		$datelessTasks = new CActiveDataProvider(
 		$taskWithoutDateQueryModel
+			->scopeAlive()
 			->scopeUsersGroups($userId)
-			->scopeNoWhen()
+			->scopeSomeday()
 			->scopeNotCompleted(),
 			array(
 				'criteria'=>array(

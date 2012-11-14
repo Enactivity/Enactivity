@@ -135,11 +135,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'condition' => 'isTrash = 0',
-				'order' => 'tasks.created DESC',
-			),
-			'taskCount' => array(self::STAT, 'Task', 'activityId',
-				'condition' => 'isTrash = 0',
+				'scopes' => array('scopeAlive'),
 			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -314,6 +310,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookFeedableR
 	 **/
 	public function getShortName() {
 		return StringUtils::truncate($this->name, 30);
+	}
+
+	/** 
+	 * @return int size of task count
+	 **/
+	public function getTaskCount() {
+		return sizeof($this->tasks);
 	}
 
 	/**

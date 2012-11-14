@@ -168,10 +168,6 @@ class User extends ActiveRecord
 	 */
 	public function relations()
 	{
-		// stupid hacky way of escaping statuses
-		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
-		$taskUserIgnorableStatusWhereIn = '\'' . implode('\', \'', TaskUser::getIgnorableStatuses()) . '\'';
-
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below
 		return array(
@@ -202,40 +198,36 @@ class User extends ActiveRecord
 				'through' => 'allGroupUsers',
 				'order' => 'allGroups.name',
 			),
-			
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId'),
-
-			'tasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-			),
 
 			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'groupId'), 
 				'through' => 'groups',
-				'condition' => 'futureTasks.starts >= NOW()',
+				'scopes' => array('scopeAlive','scopeFuture'),
+			),
+
+			'nextableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+				'scopes' => array('scopeNextable'),
+			),
+
+			'ignoreableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+				'scopes' => array('scopeIgnorable'),
 			),
 			
 			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')',
+				'through' => 'nextableTaskUsers',
+				'scopes' => array('scopeAlive'),
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserNextStatusWhereIn . ')'
-					. ' AND nextTasksSomeday.starts IS NULL',
+				'through' => 'nextableTaskUsers',
+				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')',
+				'through' => 'ignoreableTaskUsers',
+				'scopes' => array('scopeAlive'),
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'taskUsers',
-				'condition' => 'taskUsers.status IN (' . $taskUserIgnorableStatusWhereIn . ')'
-					. ' AND ignorableSomedayTasks.starts IS NULL',
-			),
-
-			'nextActivities' => array(self::HAS_MANY, 'Activity', 'activityId',
-				'through' => 'nextTasks',
+				'through' => 'ignoreableTaskUsers',
+				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 		);
 	}

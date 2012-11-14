@@ -165,6 +165,24 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 		));
 	}
 
+	public function scopeNextable() {
+		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getNextableStatuses()) . '\'';
+
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'status IN (' . $commaSeparatedStatuses . ')',
+		));
+		return $this;
+	}
+
+	public function scopeIgnorable() {
+		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIgnorableStatuses()) . '\'';
+
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => 'status IN (' . $commaSeparatedStatuses . ')',
+		));
+		return $this;
+	}
+
 	/**
 	 * Get the groupId of the TaskUser
 	 * @return int
