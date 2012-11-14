@@ -17,13 +17,6 @@ body {
 	}
 }
 
-.content-header {
-	@extend .content-block;
-	h1 {
-		@extend .heading1;
-	}
-}
-
 aside {
 	@extend .content-block;
 }

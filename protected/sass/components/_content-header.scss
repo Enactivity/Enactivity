@@ -1,0 +1,6 @@
+.content-header {
+	@extend .content-block;
+	h1 {
+		@extend .heading1;
+	}
+}
