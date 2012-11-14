@@ -168,10 +168,6 @@ class User extends ActiveRecord
 	 */
 	public function relations()
 	{
-		// stupid hacky way of escaping statuses
-		$taskUserNextStatusWhereIn = '\'' . implode('\', \'', TaskUser::getNextableStatuses()) . '\'';
-		$taskUserIgnorableStatusWhereIn = '\'' . implode('\', \'', TaskUser::getIgnorableStatuses()) . '\'';
-
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below
 		return array(
