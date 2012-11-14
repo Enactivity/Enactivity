@@ -17,6 +17,12 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	 * @var array
 	 */
 	public $ignoreAttributes = array();
+
+	/** 
+	 * List of scenarios on which the post should be made
+	 * @var array
+	 */
+	public $scenarios = array();
  
 	/**
 	* After the model saves, record the attributes
@@ -25,36 +31,39 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 
 	public function afterSave($event)
 	{
-		if(isset(Yii::app()->user))
-		{
-			// store the changes 
-			$changes = array();
-			
-			// calculate changes
-			if (!$this->Owner->isNewRecord) {
-				$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
+		if(in_array($this->Owner->scenario, $this->scenarios)) {
+
+			if(isset(Yii::app()->user))
+			{
+				// store the changes 
+				$changes = array();
+				
+				// calculate changes
+				if (!$this->Owner->isNewRecord) {
+					$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
+				}
+
+				$currentUser = Yii::app()->user->model;
+
+				$groupFacebookId = $this->Owner->group->facebookId;
+
+				$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
+				$name = $this->Owner->facebookFeedableName;
+				$message = ucfirst($label . " " . "\"" . $name . "\"");
+							
+				$viewPath = 'ext.facebook.views.facebookGroupPost.' 
+					. strtolower(get_class($this->Owner)) 
+					. '.' . $this->Owner->scenario;
+
+				$viewData = array(
+					'data'=>$this->Owner, 
+					'changedAttributes'=>$changes,
+					'user'=>$currentUser
+				);
+				
+				$post = new FacebookGroupPost();
+				$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $viewData);
 			}
-
-			$currentUser = Yii::app()->user->model;
-
-			$groupFacebookId = $this->Owner->group->facebookId;
-
-			$label = $this->Owner->getScenarioLabel($this->Owner->scenario);
-			$name = $this->Owner->facebookFeedableName;
-			$message = ucfirst($label . " " . "\"" . $name . "\"");
-						
-			$viewPath = 'ext.facebook.views.facebookGroupPost.' 
-				. strtolower(get_class($this->Owner)) 
-				. '.' . $this->Owner->scenario;
-
-			$viewData = array(
-				'data'=>$this->Owner, 
-				'changedAttributes'=>$changes,
-				'user'=>$currentUser
-			);
-			
-			$post = new FacebookGroupPost();
-			$post->post($groupFacebookId, $this->Owner->viewURL, $name, $message, $viewPath, $viewData);
 		}
 	}
 	
