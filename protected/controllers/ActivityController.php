@@ -43,7 +43,7 @@ class ActivityController extends Controller
 					'view','update',
 					'trash','untrash',
 					'start','resume',
-					'feed',
+					'feed','publish',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -91,7 +91,8 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			if($model->draft($_POST['Activity'])) {
+			// FIXME: should be model->draft instead
+			if($model->publish($_POST['Activity'])) {
 				$this->redirect(array('task/create','activityId'=>$model->id));
 			}
 		}
@@ -124,6 +125,31 @@ class ActivityController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	/**
+	 * Publishes a particular model.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionPublish($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow trashing via POST request
+			$activity = $this->loadActivityModel($id);
+			$activity->publish();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(Yii::app()->request->isAjaxRequest) {
+				$this->renderPartial('/activity/_view', array('data'=>$activity), false, true);
+				Yii::app()->end();
+			}
+			$this->redirectReturnUrlOrView($activity);
+		}
+		else {
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		}
+	}
+
 
 	/**
 	 * Trashes a particular model.

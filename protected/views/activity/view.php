@@ -11,6 +11,21 @@ $this->pageTitle = $model->name;
 	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
 	<div class="menu toolbox">
 		<ul>
+			<? if($model->isDraft): ?>
+			<li>
+				<?= PHtml::button(
+					"Publish", 
+					array( //html
+						'submit'=>array('activity/publish', 'id'=>$model->id),
+						'csrf'=>true,
+						'id'=>'activity-publish-menu-item-' . $model->id,
+						'class'=>'positive activity-publish-menu-item',
+						'title'=>'Show this activity to the rest of the team',
+					)
+				); ?>
+			</li>
+			<? endif; ?>
+
 			<li>
 				<?= PHtml::link(
 					'<i></i> Add tasks', 

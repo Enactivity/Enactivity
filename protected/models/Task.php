@@ -2,8 +2,9 @@
 
 Yii::import("application.components.db.ar.ActiveRecord");
 Yii::import("application.components.db.ar.EmailableRecord");
-Yii::import("application.components.db.ar.FacebookFeedableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
+
+Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 
 /**
  * This is the model class for table "task".
@@ -38,7 +39,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
-class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookFeedableRecord
+class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	
@@ -90,9 +91,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			'FacebookFeedBehavior'=>array(
-				'class' => 'ext.behaviors.facebook.FacebookFeedBehavior',
+			'FacebookGroupPostBehavior'=>array(
+				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
 				'ignoreAttributes' => array('modified'),
+				'scenarios' => array('insert', 'trash', 'untrash', 'update'),
 			),
 		);
 	}
@@ -650,7 +652,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
         return $this->name;
     }
 
-    public function getFacebookFeedableName() {
+    public function getFacebookGroupPostName() {
         return $this->name;
     }
 
