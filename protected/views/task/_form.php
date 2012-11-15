@@ -60,9 +60,11 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</div>
 	
 	<div class="field buttons">
+		<? if($model->isNewRecord): ?>
 		<?= PHtml::submitButton($model->isNewRecord ? 'Create and Add Another Task' : 'Update and Add Another Task', 
 			array('name'=>'add_more')
 		); ?>
+		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? "Create" : 'Update', 
 			array('name'=>'add_no_more')
 		); ?>
