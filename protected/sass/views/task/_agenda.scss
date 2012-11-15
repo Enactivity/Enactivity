@@ -63,5 +63,9 @@
 			font-size: .75em;
 			white-space: nowrap;
 		}
+
+		.status {
+			@extend .metadata;
+		}
 	}
 }
