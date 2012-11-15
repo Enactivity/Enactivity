@@ -85,7 +85,10 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			),
 			'FacebookGroupPostBehavior'=>array(
 				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array('modified'),
+				'ignoreAttributes' => array(
+					'facebookId',
+					'modified'
+				),
 				'scenarios' => array('publish'),
 			),
 		);
@@ -361,8 +364,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
     }
 
 	public function getFacebookPostId() {
-		return 434184823306374;
-		// return $this->facebookId;
+		return $this->facebookId;
 	}
 
 	public function setFacebookPostId($facebookPostId) {
