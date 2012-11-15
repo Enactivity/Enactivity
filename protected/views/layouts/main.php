@@ -61,16 +61,10 @@
 		</nav>
 
 		<footer class="application-footer">
-			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://twitter.com/#!/Enactivity"); ?> &copy; <?= date('Y'); ?> 
+			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/Enactivity"); ?> &copy; <?= date('Y'); ?> 
 				All Rights Reserved.
 			</p>
-			<p class="credits">Created by 
-				<?= PHtml::link("Reed Musselman", "http://twitter.com/#!/blue21japan"); ?>, 
-				<?= PHtml::link("Andy Fong", "http://twitter.com/#!/andysfong"); ?>, 
-				<?= PHtml::link("Harrison Vuong", "http://twitter.com/#!/harrisonvuong"); ?>, and 
-				<?= PHtml::link("Ajay Sharma", "http://twitter.com/#!/ajsharma"); ?>.
-				<!-- Also, chicken wings and beer, lots of beer. --> 
-			</p>
+			<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/Enactivity"); ?>.</p>
 
 			<? if(Yii::app()->user->isAuthenticated): ?>
 			<p class="logout">
