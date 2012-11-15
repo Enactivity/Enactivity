@@ -245,4 +245,22 @@ class FB extends CApplicationComponent {
 	public function addPostComment($postId, $params) {
 		return $this->post($postId . '/comments', $params);
 	}
+
+	public function getPostComments($postId) {
+		$comments = array();
+		$response = $this->api($postId . '/comments');
+
+		foreach($response['data'] as $commentData) {
+			$comment = new FacebookComment();
+			$comment->id = $commentData['id'];
+			$comment->authorFacebookId = $commentData['from']['id'];
+			$comment->authorFullName = $commentData['from']['name'];
+			$comment->message = $commentData['message'];
+			$comment->created = $commentData['created_time'];
+
+			$comments[] = $comment;
+		}
+
+		return $comments;
+	}
 }

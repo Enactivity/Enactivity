@@ -7,8 +7,15 @@ Yii::import("ext.facebook.components.FacebookGraphObject");
  */
 class FacebookComment extends FacebookGraphObject {
 
+    const SCENARIO_INSERT = 'insert'; // default set by Yii
+
     public $facebookPostId;
     public $message;
+
+    public $authorFacebookId;
+    public $authorFullName;
+    
+    public $created;
 
     /**
      * @see CModel::attributeNames
@@ -49,14 +56,25 @@ class FacebookComment extends FacebookGraphObject {
         return false;
     }
 
-    public static function comment($facebookPostId, $attributes) {
-        $comment = new FacebookComment();
-        $comment->facebookPostId = $facebookPostId;
-        $comment->attributes = $attributes;
+    /**
+     * Comment on the appropriate post
+     * @var int post object id on Facebook
+     * @var array of attributes to comment
+     * @return boolean
+     */
+    public function comment($facebookPostId, $attributes) {
+        $this->scenario = self::SCENARIO_INSERT;
 
-        if($comment->save()) {
+        $this->facebookPostId = $facebookPostId;
+        $this->attributes = $attributes;
+
+        if($this->save()) {
             return true;
         }
         throw new CException("Facebook comment was invalid: " . CVarDumper::dumpAsString($this->errors()));
+    }
+
+    public function getCreator() {
+        return User::findByFacebookId($this->authorFacebookId);
     }
 }
