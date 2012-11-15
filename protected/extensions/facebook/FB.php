@@ -241,4 +241,8 @@ class FB extends CApplicationComponent {
 	public function addGroupPost($groupFacebookId, $params) {
 		return $this->post($groupFacebookId . '/feed', $params);
 	}
+
+	public function addPostComment($postId, $params) {
+		return $this->post($postId . '/comments', $params);
+	}
 }
