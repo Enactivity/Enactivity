@@ -1,12 +1,4 @@
-<?
-
-/*
- * View used to return a description string
- * for facebook group feed post when inserting post
- * @author Harrison Vuong
- */
-
-echo "Fantastic! " . '"' . PHtml::encode($data->name) . '"' . " was created on " . Yii::app()->name . ".";	
-
-
-?>
+<? if($data->starts): ?>
+Taking place at <?= PHtml::encode($data->formattedStartTime); ?>.  
+<? endif; ?>
+Part of "<?= PHtml::encode($data->activity->name); ?>".
