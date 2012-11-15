@@ -153,24 +153,3 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 		));
 	} ?>
 </section>
-
-<? // show comments ?>
-<section id="comments">
-	<h1><?= 'Comments'; ?></h1>
-	
-	<?
-	if($commentsDataProvider->totalItemCount > 0) :
-		// show list of comments
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$commentsDataProvider,
-			'itemView'=>'/comment/_view',
-			'emptyText'=>''
-		)); 
-	else: ?>
-	<p class="blurb">No one has written any comments yet, be the first!</p>
-	<? endif; ?>
-	
-	
-	<? // show new comment form ?>
-	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
-</section>

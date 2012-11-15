@@ -3,6 +3,8 @@
 Yii::import("application.components.calendar.TaskCalendar");
 Yii::import("application.components.web.Controller");
 
+Yii::import("ext.facebook.components.FacebookComment");
+
 class ActivityController extends Controller
 {
 
@@ -68,13 +70,13 @@ class ActivityController extends Controller
 
 		// Comments
 		$comment = $this->handleNewActivityComment($model);
-		$commentsDataProvider = new CArrayDataProvider($model->comments);
+		$comments = $model->comments;
 
 		$this->render('view',array(
 			'model'=>$model,
 			'calendar'=>$calendar,
 			'comment' => $comment,
-			'commentsDataProvider' => $commentsDataProvider,
+			'comments' => $comments,
 		));
 	}
 
@@ -298,18 +300,15 @@ class ActivityController extends Controller
 	 */
 	public function handleNewActivityComment($activity, $comment = null) {
 		if(is_null($comment)) {
-			$comment = new ActivityComment(ActivityComment::SCENARIO_INSERT);
+			$comment = new FacebookComment();
 		}
-		
-		$comment->activity = $activity;
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);
 	
-		if(isset($_POST['ActivityComment'])) {
-			$comment->attributes=$_POST['ActivityComment'];
+		if(isset($_POST['FacebookComment'])) {
 	
-			if($comment->save()) {
+			if($comment->comment($activity->facebookPostId, $_POST['FacebookComment'])) {
 				$this->redirect(array('view','id'=>$activity->id, '#'=>'comment-' . $comment->id));
 			}
 		}

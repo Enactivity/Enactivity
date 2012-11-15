@@ -55,17 +55,11 @@ class TaskController extends Controller
 		$model = $this->loadTaskModel($id);
 		$taskUser = TaskUser::loadTaskUser($model->id, Yii::app()->user->id);
 		
-		// Comments
-		$comment = $this->handleNewTaskComment($model);
-		$commentsDataProvider = new CArrayDataProvider($model->comments);
-		
 		$this->render(
 			'view',
 			array(
 				'model' => $model,
 				'taskUser' => $taskUser,
-				'comment' => $comment,
-				'commentsDataProvider' => $commentsDataProvider,
 			)
 		);
 	}

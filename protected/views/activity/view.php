@@ -81,20 +81,17 @@ $this->pageTitle = $model->name;
 
 <? // show comments ?>
 <section id="comments">
-	<h1><?= 'Comments'; ?></h1>
+	<h1>Comments</h1>
 	
-	<?
-	if($commentsDataProvider->totalItemCount > 0) :
-		// show list of comments
-		$this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$commentsDataProvider,
-			'itemView'=>'/comment/_view',
-			'emptyText'=>''
-		)); 
-	else: ?>
+	<? if($comments): ?>
+	<? foreach($comments as $fbcomment): ?>
+	<?= $this->renderPartial('/comment/_view', array(
+		'data'=>$fbcomment,
+	)); ?>
+	<? endforeach; ?>
+	<? else: ?>
 	<p class="blurb">No one has written any comments yet, be the first!</p>
 	<? endif; ?>
-	
 	
 	<? // show new comment form ?>
 	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>

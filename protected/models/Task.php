@@ -176,11 +176,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'condition' => 'feed.focalModel=\'Task\'',
 				'order' => 'feed.created DESC',
 			),
-			
-			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
-				'condition' => 'comments.model=\'Task\'',
-				'order' => 'comments.created ASC',
-			),
 		);
 	}
 
@@ -431,13 +426,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 
 	/**
-	 * @return int
-	 **/
-	public function getCommentCount() {
-		return sizeof($this->comments);
-	}
-
-	/**
 	 * Increment the participant count for a task and its ancestors
 	 * @param int $participantsIncrement number of times to increment participantsCount
 	 * @param int $participantsIncrement number of times to increment participantsCompletedCount
@@ -655,6 +643,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     public function getFacebookGroupPostName() {
         return $this->name;
     }
+
+	public function getFacebookPostId() {
+		return $this->activity->facebookPostId;
+	}
+
+	public function setFacebookPostId($facebookPostId) {
+		// do nothing, we don't care about the task comment id
+	}
 
     public function getViewURL() {
     	return PHtml::taskURL($this);
