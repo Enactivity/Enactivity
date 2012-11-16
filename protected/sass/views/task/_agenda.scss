@@ -48,10 +48,13 @@
 				}
 			}
 		}
+
+		.task {
+			@extend .inline-content-block;
+		}
 	}
 
 	.task {
-		@extend .inline-content-block;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
 
