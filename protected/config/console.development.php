@@ -9,11 +9,11 @@ return CMap::mergeArray(
 
 			/* Set for server */
 			'db'=>array(
-				'connectionString' => 'mysql:host=127.0.0.1;dbname=poncla_yii',
+				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
 				'emulatePrepare' => true,
 				'enableProfiling'=>true,
-				'username' => 'root',
-				'password' => '',
+				'username' => 'poncla_alpha',
+				'password' => 'alpha123',
 				'charset' => 'utf8',
 				'enableParamLogging'=>true,
 			),
