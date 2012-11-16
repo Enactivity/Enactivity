@@ -64,7 +64,7 @@ h4, h5, h6 {
  **/
 p {
   font-size: $base-font-size;
-  max-width: 32em;
+  max-width: $base-max-readability-width;
   word-wrap: break-word;
   margin-bottom: 1.5em;
 }
