@@ -65,9 +65,6 @@ class MenuDefinitions extends CComponent {
 				'linkOptions'=>array(
 					'id'=>'application-navigation-facebook-login',
 				),
-				'itemOptions'=>array(
-					'class'=>'secondary',
-				),
 				'url'=>Yii::app()->FB->loginUrl,
 				'visible'=>Yii::app()->user->isGuest
 			),
