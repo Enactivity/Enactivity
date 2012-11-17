@@ -43,8 +43,8 @@ class UserFactory extends AbstractFactory {
 		}
 
 		// add user to group
-		$membership = new membership();
-		if(!$membership->insertmembership($groupId, $user->id)) {
+		$membership = new Membership();
+		if(!$membership->insertMembership($groupId, $user->id)) {
 			throw new Exception("User factory failed on group invite: " . CVarDumper::dumpAsString($membership->errors));
 		}
 

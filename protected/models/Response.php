@@ -276,9 +276,9 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function getNextableStatuses() {
 		return array(
-			response::STATUS_PENDING,
-			response::STATUS_SIGNED_UP,
-			response::STATUS_STARTED,
+			Response::STATUS_PENDING,
+			Response::STATUS_SIGNED_UP,
+			Response::STATUS_STARTED,
 		);
 	}
 
@@ -287,9 +287,9 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function getParticipatingStatuses() {
 		return array(
-			response::STATUS_SIGNED_UP,
-			response::STATUS_STARTED,
-			response::STATUS_COMPLETED,
+			Response::STATUS_SIGNED_UP,
+			Response::STATUS_STARTED,
+			Response::STATUS_COMPLETED,
 		);
 	}
 
@@ -298,8 +298,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function getIgnorableStatuses() {
 		return array(
-			response::STATUS_COMPLETED,
-			response::STATUS_IGNORED,
+			Response::STATUS_COMPLETED,
+			Response::STATUS_IGNORED,
 		);
 	}	
 
@@ -308,23 +308,23 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * if no such task user exists, a model is created.
 	 * @param int $taskId
 	 * @param int $userId
-	 * @return response unsaved response model
+	 * @return Response unsaved Response model
 	 * @throws CDbException if no taskId or userId is passed in
 	 */
-	public static function loadresponse($taskId, $userId) {
+	public static function loadResponse($taskId, $userId) {
 		if($taskId == null) {
-			throw new CDbException("No task id provided in loadresponse call");
+			throw new CDbException("No task id provided in loadResponse call");
 		}
 		if($userId == null) {
-			throw new CDbException("No user id provided in loadresponse call");
+			throw new CDbException("No user id provided in loadResponse call");
 		}
 		
-		$response = response::model()->findByAttributes(array(
+		$response = Response::model()->findByAttributes(array(
 			'taskId' => $taskId,
 			'userId' => $userId,
 		));
 		if(is_null($response)) {
-			$response = new response();
+			$response = new Response();
 			$response->taskId = $taskId;
 			$response->userId = $userId;
 		}
@@ -333,10 +333,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public static function pend($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->isNewRecord) {
-			throw new CHttpException("response already exists");
+			throw new CHttpException("Response already exists");
 		}
 
 		if($response->isPending) {
@@ -354,7 +354,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			}
 			throw new CException("There was an error setting up the pending response");
 		}
-		throw new CException("response already exists");
+		throw new CException("Response already exists");
 	}
 	
 	/**
@@ -368,7 +368,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @throws CHttpException if response was not saved
 	 */
 	public static function signUp($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canSignUp) {
 			throw new CHttpException("User cannot sign up for this task.");
@@ -415,7 +415,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public static function start($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canStart) {
 			throw new CHttpException("User cannot start this task.");
@@ -463,7 +463,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @return boolean true
 	 */
 	public static function resume($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canResume) {
 			throw new CHttpException("User cannot resume this task.");
@@ -510,7 +510,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @return boolean true
 	 */
 	public static function quit($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canQuit) {
 			throw new CHttpException("User cannot quit this task.");
@@ -557,7 +557,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @return boolean true
 	 */
 	public static function ignore($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canIgnore) {
 			throw new CHttpException("User cannot ignore this task.");
@@ -605,7 +605,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @throws CHttpException if response was not saved
 	 */
 	public static function stop($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canStop) {
 			throw new CHttpException("User cannot stop working on this task.");
@@ -654,7 +654,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @throws CHttpException if response was not saved
 	 */
 	public static function complete($taskId, $userId) {
-		$response = self::loadresponse($taskId, $userId);
+		$response = self::loadResponse($taskId, $userId);
 
 		if(!$response->canComplete) {
 			throw new CHttpException("User cannot complete this task.");

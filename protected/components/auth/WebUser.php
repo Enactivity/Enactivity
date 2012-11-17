@@ -64,7 +64,7 @@ class WebUser extends CWebUser {
 			return false;
 		}
 		
-		return membership::model()->isGroupMember($groupId, Yii::app()->user->id); 
+		return Membership::model()->isGroupMember($groupId, Yii::app()->user->id); 
 	}
 	
 	public function getTimeZone() {

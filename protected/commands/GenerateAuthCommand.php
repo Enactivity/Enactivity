@@ -10,7 +10,7 @@ class GenerateAuthCommand extends CConsoleCommand
 		
 		// Event operations
 		echo "configuring event operations\n";
-		$isEventGroupMemberFunction = 'membership::model()->'
+		$isEventGroupMemberFunction = 'Membership::model()->'
 			. 'isGroupMember($params["event"]->groupId, Yii::app()->user->id);';
 
 		$authManager->createOperation(
@@ -64,10 +64,10 @@ class GenerateAuthCommand extends CConsoleCommand
 		$authManager->createOperation('deleteGroupBanterOperation', 'delete a ');
 		
 		// Group user operations
-		$authManager->createOperation('createmembershipOperation', 'create a ');
-		$authManager->createOperation('readmembershipOperation', 'read a ');
-		$authManager->createOperation('updatemembershipOperation', 'update a ');
-		$authManager->createOperation('deletemembershipOperation', 'delete a ');
+		$authManager->createOperation('createMembershipOperation', 'create a ');
+		$authManager->createOperation('readMembershipOperation', 'read a ');
+		$authManager->createOperation('updateMembershipOperation', 'update a ');
+		$authManager->createOperation('deleteMembershipOperation', 'delete a ');
 		
 		// User operations
 		$authManager->createOperation('createUserOperation', 'create a ');

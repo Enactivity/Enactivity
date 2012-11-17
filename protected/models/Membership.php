@@ -39,7 +39,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return membership the static model class
+	 * @return Membership the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -229,7 +229,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 	 * @return boolean true if group member else false
 	 */
 	public function isGroupMember($groupId, $userId) {
-		$membership = membership::model()
+		$membership = Membership::model()
 			->scopeGroup($groupId)
 			->scopeUser($userId)
 			->scopeHasStatus(self::STATUS_ACTIVE)
@@ -243,7 +243,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 	 * @param int $userId
 	 * @throws CDbException
 	 */
-	public function insertmembership($groupId, $userId) {
+	public function insertMembership($groupId, $userId) {
 		$this->scenario = self::SCENARIO_INSERT;
 		if($this->isNewRecord) {
 			$this->groupId = $groupId;
@@ -251,7 +251,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 			$this->status = self::STATUS_ACTIVE;
 			return $this->save();
 		}
-		throw new CDbException(Yii::t('membership','The group_user could not be inserted because it is not new.'));
+		throw new CDbException(Yii::t('Membership','The group_user could not be inserted because it is not new.'));
 	}
 	
 	/**
@@ -299,27 +299,27 @@ class Membership extends ActiveRecord implements EmailableRecord
 	}
 
 	/**
-	 * Find a membership with the given group and user id,
+	 * Find a Membership with the given group and user id,
 	 * if no such group user exists, a model is created.
 	 * @param int $groupId
 	 * @param int $userId
-	 * @return membership unsaved membership model
+	 * @return Membership unsaved Membership model
 	 * @throws CDbException if no groupId or userId is passed in
 	 */
-	public static function loadmembership($groupId, $userId) {
+	public static function loadMembership($groupId, $userId) {
 		if(is_null($groupId)) {
-			throw new CDbException("No group id provided in loadmembership call");
+			throw new CDbException("No group id provided in loadMembership call");
 		}
 		if(is_null($userId)) {
-			throw new CDbException("No user id provided in loadmembership call");
+			throw new CDbException("No user id provided in loadMembership call");
 		}
 		
-		$membership = membership::model()->findByAttributes(array(
+		$membership = Membership::model()->findByAttributes(array(
 			'groupId' => $groupId,
 			'userId' => $userId,
 		));
 		if(is_null($membership)) {
-			$membership = new membership();
+			$membership = new Membership();
 			$membership->groupId = $groupId;
 			$membership->userId = $userId;
 		}
@@ -329,10 +329,10 @@ class Membership extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Add/Update the user as an active member of the group
-	 * @return membership 
+	 * @return Membership 
 	 **/
 	public static function saveAsActiveMember($groupId, $userId) {
-		$membership = self::loadmembership($groupId, $userId);
+		$membership = self::loadMembership($groupId, $userId);
 		if($membership->joinGroup()) {
 			return $membership;
 		}
@@ -341,10 +341,10 @@ class Membership extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Add/Update the user as a deactivated member of the group
-	 * @return membership 
+	 * @return Membership 
 	 **/
 	public static function saveAsDeactiveMember($groupId, $userId) {
-		$membership = self::loadmembership($groupId, $userId);
+		$membership = self::loadMembership($groupId, $userId);
 		if($membership->deactivate()) {
 			return $membership;
 		}
@@ -353,10 +353,10 @@ class Membership extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Add/Update the user as an inactive member of the group
-	 * @return membership 
+	 * @return Membership 
 	 **/
 	public static function saveAsInactiveMember($groupId, $userId) {
-		$membership = self::loadmembership($groupId, $userId);
+		$membership = self::loadMembership($groupId, $userId);
 		if($membership->leaveGroup()) {
 			return $membership;
 		}
@@ -366,10 +366,10 @@ class Membership extends ActiveRecord implements EmailableRecord
 	/**
 	 * Add/Update the user as an inactive member of the group if they didn't have an existing
 	 * membership.  Useful for initial sync of user to group
-	 * @return membership 
+	 * @return Membership 
 	 **/
 	public static function saveAsInactiveMemberIfNotActive($groupId, $userId) {
-		$membership = self::loadmembership($groupId, $userId);
+		$membership = self::loadMembership($groupId, $userId);
 		if($membership->isNewRecord || !$membership->isActive) {
 			if($membership->leaveGroup()) {
 				return $membership;
