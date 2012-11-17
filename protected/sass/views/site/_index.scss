@@ -1,5 +1,24 @@
+@import "compass/css3/animation";
+
 #site-index {
+	height: 100%;
+	background: $cerulean;
+	color: $white;
+	overflow: hidden;
+
 	.greetings {
-		@extend .content-block;
+		position: absolute;
+		left: 10%;
+		top: 30%;
+
+		h1 {
+			@include animation(fade-in 1s);
+			@extend .heading1;
+		}
+
+		a {
+			@include animation(fade-in 2s);
+			color: $white;
+		}
 	}
 }
