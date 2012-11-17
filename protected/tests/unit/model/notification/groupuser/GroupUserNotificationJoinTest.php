@@ -1,9 +1,9 @@
 <?php
 /**
- * Tests for updating groupuser notification
+ * Tests for updating membership notification
  * @author hvuong
  */
-class GroupUserNotificationJoinTest extends DbTestCase
+class membershipNotificationJoinTest extends DbTestCase
 {
 	
 	/*

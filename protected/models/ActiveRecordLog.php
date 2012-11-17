@@ -199,7 +199,7 @@ class ActiveRecordLog extends ActiveRecord
 		$this->getDbCriteria()->mergeWith(
 			array(
 				'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . Membership::model()->tableName()
 				. ' WHERE userId=:userId))',
 				'params' => array(':userId' => $userId)
 			)

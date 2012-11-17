@@ -1,6 +1,6 @@
 <? 
 /**
- * View for groupuser model invite scenario
+ * View for membership model invite scenario
  * 
  */
 

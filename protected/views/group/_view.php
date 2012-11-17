@@ -2,7 +2,7 @@
 /**
  * View for individual group models
  * 
- * @uses GroupUser $data model
+ * @uses membership $data model
  */
 
 $story = $this->beginWidget('application.components.widgets.Story', array(

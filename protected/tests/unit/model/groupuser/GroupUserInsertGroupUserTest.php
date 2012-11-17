@@ -1,9 +1,9 @@
 <?php
 /**
- * Tests for {@link GroupUser::insertGroupUser}
+ * Tests for {@link membership::insertmembership}
  * @author ajsharma
  */
-class GroupUserInsertGroupUserTest extends DbTestCase
+class membershipInsertmembershipTest extends DbTestCase
 {
 	/**
 	 * Test that group insert works when group and user exist
@@ -12,10 +12,10 @@ class GroupUserInsertGroupUserTest extends DbTestCase
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertTrue($groupUser->insertGroupUser($group->id, $user->id), "Group user was not inserted: " . $groupUser->errors);
-		$this->assertEquals(GroupUser::STATUS_ACTIVE, $groupUser->status, "GroupUser status was not set to active on insert");
+		$this->assertTrue($membership->insertmembership($group->id, $user->id), "Group user was not inserted: " . $membership->errors);
+		$this->assertEquals(membership::STATUS_ACTIVE, $membership->status, "membership status was not set to active on insert");
 	}
 
 	/**
@@ -26,9 +26,9 @@ class GroupUserInsertGroupUserTest extends DbTestCase
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
-		$groupUser->insertGroupUser($group->id, $user->id);
-		$groupUser->insertGroupUser($group->id, $user->id); // call it twice
+		$membership = new membership();
+		$membership->insertmembership($group->id, $user->id);
+		$membership->insertmembership($group->id, $user->id); // call it twice
 	}
 
 	/**
@@ -37,10 +37,10 @@ class GroupUserInsertGroupUserTest extends DbTestCase
 	public function testGroupInsertGroupNullIsInvalid() {
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->insertGroupUser(null, $user->id), "Group user was inserted: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('groupId'), "No error set on null group");
+		$this->assertFalse($membership->insertmembership(null, $user->id), "Group user was inserted: " . $membership->errors);
+		$this->assertNotNull($membership->getError('groupId'), "No error set on null group");
 	}
 
 	/**
@@ -49,20 +49,20 @@ class GroupUserInsertGroupUserTest extends DbTestCase
 	public function testGroupInsertUserNullIsInvalid() {
 		$group = GroupFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->insertGroupUser($group->id, null), "Group user was inserted: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('userId'), "No error set on null user");
+		$this->assertFalse($membership->insertmembership($group->id, null), "Group user was inserted: " . $membership->errors);
+		$this->assertNotNull($membership->getError('userId'), "No error set on null user");
 	}
 
 	/**
 	 * Test that group insert fails when group is null
 	 */
 	public function testGroupInsertGroupAndUserNullIsInvalid() {
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->insertGroupUser(null, null), "Group user was inserted: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('groupId'), "No error set on null group");
-		$this->assertNotNull($groupUser->getError('userId'), "No error set on null user");
+		$this->assertFalse($membership->insertmembership(null, null), "Group user was inserted: " . $membership->errors);
+		$this->assertNotNull($membership->getError('groupId'), "No error set on null group");
+		$this->assertNotNull($membership->getError('userId'), "No error set on null user");
 	}
 }

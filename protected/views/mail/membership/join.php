@@ -1,7 +1,7 @@
 <? 
 /**
- * View for groupuser model join scenario
- * @uses GroupUser $data
+ * View for membership model join scenario
+ * @uses membership $data
  * @uses User $user
  */
 

@@ -56,7 +56,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 	<h1><?= PHtml::encode($model->participantsCount) . ' Signed Up'; ?></h1>
 	<div class="menu controls">
 		<ul>
-			<? if($taskUser->canSignUp): ?>
+			<? if($response->canSignUp): ?>
 			<li>
 				<?= PHtml::button(
 					"I'll do this", 
@@ -71,7 +71,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			</li>
 			<? endif; ?>
 
-			<? if($taskUser->canStart): ?>
+			<? if($response->canStart): ?>
 			<li>
 				<?= PHtml::button(
 					"I'm doing this", 
@@ -86,7 +86,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			</li>
 			<? endif; ?>
 
-			<? if($taskUser->canComplete): ?>
+			<? if($response->canComplete): ?>
 			<li>
 				<?= PHtml::button(
 					"I've done this",
@@ -101,7 +101,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			</li>
 			<? endif; ?>
 
-			<? if($taskUser->canResume): ?>
+			<? if($response->canResume): ?>
 			<li>
 				<?= PHtml::button(
 					"I've got more to do",
@@ -116,7 +116,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			</li>
 			<? endif; ?>
 
-			<? if($taskUser->canQuit): ?>
+			<? if($response->canQuit): ?>
 			<li>
 				<?= PHtml::button(
 					"Quit", 
@@ -131,7 +131,7 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			</li>
 			<? endif; ?>
 
-			<? if($taskUser->canIgnore): ?>
+			<? if($response->canIgnore): ?>
 			<li>
 				<?= PHtml::button(
 					"Ignore", 
@@ -147,8 +147,8 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 			<? endif; ?>
 		</ul>
 	</div>
-	<? foreach($model->participatingTaskUsers as $usertask) {
-		echo $this->renderPartial('/taskuser/_view', array(
+	<? foreach($model->participatingresponses as $usertask) {
+		echo $this->renderPartial('/response/_view', array(
 			'data'=>$usertask,
 		));
 	} ?>

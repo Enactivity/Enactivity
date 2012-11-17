@@ -536,15 +536,15 @@ class PHtml extends CHtml {
 
 	/**
 	 * Returns the classes values associated with a user task object
-	 * @param TaskUser $taskuser
+	 * @param response $response
 	 * @return string space-separated html class string
 	 */
-	public static function taskUserClass($taskuser) {
+	public static function responseClass($response) {
 		$articleClass = array();
 
 		$articleClass[] = "participant";
-		$articleClass[] = "participant-" . PHtml::encode($taskuser->id);
-		$articleClass[] = $taskuser->isCompleted ? "completed" : "not-completed";
+		$articleClass[] = "participant-" . PHtml::encode($response->id);
+		$articleClass[] = $response->isCompleted ? "completed" : "not-completed";
 
 		return implode(" ", $articleClass);
 	}
