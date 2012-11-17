@@ -218,16 +218,16 @@ class User extends ActiveRecord
 				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 
-			'ignoreableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+			'ignoreableResponses' => array(self::HAS_MANY, 'Response', 'userId',
 				'scopes' => array('scopeIgnorable'),
 			),
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'ignoreableTaskUsers',
+				'through' => 'ignoreableResponses',
 				'scopes' => array('scopeAlive'),
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'ignoreableTaskUsers',
+				'through' => 'ignoreableResponses',
 				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 		);

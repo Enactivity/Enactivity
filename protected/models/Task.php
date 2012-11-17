@@ -33,9 +33,9 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
  * The followings are the available model relations:
  * @property Task $root
  * @property Group $group
- * @property TaskUser[] $taskUsers all TaskUser objects related to this Task
- * @property integer $taskUsersCount number of users who have signed up for the task 
- * @property TaskUser[] $participatingTaskUsers active TaskUser objects related to the model
+ * @property response[] $responses all response objects related to this Task
+ * @property integer $responsesCount number of users who have signed up for the task 
+ * @property response[] $participatingresponses active response objects related to the model
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
@@ -153,7 +153,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function relations()
 	{
 		// stupid hacky way of escaping statuses
-		$participatingWhereIn = '\'' . implode('\', \'', TaskUser::getParticipatingStatuses()) . '\'';
+		$participatingWhereIn = '\'' . implode('\', \'', response::getParticipatingStatuses()) . '\'';
 
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
@@ -161,15 +161,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'activity' => array(self::BELONGS_TO, 'Activity', 'activityId'),
 			
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
-			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
+			'responses' => array(self::HAS_MANY, 'response', 'taskId'),
+			'responsesCount' => array(self::STAT, 'response', 'taskId'),
 			
-			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
+			'participatingresponses' => array(self::HAS_MANY, 'response', 'taskId',
+				'condition' => 'participatingresponses.status IN (' . $participatingWhereIn . ')',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
-				'through' => 'participatingTaskUsers',
+				'condition' => 'participatingresponses.status IN (' . $participatingWhereIn . ')',
+				'through' => 'participatingresponses',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -295,7 +295,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * Delete any TaskUsers attached to the task.  
+	 * Delete any responses attached to the task.  
 	 * @see ActiveRecord::beforeDelete()
 	 */
 	public function beforeDelete() {
@@ -303,11 +303,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		
 		$this->scenario = self::SCENARIO_DELETE;
 		
-		$taskUsers = $this->taskUsers;
+		$responses = $this->responses;
 		
 		try {
-			foreach ($taskUsers as $taskUser) {
-				$taskUser->delete();
+			foreach ($responses as $response) {
+				$response->delete();
 			}
 		}
 		catch(Exception $e) {
@@ -464,8 +464,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
-	public function getCurrentTaskUser() {
-		return TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+	public function getCurrentresponse() {
+		return response::loadresponse($this->id, Yii::app()->user->id);
 	}
 
 	/**
@@ -475,9 +475,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserParticipating() {
 
-		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+		$response = response::loadresponse($this->id, Yii::app()->user->id);
 		
-		if($taskUser->isSignedUp || $taskUser->isStarted) {
+		if($response->isSignedUp || $response->isStarted) {
 			return true;
 		}
 		return false;
@@ -490,9 +490,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+		$response = response::loadresponse($this->id, Yii::app()->user->id);
 		
-		if($taskUser->isCompleted) {
+		if($response->isCompleted) {
 			return true;
 		}
 		return false;
