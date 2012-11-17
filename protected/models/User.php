@@ -20,7 +20,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property string $lastLogin
  *
  * The followings are the available model relations:
- * @property membership[] $memberships
+ * @property memberships[] $memberships
  * @property Group[] $groups
  */
 class User extends ActiveRecord
@@ -397,7 +397,7 @@ class User extends ActiveRecord
 		// Remove user from remaining groups
 		foreach($this->allGroups as $group) {
 			if(!isset($syncedGroups[$group->id])) {
-				membership::saveAsDeactiveMember($group->id, $this->id);
+				Membership::saveAsDeactiveMember($group->id, $this->id);
 			}
 		}
 
@@ -415,7 +415,7 @@ class User extends ActiveRecord
 		
 		foreach($facebookGroups['data'] as $group) {
 			$group = Group::syncWithFacebookAttributes($group);
-			membership::saveAsActiveMember($group->id, $this->id);
+			Membership::saveAsActiveMember($group->id, $this->id);
 		}
 
 		return true;

@@ -19,7 +19,6 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property Task $task
  * @property User $user
  */
-// TODO: rename to ActivityResponse or TaskResponse
 class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 
