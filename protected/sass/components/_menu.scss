@@ -4,7 +4,7 @@
 		text-align: left;
 
 		@include respond-to('thin-phone') {
-			@include inline-block('middle');
+			@include inline-block();
 			list-style-type: none;
 			white-space: nowrap;
 			margin-right: $base-margin;
