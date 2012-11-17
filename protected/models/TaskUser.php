@@ -124,6 +124,7 @@ class TaskUser extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 	public function scenarioLabels() {
 		return array(
+			self::SCENARIO_IGNORE => 'ignored',
 			self::SCENARIO_SIGN_UP => 'signed up for',
 			self::SCENARIO_START => 'started work on',
 			self::SCENARIO_QUIT => 'quit',
