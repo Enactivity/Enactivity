@@ -38,6 +38,7 @@ input[type="button"] {
 	white-space: nowrap; // Don't break sentence
 }
 
+input[type="submit"].neutral,
 input[type="button"].neutral {
 	background-color: #d6d6d6; /* gray */
 }

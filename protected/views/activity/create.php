@@ -10,5 +10,8 @@ $this->pageTitle = 'Create a New Activity';
 <?= PHtml::endContentHeader(); ?>
 
 <section>
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?= $this->renderPartial('_form', array(
+		'model'=>$model,
+		'tasks'=>$tasks,
+	)); ?>
 </section>

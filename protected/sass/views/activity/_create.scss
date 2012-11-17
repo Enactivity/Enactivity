@@ -1,0 +1,8 @@
+#activity-create {
+
+	.new-task-form {
+		background: rgba(255, 255, 255, .75);
+		@include border-radius($base-border-radius);
+		margin-bottom: $base-margin;
+	}
+}

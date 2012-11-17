@@ -15,7 +15,7 @@
 	),
 )); ?>
 
-	<p>First, create a new activity, next we'll add some tasks that people can sign up for.</p>
+	<p>Add some details about the overall activity.</p>
 
 	<?= $form->errorSummary($model); ?>
 
@@ -47,8 +47,30 @@
 		<?= $form->error($model,'description'); ?>
 	</div>
 
+	<? if($model->isNewRecord): ?>
+	<p>Now, let's add some steps for your group to participate in.</p>
+
+	<? foreach($tasks as $index => $task): ?>
+	<section class="new-task-form">
+		<?= $this->renderPartial('/task/_form', array(
+			'model'=>$task,
+			'index'=>$index,
+			'form'=>$form,
+		)); ?>
+	</section>
+	<? endforeach ?>
+	<? endif; ?>
+
 	<div class="field buttons">
-		<?= PHtml::submitButton($model->isNewRecord ? 'I\'m ready to add some tasks' : 'Update'); ?>
+		<? if($model->isNewRecord): ?>
+		<?= PHtml::submitButton('Add More Tasks', 
+			array(
+				'name'=>'add_more',
+				'class'=>'neutral',
+			)
+		); ?>
+		<? endif; ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Publish' : 'Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
