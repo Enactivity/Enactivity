@@ -153,7 +153,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function relations()
 	{
 		// stupid hacky way of escaping statuses
-		$participatingWhereIn = '\'' . implode('\', \'', response::getParticipatingStatuses()) . '\'';
+		$participatingWhereIn = '\'' . implode('\', \'', Response::getParticipatingStatuses()) . '\'';
 
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
@@ -566,7 +566,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . membership::model()->tableName()
 				. ' WHERE userId=:userId))',
 			'params' => array(':userId' => $userId)
 		));

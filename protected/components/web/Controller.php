@@ -86,9 +86,9 @@ class Controller extends CController
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param mixed the integer ID or string slug of the model to be loaded
 	 */
-	public function loadGroupUserModel($id)
+	public function loadmembershipModel($id)
 	{
-		$model = GroupUser::model()->findByPk((int) $id);
+		$model = membership::model()->findByPk((int) $id);
 		if(isset($model)) {
 			return $model;
 		}

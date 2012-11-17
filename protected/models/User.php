@@ -20,7 +20,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property string $lastLogin
  *
  * The followings are the available model relations:
- * @property GroupUser[] $groupUsers
+ * @property membership[] $memberships
  * @property Group[] $groups
  */
 class User extends ActiveRecord
@@ -183,19 +183,19 @@ class User extends ActiveRecord
 				'condition' => 'purchased IS NOT NULL AND delivered IS NOT NULL',
 			),
 		
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId',
-				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"',
+			'memberships' => array(self::HAS_MANY, 'Membership', 'userId',
+				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"',
 			),
-			'allGroupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+			'allmemberships' => array(self::HAS_MANY, 'Membership', 'userId'),
 		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
-				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
-				'through' => 'groupUsers',
+				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
+				'through' => 'memberships',
 				'order' => 'groups.name',
 			),
 
 			'allGroups'  => array(self::HAS_MANY, 'Group', 'groupId',
-				'through' => 'allGroupUsers',
+				'through' => 'allmemberships',
 				'order' => 'allGroups.name',
 			),
 
@@ -397,7 +397,7 @@ class User extends ActiveRecord
 		// Remove user from remaining groups
 		foreach($this->allGroups as $group) {
 			if(!isset($syncedGroups[$group->id])) {
-				GroupUser::saveAsDeactiveMember($group->id, $this->id);
+				membership::saveAsDeactiveMember($group->id, $this->id);
 			}
 		}
 
@@ -415,7 +415,7 @@ class User extends ActiveRecord
 		
 		foreach($facebookGroups['data'] as $group) {
 			$group = Group::syncWithFacebookAttributes($group);
-			GroupUser::saveAsActiveMember($group->id, $this->id);
+			membership::saveAsActiveMember($group->id, $this->id);
 		}
 
 		return true;

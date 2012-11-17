@@ -18,7 +18,7 @@ Yii::import("application.components.db.ar.EmailableRecord");
  * @property Group $group
  * @property User $user
  */
-class GroupUser extends ActiveRecord implements EmailableRecord
+class Membership extends ActiveRecord implements EmailableRecord
 {
 	const SCENARIO_DEACTIVATE = 'deactivate';
 	const SCENARIO_INSERT = 'insert';
@@ -39,7 +39,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return GroupUser the static model class
+	 * @return membership the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -51,7 +51,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 */
 	public function tableName()
 	{
-		return 'group_user';
+		return 'membership';
 	}
 	
 	/**
@@ -229,21 +229,21 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	 * @return boolean true if group member else false
 	 */
 	public function isGroupMember($groupId, $userId) {
-		$groupuser = GroupUser::model()
+		$membership = membership::model()
 			->scopeGroup($groupId)
 			->scopeUser($userId)
 			->scopeHasStatus(self::STATUS_ACTIVE)
 			->find();
-		return isset($groupuser);
+		return isset($membership);
 	}
 	
 	/**
-	 * Inserts a GroupUser object into 
+	 * Inserts a membership object into 
 	 * @param int $groupId
 	 * @param int $userId
 	 * @throws CDbException
 	 */
-	public function insertGroupUser($groupId, $userId) {
+	public function insertmembership($groupId, $userId) {
 		$this->scenario = self::SCENARIO_INSERT;
 		if($this->isNewRecord) {
 			$this->groupId = $groupId;
@@ -251,7 +251,7 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 			$this->status = self::STATUS_ACTIVE;
 			return $this->save();
 		}
-		throw new CDbException(Yii::t('GroupUser','The group_user could not be inserted because it is not new.'));
+		throw new CDbException(Yii::t('membership','The group_user could not be inserted because it is not new.'));
 	}
 	
 	/**
@@ -299,82 +299,82 @@ class GroupUser extends ActiveRecord implements EmailableRecord
 	}
 
 	/**
-	 * Find a GroupUser with the given group and user id,
+	 * Find a membership with the given group and user id,
 	 * if no such group user exists, a model is created.
 	 * @param int $groupId
 	 * @param int $userId
-	 * @return GroupUser unsaved GroupUser model
+	 * @return membership unsaved membership model
 	 * @throws CDbException if no groupId or userId is passed in
 	 */
-	public static function loadGroupUser($groupId, $userId) {
+	public static function loadmembership($groupId, $userId) {
 		if(is_null($groupId)) {
-			throw new CDbException("No group id provided in loadGroupUser call");
+			throw new CDbException("No group id provided in loadmembership call");
 		}
 		if(is_null($userId)) {
-			throw new CDbException("No user id provided in loadGroupUser call");
+			throw new CDbException("No user id provided in loadmembership call");
 		}
 		
-		$groupUser = GroupUser::model()->findByAttributes(array(
+		$membership = membership::model()->findByAttributes(array(
 			'groupId' => $groupId,
 			'userId' => $userId,
 		));
-		if(is_null($groupUser)) {
-			$groupUser = new GroupUser();
-			$groupUser->groupId = $groupId;
-			$groupUser->userId = $userId;
+		if(is_null($membership)) {
+			$membership = new membership();
+			$membership->groupId = $groupId;
+			$membership->userId = $userId;
 		}
 
-		return $groupUser;
+		return $membership;
 	}
 
 	/**
 	 * Add/Update the user as an active member of the group
-	 * @return GroupUser 
+	 * @return membership 
 	 **/
 	public static function saveAsActiveMember($groupId, $userId) {
-		$groupUser = self::loadGroupUser($groupId, $userId);
-		if($groupUser->joinGroup()) {
-			return $groupUser;
+		$membership = self::loadmembership($groupId, $userId);
+		if($membership->joinGroup()) {
+			return $membership;
 		}
-		throw new CException("Activating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
+		throw new CException("Activating member failed: " . CVarDumper::dumpAsString($membership->errors));
 	}
 
 	/**
 	 * Add/Update the user as a deactivated member of the group
-	 * @return GroupUser 
+	 * @return membership 
 	 **/
 	public static function saveAsDeactiveMember($groupId, $userId) {
-		$groupUser = self::loadGroupUser($groupId, $userId);
-		if($groupUser->deactivate()) {
-			return $groupUser;
+		$membership = self::loadmembership($groupId, $userId);
+		if($membership->deactivate()) {
+			return $membership;
 		}
-		throw new CException("Deactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
+		throw new CException("Deactivating member failed: " . CVarDumper::dumpAsString($membership->errors));
 	}
 
 	/**
 	 * Add/Update the user as an inactive member of the group
-	 * @return GroupUser 
+	 * @return membership 
 	 **/
 	public static function saveAsInactiveMember($groupId, $userId) {
-		$groupUser = self::loadGroupUser($groupId, $userId);
-		if($groupUser->leaveGroup()) {
-			return $groupUser;
+		$membership = self::loadmembership($groupId, $userId);
+		if($membership->leaveGroup()) {
+			return $membership;
 		}
-		throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
+		throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($membership->errors));
 	}
 
 	/**
 	 * Add/Update the user as an inactive member of the group if they didn't have an existing
 	 * membership.  Useful for initial sync of user to group
-	 * @return GroupUser 
+	 * @return membership 
 	 **/
 	public static function saveAsInactiveMemberIfNotActive($groupId, $userId) {
-		$groupUser = self::loadGroupUser($groupId, $userId);
-		if($groupUser->isNewRecord || !$groupUser->isActive) {
-			if($groupUser->leaveGroup()) {
-				return $groupUser;
+		$membership = self::loadmembership($groupId, $userId);
+		if($membership->isNewRecord || !$membership->isActive) {
+			if($membership->leaveGroup()) {
+				return $membership;
 			}
-			throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($groupUser->errors));
+			throw new CException("Inactivating member failed: " . CVarDumper::dumpAsString($membership->errors));
 		}
 		return true;
 	}

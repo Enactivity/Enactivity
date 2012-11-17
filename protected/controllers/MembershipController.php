@@ -39,7 +39,7 @@ class MembershipController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider('Group', array(
-			'data' => Yii::app()->user->model->allGroupUsers)
+			'data' => Yii::app()->user->model->allmemberships)
 		);
 
 		$this->render('index', array(
@@ -55,7 +55,7 @@ class MembershipController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$model = $this->loadGroupUserModel($id);
+			$model = $this->loadmembershipModel($id);
 			$model->joinGroup();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -75,7 +75,7 @@ class MembershipController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow trashing via POST request
-			$model = $this->loadGroupUserModel($id);
+			$model = $this->loadmembershipModel($id);
 			$model->leaveGroup();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

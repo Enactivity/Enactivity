@@ -20,7 +20,7 @@ Yii::import("application.components.db.ar.LoggableRecord");
  * @property User $user
  */
 // TODO: rename to ActivityResponse or TaskResponse
-class response extends ActiveRecord implements EmailableRecord, LoggableRecord
+class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 
 	const STATUS_PENDING = 'Pending'; // user has yet to respond
@@ -54,7 +54,7 @@ class response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public function tableName()
 	{
-		return 'task_user';
+		return 'response';
 	}
 
 	/**
