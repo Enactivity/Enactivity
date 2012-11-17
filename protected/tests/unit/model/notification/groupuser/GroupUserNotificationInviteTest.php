@@ -3,7 +3,7 @@
  * Tests for updating group notification
  * @author hvuong
  */
-class GroupUserNotificationInviteTest extends DbTestCase
+class membershipNotificationInviteTest extends DbTestCase
 {
 	
 	/*

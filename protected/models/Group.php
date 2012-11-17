@@ -14,7 +14,7 @@ Yii::import("application.components.db.ar.EmailableRecord");
  * @property string $modified
  *
  * The followings are the available model relations:
- * @property GroupUser[] $groupUsers
+ * @property Membership[] $memberships
  * @property User[] $users
  */
 class Group extends ActiveRecord implements EmailableRecord
@@ -103,34 +103,34 @@ class Group extends ActiveRecord implements EmailableRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'groupId'),
-			'groupUsersActive' => array(self::HAS_MANY, 'GroupUser', 'groupId',
-				'condition' => 'status="' . GroupUser::STATUS_ACTIVE .'"'),
-			'groupUsersActiveCount' => array(self::STAT, 'GroupUser', 'groupId', 
-				'condition' => 'status="' . GroupUser::STATUS_ACTIVE .'"'),
-			'groupUsersPending' => array(self::HAS_MANY, 'GroupUser', 'groupId',
-				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
-			'groupUsersPendingCount' => array(self::STAT, 'GroupUser', 'groupId', 
-				'condition' => 'status="' . GroupUser::STATUS_PENDING .'"'),
+			'memberships' => array(self::HAS_MANY, 'Membership', 'groupId'),
+			'membershipsActive' => array(self::HAS_MANY, 'Membership', 'groupId',
+				'condition' => 'status="' . Membership::STATUS_ACTIVE .'"'),
+			'membershipsActiveCount' => array(self::STAT, 'Membership', 'groupId', 
+				'condition' => 'status="' . Membership::STATUS_ACTIVE .'"'),
+			'membershipsPending' => array(self::HAS_MANY, 'Membership', 'groupId',
+				'condition' => 'status="' . Membership::STATUS_PENDING .'"'),
+			'membershipsPendingCount' => array(self::STAT, 'Membership', 'groupId', 
+				'condition' => 'status="' . Membership::STATUS_PENDING .'"'),
 			'users' => array(self::HAS_MANY, 'User', 'userId',
-		    	'through' => 'groupUsers',
+		    	'through' => 'memberships',
 				'order' => 'users.lastname'
 			),
 			'usersActive' => array(self::HAS_MANY, 'User', 'userId',
-		    	'through' => 'groupUsers',
-				'condition' => 'groupUsers.status="' . GroupUser::STATUS_ACTIVE . '"' 
+		    	'through' => 'memberships',
+				'condition' => 'memberships.status="' . Membership::STATUS_ACTIVE . '"' 
 					. ' AND usersActive.status="' . User::STATUS_ACTIVE . '"', 
 				'order' => 'usersActive.lastname'
 			),
 			'usersPending' => array(self::HAS_MANY, 'User', 'userId',
-		    	'through' => 'groupUsers',
-				'condition' => 'groupUsers.status="' . GroupUser::STATUS_PENDING . '"' 
+		    	'through' => 'memberships',
+				'condition' => 'memberships.status="' . Membership::STATUS_PENDING . '"' 
 					. ' AND usersPending.status="' . User::STATUS_ACTIVE . '"', 
 				'order' => 'usersPending.lastname'
 			),
 			'usersInactive' => array(self::HAS_MANY, 'User', 'userId',
-		    	'through' => 'groupUsers',
-				'condition' => 'groupUsers.status="' . GroupUser::STATUS_INACTIVE . '"' 
+		    	'through' => 'memberships',
+				'condition' => 'memberships.status="' . Membership::STATUS_INACTIVE . '"' 
 					. ' AND usersInactive.status="' . User::STATUS_ACTIVE . '"', 
 				'order' => 'usersInactive.lastname'
 			),
@@ -148,8 +148,8 @@ class Group extends ActiveRecord implements EmailableRecord
 			'facebookId' => 'Facebook Id',
 			'created' => 'Created',
 			'modified' => 'Last modified',
-			'groupUsersActiveCount' => 'Number of Active Users',
-			'groupUsersPendingCount' => 'Number of Pending Users',
+			'membershipsActiveCount' => 'Number of Active Users',
+			'membershipsPendingCount' => 'Number of Pending Users',
 		);
 	}
 
@@ -223,8 +223,8 @@ class Group extends ActiveRecord implements EmailableRecord
 		$facebookMembers = $facebookResponse['data'];
 
 		$unsyncedUserIds = array();
-		foreach ($this->groupUsers as $groupUser) {
-			$unsyncedUserIds[$groupUser->userId] = true; // sneaky reverse hash!
+		foreach ($this->memberships as $membership) {
+			$unsyncedUserIds[$membership->userId] = true; // sneaky reverse hash!
 		}
 
 		// Load all the new facebook members into our system as inactive members
@@ -232,14 +232,14 @@ class Group extends ActiveRecord implements EmailableRecord
 			$user = User::findByFacebookId($facebookMember['id']);
 
 			if($user) {
-				GroupUser::saveAsInactiveMemberIfNotActive($this->id, $user->id);
+				Membership::saveAsInactiveMemberIfNotActive($this->id, $user->id);
 				unset($unsyncedUserIds[$user->id]);
 			}
 		}
 
 		// De-activate users who are in our system's list, but not facebook's list
 		foreach ($unsyncedUserIds as $userId => $value) {
-			GroupUser::saveAsDeactiveMember($this->id, $userId);
+			Membership::saveAsDeactiveMember($this->id, $userId);
 		}
 
 		return true;
@@ -254,13 +254,13 @@ class Group extends ActiveRecord implements EmailableRecord
 	 * @deprecated
 	 */
 	public function getMembersByStatus($groupStatus) {
-		if(strcasecmp($groupStatus, GroupUser::STATUS_ACTIVE) == 0) { 
+		if(strcasecmp($groupStatus, Membership::STATUS_ACTIVE) == 0) { 
 			return new CActiveDataProvider('User', array('data' => $this->usersActive));
 		}
-		if(strcasecmp($groupStatus, GroupUser::STATUS_INACTIVE) == 0) { 
+		if(strcasecmp($groupStatus, Membership::STATUS_INACTIVE) == 0) { 
 			return new CActiveDataProvider('User', array('data' => $this->usersInactive));
 		}
-		if(strcasecmp($groupStatus, GroupUser::STATUS_PENDING) == 0) { 
+		if(strcasecmp($groupStatus, Membership::STATUS_PENDING) == 0) { 
 			return new CActiveDataProvider('User', array('data' => $this->usersPending));
 		}
 		
