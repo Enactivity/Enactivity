@@ -69,6 +69,7 @@
 
 		.status {
 			@extend .metadata;
+			display: block;
 		}
 	}
 }
