@@ -186,7 +186,7 @@ class User extends ActiveRecord
 			'memberships' => array(self::HAS_MANY, 'Membership', 'userId',
 				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"',
 			),
-			'allmemberships' => array(self::HAS_MANY, 'Membership', 'userId'),
+			'allMemberships' => array(self::HAS_MANY, 'Membership', 'userId'),
 		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
 				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
@@ -195,7 +195,7 @@ class User extends ActiveRecord
 			),
 
 			'allGroups'  => array(self::HAS_MANY, 'Group', 'groupId',
-				'through' => 'allmemberships',
+				'through' => 'allMemberships',
 				'order' => 'allGroups.name',
 			),
 
