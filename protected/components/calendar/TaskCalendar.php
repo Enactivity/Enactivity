@@ -22,7 +22,7 @@ class TaskCalendar extends CComponent {
 		$futureTasks = Task::futureTasksForUser($user);
 		$calendar = new TaskCalendar(array(
 			$nextTasks->data, 
-			$futureTasks->data
+			$futureTasks->data,
 		));
 
 		$ignorableTasks = Task::ignorableTasksForUser($user);

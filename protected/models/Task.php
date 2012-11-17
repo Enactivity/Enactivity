@@ -510,7 +510,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 **/
 	public function scopeAlive() {
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'isTrash=0',
+			'condition' =>  $this->getTableAlias(false, false) . '.isTrash=0',
 		));
 		return $this;
 	}
@@ -683,6 +683,16 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public static function futureTasksForUser($user) {
 		return new CArrayDataProvider(
 			$user->futureTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
+	public static function somedayTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->somedayTasks(
 				array(
 					'pagination'=>false,
 				)

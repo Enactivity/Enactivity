@@ -211,6 +211,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		));
 	}
 
+	public function scopePublished() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => $this->getTableAlias(false, false) . '.status IN (\'' . self::STATUS_ACTIVE . '\')',
+		));
+		return $this;
+	}
+
 	/**
 	 * Increment the participant count for an activity
 	 * @param int $participantsIncrement number of times to increment participantsCount
