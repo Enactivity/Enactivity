@@ -499,9 +499,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	public function defaultScope() {
+		$table = $this->getTableAlias(false, false);
+
 		return array(
-			'order' => 'starts ASC'
-				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
+			'order' => "{$table}.starts ASC, {$table}.created ASC"
 		);
 	}
 
@@ -509,8 +510,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Tasks which are not alive
 	 **/
 	public function scopeAlive() {
+		$table = $this->getTableAlias(false, false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' =>  $this->getTableAlias(false, false) . '.isTrash=0',
+			'condition' =>  "$table.isTrash=0",
 		));
 		return $this;
 	}
