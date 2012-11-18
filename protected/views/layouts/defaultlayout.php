@@ -32,10 +32,10 @@
 	</nav>
 
 	<footer class="application-footer">
-		<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/Enactivity"); ?> &copy; <?= date('Y'); ?> 
+		<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/EnactivityCommunity"); ?> &copy; <?= date('Y'); ?> 
 			All Rights Reserved.
 		</p>
-		<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/Enactivity"); ?>.</p>
+		<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/EnactivityCommunity"); ?>.</p>
 
 		<? if(Yii::app()->user->isAuthenticated): ?>
 		<p class="logout">
