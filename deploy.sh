@@ -40,3 +40,6 @@ echo " DEPLOY>> Compiling sass files"
 cd ../../protected
 compass compile -e production --force
 echo " DEPLOY>> Sass files compiled"
+
+# Done
+echo " DEPLOY>> Deployment completed - good work"
