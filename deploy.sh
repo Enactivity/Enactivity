@@ -11,6 +11,9 @@ fi
 # load arguments into array
 arguments=("$@");
 
+# Stop on error
+set -e
+
 # Git should be done manually (i.e. 'git pull origin master')
 
 # Yii specific stuff
