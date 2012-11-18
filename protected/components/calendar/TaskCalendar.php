@@ -60,6 +60,18 @@ class TaskCalendar extends CComponent {
 			}
 		}
 	}
+
+	public function removeTasks($tasks) {
+		/** @var $task Task **/
+		foreach ($tasks as $task) {
+			if(is_array($task)) {
+				$this->removeTasks($task);
+			}
+			else {
+				$this->removeTask($task);
+			}
+		}
+	}	
 	
 	/**
 	 * Adds a task to the calendar.
@@ -93,27 +105,15 @@ class TaskCalendar extends CComponent {
 		}
 	}
 
-	public function removeTasks($tasks) {
-		/** @var $task Task **/
-		foreach ($tasks as $task) {
-			if(is_array($task)) {
-				$this->removeTasks($task);
-			}
-			else {
-				$this->removeTask($task);
-			}
-		}
-	}
-
 	public function removeTask($task) {
 		if(isset($task->starts)) {
 			// [date][time][activityId]['tasks'][]
 			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
 
-			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
+			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
 
-				if($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] <= 0) {
+				if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
 					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
 
 					if(empty($this->days[$task->startDate][$task->formattedStartTime])) {
