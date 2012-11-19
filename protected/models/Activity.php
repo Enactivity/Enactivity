@@ -29,6 +29,7 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
+	const DESCRIPTION_MAX_LENGTH = 10000;
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
@@ -116,6 +117,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			array('name, description', 
 				'filter', 
 				'filter'=>'trim'
+			),
+
+			array('description',
+				'length',
+				'max'=>self::DESCRIPTION_MAX_LENGTH
 			),
 
 			// The following rule is used by search().
