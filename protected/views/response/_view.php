@@ -6,7 +6,7 @@
 $story = $this->beginWidget('application.components.widgets.Story', array(
 	'htmlOptions'=>array(
 		'id'=>"user-" . PHtml::encode($data->id),
-		'class'=>PHtml::taskUserClass($data),
+		'class'=>PHtml::responseClass($data),
 	),
 )); ?>
 	<? $story->beginAvatar(); ?>
