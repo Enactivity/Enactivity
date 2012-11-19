@@ -2,7 +2,7 @@
 /**
  * @author hvuong
  */
-class GroupUserInviteGroupTest extends DbTestCase
+class membershipInviteGroupTest extends DbTestCase
 {
 	
 	/**

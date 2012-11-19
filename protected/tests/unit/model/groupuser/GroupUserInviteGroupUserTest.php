@@ -1,9 +1,9 @@
 <?php
 /**
- * Tests for {@link GroupUser::inviteToGroup}
+ * Tests for {@link membership::inviteToGroup}
  * @author ajsharma
  */
-class GroupUserInviteGroupUserTest extends DbTestCase
+class membershipInvitemembershipTest extends DbTestCase
 {
 	/**
 	 * Test that group invite works when group and user exist
@@ -12,10 +12,10 @@ class GroupUserInviteGroupUserTest extends DbTestCase
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertTrue($groupUser->inviteToGroup($group->id, $user->id), "Group user was not invited: " . $groupUser->errors);
-		$this->assertEquals(GroupUser::STATUS_PENDING, $groupUser->status, "GroupUser status was not set to active on invite");
+		$this->assertTrue($membership->inviteToGroup($group->id, $user->id), "Group user was not invited: " . $membership->errors);
+		$this->assertEquals(membership::STATUS_PENDING, $membership->status, "membership status was not set to active on invite");
 	}
 
 	/**
@@ -25,10 +25,10 @@ class GroupUserInviteGroupUserTest extends DbTestCase
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
-		$groupUser->inviteToGroup($group->id, $user->id);
+		$membership = new membership();
+		$membership->inviteToGroup($group->id, $user->id);
 
-		$this->assertTrue($groupUser->inviteToGroup($group->id, $user->id), "Group user was not invited twice: " . $groupUser->errors);
+		$this->assertTrue($membership->inviteToGroup($group->id, $user->id), "Group user was not invited twice: " . $membership->errors);
 	}
 
 	/**
@@ -40,11 +40,11 @@ class GroupUserInviteGroupUserTest extends DbTestCase
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
-		$groupUser->inviteToGroup($group->id, $user->id);
+		$membership = new membership();
+		$membership->inviteToGroup($group->id, $user->id);
 
-		$groupUserSecondChance = new GroupUser();
-		$this->assertTrue($groupUserSecondChance->inviteToGroup($group->id, $user->id), "Group user was not invited twice: " . $groupUser->errors);
+		$membershipSecondChance = new membership();
+		$this->assertTrue($membershipSecondChance->inviteToGroup($group->id, $user->id), "Group user was not invited twice: " . $membership->errors);
 	}
 
 	/**
@@ -53,10 +53,10 @@ class GroupUserInviteGroupUserTest extends DbTestCase
 	public function testGroupInviteGroupNullIsInvalid() {
 		$user = UserFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->inviteToGroup(null, $user->id), "Group user was invited: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('groupId'), "No error set on null group");
+		$this->assertFalse($membership->inviteToGroup(null, $user->id), "Group user was invited: " . $membership->errors);
+		$this->assertNotNull($membership->getError('groupId'), "No error set on null group");
 	}
 
 	/**
@@ -65,20 +65,20 @@ class GroupUserInviteGroupUserTest extends DbTestCase
 	public function testGroupInviteUserNullIsInvalid() {
 		$group = GroupFactory::insert();
 
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->inviteToGroup($group->id, null), "Group user was invited: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('userId'), "No error set on null user");
+		$this->assertFalse($membership->inviteToGroup($group->id, null), "Group user was invited: " . $membership->errors);
+		$this->assertNotNull($membership->getError('userId'), "No error set on null user");
 	}
 
 	/**
 	 * Test that group invite fails when group is null
 	 */
 	public function testGroupInviteGroupAndUserNullIsInvalid() {
-		$groupUser = new GroupUser();
+		$membership = new membership();
 
-		$this->assertFalse($groupUser->inviteToGroup(null, null), "Group user was invited: " . $groupUser->errors);
-		$this->assertNotNull($groupUser->getError('groupId'), "No error set on null group");
-		$this->assertNotNull($groupUser->getError('userId'), "No error set on null user");
+		$this->assertFalse($membership->inviteToGroup(null, null), "Group user was invited: " . $membership->errors);
+		$this->assertNotNull($membership->getError('groupId'), "No error set on null group");
+		$this->assertNotNull($membership->getError('userId'), "No error set on null user");
 	}
 }

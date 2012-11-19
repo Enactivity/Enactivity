@@ -12,7 +12,7 @@ class DbTestCase extends CDbTestCase
 	public $fixtures = array(
 		'groupFixtures'=>':group',
 		'userFixtures'=>':user',
-		'groupUserFixtures'=>':group_user',
+		'membershipFixtures'=>':group_user',
     );
     
 	public static function setUpBeforeClass()

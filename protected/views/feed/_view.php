@@ -31,10 +31,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			endif;
 			?>
 			<span class="created">@
-			<?= PHtml::link(
-				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
-				array('feed/view', 'id'=>$data->id)
-			); ?>
+				<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?>
 			</span>
 		</p>
 			
