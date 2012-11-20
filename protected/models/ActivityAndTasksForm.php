@@ -41,20 +41,20 @@ class ActivityAndTasksForm extends CFormModel
 		$this->tasks[$index] = new Task();
 	}
 
-	public function validate($attributes = null, $clearErrors = true) {
+	public function validate() {
 
 		$isValid = parent::validate();
 
-		$isValid = $this->activity->validate($attributes, $clearErrors) && $isValid;
+		$isValid = $this->activity->validate() && $isValid;
 
 		foreach($this->tasks as &$task) {
-			$isValid = $task->validate($attributes, $clearErrors) && $isValid;
+			$isValid = $task->validate() && $isValid;
 		}
 
 		return $isValid;
 	}
 
-	public function publish($activityAttributes = array(), $taskAttributesList = array()) {
+	public function draft($activityAttributes = array(), $taskAttributesList = array()) {
 
 		$this->activity->attributes = $activityAttributes;
 
@@ -78,11 +78,22 @@ class ActivityAndTasksForm extends CFormModel
 				$task->activityId = $this->activity->id;
 				$task->insertTask();
 			}
-			$this->activity->publish();
 
 			return true;
 		}
 
 		return false;
+	}
+
+	public function publish($activityAttributes = array(), $taskAttributesList = array()) {
+		if($this->draft($activityAttributes, $taskAttributesList)) {
+			return $this->activity->publish();
+		}
+		return false;
+	}
+
+	public function addMoreTasks($activityAttributes = array(), $taskAttributesList = array()) {
+		$this->draft($activityAttributes, $taskAttributesList);
+		$this->addTasks(5);
 	}
 }
