@@ -69,6 +69,13 @@
 				'class'=>'neutral',
 			)
 		); ?>
+		<?= PHtml::submitButton('Save as Draft', 
+			array(
+				'name'=>'draft',
+				'class'=>'neutral',
+			)
+		); ?>
+
 		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? 'Publish' : 'Update'); ?>
 	</div>
