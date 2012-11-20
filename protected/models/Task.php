@@ -509,7 +509,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	/**
 	 * Tasks which are not alive
 	 **/
-	public function scopeAlive() {
+	public function scopeNotTrash() {
 		$table = $this->getTableAlias(false);
 
 		$this->getDbCriteria()->mergeWith(array(

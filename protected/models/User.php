@@ -200,21 +200,21 @@ class User extends ActiveRecord
 
 			'tasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
 				'through' => 'activities',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 
 			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
 				'through' => 'activities',
-				'scopes' => array('scopeAlive','scopeFuture'),
+				'scopes' => array('scopeNotTrash','scopeFuture'),
 			),
 
 			'nextTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
 				'through' => 'activities',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
 				'through' => 'activities',
-				'scopes' => array('scopeAlive','scopeSomeday'),
+				'scopes' => array('scopeNotTrash','scopeSomeday'),
 			),
 
 			'ignoreableResponses' => array(self::HAS_MANY, 'Response', 'userId',
@@ -223,11 +223,11 @@ class User extends ActiveRecord
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'ignoreableResponses',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'ignoreableResponses',
-				'scopes' => array('scopeAlive','scopeSomeday'),
+				'scopes' => array('scopeNotTrash','scopeSomeday'),
 			),
 		);
 	}

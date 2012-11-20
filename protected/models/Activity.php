@@ -136,7 +136,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
