@@ -284,7 +284,10 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		
 		$this->status = self::STATUS_ACTIVE;
 		if($this->save()) {
-			return true;
+			Yii::app()->user->setFlash('notice',  
+				PHtml::encode($this->name) 
+				. ' is now available for your group to view.');
+			return $true;
 		}
 		return false;
 	}

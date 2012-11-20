@@ -9,6 +9,9 @@ class ActivityAndTasksForm extends CFormModel
 {
 	const STARTING_TASK_COUNT = 5; //initial number of tasks to create
 
+	const SCENARIO_DRAFT = 'draft';
+	const SCENARIO_PUBLISH = 'publish';
+
 	public $activity;
 	public $tasks = array();
 
@@ -18,7 +21,8 @@ class ActivityAndTasksForm extends CFormModel
 				'taskCount',
 				'numerical',
 				'min' => 1,
-				'integerOnly'=>true
+				'integerOnly'=>true,
+				'on' => self::SCENARIO_PUBLISH,
 			),
 		);
 	}
@@ -57,6 +61,7 @@ class ActivityAndTasksForm extends CFormModel
 	}
 
 	public function draft($activityAttributes = array(), $taskAttributesList = array()) {
+		$this->scenario = self::SCENARIO_DRAFT;
 
 		$this->activity->attributes = $activityAttributes;
 
@@ -89,13 +94,15 @@ class ActivityAndTasksForm extends CFormModel
 
 	public function publish($activityAttributes = array(), $taskAttributesList = array()) {
 		if($this->draft($activityAttributes, $taskAttributesList)) {
+			$this->scenario = self::SCENARIO_PUBLISH;
 			return $this->activity->publish();
 		}
 		return false;
 	}
 
 	public function addMoreTasks($activityAttributes = array(), $taskAttributesList = array()) {
-		$this->draft($activityAttributes, $taskAttributesList);
+		$drafted = $this->draft($activityAttributes, $taskAttributesList);
 		$this->addTasks(5);
+		return $drafted;
 	}
 }
