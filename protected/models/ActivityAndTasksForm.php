@@ -7,6 +7,8 @@
  */
 class ActivityAndTasksForm extends CFormModel
 {
+	const STARTING_TASK_COUNT = 5; //initial number of tasks to create
+
 	public $activity;
 	public $tasks = array();
 
@@ -23,7 +25,7 @@ class ActivityAndTasksForm extends CFormModel
 
 	public function init() {
 		$this->activity = new Activity();
-		$this->tasks = array();
+		$this->addTasks(self::STARTING_TASK_COUNT);
 	}
 
 	public function getTaskCount() {

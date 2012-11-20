@@ -82,9 +82,9 @@ class ActivityController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($taskCount = 5)
+	public function actionCreate()
 	{
-		$form = new ActivityAndTasksForm();
+		$form = new ActivityAndTasksForm(5);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -104,14 +104,6 @@ class ActivityController extends Controller
 					$this->redirect(array('activity/view','id'=>$form->activity->id));	
 				}
 			}
-		}
-		// else if(isset($_POST['Activity'])) 
-		// {
-		// 	$form->activity->attributes = $_POST['Activity'];
-		// 	$form->validate();
-		// }
-		else {
-			$form->addTasks($taskCount);
 		}
 
 		$this->render('create', array(

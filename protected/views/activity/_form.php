@@ -75,9 +75,12 @@
 				'class'=>'neutral',
 			)
 		); ?>
-
 		<? endif; ?>
-		<?= PHtml::submitButton($model->isNewRecord ? 'Publish' : 'Update'); ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Publish' : 'Update',
+			array(
+				'name'=>'publish',
+			)
+		); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

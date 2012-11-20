@@ -256,7 +256,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			$this->attributes = $attributes;
 			$this->authorId = Yii::app()->user->id;
 			$this->status = self::STATUS_PENDING;
-			return $this->save();
+			if($this->save()) {
+				Yii::app()->user->setFlash('notice', 'A draft of ' 
+					. PHtml::encode($this->name) 
+					. ' has been saved.');
+				return $true;
+			}
+			return false;
 		}
 		else {
 			throw new CDbException(Yii::t('activity','The activity cannot be inserted because it is not new.'));
