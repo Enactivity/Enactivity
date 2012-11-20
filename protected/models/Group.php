@@ -183,8 +183,10 @@ class Group extends ActiveRecord implements EmailableRecord
 	}
 
 	public function defaultScope() {
+		$table = $this->getTableAlias(false, false);
+
 		return array(
-			'order' => 'name ASC',
+			'order' => "{$table}.name ASC",
 		);
 	}
 	

@@ -184,24 +184,23 @@ class User extends ActiveRecord
 			),
 		
 			'memberships' => array(self::HAS_MANY, 'Membership', 'userId',
-				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"',
+				'scopes' => array('scopeActive'),
 			),
+
 			'allMemberships' => array(self::HAS_MANY, 'Membership', 'userId'),
 		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
-				'condition' => 'memberships.status = "' . Membership::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
 				'through' => 'memberships',
-				'order' => 'groups.name',
-			),
-
-			'allGroups'  => array(self::HAS_MANY, 'Group', 'groupId',
-				'through' => 'allMemberships',
-				'order' => 'allGroups.name',
 			),
 
 			'activities' => array(self::HAS_MANY, 'Activity', array('id'=>'groupId'), 
 				'through' => 'groups',
-				'scopes' => array('scopePublished'),
+				'scopes' => array('scopeNotTrashAndPublished'),
+			),
+
+			'tasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
+				'through' => 'activities',
+				'scopes' => array('scopeAlive'),
 			),
 
 			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
@@ -477,8 +476,10 @@ class User extends ActiveRecord
 	}
 
 	public function defaultScope() {
+		$table = $this->getTableAlias(false, false);
+
 		return array(
-			'order' => 'firstName ASC',
+			'order' => "{$table}.firstName ASC",
 		);
 	}
 
