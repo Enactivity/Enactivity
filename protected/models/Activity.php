@@ -82,7 +82,15 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'description',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			'FacebookGroupPostBehavior'=>array(
 				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',

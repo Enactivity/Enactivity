@@ -84,7 +84,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_INSERT => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'starts',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(

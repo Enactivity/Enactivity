@@ -42,7 +42,9 @@ class ActivityComment extends Comment implements LoggableRecord
     		// Add new behaviors here
             'ActiveRecordLogBehavior'=>array(
                 'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-                'ignoreAttributes' => array('modified'),
+                'scenarios' => array(
+                    self::SCENARIO_INSERT => array(),
+                ),
             ),
     	));
     	return $behaviors;
