@@ -75,7 +75,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'scenarios' => array(
-					// FIXME: implement
+					self::SCENARIO_SIGN_UP => array(),
+					self::SCENARIO_START => array(),
+					self::SCENARIO_QUIT => array(),
+					self::SCENARIO_STOP => array(),
+					self::SCENARIO_COMPLETE => array(),
+					self::SCENARIO_RESUME => array(),
 				),
 			),
 			'EmailNotificationBehavior'=>array(
