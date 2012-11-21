@@ -87,7 +87,7 @@
 	<? endif; ?>
 
 	<div class="field buttons">
-		<? if($model->activity->isNewRecord): ?>
+		<? if($model->activity->isDraft): ?>
 		<?= PHtml::submitButton('Add More Tasks', 
 			array(
 				'name'=>'add_more',

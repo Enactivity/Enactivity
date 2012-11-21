@@ -51,6 +51,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	{
 		return parent::model($className);
 	}
+
+	public function init() {
+		// New activities should start as pending
+		$this->status = self::STATUS_PENDING;
+	}
 	
 	/**
 	 * @return string the associated database table name

@@ -52,6 +52,20 @@ class ActivityAndTasksForm extends CFormModel
 		$this->tasks[$index] = new Task();
 	}
 
+	/**
+	 * Override of CModel::setAttributes
+	 * @param array ['activity', 'tasks' ]
+	 */
+	public function setAttributes($values, $safeOnly = true) {
+		$this->activity->attributes = $values['activity'];
+
+		// Load in the new tasks
+		foreach($values['tasks'] as $i => $taskAttributes) {
+			$this->tasks[$i] = new Task();
+			$this->tasks[$i]->attributes = $taskAttributes;
+		}
+	}
+
 	public function validate() {
 
 		$isValid = parent::validate();
@@ -68,17 +82,15 @@ class ActivityAndTasksForm extends CFormModel
 	public function draft($activityAttributes = array(), $taskAttributesList = array()) {
 		$this->scenario = self::SCENARIO_DRAFT;
 
-		$this->activity->attributes = $activityAttributes;
+		$this->attributes = array(
+			'activity' => $activityAttributes,
+			'tasks' => $taskAttributesList,
+		);
 
-		// Load in the new tasks
-		foreach($taskAttributesList as $i => $taskAttributes) {
-			$this->tasks[$i] = new Task();
-			$this->tasks[$i]->attributes = $taskAttributes;
-		}
-
-		// Remove the tasks with no name (blanks hopefully)
+		// Remove the tasks with no attributes
 		foreach ($this->tasks as $i => $task) {
-			if(StringUtils::isBlank($task->name)) {
+			if(StringUtils::isBlank($task->name) 
+				&& StringUtils::isBlank($task->starts)) {
 				unset($this->tasks[$i]);
 			}
 		}
@@ -106,8 +118,13 @@ class ActivityAndTasksForm extends CFormModel
 	}
 
 	public function addMoreTasks($activityAttributes = array(), $taskAttributesList = array()) {
-		$drafted = $this->draft($activityAttributes, $taskAttributesList);
-		$this->addTasks(5);
+		$this->attributes = array(
+			'activity' => $activityAttributes,
+			'tasks' => $taskAttributesList,
+		);
+
+		$currentTaskCount = sizeof($taskAttributesList);
+		$this->addTasks($currentTaskCount); // double it!
 		return $drafted;
 	}
 }
