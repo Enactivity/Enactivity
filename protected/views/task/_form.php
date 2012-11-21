@@ -3,7 +3,6 @@
  * Form for creating/updating tasks
  * @uses model Task model
  * @uses inline boolean should display datetimes?  Defaults to false
- * @uses index number in list of task
  * @uses action string action to submit form
  */
 
@@ -18,7 +17,7 @@ if($model->isNewRecord) {
 
 $classForm .= $inline ? ' inline' : '';
 
-$form= $form ? $form : $this->beginWidget('application.components.widgets.ActiveForm', array(
+$form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	'id'=>'task-form',
 	'action'=> isset($action) ? $action : '',
 	'enableAjaxValidation'=>false,
@@ -26,22 +25,18 @@ $form= $form ? $form : $this->beginWidget('application.components.widgets.Active
 		'class'=>$classForm,
 	),
 )); ?>
-
-	<? if($index): ?>
-	<h1>Step #<?= PHtml::encode($index); ?></h1>
-	<? endif ?>
 	
 	<?= $form->errorSummary($model); ?>
 	
 	<div class="field">
-		<?= $form->labelEx($model,"[$index]name"); ?>
-		<?= $form->textField($model,"[$index]name",
+		<?= $form->labelEx($model,'name'); ?>
+		<?= $form->textField($model,'name',
 			array(
 				'size'=>60,
 				'maxlength'=>255,
 				'placeholder'=>"What's next?",
 			)); ?>
-		<?= $form->error($model,"[$index]name"); ?>
+		<?= $form->error($model,'name'); ?>
 	</div>
 	
 	
@@ -51,9 +46,9 @@ $form= $form ? $form : $this->beginWidget('application.components.widgets.Active
 		$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 			array(
 				'model'=>$model,
-				'dateTimeAttribute'=>"[$index]starts",
-				'dateAttribute'=>"[$index]startDate",
-				'timeAttribute'=>"[$index]startTime",
+				'dateTimeAttribute'=>'starts',
+				'dateAttribute'=>'startDate',
+				'timeAttribute'=>'startTime',
 				// additional javascript options for the date picker plugin
 				'options'=>array(
 					'showAnim'=>'fold',
@@ -61,15 +56,18 @@ $form= $form ? $form : $this->beginWidget('application.components.widgets.Active
 			)
 		);
 		endif; ?>
-		<?= $form->error($model,"[$index]starts"); ?>
+		<?= $form->error($model,'starts'); ?>
 	</div>
 	
-	<? if(!$model->isNewRecord): ?>
 	<div class="field buttons">
+		<? if($model->isNewRecord): ?>
+		<?= PHtml::submitButton($model->isNewRecord ? 'Create and Add Another Task' : 'Update and Add Another Task', 
+			array('name'=>'add_more')
+		); ?>
+		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? "Create" : 'Update', 
 			array('name'=>'add_no_more')
 		); ?>
 	</div>
-	<? endif; ?>
 
-<? //$this->endWidget(); ?>
+<? $this->endWidget(); ?>

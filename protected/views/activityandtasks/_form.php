@@ -51,13 +51,42 @@
 	<p>Now, let's add some steps for your group to participate in.</p>
 
 	<? foreach($tasks as $index => $task): ?>
-	<section class="new-task-form">
-		<?= $this->renderPartial('/task/_form', array(
-			'model'=>$task,
-			'index'=>$index,
-			'form'=>$form,
-		)); ?>
-	</section>
+	<fieldset class="new-task-form">
+		<? if($index): ?>
+		<h1>Step #<?= PHtml::encode($index); ?></h1>
+		<? endif ?>
+		
+		<div class="field">
+			<?= $form->labelEx($task,"[$index]name"); ?>
+			<?= $form->textField($task,"[$index]name",
+				array(
+					'size'=>60,
+					'maxlength'=>255,
+					'placeholder'=>"What's next?",
+				)); ?>
+			<?= $form->error($task,"[$index]name"); ?>
+		</div>
+	
+	
+		<div class="field datetime">
+			<? if(!$inline):
+			// preformat date before loading into widget 
+			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
+				array(
+					'model'=>$task,
+					'dateTimeAttribute'=>"[$index]starts",
+					'dateAttribute'=>"[$index]startDate",
+					'timeAttribute'=>"[$index]startTime",
+					// additional javascript options for the date picker plugin
+					'options'=>array(
+						'showAnim'=>'fold',
+					),
+				)
+			);
+			endif; ?>
+			<?= $form->error($task,"[$index]starts"); ?>
+		</div>
+	</fieldset>
 	<? endforeach ?>
 	<? endif; ?>
 
