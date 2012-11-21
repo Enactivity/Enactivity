@@ -84,7 +84,7 @@ class ActivityController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$form = new ActivityAndTasksForm(5);
+		$form = new ActivityAndTasksForm();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -107,8 +107,7 @@ class ActivityController extends Controller
 		}
 
 		$this->render('create', array(
-			'model'=>$form->activity,
-			'tasks'=>$form->tasks,
+			'model' => $form,
 		));
 	}
 

@@ -32,6 +32,11 @@ class ActivityAndTasksForm extends CFormModel
 		$this->addTasks(self::STARTING_TASK_COUNT);
 	}
 
+	public function getModels() {
+		$models = array($this, $this->activity);
+		return array_merge($models, $this->tasks);
+	}
+
 	public function getTaskCount() {
 		return sizeof($this->tasks);
 	}
@@ -95,7 +100,7 @@ class ActivityAndTasksForm extends CFormModel
 	public function publish($activityAttributes = array(), $taskAttributesList = array()) {
 		if($this->draft($activityAttributes, $taskAttributesList)) {
 			$this->scenario = self::SCENARIO_PUBLISH;
-			return $this->activity->publish();
+			return $this->activity->publish($this->activity->attributes);
 		}
 		return false;
 	}

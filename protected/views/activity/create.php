@@ -12,6 +12,5 @@ $this->pageTitle = 'Create a New Activity';
 <section>
 	<?= $this->renderPartial('/activityandtasks/_form', array(
 		'model'=>$model,
-		'tasks'=>$tasks,
 	)); ?>
 </section>

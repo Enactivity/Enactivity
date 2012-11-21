@@ -1,8 +1,7 @@
 <?php
 /**
  * @uses $this ActivityController
- * @var $model Activity
- * @var $form CActiveForm
+ * @var $model ActivityAndTasksForm
  **/
 ?>
 
@@ -17,45 +16,45 @@
 
 	<p>Add some details about the overall activity.</p>
 
-	<?= $form->errorSummary($model); ?>
+	<?= $form->errorSummary($model->models); ?>
 
-	<? if($model->isNewRecord) {
+	<? if($model->activity->isNewRecord) {
 		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
 				'form' => $form,
-				'model' => $model,
+				'model' => $model->activity,
 				'groups' => Yii::app()->user->model->groups,
 		));
 	} ?>
 
 	<div class="field">
-		<?= $form->labelEx($model,'name'); ?>
-		<?= $form->textField($model,'name',array(
+		<?= $form->labelEx($model->activity,'name'); ?>
+		<?= $form->textField($model->activity,'name',array(
 			'size'=>60,
 			'maxlength'=>255,
 			'placeholder'=>'What\'s to be done?'
 		)); ?>
-		<?= $form->error($model,'name'); ?>
+		<?= $form->error($model->activity,'name'); ?>
 	</div>
 
 	<div class="field">
-		<?= $form->labelEx($model,'description'); ?>
-		<?= $form->textArea($model,'description',array(
+		<?= $form->labelEx($model->activity,'description'); ?>
+		<?= $form->textArea($model->activity,'description',array(
 			'fields'=>6, 
 			'cols'=>50,
 			'placeholder'=>'More details if needed.',
 		)); ?>
-		<?= $form->error($model,'description'); ?>
+		<?= $form->error($model->activity,'description'); ?>
 	</div>
 
-	<? if($model->isNewRecord): ?>
+	<? if($model->activity->isNewRecord): ?>
 	<p>Now, let's add some steps for your group to participate in.</p>
 
-	<? foreach($tasks as $index => $task): ?>
+	<? foreach($model->tasks as $index => $task): ?>
 	<fieldset class="new-task-form">
 		<? if($index): ?>
 		<h1>Step #<?= PHtml::encode($index); ?></h1>
 		<? endif ?>
-		
+
 		<div class="field">
 			<?= $form->labelEx($task,"[$index]name"); ?>
 			<?= $form->textField($task,"[$index]name",
@@ -69,9 +68,7 @@
 	
 	
 		<div class="field datetime">
-			<? if(!$inline):
-			// preformat date before loading into widget 
-			$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
+			<? $this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 				array(
 					'model'=>$task,
 					'dateTimeAttribute'=>"[$index]starts",
@@ -82,8 +79,7 @@
 						'showAnim'=>'fold',
 					),
 				)
-			);
-			endif; ?>
+			); ?>
 			<?= $form->error($task,"[$index]starts"); ?>
 		</div>
 	</fieldset>
@@ -91,7 +87,7 @@
 	<? endif; ?>
 
 	<div class="field buttons">
-		<? if($model->isNewRecord): ?>
+		<? if($model->activity->isNewRecord): ?>
 		<?= PHtml::submitButton('Add More Tasks', 
 			array(
 				'name'=>'add_more',
@@ -105,7 +101,7 @@
 			)
 		); ?>
 		<? endif; ?>
-		<?= PHtml::submitButton($model->isNewRecord ? 'Publish' : 'Update',
+		<?= PHtml::submitButton($model->activity->isNewRecord ? 'Publish' : 'Update',
 			array(
 				'name'=>'publish',
 			)

@@ -32,6 +32,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_DRAFT = 'draft';
 	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
@@ -177,6 +178,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_DRAFT => 'drafted',
 			self::SCENARIO_PUBLISH => 'published',
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
@@ -253,6 +255,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 */
 	public function draft($attributes=null, $tasks = array()) {
 		if($this->isNewRecord) {
+			$this->scenario = self::SCENARIO_DRAFT;
 			$this->attributes = $attributes;
 			$this->authorId = Yii::app()->user->id;
 			$this->status = self::STATUS_PENDING;
@@ -260,7 +263,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				Yii::app()->user->setFlash('notice', 'A draft of ' 
 					. PHtml::encode($this->name) 
 					. ' has been saved.');
-				return $true;
+				return true;
 			}
 			return false;
 		}
@@ -275,7 +278,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 **/
 	public function publish($attributes=null) {
-		$this->setScenario(self::SCENARIO_PUBLISH);
+		$this->scenario = self::SCENARIO_PUBLISH;
 		$this->attributes = $attributes;
 
 		if(!$this->authorId) {
@@ -287,7 +290,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			Yii::app()->user->setFlash('notice',  
 				PHtml::encode($this->name) 
 				. ' is now available for your group to view.');
-			return $true;
+			return true;
 		}
 		return false;
 	}
