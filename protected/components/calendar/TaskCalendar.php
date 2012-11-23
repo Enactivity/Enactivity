@@ -85,10 +85,13 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']++;
 			}
 			else {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['firstTask'] = $task;
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more'] = 0;
 			}
 		}
 		else {
@@ -97,10 +100,12 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
 				$this->someday[$task->activityId]['taskCount']++;
+				$this->someday[$task->activityId]['more']++;
 			}
 			else {
 				$this->someday[$task->activityId]['activity'] = $task->activity;
 				$this->someday[$task->activityId]['taskCount'] = 1;
+				$this->someday[$task->activityId]['more'] = 0;
 			}
 		}
 	}
@@ -112,6 +117,7 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']--;
 
 				if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
 					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
@@ -133,6 +139,7 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
 				$this->someday[$task->activityId]['taskCount']--;
+				$this->someday[$task->activityId]['more']--;
 
 				if($this->someday[$task->activityId]['taskCount'] <= 0) {
 					unset($this->someday[$task->activityId]);
