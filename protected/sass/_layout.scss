@@ -35,3 +35,14 @@ article {
 		@extend .heading3;
 	}
 }
+
+// Fix for application header
+:target {
+	margin-top: $application-header-fixed-height * -1;
+	padding-top: $application-header-fixed-height;
+
+	@include respond-to(thin-tablet) {
+		margin-top: $application-header-fixed-height + $application-navigation-fixed-height * -1;
+		padding-top: $application-header-fixed-height + $application-navigation-fixed-height;
+	}
+}
