@@ -32,6 +32,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_DRAFT = 'draft';
 	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
@@ -49,6 +50,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function init() {
+		// New activities should start as pending
+		$this->status = self::STATUS_PENDING;
 	}
 	
 	/**
@@ -81,7 +87,15 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'description',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			'FacebookGroupPostBehavior'=>array(
 				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
@@ -177,6 +191,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_DRAFT => 'drafted',
 			self::SCENARIO_PUBLISH => 'published',
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
@@ -253,10 +268,17 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 */
 	public function draft($attributes=null, $tasks = array()) {
 		if($this->isNewRecord) {
+			$this->scenario = self::SCENARIO_DRAFT;
 			$this->attributes = $attributes;
 			$this->authorId = Yii::app()->user->id;
 			$this->status = self::STATUS_PENDING;
-			return $this->save();
+			if($this->save()) {
+				Yii::app()->user->setFlash('notice', 'A draft of ' 
+					. PHtml::encode($this->name) 
+					. ' has been saved.');
+				return true;
+			}
+			return false;
 		}
 		else {
 			throw new CDbException(Yii::t('activity','The activity cannot be inserted because it is not new.'));
@@ -269,7 +291,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 **/
 	public function publish($attributes=null) {
-		$this->setScenario(self::SCENARIO_PUBLISH);
+		$this->scenario = self::SCENARIO_PUBLISH;
 		$this->attributes = $attributes;
 
 		if(!$this->authorId) {
@@ -278,6 +300,9 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		
 		$this->status = self::STATUS_ACTIVE;
 		if($this->save()) {
+			Yii::app()->user->setFlash('notice',  
+				PHtml::encode($this->name) 
+				. ' is now available for your group to view.');
 			return true;
 		}
 		return false;
