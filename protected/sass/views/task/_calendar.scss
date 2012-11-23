@@ -34,11 +34,10 @@
 				}
 			}
 
-			.task {
+			.activity {
 				margin: $base-margin 0;
 				h1 {
 					@extend .heading5;
-					// @include ellipsis();
 				}
 
 				time {
@@ -46,7 +45,7 @@
 					white-space: nowrap;
 				}
 
-				.activity {
+				.tasks {
 					@extend .metadata;
 					@include ellipsis();
 				}
