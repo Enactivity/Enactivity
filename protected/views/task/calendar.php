@@ -54,7 +54,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 					</header>
 					<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
 					<? foreach ($activities as $activityIndex => $activityInfo): ?>
-					<article class="task">
+					<article class="activity">
 						<time>
 							<?= PHtml::encode($time); ?>
 						</time>
@@ -64,11 +64,21 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 								array('activity/view', 'id'=>$activityIndex)
 							); ?>
 						</h1>
-						<h2 class="count">
+						<h2 class="tasks">
+							<span class="task">
 							<?= PHtml::link(
-								PHtml::encode($activityInfo['taskCount']) . ' tasks',
-								array('activity/view', 'id'=>$activityIndex, '#'=>'tasks')
+								PHtml::encode($activityInfo['firstTask']->shortName),
+								array('activity/view', 'id'=>$activityIndex, '#'=>'task-' . PHtml::encode($activityInfo['firstTask']->id))
 							); ?>
+							</span>
+							<? if($activityInfo['more']): ?>
+							<span class="more">
+								<?= PHtml::link(
+									'+ ' . PHtml::encode($activityInfo['more']) . ' more',
+									array('activity/view', 'id'=>$activityIndex, '#'=>'tasks')
+								); ?>
+							</span>
+							<? endif; ?>
 						</h2>
 					</article>
 					<? endforeach; ?>

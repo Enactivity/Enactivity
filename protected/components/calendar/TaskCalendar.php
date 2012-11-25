@@ -89,9 +89,19 @@ class TaskCalendar extends CComponent {
 
 	protected function addTaskWithStartTime($task) {
 		if($task->hasStarts) {
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
+			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']++;
+			}
+			else {
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['firstTask'] = $task;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more'] = 0;
+			}
+
 			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
+
 		}
 		else {
 			throw new CException("Attempting to add a task with start time, but task has no start time");
@@ -100,9 +110,18 @@ class TaskCalendar extends CComponent {
 
 	protected function addTaskWithNoStartTime($task) {
 		if(!$task->hasStarts) {
-			$this->someday[$task->activityId]['activity'] = $task->activity;
+
+			if(isset($this->someday[$task->activityId]['activity'])) {
+				$this->someday[$task->activityId]['taskCount']++;
+				$this->someday[$task->activityId]['more']++;
+			}
+			else {
+				$this->someday[$task->activityId]['activity'] = $task->activity;
+				$this->someday[$task->activityId]['taskCount'] = 1;
+				$this->someday[$task->activityId]['more'] = 0;
+			}
+
 			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
-			$this->someday[$task->activityId]['taskCount']++;
 		}
 		else {
 			throw new CException("Attempting to add a task with no start time, but task has a start time");
@@ -125,6 +144,7 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
+				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']--;
 
 				if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
 					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
@@ -151,6 +171,7 @@ class TaskCalendar extends CComponent {
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
 				$this->someday[$task->activityId]['taskCount']--;
+				$this->someday[$task->activityId]['more']--;
 
 				if($this->someday[$task->activityId]['taskCount'] <= 0) {
 					unset($this->someday[$task->activityId]);

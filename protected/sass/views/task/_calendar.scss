@@ -34,7 +34,7 @@
 				}
 			}
 
-			.task {
+			.activity {
 				margin: $base-margin 0;
 				h1 {
 					@extend .heading5;
@@ -45,8 +45,9 @@
 					white-space: nowrap;
 				}
 
-				.count {
+				.tasks {
 					@extend .metadata;
+					@include ellipsis();
 				}
 			}
 		}
