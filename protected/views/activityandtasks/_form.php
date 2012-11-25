@@ -47,12 +47,12 @@
 	</div>
 
 	<? if($model->activity->isNewRecord): ?>
-	<p>Now, let's add some steps for your group to participate in.</p>
+	<p>Now, let's add some tasks for your group to participate in.</p>
 
 	<? foreach($model->tasks as $index => $task): ?>
 	<fieldset class="new-task-form">
 		<? if($index): ?>
-		<h1>Step #<?= PHtml::encode($index); ?></h1>
+		<h1>Task #<?= PHtml::encode($index); ?></h1>
 		<? endif ?>
 
 		<div class="field">
