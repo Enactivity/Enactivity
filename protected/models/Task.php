@@ -84,7 +84,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_INSERT => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'starts',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
@@ -107,14 +115,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs via forms.
 		return array(
-			array('groupId, name, isTrash',
+			array('name, isTrash',
 				'required'),
-			
-			// groupId can be any integer > 0
-			array('groupId',
-				'numerical',
-				'min' => 1,
-				'integerOnly'=>true),
 			
 			// boolean ints can be 0 or 1
 			array('isTrash',
@@ -192,9 +194,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return array(
 			'id' => 'Id',
 			'groupId' => 'Group',
-			'name' => 'Task Description',
+			'name' => 'Name',
 			'isTrash' => 'Is Trash',
-			'starts' => 'When',
+			'starts' => 'Starts at',
 			'created' => 'Created',
 			'modified' => 'Modified',
 		);

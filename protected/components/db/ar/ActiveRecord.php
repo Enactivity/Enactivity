@@ -89,4 +89,45 @@ abstract class ActiveRecord extends CActiveRecord {
 
 		return $changes;
 	}
+
+	/** 
+	 * @return array in form of:
+	 *	'attributeName' => 'old' => old value
+	 *	                   'new' => new value
+	 **/
+	public function getChangedAttributes($attributes = array()) {
+		// new attributes and old attributes
+		$currentAttributes = $this->attributes;
+		$oldAttributes = $this->oldAttributes;
+
+		$changes = array();
+
+		// compare old and new
+		foreach ($currentAttributes as $name => $currentValue) {
+			// check that if the attribute should be ignored
+			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
+
+ 			if ($currentValue != $oldValue) {
+ 				if(in_array($name, $attributes) 
+ 					&& array_key_exists($name, $oldAttributes)
+ 					&& array_key_exists($name, $currentAttributes)
+ 				)
+ 				{
+ 					// Hack: Format the datetimes into readable strings
+ 					if ($this->metadata->columns[$name]->dbType == 'datetime') {
+						$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
+						$currentAttributes[$name] = isset($currentAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($currentAttributes[$name])) : '';
+					}
+ 					$changes[$name] = array(
+ 						'old'=>$oldAttributes[$name], 
+ 						'new'=>$currentAttributes[$name]
+ 					);
+ 				}
+			}
+		}
+
+		return $changes;
+	}
+
+
 }

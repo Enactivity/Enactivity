@@ -84,21 +84,30 @@ class ActivityController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Activity;
+		$form = new ActivityAndTasksForm();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Activity']))
+		if(isset($_POST['Activity']) && isset($_POST['Task']))
 		{
-			// FIXME: should be model->draft instead
-			if($model->publish($_POST['Activity'])) {
-				$this->redirect(array('task/create','activityId'=>$model->id));
+			if($_POST['add_more']) { // adding more tasks
+				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+			}
+			elseif($_POST['draft']) {
+				if($form->draft($_POST['Activity'], $_POST['Task'])) {
+					$this->redirect(array('activity/view','id'=>$form->activity->id));
+				}
+			}
+			else {
+				if($form->publish($_POST['Activity'], $_POST['Task'])) {
+					$this->redirect(array('activity/view','id'=>$form->activity->id));	
+				}
 			}
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
+		$this->render('create', array(
+			'model' => $form,
 		));
 	}
 
