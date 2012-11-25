@@ -183,6 +183,15 @@ class Membership extends ActiveRecord implements EmailableRecord
 			self::STATUS_PENDING
 		);
 	}
+
+	public function scopeActive() {
+		$table = $this->getTableAlias(false);
+
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>"{$table}.status = '" . self::STATUS_ACTIVE . "'",
+		));
+		return $this;
+	}
 	
 	public function scopeGroup($groupId)
 	{

@@ -142,7 +142,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -217,9 +217,12 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		));
 	}
 
-	public function scopePublished() {
+	public function scopeNotTrashAndPublished() {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' => $this->getTableAlias(false, false) . '.status IN (\'' . self::STATUS_ACTIVE . '\')',
+			'condition'=>"{$table}.status = '" . self::STATUS_ACTIVE . "'"
+				. " AND {$table}.isTrash = 0",
 		));
 		return $this;
 	}

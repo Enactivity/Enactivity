@@ -37,7 +37,7 @@ class TaskCalendar extends CComponent {
 	public static function loadCalendarByMonth($user, $month) {
 		$datedTasks = Task::tasksForUserInMonth($user->id, $month);
 		
-		return new TaskCalendar($datedTasks->data);
+		return new TaskCalendar($datedTasks);
 	}
 
 	public static function loadCalendarWithNoStart($user) {
