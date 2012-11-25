@@ -42,7 +42,7 @@
 <? if($calendar->hasSomedayTasks): ?>
 <article class="someday">
 	<?= PHtml::openTag('h1', array('id' => 'someday-tasks')); ?>Someday</h1>
-	<? foreach($calendar->somedayTasks as $activityInfo): ?>
+	<? foreach($calendar->somedayTasks as $activityId => $activityInfo): ?>
 	<article class="activity">
 		<h1 class='activity-name'>
 			<i></i>

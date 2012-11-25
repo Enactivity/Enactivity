@@ -37,7 +37,7 @@ class TaskCalendar extends CComponent {
 	public static function loadCalendarByMonth($user, $month) {
 		$datedTasks = Task::tasksForUserInMonth($user->id, $month);
 		
-		return new TaskCalendar($datedTasks->data);
+		return new TaskCalendar($datedTasks);
 	}
 
 	public static function loadCalendarWithNoStart($user) {
@@ -79,10 +79,16 @@ class TaskCalendar extends CComponent {
 	 * @return null
 	 **/
 	public function addTask(Task $task) {
-		if(isset($task->starts)) {
-			// [date][time][activityId]['tasks'][]
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
+		if($task->hasStarts) {
+			$this->addTaskWithStartTime($task);
+		}
+		else {
+			$this->addTaskWithNoStartTime($task);	
+		}
+	}
 
+	protected function addTaskWithStartTime($task) {
+		if($task->hasStarts) {
 			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']++;
@@ -93,10 +99,17 @@ class TaskCalendar extends CComponent {
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
 				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more'] = 0;
 			}
+
+			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
+
 		}
 		else {
-			// [activityId]['tasks']
-			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
+			throw new CException("Attempting to add a task with start time, but task has no start time");
+		}
+	}
+
+	protected function addTaskWithNoStartTime($task) {
+		if(!$task->hasStarts) {
 
 			if(isset($this->someday[$task->activityId]['activity'])) {
 				$this->someday[$task->activityId]['taskCount']++;
@@ -107,11 +120,25 @@ class TaskCalendar extends CComponent {
 				$this->someday[$task->activityId]['taskCount'] = 1;
 				$this->someday[$task->activityId]['more'] = 0;
 			}
+
+			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
+		}
+		else {
+			throw new CException("Attempting to add a task with no start time, but task has a start time");
 		}
 	}
 
 	public function removeTask($task) {
-		if(isset($task->starts)) {
+		if($task->hasStarts) {
+			$this->removeTaskWithStartTime($task);
+		}
+		else {
+			$this->removeTaskWithNoStartTime($task);
+		}
+	}
+
+	protected function removeTaskWithStartTime($task) {
+		if($task->hasStarts) {
 			// [date][time][activityId]['tasks'][]
 			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
 
@@ -131,9 +158,14 @@ class TaskCalendar extends CComponent {
 					}
 				}
 			}
-			
 		}
 		else {
+			throw new CException("Attempting to remove a task with start time, but task has no start time");
+		}
+	}
+
+	protected function removeTaskWithNoStartTime($task) {
+		if(!$task->hasStarts) {
 			// [activityId]['tasks']
 			unset($this->someday[$task->activityId]['tasks'][$task->id]);
 
@@ -145,9 +177,11 @@ class TaskCalendar extends CComponent {
 					unset($this->someday[$task->activityId]);
 				}
 			}
-			
 		}
-	}
+		else {
+			throw new CException("Attempting to remove a task with no start time, but task has a start time");
+		}
+	}	
 	
 	/**
 	 * @return array of Tasks in form $date => $time => {array of Tasks}

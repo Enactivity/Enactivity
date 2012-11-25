@@ -29,6 +29,7 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
+	const DESCRIPTION_MAX_LENGTH = 10000;
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
@@ -132,6 +133,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'filter'=>'trim'
 			),
 
+			array('description',
+				'length',
+				'max'=>self::DESCRIPTION_MAX_LENGTH
+			),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, groupId, authorId, facebookId, name, description, status, participantsCount, participantsCompletedCount, created, modified', 'safe', 'on'=>'search'),
@@ -150,7 +156,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -226,9 +232,12 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		));
 	}
 
-	public function scopePublished() {
+	public function scopeNotTrashAndPublished() {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' => $this->getTableAlias(false, false) . '.status IN (\'' . self::STATUS_ACTIVE . '\')',
+			'condition'=>"{$table}.status = '" . self::STATUS_ACTIVE . "'"
+				. " AND {$table}.isTrash = 0",
 		));
 		return $this;
 	}

@@ -511,11 +511,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	/**
 	 * Tasks which are not alive
 	 **/
-	public function scopeAlive() {
-		$table = $this->getTableAlias(false, false);
+	public function scopeNotTrash() {
+		$table = $this->getTableAlias(false);
 
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' =>  "$table.isTrash=0",
+			'condition' =>  "{$table}.isTrash=0",
 		));
 		return $this;
 	}
@@ -549,8 +549,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return ActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-				'condition'=>'starts <= :ends AND starts >= :starts',
+				'condition'=>"{$table}.starts <= :ends AND {$table}.starts >= :starts",
 				'params' => array(
 					':starts' => $starts->format("Y-m-d H:i:s"),
 					':ends' => $ends->format("Y-m-d H:i:s"),
@@ -732,18 +734,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return CActiveDataProvider
 	 */
 	public static function tasksForUserInMonth($userId, $month) {
-		$taskWithDateQueryModel = new Task();
-		$datedTasks = new CActiveDataProvider(
-			$taskWithDateQueryModel
-			->scopeAlive()
-			->scopeUsersGroups($userId)
-			->scopeByCalendarMonth($month->monthIndex, $month->year),
-			array(
-				'pagination'=>false,
-			)
-		);
+		$user = User::model()->with(array(
+			'tasks'=>array(
+				'scopes'=>array(
+					'scopeByCalendarMonth' => array($month->monthIndex, $month->year),
+				),
+			),
+		))->findByPk($userId);
 
-		return $datedTasks;
+		return $user->tasks;
 	}
 
 	/**
