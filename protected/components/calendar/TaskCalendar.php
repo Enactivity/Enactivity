@@ -35,14 +35,27 @@ class TaskCalendar extends CComponent {
 	}
 
 	public static function loadCalendarByMonth($user, $month) {
-		$datedTasks = Task::tasksForUserInMonth($user->id, $month);
+		$tasks = User::model()->with(array(
+			'tasks'=>array(
+				'scopes'=>array(
+					'scopeByCalendarMonth' => array($month->monthIndex, $month->year),
+				),
+			),
+		))->findByPk($user->id)->tasks;
 		
-		return new TaskCalendar($datedTasks);
+		return new TaskCalendar($tasks);
 	}
 
 	public static function loadCalendarWithNoStart($user) {
-		$datelessTasks = Task::tasksForUserWithNoStart($user->id);
-		return new TaskCalendar($datelessTasks->data);
+		$tasks = User::model()->with(array(
+			'tasks'=>array(
+				'scopes'=>array(
+					'scopeSomeday' => array(),
+				),
+			),
+		))->findByPk($user->id)->tasks;
+
+		return new TaskCalendar($tasks);
 	}
 
 	/**
