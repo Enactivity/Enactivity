@@ -40,6 +40,16 @@ class Controller extends CController
 			$filterChain->run();
 		}
 	}
+
+	public function render($view, $data=null, $return=false) {
+
+	    if(!isset($data['appUser'])) {
+	    	$data['appUser'] = Yii::app()->user;
+	    }
+
+	    return parent::render($view, $data, $return);
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

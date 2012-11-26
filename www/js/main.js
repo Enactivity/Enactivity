@@ -18,8 +18,7 @@ $(document).ready(function() {
 	 * Add dropdown behavior to selected items. Items should have a parent
 	 * <li> tag and expect to have an .open class when expanded.
 	 * 
-	 * @param {String}
-	 *            selector
+	 * @param {String} selector
 	 * @return {JQuery} see http://api.jquery.com/each/
 	 */
 	$.fn.dropdown = function(selector) {
@@ -47,6 +46,8 @@ $(document).ready(function() {
  * Smooth scrolling plugin @requires JQuery 1.7
  */
 $(document).ready(function() {
+
+	"use strict";
 
 	$('a[href*=#]').each(function() {
 		if ($(this).attr('href').indexOf("#") == 0) {
