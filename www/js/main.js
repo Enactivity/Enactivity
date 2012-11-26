@@ -18,8 +18,7 @@ $(document).ready(function() {
 	 * Add dropdown behavior to selected items. Items should have a parent
 	 * <li> tag and expect to have an .open class when expanded.
 	 * 
-	 * @param {String}
-	 *            selector
+	 * @param {String} selector
 	 * @return {JQuery} see http://api.jquery.com/each/
 	 */
 	$.fn.dropdown = function(selector) {
@@ -48,6 +47,8 @@ $(document).ready(function() {
  */
 $(document).ready(function() {
 
+	"use strict";
+
 	$('a[href*=#]').each(function() {
 		if ($(this).attr('href').indexOf("#") == 0) {
 			$(this).click(function(e) {
@@ -59,4 +60,43 @@ $(document).ready(function() {
 			});
 		}
 	});
+});
+
+/** 
+ * Unobtrusive formless submit button
+ * @requires jquery.yii.js for submitting
+**/
+$(document).ready(function() {
+
+	"use strict";
+
+	var buttonSelector = ':button';
+
+	/**
+	 * Add button behavior to selected items.
+	 * @param {String} selector
+	 * @return {JQuery} see http://api.jquery.com/each/
+	 */
+	$.fn.button = function(selector) {
+		return this.each(function() {
+			$(this).on('click', selector || buttonSelector, function() {
+				var button = $(this);
+				jQuery.yii.submitForm(
+					this,
+					button.data("submit-to"),
+					{
+						'YII_CSRF_TOKEN':$("meta[name=YII_CSRF_TOKEN]").attr("content")
+					}
+				);
+				return false; /* prevent bubbles */
+			});
+		});
+	};
+
+	/* Apply dropdown to html elements */
+	$(function() {
+		$('body').button(buttonSelector);
+	});
+	
+	// TODO CRSF: $("meta[name=YII_CSRF_TOKEN]");
 });
