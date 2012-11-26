@@ -342,13 +342,20 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * Returns the Task's start date time as a datetime int
+	 * @return int the Task's start date time as a datetime int
 	 */
 	public function getStartTimestamp() {
 		if(empty($this->starts)) {
 			return null;
 		}
 		return strtotime($this->starts);
+	}
+
+	/**
+	 * @return string the time from now (in future or past) that the task starts (e.g. '1 hour ago')
+	 **/
+	public function getStartsFromNow() {
+		Yii::app()->format->formatDateTimeAsAgo($this->startTimestamp);
 	}
 
 	public function getStartYear() {
@@ -664,7 +671,75 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getViewURL() {
-    	return PHtml::taskURL($this);
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/view',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getUpdateURL() {
+		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/update',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getFeedURL() {
+		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/feed',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getSignupURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/signup',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getStartURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/start',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getCompleteURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/complete',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getResumeURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/resume',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getQuitURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/quit',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getIgnoreURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/ignore',
+			array(
+				'id'=>$this->id,
+			)
+		);
     }
 
     /**
