@@ -1,29 +1,34 @@
-{{! @uses $comment Comment model }}
-<article id="comment-<?= PHtml::encode($comment->id); ?>" class="<?= PHtml::commentClass($comment); ?>">
+<? 
+/**
+ * View for individual comments
+ * @uses $data Comment model
+ */
+?>
+<article id="comment-<?= PHtml::encode($data->id); ?>" class="<?= PHtml::commentClass($data); ?>">
 	<div class="avatar">
-		<?= PHtml::image($comment->creator->pictureUrl); ?>
+		<?= PHtml::image($data->creator->pictureUrl); ?>
 	</div>
 	<header>
 		<h1 class="creator">
 			<? //author 
 				$this->widget('application.components.widgets.UserLink', array(
-				'userModel' => $comment->creator,
+				'userModel' => $data->creator,
 			));  ?>
 		</h1>
 		<span class="created">@
 			<? if(isset($model)) : ?>
-			<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($comment->created))); ?>
+			<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?>
 			<? else: ?>
 			<?= PHtml::link(
-				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($comment->created))),
+				PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))),
 				array(Yii::app()->request->pathInfo, 
-					'#' => 'comment-' . $comment->id,
+					'#' => 'comment-' . $data->id,
 				)
 			); ?>
 		<? endif; ?>
 		</span>
 	</header>
 
-	<?= Yii::app()->format->formatStyledText($comment->content); ?>
+	<?= Yii::app()->format->formatStyledText($data->content); ?>
 	
 </article>
