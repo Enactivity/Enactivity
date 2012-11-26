@@ -801,47 +801,4 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			)
 		);
 	}
-
-	/**
-	 * Get an ActiveDataProvider with data about tasks for a given month
-	 * @param int
-	 * @param Month 
-	 * @return CActiveDataProvider
-	 */
-	public static function tasksForUserInMonth($userId, $month) {
-		$user = User::model()->with(array(
-			'tasks'=>array(
-				'scopes'=>array(
-					'scopeByCalendarMonth' => array($month->monthIndex, $month->year),
-				),
-			),
-		))->findByPk($userId);
-
-		return $user->tasks;
-	}
-
-	/**
-	 * Get an ActiveDataProvider with data about tasks with no start date
-	 * @param int
-	 * @return CActiveDataProvider
-	 */
-	public static function tasksForUserWithNoStart($userId) {
-		$taskWithoutDateQueryModel = new Task();
-		$datelessTasks = new CActiveDataProvider(
-		$taskWithoutDateQueryModel
-			->scopeAlive()
-			->scopeUsersGroups($userId)
-			->scopeSomeday()
-			->scopeNotCompleted(),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
-
-		return $datelessTasks;
-	}
-	
 }
