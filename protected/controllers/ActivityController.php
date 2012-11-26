@@ -44,6 +44,7 @@ class ActivityController extends Controller
 					'trash','untrash',
 					'start','resume',
 					'feed','publish',
+					'tasks',
 				),
 				'expression'=>'$user->isGroupMember(' . $groupId . ')',
 			),
@@ -222,6 +223,53 @@ class ActivityController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionTasks($id, $year = null, $month = null, $day = null, $time = null)
+	{
+		$activity = $this->loadActivityModel($id);
+
+		$task = new Task();
+		$task->activityId = $activity->id;
+		$task->groupId = $activity->groupId;
+		
+		if(StringUtils::isNotBlank($year) 
+		&& StringUtils::isNotBlank($month)
+		&& StringUtils::isNotBlank($day)) {
+			$task->startDate = $month . "/" . $day . "/" . $year;
+		}
+
+		if(StringUtils::isNotBlank($time)) {
+			$task->startTime = $time;
+		}
+		
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($task);
+
+		if(isset($_POST['Task'])) {
+			if($task->insertTask($_POST['Task'])) {
+				Yii::app()->user->setFlash('success', $task->name . ' was created');
+				if($_POST['add_more']) {
+					$this->redirect(array('create',
+						'activityId'=>$activity->id, 
+						'year' => $task->startYear, 
+						'month' => $task->startMonth, 
+						'day' => $task->startDay,
+						'time' => $task->startTime,
+					));	
+				}
+				$this->redirect(array('/activity/view','id'=>$activity->id));
+			}
+		}
+
+		$this->render('/task/create',array(
+			'model'=>$task,
+			'activity'=>$activity,
+		));
 	}
 
 

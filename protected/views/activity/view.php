@@ -29,11 +29,11 @@ $this->pageTitle = $model->name;
 			<li>
 				<?= PHtml::link(
 					'<i></i> Add tasks', 
-					array('task/create', 'activityId'=>$model->id),
+					array('activity/tasks', 'id'=>$model->id),
 					array(
-						'id'=>'task-create-menu-item',
-						'class'=>'neutral task-create-menu-item',
-						'title'=>'Add a new task to this activity',
+						'id'=>'tasks-create-menu-item',
+						'class'=>'neutral tasks-create-menu-item',
+						'title'=>'Add new tasks to this activity',
 					)
 				); ?>
 			</li>

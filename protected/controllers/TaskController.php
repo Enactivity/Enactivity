@@ -24,7 +24,7 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','create','calendar','someday'),
+				'actions'=>array('index','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -84,53 +84,6 @@ class TaskController extends Controller
 				'feedDataProvider' => $feedDataProvider,
 			)
 		);
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate($activityId, $year = null, $month = null, $day = null, $time = null)
-	{
-		$activity = $this->loadActivityModel($activityId);
-
-		$model = new Task();
-		$model->activityId = $activity->id;
-		$model->groupId = $activity->groupId;
-		
-		if(StringUtils::isNotBlank($year) 
-		&& StringUtils::isNotBlank($month)
-		&& StringUtils::isNotBlank($day)) {
-			$model->startDate = $month . "/" . $day . "/" . $year;
-		}
-
-		if(StringUtils::isNotBlank($time)) {
-			$model->startTime = $time;
-		}
-		
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task'])) {
-			if($model->insertTask($_POST['Task'])) {
-				Yii::app()->user->setFlash('success', $model->name . ' was created');
-				if($_POST['add_more']) {
-					$this->redirect(array('create',
-						'activityId'=>$activity->id, 
-						'year' => $model->startYear, 
-						'month' => $model->startMonth, 
-						'day' => $model->startDay,
-						'time' => $model->startTime,
-					));	
-				}
-				$this->redirect(array('/activity/view','id'=>$activity->id));
-			}
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-			'activity'=>$activity,
-		));
 	}
 
 	/**
