@@ -29,9 +29,11 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
 class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
 {
 	const NAME_MAX_LENGTH = 255;
+	const DESCRIPTION_MAX_LENGTH = 10000;
 
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_DRAFT = 'draft';
 	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
@@ -49,6 +51,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function init() {
+		// New activities should start as pending
+		$this->status = self::STATUS_PENDING;
 	}
 	
 	/**
@@ -81,15 +88,21 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'description',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			'FacebookGroupPostBehavior'=>array(
 				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array(
-					'facebookId',
-					'modified'
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
 				),
-				'scenarios' => array('publish'),
 			),
 		);
 	}
@@ -121,6 +134,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'filter'=>'trim'
 			),
 
+			array('description',
+				'length',
+				'max'=>self::DESCRIPTION_MAX_LENGTH
+			),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, groupId, authorId, facebookId, name, description, status, participantsCount, participantsCompletedCount, created, modified', 'safe', 'on'=>'search'),
@@ -139,7 +157,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			'author' => array(self::BELONGS_TO, 'User', 'authorId'),
 
 			'tasks' => array(self::HAS_MANY, 'Task', 'activityId',
-				'scopes' => array('scopeAlive'),
+				'scopes' => array('scopeNotTrash'),
 			),
 
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -175,6 +193,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return array(
 			self::SCENARIO_DELETE => 'deleted',
 			self::SCENARIO_INSERT => 'created', // default set by Yii
+			self::SCENARIO_DRAFT => 'drafted',
 			self::SCENARIO_PUBLISH => 'published',
 			self::SCENARIO_TRASH => 'trashed',
 			self::SCENARIO_UNTRASH => 'untrashed',
@@ -207,6 +226,16 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function scopeNotTrashAndPublished() {
+		$table = $this->getTableAlias(false);
+
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>"{$table}.status = '" . self::STATUS_ACTIVE . "'"
+				. " AND {$table}.isTrash = 0",
+		));
+		return $this;
 	}
 
 	/**
@@ -243,15 +272,18 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 */
 	public function draft($attributes=null, $tasks = array()) {
-		if($this->isNewRecord) {
-			$this->attributes = $attributes;
-			$this->authorId = Yii::app()->user->id;
-			$this->status = self::STATUS_PENDING;
-			return $this->save();
+		$this->scenario = self::SCENARIO_DRAFT;
+		$this->attributes = $attributes;
+		$this->authorId = Yii::app()->user->id;
+		$this->status = self::STATUS_PENDING;
+
+		if($this->save()) {
+			Yii::app()->user->setFlash('notice', 'A draft of ' 
+				. PHtml::encode($this->name) 
+				. ' has been saved.');
+			return true;
 		}
-		else {
-			throw new CDbException(Yii::t('activity','The activity cannot be inserted because it is not new.'));
-		}
+		return false;
 	}
 
 	/** 
@@ -260,15 +292,16 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 **/
 	public function publish($attributes=null) {
-		$this->setScenario(self::SCENARIO_PUBLISH);
-		$this->attributes = $attributes;
+		$this->draft($attributes); // to generate new id
 
-		if(!$this->authorId) {
-			$this->authorId = Yii::app()->user->id;
-		}
-		
+		$this->scenario = self::SCENARIO_PUBLISH;
+		$this->attributes = $attributes;
 		$this->status = self::STATUS_ACTIVE;
+
 		if($this->save()) {
+			Yii::app()->user->setFlash('notice',  
+				PHtml::encode($this->name) 
+				. ' is now available for your group to view.');
 			return true;
 		}
 		return false;
@@ -328,7 +361,14 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * Get comments about this Activity
 	 **/
 	public function getComments() {
-		return Yii::app()->FB->getPostComments($this->facebookPostId);
+		if(StringUtils::isNotBlank($this->facebookId)) {
+			return Yii::app()->FB->getPostComments($this->facebookPostId);
+		}
+		return array();
+	}
+
+	public function getIsCommentable() {
+		return StringUtils::isNotBlank($this->facebookId);
 	}
 
 	/** 

@@ -24,7 +24,7 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','create','calendar','someday'),
+				'actions'=>array('index','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -53,13 +53,13 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadTaskModel($id);
-		$taskUser = TaskUser::loadTaskUser($model->id, Yii::app()->user->id);
+		$response = Response::loadResponse($model->id, Yii::app()->user->id);
 		
 		$this->render(
 			'view',
 			array(
 				'model' => $model,
-				'taskUser' => $taskUser,
+				'response' => $response,
 			)
 		);
 	}
@@ -78,53 +78,6 @@ class TaskController extends Controller
 				'feedDataProvider' => $feedDataProvider,
 			)
 		);
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate($activityId, $year = null, $month = null, $day = null, $time = null)
-	{
-		$activity = $this->loadActivityModel($activityId);
-
-		$model = new Task();
-		$model->activityId = $activity->id;
-		$model->groupId = $activity->groupId;
-		
-		if(StringUtils::isNotBlank($year) 
-		&& StringUtils::isNotBlank($month)
-		&& StringUtils::isNotBlank($day)) {
-			$model->startDate = $month . "/" . $day . "/" . $year;
-		}
-
-		if(StringUtils::isNotBlank($time)) {
-			$model->startTime = $time;
-		}
-		
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Task'])) {
-			if($model->insertTask($_POST['Task'])) {
-				Yii::app()->user->setFlash('success', $model->name . ' was created');
-				if($_POST['add_more']) {
-					$this->redirect(array('create',
-						'activityId'=>$activity->id, 
-						'year' => $model->startYear, 
-						'month' => $model->startMonth, 
-						'day' => $model->startDay,
-						'time' => $model->startTime,
-					));	
-				}
-				$this->redirect(array('/activity/view','id'=>$activity->id));
-			}
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-			'activity'=>$activity,
-		));
 	}
 
 	/**
@@ -211,7 +164,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow participating via POST request
-			TaskUser::signUp($id, Yii::app()->user->id);
+			Response::signUp($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -236,7 +189,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow participating via POST request
-			TaskUser::start($id, Yii::app()->user->id);
+			Response::start($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -261,7 +214,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow unparticipating via POST request
-			TaskUser::quit($id, Yii::app()->user->id);
+			Response::quit($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -286,7 +239,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow unparticipating via POST request
-			TaskUser::ignore($id, Yii::app()->user->id);
+			Response::ignore($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -311,7 +264,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow completion via POST request
-			TaskUser::complete($id, Yii::app()->user->id);
+			Response::complete($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -336,7 +289,7 @@ class TaskController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow uncomplete via POST request
-			TaskUser::resume($id, Yii::app()->user->id);
+			Response::resume($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

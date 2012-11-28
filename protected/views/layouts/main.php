@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>  
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/> 
+		<meta name="<?= Yii::app()->request->csrfTokenName; ?>" content="<?= Yii::app()->request->csrfToken; ?>">
 		<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 
 		<!--[if lt IE 9]>
@@ -12,6 +13,7 @@
 		<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/stylesheets/screen.css"); ?>
 
 		<? Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+		<? Yii::app()->clientScript->registerCoreScript('yii'); ?>
 		<? Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
 
 		<link rel="shortcut icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>
@@ -29,47 +31,7 @@
 	</head>
 	<body id="<?= $this->id . '-' . $this->action->id; ?>">
 
-		<header class="application-header" id="application-header">
-			<a href="/" >Enactivity</a>
-			<a id="show-menu" href="#application-navigation">Menu</a>
-		</header>
+	<?= $content; ?>
 		
-		<!-- flash notices -->
-		<? if(Yii::app()->user->hasFlash('error')):?>
-		<aside class="flash flash-error">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
-		</aside>
-		<? endif; ?>
-		<? if(Yii::app()->user->hasFlash('notice')):?>
-		<aside class="flash flash-notice">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
-		</aside>
-		<? endif; ?>
-		<? if(Yii::app()->user->hasFlash('success')):?>
-		<aside class="flash flash-success">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
-		</aside>
-		<? endif; ?>
-
-		<?= $content; ?>
-
-		<nav class="application-navigation" id="application-navigation">
-			<? $this->widget('zii.widgets.CMenu', array(
-				'encodeLabel'=>false,
-				'items'=>MenuDefinitions::applicationMenu()
-			));?>
-		</nav>
-
-		<footer class="application-footer">
-			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/Enactivity"); ?> &copy; <?= date('Y'); ?> 
-				All Rights Reserved.
-			</p>
-			<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/Enactivity"); ?>.</p>
-
-			<? if(Yii::app()->user->isAuthenticated): ?>
-			<p class="logout">
-				<?= PHtml::link("Logout", '/site/logout'); ?>
-			<? endif; ?>
-		</footer>
 	</body>
 </html>

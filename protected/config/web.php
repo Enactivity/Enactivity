@@ -92,11 +92,15 @@ return CMap::mergeArray(
 					'calendar'=>'task/calendar',
 					'<controller:\w+>'=>'<controller>/index',
 					'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-					'<controller:\w+>/<action:(view|update|delete)>/<id:\d+>'=>'<controller>/<action>',
+					'<controller:\w+>/<id:\d+>/<action>'=>'<controller>/<action>',
 					'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				),
 				'showScriptName'=>false,
 				'urlFormat'=>'path', //enabled to allow for slugs
+			),
+
+			'viewRenderer' => array(
+				'class' => 'ext.mustache.MustacheViewRenderer',
 			),
 			
 			'widgetFactory'=>array(

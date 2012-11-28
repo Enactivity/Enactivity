@@ -1,7 +1,7 @@
 // box variables
 $base-border-radius: 3px;
 $base-margin: 16px;
-$base-max-readability-width: 32em;
+$base-max-readability-width: 32em * 1.5;
 $base-padding: 16px;
 
 // page variables
@@ -47,6 +47,7 @@ $gray: 				#808080;
 $light-gray: 		#d3d3d3;
 $light-slate-gray:	#778899;
 $mine-shaft: 		#333333;
+$shark:				#292d33;
 $silver-chalice: 	#aaaaaa;
 $silver: 			#bbbbbb;
 $slate-gray: 		#708090;

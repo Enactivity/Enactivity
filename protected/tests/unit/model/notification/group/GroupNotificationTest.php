@@ -14,9 +14,9 @@ class GroupNotificationTest extends DbTestCase
 	{
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
-		$groupUser = new GroupUser();
+		$membership = new membership();
 		
-		$groupUser->insertGroupUser($group->id, $user->id);
+		$membership->insertmembership($group->id, $user->id);
 		
 		$newName = StringUtils::createRandomString(10);
 		$group->setAttributes(array(
@@ -46,9 +46,9 @@ class GroupNotificationTest extends DbTestCase
 		$subject = 'Psst. Something just happened on ' . Yii::app()->name . '!';
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
-		$groupUser = new GroupUser();
+		$membership = new membership();
 		
-		$groupUser->insertGroupUser($group->id, $user->id);
+		$membership->insertmembership($group->id, $user->id);
 		
 		$newName = StringUtils::createRandomString(10);
 		$group->setAttributes(array(
@@ -80,9 +80,9 @@ class GroupNotificationTest extends DbTestCase
 	{
 		$group = GroupFactory::insert();
 		$user = UserFactory::insert();
-		$groupUser = new GroupUser();
+		$membership = new membership();
 		
-		$groupUser->insertGroupUser($group->id, $user->id);
+		$membership->insertmembership($group->id, $user->id);
 		
 		$newName = StringUtils::createRandomString(10);
 		$group->setAttributes(array(

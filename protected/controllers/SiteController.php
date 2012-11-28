@@ -60,11 +60,10 @@ class SiteController extends Controller
 	 * when an action is not explicitly requested by users.
 	 */
 	public function actionIndex()
-	{
-		// $this->layout='splashlayout';
-		
+	{	
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
+			$this->layout = null;
 			$this->render('index', array('model'=>$model));
 		} 
 		else {

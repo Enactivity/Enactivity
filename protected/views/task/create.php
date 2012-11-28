@@ -12,5 +12,5 @@ $this->pageTitle = 'Create a New Task for ' . PHtml::encode($activity->name);
 <?= PHtml::endContentHeader(); ?>
 
 <section>
-	<?= $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?= $this->renderPartial('/task/_form', array('model'=>$model)); ?>
 </section>

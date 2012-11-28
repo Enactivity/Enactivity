@@ -7,6 +7,10 @@ form {
  	max-width: $base-max-readability-width;
 }
 
+fieldset {
+	@extend .content-block;
+}
+
 input, textarea, select {
 	border: 1px solid $gainsboro;
 	@include border-radius($base-border-radius);
@@ -38,6 +42,7 @@ input[type="button"] {
 	white-space: nowrap; // Don't break sentence
 }
 
+input[type="submit"].neutral,
 input[type="button"].neutral {
 	background-color: #d6d6d6; /* gray */
 }
@@ -81,20 +86,6 @@ input[type="button"]:disabled:hover {
 	position: relative;
 }
 
-label {
-	cursor: text; /* To help user realize it's clickable */
-	// display: inline-block;
-	// margin-bottom: 4px;
-}
-	
-label:not(.required) {
-	@include opacity(.8);
-}
-
-label:not(.required):after {
-	content: ' (optional)';
-}
-
 // Datetime pickers
 .field.datetime {
 	input {
@@ -113,6 +104,21 @@ label:not(.required):after {
 	text-align: right;
 	white-space: nowrap;
 }
+
+label {
+	cursor: text; /* To help user realize it's clickable */
+	// display: inline-block;
+	// margin-bottom: 4px;
+}
+	
+label:not(.required) {
+	@include opacity(.8);
+}
+
+label:not(.required):after {
+	content: ' (optional)';
+}
+
 
 input.error, textarea.error, select.error {
 	border: 1px solid $red;

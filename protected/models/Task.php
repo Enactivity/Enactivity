@@ -33,9 +33,9 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
  * The followings are the available model relations:
  * @property Task $root
  * @property Group $group
- * @property TaskUser[] $taskUsers all TaskUser objects related to this Task
- * @property integer $taskUsersCount number of users who have signed up for the task 
- * @property TaskUser[] $participatingTaskUsers active TaskUser objects related to the model
+ * @property response[] $responses all response objects related to this Task
+ * @property integer $responsesCount number of users who have signed up for the task 
+ * @property response[] $participatingresponses active response objects related to the model
  * @property User[] $participants users who are signed up for the Task
  * @property ActiveRecordLog[] $feed
  */
@@ -45,6 +45,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_DRAFT = 'draft';
+	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
@@ -84,18 +86,26 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			// Record C-UD operations to this record
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_INSERT => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'starts',
+					),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+				),
 			),
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			'FacebookGroupPostBehavior'=>array(
-				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array('modified'),
-				'scenarios' => array('insert', 'trash', 'untrash', 'update'),
-			),
+			// 'FacebookGroupPostBehavior'=>array(
+			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+			// 	'ignoreAttributes' => array('modified'),
+			// 	'scenarios' => array('insert', 'trash', 'untrash', 'update'),
+			// ),
 		);
 	}
 
@@ -107,14 +117,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs via forms.
 		return array(
-			array('groupId, name, isTrash',
+			array('name, isTrash',
 				'required'),
-			
-			// groupId can be any integer > 0
-			array('groupId',
-				'numerical',
-				'min' => 1,
-				'integerOnly'=>true),
 			
 			// boolean ints can be 0 or 1
 			array('isTrash',
@@ -153,7 +157,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function relations()
 	{
 		// stupid hacky way of escaping statuses
-		$participatingWhereIn = '\'' . implode('\', \'', TaskUser::getParticipatingStatuses()) . '\'';
+		$participatingWhereIn = '\'' . implode('\', \'', Response::getParticipatingStatuses()) . '\'';
 
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
@@ -161,15 +165,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'group' => array(self::BELONGS_TO, 'Group', 'groupId'),
 			'activity' => array(self::BELONGS_TO, 'Activity', 'activityId'),
 			
-			'taskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId'),
-			'taskUsersCount' => array(self::STAT, 'TaskUser', 'taskId'),
+			'responses' => array(self::HAS_MANY, 'response', 'taskId'),
+			'responsesCount' => array(self::STAT, 'response', 'taskId'),
 			
-			'participatingTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'taskId',
-				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
+			'participatingresponses' => array(self::HAS_MANY, 'response', 'taskId',
+				'condition' => 'participatingresponses.status IN (' . $participatingWhereIn . ')',
 			),
 			'participants' => array(self::HAS_MANY, 'User', 'userId',
-				'condition' => 'participatingTaskUsers.status IN (' . $participatingWhereIn . ')',
-				'through' => 'participatingTaskUsers',
+				'condition' => 'participatingresponses.status IN (' . $participatingWhereIn . ')',
+				'through' => 'participatingresponses',
 			),
 			
 			'feed' => array(self::HAS_MANY, 'ActiveRecordLog', 'focalModelId',
@@ -187,9 +191,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return array(
 			'id' => 'Id',
 			'groupId' => 'Group',
-			'name' => 'Task Description',
+			'name' => 'Name',
 			'isTrash' => 'Is Trash',
-			'starts' => 'When',
+			'starts' => 'Starts at',
 			'created' => 'Created',
 			'modified' => 'Modified',
 		);
@@ -234,15 +238,22 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @param array $attributes
 	 * @return boolean
 	 */
-	public function insertTask($attributes=null) {
-		if($this->isNewRecord) {
-			$this->attributes = $attributes;
-			return $this->save();
-		}
-		else {
-			throw new CDbException(Yii::t('task','The task cannot be inserted because it is not new.'));
-		}
+	public function draft($attributes=null) {
+		$this->scenario = self::SCENARIO_DRAFT;
+		$this->attributes = $attributes;
+		return $this->save();
 	}
+
+	/**
+	 * Save a new task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 */
+	public function publish($attributes=null) {
+		$this->scenario = self::SCENARIO_PUBLISH;
+		$this->attributes = $attributes;
+		return $this->save();
+	}	
 	
 	/**
 	 * Update the task, runs validation
@@ -290,7 +301,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * Delete any TaskUsers attached to the task.  
+	 * Delete any responses attached to the task.  
 	 * @see ActiveRecord::beforeDelete()
 	 */
 	public function beforeDelete() {
@@ -298,11 +309,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		
 		$this->scenario = self::SCENARIO_DELETE;
 		
-		$taskUsers = $this->taskUsers;
+		$responses = $this->responses;
 		
 		try {
-			foreach ($taskUsers as $taskUser) {
-				$taskUser->delete();
+			foreach ($responses as $response) {
+				$response->delete();
 			}
 		}
 		catch(Exception $e) {
@@ -335,13 +346,20 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 	
 	/**
-	 * Returns the Task's start date time as a datetime int
+	 * @return int the Task's start date time as a datetime int
 	 */
 	public function getStartTimestamp() {
 		if(empty($this->starts)) {
 			return null;
 		}
 		return strtotime($this->starts);
+	}
+
+	/**
+	 * @return string the time from now (in future or past) that the task starts (e.g. '1 hour ago')
+	 **/
+	public function getStartsFromNow() {
+		Yii::app()->format->formatDateTimeAsAgo($this->startTimestamp);
 	}
 
 	public function getStartYear() {
@@ -452,8 +470,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
-	public function getCurrentTaskUser() {
-		return TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+	public function getCurrentresponse() {
+		return response::loadresponse($this->id, Yii::app()->user->id);
 	}
 
 	/**
@@ -463,9 +481,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserParticipating() {
 
-		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+		$response = response::loadresponse($this->id, Yii::app()->user->id);
 		
-		if($taskUser->isSignedUp || $taskUser->isStarted) {
+		if($response->isSignedUp || $response->isStarted) {
 			return true;
 		}
 		return false;
@@ -478,27 +496,30 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$taskUser = TaskUser::loadTaskUser($this->id, Yii::app()->user->id);
+		$response = response::loadresponse($this->id, Yii::app()->user->id);
 		
-		if($taskUser->isCompleted) {
+		if($response->isCompleted) {
 			return true;
 		}
 		return false;
 	}
 	
 	public function defaultScope() {
+		$table = $this->getTableAlias(false, false);
+
 		return array(
-			'order' => 'starts ASC'
-				. ', ' . $this->getTableAlias(false, false) . '.created ASC'
+			'order' => "{$table}.starts ASC, {$table}.created ASC"
 		);
 	}
 
 	/**
 	 * Tasks which are not alive
 	 **/
-	public function scopeAlive() {
+	public function scopeNotTrash() {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'isTrash=0',
+			'condition' =>  "{$table}.isTrash=0",
 		));
 		return $this;
 	}
@@ -532,8 +553,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return ActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-				'condition'=>'starts <= :ends AND starts >= :starts',
+				'condition'=>"{$table}.starts <= :ends AND {$table}.starts >= :starts",
 				'params' => array(
 					':starts' => $starts->format("Y-m-d H:i:s"),
 					':ends' => $ends->format("Y-m-d H:i:s"),
@@ -551,7 +574,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function scopeUsersGroups($userId) {
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'id IN (SELECT id FROM ' . $this->tableName() 
-				.  ' WHERE groupId IN (SELECT groupId FROM ' . GroupUser::model()->tableName()
+				.  ' WHERE groupId IN (SELECT groupId FROM ' . membership::model()->tableName()
 				. ' WHERE userId=:userId))',
 			'params' => array(':userId' => $userId)
 		));
@@ -653,7 +676,75 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 
     public function getViewURL() {
-    	return PHtml::taskURL($this);
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/view',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getUpdateURL() {
+		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/update',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getFeedURL() {
+		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/feed',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getSignupURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/signup',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getStartURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/start',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getCompleteURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/complete',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getResumeURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/resume',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getQuitURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/quit',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getIgnoreURL() {
+    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/ignore',
+			array(
+				'id'=>$this->id,
+			)
+		);
     }
 
     /**
@@ -686,6 +777,16 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		);
 	}
 
+	public static function somedayTasksForUser($user) {
+		return new CArrayDataProvider(
+			$user->somedayTasks(
+				array(
+					'pagination'=>false,
+				)
+			)
+		);
+	}
+
 	public static function ignorableTasksForUser($user) {
 		return new CArrayDataProvider(
 			$user->ignorableTasks(
@@ -705,50 +806,4 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			)
 		);
 	}
-
-	/**
-	 * Get an ActiveDataProvider with data about tasks for a given month
-	 * @param int
-	 * @param Month 
-	 * @return CActiveDataProvider
-	 */
-	public static function tasksForUserInMonth($userId, $month) {
-		$taskWithDateQueryModel = new Task();
-		$datedTasks = new CActiveDataProvider(
-			$taskWithDateQueryModel
-			->scopeAlive()
-			->scopeUsersGroups($userId)
-			->scopeByCalendarMonth($month->monthIndex, $month->year),
-			array(
-				'pagination'=>false,
-			)
-		);
-
-		return $datedTasks;
-	}
-
-	/**
-	 * Get an ActiveDataProvider with data about tasks with no start date
-	 * @param int
-	 * @return CActiveDataProvider
-	 */
-	public static function tasksForUserWithNoStart($userId) {
-		$taskWithoutDateQueryModel = new Task();
-		$datelessTasks = new CActiveDataProvider(
-		$taskWithoutDateQueryModel
-			->scopeAlive()
-			->scopeUsersGroups($userId)
-			->scopeSomeday()
-			->scopeNotCompleted(),
-			array(
-				'criteria'=>array(
-					'condition'=>'isTrash=0'
-				),
-				'pagination'=>false,
-			)
-		);
-
-		return $datelessTasks;
-	}
-	
 }

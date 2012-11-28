@@ -29,11 +29,11 @@ $this->pageTitle = $model->name;
 			<li>
 				<?= PHtml::link(
 					'<i></i> Add tasks', 
-					array('task/create', 'activityId'=>$model->id),
+					array('activity/tasks', 'id'=>$model->id),
 					array(
-						'id'=>'task-create-menu-item',
-						'class'=>'neutral task-create-menu-item',
-						'title'=>'Add a new task to this activity',
+						'id'=>'tasks-create-menu-item',
+						'class'=>'neutral tasks-create-menu-item',
+						'title'=>'Add new tasks to this activity',
 					)
 				); ?>
 			</li>
@@ -79,7 +79,6 @@ $this->pageTitle = $model->name;
 	)); ?>
 </section>
 
-<? // show comments ?>
 <section id="comments">
 	<h1>Comments</h1>
 	
@@ -89,10 +88,13 @@ $this->pageTitle = $model->name;
 		'data'=>$fbcomment,
 	)); ?>
 	<? endforeach; ?>
-	<? else: ?>
+	<? elseif($model->isCommentable): ?>
 	<p class="blurb">No one has written any comments yet, be the first!</p>
+	<? else: ?>
+	<p class="blurb">Sorry, comments have been disabled for this activity</p>
 	<? endif; ?>
 	
-	<? // show new comment form ?>
+	<? if($model->isCommentable): ?>
 	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+	<? endif; ?>
 </section>

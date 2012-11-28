@@ -20,7 +20,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property string $lastLogin
  *
  * The followings are the available model relations:
- * @property GroupUser[] $groupUsers
+ * @property memberships[] $memberships
  * @property Group[] $groups
  */
 class User extends ActiveRecord
@@ -183,51 +183,51 @@ class User extends ActiveRecord
 				'condition' => 'purchased IS NOT NULL AND delivered IS NOT NULL',
 			),
 		
-			'groupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId',
-				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"',
+			'memberships' => array(self::HAS_MANY, 'Membership', 'userId',
+				'scopes' => array('scopeActive'),
 			),
-			'allGroupUsers' => array(self::HAS_MANY, 'GroupUser', 'userId'),
+
+			'allMemberships' => array(self::HAS_MANY, 'Membership', 'userId'),
 		
 			'groups' => array(self::HAS_MANY, 'Group', 'groupId',
-				'condition' => 'groupUsers.status = "' . GroupUser::STATUS_ACTIVE . '"', //FIXME: needs fix from Yii to use through condition
-				'through' => 'groupUsers',
-				'order' => 'groups.name',
+				'through' => 'memberships',
 			),
 
-			'allGroups'  => array(self::HAS_MANY, 'Group', 'groupId',
-				'through' => 'allGroupUsers',
-				'order' => 'allGroups.name',
-			),
-
-			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'groupId'), 
+			'activities' => array(self::HAS_MANY, 'Activity', array('id'=>'groupId'), 
 				'through' => 'groups',
-				'scopes' => array('scopeAlive','scopeFuture'),
+				'scopes' => array('scopeNotTrashAndPublished'),
 			),
 
-			'nextableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
-				'scopes' => array('scopeNextable'),
+			'tasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
+				'through' => 'activities',
+				'scopes' => array('scopeNotTrash'),
 			),
 
-			'ignoreableTaskUsers' => array(self::HAS_MANY, 'TaskUser', 'userId',
+			'futureTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
+				'through' => 'activities',
+				'scopes' => array('scopeNotTrash','scopeFuture'),
+			),
+
+			'nextTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
+				'through' => 'activities',
+				'scopes' => array('scopeNotTrash'),
+			),
+			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
+				'through' => 'activities',
+				'scopes' => array('scopeNotTrash','scopeSomeday'),
+			),
+
+			'ignoreableResponses' => array(self::HAS_MANY, 'Response', 'userId',
 				'scopes' => array('scopeIgnorable'),
-			),
-			
-			'nextTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'nextableTaskUsers',
-				'scopes' => array('scopeAlive'),
-			),
-			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'nextableTaskUsers',
-				'scopes' => array('scopeAlive','scopeSomeday'),
 			),
 
 			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'ignoreableTaskUsers',
-				'scopes' => array('scopeAlive'),
+				'through' => 'ignoreableResponses',
+				'scopes' => array('scopeNotTrash'),
 			),
 			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'ignoreableTaskUsers',
-				'scopes' => array('scopeAlive','scopeSomeday'),
+				'through' => 'ignoreableResponses',
+				'scopes' => array('scopeNotTrash','scopeSomeday'),
 			),
 		);
 	}
@@ -396,7 +396,7 @@ class User extends ActiveRecord
 		// Remove user from remaining groups
 		foreach($this->allGroups as $group) {
 			if(!isset($syncedGroups[$group->id])) {
-				GroupUser::saveAsDeactiveMember($group->id, $this->id);
+				Membership::saveAsDeactiveMember($group->id, $this->id);
 			}
 		}
 
@@ -414,7 +414,7 @@ class User extends ActiveRecord
 		
 		foreach($facebookGroups['data'] as $group) {
 			$group = Group::syncWithFacebookAttributes($group);
-			GroupUser::saveAsActiveMember($group->id, $this->id);
+			Membership::saveAsActiveMember($group->id, $this->id);
 		}
 
 		return true;
@@ -476,8 +476,10 @@ class User extends ActiveRecord
 	}
 
 	public function defaultScope() {
+		$table = $this->getTableAlias(false, false);
+
 		return array(
-			'order' => 'firstName ASC',
+			'order' => "{$table}.firstName ASC",
 		);
 	}
 

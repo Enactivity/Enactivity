@@ -40,6 +40,16 @@ class Controller extends CController
 			$filterChain->run();
 		}
 	}
+
+	public function render($view, $data=null, $return=false) {
+
+	    if(!isset($data['appUser'])) {
+	    	$data['appUser'] = Yii::app()->user;
+	    }
+
+	    return parent::render($view, $data, $return);
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -86,9 +96,9 @@ class Controller extends CController
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param mixed the integer ID or string slug of the model to be loaded
 	 */
-	public function loadGroupUserModel($id)
+	public function loadMembershipModel($id)
 	{
-		$model = GroupUser::model()->findByPk((int) $id);
+		$model = Membership::model()->findByPk((int) $id);
 		if(isset($model)) {
 			return $model;
 		}
