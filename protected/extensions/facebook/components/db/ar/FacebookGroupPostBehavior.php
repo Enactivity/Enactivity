@@ -48,11 +48,11 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	public function recordChanges() {
 		if(isset(Yii::app()->user))
 		{
-			$label = $this->owner->getScenarioLabel($this->owner->scenario);
+			$scenarioLabel = $this->owner->getScenarioLabel($this->owner->scenario);
 			$name = $this->owner->facebookGroupPostName;
-			$message = ucfirst($label . " " . "\"" . $name . "\"");
+			$message = ucfirst($scenarioLabel . " " . "\"" . $name . "\"");
 						
-			$viewPath = 'ext.facebook.views.facebookGroupPost.' 
+			$viewPath = 'ext.facebook.views.groupfeedpost.' 
 				. strtolower(get_class($this->owner)) 
 				. '.' . $this->owner->scenario;
 
