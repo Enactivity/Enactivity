@@ -36,11 +36,8 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	public function beforeSave($event)
 	{
 		// is new record?
-		if ($this->isIndivisibleScenario) {
-			$this->recordChanges();
-		} 
-		elseif ($this->isDivisibleScenario) {
-			$this->recordChanges();
+		if ($this->isIndivisibleScenario || $this->isDivisibleScenario) {
+			$this->recordChanges(); //same handler for both case for now
 		}
 
 	}
