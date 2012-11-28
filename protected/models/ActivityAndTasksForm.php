@@ -100,7 +100,7 @@ class ActivityAndTasksForm extends CFormModel
 			foreach($this->tasks as &$task) {
 				$task->groupId = $this->activity->groupId;
 				$task->activityId = $this->activity->id;
-				$task->insertTask();
+				$task->draft();
 			}
 
 			return true;
