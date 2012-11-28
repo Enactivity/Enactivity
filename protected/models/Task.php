@@ -101,11 +101,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			'FacebookGroupPostBehavior'=>array(
-				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array('modified'),
-				'scenarios' => array('insert', 'trash', 'untrash', 'update'),
-			),
+			// 'FacebookGroupPostBehavior'=>array(
+			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+			// 	'ignoreAttributes' => array('modified'),
+			// 	'scenarios' => array('insert', 'trash', 'untrash', 'update'),
+			// ),
 		);
 	}
 
