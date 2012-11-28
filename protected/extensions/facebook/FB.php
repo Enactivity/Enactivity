@@ -239,6 +239,10 @@ class FB extends CApplicationComponent {
 	}
 
 	public function addGroupPost($groupFacebookId, $params) {
+		if(StringUtils::isBlank($groupFacebookId)) {
+			throw new Exception("Group id is not set.");
+		}
+
 		return $this->post($groupFacebookId . '/feed', $params);
 	}
 }

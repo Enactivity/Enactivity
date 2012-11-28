@@ -100,8 +100,9 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			),
 			'FacebookGroupPostBehavior'=>array(
 				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array('modified'),
-				'scenarios' => array('publish'),
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
+				),
 			),
 		);
 	}
@@ -276,22 +277,18 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 */
 	public function draft($attributes=null, $tasks = array()) {
-		if($this->isNewRecord) {
-			$this->scenario = self::SCENARIO_DRAFT;
-			$this->attributes = $attributes;
-			$this->authorId = Yii::app()->user->id;
-			$this->status = self::STATUS_PENDING;
-			if($this->save()) {
-				Yii::app()->user->setFlash('notice', 'A draft of ' 
-					. PHtml::encode($this->name) 
-					. ' has been saved.');
-				return true;
-			}
-			return false;
+		$this->scenario = self::SCENARIO_DRAFT;
+		$this->attributes = $attributes;
+		$this->authorId = Yii::app()->user->id;
+		$this->status = self::STATUS_PENDING;
+
+		if($this->save()) {
+			Yii::app()->user->setFlash('notice', 'A draft of ' 
+				. PHtml::encode($this->name) 
+				. ' has been saved.');
+			return true;
 		}
-		else {
-			throw new CDbException(Yii::t('activity','The activity cannot be inserted because it is not new.'));
-		}
+		return false;
 	}
 
 	/** 
@@ -300,14 +297,12 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 **/
 	public function publish($attributes=null) {
+		$this->draft($attributes); // to generate new id
+
 		$this->scenario = self::SCENARIO_PUBLISH;
 		$this->attributes = $attributes;
-
-		if(!$this->authorId) {
-			$this->authorId = Yii::app()->user->id;
-		}
-		
 		$this->status = self::STATUS_ACTIVE;
+
 		if($this->save()) {
 			Yii::app()->user->setFlash('notice',  
 				PHtml::encode($this->name) 

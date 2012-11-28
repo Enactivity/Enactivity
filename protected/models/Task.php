@@ -45,6 +45,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
+	const SCENARIO_DRAFT = 'draft';
+	const SCENARIO_PUBLISH = 'publish';
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
@@ -99,11 +101,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
 				'ignoreAttributes' => array('modified'),
 			),
-			'FacebookGroupPostBehavior'=>array(
-				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'ignoreAttributes' => array('modified'),
-				'scenarios' => array('insert', 'trash', 'untrash', 'update'),
-			),
+			// 'FacebookGroupPostBehavior'=>array(
+			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+			// 	'ignoreAttributes' => array('modified'),
+			// 	'scenarios' => array('insert', 'trash', 'untrash', 'update'),
+			// ),
 		);
 	}
 
@@ -241,15 +243,22 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @param array $attributes
 	 * @return boolean
 	 */
-	public function insertTask($attributes=null) {
-		if($this->isNewRecord) {
-			$this->attributes = $attributes;
-			return $this->save();
-		}
-		else {
-			throw new CDbException(Yii::t('task','The task cannot be inserted because it is not new.'));
-		}
+	public function draft($attributes=null) {
+		$this->scenario = self::SCENARIO_DRAFT;
+		$this->attributes = $attributes;
+		return $this->save();
 	}
+
+	/**
+	 * Save a new task, runs validation
+	 * @param array $attributes
+	 * @return boolean
+	 */
+	public function publish($attributes=null) {
+		$this->scenario = self::SCENARIO_PUBLISH;
+		$this->attributes = $attributes;
+		return $this->save();
+	}	
 	
 	/**
 	 * Update the task, runs validation

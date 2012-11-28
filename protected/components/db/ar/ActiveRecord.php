@@ -95,7 +95,7 @@ abstract class ActiveRecord extends CActiveRecord {
 	 *	'attributeName' => 'old' => old value
 	 *	                   'new' => new value
 	 **/
-	public function getChangedAttributes($attributes = array()) {
+	public function getChangedAttributes($attributeNames = array()) {
 		// new attributes and old attributes
 		$currentAttributes = $this->attributes;
 		$oldAttributes = $this->oldAttributes;
@@ -108,7 +108,7 @@ abstract class ActiveRecord extends CActiveRecord {
 			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
 
  			if ($currentValue != $oldValue) {
- 				if(in_array($name, $attributes) 
+ 				if(in_array($name, $attributeNames) 
  					&& array_key_exists($name, $oldAttributes)
  					&& array_key_exists($name, $currentAttributes)
  				)
