@@ -11,10 +11,13 @@ interface FacebookGroupPostableRecord
 	 **/
 	public function getViewURL();
 
-
 	/**
 	 * @return string a model name used for facebook group feed
 	 **/
 	public function getFacebookGroupPostName();
+
+	public function getFacebookPostId();
+
+	public function setFacebookPostId($facebookPostId);
 
 }
