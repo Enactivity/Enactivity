@@ -85,7 +85,7 @@ class Group extends ActiveRecord implements EmailableRecord
 		
 		// trim inputs
 		array('name, facebookId', 'filter', 'filter'=>'trim'),
-		array('name, facebookId', 'unique', 
+		array('facebookId', 'unique', 
 			'allowEmpty' => false, 
 			'caseSensitive'=>false
 		),
