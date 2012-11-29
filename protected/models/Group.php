@@ -213,7 +213,7 @@ class Group extends ActiveRecord implements EmailableRecord
 			return $group;
 		}
 
-		throw new CException("Group could not be synchronized: " . CVarDumper::dumpAsString($group->errors));
+		throw new ModelValidationException("Group could not be synchronized: ", $group);
 	}
 
 	/** 

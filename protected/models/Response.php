@@ -359,7 +359,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			if($response->save()) {
 				return true;
 			}
-			throw new CException("There was an error setting up the pending response");
+			throw new ModelValidationException("There was an error setting up the pending response", $response);
 		}
 		throw new CException("Response already exists");
 	}

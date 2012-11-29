@@ -358,8 +358,7 @@ class User extends ActiveRecord
 			$user->importFacebookGroups();
 			return $user;	
 		}
-		throw new CDbException("User could not be registered: " . CVarDumper::dumpAsString($user->errors));
-		
+		throw new ModelValidationException("User could not be registered: ", $user);	
 	}
 
 	/**
