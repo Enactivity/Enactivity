@@ -9,15 +9,15 @@
 	<?= $form->errorSummary($model); ?>
 
 	<div class="field">
-		<?= $form->textArea($model,'content',array(
-			'maxlength'=>Comment::CONTENT_MAX_LENGTH,
+		<?= $form->textArea($model,'message',array(
+			// 'maxlength'=>Comment::CONTENT_MAX_LENGTH,
 			'placeholder'=>'What\'s up?',
 		)); ?>
-		<?= $form->error($model,'content'); ?>
+		<?= $form->error($model,'message'); ?>
 	</div>
 
 	<div class="field buttons">
-		<?= CHtml::submitButton($model->isNewRecord ? 'Post Comment' : 'Update Comment'); ?>
+		<?= CHtml::submitButton('Post Comment'); ?>
 	</div>
 
 <? $this->endWidget(); ?>

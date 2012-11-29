@@ -29,6 +29,6 @@
 		</span>
 	</header>
 
-	<?= Yii::app()->format->formatStyledText($data->content); ?>
+	<?= Yii::app()->format->formatStyledText($data->message); ?>
 	
 </article>
