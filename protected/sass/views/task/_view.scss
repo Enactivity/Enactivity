@@ -1,5 +1,12 @@
 
 #task-view {
+
+	.task-header-time {
+		i {
+			@extend .icon;
+			@extend .icon-time;
+		}
+	}
 	
 	.participant {
 		@extend .content-block;

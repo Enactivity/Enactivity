@@ -28,4 +28,9 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			<span class="status"><?= PHtml::encode($data->currentresponse->statusLabel); ?></span>
 		</h1>
 	<? $story->endStoryContent(); ?>
+
+	<?= $this->renderPartial('/task/_controls', array(
+		'model'=>$data,
+		'response'=>$data->currentresponse,
+	)); ?>
 <? $this->endWidget(); ?>
