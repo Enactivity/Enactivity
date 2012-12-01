@@ -57,6 +57,8 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		);
 		endif; ?>
 		<?= $form->error($model,'starts'); ?>
+		<?= $form->error($model,'startDate'); ?>
+		<?= $form->error($model,'startTime'); ?>
 	</div>
 	
 	<div class="field buttons">

@@ -14,9 +14,13 @@ return CMap::mergeArray(
 			'clientScript'=>array(
 				'packages'=>array(
 					'jquery'=>array(
-						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.7/',
+						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.8/',
 						'js'=>array('jquery.min.js'),
-					)
+					),
+					'jquery.ui'=>array(
+						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/',
+						'js'=>array('jquery-ui.min.js'),
+					),
 				),
 			),
 		
