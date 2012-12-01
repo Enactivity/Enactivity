@@ -167,7 +167,7 @@ class TaskController extends Controller
 			Response::signUp($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
@@ -192,7 +192,7 @@ class TaskController extends Controller
 			Response::start($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
@@ -217,7 +217,7 @@ class TaskController extends Controller
 			Response::quit($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
@@ -242,7 +242,7 @@ class TaskController extends Controller
 			Response::ignore($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
 				Yii::app()->end();
@@ -267,7 +267,7 @@ class TaskController extends Controller
 			Response::complete($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent'=>$showParent), false, true);
 				Yii::app()->end();
@@ -292,7 +292,7 @@ class TaskController extends Controller
 			Response::resume($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 				
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent'=>$showParent), false, true);
 				Yii::app()->end();
@@ -468,9 +468,12 @@ class TaskController extends Controller
 			$this->redirect(array('task/index'));
 		}
 
-		$this->redirect(
-			isset($_POST['returnUrl'])
-			? $_POST['returnUrl']
-			: array('task/view', 'id'=>$task->id,));
+		if(Yii::app()->request->urlReferrer) {
+			$this->redirect(Yii::app()->request->urlReferrer);
+		}
+		else {
+			$returnURL = isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('task/view', 'id'=>$task->id,);
+			$this->redirect($returnURL);
+		}
 	}
 }
