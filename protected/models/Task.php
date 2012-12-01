@@ -50,6 +50,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
+
+	private $_startDate;
+	private $_startTime;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -139,6 +142,21 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			array('name', 
 				'filter', 
 				'filter'=>'trim'),
+
+			array('starts',
+				'application.components.validators.DateTimeValidator',
+				'allowEmpty' => true
+			),
+
+			array('startDate',
+				'application.components.validators.BothOrNeitherValidator',
+				'otherAttribute' => 'startTime'
+			),
+
+			array('startTime',
+				'application.components.validators.BothOrNeitherValidator',
+				'otherAttribute' => 'startDate'
+			),
 			
 			array('starts, startDate, startTime',
 				'safe'),
@@ -331,15 +349,37 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return StringUtils::truncate($this->name, 30);
 	}
 	
+	/** 
+	 * Get start date
+	 * If internal start date is set, but time is not, internal start date is returned.
+	 * Otherwise, calculated from $this->starts
+	 * @return string
+	 **/
 	public function getStartDate() {
-		if(empty($this->starts)) return null;
+		if(StringUtils::isNotBlank($this->_startDate) && StringUtils::isBlank($this->_startTime)) {
+			return $this->_startDate;
+		}
+		elseif(StringUtils::isBlank($this->starts)) {
+			return null;
+		}
 		
 		$dateTimeArray = explode(' ', $this->starts);
 		return $dateTimeArray[0];
 	}
 	
+	/** 
+	 * Get start time
+	 * If internal start time is set, but date is not, internal start time is returned.
+	 * Otherwise, calculated from $this->starts
+	 * @return string
+	 **/
 	public function getStartTime() {
-		if(empty($this->starts)) return null;
+		if(StringUtils::isBlank($this->_startDate) && StringUtils::isNotBlank($this->_startTime)) {
+			return $this->_startTime;
+		}
+		elseif(StringUtils::isBlank($this->starts)) {
+			return null;
+		}
 		
 		$dateTimeArray = explode(' ', $this->starts);
 		return $dateTimeArray[1];
@@ -390,38 +430,25 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function getFormattedStartTime() {
 		return Yii::app()->format->formatTime($this->starts);
 	}
-	
-	public function setStartDate($date) {
-		if(!empty($date)) {
-			if(empty($this->starts)) {
-				$this->starts = date("Y-m-d 12:00:00");
-			}
-			
-			$dateTimeArray = explode(' ', $this->starts);
-			$dateTimeArray[0] = $date;
-			$datetime = implode(' ', $dateTimeArray);
-			$this->starts = $datetime;
-		}else{
+
+	protected function constructStartDateTime() {
+		if(StringUtils::isNotBlank($this->_startDate) && StringUtils::isNotBlank($this->_startTime)) {
+			$this->starts = $this->_startDate . ' ' . $this->_startTime;
+		}
+		elseif(StringUtils::isBlank($this->_startDate) && StringUtils::isBlank($this->_startTime)){
 			$this->starts = null;
 		}
 		return $this;
 	}
 	
+	public function setStartDate($date) {
+		$this->_startDate = $date;
+		$this->constructStartDateTime();
+	}
+	
 	public function setStartTime($time) {
-		if(!empty($time)) {
-			if(empty($this->starts)) {
-				$soon = strtotime("+1 hour");
-				$this->starts = date("Y-m-d H:00:00", $soon);
-			}
-			
-			$dateTimeArray = explode(' ', $this->starts);
-			$dateTimeArray[1] = $time;
-			$datetime = implode(' ', $dateTimeArray);
-			$this->starts = $datetime;
-		}else{
-			$this->starts = null;
-		}
-		return $this;
+		$this->_startTime = $time;
+		$this->constructStartDateTime();
 	}
 	
 	/**
@@ -432,6 +459,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return isset($this->starts);
 	}
 	
+	/** 
+	 * @return boolean true if the public values of the task are all blank
+	 */ 
+	public function getIsBlank() {
+		return StringUtils::isBlank($this->name) 
+			&& StringUtils::isBlank($this->startDate) 
+			&& StringUtils::isBlank($this->startTime);
+	}
+
 	/**
 	 * Is the task completed?
 	 * @return boolean

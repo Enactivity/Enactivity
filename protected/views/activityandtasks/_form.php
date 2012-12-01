@@ -81,6 +81,8 @@
 				)
 			); ?>
 			<?= $form->error($task,"[$index]starts"); ?>
+			<?= $form->error($task,"[$index]startDate"); ?>
+			<?= $form->error($task,"[$index]startTime"); ?>
 		</div>
 	</fieldset>
 	<? endforeach ?>

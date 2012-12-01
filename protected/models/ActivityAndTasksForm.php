@@ -89,8 +89,7 @@ class ActivityAndTasksForm extends CFormModel
 
 		// Remove the tasks with no attributes
 		foreach ($this->tasks as $i => $task) {
-			if(StringUtils::isBlank($task->name) 
-				&& StringUtils::isBlank($task->starts)) {
+			if($task->isBlank) {
 				unset($this->tasks[$i]);
 			}
 		}
