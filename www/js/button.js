@@ -2,11 +2,11 @@
  * Unobtrusive formless submit button
  * @requires jquery.yii.js for submitting
 **/
-$(document).ready(function() {
+$(function() {
 
 	"use strict";
 
-	var buttonSelector = ':button';
+	var buttonSelector = '[data-submit-to]'; // or ':button' could work
 
 	/**
 	 * Add button behavior to selected items.
