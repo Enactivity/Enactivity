@@ -193,6 +193,10 @@ class User extends ActiveRecord
 				'through' => 'memberships',
 			),
 
+			'allGroups' => array(self::HAS_MANY, 'Group', 'groupId',
+				'through' => 'allMemberships',
+			),
+
 			'activities' => array(self::HAS_MANY, 'Activity', array('id'=>'groupId'), 
 				'through' => 'groups',
 				'scopes' => array('scopeNotTrashAndPublished'),
