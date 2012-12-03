@@ -10,8 +10,7 @@ $this->pageTitle = 'Activities';
 <?= PHtml::endContentHeader(); ?>
 
 <section class="activities agenda">
-	<?php $this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$dataProvider,
-		'itemView'=>'_view',
-	)); ?>
+	<? foreach($activities as $activity): ?>
+	<? $this->renderPartial('_view', array('data'=>$activity)); ?>
+	<? endforeach; ?>
 </section>
