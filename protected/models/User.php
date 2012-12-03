@@ -197,6 +197,10 @@ class User extends ActiveRecord
 				'through' => 'allMemberships',
 			),
 
+			'drafts' => array(self::HAS_MANY, 'Activity', 'authorId',
+				'scopes' => array('scopeNotTrashAndDraft'),
+			),
+
 			'activities' => array(self::HAS_MANY, 'Activity', array('id'=>'groupId'), 
 				'through' => 'groups',
 				'scopes' => array('scopeNotTrashAndPublished'),
@@ -588,6 +592,14 @@ class User extends ActiveRecord
 
 	public function getGroupsCount() {
 		return sizeof($this->groups);
+	}
+
+	public function getDraftsCount() {
+		return sizeof($this->drafts);
+	}
+
+	public function getHasDrafts() {
+		return $this->draftsCount > 0;
 	}
 
 	/**
