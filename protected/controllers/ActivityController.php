@@ -37,7 +37,7 @@ class ActivityController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','create','calendar','someday'),
+				'actions'=>array('create'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -289,17 +289,6 @@ class ActivityController extends Controller
 				'feedDataProvider' => $feedDataProvider,
 			)
 		);
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Activity');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
 
 	/**
