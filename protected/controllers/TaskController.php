@@ -120,7 +120,6 @@ class TaskController extends Controller
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -145,7 +144,6 @@ class TaskController extends Controller
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -170,7 +168,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -195,7 +192,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -220,7 +216,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -245,7 +240,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -270,7 +264,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -295,7 +288,6 @@ class TaskController extends Controller
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
-				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
 		}

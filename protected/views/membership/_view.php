@@ -27,25 +27,29 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			<li>
 				<? if($data->isActive): ?>
 				<?= PHtml::button(
-					PHtml::encode('Deactivate'),
-					array( //html
-						'submit'=>array('membership/leave', 'id'=>$data->id),
-						'csrf'=>true,
+					"Deactivate",
+					array( // html
+						'data-ajax-url'=>$data->leaveUrl,
+						'data-container-id'=>"#membership-" . PHtml::encode($data->id), 
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'membership-leave-menu-item-' . $data->id,
+						'name'=>'membership-leave-menu-item-' . $data->id,
 						'class'=>'neutral membership-leave-menu-item',
-						'title'=>'Stop using this group with ' . Yii::app()->name,
+						'title'=>'Stop using ' . PHtml::encode($data->group->name) . ' with ' . Yii::app()->name,
 					)
 				); ?>
 				<? endif; ?>
 				<? if($data->isInactive): ?>
 				<?= PHtml::button(
-					PHtml::encode('Activate'),
-					array( //html
-						'submit'=>array('membership/join', 'id'=>$data->id),
-						'csrf'=>true,
+					"Activate",
+					array( // html
+						'data-ajax-url'=>$data->joinUrl,
+						'data-container-id'=>"#membership-" . PHtml::encode($data->id), 
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'membership-join-menu-item-' . $data->id,
+						'name'=>'membership-join-menu-item-' . $data->id,
 						'class'=>'positive membership-join-menu-item',
-						'title'=>'Start using this group with ' . Yii::app()->name,
+						'title'=>'Start using ' . PHtml::encode($data->group->name) . ' with ' . Yii::app()->name,
 					)
 				); ?>
 				<? endif; ?>

@@ -712,7 +712,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 
     public function getViewURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/view',
+    	return Yii::app()->createAbsoluteUrl('task/view',
 			array(
 				'id'=>$this->id,
 			)
@@ -720,7 +720,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getUpdateURL() {
-		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/update',
+		return Yii::app()->createAbsoluteUrl('task/update',
 			array(
 				'id'=>$this->id,
 			)
@@ -728,7 +728,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getFeedURL() {
-		return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/feed',
+		return Yii::app()->createAbsoluteUrl('task/feed',
 			array(
 				'id'=>$this->id,
 			)
@@ -736,7 +736,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getSignupURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/signup',
+    	return Yii::app()->createAbsoluteUrl('task/signup',
 			array(
 				'id'=>$this->id,
 			)
@@ -744,7 +744,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getStartURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/start',
+    	return Yii::app()->createAbsoluteUrl('task/start',
 			array(
 				'id'=>$this->id,
 			)
@@ -752,7 +752,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getCompleteURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/complete',
+    	return Yii::app()->createAbsoluteUrl('task/complete',
 			array(
 				'id'=>$this->id,
 			)
@@ -760,7 +760,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getResumeURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/resume',
+    	return Yii::app()->createAbsoluteUrl('task/resume',
 			array(
 				'id'=>$this->id,
 			)
@@ -768,7 +768,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getQuitURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/quit',
+    	return Yii::app()->createAbsoluteUrl('task/quit',
 			array(
 				'id'=>$this->id,
 			)
@@ -776,7 +776,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
     }
 
     public function getIgnoreURL() {
-    	return Yii::app()->request->hostInfo . Yii::app()->createUrl('task/ignore',
+    	return Yii::app()->createAbsoluteUrl('task/ignore',
 			array(
 				'id'=>$this->id,
 			)

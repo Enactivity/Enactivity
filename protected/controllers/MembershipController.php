@@ -48,7 +48,7 @@ class MembershipController extends Controller
 	}
 
 	/** 
-	 * Adds the current user to the specifiec group
+	 * Adds the current user to the specific group
 	**/
 	public function actionJoin($id) {
 
@@ -60,8 +60,7 @@ class MembershipController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/membership/_view', array('data'=>$model), false, true);
-				Yii::app()->end();
+				$this->renderAjaxResponse('/membership/_view', array('data'=>$model));
 			}
 
 			$this->redirect(array('index'));
@@ -80,8 +79,7 @@ class MembershipController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/membership/_view', array('data'=>$model), false, true);
-				Yii::app()->end();
+				$this->renderAjaxResponse('/membership/_view', array('data'=>$model));
 			}
 
 			$this->redirect(array('index'));
