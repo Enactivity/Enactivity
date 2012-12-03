@@ -337,10 +337,15 @@ class TaskController extends Controller
 	 */
 	public function actionIndex()
 	{
+		// Get next tasks
 		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
+
+		// Get list of user drafts
+		$draftsCount = Yii::app()->user->model->draftsCount;
 
 		$this->render('index', array(
 			'calendar'=>$calendar,
+			'draftsCount'=>$draftsCount,
 		));
 	}
 

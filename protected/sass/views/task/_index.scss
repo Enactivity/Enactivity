@@ -1,3 +1,7 @@
 #task-index {
 	
 }
+
+.activity-drafts-menu-item span {
+	@extend .metadata;
+}

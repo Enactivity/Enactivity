@@ -13,8 +13,7 @@ $this->pageTitle = 'Next';
 	<div class="menu toolbox">
 		<ul>
 			<li>
-				<?
-				echo PHtml::link(
+				<?= PHtml::link(
 					PHtml::encode('Timeline'), 
 					array('feed/index'),
 					array(
@@ -25,6 +24,20 @@ $this->pageTitle = 'Next';
 				);
 				?>
 			</li>
+			<? if($draftsCount): ?>
+			<li>
+				<?= PHtml::link(
+					'Drafts <span class="draft-count">(' . PHtml::encode($draftsCount) . ')</span>', 
+					array('activity/drafts'),
+					array(
+						'id'=>'activity-drafts-menu-item',
+						'class'=>'neutral activity-drafts-menu-item',
+						'title'=>'View your activities that have yet to be published',
+					)
+				);
+				?>
+			</li>
+			<? endif; ?>
 		</ul>
 	</div>
 <?= PHtml::endContentHeader(); ?>

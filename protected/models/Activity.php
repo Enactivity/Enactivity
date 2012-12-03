@@ -228,6 +228,16 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		));
 	}
 
+	public function scopeNotTrashAndDraft() {
+		$table = $this->getTableAlias(false);
+
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>"{$table}.status = '" . self::STATUS_PENDING . "'"
+				. " AND {$table}.isTrash = 0",
+		));
+		return $this;
+	}
+
 	public function scopeNotTrashAndPublished() {
 		$table = $this->getTableAlias(false);
 
