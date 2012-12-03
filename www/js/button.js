@@ -20,7 +20,7 @@ $(function() {
 				$.ajax({
 					'type':'POST',
 					'data':{
-						'YII_CSRF_TOKEN':$("meta[name=YII_CSRF_TOKEN]").attr("content") // TODO: replace hardcoded YII_CSRF_TOKEN name
+						'YII_CSRF_TOKEN':button.data('csrf-token') || $("meta[name=YII_CSRF_TOKEN]").attr("content") // TODO: replace hardcoded YII_CSRF_TOKEN name
 					},
 					'url':button.data('ajax-url'),
 					'cache':false,

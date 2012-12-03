@@ -64,11 +64,9 @@ $(function() {
 
 // Ajax beautification
 $(document).ajaxStart(function() {
-	console.log("Ajax started");
 	$('body').addClass('loading');
 });
 
 $(document).ajaxStop(function() {
-	console.log("Ajax stopped");
 	$('body').removeClass('loading');
 });

@@ -29,17 +29,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 	<ul>
 		<? if($data->currentresponse->canSignUp): ?>
 		<li> 
-			<?= PHtml::ajaxButton(
+			<?= PHtml::button(
 				"I'll do this",
-				$data->signUpUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+				array( // html
+					'data-ajax-url'=>$data->signUpUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-sign-up-menu-item-' . $data->id,
 					'name'=>'task-sign-up-menu-item-' . $data->id,
 					'class'=>'positive task-sign-up-menu-item',
@@ -51,17 +46,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 		<? if($data->currentresponse->canStart): ?>
 		<li>
-			<?= PHtml::ajaxButton(
+			<?= PHtml::button(
 				"I'm doing this", 
-				$data->startUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+				array( // html
+					'data-ajax-url'=>$data->startUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-start-menu-item-' . $data->id,
 					'name'=>'task-start-menu-item-' . $data->id,
 					'class'=>'positive task-start-menu-item',
@@ -73,17 +63,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 		<? if($data->currentresponse->canComplete): ?>
 		<li>
-			<?= PHtml::ajaxButton(
+			<?= PHtml::button(
 				"I've done this",
-				$data->completeUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+				array( // html
+					'data-ajax-url'=>$data->completeUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-complete-menu-item-' . $data->id,
 					'name'=>'task-complete-menu-item-' . $data->id,
 					'class'=>'positive task-complete-menu-item',
@@ -95,21 +80,17 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 		<? if($data->currentresponse->canResume): ?>
 		<li>
-			<?= PHtml::ajaxButton(
+			<?= PHtml::button(
 				"I've got more to do",
-				$data->resumeUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+				array( // html
+					'data-ajax-url'=>$data->resumeUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-resume-menu-item-' . $data->id,
 					'name'=>'task-resume-menu-item-' . $data->id,
 					'class'=>'neutral task-resume-menu-item',
 					'title'=>'Resume work on this task',
+
 				)
 			); ?>
 		</li>
@@ -117,21 +98,17 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 		<? if($data->currentresponse->canQuit): ?>
 		<li>
-			<?= PHtml::ajaxButton(
-				"Quit", 
-				$data->quitUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+			<?= PHtml::button(
+				"Quit",
+				array( // html
+					'data-ajax-url'=>$data->quitUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-quit-menu-item-' . $data->id,
 					'name'=>'task-quit-menu-item-' . $data->id,
 					'class'=>'neutral task-quit-menu-item',
 					'title'=>'Quit this task',
+
 				)
 			); ?>
 		</li>
@@ -139,21 +116,17 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 
 		<? if($data->currentresponse->canIgnore): ?>
 		<li>
-			<?= PHtml::ajaxButton(
-				"Ignore", 
-				$data->ignoreUrl,
-				array( //ajax
-					'replace' =>"#task-" . PHtml::encode($data->id), 
-					'type'=>'POST',
-					'data'=>array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
-					),
-				),
-				array( //html
+			<?= PHtml::button(
+				"Ignore",
+				array( // html
+					'data-ajax-url'=>$data->ignoreUrl,
+					'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+					'data-csrf-token'=>Yii::app()->request->csrfToken,
 					'id'=>'task-ignore-menu-item-' . $data->id,
 					'name'=>'task-ignore-menu-item-' . $data->id,
 					'class'=>'neutral task-ignore-menu-item',
 					'title'=>'Ignore this task',
+
 				)
 			); ?>
 		</li>
