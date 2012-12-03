@@ -50,6 +50,12 @@ class Controller extends CController
 	    return parent::render($view, $data, $return);
 	}
 	
+	/**
+	 * Renders the view for ajax response
+	 * Produces html code and ends application
+	 * @param string path to view
+	 * @param array data to pass to renderer
+	 **/
 	public function renderAjaxResponse($view, $data) {
 		
 		// disable web logging pollution of output
@@ -59,6 +65,7 @@ class Controller extends CController
 			}
 		}
 		echo $this->renderPartial($view, $data, false, true);
+		Yii::app()->end();
 	}
 
 	/**
