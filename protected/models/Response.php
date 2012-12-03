@@ -149,6 +149,11 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		);
 	}
 
+	public function getActivity() {
+		// Use instead of relation b/c belongs_to doesn't have 'through' support
+		return $this->task->activity;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -226,18 +231,20 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanPend() {
+
 		return !$this->isNewRecord;
 	}
 
 	public function getCanSignUp() {
-		if($this->isPending || $this->isIgnored) {
+		if($this->activity->isRespondable
+		&& ($this->isPending || $this->isIgnored)) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanStart() {
-		if($this->isSignedUp) {
+		if($this->activity->isRespondable && $this->isSignedUp) {
 			return true;
 		}
 		return false;
@@ -258,7 +265,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanResume() {
-		if($this->isCompleted) {
+		if($this->activity->isRespondable && $this->isCompleted) {
 			return true;
 		}
 		return false;
