@@ -371,6 +371,15 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return StringUtils::isNotBlank($this->facebookId);
 	}
 
+	/**
+	 * Should be user be able to respond to task of this activity
+	 * @return boolean
+	 */
+	public function getIsRespondable() {
+		return !$this->isDraft
+			&& !$this->isTrash;
+	}
+
 	/** 
 	 * @return boolean is pending
 	**/
