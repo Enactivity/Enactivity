@@ -119,7 +119,7 @@ class TaskController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -144,7 +144,7 @@ class TaskController extends Controller
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -159,7 +159,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionSignUp($id, $showParent = true)
+	public function actionSignUp($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -169,7 +169,7 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -184,7 +184,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionStart($id, $showParent = true)
+	public function actionStart($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -194,7 +194,7 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -209,7 +209,7 @@ class TaskController extends Controller
 	 * If remove is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionQuit($id, $showParent = true)
+	public function actionQuit($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -219,7 +219,7 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -234,7 +234,7 @@ class TaskController extends Controller
 	 * If remove is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionIgnore($id, $showParent = true)
+	public function actionIgnore($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -244,7 +244,7 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent' => $showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -259,7 +259,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionComplete($id, $showParent = true)
+	public function actionComplete($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -269,7 +269,7 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent'=>$showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);
@@ -284,7 +284,7 @@ class TaskController extends Controller
 	 * If add is successful, the browser will be redirected to the parent's 'view' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionResume($id, $showParent = true)
+	public function actionResume($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -294,7 +294,7 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/task/_view', array('data'=>$task, 'showParent'=>$showParent), false, true);
+				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
 				Yii::app()->end();
 			}
 			$this->redirectReturnUrlOrView($task);

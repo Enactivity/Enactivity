@@ -342,6 +342,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function pend($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
+		if($response->isPending) {
+			return true;
+		}
+
 		if(!$response->isNewRecord) {
 			throw new CHttpException("Response already exists");
 		}
@@ -376,6 +380,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function signUp($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
+
+		if($response->isSignedUp) {
+			return true;
+		}
 
 		if(!$response->canSignUp) {
 			throw new CHttpException("User cannot sign up for this task.");
@@ -423,6 +431,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 	public static function start($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
+
+		if($response->isStarted) {
+			return true;
+		}
 
 		if(!$response->canStart) {
 			throw new CHttpException("User cannot start this task.");
@@ -472,6 +484,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function resume($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
+		if($response->isStarted) {
+			return true;
+		}
+
 		if(!$response->canResume) {
 			throw new CHttpException("User cannot resume this task.");
 		}
@@ -519,6 +535,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function quit($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
+		if($response->isPending) {
+			return true;
+		}
+
 		if(!$response->canQuit) {
 			throw new CHttpException("User cannot quit this task.");
 		}
@@ -565,6 +585,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function ignore($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
+
+		if($response->isIgnored) {
+			return true;
+		}
 
 		if(!$response->canIgnore) {
 			throw new CHttpException("User cannot ignore this task.");
@@ -614,6 +638,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function stop($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
+		if($response->isSignedUp || $response->isIgnored) {
+			return true;
+		}
+
 		if(!$response->canStop) {
 			throw new CHttpException("User cannot stop working on this task.");
 		}
@@ -662,6 +690,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function complete($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
+
+		if($response->isCompleted) {
+			return true;
+		}
 
 		if(!$response->canComplete) {
 			throw new CHttpException("User cannot complete this task.");

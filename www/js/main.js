@@ -1,7 +1,7 @@
 /*
  * Drop down plugin
  */
-$(document).ready(function() {
+$(function() {
 
 	"use strict";
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
 /*
  * Smooth scrolling plugin @requires JQuery 1.7
  */
-$(document).ready(function() {
+$(function() {
 
 	"use strict";
 
@@ -60,4 +60,13 @@ $(document).ready(function() {
 			});
 		}
 	});
+});
+
+// Ajax beautification
+$(document).ajaxStart(function() {
+	$('body').addClass('ajax-loading');
+});
+
+$(document).ajaxStop(function() {
+	$('body').removeClass('ajax-loading');
 });
