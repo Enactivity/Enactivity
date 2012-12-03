@@ -9,7 +9,7 @@ $this->pageTitle = 'Activities';
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
 <?= PHtml::endContentHeader(); ?>
 
-<section class="activities agenda">
+<section class="activities">
 	<? foreach($activities as $activity): ?>
 	<? $this->renderPartial('_view', array('data'=>$activity)); ?>
 	<? endforeach; ?>
