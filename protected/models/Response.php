@@ -132,10 +132,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return array(
 			self::SCENARIO_IGNORE => 'ignored',
 			self::SCENARIO_SIGN_UP => 'signed up for',
-			self::SCENARIO_START => 'started work on',
+			self::SCENARIO_START => 'started participating in',
 			self::SCENARIO_QUIT => 'quit',
-			self::SCENARIO_COMPLETE => 'finished working on',
-			self::SCENARIO_RESUME => 'is once again working on'
+			self::SCENARIO_COMPLETE => 'finished participating in',
+			self::SCENARIO_RESUME => 'resumed participating in'
 		);
 	}
 
