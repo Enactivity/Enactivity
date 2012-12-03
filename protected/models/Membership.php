@@ -431,4 +431,20 @@ class Membership extends ActiveRecord implements EmailableRecord
     public function getEmailName() {
         return isset($this->group->name) ? $this->group->name : "";
     }
+
+    public function getJoinUrl() {
+		return Yii::app()->createAbsoluteUrl('membership/join',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getLeaveURL() {
+    	return Yii::app()->createAbsoluteUrl('membership/leave',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
 }
