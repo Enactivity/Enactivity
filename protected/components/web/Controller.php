@@ -49,6 +49,17 @@ class Controller extends CController
 
 	    return parent::render($view, $data, $return);
 	}
+	
+	public function renderAjaxResponse($view, $data) {
+		
+		// disable web logging pollution of output
+		foreach (Yii::app()->log->routes as $route) {
+			if ($route instanceof CWebLogRoute) {
+				$route->enabled = false;
+			}
+		}
+		echo $this->renderPartial($view, $data, false, true);
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
