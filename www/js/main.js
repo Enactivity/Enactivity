@@ -64,9 +64,9 @@ $(function() {
 
 // Ajax beautification
 $(document).ajaxStart(function() {
-	$('body').addClass('loading');
+	$('body').addClass('ajax-loading');
 });
 
 $(document).ajaxStop(function() {
-	$('body').removeClass('loading');
+	$('body').removeClass('ajax-loading');
 });
