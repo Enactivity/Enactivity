@@ -61,14 +61,14 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 						<h1>
 							<?= PHtml::link(
 								PHtml::encode($activityInfo['activity']->shortName),
-								array('activity/view', 'id'=>$activityIndex)
+								$activityInfo['activity']->viewUrl
 							); ?>
 						</h1>
 						<h2 class="tasks">
 							<span class="task">
 							<?= PHtml::link(
 								PHtml::encode($activityInfo['firstTask']->shortName),
-								array('task/view', 'id'=>PHtml::encode($activityInfo['firstTask']->id))
+								$activityInfo['firstTask']->viewUrl
 							); ?>
 							</span>
 							<? if($activityInfo['more']): ?>
