@@ -253,7 +253,7 @@ class ActivityController extends Controller
 		// $this->performAjaxValidation($task);
 
 		if(isset($_POST['Task'])) {
-			if($task->insertTask($_POST['Task'])) {
+			if($task->publish($_POST['Task'])) {
 				Yii::app()->user->setFlash('success', $task->name . ' was created');
 				if($_POST['add_more']) {
 					$this->redirect(array('create',
