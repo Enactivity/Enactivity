@@ -62,6 +62,17 @@ $(function() {
 	});
 });
 
+$(function() {
+
+	"use strict";
+
+	if(window.location.hash) {
+		$('body').animate({
+			scrollTop : 150
+			}, 400);
+	}
+});
+
 // Ajax beautification
 $(document).ajaxStart(function() {
 	$('body').addClass('ajax-loading');

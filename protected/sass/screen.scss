@@ -19,3 +19,16 @@
 // various imports
 @import "components/all";
 @import "views/all";
+
+:target {
+	@include animation(fade-in 1s);
+	// display: block;
+	
+	// margin-top: $application-header-fixed-height * -1;
+	// padding-top: $application-header-fixed-height;
+
+	// @include respond-to(thin-tablet) {
+	// 	margin-top: ($application-header-fixed-height + $application-navigation-fixed-height) * -1;
+	// 	padding-top: $application-header-fixed-height + $application-navigation-fixed-height;
+	// }
+}
