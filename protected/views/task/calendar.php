@@ -75,7 +75,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 							<span class="more">
 								<?= PHtml::link(
 									'+ ' . PHtml::encode($activityInfo['more']) . ' more',
-									array('activity/view', 'id'=>$activityIndex, '#'=>'tasks')
+									array('activity/view', 'id'=>$activityIndex, '#'=>'day-' . $month->currentDate)
 								); ?>
 							</span>
 							<? endif; ?>
