@@ -264,7 +264,7 @@ class ActivityController extends Controller
 						'time' => $task->startTime,
 					));	
 				}
-				$this->redirect(array('/activity/view','id'=>$activity->id));
+				$this->redirect($task->viewUrl);
 			}
 		}
 
