@@ -169,6 +169,17 @@ class Comment extends ActiveRecord
 
         return null;
     }
+
+    public function getViewURL() {
+        $controller = strtolower($this->model);
+
+        return Yii::app()->createAbsoluteUrl($controller . '/view',
+            array(
+                'id'=>$this->modelId,
+                '#'=>$this->id
+            )
+        );
+    }
     
 	public function shouldEmail()
 	{

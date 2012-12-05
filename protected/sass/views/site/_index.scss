@@ -12,12 +12,12 @@
 		top: 30%;
 
 		h1 {
-			@include animation(fade-in 1s);
+			@include animation(fade-down 1s);
 			@extend .heading1;
 		}
 
 		a {
-			@include animation(fade-in 2s);
+			@include animation(fade-down 2s);
 			color: $white;
 		}
 	}
