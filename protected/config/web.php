@@ -21,6 +21,7 @@ return CMap::mergeArray(
 				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
 				'class'=>'ext.minscript.components.ExtMinScript', 
 				'minScriptControllerId'=>'scripts',
+				'minScriptLmCache'=>3600, // cache for an hour
 				'packages'=>array(
 					'jquery'=>array(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.8/',
