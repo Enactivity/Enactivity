@@ -131,9 +131,11 @@ class SiteController extends Controller
 	public function actionFeedback()
 	{
 		$model = new FeedbackForm;
+		$admin = 'hvuong@poncla.com';
 		if(isset($_POST['FeedbackForm']))
 		{
 			$model->attributes=$_POST['FeedbackForm'];
+			$model->sendEmail($admin, $model->email, $model->message);
 		}
 		$this->render('feedback', array('model'=>$model));
 	}
