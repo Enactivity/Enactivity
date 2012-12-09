@@ -22,16 +22,15 @@ class FeedbackForm extends CFormModel
 		);
 	}
 
-	public function sendEmail($recipient, $email, $message)
+	public function sendEmail($email, $message)
 	{
-		$name='=?UTF-8?B?'.base64_encode($model->email).'?=';
-		$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-		$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-type: text/plain; charset=UTF-8";
-
-		mail($recipient, $subject, $model->body, $headers);
+		$mail = Yii::app()->mail->constructMessage();
+		$mail->view = 'feedback/feedback';
+		$mail->setBody($message, 'text/html');
+		$mail->setSubject('Feedback from ' . $email);	
+		$mail->from = $email;
+		$mail->setTo('hvuong@poncla.com');
+		Yii::app()->mail->send($mail); 
 	}
 
 }
