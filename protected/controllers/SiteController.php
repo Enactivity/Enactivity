@@ -136,6 +136,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['FeedbackForm'];
 			$model->sendEmail($model->email, $model->message);
 			Yii::app()->user->setFlash('success', "Thank you for your Feedback!");
+			$this->redirect(Yii::app()->homeUrl);
 		}
 		$this->render('feedback', array('model'=>$model));
 	}

@@ -1,4 +1,7 @@
 <? 
+/**
+* View to display the feedback message
+*/
 
 // calculate article class
 $articleClass = "view";
@@ -22,7 +25,7 @@ echo PHtml::closeTag('strong');
 echo PHtml::closeTag('p');
 echo PHtml::openTag('p');
 
-//Hey there. Just letting you know <user> changed the group name from <oldname> to <newname>
-echo "Hello.";
+echo 'Message from user: ' . $message;
 
 echo PHtml::closeTag('article');
+?>

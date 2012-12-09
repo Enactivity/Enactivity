@@ -24,12 +24,13 @@ class FeedbackForm extends CFormModel
 
 	public function sendEmail($email, $message)
 	{
+		$admin = 'hvuong@poncla.com';
 		$mail = Yii::app()->mail->constructMessage();
 		$mail->view = 'feedback/feedback';
-		$mail->setBody($message, 'text/html');
+		$mail->setBody(array('message' => $message), 'text/html');
 		$mail->setSubject('Feedback from ' . $email);	
-		$mail->from = $email;
-		$mail->setTo('hvuong@poncla.com');
+		$mail->setFrom($email);
+		$mail->setTo($admin);
 		Yii::app()->mail->send($mail); 
 	}
 

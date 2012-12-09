@@ -10,8 +10,8 @@ echo "Tell us what you think";
 
 ?>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'contact-form',
+<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
+	'id'=>'feedback-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
