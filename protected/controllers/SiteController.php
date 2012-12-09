@@ -1,4 +1,4 @@
-<?php
+r<?php
 
 Yii::import("application.components.web.Controller");
 
@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','error','index','login'),
+				'actions'=>array('contact','error','index','login','feedback'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -122,5 +122,19 @@ class SiteController extends Controller
 	
 	public function actionAdmin() {
 		$this->render('admin', array());
+	}
+
+	/**
+	 * Displays the feedback page
+	 */
+
+	public function actionFeedback()
+	{
+		$model = new FeedbackForm;
+		if(isset($_POST['FeedbackForm']))
+		{
+			$model->attributes=$_POST['FeedbackForm'];
+		}
+		$this->render('feedback', array('model'=>$model));
 	}
 }
