@@ -33,7 +33,7 @@ return CMap::mergeArray(
 					),
 					'modernizr'=>array(
 						'basePath'=>'application.javascripts',
-						'js'=>array('modernizr.js')
+						'js'=>array('Modernizr.js')
 					),
 					'application'=>array(
 						'basePath'=>'application.javascripts',
@@ -43,6 +43,7 @@ return CMap::mergeArray(
 						'js'=>array(
 							'AjaxLoader.js',
 							'AjaxButton.js',
+							'ClearInputsButton.js',
 							'DropDown.js',
 							'SmoothScroll.js',
 							'TargetHeaderFix.js',
