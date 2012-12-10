@@ -16,7 +16,10 @@ set -e
 
 # Git should be done manually (i.e. 'git pull origin master')
 
+###
 # Yii specific stuff
+# -- At each step return to protected folder
+###
 cd protected
 
 # DEPLOY>> config files
@@ -33,11 +36,19 @@ echo " DEPLOY>> Database migrations done"
 echo " DEPLOY>> Cleaning out assets"
 cd ../www/assets
 rm -rf *
+cd ../../protected
 echo " DEPLOY>> Assets are cleaned"
+
+echo " DEPLOY>> Cleaning out minified files"
+rm -rf runtime/minScript/
+echo " DEPLOY>> Minified files are deleted"
+
+echo " DEPLOY>> Cleaning out mustache cache"
+rm -rf runtime/Mustache/
+echo " DEPLOY>> Mustache files are deleted"
 
 # Run compass once to update stylesheets
 echo " DEPLOY>> Compiling sass files"
-cd ../../protected
 compass compile -e production --force
 echo " DEPLOY>> Sass files compiled"
 
