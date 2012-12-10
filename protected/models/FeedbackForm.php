@@ -35,7 +35,7 @@ class FeedbackForm extends CFormModel
 		$mail = Yii::app()->mail->constructMessage();
 		$mail->view = 'feedback/feedback';
 		$mail->setBody(array('feedbackForm' => $this), 'text/html');
-		$mail->subject = 'Feedback of Enactivity from' . $this->email;	
+		$mail->subject = 'Feedback from ' . $this->email;	
 		$mail->from = 'no-reply@' . CHttpRequest::getServerName();
 		$mail->to = Yii::app()->params['feedbackEmail'];
 		Yii::app()->mail->send($mail);
