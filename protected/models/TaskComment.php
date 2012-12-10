@@ -49,6 +49,7 @@ class TaskComment extends Comment implements EmailableRecord, LoggableRecord
             ),
             'EmailNotificationBehavior'=>array(
                 'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+                'enabled' => Yii::app()->params['emailNotificationsOn'],
                 'ignoreAttributes' => array('modified'),
             ),
     	));

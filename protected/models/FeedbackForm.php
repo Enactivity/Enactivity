@@ -7,6 +7,8 @@
 class FeedbackForm extends CFormModel
 {
 	public $email;
+	public $userId;
+	public $fullName;
 	public $message;
 
 	/**
@@ -16,9 +18,7 @@ class FeedbackForm extends CFormModel
 	{
 		return array(
 			// topic, email, message are required
-			array('email, message,', 'required'),
-			// email has to be a valid email address
-			array('email', 'email'),
+			array('message,', 'required'),
 		);
 	}
 
@@ -32,11 +32,15 @@ class FeedbackForm extends CFormModel
 
 	protected function sendEmail()
 	{
+		$this->email = Yii::app()->user->model->email;
+		$this->userId = Yii::app()->user->model->id;
+		$this->fullName = Yii::app()->user->model->fullName;
+
 		$mail = Yii::app()->mail->constructMessage();
 		$mail->view = 'feedback/feedback';
 		$mail->setBody(array('feedbackForm' => $this), 'text/html');
 		$mail->subject = 'Feedback from ' . $this->email;	
-		$mail->from = 'no-reply@' . CHttpRequest::getServerName();
+		$mail->from = 'no-reply-feedback@' . CHttpRequest::getServerName();
 		$mail->to = Yii::app()->params['feedbackEmail'];
 		Yii::app()->mail->send($mail);
 		return true; 

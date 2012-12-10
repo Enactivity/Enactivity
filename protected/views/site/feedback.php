@@ -24,13 +24,6 @@ $this->pageTitle = 'Feedback';
 	<p>Tell us what you think</p>
 
 	<?= $form->errorSummary($model); ?>
-
-		<div class="field">
-			<?= $form->labelEx($model,'email'); ?>
-			<?= $form->textField($model,'email'); ?>
-			<?= $form->error($model,'email'); ?>
-		</div>
-
 		<div class="field">
 			<?= $form->labelEx($model,'message'); ?>
 			<?= $form->textArea($model,'message'); ?>
