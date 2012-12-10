@@ -9,7 +9,7 @@ return CMap::mergeArray(
 	require(dirname(__FILE__).'/all.inc.php'),
 	array(
 		'controllerMap'=>array(
-			'scripts'=>array(
+			'min'=>array(
 				'class'=>'ext.minscript.controllers.ExtMinScriptController',
 			),
 		),
@@ -20,7 +20,7 @@ return CMap::mergeArray(
 			'clientScript'=>array(
 				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
 				'class'=>'ext.minscript.components.ExtMinScript', 
-				'minScriptControllerId'=>'scripts',
+				'minScriptControllerId'=>'min',
 				'minScriptLmCache'=>3600, // cache for an hour
 				'packages'=>array(
 					'jquery'=>array(
@@ -120,7 +120,7 @@ return CMap::mergeArray(
 					// 'gii/<controller:\w+>'=>'gii/<controller>',
 					// 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 					// get rid of ? to ensure proxy caching
-					'scripts/<g:\w+>/<lm:\d+>/' => 'scripts/serve', 
+					'min/<g:\w+>/<lm:\d+>/' => 'min/serve', 
 					'next'=>'task/index',
 					'calendar'=>'task/calendar',
 					'<controller:\w+>'=>'<controller>/index',
