@@ -289,7 +289,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 
 		if($this->save()) {
 			Yii::app()->user->setFlash('notice', 'A draft of ' 
-				. PHtml::encode($this->name) 
+				. $this->name 
 				. ' has been saved.');
 			return true;
 		}
