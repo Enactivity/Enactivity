@@ -48,7 +48,7 @@ return array(
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
 				'logging' => false,
-				'dryRun' => true,
+				'dryRun' => false,
 		),
 	
 		'mailer'=>array(
@@ -56,5 +56,9 @@ return array(
         		'mailTransferAgent'=>'php',
 				'shouldEmail'=>false,  
 		),
+	),
+
+	'params'=>array(
+		'emailNotificationsOn'=>false,
 	),
 );

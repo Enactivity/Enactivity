@@ -5,35 +5,41 @@
 **/
 
 $this->pageTitle = 'Feedback';
-
-echo "Tell us what you think";
-
 ?>
 
-<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
-	'id'=>'feedback-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= PHtml::beginContentHeader(array('class'=>'feedback-form' )); ?>
+	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
+<?= PHtml::endContentHeader(); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
+<section>
+	<?php $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
+		'id'=>'feedback-form',
+		'enableClientValidation'=>true,
+		'clientOptions'=>array(
+			'validateOnSubmit'=>true,
+		),
+	)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'message'); ?>
-		<?php echo $form->textField($model,'message'); ?>
-		<?php echo $form->error($model,'message'); ?>
-	</div>
+	<p>Tell us what you think</p>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
-	</div>
+	<?= $form->errorSummary($model); ?>
 
-<?php $this->endWidget(); ?>
+		<div class="field">
+			<?= $form->labelEx($model,'email'); ?>
+			<?= $form->textField($model,'email'); ?>
+			<?= $form->error($model,'email'); ?>
+		</div>
+
+		<div class="field">
+			<?= $form->labelEx($model,'message'); ?>
+			<?= $form->textArea($model,'message'); ?>
+			<?= $form->error($model,'message'); ?>
+		</div>
+
+		<div class="field buttons">
+			<?= CHtml::submitButton('Submit'); ?>
+		</div>
+
+	<?php $this->endWidget(); ?>
+</section>

@@ -22,6 +22,14 @@ class FeedbackForm extends CFormModel
 		);
 	}
 
+	public function sendFeedback($attributes) {
+		$this->attributes = $attributes;
+		if($this->validate()) {
+			return $this->sendEmail($model->email, $model->message);	
+		} 
+		return false;
+	}
+
 	public function sendEmail($email, $message)
 	{
 		$admin = 'hvuong@poncla.com';
@@ -31,8 +39,9 @@ class FeedbackForm extends CFormModel
 		$mail->subject = 'Feedback of Enactivity from' . $email;	
 		$mail->from = $email;
 		$mail->to = $admin;
-		//var_dump($mail);
-		Yii::app()->mail->send($mail); 
+		// var_dump($mail);
+		Yii::app()->mail->send($mail);
+		return true; 
 	}
 
 }
