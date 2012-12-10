@@ -59,6 +59,7 @@ return array(
 	),
 
 	'params'=>array(
+		//flag to control whether or not email notification emails should be sent
 		'emailNotificationsOn'=>false,
 		'feedbackEmail' => 'team@poncla.com',
 	),

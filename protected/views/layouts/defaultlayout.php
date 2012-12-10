@@ -32,7 +32,7 @@
 	</nav>
 
 	<footer class="application-footer">
-		<p class="feedbackButton"><?= PHtml::link("Tell us what you think", "/site/feedback"); ?>.</p>
+		<p class="feedbackButton"><?= PHtml::link("Give your feedback", "/site/feedback"); ?>.</p>
 		<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/EnactivityCommunity"); ?> &copy; <?= date('Y'); ?> 
 			All Rights Reserved.
 		</p>
