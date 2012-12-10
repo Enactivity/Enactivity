@@ -102,7 +102,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				//flag to enable or disable notification emails
+                //flag to enable or disable notification emails for EmailNotificationBehavior
 				'enabled' => Yii::app()->params['emailNotificationsOn'],
 				'ignoreAttributes' => array('modified'),
 			),

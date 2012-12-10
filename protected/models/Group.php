@@ -66,7 +66,7 @@ class Group extends ActiveRecord implements EmailableRecord
 			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				//flag to enable or disable notification emails
+                //flag to enable or disable notification emails for EmailNotificationBehavior
 				'enabled' => Yii::app()->params['emailNotificationsOn'],
 				'ignoreAttributes' => array('modified', 'starts'),
 			),

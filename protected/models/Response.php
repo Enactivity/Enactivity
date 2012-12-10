@@ -85,7 +85,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			),
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				//flag to enable or disable notification emails
+                //flag to enable or disable notification emails for EmailNotificationBehavior
 				'enabled' => Yii::app()->params['emailNotificationsOn'],
 				'ignoreAttributes' => array('modified'),
 			),
