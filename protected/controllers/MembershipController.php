@@ -38,12 +38,12 @@ class MembershipController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Group', array(
-			'data' => Yii::app()->user->model->allMemberships)
-		);
+		$memberships = User::model()->with(array(
+			'allMemberships'=>array(),
+		))->findByPk(Yii::app()->user->id)->allMemberships;
 
 		$this->render('index', array(
-		    'dataProvider'=>$dataProvider,
+		    'memberships'=>$memberships,
 		));
 	}
 
