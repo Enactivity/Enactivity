@@ -8,10 +8,20 @@
 return CMap::mergeArray(
 	require(dirname(__FILE__).'/all.inc.php'),
 	array(
+		'controllerMap'=>array(
+			'scripts'=>array(
+				'class'=>'ext.minscript.controllers.ExtMinScriptController',
+			),
+		),
+
 		// application components
 		'components'=>array(
 		
 			'clientScript'=>array(
+				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
+				'class'=>'ext.minscript.components.ExtMinScript', 
+				'minScriptControllerId'=>'scripts',
+				'minScriptLmCache'=>3600, // cache for an hour
 				'packages'=>array(
 					'jquery'=>array(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.8/',
@@ -21,6 +31,24 @@ return CMap::mergeArray(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/',
 						'js'=>array('jquery-ui.min.js'),
 					),
+					'modernizr'=>array(
+						'basePath'=>'application.javascripts',
+						'js'=>array('Modernizr.js')
+					),
+					'application'=>array(
+						'basePath'=>'application.javascripts',
+						'depends'=>array(
+							'modernizr',
+						),
+						'js'=>array(
+							'AjaxLoader.js',
+							'AjaxButton.js',
+							'ClearInputsButton.js',
+							'DropDown.js',
+							'SmoothScroll.js',
+							'TargetHeaderFix.js',
+						),
+					)
 				),
 			),
 		
@@ -83,7 +111,6 @@ return CMap::mergeArray(
 				// enable cookie-based authentication
 				'allowAutoLogin'=>true,
 			),
-			// uncomment the following to enable URLs in path-format
 			
 			'urlManager'=>array(
 				// 'caseSensitive'=>false,
@@ -92,6 +119,8 @@ return CMap::mergeArray(
 					// 'gii'=>'gii',
 					// 'gii/<controller:\w+>'=>'gii/<controller>',
 					// 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
+					// get rid of ? to ensure proxy caching
+					'scripts/<g:\w+>/<lm:\d+>/' => 'scripts/serve', 
 					'next'=>'task/index',
 					'calendar'=>'task/calendar',
 					'<controller:\w+>'=>'<controller>/index',

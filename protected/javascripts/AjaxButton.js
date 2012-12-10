@@ -16,7 +16,7 @@ $(function() {
 	 * @param {String} selector for which elements to apply the button listener to
 	 * @return {JQuery} see http://api.jquery.com/each/
 	 */
-	$.fn.enactivityAjaxButton = function(selector) {
+	$.fn.AjaxButton = function(selector) {
 		return this.each(function() {
 			$(this).on('click', selector || buttonSelector, function() {
 				var button = $(this);
@@ -38,6 +38,6 @@ $(function() {
 
 	/* Apply dropdown to html elements */
 	$(function() {
-		$('body').enactivityAjaxButton(buttonSelector);
+		$('body').AjaxButton(buttonSelector);
 	});
 });

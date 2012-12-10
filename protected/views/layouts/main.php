@@ -13,9 +13,7 @@
 		<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/stylesheets/screen.css"); ?>
 
 		<? Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-		<? Yii::app()->clientScript->registerCoreScript('yii'); ?>
-		<? Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/main.js"); ?>
-		<? Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/button.js"); ?>
+		<? Yii::app()->clientScript->registerCoreScript('application'); ?>
 
 		<link rel="shortcut icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>
 		<link rel="apple-touch-icon" href="<?= Yii::app()->theme->baseUrl; ?>/images/application-cutout-logo-60x60.png">
