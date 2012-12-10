@@ -48,7 +48,7 @@ return array(
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
 				'logging' => false,
-				'dryRun' => true,
+				'dryRun' => false,
 		),
 	
 		'mailer'=>array(
@@ -56,5 +56,11 @@ return array(
         		'mailTransferAgent'=>'php',
 				'shouldEmail'=>false,  
 		),
+	),
+
+	'params'=>array(
+		//flag to control whether or not email notification emails should be sent
+		'emailNotificationsOn'=>false,
+		'feedbackEmail' => 'team@poncla.com',
 	),
 );

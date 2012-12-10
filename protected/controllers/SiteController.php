@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','error','index','login'),
+				'actions'=>array('contact','error','index','login','feedback'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -122,5 +122,22 @@ class SiteController extends Controller
 	
 	public function actionAdmin() {
 		$this->render('admin', array());
+	}
+
+	/**
+	 * Displays the feedback page
+	 */
+
+	public function actionFeedback()
+	{
+		$model = new FeedbackForm;
+		if(isset($_POST['FeedbackForm']))
+		{
+			if($model->sendFeedback($_POST['FeedbackForm'])) {
+				Yii::app()->user->setFlash('success', "Thank you for your Feedback!");
+				$this->redirect(Yii::app()->homeUrl);
+			}
+		}
+		$this->render('feedback', array('model'=>$model));
 	}
 }
