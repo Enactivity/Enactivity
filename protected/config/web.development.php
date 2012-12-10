@@ -13,6 +13,11 @@ return CMap::mergeArray(
 	require(dirname(__FILE__).'/web.php'),
 	array(
 		'components'=>array(
+
+			'clientScript'=>array(
+				'minScriptLmCache'=>false, // don't cache in development
+			),
+
 	
 			'db'=>array(
 				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
