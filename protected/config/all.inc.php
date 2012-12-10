@@ -60,5 +60,6 @@ return array(
 
 	'params'=>array(
 		'emailNotificationsOn'=>false,
+		'feedbackEmail' => 'team@poncla.com',
 	),
 );

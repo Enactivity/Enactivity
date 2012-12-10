@@ -25,21 +25,19 @@ class FeedbackForm extends CFormModel
 	public function sendFeedback($attributes) {
 		$this->attributes = $attributes;
 		if($this->validate()) {
-			return $this->sendEmail($model->email, $model->message);	
+			return $this->sendEmail();	
 		} 
 		return false;
 	}
 
-	public function sendEmail($email, $message)
+	protected function sendEmail()
 	{
-		$admin = 'hvuong@poncla.com';
 		$mail = Yii::app()->mail->constructMessage();
 		$mail->view = 'feedback/feedback';
-		$mail->setBody(array('message' => $message), 'text/html');
-		$mail->subject = 'Feedback of Enactivity from' . $email;	
-		$mail->from = $email;
-		$mail->to = $admin;
-		// var_dump($mail);
+		$mail->setBody(array('feedbackForm' => $this), 'text/html');
+		$mail->subject = 'Feedback of Enactivity from' . $this->email;	
+		$mail->from = 'no-reply@' . CHttpRequest::getServerName();
+		$mail->to = Yii::app()->params['feedbackEmail'];
 		Yii::app()->mail->send($mail);
 		return true; 
 	}
