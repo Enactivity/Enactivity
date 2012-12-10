@@ -110,7 +110,9 @@ class JuiDateTimePicker extends CJuiWidget
 		echo ' ';
 		echo CHtml::link("Clear",null,
 			array(
-				'class' => 'clear-field clear-date-time'	
+				'class' => 'clear-field clear-date-time',
+				'data-type' => 'clear-button',
+				'data-inputs' => '["#' . $dateInputId .  '","#'  . $timeInputId . '"]',
 			)
 		);
 		echo CHtml::tag('br');
@@ -319,24 +321,11 @@ class JuiDateTimePicker extends CJuiWidget
 	}
 	
 	/**
-	 * add a script to clear the date and time when the "clear" link is pressed
-	 * @return null
-	 */
-	protected function registerClearScript() {
-		$cs = Yii::app()->getClientScript();
-		
-		$script = Yii::getPathOfAlias('application.components.widgets.jui.assets') .'/clearDateTime.js';
-		$clearDateTimeScript = Yii::app()->getAssetManager()->publish($script);
-		$cs->registerScriptFile($clearDateTimeScript, CClientScript::POS_BEGIN);
-	}
-	
-	/**
 	 * Regsiter the javascripts needed for the date picker
 	 * @param String $dateInputId id attribute for datepicker's date input
 	 * @return null
 	 */
 	protected function registerCalendarScripts($dateInputId) {
 		$this->registerShowHideCalendarScript($dateInputId);
-		$this->registerClearScript();
 	}
 }
