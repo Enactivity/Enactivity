@@ -24,13 +24,13 @@ $this->pageTitle = 'Group Membership';
 	</div>
 <?= PHtml::endContentHeader(); ?>
 
-<? if($dataProvider->totalItemCount > 0): ?>
+<? if(sizeof($memberships) > 0): ?>
 <section>
-	<? $this->widget('zii.widgets.CListView', array(
-		'dataProvider'=>$dataProvider,
-		'itemView'=>'_view',
-		'cssFile'=>false,
-	)); ?>
+	<? foreach ($memberships as $membership): ?>
+		<? $this->renderPartial('/membership/_view', array(
+			'data' => $membership,
+		)); ?>
+	<? endforeach; ?>
 </section>
 
 <section>
@@ -38,8 +38,8 @@ $this->pageTitle = 'Group Membership';
 </section>
 <? else: ?>
 <section>
-	<p class="blurb">We couldn't find any groups for you on Facebook, why not <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?> and then refresh this page?</p>
-	<p class="blurb">Or</p>
-	<p class="blurb">If we suck and you do have a group, try <?= PHtml::link("synchronizing your groups and we'll try to find them again", array('group/syncWithFacebook')); ?>.</p>
+	<p class="blurb">We couldn't find any groups for you on Facebook, why not <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?>?</p>
+	<p class="blurb">or...</p>
+	<p class="blurb">If we suck and you do have a group, try <?= PHtml::link("synchronizing your groups and we'll try to find them again", array('membership/syncWithFacebook')); ?>.</p>
 </section>
 <? endif; ?>
