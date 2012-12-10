@@ -13,12 +13,18 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 {
 
 	/**
+	 * Whether the behavior should send emails
+	 * @var boolean
+	 **/
+	public $enabled = false;
+
+	/**
 	 * List of attributes that should be ignored by the log
 	 * when the ActiveRecord is updated.
 	 * @var array
 	 */
 	public $ignoreAttributes = array();
- 
+	
 	/**
 	* After the model saves, record the attributes
 	* @param CEvent $event
@@ -36,6 +42,10 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 
 	public function afterSave($event)
 	{
+		if(!$this->enabled) {
+			return;
+		}
+
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
@@ -66,6 +76,11 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 	}
 
 	public function afterDelete($event) {
+
+		if(!$this->enabled) {
+			return;
+		}
+
 		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
