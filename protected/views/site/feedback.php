@@ -20,9 +20,7 @@ $this->pageTitle = 'Feedback';
 			'validateOnSubmit'=>true,
 		),
 	)); ?>
-
-	<p>Tell us what you think</p>
-
+	
 	<?= $form->errorSummary($model); ?>
 		<div class="field">
 			<?= $form->labelEx($model,'message'); ?>
@@ -31,7 +29,7 @@ $this->pageTitle = 'Feedback';
 		</div>
 
 		<div class="field buttons">
-			<?= CHtml::submitButton('Submit'); ?>
+			<?= PHtml::submitButton('Submit'); ?>
 		</div>
 
 	<?php $this->endWidget(); ?>
