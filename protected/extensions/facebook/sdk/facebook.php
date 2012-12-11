@@ -106,7 +106,7 @@ class Facebook extends BaseFacebook
     }
 
     $session_var_name = $this->constructSessionVariableName($key);
-    $_SESSION[$session_var_name] = $value;
+    Yii::app()->session[$session_var_name] = $value;
   }
 
   protected function getPersistentData($key, $default = false) {
@@ -116,8 +116,8 @@ class Facebook extends BaseFacebook
     }
 
     $session_var_name = $this->constructSessionVariableName($key);
-    return isset($_SESSION[$session_var_name]) ?
-      $_SESSION[$session_var_name] : $default;
+    return isset(Yii::app()->session[$session_var_name]) ?
+      Yii::app()->session[$session_var_name] : $default;
   }
 
   protected function clearPersistentData($key) {
@@ -127,7 +127,7 @@ class Facebook extends BaseFacebook
     }
 
     $session_var_name = $this->constructSessionVariableName($key);
-    unset($_SESSION[$session_var_name]);
+    unset(Yii::app()->session[$session_var_name]);
   }
 
   protected function clearAllPersistentData() {
