@@ -25,7 +25,9 @@
 	</aside>
 	<? endif; ?>
 
-	<?= $content; ?>
+	<div class="application-content content">
+		<?= $content; ?>
+	</div>
 
 	<nav class="application-navigation" id="application-navigation">
 		<? $this->widget('zii.widgets.CMenu', array(
