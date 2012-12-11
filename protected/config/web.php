@@ -1,5 +1,4 @@
 <?php
-
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -103,6 +102,10 @@ return CMap::mergeArray(
 			'request'=>array(
 				'enableCookieValidation'=>true,
 				'enableCsrfValidation'=>true,
+			),
+
+			'session'=>array(
+				'savePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../runtime/sessions',
 			),
 			
 			'user'=>array(
