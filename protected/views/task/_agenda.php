@@ -19,7 +19,7 @@
 	<article class="activity">
 		<h1 class="activity-name">
 			<i></i>
-			<?= PHtml::link(PHtml::encode($activityInfo['activity']->shortName),
+			<?= PHtml::link(PHtml::encode($activityInfo['activity']->name),
 				array('activity/view', 'id'=>$activityId)
 			); ?>
 		</h1>
@@ -47,7 +47,7 @@
 		<h1 class='activity-name'>
 			<i></i>
 			<?= PHtml::link(
-				PHtml::encode($activityInfo['activity']->shortName),
+				PHtml::encode($activityInfo['activity']->name),
 				array('activity/view', 'id'=>$activityId)
 			); ?>
 		</h1>

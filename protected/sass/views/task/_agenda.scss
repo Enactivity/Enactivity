@@ -22,6 +22,7 @@
 
 		.activity-name {
 			@extend .heading4;
+			@include ellipsis();
 
 			color: $mine-shaft;
 			padding-bottom: $base-padding;
