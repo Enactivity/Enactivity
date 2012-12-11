@@ -1,8 +1,7 @@
 .content-header {
-	@extend .content-block;
-	padding-bottom: 0;
+	@include grid-row-with-padding;
 
 	h1 {
-		@extend .heading1;
+		display: none;
 	}
 }

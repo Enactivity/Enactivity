@@ -1,4 +1,6 @@
 .agenda {
+	@include grid-row;
+
 	.day {
 		margin-bottom: $base-margin;
 
@@ -12,7 +14,7 @@
 	}
 
 	.activity {
-		@extend .content-block;
+		@include grid-column-1-of-1;
 		@include border-radius($base-border-radius);
 
 		border: 1px solid $alto;
@@ -51,7 +53,7 @@
 		}
 
 		.task {
-			@extend .inline-content-block;
+			
 		}
 	}
 

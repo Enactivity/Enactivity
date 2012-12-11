@@ -18,11 +18,11 @@ body {
 }
 
 aside {
-	@extend .content-block;
+	@include grid-row-with-padding;
 }
 
 section {
-	@extend .content-block;
+	// @include grid-row-with-padding;
 
 	h1 {
 		@extend .heading2;
@@ -30,6 +30,7 @@ section {
 }
 
 article {
+	// @include grid-column-1-of-1;
 	
 	h1 {
 		@extend .heading3;

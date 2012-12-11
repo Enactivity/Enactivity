@@ -28,7 +28,7 @@
 	?>
 			
 	</head>
-	<body id="<?= $this->id . '-' . $this->action->id; ?>">
+	<body id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?>">
 
 	<?= $content; ?>
 		

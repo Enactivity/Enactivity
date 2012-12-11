@@ -9,15 +9,15 @@
 	background: $white;
 
 	.week {
-		@include clearfix;
+		@include grid-row;
 
 		.day {
+			@include grid-column-1-of-1;
 			padding: $base-padding;
 			
 			@include respond-to('thin-tablet') {
-				@include float-left;
+				@include grid-column-1-of-7;
 				min-height: 6 * $base-padding;
-				width: 1 / 7 * 100%;
 			}
 
 			header {
