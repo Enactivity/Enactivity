@@ -1,39 +1,38 @@
 .application-header {
-	@include clearfix;
+	@include grid-row;
 	background-color: $cerulean;
 	position: fixed;
-	overflow: hidden;
 	top: 0;
 	width: 100%;
 	z-index: 1000;
 
 	a, a:active, a:visited {
 		@include unstyled-link;
-		display: block;
-
-		padding: $base-padding;
 		color: $white;
 	}
 
 	.logo {
-		@include ellipsis();
 		@include grid-column-1-of-3;
+		@include ellipsis();
 		
 		border-right: 1px solid rgba(255, 255, 255, .25);
-		
 
 		@include respond-to(wide-phone) {
 			@include grid-column-1-of-4;
 		}
 		@include respond-to(thin-tablet) {
+			@include grid-column-1-of-6;
+		}
+		@include respond-to(desktop) {
 			@include grid-column-1-of-8;
 		}
 	}
 
 	.page-title {
-		@include ellipsis();
-		
 		@include grid-column-1-of-3;
+		@include ellipsis();
+
+		border-left: 1px solid rgba(255, 255, 255, .1);
 
 		@include respond-to(thin-phone) {
 			@include grid-column-2-of-3;
@@ -42,15 +41,17 @@
 			@include grid-column-3-of-4;
 		}
 		@include respond-to(thin-tablet) {
+			@include grid-column-5-of-6;
+		}
+		@include respond-to(desktop) {
 			@include grid-column-7-of-8;
 		}
 	}
 
 	// The show menu button is only for really small phones when nav is at the bottom
 	.show-menu {
-		@include float-right;
-
 		@include grid-column-1-of-3;
+		border-left: 1px solid rgba(255, 255, 255, .1);
 
 		@include respond-to(thin-phone) {
 			display: none;

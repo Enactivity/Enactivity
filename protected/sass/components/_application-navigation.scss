@@ -56,9 +56,8 @@ $nav-bar-color: $white;
 	a, a:visited,
 	a:hover, a:focus,
 	.active > a,
-	.active > a:visited,
-	span  {
-		@include transition(all 0.4s ease-out);		
+	.active > a:visited {
+		@include transition(all 0.4s ease-out);
 		display: block;	
 		font-weight: normal;
 		padding: $base-padding 0;
