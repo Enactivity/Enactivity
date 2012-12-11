@@ -20,7 +20,7 @@ $nav-bar-color: $white;
 	}
 
 	> ul {
-		@extend .content-block;
+		max-width: $base-max-readability-width; // not using content-block since, it's not content
 		padding: 0;
 	}
 

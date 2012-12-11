@@ -1,5 +1,7 @@
 .content-header {
 	@extend .content-block;
+	padding-bottom: 0;
+
 	h1 {
 		@extend .heading1;
 	}
