@@ -18,9 +18,11 @@
 
 // Actual things
 @import "application-header";
-@import "application-footer";
+@import "application-content";
 @import "application-navigation";
+@import "application-footer";
 @import "content-header";
+@import "content-footer";
 @import "flash";
 @import "dropdown";
 @import 'pager';

@@ -140,12 +140,12 @@ class JuiDateTimePicker extends CJuiWidget
 					$(this).hide();
 				}";
 		}
-		$this->htmlOptions['id'] = $this->htmlOptions['id'].'_container';
+		$this->htmlOptions['id'] = $this->htmlOptions['id'].'-datepicker-container';
 		
 		if(empty($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] = '';
 		} 
-		$this->htmlOptions['class'] = $this->htmlOptions['class'] . '_container';
+		$this->htmlOptions['class'] = 'datepicker-container';
 		
 		if(empty($this->htmlOptions['style'])) {
 			$this->htmlOptions['style'] = '';
@@ -309,15 +309,15 @@ class JuiDateTimePicker extends CJuiWidget
 					"$('#{$dateInputId}').live(\"focus\",
 						function() {
 							$('#{$dateInputId}').blur();
-							$('#{$dateInputId}_container').show();
+							$('#{$dateInputId}-datepicker-container').show();
 						}
 					);";
 		$cs->registerScript(__CLASS__.'#'.$dateInputId, $focusScript, CClientScript::POS_BEGIN);
 		
 		// encode $this->options[] and pass to jquery datepicker
 		$options = CJavaScript::encode($this->options);
-		$addDatepickerScript = "$('#{$dateInputId}_container').datepicker($options);";
-		$cs->registerScript(__CLASS__.'#'.$dateInputId.'_container', $addDatepickerScript, CClientScript::POS_END);
+		$addDatepickerScript = "$('#{$dateInputId}-datepicker-container').datepicker($options);";
+		$cs->registerScript(__CLASS__.'#'.$dateInputId.'-datepicker-container', $addDatepickerScript, CClientScript::POS_END);
 	}
 	
 	/**

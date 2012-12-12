@@ -53,20 +53,20 @@ $nav-bar-color: $white;
 		@include link-colors($white, $white, $white, $white, $white);
 	}
 
-	a, a:visited,
+	a, a:visited, a:active,
 	a:hover, a:focus,
 	.active > a,
 	.active > a:visited {
 		@include transition(all 0.4s ease-out);
 		display: block;	
 		font-weight: normal;
-		padding: $base-padding 0;
+		padding: $base-padding 0; // no left/right padding to fit big words in small screens
 		text-decoration: none;
 		text-transform: lowercase;
 	}
 
 	.active > a, 
-	a:hover, a:focus {
+	a:hover, a:focus, a:active {
 		@include single-text-shadow($tundora, 1px, 1px, 3px);
 		background-color: $emperor;
 		color: $white;

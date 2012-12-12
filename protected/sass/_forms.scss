@@ -3,12 +3,15 @@
  **/
 
 form {
- 	// margin: auto;
- 	max-width: $base-max-readability-width;
+ 	@include grid-row;
+}
+
+.field {
+	@include grid-row;
+	position: relative;
 }
 
 fieldset {
-	@extend .content-block;
 }
 
 input, textarea, select {
@@ -17,7 +20,7 @@ input, textarea, select {
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	height: 2.5em;
-	margin: $base-margin / 2 0;
+	margin-top: $base-margin / 2;
 	padding: $base-padding / 2;
 	width: 100%;
 }
@@ -80,22 +83,21 @@ input[type="button"]:disabled:hover {
 	opacity: .25; /* Blarg, cheap, color better */
 }
 
-.field {
-	@include clearfix;
-	margin: $base-margin 0;
-	position: relative;
-}
-
 // Datetime pickers
-.field.datetime {
+.datetime {
 	input {
-		margin-right: 2%; /* spacing between date and time */
-		width: 48%; /* 48 + 2 = 50 */
+		@include grid-column-1-of-2;
 	}
 
 	select {
-		width: 50%;
+		@include grid-column-1-of-2;
 	}
+
+	.datepicker-container {
+		@include grid-column-1-of-1;
+		padding: 0;
+	}
+
 }
 
 .clear-field {
@@ -107,8 +109,6 @@ input[type="button"]:disabled:hover {
 
 label {
 	cursor: text; /* To help user realize it's clickable */
-	// display: inline-block;
-	// margin-bottom: 4px;
 }
 	
 label:not(.required) {
@@ -118,7 +118,6 @@ label:not(.required) {
 label:not(.required):after {
 	content: ' (optional)';
 }
-
 
 input.error, textarea.error, select.error {
 	border: 1px solid $red;

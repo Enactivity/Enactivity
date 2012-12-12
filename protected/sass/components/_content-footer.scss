@@ -1,4 +1,4 @@
-.content-header {
+.content-footer {
 	@include grid-row;
 
 	.menu {
@@ -7,9 +7,5 @@
 
 	a:hover, a:active {
 		background: $silverish;
-	}
-
-	h1 {
-		display: none;
 	}
 }

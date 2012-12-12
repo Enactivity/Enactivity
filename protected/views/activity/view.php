@@ -8,8 +8,7 @@ $this->pageTitle = $model->name;
 ?>
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::activityClass($model) )); ?>
-	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
-	<div class="menu toolbox">
+	<div class="menu content-header-menu">
 		<ul>
 			<? if($model->isDraft): ?>
 			<li>

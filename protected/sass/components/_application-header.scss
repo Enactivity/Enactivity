@@ -8,6 +8,7 @@
 
 	a, a:active, a:visited {
 		@include unstyled-link;
+		padding: $base-padding;
 		color: $white;
 	}
 

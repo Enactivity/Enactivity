@@ -4,8 +4,7 @@ $this->pageTitle = 'Group Membership';
 ?>
 
 <?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-	<div class="menu toolbox">
+	<div class="menu content-header-menu">
 		<ul>
 			<li>
 				<?=

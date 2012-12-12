@@ -25,7 +25,7 @@
 	</aside>
 	<? endif; ?>
 
-	<div class="application-content content">
+	<div class="application-content">
 		<?= $content; ?>
 	</div>
 

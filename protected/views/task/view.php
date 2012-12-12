@@ -12,16 +12,19 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 ?>
 
 <?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
-	<h1><?= PHtml::link(
-		PHtml::encode($model->activity->shortName),
-			$model->activity->viewUrl,
-			array(
-				'class'=>'activity-name'
-			)); ?>: 
-		<?= PHtml::encode($model->name); ?></h1>
-	<span class="task-header-time"><i></i> <? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
-	<div class="menu toolbox">
+	<div class="menu content-header-menu">
 		<ul>
+			<li>
+				<?= 
+				PHtml::link(
+					PHtml::encode($model->activity->name),
+					$model->activity->viewUrl,
+					array(
+						'id'=>'task-activity-menu-item-' . $model->id,
+						'class'=>'neutral task-activity-menu-item',
+						'title'=>'View this ' . PHtml::encode($model->activity->name),
+				)); ?>
+			</li>
 			<li>
 				<?=
 				PHtml::link(
@@ -51,6 +54,10 @@ $this->pageTitle = $model->name . ' - ' . $model->activity->name;
 		</ul>
 	</div>
 <?= PHtml::endContentHeader(); ?>
+
+<section id="starts">
+	<span class="task-header-time"><i></i> <? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
+</section>
 
 <section id="participating">
 	<h1><?= PHtml::encode($model->participantsCount) . ' Signed Up'; ?></h1>

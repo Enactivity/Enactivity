@@ -97,8 +97,8 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 	</article>
 </section>
 
-<section>
-		<div class="menu">
+<footer class="content-footer">
+		<div class="menu content-footer-menu">
 		<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 			array(
 				'label'=>PHtml::encode($month->nameOfPreviousMonth), 
@@ -132,4 +132,4 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 			)
 		))); ?>
 	</div>
-</section>
+</footer>
