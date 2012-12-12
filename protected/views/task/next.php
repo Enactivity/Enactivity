@@ -8,8 +8,8 @@
 $this->pageTitle = 'Next';
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<div class="menu content-header-menu">
+<header class="content-header">
+	<nav>
 		<ul>
 			<li>
 				<?= PHtml::link(
@@ -38,10 +38,10 @@ $this->pageTitle = 'Next';
 			</li>
 			<? endif; ?>
 		</ul>
-	</div>
-<?= PHtml::endContentHeader(); ?>
+	</nav>
+</header>
 
-<section class="tasks agenda">
+<section id="tasks" class="tasks content">
 	<?
 	if($calendar->itemCount > 0) {
 		echo $this->renderPartial('_agenda', array(

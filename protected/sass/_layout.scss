@@ -32,7 +32,3 @@ article {
 		@extend .heading3;
 	}
 }
-
-.content {
-	@include grid-row-with-padding;
-}

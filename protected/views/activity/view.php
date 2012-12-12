@@ -7,8 +7,8 @@
 $this->pageTitle = $model->name;
 ?>
 
-<?= PHtml::beginContentHeader(array('class'=>PHtml::activityClass($model) )); ?>
-	<div class="menu content-header-menu">
+<header class="content-header">
+	<nav class="menu">
 		<ul>
 			<? if($model->isDraft): ?>
 			<li>
@@ -63,22 +63,22 @@ $this->pageTitle = $model->name;
 				?>
 			</li>
 		</ul>
-	</div>
+	</nav>
+<header>
 
-	<? if($model->description): ?>
-	<div id="details">
-		<?= Yii::app()->format->formatStyledText($model->description); ?>
-	</div>
-	<? endif; ?>
-<?= PHtml::endContentHeader(); ?>
+<? if($model->description): ?>
+<section id="details" class="details content">
+	<?= Yii::app()->format->formatStyledText($model->description); ?>
+</section>
+<? endif; ?>
 
-<section id="tasks" class="tasks agenda">
+<section id="tasks" class="tasks content">
 	<?= $this->renderPartial('_tasks', array(
 		'calendar'=>$calendar,
 	)); ?>
 </section>
 
-<section id="comments">
+<section id="comments" class="content">
 	<h1>Comments</h1>
 	
 	<? if($comments): ?>

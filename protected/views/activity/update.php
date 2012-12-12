@@ -5,9 +5,8 @@
 $this->pageTitle = 'Edit Activity';
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-	<div class="menu">
+<header class="content-header">
+	<nav class="menu">
 		<ul>
 			<li>
 			<?
@@ -37,9 +36,9 @@ $this->pageTitle = 'Edit Activity';
 				} ?>
 			</li>
 		</ul>
-	</div>
-<?= PHtml::endContentHeader(); ?>
+	</nav>
+</header>
 
-<section>
+<section class="content">
 	<?= $this->renderPartial('_form', array('model'=>$model)); ?>
 </section>

@@ -7,7 +7,6 @@
 // General components
 @import "icon";
 @import "metadata";
-@import "content-block";
 
 // Animations
 @import "animations/fade-in";
@@ -21,6 +20,7 @@
 @import "application-content";
 @import "application-navigation";
 @import "application-footer";
+@import "content";
 @import "content-header";
 @import "content-footer";
 @import "flash";
@@ -29,6 +29,4 @@
 @import "menu";
 
 @import "avatar";
-@import "comment";
-@import "feed";
 @import "blurb";

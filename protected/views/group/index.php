@@ -3,7 +3,7 @@ $this->pageTitle = 'Groups';
 
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
+<header class="application-header">
 	<div class="menu content-header-menu">
 		<ul>
 			<li>
@@ -21,9 +21,9 @@ $this->pageTitle = 'Groups';
 			</li>
 		</ul>
 	</div>
-<?= PHtml::endContentHeader(); ?>
+<header>
 
-<section>
+<section class="content">
 	<h1>Member of</h1>
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,

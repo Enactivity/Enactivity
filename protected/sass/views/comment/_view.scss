@@ -1,5 +1,5 @@
 .comment {
-	@extend .content-block;
+	@include grid-row;
 	background: $white;
 	margin-bottom: 1px;
 

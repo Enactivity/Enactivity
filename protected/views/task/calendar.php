@@ -8,9 +8,8 @@
 $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle); ?></h1>
-	<div class="menu">
+<header class="content-header">
+	<nav class="menu">
 		<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 			array(
 				'label'=>PHtml::encode($month->nameOfPreviousMonth), 
@@ -35,70 +34,68 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 				),
 			)
 		))); ?>
-	</div>
-<?= PHtml::endContentHeader(); ?>
+	</nav>
+</header>
 
-<section id="calendar-container">
-	<article class="calendar">
-		<div class="month">
-			<? while($month->valid()) : ?>
-			<? // if it's the start of a week (Sunday), start a new row ?>
-			<? if($month->currentWDay == 0): ?>
-			<div class="week">
-			<? endif; ?>
+<section id="calendar" class="calendar">
+	<div class="month">
+		<? while($month->valid()) : ?>
+		<? // if it's the start of a week (Sunday), start a new row ?>
+		<? if($month->currentWDay == 0): ?>
+		<div class="week">
+		<? endif; ?>
 
-				<article class="<?= PHtml::calendarDayClass($month, $calendar); ?>">
-					<header>
-						<span class="day-of-month"><?= PHtml::encode($month->currentMDay); ?></span>
-						<span class="weekday-shorthand-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?></span>
-					</header>
-					<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
-					<? foreach ($activities as $activityIndex => $activityInfo): ?>
-					<article class="activity">
-						<time>
-							<?= PHtml::encode($time); ?>
-						</time>
-						<h1>
+			<article class="<?= PHtml::calendarDayClass($month, $calendar); ?>">
+				<header>
+					<span class="day-of-month"><?= PHtml::encode($month->currentMDay); ?></span>
+					<span class="weekday-shorthand-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?></span>
+				</header>
+				<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
+				<? foreach ($activities as $activityIndex => $activityInfo): ?>
+				<article class="activity">
+					<time>
+						<?= PHtml::encode($time); ?>
+					</time>
+					<h1>
+						<?= PHtml::link(
+							PHtml::encode($activityInfo['activity']->shortName),
+							$activityInfo['firstTask']->activityURL
+						); ?>
+					</h1>
+					<h2 class="tasks">
+						<span class="task">
+						<?= PHtml::link(
+							PHtml::encode($activityInfo['firstTask']->shortName),
+							$activityInfo['firstTask']->activityURL
+						); ?>
+						</span>
+						<? if($activityInfo['more']): ?>
+						<span class="more">
 							<?= PHtml::link(
-								PHtml::encode($activityInfo['activity']->shortName),
-								$activityInfo['firstTask']->activityURL
+								'+ ' . PHtml::encode($activityInfo['more']) . ' more',
+								array('activity/view', 'id'=>$activityIndex, '#'=>'day-' . $month->currentDate)
 							); ?>
-						</h1>
-						<h2 class="tasks">
-							<span class="task">
-							<?= PHtml::link(
-								PHtml::encode($activityInfo['firstTask']->shortName),
-								$activityInfo['firstTask']->activityURL
-							); ?>
-							</span>
-							<? if($activityInfo['more']): ?>
-							<span class="more">
-								<?= PHtml::link(
-									'+ ' . PHtml::encode($activityInfo['more']) . ' more',
-									array('activity/view', 'id'=>$activityIndex, '#'=>'day-' . $month->currentDate)
-								); ?>
-							</span>
-							<? endif; ?>
-						</h2>
-					</article>
-					<? endforeach; ?>
-					<? endforeach; ?>
+						</span>
+						<? endif; ?>
+					</h2>
 				</article>
+				<? endforeach; ?>
+				<? endforeach; ?>
+			</article>
 
-				<? // if it's the end of a week, end the row ?>
-			<? if($month->currentWDay == 6) : ?>
-			</div>
-			<? endif; ?>
-
-			<? // iterate ?>
-			<? $month->next(); ?>
-			<? endwhile; ?>
+			<? // if it's the end of a week, end the row ?>
+		<? if($month->currentWDay == 6) : ?>
 		</div>
-	</article>
+		<? endif; ?>
+
+		<? // iterate ?>
+		<? $month->next(); ?>
+		<? endwhile; ?>
+	</div>
 </section>
 
 <footer class="content-footer">
-		<div class="menu content-footer-menu">
+	<nav class="menu">
 		<? $this->widget('zii.widgets.CMenu', array('items'=>array(
 			array(
 				'label'=>PHtml::encode($month->nameOfPreviousMonth), 
@@ -131,5 +128,5 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 				),
 			)
 		))); ?>
-	</div>
+	</nav>
 </footer>

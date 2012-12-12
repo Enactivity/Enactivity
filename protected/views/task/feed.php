@@ -3,20 +3,24 @@
  * @uses $model 
  * @uses $feedDataProvider
  */
-$this->pageTitle = $model->name;
+$this->pageTitle = 'Timeline for ' . $model->name;
 ?>
 
-<?= PHtml::beginContentHeader(array('class'=>PHtml::taskClass($model) )); ?>
-	<h1>Timeline for <?= PHtml::link(
-		PHtml::encode($model->name), 
-			array('task/view', 'id'=>$model->id),
-			array(
-				'id'=>'task-view-menu-item',
-				'class'=>'neutral task-view-menu-item',
-				'title'=>'View recent history of this task',
-			)
-		); ?>
-	</h1>
+<header class="content-header">
+	<nav class="menu">
+		<ol>
+			<li><?= PHtml::link(
+				PHtml::encode($model->name), 
+					array('task/view', 'id'=>$model->id),
+					array(
+						'id'=>'task-view-menu-item',
+						'class'=>'neutral task-view-menu-item',
+						'title'=>'View ' . PHtml::encode($model->name),
+					)
+				); ?>
+			</li>
+		</ol>
+	</nav>
 <?= PHtml::endContentHeader(); ?>
 
 <section id="task-log">		

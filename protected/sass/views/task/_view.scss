@@ -1,19 +1,10 @@
 
-.task-view {
+.page-task-view {
 
 	.task-header-time {
 		i {
 			@extend .icon;
 			@extend .icon-time;
-		}
-	}
-	
-	.participant {
-		background: $white;
-		margin-bottom: 1px; // mimic a border
-
-		.status {
-			@extend .metadata;
 		}
 	}
 }

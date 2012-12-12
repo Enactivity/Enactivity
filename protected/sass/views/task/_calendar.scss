@@ -6,10 +6,11 @@
 }
 
 .calendar {
-	background: $white;
+	@include grid-row-with-padding;
 
 	.week {
 		@include grid-row;
+		background: $white;
 
 		.day {
 			@include grid-column-1-of-1;

@@ -27,7 +27,7 @@
 			@include ellipsis();
 
 			color: $mine-shaft;
-			padding-bottom: $base-padding;
+			padding: $base-padding;
 
 			// i {
 			// 	@extend .icon;
@@ -58,6 +58,7 @@
 	}
 
 	.task {
+		@include grid-row-with-padding;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
 
