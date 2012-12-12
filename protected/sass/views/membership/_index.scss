@@ -1,13 +1,5 @@
-#membership-index {
-	.group {
-		@extend .content-block;
-		background-color: $white;
-		margin-bottom: 1px;
+.page-membership-index {
 
-		.status {
-			@extend .metadata;
-		}
-	}
 }
 
 #membership-sync-with-facebook-menu-item {

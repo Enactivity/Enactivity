@@ -1,0 +1,9 @@
+.participant {
+	@include grid-row-with-padding;
+	background: $white;
+	margin-bottom: 1px; // mimic a border
+
+	.status {
+		@extend .metadata;
+	}
+}
