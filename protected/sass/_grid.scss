@@ -1,20 +1,7 @@
-@mixin grid-row {
-	@include clearfix;
-	display: block;
-	// margin: 0 0 $base-margin 0;
-	overflow: hidden;
-}
-
-/* Opt-in outside padding */
-@mixin grid-row-with-padding {
-	@include grid-row;
-	padding: $base-padding;
-}
-
 // Don't include this one, it's just a base for the columns below
 @mixin grid-column {
 	float: left;
-	// padding: $base-padding;
+	padding-right: $base-padding;
 }
 
 @mixin grid-column-1-of-1 {
@@ -101,4 +88,23 @@
 @mixin grid-column-1-of-10 {
 	@include grid-column;
 	width: 1 / 10 * 100%;
+}
+
+// Grid rows
+
+@mixin grid-row {
+	@include clearfix;
+	display: block;
+	// margin: 0 0 $base-margin 0;
+	overflow: hidden;
+
+	> *:last-of-type {
+		padding-right: 0;
+	}
+}
+
+/* Opt-in outside padding */
+@mixin grid-row-with-padding {
+	@include grid-row;
+	padding: $base-padding;
 }
