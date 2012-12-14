@@ -7,7 +7,7 @@ $this->pageTitle = 'Timeline for ' . $model->name;
 ?>
 
 <header class="content-header">
-	<nav class="menu">
+	<nav class="content-header-nav">
 		<ol>
 			<li><?= PHtml::link(
 				PHtml::encode($model->name), 

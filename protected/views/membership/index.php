@@ -4,7 +4,7 @@ $this->pageTitle = 'Group Membership';
 ?>
 
 <header class="content-header">
-	<nav class="menu content-header-menu">
+	<nav class="content-header-nav">
 		<ul>
 			<li>
 				<?=

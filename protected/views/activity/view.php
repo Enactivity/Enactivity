@@ -8,7 +8,7 @@ $this->pageTitle = $model->name;
 ?>
 
 <header class="content-header">
-	<nav class="menu">
+	<nav class="content-header-nav">
 		<ul>
 			<? if($model->isDraft): ?>
 			<li>
@@ -64,7 +64,7 @@ $this->pageTitle = $model->name;
 			</li>
 		</ul>
 	</nav>
-<header>
+</header>
 
 <? if($model->description): ?>
 <section id="details" class="details content">
@@ -73,7 +73,7 @@ $this->pageTitle = $model->name;
 <? endif; ?>
 
 <section id="tasks" class="tasks content">
-	<?= $this->renderPartial('_tasks', array(
+	<?= $this->renderPartial('_tasksagenda', array(
 		'calendar'=>$calendar,
 	)); ?>
 </section>

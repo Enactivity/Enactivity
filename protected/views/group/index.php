@@ -4,7 +4,7 @@ $this->pageTitle = 'Groups';
 ?>
 
 <header class="application-header">
-	<div class="menu content-header-menu">
+	<div class="content-header-nav">
 		<ul>
 			<li>
 				<?=

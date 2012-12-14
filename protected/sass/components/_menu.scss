@@ -3,15 +3,18 @@
 	
 	li {
 		@include ellipsis;
-		@include grid-column-1-of-1;
+		@include inline-block;
+		// @include grid-column-1-of-1;
+
 
 		// these should be overriden on a case by case for each menu
-		@include respond-to(thin-phone){
-			@include grid-column-1-of-3;
-		}
-		@include respond-to(desktop){
-			@include grid-column-1-of-6;
-		}
+		// @include respond-to(wide-phone){
+		// 	@include grid-column-1-of-3;
+		// 	margin-right: $base-margin;
+		// }
+		// @include respond-to(desktop){
+		// 	@include grid-column-1-of-6;
+		// }
 
 		text-align: center;
 	}

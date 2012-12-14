@@ -6,7 +6,7 @@ $this->pageTitle = 'Edit Activity';
 ?>
 
 <header class="content-header">
-	<nav class="menu">
+	<nav class="content-header-nav">
 		<ul>
 			<li>
 			<?

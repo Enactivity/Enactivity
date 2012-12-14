@@ -9,6 +9,7 @@ form {
 .field {
 	@include grid-row;
 	position: relative;
+	margin-bottom: $base-margin / 2;
 }
 
 fieldset {
@@ -20,7 +21,7 @@ input, textarea, select {
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	height: 2.5em;
-	margin-top: $base-margin / 2;
+	margin-bottom: $base-margin / 2;
 	padding: $base-padding / 2;
 	width: 100%;
 }

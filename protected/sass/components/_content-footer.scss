@@ -1,36 +1,6 @@
 .content-footer {
 	@include grid-row;
 
-	nav {
-		@include grid-row;
-		background: $silver;
-		
-		li {
-			@include ellipsis;
-			@include grid-column-1-of-1;
-
-			// these should be overriden on a case by case for each menu
-			@include respond-to(thin-phone){
-				@include grid-column-1-of-3;
-			}
-			@include respond-to(desktop){
-				@include grid-column-1-of-6;
-			}
-
-			text-align: center;
-		}
-
-		a, a:visited, a:active,
-		a:hover, a:focus {
-			@include ellipsis;
-			@include unstyled-link;
-
-			border-right: 1px solid $faded-white;
-			display: block;
-			padding: $base-padding 0;
-		}
-	}
-
 	a:hover, a:active {
 		background: $silverish;
 	}

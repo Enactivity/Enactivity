@@ -1,7 +1,7 @@
 .agenda {
-	@include grid-row;
 
 	.day {
+		@include grid-row;
 		margin-bottom: $base-margin;
 
 		h1 {
@@ -18,7 +18,7 @@
 		@include border-radius($base-border-radius);
 
 		border: 1px solid $alto;
-		background: $alto; 
+		background: $alto;
 		padding-bottom: 0;
 		margin-bottom: $base-margin;
 

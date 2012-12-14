@@ -4,7 +4,7 @@ $this->pageTitle = 'Edit Task';
 
 <?= PHtml::beginContentHeader(); ?>
 	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-	<div class="menu">
+	<div class="content-header-nav">
 		<ul>
 			<li>
 			<?

@@ -4,8 +4,6 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<h1>Write a comment</h1>
-
 	<?= $form->errorSummary($model); ?>
 
 	<div class="field">
