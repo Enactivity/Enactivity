@@ -12,7 +12,7 @@
 				@include grid-column-1-of-3;
 			}
 			@include respond-to(desktop){
-				@include grid-column-1-of-6;
+				@include grid-column-1-of-5;
 			}
 
 			text-align: center;
@@ -25,7 +25,7 @@
 
 			border-right: 1px solid $faded-white;
 			display: block;
-			padding: $base-padding 0;
+			padding: $base-padding;
 		}
 	}
 }
