@@ -108,7 +108,7 @@ class JuiDateTimePicker extends CJuiWidget
 		
 		// clear link
 		echo ' ';
-		echo CHtml::link("Clear",null,
+		echo CHtml::link("<i></i> Remove",null,
 			array(
 				'class' => 'clear-field clear-date-time',
 				'data-type' => 'clear-button',

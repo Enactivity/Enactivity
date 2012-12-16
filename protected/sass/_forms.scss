@@ -112,7 +112,12 @@ input[type="button"]:disabled:hover {
 	cursor: pointer;
 	float: right;
 	text-align: right;
-	white-space: nowrap;
+	white-space: nowrap; 
+
+	i {
+		@extend .icon;
+		@extend .icon-remove;
+	}
 }
 
 label {
