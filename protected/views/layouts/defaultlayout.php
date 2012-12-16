@@ -50,5 +50,7 @@
 			<?= PHtml::link("Logout", '/site/logout'); ?>
 		<? endif; ?>
 	</footer>
+
+	<aside class="ajax-flag"></aside>
 	
 <? $this->endContent(); ?>

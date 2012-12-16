@@ -1,5 +1,22 @@
 
 // Ajax prettification
 .ajax-loading {
-	opacity: .5;
+	// opacity: .5;
+}
+
+.ajax-flag {
+	display: hidden;
+}
+
+.ajax-loading .ajax-flag {
+	@include animation(fade-in .2s);
+	@extend .icon;
+	@extend .icon-cogs;
+	
+	color: $orange;
+	display: block;
+	left: 0;
+	position: fixed;
+	top: 0;
+	z-index: 10000000; // in front!
 }
