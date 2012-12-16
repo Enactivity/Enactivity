@@ -21,9 +21,16 @@ input, textarea, select {
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	height: 2.5em;
-	margin-bottom: $base-margin / 2;
 	padding: $base-padding / 2;
 	width: 100%;
+}
+
+// sometimes inputs are in a menu with no form wrapper, let's not show it then.
+// Fixme: don't do that, just use a button or a styled link
+form {
+	input, textarea, select {
+		margin-bottom: $base-margin / 2;
+	}
 }
 
 textarea  {
