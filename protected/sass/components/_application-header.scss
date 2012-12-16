@@ -6,6 +6,11 @@
 	width: 100%;
 	z-index: 1000;
 
+	div {
+		max-width: $base-max-page-width;
+		margin: auto;
+	}
+
 	a, a:active, a:visited {
 		@include unstyled-link;
 		padding: $base-padding;
@@ -25,7 +30,7 @@
 			@include grid-column-1-of-6;
 		}
 		@include respond-to(desktop) {
-			@include grid-column-1-of-8;
+			@include grid-column-1-of-6;
 		}
 	}
 
@@ -45,7 +50,7 @@
 			@include grid-column-5-of-6;
 		}
 		@include respond-to(desktop) {
-			@include grid-column-7-of-8;
+			@include grid-column-5-of-6;
 		}
 	}
 

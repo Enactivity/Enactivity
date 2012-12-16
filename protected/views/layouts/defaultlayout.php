@@ -1,11 +1,13 @@
 <? $this->beginContent('//layouts/main'); ?>
 
 	<header class="application-header" id="application-header">
-		<a href="/" class="logo">Enactivity</a>
-		<? if($this->pageTitle): ?>
-		<a href="#" class="page-title"><?= PHtml::encode($this->pageTitle); ?></a>
-		<? endif; ?>
-		<a id="show-menu" class="show-menu" href="#application-navigation">Menu</a>
+		<div class="application-header-wrapper">
+			<a href="/" class="logo">Enactivity</a>
+			<? if($this->pageTitle): ?>
+			<a href="#" class="page-title"><?= PHtml::encode($this->pageTitle); ?></a>
+			<? endif; ?>
+			<a id="show-menu" class="show-menu" href="#application-navigation">Menu</a>
+		<div>
 	</header>
 	
 	<!-- flash notices -->

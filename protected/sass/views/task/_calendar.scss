@@ -1,6 +1,45 @@
 @import "compass/utilities/general/clearfix";
 
+.page-task-calendar {
+	.content-header-nav li {
+		@include grid-column-1-of-1;
 
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-2;
+		}
+		@include respond-to(desktop){
+			@include grid-column-1-of-2;
+		}
+	}
+
+	// Footer is different than header b/c of 'someday' link
+	.content-footer-nav li {
+		@include grid-column-1-of-1;
+
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-1;
+		}
+		@include respond-to(desktop){
+			@include grid-column-1-of-3;
+		}
+	}
+}
+
+// nav stylings
+.task-previous-month-menu-item i {
+	@extend .icon;
+	@extend .icon-caret-left;
+}
+
+.task-next-month-menu-item i {
+	@extend .icon;
+	@extend .icon-caret-right;
+}
+
+
+// Calendar stylings
 #calendar-container {
 	max-width: 100%;
 }

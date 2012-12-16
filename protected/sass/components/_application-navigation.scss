@@ -21,6 +21,8 @@ $nav-bar-color: $white;
 	}
 
 	> ul {
+		max-width: $base-max-page-width;
+		margin: auto;
 		padding: 0;
 	}
 
@@ -32,32 +34,25 @@ $nav-bar-color: $white;
 	li {
 		text-align: center;
 
-		a {
-			@include grid-column-1-of-1;
-
-			@include respond-to(thin-phone) {
-				@include grid-column-1-of-4;
-			}
-
-			@include respond-to(thin-tablet) {
-				@include grid-column-1-of-6;
-			}
-		}
-
 		li {
 			float: none;
 		}
-	}
-
-	a {
-		@include link-colors($white, $white, $white, $white, $white);
 	}
 
 	a, a:visited, a:active,
 	a:hover, a:focus,
 	.active > a,
 	.active > a:visited {
+		@include grid-column-1-of-1;
+		@include respond-to(thin-phone) {
+			@include grid-column-1-of-4;
+		}
+		// @include respond-to(thin-tablet) {
+		// 	@include grid-column-1-of-6;
+		// }
+
 		@include transition(all 0.4s ease-out);
+		color: $white;
 		display: block;	
 		font-weight: normal;
 		padding: $base-padding 0; // no left/right padding to fit big words in small screens

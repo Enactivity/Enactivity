@@ -2,6 +2,12 @@
 	nav {
 		@include grid-row;
 		background: $silver;
+
+		ul {
+			max-width: $base-max-page-width;
+			margin: auto;
+			padding: 0;
+		}
 		
 		li {
 			@include ellipsis;
@@ -15,7 +21,12 @@
 				@include grid-column-1-of-5;
 			}
 
+			border-left: 1px solid $faded-white;
 			text-align: center;
+		}
+
+		li:last-child {
+			border-right: 1px solid $faded-white;
 		}
 
 		a, a:visited, a:active,
@@ -23,7 +34,6 @@
 			@include ellipsis;
 			@include unstyled-link;
 
-			border-right: 1px solid $faded-white;
 			display: block;
 			padding: $base-padding;
 		}

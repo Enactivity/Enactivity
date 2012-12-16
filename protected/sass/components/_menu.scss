@@ -4,6 +4,9 @@
 	li {
 		@include ellipsis;
 		@include inline-block;
+
+		border-left: 1px solid $faded-white;
+
 		// @include grid-column-1-of-1;
 
 
@@ -19,12 +22,15 @@
 		text-align: center;
 	}
 
+	li:last-child {
+		border-right: 1px solid $faded-white;
+	}
+
 	a, a:visited, a:active,
 	a:hover, a:focus {
 		@include ellipsis;
 		@include unstyled-link;
 
-		border-right: 1px solid $faded-white;
 		display: block;
 		padding: $base-padding 0;
 	}
