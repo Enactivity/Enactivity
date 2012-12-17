@@ -102,24 +102,15 @@ class JuiDateTimePicker extends CJuiWidget
 		if(isset($this->htmlOptions['name'])) {
 			$dateInputName = $this->htmlOptions['name'];
 		}
-		
+
 		// label
 		echo CHTML::activelabelEx($this->model, $this->dateTimeAttribute);
-		
-		// clear link
-		echo ' ';
-		echo CHtml::link("<i></i> Remove",null,
-			array(
-				'class' => 'clear-field clear-date-time',
-				'data-type' => 'clear-button',
-				'data-inputs' => '["#' . $dateInputId .  '","#'  . $timeInputId . '"]',
-			)
-		);
-		echo CHtml::tag('br');
 		
 		// set html options for time drop down
 		$timeHtmlOptions = $this->htmlOptions;
 		$timeHtmlOptions['id'] = $timeInputId;
+
+		$this->htmlOptions['placeholder'] = 'When';
 		
 		if($this->hasModel()) {
 			echo CHtml::activeTextField($this->model, $this->dateAttribute, $this->htmlOptions);
@@ -130,6 +121,16 @@ class JuiDateTimePicker extends CJuiWidget
 			$this->options['defaultDate'] = $this->dateValue;
 			echo CHtml::dropDownList($timeInputName, $this->timeValue, $this->getTimes(), $timeHtmlOptions);
 		}
+
+		// clear link
+		echo ' ';
+		echo CHtml::link("<i></i> <span>Remove</span>",null,
+			array(
+				'class' => 'clear-field clear-date-time neutral',
+				'data-type' => 'clear-button',
+				'data-inputs' => '["#' . $dateInputId .  '","#'  . $timeInputId . '"]',
+			)
+		);
 		
 		if (!isset($this->options['onSelect'])) {
 			// add 'onSelect' event handler to datepicker

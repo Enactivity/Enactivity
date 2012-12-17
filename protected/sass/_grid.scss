@@ -58,6 +58,16 @@
 	width: 1 / 5 * 100%;
 }
 
+@mixin grid-column-2-of-5 {
+	@include grid-column;
+	width: 2 / 5 * 100%;
+}
+
+@mixin grid-column-3-of-5 {
+	@include grid-column;
+	width: 3 / 5 * 100%;
+}
+
 @mixin grid-column-4-of-5 {
 	@include grid-column;
 	width: 4 / 5 * 100%;
