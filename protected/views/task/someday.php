@@ -6,7 +6,7 @@
 
 $this->pageTitle = 'Someday';
 ?>
-<section class="tasks">
+<section class="tasks content">
 	<?
 	if($calendar->itemCount > 0) {
 		echo $this->renderPartial('_agenda', array(
