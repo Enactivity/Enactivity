@@ -8,9 +8,10 @@ $this->pageTitle = 'Timeline for ' . $model->name;
 
 <header class="content-header">
 	<nav class="content-header-nav">
-		<ol>
-			<li><?= PHtml::link(
-				PHtml::encode($model->name), 
+		<ul>
+			<li>
+				<?= PHtml::link(
+					PHtml::encode($model->name), 
 					array('task/view', 'id'=>$model->id),
 					array(
 						'id'=>'task-view-menu-item',
@@ -19,11 +20,11 @@ $this->pageTitle = 'Timeline for ' . $model->name;
 					)
 				); ?>
 			</li>
-		</ol>
+		</ul>
 	</nav>
-<?= PHtml::endContentHeader(); ?>
+</header>
 
-<section id="task-log">		
+<section id="task-log" class="content">		
 	<? 
 	$this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$feedDataProvider,

@@ -1,5 +1,6 @@
 .menu {
 	@include grid-row;
+	margin-bottom: $base-margin;
 	
 	li {
 		@include ellipsis;

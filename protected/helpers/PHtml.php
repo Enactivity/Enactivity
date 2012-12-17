@@ -516,8 +516,8 @@ class PHtml extends CHtml {
 	public static function responseClass($response) {
 		$articleClass = array();
 
-		$articleClass[] = "participant";
-		$articleClass[] = "participant-" . PHtml::encode($response->id);
+		$articleClass[] = "response";
+		$articleClass[] = "response-" . PHtml::encode($response->id);
 		$articleClass[] = $response->isCompleted ? "completed" : "not-completed";
 
 		return implode(" ", $articleClass);
