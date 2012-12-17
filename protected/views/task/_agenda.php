@@ -12,6 +12,7 @@
 			'id' => PHtml::dateTimeId($date),
 			'class' => 'agenda-date',
 		)); ?>
+			<i></i>
 			<?= PHtml::encode(Yii::app()->format->formatDate($date)); ?>
 		</h1>
 
@@ -46,6 +47,7 @@
 			'id' => 'someday-tasks',
 			'class' => 'agenda-date',
 		)); ?>
+			<i></i>
 			Someday
 		</h1>
 		<? foreach($calendar->somedayTasks as $activityId => $activityInfo): ?>
