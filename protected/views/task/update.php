@@ -2,9 +2,8 @@
 $this->pageTitle = 'Edit Task';
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-	<div class="content-header-nav">
+<header class="content-header">
+	<nav class="content-header-nav">
 		<ul>
 			<li>
 			<?
@@ -35,8 +34,8 @@ $this->pageTitle = 'Edit Task';
 			</li>
 		</ul>
 	</div>
-<?= PHtml::endContentHeader(); ?>
+</header>
 
-<section>
+<section class="content">
 	<?= $this->renderPartial('_form', array('model'=>$model)); ?>
 </section>
