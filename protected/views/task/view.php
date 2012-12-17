@@ -55,9 +55,11 @@ $this->pageTitle = $model->name;
 	</nav>
 </header>
 
+<? if($tasks->starts): ?>
 <section id="starts" class="content">
 	<span class="task-header-time"><i></i> <? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 </section>
+<? endif; ?>
 
 <section id="participating" class="content">
 	<h1><?= PHtml::encode($model->participantsCount) . ' Signed Up'; ?></h1>

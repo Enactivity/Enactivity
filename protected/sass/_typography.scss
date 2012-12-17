@@ -22,10 +22,11 @@ em {
 /* Header stylings */
 h1, h2, h3, 
 h4, h5, h6 {
+  color: inherit;
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
-  color: inherit;
+  margin-bottom: $base-margin;
   text-rendering: optimizelegibility;
   word-wrap: break-word;
 }
@@ -33,7 +34,7 @@ h4, h5, h6 {
 .heading1 {
   font-size: $base-font-size * 1.8;
 }
-  
+
 .heading2 {
   font-size: $base-font-size * 1.5;
 }
@@ -57,7 +58,7 @@ h4, h5, h6 {
 /** 
  * Text styles
  **/
-p {
+ p {
   font-size: $base-font-size;
   max-width: $base-max-readability-width;
   word-wrap: break-word;
@@ -67,7 +68,7 @@ p {
 /**
  * Link styles
  */
-a, a:active, a:visited {
+ a, a:active, a:visited {
   color: $cerulean;
   // font-weight: bold;
   text-decoration: none;

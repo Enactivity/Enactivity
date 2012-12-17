@@ -7,7 +7,6 @@
 
 	.agenda-date {
 		@include single-text-shadow($white, 0px, 1px, 2px);
-		margin-bottom: $base-margin;
 	}
 
 	.activity {
@@ -24,6 +23,7 @@
 			// @include ellipsis();
 
 			color: $mine-shaft;
+			margin: 0;
 			padding: $base-padding;
 
 			// i {
@@ -61,7 +61,6 @@
 
 		h1 {
 			@extend .heading5;
-			margin-bottom: $base-margin;
 		}
 
 		time {
