@@ -26,8 +26,8 @@ input, textarea, select, .button {
 	@include border-radius($base-border-radius);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
-	height: $base-font-size * 2.5;
-	padding: $base-padding * .75;
+	height: $base-font-size * 3;
+	padding: $base-padding;
 	width: 100%;
 }
 
