@@ -1,0 +1,21 @@
+.comment {
+	@include grid-row-with-padding;
+	background: $white;
+	margin-bottom: 1px;
+
+	.created {
+		@extend .metadata;
+	}
+
+	.comment-avatar {
+		@include grid-column-1-of-6;
+	}
+
+	.comment-body {
+		@include grid-column-5-of-6;
+	}
+
+	p {
+		margin-top: 1.5em;
+	}
+}

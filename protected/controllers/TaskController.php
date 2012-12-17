@@ -24,7 +24,7 @@ class TaskController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('index','calendar','someday'),
+				'actions'=>array('next','calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -335,7 +335,7 @@ class TaskController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionNext()
 	{
 		// Get next tasks
 		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
@@ -343,7 +343,7 @@ class TaskController extends Controller
 		// Get list of user drafts
 		$draftsCount = Yii::app()->user->model->draftsCount;
 
-		$this->render('index', array(
+		$this->render('next', array(
 			'calendar'=>$calendar,
 			'draftsCount'=>$draftsCount,
 		));
@@ -462,7 +462,7 @@ class TaskController extends Controller
 	 */
 	private function redirectReturnUrlOrView($task) {
 		if(is_null($task)) {
-			$this->redirect(array('task/index'));
+			$this->redirect(Yii::app()->homeUrl);
 		}
 
 		if(Yii::app()->request->urlReferrer) {

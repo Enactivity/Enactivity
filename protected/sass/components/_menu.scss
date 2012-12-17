@@ -1,21 +1,38 @@
 .menu {
-
-	li {
-		text-align: left;
-
-		@include respond-to('thin-phone') {
-			@include inline-block();
-			list-style-type: none;
-			white-space: nowrap;
-			margin-right: $base-margin;
-		}
-	}
+	@include grid-row;
+	margin-bottom: $base-margin;
 	
-	a {
-		color: $gray;
-		display: block; /* So it fills area and icon is clickable */
-		// min-width: 50px; /* Should be at least 44px for touch screens */
-		padding: $base-padding 0; /* override nav padding for nav menus */
-		text-align: left;
+	li {
+		@include ellipsis;
+		@include inline-block;
+
+		border-left: 1px solid $faded-white;
+
+		// @include grid-column-1-of-1;
+
+
+		// these should be overriden on a case by case for each menu
+		// @include respond-to(wide-phone){
+		// 	@include grid-column-1-of-3;
+		// 	margin-right: $base-margin;
+		// }
+		// @include respond-to(desktop){
+		// 	@include grid-column-1-of-6;
+		// }
+
+		text-align: center;
+	}
+
+	li:last-child {
+		border-right: 1px solid $faded-white;
+	}
+
+	a, a:visited, a:active,
+	a:hover, a:focus {
+		@include ellipsis;
+		@include unstyled-link;
+
+		display: block;
+		padding: $base-padding 0;
 	}
 }

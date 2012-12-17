@@ -3,9 +3,8 @@ $this->pageTitle = 'Group Membership';
 
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-	<div class="menu toolbox">
+<header class="content-header">
+	<nav class="content-header-nav">
 		<ul>
 			<li>
 				<?=
@@ -21,11 +20,11 @@ $this->pageTitle = 'Group Membership';
 				?>
 			</li>
 		</ul>
-	</div>
-<?= PHtml::endContentHeader(); ?>
+	</nav>
+</header>
 
 <? if(sizeof($memberships) > 0): ?>
-<section>
+<section class="content">
 	<? foreach ($memberships as $membership): ?>
 		<? $this->renderPartial('/membership/_view', array(
 			'data' => $membership,
@@ -33,11 +32,11 @@ $this->pageTitle = 'Group Membership';
 	<? endforeach; ?>
 </section>
 
-<section>
+<section class="content">
 	<p class="blurb">Or <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?>.</p>
 </section>
 <? else: ?>
-<section>
+<section class="content">
 	<p class="blurb">We couldn't find any groups for you on Facebook, why not <?= PHtml::link('create a new group on Facebook', 'https://facebook.com/bookmarks/groups', array('target'=>'_blank')); ?>?</p>
 	<p class="blurb">or...</p>
 	<p class="blurb">If we suck and you do have a group, try <?= PHtml::link("synchronizing your groups and we'll try to find them again", array('membership/syncWithFacebook')); ?>.</p>

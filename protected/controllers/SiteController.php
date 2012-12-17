@@ -67,7 +67,7 @@ class SiteController extends Controller
 			$this->render('index', array('model'=>$model));
 		} 
 		else {
-			$this->redirect(array('task/index'));
+			$this->redirect(array('task/next'));
 		}
 	}
 

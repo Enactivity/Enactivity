@@ -3,22 +3,31 @@
  **/
 
 form {
- 	// margin: auto;
- 	max-width: $base-max-readability-width;
+ 	@include grid-row;
+}
+
+.field {
+	@include grid-row;
+	position: relative;
+}
+
+.field.buttons > * { // multple submit buttons can use some spacing
+	display: inline-block;
+	margin-bottom: $base-margin;
+	width: auto;
 }
 
 fieldset {
-	@extend .content-block;
+	margin-bottom: $base-margin;
 }
 
-input, textarea, select {
+input, textarea, select, .button {
 	border: 1px solid $gainsboro;
 	@include border-radius($base-border-radius);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
-	height: 2.5em;
-	margin: $base-margin / 2 0;
-	padding: $base-padding / 2;
+	height: $base-font-size * 3;
+	padding: $base-padding;
 	width: 100%;
 }
 
@@ -27,7 +36,8 @@ textarea  {
 }
 
 input[type="submit"], 
-input[type="button"] {
+input[type="button"],
+.button {
 	@include appearance(none); // Avoid gradient defaults in some browsers 
 	background-color: $cerulean;
 	border: none;
@@ -42,73 +52,92 @@ input[type="button"] {
 	white-space: nowrap; // Don't break sentence
 }
 
+.button {
+	cursor: pointer;
+	text-align: center;
+	white-space: nowrap;
+}
+
 input[type="submit"].neutral,
-input[type="button"].neutral {
+input[type="button"].neutral,
+.button.neutral {
 	background-color: #d6d6d6; /* gray */
 }
 
-input[type="button"].negative {
+input[type="button"].negative,
+.button.negative {
 	background-color: #f56200; /* red */
 }
 
 input[type="submit"]:hover,
 input[type="submit"]:focus, 
 input[type="button"]:hover,
-input[type="button"]:focus {
+input[type="button"]:focus,
+.button:hover,
+.button:focus {
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
 	color: #ffffff;
+	text-decoration: none;
 }
 
 input[type="submit"]:active,
-input[type="button"]:active {
+input[type="button"]:active,
+.button:active {
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+	text-decoration: none;
 }
 
 /* Overrides for disabled buttons */
 .disabled,
 input[type="submit"]:disabled, 
 input[type="submit"][disabled="disabled"],
-input[type="button"]:disabled {
+input[type="button"]:disabled,
+.button:disabled {
 	opacity: .25; /* Blarg, cheap, color better */
 	cursor: default;
+	text-decoration: none;
 }
 
 .disabled:hover,
 input[type="submit"]:disabled:hover,
 input[type="submit"][disabled="disabled"],
-input[type="button"]:disabled:hover {
+input[type="button"]:disabled:hover,
+ .button:disabled:hover {
 	opacity: .25; /* Blarg, cheap, color better */
 }
 
-.field {
-	@include clearfix;
-	margin: $base-margin 0;
-	position: relative;
-}
-
 // Datetime pickers
-.field.datetime {
-	input {
-		margin-right: 2%; /* spacing between date and time */
-		width: 48%; /* 48 + 2 = 50 */
+.datetime {
+	input, select {
+		@include grid-column-2-of-5;
 	}
 
-	select {
-		width: 50%;
+	.clear-field {
+		@include grid-column-1-of-5;	
+	}
+
+	.datepicker-container {
+		@include grid-column-1-of-1;
+		padding: 0;
 	}
 }
 
 .clear-field {
-	cursor: pointer;
-	float: right;
-	text-align: right;
-	white-space: nowrap;
+	@extend .button;
+
+	i {
+		@extend .icon;
+		@extend .icon-remove;
+	}
+
+	span {
+		display: none;
+	}
 }
 
 label {
 	cursor: text; /* To help user realize it's clickable */
-	// display: inline-block;
-	// margin-bottom: 4px;
+	display: none;
 }
 	
 label:not(.required) {
@@ -118,7 +147,6 @@ label:not(.required) {
 label:not(.required):after {
 	content: ' (optional)';
 }
-
 
 input.error, textarea.error, select.error {
 	border: 1px solid $red;

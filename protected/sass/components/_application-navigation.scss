@@ -2,9 +2,10 @@ $nav-bar-background-color: $mine-shaft;
 $nav-bar-color: $white;
 
 .application-navigation {
-	@include clearfix;
+	@include grid-row;
 	background: $nav-bar-background-color;
 	color: $nav-bar-color;
+	margin: 0; // remove the inherited grid-row margin-bottom
 	overflow: visible; // to enable dropdowns
 	width: 100%;
 
@@ -20,7 +21,8 @@ $nav-bar-color: $white;
 	}
 
 	> ul {
-		max-width: $base-max-readability-width; // not using content-block since, it's not content
+		max-width: $base-max-page-width;
+		margin: auto;
 		padding: 0;
 	}
 
@@ -32,39 +34,34 @@ $nav-bar-color: $white;
 	li {
 		text-align: center;
 
-		@include respond-to(thin-phone) {
-			float: left;
-			min-width: 25%; // fill the width of the screen
-		}
-
-		@include respond-to(thin-tablet) {
-			min-width: 10em;
-		}
-
 		li {
 			float: none;
 		}
 	}
 
-	a {
-		@include link-colors($white, $white, $white, $white, $white);
-	}
-
-	a, a:visited,
+	a, a:visited, a:active,
 	a:hover, a:focus,
 	.active > a,
-	.active > a:visited,
-	span  {
-		@include transition(all 0.4s ease-out);		
+	.active > a:visited {
+		@include grid-column-1-of-1;
+		@include respond-to(thin-phone) {
+			@include grid-column-1-of-4;
+		}
+		// @include respond-to(thin-tablet) {
+		// 	@include grid-column-1-of-6;
+		// }
+
+		@include transition(all 0.4s ease-out);
+		color: $white;
 		display: block;	
 		font-weight: normal;
-		padding: $base-padding 0;
+		padding: $base-padding 0; // no left/right padding to fit big words in small screens
 		text-decoration: none;
 		text-transform: lowercase;
 	}
 
 	.active > a, 
-	a:hover, a:focus {
+	a:hover, a:focus, a:active {
 		@include single-text-shadow($tundora, 1px, 1px, 3px);
 		background-color: $emperor;
 		color: $white;
@@ -82,7 +79,7 @@ $nav-bar-color: $white;
 	}
 }
 
-#application-navigation-task-index i {
+#application-navigation-task-next i {
 	@extend .icon-list-ul;
 }
 

@@ -5,11 +5,7 @@
 $this->pageTitle = PHtml::encode($error['code'] . ' Error'); 
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-<?= PHtml::endContentHeader(); ?>
-
-<section class="error">
+<section class="error content">
 	<p>
 		<? if(isset($error['message']) && strcasecmp($error['type'], 'CHttpException') == 0): ?>
 			<?= PHtml::encode($error['message']); ?>

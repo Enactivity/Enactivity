@@ -1,16 +1,21 @@
-#membership-index {
-	.group {
-		@extend .content-block;
-		background-color: $white;
-		margin-bottom: 1px;
+.page-membership-index {
 
-		.status {
-			@extend .metadata;
+	// override default to allow space
+	.application-content nav li {
+		@include grid-column-1-of-1;
+
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-1;
+		}
+		@include respond-to(desktop){
+			@include grid-column-1-of-3;
 		}
 	}
+
 }
 
-#membership-sync-with-facebook-menu-item {
+.membership-sync-menu-item {
 	@extend .icon;
-	@extend .icon-facebook-sign;
+	@extend .icon-refresh;
 }

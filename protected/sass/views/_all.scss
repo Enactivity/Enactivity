@@ -8,9 +8,16 @@
 @import "activity/view";
 @import "activity/create";
 
+@import "comment/view";
+
+@import "feed/view";
+
 @import "group/index";
 
 @import "membership/index";
+@import "membership/view";
+
+@import "response/view";
 
 @import "task/index";
 @import "task/agenda";

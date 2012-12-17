@@ -340,7 +340,7 @@ class ActivityController extends Controller
 	 */
 	private function redirectReturnUrlOrView($activity) {
 		if(is_null($activity)) {
-			$this->redirect(array('activity/index'));
+			$this->redirect(Yii::app()->homeUrl);
 		}
 
 		$this->redirect(

@@ -1,0 +1,21 @@
+.response {
+	@include grid-row-with-padding;
+	background: $white;
+	margin-bottom: 1px;
+
+	.status {
+		@extend .metadata;
+	}
+
+	.response-avatar {
+		@include grid-column-1-of-6;
+	}
+
+	.response-body {
+		@include grid-column-5-of-6;
+	}
+
+	p {
+		margin-top: 1.5em;
+	}
+}

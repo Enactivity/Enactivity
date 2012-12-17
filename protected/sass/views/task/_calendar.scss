@@ -1,23 +1,63 @@
 @import "compass/utilities/general/clearfix";
 
+.page-task-calendar {
+	.content-header-nav li {
+		@include grid-column-1-of-1;
 
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-2;
+		}
+		@include respond-to(desktop){
+			@include grid-column-1-of-2;
+		}
+	}
+
+	// Footer is different than header b/c of 'someday' link
+	.content-footer-nav li {
+		@include grid-column-1-of-1;
+
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-1;
+		}
+		@include respond-to(desktop){
+			@include grid-column-1-of-3;
+		}
+	}
+}
+
+// nav stylings
+.task-previous-month-menu-item i {
+	@extend .icon;
+	@extend .icon-caret-left;
+}
+
+.task-next-month-menu-item i {
+	@extend .icon;
+	@extend .icon-caret-right;
+}
+
+
+// Calendar stylings
 #calendar-container {
 	max-width: 100%;
 }
 
 .calendar {
-	background: $white;
+	@include grid-row-with-padding;
 
 	.week {
-		@include clearfix;
+		@include grid-row;
+		background: $white;
 
 		.day {
+			@include grid-column-1-of-1;
 			padding: $base-padding;
 			
 			@include respond-to('thin-tablet') {
-				@include float-left;
+				@include grid-column-1-of-7;
 				min-height: 6 * $base-padding;
-				width: 1 / 7 * 100%;
 			}
 
 			header {
@@ -38,6 +78,7 @@
 				margin: $base-margin 0;
 				h1 {
 					@extend .heading5;
+					margin-bottom: 0;
 				}
 
 				time {
