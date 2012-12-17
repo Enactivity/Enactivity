@@ -3,14 +3,10 @@
 	.day {
 		@include grid-row;
 		margin-bottom: $base-margin;
+	}
 
-		h1 {
-			// @extend h2;
-		}
-
-		h2 time {
-			@extend .heading3;
-		}
+	.agenda-date {
+		margin-bottom: $base-margin;
 	}
 
 	.activity {

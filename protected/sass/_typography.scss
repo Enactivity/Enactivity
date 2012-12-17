@@ -23,40 +23,35 @@ em {
 h1, h2, h3, 
 h4, h5, h6 {
   font-family: inherit;
-  line-height: 1.1;
+  font-weight: 500;
+  line-height: 1.2;
   color: inherit;
   text-rendering: optimizelegibility;
   word-wrap: break-word;
 }
 
 .heading1 {
-  font-size: 36px;
-  line-height: 40px;
+  font-size: $base-font-size * 1.8;
 }
   
 .heading2 {
-  font-size: 30px;
-  line-height: 40px;
+  font-size: $base-font-size * 1.5;
 }
 
 .heading3 {
-  font-size: 24px;
-  line-height: 40px;
+  font-size: $base-font-size * 1.3;
 }
 
 .heading4 {
-  font-size: 18px;
-  line-height: 20px;
+  font-size: $base-font-size * 1.2;
 }
 
 .heading5 {
-  font-size: $base-font-size;
-  line-height: 20px;
+  font-size: $base-font-size * 1;
 }
 
 .heading6 {
-  font-size: 14px;
-  line-height: 20px;
+  font-size: $base-font-size;
 }
 
 /** 
