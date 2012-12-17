@@ -64,6 +64,7 @@
 
 		h1 {
 			@extend .heading5;
+			margin-bottom: $base-margin;
 		}
 
 		time {
