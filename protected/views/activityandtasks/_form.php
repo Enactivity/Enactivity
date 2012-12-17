@@ -18,33 +18,35 @@
 
 	<?= $form->errorSummary($model->models); ?>
 
-	<? if($model->activity->isNewRecord) {
-		$this->widget('application.components.widgets.inputs.GroupInputRow', array(
-				'form' => $form,
-				'model' => $model->activity,
-				'groups' => Yii::app()->user->model->groups,
-		));
-	} ?>
+	<fieldset class="new-activity-form">
+		<div class="field">
+			<?= $form->labelEx($model->activity,'name'); ?>
+			<?= $form->textField($model->activity,'name',array(
+				'size'=>60,
+				'maxlength'=>255,
+				'placeholder'=>'Provide a brief title'
+			)); ?>
+			<?= $form->error($model->activity,'name'); ?>
+		</div>
 
-	<div class="field">
-		<?= $form->labelEx($model->activity,'name'); ?>
-		<?= $form->textField($model->activity,'name',array(
-			'size'=>60,
-			'maxlength'=>255,
-			'placeholder'=>'What\'s to be done?'
-		)); ?>
-		<?= $form->error($model->activity,'name'); ?>
-	</div>
+		<div class="field">
+			<?= $form->labelEx($model->activity,'description'); ?>
+			<?= $form->textArea($model->activity,'description',array(
+				'fields'=>6, 
+				'cols'=>50,
+				'placeholder'=>'Describe the activity in depth here.',
+			)); ?>
+			<?= $form->error($model->activity,'description'); ?>
+		</div>
 
-	<div class="field">
-		<?= $form->labelEx($model->activity,'description'); ?>
-		<?= $form->textArea($model->activity,'description',array(
-			'fields'=>6, 
-			'cols'=>50,
-			'placeholder'=>'More details if needed.',
-		)); ?>
-		<?= $form->error($model->activity,'description'); ?>
-	</div>
+		<? if($model->activity->isNewRecord) {
+			$this->widget('application.components.widgets.inputs.GroupInputRow', array(
+					'form' => $form,
+					'model' => $model->activity,
+					'groups' => Yii::app()->user->model->groups,
+			));
+		} ?>
+	</fieldset>
 
 	<? if($model->activity->isNewRecord): ?>
 	<p>Now, let's add some tasks for your group to participate in.</p>
@@ -61,7 +63,7 @@
 				array(
 					'size'=>60,
 					'maxlength'=>255,
-					'placeholder'=>"What's next?",
+					'placeholder'=>"Describe an action to participate in",
 				)); ?>
 			<?= $form->error($task,"[$index]name"); ?>
 		</div>

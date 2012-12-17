@@ -1,0 +1,41 @@
+.application-content {
+	nav {
+		@include grid-row;
+		background: $silver;
+
+		ul {
+			max-width: $base-max-page-width;
+			margin: auto;
+			padding: 0;
+		}
+		
+		li {
+			@include ellipsis;
+			@include grid-column-1-of-1;
+
+			// these should be overriden on a case by case for each menu
+			@include respond-to(thin-phone){
+				@include grid-column-1-of-3;
+			}
+			@include respond-to(desktop){
+				@include grid-column-1-of-5;
+			}
+
+			border-left: 1px solid $faded-white;
+			text-align: center;
+		}
+
+		li:last-child {
+			border-right: 1px solid $faded-white;
+		}
+
+		a, a:visited, a:active,
+		a:hover, a:focus {
+			@include ellipsis;
+			@include unstyled-link;
+
+			display: block;
+			padding: $base-padding;
+		}
+	}
+}

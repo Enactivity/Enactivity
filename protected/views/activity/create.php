@@ -5,11 +5,7 @@
 $this->pageTitle = 'Create a New Activity';
 ?>
 
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-<?= PHtml::endContentHeader(); ?>
-
-<section>
+<section class="content">
 	<?= $this->renderPartial('/activityandtasks/_form', array(
 		'model'=>$model,
 	)); ?>

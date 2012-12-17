@@ -3,7 +3,7 @@ html {
 }
 
 html, body {
-	background: $gallery;
+	background: $mine-shaft;
 	height: 100%;
 	min-height: 100%; /* Ensure vertical scrollbar always shows */
 	position: relative;
@@ -18,19 +18,16 @@ body {
 }
 
 aside {
-	@extend .content-block;
+	@include grid-row-with-padding;
 }
 
 section {
-	@extend .content-block;
-
 	h1 {
 		@extend .heading2;
 	}
 }
 
 article {
-	
 	h1 {
 		@extend .heading3;
 	}

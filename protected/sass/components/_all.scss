@@ -5,7 +5,6 @@
  **/
 
 // General components
-@import "content-block";
 @import "icon";
 @import "metadata";
 
@@ -18,15 +17,18 @@
 
 // Actual things
 @import "application-header";
-@import "application-footer";
 @import "application-navigation";
+@import "application-footer";
+@import "application-content";
+@import "application-content-nav";
+@import "content";
 @import "content-header";
+@import "content-footer";
 @import "flash";
 @import "dropdown";
-@import 'pager';
 @import "menu";
+@import "pager";
+@import "hidden";
 
 @import "avatar";
-@import "comment";
-@import "feed";
 @import "blurb";

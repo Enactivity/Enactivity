@@ -34,7 +34,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 			array(
 				'size'=>60,
 				'maxlength'=>255,
-				'placeholder'=>"What's next?",
+				'placeholder'=>"What's a specific step for your group to do?",
 			)); ?>
 		<?= $form->error($model,'name'); ?>
 	</div>

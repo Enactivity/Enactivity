@@ -1,8 +1,18 @@
 .application-footer {
+	@include grid-row-with-padding;
+
+	background: $mine-shaft;
+	border-top: 1px solid $faint-white;
+	color: $white;
+
 	p {
-		@extend .content-block;
-		color: $silver;
+	 	@include respond-to('thin-tablet') {
+			@include grid-column-1-of-4;
+		}
+
+		padding: $base-padding;
 		margin: 0;
+		text-align: center;
 	}
 
 	a, a:active, a:visited {

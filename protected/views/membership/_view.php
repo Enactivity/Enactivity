@@ -8,7 +8,7 @@
 $story = $this->beginWidget('application.components.widgets.Story', array(
 	'htmlOptions'=>array(
 		'id'=>"membership-" . PHtml::encode($data->id),
-		'class'=>PHtml::groupClass($data->group),
+		'class'=>"membership membership-" . PHtml::encode($data->id),
 	),
 ));?>
 	<? $story->beginStoryContent(); ?>

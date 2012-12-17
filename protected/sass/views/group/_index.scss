@@ -1,6 +1,6 @@
-#group-view {
+.page-group-view {
 	.user {
-		@extend .content-block;
+		@include grid-row;
 		background-color: $white;
 	}
 }

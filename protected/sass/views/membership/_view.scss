@@ -1,0 +1,9 @@
+.membership {
+	@include grid-row-with-padding;
+	background-color: $white;
+	margin-bottom: 1px;
+
+	.status {
+		@extend .metadata;
+	}
+}

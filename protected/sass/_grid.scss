@@ -1,49 +1,120 @@
-.grid {
-	background: white;
-	margin: 0 0 $base-padding 0;
-
-	&:after {
-		@extend clearfix;
-	}
-}
-
-.column {
-	float: left;
-	padding-right: $base-padding;
-	.grid &:last-of-type {
-		padding-right: 0;
-	}
-}
-
-.column-2-3 {
-	@extend .column;
-	width: 66.66%;
-}
-
-.column-1-3 {
-	@extend .column;
-	width: 33.33%;
-}
-
-.column-1-2 {
-	@extend .column;
-	width: 50%;
-}
-
-.column-1-4 {
-	@extend .column;
-	width: 25%;
-}
-
-.column-1-8 {
-	@extend .column;
-	width: 12.5%;
+@mixin grid-row {
+	@include clearfix;
+	display: block;
+	overflow: hidden;
 }
 
 /* Opt-in outside padding */
-.grid-pad {
-	padding: $pad 0 $pad $pad;
-	[class*='column-']:last-of-type {
-		padding-right: $pad;
-	}
+@mixin grid-row-with-padding {
+	@include grid-row;
+	padding: $base-padding;
+}
+
+// Don't include this one, it's just a base for the columns below
+@mixin grid-column {
+	float: left;
+}
+
+@mixin grid-column-1-of-1 {
+	@include grid-column;
+	width: 100%;
+}
+
+// Halves
+
+@mixin grid-column-1-of-2 {
+	@include grid-column;
+	width: 1 / 2 * 100%;
+}
+
+// Thirds
+
+@mixin grid-column-1-of-3 {
+	@include grid-column;
+	width: 1 / 3 * 100%;
+}
+
+@mixin grid-column-2-of-3 {
+	@include grid-column;
+	width: 2 / 3 * 100%;
+}
+
+// Fourth
+
+@mixin grid-column-1-of-4 {
+	@include grid-column;
+	width: 1 / 4 * 100%;
+}
+
+@mixin grid-column-3-of-4 {
+	@include grid-column;
+	width: 3 / 4 * 100%;
+}
+
+// Fifth
+
+@mixin grid-column-1-of-5 {
+	@include grid-column;
+	width: 1 / 5 * 100%;
+}
+
+@mixin grid-column-2-of-5 {
+	@include grid-column;
+	width: 2 / 5 * 100%;
+}
+
+@mixin grid-column-3-of-5 {
+	@include grid-column;
+	width: 3 / 5 * 100%;
+}
+
+@mixin grid-column-4-of-5 {
+	@include grid-column;
+	width: 4 / 5 * 100%;
+}
+
+// Sixths
+
+@mixin grid-column-1-of-6 {
+	@include grid-column;
+	width: 1 / 6 * 100%;
+}
+
+@mixin grid-column-5-of-6 {
+	@include grid-column;
+	width: 5 / 6 * 100%;
+}
+
+// Sevenths
+
+@mixin grid-column-1-of-7 {
+	@include grid-column;
+	width: 1 / 7 * 100%;
+}
+
+// Eighth
+
+@mixin grid-column-1-of-8 {
+	@include grid-column;
+	width: 1 / 8 * 100%;
+}
+
+@mixin grid-column-7-of-8 {
+	@include grid-column;
+	width: 7 / 8 * 100%;
+}
+
+// Tenth
+
+@mixin grid-column-1-of-10 {
+	@include grid-column;
+	width: 1 / 10 * 100%;
+}
+
+/**
+ * A module is used in combination with a column to provide padding
+ * Useful when the column has a background
+**/
+@mixin module {
+	padding: $base-padding;
 }

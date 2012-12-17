@@ -23,9 +23,9 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'<i></i> Next', 
 				'linkOptions'=>array(
-					'id'=>'application-navigation-task-index',
+					'id'=>'application-navigation-task-next',
 				),
-				'url'=>array('/task/index'), 
+				'url'=>array('/task/next'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(

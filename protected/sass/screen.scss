@@ -9,6 +9,7 @@
 @import "vendors/all";
 
 // general imports
+@import "grid";
 @import "layout";
 @import "typography";
 @import "forms";
@@ -21,5 +22,5 @@
 @import "views/all";
 
 :target {
-	@include animation(fade-in 3s);
+	@include animation(fade-in-with-highlighted-background 3s);
 }

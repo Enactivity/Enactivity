@@ -6,12 +6,7 @@
 
 $this->pageTitle = 'Someday';
 ?>
-
-<?= PHtml::beginContentHeader(); ?>
-	<h1><?= PHtml::encode($this->pageTitle);?></h1>
-<?= PHtml::endContentHeader(); ?>
-
-<section class="tasks agenda">
+<section class="tasks content">
 	<?
 	if($calendar->itemCount > 0) {
 		echo $this->renderPartial('_agenda', array(

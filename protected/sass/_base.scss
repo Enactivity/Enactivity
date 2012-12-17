@@ -3,6 +3,7 @@ $base-border-radius: 3px;
 $base-margin: 16px;
 $base-max-readability-width: 32em * 1.5;
 $base-padding: 16px;
+$base-max-page-width: 640px;
 
 // page variables
 $application-header-fixed-height: $base-padding * 3;
@@ -32,6 +33,8 @@ $malachite: #00f34a;
 
 // grays
 
+$faint-white:		rgba(255, 255, 255, .1);
+$faded-white:		rgba(255, 255, 255, .25);
 $alto: 				#dddddd;
 $boulder: 			#777777;
 $cod-gray: 			#111111;
@@ -50,6 +53,7 @@ $mine-shaft: 		#333333;
 $shark:				#292d33;
 $silver-chalice: 	#aaaaaa;
 $silver: 			#bbbbbb;
+$silverish: 		#cccccc;
 $slate-gray: 		#708090;
 $tundora: 			#444444;
 

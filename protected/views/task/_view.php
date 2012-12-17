@@ -21,7 +21,6 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 				PHtml::encode($data->name), 
 				array('/task/view', 'id'=>$data->id)
 			); ?>
-			<span class="status"><?= PHtml::encode($data->currentresponse->statusLabel); ?></span>
 		</h1>
 	<? $story->endStoryContent(); ?>
 

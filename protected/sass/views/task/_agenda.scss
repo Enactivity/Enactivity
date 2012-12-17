@@ -1,35 +1,34 @@
 .agenda {
+
 	.day {
+		@include grid-row;
 		margin-bottom: $base-margin;
+	}
 
-		h1 {
-			// @extend h2;
-		}
-
-		h2 time {
-			@extend .heading3;
-		}
+	.agenda-date {
+		@include single-text-shadow($white, 0px, 1px, 2px);
 	}
 
 	.activity {
-		@extend .content-block;
+		@include grid-column-1-of-1;
 		@include border-radius($base-border-radius);
 
 		border: 1px solid $alto;
-		background: $alto; 
+		background: $alto;
 		padding-bottom: 0;
 		margin-bottom: $base-margin;
 
 		.activity-name {
 			@extend .heading4;
-			@include ellipsis();
+			// @include ellipsis();
 
 			color: $mine-shaft;
-			padding-bottom: $base-padding;
+			margin: 0;
+			padding: $base-padding;
 
 			// i {
 			// 	@extend .icon;
-			// 	@extend .icon-chevron-down;
+			// 	@extend .icon-chevron-right;
 			// 	float: right;
 			// }
 
@@ -51,11 +50,12 @@
 		}
 
 		.task {
-			@extend .inline-content-block;
+			
 		}
 	}
 
 	.task {
+		@include grid-row-with-padding;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
 
@@ -64,7 +64,7 @@
 		}
 
 		time {
-			font-size: .75em;
+			font-size: $base-font-size * .75;
 			white-space: nowrap;
 		}
 

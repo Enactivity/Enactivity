@@ -36,8 +36,18 @@
 			@content; 
 		}
 	}
-	@else if $media == desktop {
+	@else if $media == wide-tablet {
 		@media only screen and (min-width: 991px) { 
+			@content; 
+		}
+	}
+	@else if $media == desktop {
+		@media only screen and (min-width: 1024px) { 
+			@content; 
+		}
+	}
+	@else if $media == wide-desktop {
+		@media only screen and (min-width: 1280) { 
 			@content; 
 		}
 	}

@@ -124,7 +124,7 @@ return CMap::mergeArray(
 					// 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 					// get rid of ? to ensure proxy caching
 					'min/<g:\w+>/<lm:\d+>/' => 'min/serve', 
-					'next'=>'task/index',
+					'next'=>'task/next',
 					'calendar'=>'task/calendar',
 					'<controller:\w+>'=>'<controller>/index',
 					'<controller:\w+>/<id:\d+>'=>'<controller>/view',

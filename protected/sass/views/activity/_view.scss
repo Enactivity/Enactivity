@@ -1,8 +1,8 @@
 
-#activity-view {
+.page-activity-view {
 	
 	.task {
-		@extend .content-block;
+		@include grid-column-1-of-1;
 		background: $white;
 		margin-bottom: 1px; // mimic a border
 

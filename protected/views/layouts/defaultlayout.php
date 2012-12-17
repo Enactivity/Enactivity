@@ -1,8 +1,13 @@
 <? $this->beginContent('//layouts/main'); ?>
 
 	<header class="application-header" id="application-header">
-		<a href="/" >Enactivity</a>
-		<a id="show-menu" href="#application-navigation">Menu</a>
+		<div class="application-header-wrapper">
+			<a href="/" class="logo">Enactivity</a>
+			<? if($this->pageTitle): ?>
+			<a href="#" class="page-title"><?= PHtml::encode($this->pageTitle); ?></a>
+			<? endif; ?>
+			<a id="show-menu" class="show-menu" href="#application-navigation">Menu</a>
+		<div>
 	</header>
 	
 	<!-- flash notices -->
@@ -22,7 +27,9 @@
 	</aside>
 	<? endif; ?>
 
-	<?= $content; ?>
+	<section class="application-content">
+		<?= $content; ?>
+	</section>
 
 	<nav class="application-navigation" id="application-navigation">
 		<? $this->widget('zii.widgets.CMenu', array(
@@ -43,5 +50,7 @@
 			<?= PHtml::link("Logout", '/site/logout'); ?>
 		<? endif; ?>
 	</footer>
+
+	<aside class="ajax-flag"></aside>
 	
 <? $this->endContent(); ?>
