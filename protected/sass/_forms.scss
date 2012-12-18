@@ -26,6 +26,7 @@ input, textarea, select, .button {
 	@include border-radius($base-border-radius);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
+	font-size: $base-font-size;
 	height: ($base-padding * 2) + $base-font-size;
 	padding: $base-padding;
 	width: 100%;
@@ -138,6 +139,9 @@ input[type="button"]:disabled:hover,
 label {
 	cursor: text; /* To help user realize it's clickable */
 	display: none;
+	font-size: $base-font-size;
+	margin-top: $base-margin / 4;
+	margin-bottom: $base-margin / 4;
 }
 	
 label:not(.required) {

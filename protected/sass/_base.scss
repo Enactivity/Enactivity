@@ -5,6 +5,11 @@ $base-max-readability-width: 32em * 1.5;
 $base-padding: 16px;
 $base-max-page-width: 640px;
 
+// Text
+// $base-font-family: "Century Gothic", AppleGothic, Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+$base-font-size: 13px;
+
 // page variables
 $application-header-fixed-height: $base-padding * 3;
 $application-navigation-fixed-height: $base-padding * 4.5;

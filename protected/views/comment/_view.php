@@ -16,7 +16,7 @@
 					'userModel' => $data->creator,
 				));  ?>
 			</h1>
-			<span class="created">@
+			<span class="created"><i></i>
 				<? if(isset($model)) : ?>
 				<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?>
 				<? else: ?>

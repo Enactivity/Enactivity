@@ -3,6 +3,10 @@
 	background: $white;
 	margin-bottom: 1px;
 
+	h1 {
+		margin-bottom: 0;
+	}
+
 	.created {
 		@extend .metadata;
 	}

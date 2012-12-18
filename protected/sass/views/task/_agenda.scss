@@ -60,11 +60,13 @@
 		margin-bottom: 1px; // mimic a border
 
 		h1 {
-			@extend .heading5;
+			@extend .heading1;
 		}
 
 		time {
-			font-size: $base-font-size * .75;
+			display: block; // to make its own line
+			font-size: $base-font-size;
+			font-weight: bold;
 			white-space: nowrap;
 		}
 

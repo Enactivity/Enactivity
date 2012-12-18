@@ -5,6 +5,7 @@ $nav-bar-color: $white;
 	@include grid-row;
 	background: $nav-bar-background-color;
 	color: $nav-bar-color;
+	font-size: 13px;
 	margin: 0; // remove the inherited grid-row margin-bottom
 	overflow: visible; // to enable dropdowns
 	width: 100%;
