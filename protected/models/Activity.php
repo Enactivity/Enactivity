@@ -175,7 +175,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	{
 		return array(
 			'id' => 'Id',
-			'groupId' => 'With',
+			'groupId' => 'With the folks from',
 			'authorId' => 'Author',
 			'author.fullname' => 'Created By',
 			'facebookId' => 'Facebook Id',

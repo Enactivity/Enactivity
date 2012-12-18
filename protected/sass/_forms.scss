@@ -137,6 +137,7 @@ input[type="button"]:disabled:hover,
 }
 
 label {
+	@include opacity(.8); // to blend it to the background
 	cursor: text; /* To help user realize it's clickable */
 	display: none;
 	font-size: $base-font-size;
@@ -145,7 +146,6 @@ label {
 }
 	
 label:not(.required) {
-	@include opacity(.8);
 }
 
 label:not(.required):after {
