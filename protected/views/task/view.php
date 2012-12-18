@@ -17,7 +17,7 @@ $this->pageTitle = $model->name;
 			<li>
 				<?= 
 				PHtml::link(
-					PHtml::encode($model->activity->name),
+					"<i></i> " . PHtml::encode($model->activity->name),
 					$model->activity->viewUrl,
 					array(
 						'id'=>'task-activity-menu-item-' . $model->id,
@@ -28,7 +28,7 @@ $this->pageTitle = $model->name;
 			<li>
 				<?=
 				PHtml::link(
-					PHtml::encode('Edit'), 
+					"<i></i> " . PHtml::encode('Edit'), 
 					array('task/update', 'id'=>$model->id),
 					array(
 						'id'=>'task-update-menu-item-' . $model->id,
@@ -41,7 +41,7 @@ $this->pageTitle = $model->name;
 			<li>
 				<?=
 				PHtml::link(
-					PHtml::encode('Timeline'), 
+					"<i></i> " . PHtml::encode('Timeline'), 
 					array('task/feed', 'id'=>$model->id),
 					array(
 						'id'=>'task-feed-menu-item',

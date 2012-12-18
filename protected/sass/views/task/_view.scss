@@ -1,6 +1,13 @@
 
 .page-task-view {
 
+	.task-activity-menu-item {
+		i {
+			@extend .icon;
+			@extend .icon-arrow-up;
+		}
+	}
+
 	.task-header-time {
 		i {
 			@extend .icon;
