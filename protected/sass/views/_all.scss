@@ -8,6 +8,7 @@
 @import "activity/view";
 @import "activity/create";
 @import "activity/form";
+@import "activity/feed";
 
 @import "comment/partial_view";
 
@@ -25,3 +26,4 @@
 @import "task/calendar";
 @import "task/view"; 
 @import "task/partial_view"; 
+@import "task/feed";

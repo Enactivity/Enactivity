@@ -1,0 +1,8 @@
+.page-task-feed {
+	.task-view-menu-item {
+		i {
+			@extend .icon;
+			@extend .icon-arrow-up;
+		}
+	}
+}

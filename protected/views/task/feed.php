@@ -11,7 +11,7 @@ $this->pageTitle = 'Timeline for ' . $model->name;
 		<ul>
 			<li>
 				<?= PHtml::link(
-					PHtml::encode($model->name), 
+					"<i></i> " . PHtml::encode($model->name), 
 					array('task/view', 'id'=>$model->id),
 					array(
 						'id'=>'task-view-menu-item',

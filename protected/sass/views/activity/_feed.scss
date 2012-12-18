@@ -1,0 +1,8 @@
+.page-activity-feed {
+	.activity-view-menu-item {
+		i {
+			@extend .icon;
+			@extend .icon-arrow-up;
+		}
+	}
+}
