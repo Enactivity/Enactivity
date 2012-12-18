@@ -1,0 +1,21 @@
+.task {
+	@include grid-row-with-padding;
+	background: $white;
+	margin-bottom: 1px; // mimic a border
+
+	h1 {
+		@extend .heading1;
+	}
+
+	time {
+		display: block; // to make its own line
+		font-size: $base-font-size;
+		font-weight: bold;
+		white-space: nowrap;
+	}
+
+	.status {
+		@extend .metadata;
+		display: block;
+	}
+}

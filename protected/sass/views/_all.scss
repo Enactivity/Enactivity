@@ -9,7 +9,7 @@
 @import "activity/create";
 @import "activity/form";
 
-@import "comment/view";
+@import "comment/_view";
 
 @import "feed/view";
 
@@ -24,3 +24,4 @@
 @import "task/agenda";
 @import "task/calendar";
 @import "task/view"; 
+@import "task/_view"; 
