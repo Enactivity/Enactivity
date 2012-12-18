@@ -55,7 +55,7 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 				</header>
 				<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
 				<? foreach ($activities as $activityIndex => $activityInfo): ?>
-				<article class="activity">
+				<article class="calendar-activity">
 					<time>
 						<?= PHtml::encode($time); ?>
 					</time>
@@ -65,8 +65,8 @@ $this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimest
 							$activityInfo['firstTask']->activityURL
 						); ?>
 					</h1>
-					<h2 class="tasks">
-						<span class="task">
+					<h2 class="calendar-tasks">
+						<span class="calendar-task">
 						<?= PHtml::link(
 							PHtml::encode($activityInfo['firstTask']->shortName),
 							$activityInfo['firstTask']->activityURL
