@@ -625,7 +625,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function scopeFuture() {
 		$this->getDbCriteria()->mergeWith(array(
-			'condition' => 'futureTasks.starts >= NOW()',
+			'condition' => 'starts >= NOW()',
 		));
 		return $this;
 	}
@@ -793,64 +793,4 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			)
 		);
     }
-
-    /**
-	 * Get the next tasks the user is signed up for
-	 * @param User model
-	 * @return CArrayDataProvider
-	 */
-	public static function nextTasksForUser($user) {
-		return new CArrayDataProvider(
-			$user->nextTasks(
-				array(
-					'pagination'=>false,
-				)
-			)
-		);
-	}
-
-	 /**
-	 * Get the tasks in the future the user is signed up for
-	 * @param User model
-	 * @return CArrayDataProvider
-	 */
-	public static function futureTasksForUser($user) {
-		return new CArrayDataProvider(
-			$user->futureTasks(
-				array(
-					'pagination'=>false,
-				)
-			)
-		);
-	}
-
-	public static function somedayTasksForUser($user) {
-		return new CArrayDataProvider(
-			$user->somedayTasks(
-				array(
-					'pagination'=>false,
-				)
-			)
-		);
-	}
-
-	public static function ignorableTasksForUser($user) {
-		return new CArrayDataProvider(
-			$user->ignorableTasks(
-				array(
-					'pagination'=>false,
-				)
-			)
-		);
-	}
-
-	public static function ignorableSomedayTasksForUser($user) {
-		return new CArrayDataProvider(
-			$user->ignorableSomedayTasks(
-				array(
-					'pagination'=>false,
-				)
-			)
-		);
-	}
 }

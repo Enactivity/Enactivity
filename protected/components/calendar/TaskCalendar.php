@@ -18,17 +18,17 @@ class TaskCalendar extends CComponent {
 	}
 
 	public static function loadCalendarNextTasks(User $user) {
-		$nextTasks = Task::nextTasksForUser($user);
-		$futureTasks = Task::futureTasksForUser($user);
+		$nextTasks = $user->incompleteTasks;
+		$futureTasks = $user->futureTasks;
 		$calendar = new TaskCalendar(array(
-			$nextTasks->data, 
-			$futureTasks->data,
+			$nextTasks, 
+			$futureTasks,
 		));
 
-		$ignorableTasks = Task::ignorableTasksForUser($user);
+		$ignorableTasks = $user->ignoredOrCompletedTasks;
 		$calendar->removeTasks($ignorableTasks);
 
-		$ignorableSomedayTasks = Task::ignorableSomedayTasksForUser($user);
+		$ignorableSomedayTasks = $user->ignoredOrCompletedSomedayTasks;
 		$calendar->removeTasks($ignorableSomedayTasks);
 
 		return $calendar;

@@ -216,25 +216,27 @@ class User extends ActiveRecord
 				'scopes' => array('scopeNotTrash','scopeFuture'),
 			),
 
-			'nextTasks' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
-				'through' => 'activities',
-				'scopes' => array('scopeNotTrash'),
-			),
-			'nextTasksSomeday' => array(self::HAS_MANY, 'Task', array('id'=>'activityId'), 
-				'through' => 'activities',
-				'scopes' => array('scopeNotTrash','scopeSomeday'),
+			'responses' => array(self::HAS_MANY, 'Response', 'userId'),
+
+			'incompleteResponses' => array(self::HAS_MANY, 'Response', 'userId',
+				'scopes' => array('scopeIncompleteResponses'),
 			),
 
-			'ignoreableResponses' => array(self::HAS_MANY, 'Response', 'userId',
-				'scopes' => array('scopeIgnorable'),
-			),
-
-			'ignorableTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
-				'through' => 'ignoreableResponses',
+			'incompleteTasks' => array(self::HAS_MANY, 'Task', 'taskId',
+				'through' => 'incompleteResponses',
 				'scopes' => array('scopeNotTrash'),
 			),
-			'ignorableSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
-				'through' => 'ignoreableResponses',
+
+			'ignoredOrCompletedResponses' => array(self::HAS_MANY, 'Response', 'userId',
+				'scopes' => array('scopeIgnoredOrCompletedStatuses'),
+			),
+
+			'ignoredOrCompletedTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
+				'through' => 'ignoredOrCompletedResponses',
+				'scopes' => array('scopeNotTrash'),
+			),
+			'ignoredOrCompletedSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
+				'through' => 'ignoredOrCompletedResponses',
 				'scopes' => array('scopeNotTrash','scopeSomeday'),
 			),
 		);

@@ -179,8 +179,11 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		));
 	}
 
-	public function scopeNextable() {
-		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getNextableStatuses()) . '\'';
+	/**
+	 * Applies scope where responses are not completed and not ignored
+	 **/
+	public function scopeIncompleteResponses() {
+		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIncompleteStatuses()) . '\'';
 
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'status IN (' . $commaSeparatedStatuses . ')',
@@ -188,8 +191,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $this;
 	}
 
-	public function scopeIgnorable() {
-		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIgnorableStatuses()) . '\'';
+	public function scopeIgnoredOrCompletedStatuses() {
+		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIgnoredOrCompletedStatuses()) . '\'';
 
 		$this->getDbCriteria()->mergeWith(array(
 			'condition' => 'status IN (' . $commaSeparatedStatuses . ')',
@@ -288,11 +291,10 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	/**
-	 * @return array of strings where the user has actions they should do.
+	 * @return array of strings where the user has begun but not completed
 	 */
-	public static function getNextableStatuses() {
+	public static function getIncompleteStatuses() {
 		return array(
-			Response::STATUS_PENDING,
 			Response::STATUS_SIGNED_UP,
 			Response::STATUS_STARTED,
 		);
@@ -312,7 +314,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	/**
 	 * @return array of strings where the user is not participating
 	 */
-	public static function getIgnorableStatuses() {
+	public static function getIgnoredOrCompletedStatuses() {
 		return array(
 			Response::STATUS_COMPLETED,
 			Response::STATUS_IGNORED,
