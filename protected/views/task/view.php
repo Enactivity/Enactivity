@@ -55,7 +55,7 @@ $this->pageTitle = $model->name;
 	</nav>
 </header>
 
-<? if($tasks->starts): ?>
+<? if($model->starts): ?>
 <section id="starts" class="content">
 	<span class="task-header-time"><i></i> <? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
 </section>
