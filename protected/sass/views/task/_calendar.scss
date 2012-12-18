@@ -61,7 +61,7 @@
 			}
 
 			header {
-				@extend .heading2;
+				@extend .heading3;
 				@include ellipsis;
 
 				border-top: 4px solid $alto;
@@ -69,8 +69,8 @@
 
 				.month-shorthand-name,
 				.weekday-shorthand-name {
-					font-size: .5em;
-					text-transform: uppercase;
+					font-variant: small-caps;
+					text-transform: lowercase;
 				}
 			}
 
@@ -82,7 +82,7 @@
 				}
 
 				time {
-					font-size: .75em;
+					font-size: $base-font-size * .75;
 					white-space: nowrap;
 				}
 
