@@ -3,16 +3,20 @@
 	background: $white;
 	margin-bottom: 1px;
 
+	h1 {
+		margin: 0;
+	}
+
 	.status {
 		@extend .metadata;
 	}
 
 	.response-avatar {
-		@include grid-column-1-of-6;
+		@extend .avatar;
 	}
 
 	.response-body {
-		@include grid-column-5-of-6;
+		margin-left: $avatar-body-margin-left;
 	}
 
 	p {

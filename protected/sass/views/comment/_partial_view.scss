@@ -12,11 +12,11 @@
 	}
 
 	.comment-avatar {
-		@include grid-column-1-of-6;
+		@extend .avatar;
 	}
 
 	.comment-body {
-		@include grid-column-5-of-6;
+		margin-left: $avatar-body-margin-left;
 	}
 
 	p {
