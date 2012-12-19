@@ -508,8 +508,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
-	public function getCurrentresponse() {
-		return response::loadresponse($this->id, Yii::app()->user->id);
+	public function getCurrentResponse() {
+		return Response::loadResponse($this->id, Yii::app()->user->id);
 	}
 
 	/**
@@ -519,7 +519,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserParticipating() {
 
-		$response = response::loadresponse($this->id, Yii::app()->user->id);
+		$response = Response::loadResponse($this->id, Yii::app()->user->id);
 		
 		if($response->isSignedUp || $response->isStarted) {
 			return true;
@@ -534,7 +534,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$response = response::loadresponse($this->id, Yii::app()->user->id);
+		$response = Response::loadResponse($this->id, Yii::app()->user->id);
 		
 		if($response->isCompleted) {
 			return true;
