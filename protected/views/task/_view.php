@@ -18,6 +18,20 @@
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
+		<ul class="details">
+			<li>
+				<i></i><span class="count"><?= PHtml::encode($data->participantsCount); ?></span> participants
+				<? if($data->isUserParticipating): ?>
+				<span class="user-participating">(Including you!)</span>
+				<? endif; ?>
+			</li>
+			<li>
+				<i></i><span class="count"><?= PHtml::encode($data->participantsCompletedCount); ?></span> completed
+				<? if($data->isUserComplete): ?>
+				<span class="user-participating">(Including you!)</span>
+				<? endif; ?>
+			</li>
+		</ul>
 	</div>
 
 	<div class="menu controls">

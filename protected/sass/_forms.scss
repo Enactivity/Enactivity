@@ -2,6 +2,8 @@
  * Styles for forms
  **/
 
+$input-font-size: 16px;
+
 form {
  	@include grid-row;
 }
@@ -26,8 +28,8 @@ input, textarea, select, .button {
 	@include border-radius($base-border-radius);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
-	font-size: $base-font-size;
-	height: ($base-padding * 2) + $base-font-size;
+	font-size: $input-font-size;
+	height: ($base-padding * 2) + $input-font-size;
 	padding: $base-padding;
 	width: 100%;
 }

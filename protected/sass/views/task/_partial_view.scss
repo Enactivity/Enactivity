@@ -5,6 +5,7 @@
 
 	h1 {
 		@extend .heading1;
+		margin-bottom: 0;
 	}
 
 	time {
@@ -14,8 +15,21 @@
 		white-space: nowrap;
 	}
 
-	.status {
-		@extend .metadata;
-		display: block;
+	.details {
+		@include grid-row;
+		margin-bottom: $base-margin;
+
+		li {
+			@extend .metadata;
+			@include ellipsis;
+			@include inline-block; // provides innate spacing between items
+
+			border-right: 1px solid $silver-chalice; // divider line
+			padding-right: .5em; // match the inline block innate 'padding'
+
+			&:last-child {
+				border: none; // no divider line
+			}
+		}
 	}
 }
