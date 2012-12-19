@@ -1,12 +1,15 @@
 $avatar-body-margin-left: 36px;
 
 .avatar {
-	padding-right: $base-padding;
+	@include border-radius(4px, 4px);
+	margin-right: $base-margin;
 	float: left;
+	height: 20px; // match(ish) heading text height
+	width: 20px;
+	overflow: hidden;
 
 	img {
-		@include border-radius(4px, 4px);
-		height: 20px;
-		width: 20px;
+		height: 100%;
+		width: 100%;
 	}
 }
