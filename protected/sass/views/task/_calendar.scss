@@ -61,7 +61,7 @@
 			}
 
 			header {
-				@extend .heading3;
+				@extend .heading1;
 				@include ellipsis;
 
 				border-top: 4px solid $alto;
@@ -77,12 +77,13 @@
 			.calendar-activity {
 				margin: $base-margin 0;
 				h1 {
-					@extend .heading5;
+					@extend .heading1;
 					margin-bottom: 0;
 				}
 
 				time {
-					font-size: $base-font-size * .75;
+					font-size: $base-font-size;
+					font-weight: bold;
 					white-space: nowrap;
 				}
 
