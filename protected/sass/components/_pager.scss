@@ -1,3 +1,7 @@
 .pager {
 	@extend .menu;
+
+	li.hidden {
+		@extend .hidden;
+	}
 }
