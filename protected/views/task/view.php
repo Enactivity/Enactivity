@@ -158,19 +158,19 @@ $this->pageTitle = $model->name;
 <section class="details content">
 	<div class="start-date">
 		<h1><i></i> Date</h1>
-		<span class="date"><i></i> <?= PHtml::encode($model->startDate); ?></span>
+		<p class="date"><i></i> <?= PHtml::encode($model->startDate); ?></p>
 	</div>
 	<div class="start-time">
 		<h1><i></i> Time</h1>
-		<span class="time"><i></i> <?= PHtml::encode($model->formattedStartTime); ?></span>
+		<p class="time"><i></i> <?= PHtml::encode($model->formattedStartTime); ?></p>
 	</div>
 	<div class="participant-count">
 		<h1><i></i> Signed up</h1>
-		<span class="count"><?= PHtml::encode($model->participantsCount); ?></span>
+		<p class="count"><?= PHtml::encode($model->participantsCount); ?></p>
 	</div>
 	<div class="participant-completed-count">
 		<h1><i></i> Completed</h1>
-		<span class="count"><?= PHtml::encode($model->participantsCompletedCount); ?></span>
+		<p class="count"><?= PHtml::encode($model->participantsCompletedCount); ?></p>
 	</div>
 </section>
 <? endif; ?>

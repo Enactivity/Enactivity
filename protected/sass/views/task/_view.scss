@@ -47,8 +47,9 @@
 			text-transform: lowercase;
 		}
 
-		span {
-			font-size: $base-font-size * 2;
+		p {
+			@include ellipsis;
+			font-size: $base-font-size * 1.5;
 		}
 	}
 }
