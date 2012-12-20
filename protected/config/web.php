@@ -126,6 +126,8 @@ return CMap::mergeArray(
 					'min/<g:\w+>/<lm:\d+>/' => 'min/serve', 
 					'next'=>'task/next',
 					'calendar'=>'task/calendar',
+					'login'=>'site/login',
+					'logout'=>'site/logout',
 					'<controller:\w+>'=>'<controller>/index',
 					'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 					'<controller:\w+>/<id:\d+>/<action>'=>'<controller>/<action>',
