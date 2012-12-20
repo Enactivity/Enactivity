@@ -55,14 +55,10 @@ $this->pageTitle = $model->name;
 	</nav>
 </header>
 
-<? if($model->starts): ?>
-<section id="starts" class="content">
-	<span class="task-header-time"><i></i> <? $this->widget('application.components.widgets.TaskDates', array('task'=>$model)); ?></span>
-</section>
-<? endif; ?>
-
-<section id="participating" class="content">
-	<h1><?= PHtml::encode($model->participantsCount) . ' Signed Up'; ?></h1>
+<section class="user-response content">
+	<div class="task-response-status">
+		<p><span class="status">Currently: <?= PHtml::encode($response->statusLabel); ?></span></p>
+	</div>
 	<div class="menu controls">
 		<ul>
 			<? if($response->canSignUp): ?>
@@ -156,6 +152,30 @@ $this->pageTitle = $model->name;
 			<? endif; ?>
 		</ul>
 	</div>
+</section>
+
+<? if($model->starts): ?>
+<section class="details content">
+	<div class="start-date">
+		<h1>Date</h1>
+		<span class="date"><i></i> <?= PHtml::encode($model->startDate); ?></span>
+	</div>
+	<div class="start-time">
+		<h1>Time</h1>
+		<span class="time"><i></i> <?= PHtml::encode($model->formattedStartTime); ?></span>
+	</div>
+	<div class="participant-count">
+		<h1>Signed up</h1>
+		<span class="count"><?= PHtml::encode($model->participantsCount); ?></span>
+	</div>
+	<div class="participant-completed-count">
+		<h1>Completed</h1>
+		<span class="count"><?= PHtml::encode($model->participantsCompletedCount); ?></span>
+	</div>
+</section>
+<? endif; ?>
+
+<section id="participating" class="content">
 	<? foreach($model->participatingresponses as $usertask) {
 		echo $this->renderPartial('/response/_view', array(
 			'data'=>$usertask,

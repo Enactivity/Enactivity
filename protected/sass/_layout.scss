@@ -20,15 +20,3 @@ body {
 aside {
 	@include grid-row-with-padding;
 }
-
-section {
-	h1 {
-		@extend .heading2;
-	}
-}
-
-article {
-	h1 {
-		@extend .heading3;
-	}
-}

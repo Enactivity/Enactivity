@@ -42,6 +42,13 @@ abstract class ActiveRecord extends CActiveRecord {
 		// Save initial attributes for later review
 		$this->_oldAttributes = $this->attributes;
 	}
+
+	/**
+	 * @return array of labels
+	 **/
+	public function getAttributeLabels() {
+		return $this->attributeLabels();
+	}
  
  	/**
  	 * Get the old attribute for the current owner
