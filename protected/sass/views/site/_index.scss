@@ -13,7 +13,7 @@
 
 		h1 {
 			@include animation(fade-down 1s);
-			@extend .heading1;
+			font-size: 36px;
 		}
 
 		a {
