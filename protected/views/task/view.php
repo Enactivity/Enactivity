@@ -57,7 +57,7 @@ $this->pageTitle = $model->name;
 
 <section class="user-response content">
 	<div class="task-response-status">
-		<p><span class="status">Currently: <?= PHtml::encode($response->statusLabel); ?></span></p>
+		<p>Your current response: <span class="status"><?= PHtml::encode($response->statusLabel); ?></span></p>
 	</div>
 	<div class="menu controls">
 		<ul>

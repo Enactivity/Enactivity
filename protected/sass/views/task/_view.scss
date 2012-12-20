@@ -20,6 +20,11 @@
 
 	.task-response-status {
 		@extend .metadata;
+
+		span {
+			font-style: italic;
+			text-transform: lowercase;
+		}
 	}
 
 	.details {
