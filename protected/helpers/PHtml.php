@@ -517,8 +517,7 @@ class PHtml extends CHtml {
 		$articleClass = array();
 
 		$articleClass[] = "response";
-		$articleClass[] = "response-" . PHtml::encode($response->id);
-		$articleClass[] = $response->isCompleted ? "completed" : "not-completed";
+		$articleClass[] = strtolower(str_replace(" ", "-", $response->status));
 
 		return implode(" ", $articleClass);
 	}
