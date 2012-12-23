@@ -2,7 +2,8 @@
  * Styles for forms
  **/
 
-$input-font-size: 16px;
+$input-font-size: 13px;
+$button-font-size: 16px;
 
 form {
  	@include grid-row;
@@ -29,7 +30,7 @@ input, textarea, select, .button {
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	font-size: $input-font-size;
-	height: ($base-padding * 2) + $input-font-size;
+	height: ($base-padding * 2) + 16px; // needs to match nav sizing
 	padding: $base-padding;
 	width: 100%;
 }
@@ -48,6 +49,7 @@ input[type="button"],
 	color: $white;
 	cursor: pointer; // Finger cursor 
 	display: inline-block;
+	font-size: $button-font-size;
 	font-weight: bold;
 	text-align: left;
 	@include text-shadow(0 1px rgba(0, 0, 0, 0.1));
