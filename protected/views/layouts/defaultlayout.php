@@ -27,7 +27,7 @@
 	</aside>
 	<? endif; ?>
 
-	<section class="application-content">
+	<section id="application-content" class="application-content">
 		<?= $content; ?>
 	</section>
 

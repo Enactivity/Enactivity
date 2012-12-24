@@ -34,6 +34,13 @@ return CMap::mergeArray(
 						'basePath'=>'application.javascripts',
 						'js'=>array('Modernizr.js')
 					),
+					'pjax'=>array(
+						'basePath'=>'application.javascripts',
+						'depends'=>array(
+							'jquery',
+						),
+						'js'=>array('Pjax.js')
+					),
 					'application'=>array(
 						'basePath'=>'application.javascripts',
 						'depends'=>array(
@@ -100,6 +107,7 @@ return CMap::mergeArray(
 			),
 			
 			'request'=>array(
+				'class' => 'application.components.web.HttpRequest',
 				'enableCookieValidation'=>true,
 				'enableCsrfValidation'=>true,
 			),

@@ -13,6 +13,7 @@
 		<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/stylesheets/screen.css"); ?>
 
 		<? Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+		<? Yii::app()->clientScript->registerCoreScript('pjax'); ?>
 		<? Yii::app()->clientScript->registerCoreScript('application'); ?>
 
 		<link rel="shortcut icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>

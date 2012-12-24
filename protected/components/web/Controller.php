@@ -47,6 +47,10 @@ class Controller extends CController
 	    	$data['appUser'] = Yii::app()->user;
 	    }
 
+	    // if(Yii::app()->request->isPjaxRequest) {
+			return $this->renderAjaxResponse($view, $data);
+		// }
+
 	    return parent::render($view, $data, $return);
 	}
 	
