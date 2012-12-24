@@ -48,10 +48,15 @@ class Controller extends CController
 	    }
 
 	    if(Yii::app()->request->isPjaxRequest) {
-			return $this->renderAjaxResponse($view, $data);
+			return $this->renderPjaxResponse($view, $data);
 		}
 
 	    return parent::render($view, $data, $return);
+	}
+
+	public function renderPjaxResponse($view, $data) {
+		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>';
+		return $this->renderAjaxResponse($view, $data);
 	}
 	
 	/**
