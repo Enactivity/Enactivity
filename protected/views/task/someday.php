@@ -20,7 +20,7 @@ $this->pageTitle = 'Someday';
 		echo 'Nothing here.  Why not check out the ';
 		echo PHtml::link('calendar', array('task/calendar'));
 		echo ' to see what is listed or ';
-		echo PHtml::link('create a new task', array('task/create'));
+		echo PHtml::link('create a new task', array('activity/create'));
 		echo '?'; 
 		echo PHtml::closeTag('p');
 	}
