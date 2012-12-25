@@ -743,5 +743,12 @@
 })(jQuery);
 
 // Enable PJax for wrapper container
-console.log("pjaxing");
 $(document).pjax('a', '#application-content');
+
+$(document).on('pjax:start', function(){
+  $('#application-content').fadeTo(200, 0);
+  console.log('bound to start');
+}).on('pjax:end', function(){
+  $('#application-content').fadeTo(200, 1);
+  console.log('bound to end');
+});
