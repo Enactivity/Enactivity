@@ -43,6 +43,7 @@ return CMap::mergeArray(
 							'AjaxLoader.js',
 							'AjaxButton.js',
 							'ClearInputsButton.js',
+							'DateTimePicker.js',
 							'DropDown.js',
 							'SmoothScroll.js',
 							'TargetHeaderFix.js',

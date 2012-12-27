@@ -1,5 +1,5 @@
 /**
- * Creates a button that will clear it's siblings' inputs 
+ * Creates a button that will clear specified inputs or its siblings' inputs if none are provided
  * Requires two data attributes:
  * @param 'data-type=[clear-button]' to innately apply click functionality
  * @param 'data-inputs' selector or array of selectors that clicking the button should clear
@@ -24,7 +24,8 @@ $(function() {
 		return this.each(function() {
 			$(this).on('click', selector || buttonSelector, function() {
 				var button = $(this);
-				var inputs = button.data('inputs');
+				var inputs = button.data('inputs') || button.siblings('input, select, textarea');
+				console.log(inputs);
 				if($.isArray(inputs)) {
 					for (var i = inputs.length - 1; i >= 0; i--) {
 						clearInput(inputs[i]);

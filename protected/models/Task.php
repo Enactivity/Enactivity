@@ -359,14 +359,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 **/
 	public function getStartDate() {
 		if(StringUtils::isNotBlank($this->_startDate) && StringUtils::isBlank($this->_startTime)) {
-			return $this->_startDate;
+			$date = new DateTime($this->starts);
+			return $date->format('Y-m-d');
 		}
 		elseif(StringUtils::isBlank($this->starts)) {
 			return null;
 		}
 		
-		$dateTimeArray = explode(' ', $this->starts);
-		return $dateTimeArray[0];
+		$date = new DateTime($this->starts);
+		return $date->format('Y-m-d');
 	}
 	
 	/** 
