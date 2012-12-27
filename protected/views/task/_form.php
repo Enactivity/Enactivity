@@ -41,9 +41,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	
 	
 	<div class="field datetime">
-		<? if(!$inline):
-		// preformat date before loading into widget 
-		$this->widget('application.components.widgets.jui.JuiDateTimePicker', 
+		<? $this->widget('application.components.widgets.jui.JuiDateTimePicker', 
 			array(
 				'model'=>$model,
 				'dateTimeAttribute'=>'starts',
@@ -54,8 +52,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 					'showAnim'=>'fold',
 				),
 			)
-		);
-		endif; ?>
+		); ?>
 		<?= $form->error($model,'starts'); ?>
 		<?= $form->error($model,'startDate'); ?>
 		<?= $form->error($model,'startTime'); ?>

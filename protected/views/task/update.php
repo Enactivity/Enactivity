@@ -33,7 +33,7 @@ $this->pageTitle = 'Edit Task';
 				} ?>
 			</li>
 		</ul>
-	</div>
+	</nav>
 </header>
 
 <section class="content">
