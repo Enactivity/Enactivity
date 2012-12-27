@@ -30,9 +30,5 @@
 	?>
 			
 	</head>
-	<body id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
-
 	<?= $content; ?>
-		
-	</body>
 </html>

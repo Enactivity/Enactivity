@@ -692,7 +692,7 @@
     $.pjax.submit = handleSubmit
     $.pjax.reload = pjaxReload
     $.pjax.defaults = {
-      timeout: 650,
+      timeout: 6500,
       push: true,
       replace: false,
       type: 'GET',
@@ -743,12 +743,10 @@
 })(jQuery);
 
 // Enable PJax for wrapper container
-$(document).pjax('a', '#application-content');
+$(document).pjax('body a', 'body');
 
 $(document).on('pjax:start', function(){
-  $('#application-content').fadeTo(200, 0);
-  console.log('bound to start');
+  $('#application-content').fadeTo(200, .8); // Fixme: add class to wrapper instead
 }).on('pjax:end', function(){
   $('#application-content').fadeTo(200, 1);
-  console.log('bound to end');
 });

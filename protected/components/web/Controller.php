@@ -55,8 +55,9 @@ class Controller extends CController
 	}
 
 	public function renderPjaxResponse($view, $data) {
+		$this->layout = "//layouts/headlesslayout";
 		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>';
-		return $this->renderAjaxResponse($view, $data);
+		return parent::render($view, $data);
 	}
 	
 	/**
