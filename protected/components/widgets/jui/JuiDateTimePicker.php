@@ -153,7 +153,7 @@ class JuiDateTimePicker extends CJuiWidget
 		}
 		$this->htmlOptions['style']= $this->htmlOptions['style'].'display: none;';
 		
-		echo CHtml::tag('div', $this->htmlOptions);
+		echo CHtml::openTag('div', $this->htmlOptions);
 		echo CHtml::closeTag('div');
 
 		$this->registerCalendarScripts($dateInputId);
