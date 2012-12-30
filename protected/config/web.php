@@ -43,10 +43,12 @@ return CMap::mergeArray(
 							'AjaxLoader.js',
 							'AjaxButton.js',
 							'ClearInputsButton.js',
+							'DateInputPolyfill.js',
 							'DateTimePicker.js',
 							'DropDown.js',
 							'SmoothScroll.js',
 							'TargetHeaderFix.js',
+							'Pjax.js',
 						),
 					)
 				),
@@ -101,6 +103,7 @@ return CMap::mergeArray(
 			),
 			
 			'request'=>array(
+				'class' => 'application.components.web.HttpRequest',
 				'enableCookieValidation'=>true,
 				'enableCsrfValidation'=>true,
 			),
