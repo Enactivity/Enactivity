@@ -15,14 +15,6 @@
 	var dateTimeInputs = dateInputSelector + ' + ' + timeSelectInput;
 	var defaultTime = "12:00:00";
 
-	var changeHandler = function() {
-		var dateInput = $(this);
-		var timeSelect = dateInput.siblings(timeSelectInput);
-		if(dateInput.val() && !timeSelect.val()) {
-			timeSelect.val(defaultTime);
-		};
-	};
-
 	/**
 	 * Add date time picker behavior to a date input/time select combo
 	 * @param {String} selector for which elements to apply the button listener to
@@ -30,7 +22,13 @@
 	 */
 	$.fn.DateTimePicker = function() {
 		return this.each(function() {
-			$(this).change(changeHandler);
+			$(this).change(function() {
+				var dateInput = $(this);
+				var timeSelect = dateInput.siblings(timeSelectInput);
+				if(dateInput.val() && !timeSelect.val()) {
+					timeSelect.val(defaultTime);
+				};
+			});
 		});
 	};
 
