@@ -365,6 +365,8 @@ class PHtml extends CHtml {
 			if(substr($htmlOptions['name'],-2)!=='[]')
 				$htmlOptions['name'].='[]';
 		}
+		$htmlOptions['data-type'] = 'time'; // add a time type for jquery selections
+
 		return self::tag('select',$htmlOptions,$options);
 		return self::timeDropDownList($model, $attribute, $data, $htmlOptions);
 	}

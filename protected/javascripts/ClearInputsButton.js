@@ -25,7 +25,6 @@ $(function() {
 			$(this).on('click', selector || buttonSelector, function() {
 				var button = $(this);
 				var inputs = button.data('inputs') || button.siblings('input, select, textarea');
-				console.log(inputs);
 				if($.isArray(inputs)) {
 					for (var i = inputs.length - 1; i >= 0; i--) {
 						clearInput(inputs[i]);
