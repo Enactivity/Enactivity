@@ -36,7 +36,7 @@ input, textarea, select, .button {
 }
 
 select {
-	@include appearance(none); // Fixes android browser height problems?
+	// @include appearance(none); // Fixes android browser height problems?
 }
 
 textarea  {
