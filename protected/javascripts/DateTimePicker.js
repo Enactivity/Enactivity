@@ -22,7 +22,7 @@
 	 */
 	$.fn.DateTimePicker = function() {
 		return this.each(function() {
-			$(this).change(function() {
+			$(this).on('change keyup', function(event) {
 				var dateInput = $(this);
 				var timeSelect = dateInput.siblings(timeSelectInput);
 				if(dateInput.val() && !timeSelect.val()) {
