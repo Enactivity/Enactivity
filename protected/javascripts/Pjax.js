@@ -271,7 +271,7 @@
         window.history.replaceState(pjax.state, container.title, url.href)
 
         var target = $(url.hash)
-        if (target.length) $(window).scrollTop(target.offset().top - 120)
+        if (target.length) $(window).scrollTop(target.offset().top)
       }
 
     fire('pjax:success', [data, status, xhr, options])

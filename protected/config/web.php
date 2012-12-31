@@ -29,17 +29,23 @@ return CMap::mergeArray(
 					'jquery.ui'=>array(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/',
 						'js'=>array('jquery-ui.min.js'),
+						'depends'=>array(
+							'jquery',
+						),
 					),
 					'modernizr'=>array(
 						'basePath'=>'application.javascripts',
-						'js'=>array('Modernizr.js')
+						'js'=>array('Modernizr.js'),
 					),
 					'application'=>array(
 						'basePath'=>'application.javascripts',
 						'depends'=>array(
+							'jquery',
+							'jquery.ui',
 							'modernizr',
 						),
 						'js'=>array(
+							'jquery/offset/ScrollTop.js',
 							'AjaxLoader.js',
 							'AjaxButton.js',
 							'ClearInputsButton.js',

@@ -11,7 +11,7 @@ $(function() {
 				e.preventDefault();
 				var targetOffset = $($(this).attr('href')).offset().top;
 				$('body').animate({
-					scrollTop : targetOffset - 120
+					scrollTop : targetOffset
 				}, 400);
 			});
 		}
