@@ -18,12 +18,20 @@
 	 * @return {JQuery} see http://api.jquery.com/each/
 	 */
 	$.fn.DateInputPolyfill = function(selector) {
-		$(selector).datepicker();
-	}
+		// Apply date time pickers if no native support
+		if(!Modernizr.inputtypes.date) {
+			selector = selector || dateInputSelector; // fall back to date input
 
-	// Apply date time pickers if no native support
-	if(!Modernizr.inputtypes.date) {
-		$(dateInputSelector).DateInputPolyfill(); // apply to JQuery UI datepicker
-	}
+			return this.each(function() {
+				$(selector).datepicker();
+			});
+		};
+		return $;
+	};
+	
+	/* Apply button to html elements */
+	$(function() {
+		$('body').DateInputPolyfill(dateInputSelector); // apply to JQuery UI datepicker
+	});
 
 })(jQuery);
