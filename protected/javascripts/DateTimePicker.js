@@ -32,6 +32,7 @@
 		});
 	};
 
+	// Apply datetime picker on document ready
 	$(function() {
 		$(dateInputSelector).DateTimePicker();
 	});
