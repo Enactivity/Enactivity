@@ -271,7 +271,7 @@
         window.history.replaceState(pjax.state, container.title, url.href)
 
         var target = $(url.hash)
-        if (target.length) $(window).scrollTop(target.offset().top)
+        if (target.length) $(window).scrollTop(target.offset().top - 120)
       }
 
     fire('pjax:success', [data, status, xhr, options])
@@ -692,7 +692,7 @@
     $.pjax.submit = handleSubmit
     $.pjax.reload = pjaxReload
     $.pjax.defaults = {
-      timeout: 1300,
+      timeout: 13000,
       push: true,
       replace: false,
       type: 'GET',
