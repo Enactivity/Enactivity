@@ -82,9 +82,9 @@ $this->pageTitle = $model->name;
 	<h1>Comments</h1>
 	
 	<? if($comments): ?>
-	<? foreach($comments as $fbcomment): ?>
+	<? foreach($comments as $activityComment): ?>
 	<?= $this->renderPartial('/comment/_view', array(
-		'data'=>$fbcomment,
+		'data'=>$activityComment,
 	)); ?>
 	<? endforeach; ?>
 	<? elseif($model->isCommentable): ?>

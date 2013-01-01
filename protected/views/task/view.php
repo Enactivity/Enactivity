@@ -182,3 +182,23 @@ $this->pageTitle = $model->name;
 		));
 	} ?>
 </section>
+
+<section id="comments" class="content">
+	<h1>Comments</h1>
+	
+	<? if($comments): ?>
+	<? foreach($comments as $taskComment): ?>
+	<?= $this->renderPartial('/comment/_view', array(
+		'data'=>$taskComment,
+	)); ?>
+	<? endforeach; ?>
+	<? elseif($model->isCommentable): ?>
+	<p class="blurb">No one has written any comments yet, be the first!</p>
+	<? else: ?>
+	<p class="blurb">Sorry, comments have been disabled for this activity</p>
+	<? endif; ?>
+	
+	<? if($model->isCommentable): ?>
+	<?= $this->renderPartial('/comment/_form', array('model'=>$comment)); ?>
+	<? endif; ?>
+</section>

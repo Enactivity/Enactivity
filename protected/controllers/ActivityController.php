@@ -70,7 +70,7 @@ class ActivityController extends Controller
 		$calendar = new TaskCalendar($model->tasks);
 
 		// Comments
-		$comment = $this->handleNewActivityComment($model);
+		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
 
 		$this->render('view',array(
