@@ -429,9 +429,7 @@ class TaskController extends Controller
 		// $this->performCommentAjaxValidation($comment);
 	
 		if(isset($_POST['TaskComment'])) {
-			$comment->attributes=$_POST['TaskComment'];
-	
-			if($comment->save()) {
+			if($comment->publishComment($task, $_POST['TaskComment'])) {
 				$this->redirect(array('view','id'=>$task->id, '#'=>'comment-' . $comment->id));
 			}
 		}
