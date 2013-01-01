@@ -202,6 +202,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'condition' => 'feed.focalModel=\'Task\'',
 				'order' => 'feed.created DESC',
 			),
+
+			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
+				'condition' => 'comments.model=\'Task\'',
+				'order' => 'comments.created ASC',
+			),
 		);
 	}
 
@@ -482,6 +487,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			return false;
 		}
 		return $this->participantsCount == $this->participantsCompletedCount;
+	}
+
+	public function getIsCommentable() {
+		return $this->activity->isCommentable;
 	}
 
 	/**

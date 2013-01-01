@@ -75,12 +75,6 @@ class ActivityComment extends Comment implements LoggableRecord
     	return false;
     }
     
-    // public function defaultScope() {
-    // 	return array(
-    // 		'model' => self::MODELTYPE,
-    // 	);
-    // }
-    
     /**
      * Set the ActivityComment's Activity
      * @param Activity $activity

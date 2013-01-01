@@ -30,7 +30,7 @@
 			</span>
 		</header>
 
-		<?= Yii::app()->format->formatStyledText($data->message); ?>
+		<?= Yii::app()->format->formatStyledText($data->content); ?>
 	</div>
 	
 </article>
