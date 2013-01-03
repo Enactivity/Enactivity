@@ -10,21 +10,6 @@ $this->pageTitle = $model->name;
 <header class="content-header">
 	<nav class="content-header-nav">
 		<ul>
-			<? if($model->isDraft): ?>
-			<li>
-				<?= PHtml::button(
-					"Publish", 
-					array( //html
-						'submit'=>array('activity/publish', 'id'=>$model->id),
-						'csrf'=>true,
-						'id'=>'activity-publish-menu-item-' . $model->id,
-						'class'=>'positive activity-publish-menu-item',
-						'title'=>'Show this activity to the rest of the team',
-					)
-				); ?>
-			</li>
-			<? endif; ?>
-
 			<li>
 				<?= PHtml::link(
 					'<i></i> Add tasks', 
@@ -65,6 +50,22 @@ $this->pageTitle = $model->name;
 		</ul>
 	</nav>
 </header>
+
+<? if($model->isDraft): ?>
+<section id="publish" class="publish content">
+	<p class="blurb">Publish this activity to allow group members to participate.</p>
+	<?= PHtml::button(
+		"Publish", 
+		array( //html
+			'submit'=>array('activity/publish', 'id'=>$model->id),
+			'csrf'=>true,
+			'id'=>'activity-publish-menu-item-' . $model->id,
+			'class'=>'positive activity-publish-menu-item',
+			'title'=>'Show this activity to the rest of the team',
+		)
+	); ?>
+</section>
+<? endif; ?>
 
 <? if($model->description): ?>
 <section id="details" class="details content">
