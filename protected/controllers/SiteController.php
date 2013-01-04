@@ -63,7 +63,7 @@ class SiteController extends Controller
 	{	
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
-			$this->layout = null;
+			$this->layout = "//layouts/splashlayout";
 			$this->render('index', array('model'=>$model));
 		} 
 		else {

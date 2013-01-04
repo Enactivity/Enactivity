@@ -51,6 +51,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
 
+	const DATE_FORMAT = 'Y-m-d';
+
 	private $_startDate;
 	private $_startTime;
 	
@@ -359,14 +361,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 **/
 	public function getStartDate() {
 		if(StringUtils::isNotBlank($this->_startDate) && StringUtils::isBlank($this->_startTime)) {
-			return $this->_startDate;
+			$date = new DateTime($this->starts);
+			return $date->format(self::DATE_FORMAT);
 		}
 		elseif(StringUtils::isBlank($this->starts)) {
 			return null;
 		}
 		
-		$dateTimeArray = explode(' ', $this->starts);
-		return $dateTimeArray[0];
+		$date = new DateTime($this->starts);
+		return $date->format(self::DATE_FORMAT);
 	}
 	
 	/** 

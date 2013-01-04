@@ -15,6 +15,10 @@ body {
 	@include respond-to('thin-tablet') {
 		padding-top: $application-header-fixed-height + $application-navigation-fixed-height;
 	}
+
+	&.splash { // reset padding for splash layouts
+		padding-top: 0;
+	}
 }
 
 aside {

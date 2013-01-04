@@ -47,7 +47,17 @@ class Controller extends CController
 	    	$data['appUser'] = Yii::app()->user;
 	    }
 
+	    if(Yii::app()->request->isPjaxRequest) {
+			return $this->renderPjaxResponse($view, $data);
+		}
+
 	    return parent::render($view, $data, $return);
+	}
+
+	public function renderPjaxResponse($view, $data) {
+		$this->layout = "//layouts/headlesslayout";
+		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>';
+		return parent::render($view, $data);
 	}
 	
 	/**
@@ -57,13 +67,8 @@ class Controller extends CController
 	 * @param array data to pass to renderer
 	 **/
 	public function renderAjaxResponse($view, $data) {
-		
-		// disable web logging pollution of output
-		foreach (Yii::app()->log->routes as $route) {
-			if ($route instanceof CWebLogRoute) {
-				$route->enabled = false;
-			}
-		}
+		$this->disableWebLogging();
+
 		echo $this->renderPartial($view, $data, false, true);
 		Yii::app()->end();
 	}
@@ -152,5 +157,18 @@ class Controller extends CController
 			throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $model;
+	}
+
+	/**
+	 * Prevents any CWebLogRoute instances from outputting to html
+	 * Useful for Ajax responses where there is no HTML body to attach to
+	 */
+	protected function disableWebLogging() {
+		// disable web logging pollution of output
+		foreach (Yii::app()->log->routes as $route) {
+			if ($route instanceof CWebLogRoute) {
+				$route->enabled = false;
+			}
+		}
 	}
 }

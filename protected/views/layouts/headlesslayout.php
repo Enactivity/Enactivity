@@ -1,4 +1,3 @@
-<? $this->beginContent('//layouts/main'); ?>
 <body>
 	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
 		<header class="application-header" id="application-header">
@@ -55,4 +54,3 @@
 		<aside class="ajax-flag"></aside>
 	</div>
 </body>
-<? $this->endContent(); ?>

@@ -1,7 +1,7 @@
 <? $this->beginContent('//layouts/main'); ?>
-
-<div class="splash-content">
-<?= $content; ?>
-</div>
-
+<body class="splash">
+	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
+		<?= $content; ?>
+	</div>
+</body>
 <? $this->endContent(); ?>
