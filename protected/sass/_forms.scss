@@ -35,8 +35,12 @@ input, textarea, select, .button {
 	width: 100%;
 }
 
+select {
+	// @include appearance(none); // Fixes android browser height problems?
+}
+
 textarea  {
-	height: 4em;
+	height: 6em;
 }
 
 input[type="submit"], 

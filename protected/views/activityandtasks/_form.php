@@ -70,18 +70,18 @@
 	
 	
 		<div class="field datetime">
-			<? $this->widget('application.components.widgets.jui.JuiDateTimePicker', 
+			<?= $form->labelEx($task,"[$index]starts"); ?>
+			<?= $form->dateField($task,"[$index]startDate",
 				array(
-					'model'=>$task,
-					'dateTimeAttribute'=>"[$index]starts",
-					'dateAttribute'=>"[$index]startDate",
-					'timeAttribute'=>"[$index]startTime",
-					// additional javascript options for the date picker plugin
-					'options'=>array(
-						'showAnim'=>'fold',
-					),
-				)
-			); ?>
+					'size'=>60,
+					'maxlength'=>255,
+				)); ?>
+			<?= $form->timeDropDownList($task,"[$index]startTime",array()); ?>
+			<?= PHtml::link("<i></i> <span>Remove</span>",null,
+				array(
+					'class' => 'clear-field clear-date-time neutral',
+					'data-type' => 'clear-button',
+				)); ?>
 			<?= $form->error($task,"[$index]starts"); ?>
 			<?= $form->error($task,"[$index]startDate"); ?>
 			<?= $form->error($task,"[$index]startTime"); ?>

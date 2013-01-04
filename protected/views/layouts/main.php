@@ -13,6 +13,7 @@
 		<? Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . "/stylesheets/screen.css"); ?>
 
 		<? Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+		<? Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
 		<? Yii::app()->clientScript->registerCoreScript('application'); ?>
 
 		<link rel="shortcut icon" href="<?= Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>
@@ -28,9 +29,5 @@
 	?>
 			
 	</head>
-	<body id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
-
 	<?= $content; ?>
-		
-	</body>
 </html>

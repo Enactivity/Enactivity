@@ -216,7 +216,7 @@ class TaskCalendar extends CComponent {
 	 * @return array of Tasks
 	 */
 	public function getTasksByDate($date) {
-		$date = date('m/d/Y', strtotime($date));
+		$date = date(Task::DATE_FORMAT, strtotime($date));
 		if(isset($this->days[$date])) {
 			return $this->days[$date];
 		}
@@ -245,7 +245,7 @@ class TaskCalendar extends CComponent {
 	* @return array of Tasks
 	*/
 	public function hasTasksOnDate($date) {
-		$date = date('m/d/Y', strtotime($date));
+		$date = date(Task::DATE_FORMAT, strtotime($date));
 		return isset($this->days[$date]) && !empty($this->days[$date]);
 	}
 	

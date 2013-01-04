@@ -41,18 +41,18 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	
 	
 	<div class="field datetime">
-		<? $this->widget('application.components.widgets.jui.JuiDateTimePicker', 
+		<?= $form->labelEx($model,"starts"); ?>
+		<?= $form->dateField($model,"startDate",
 			array(
-				'model'=>$model,
-				'dateTimeAttribute'=>'starts',
-				'dateAttribute'=>'startDate',
-				'timeAttribute'=>'startTime',
-				// additional javascript options for the date picker plugin
-				'options'=>array(
-					'showAnim'=>'fold',
-				),
-			)
-		); ?>
+				'size'=>60,
+				'maxlength'=>255,
+			)); ?>
+		<?= $form->timeDropDownList($model,"startTime",array()); ?>
+		<?= PHtml::link("<i></i> <span>Remove</span>",null,
+			array(
+				'class' => 'clear-field clear-date-time neutral',
+				'data-type' => 'clear-button',
+			)); ?>
 		<?= $form->error($model,'starts'); ?>
 		<?= $form->error($model,'startDate'); ?>
 		<?= $form->error($model,'startTime'); ?>
