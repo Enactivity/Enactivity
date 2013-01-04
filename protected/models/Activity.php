@@ -165,6 +165,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 					. ' OR feed.model=\'Activity\'',
 				'order' => 'feed.created DESC',
 			),
+
+			'comments' => array(self::HAS_MANY, 'Comment', 'modelId',
+				'condition' => 'comments.model=\'Activity\'',
+				'order' => 'comments.created ASC',
+			),
 		);
 	}
 
@@ -367,18 +372,19 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return sizeof($this->tasks);
 	}
 
-	/** 
-	 * Get comments about this Activity
-	 **/
-	public function getComments() {
-		if(StringUtils::isNotBlank($this->facebookId)) {
-			return Yii::app()->FB->getPostComments($this->facebookPostId);
-		}
-		return array();
-	}
+	// /** 
+	//  * Get comments about this Activity
+	//  **/
+	// public function getComments() {
+	// 	if(StringUtils::isNotBlank($this->facebookId)) {
+	// 		return Yii::app()->FB->getPostComments($this->facebookPostId);
+	// 	}
+	// 	return array();
+	// }
 
 	public function getIsCommentable() {
-		return StringUtils::isNotBlank($this->facebookId);
+		return !$this->isDraft
+			&& !$this->isTrash;
 	}
 
 	/**

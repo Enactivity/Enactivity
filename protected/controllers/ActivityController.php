@@ -70,7 +70,7 @@ class ActivityController extends Controller
 		$calendar = new TaskCalendar($model->tasks);
 
 		// Comments
-		$comment = $this->handleNewActivityComment($model);
+		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
 
 		$this->render('view',array(
@@ -349,7 +349,7 @@ class ActivityController extends Controller
 			: array('activity/view', 'id'=>$activity->id,));
 	}
 
-		/**
+	/**
 	 * Return a new activity comment based on post data
 	 * @param Activit $activity Activity the user is commenting on
 	 * @param Comment $comment
@@ -357,15 +357,15 @@ class ActivityController extends Controller
 	 */
 	public function handleNewActivityComment($activity, $comment = null) {
 		if(is_null($comment)) {
-			$comment = new FacebookComment();
+			$comment = new ActivityComment();
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);
 	
-		if(isset($_POST['FacebookComment'])) {
+		if(isset($_POST['ActivityComment'])) {
 	
-			if($comment->comment($activity->facebookPostId, $_POST['FacebookComment'])) {
+			if($comment->publishComment($activity, $_POST['ActivityComment'])) {
 				$this->redirect(array('view','id'=>$activity->id, '#'=>'comment-' . $comment->id));
 			}
 		}
