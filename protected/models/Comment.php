@@ -156,6 +156,17 @@ class Comment extends ActiveRecord
         ));
     }
 
+    public function publishComment($model, $attributes = null) {
+        $this->scenario = self::SCENARIO_INSERT;
+        
+        $this->attributes = $attributes;
+        $this->groupId = $model->groupId;
+        $this->modelId = $model->id;
+        $this->model = get_class($model);
+        
+        return $this->save();
+    }
+
     public function getModelObject() {
         if(isset($this->_modelObject)) {
             return $this->_modelObject;

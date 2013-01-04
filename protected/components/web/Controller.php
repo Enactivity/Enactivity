@@ -160,6 +160,29 @@ class Controller extends CController
 	}
 
 	/**
+	 * Return a new  comment based on post data
+	 * @param Model $model model the user is commenting on
+	 * @param Comment $comment
+	 * @return Comment
+	 */
+	public function handleNewComment($model, $comment = null) {
+		if(is_null($comment)) {
+			$comment = new Comment();
+		}
+		
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performCommentAjaxValidation($comment);
+	
+		if(isset($_POST['Comment'])) {
+	
+			if($comment->publishComment($model, $_POST['Comment'])) {
+				$this->redirect(array('view','id'=>$model->id, '#'=>'comment-' . $comment->id));
+			}
+		}
+		return $comment;
+	}
+
+	/**
 	 * Prevents any CWebLogRoute instances from outputting to html
 	 * Useful for Ajax responses where there is no HTML body to attach to
 	 */
