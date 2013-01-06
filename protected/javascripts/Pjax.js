@@ -692,7 +692,7 @@
     $.pjax.submit = handleSubmit
     $.pjax.reload = pjaxReload
     $.pjax.defaults = {
-      timeout: 1300,
+      timeout: 3000, // 3 second timeout
       push: true,
       replace: false,
       type: 'GET',
