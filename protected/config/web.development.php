@@ -20,7 +20,7 @@ return CMap::mergeArray(
 
 	
 			'db'=>array(
-				'connectionString' => 'mysql:host=mysql.alpha.poncla.com;dbname=poncla_alpha',
+				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
 				'emulatePrepare' => true,
 				'enableProfiling'=>true,
 				'username' => 'poncla_alpha',
