@@ -59,6 +59,10 @@ return CMap::mergeArray(
 							'prefixUser' => true,
 						),
 					),
+					array(
+	                    'class'=>'CProfileLogRoute',
+	                    'report'=>'summary',
+	                ),
 				),
 			),
 		
