@@ -479,6 +479,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 
 	/**
+	 * @return boolean should user be able to respond to task
+	 */
+	public function getIsRespondable() {
+		return $this->activity->isRespondable
+			&& !$this->isTrash;
+	}
+
+	/**
 	 * Is the task completed?
 	 * @return boolean
 	 */
