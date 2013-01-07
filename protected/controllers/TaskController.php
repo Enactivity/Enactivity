@@ -3,6 +3,7 @@
 Yii::import("application.components.calendar.Month");
 Yii::import("application.components.calendar.TaskCalendar");
 Yii::import("application.components.web.Controller");
+Yii::import("application.components.introduction.TutorialActivityGenerator");
 
 class TaskController extends Controller
 {
@@ -349,9 +350,13 @@ class TaskController extends Controller
 		// Get list of user drafts
 		$draftsCount = Yii::app()->user->model->draftsCount;
 
+		// Generate an intro activity for first time users
+		$introActvity = TutorialActivityGenerator::generateIntroActivity();
+
 		$this->render('next', array(
 			'calendar'=>$calendar,
 			'draftsCount'=>$draftsCount,
+			'introActvity'=>$introActvity,
 		));
 	}
 
