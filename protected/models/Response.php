@@ -278,7 +278,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanQuit() {
-		if($this->task->isRespondable || $this->isSignedUp || $this->isStarted) {
+		if($this->task->isRespondable && ($this->isSignedUp || $this->isStarted)) {
 			return true;
 		}
 		return false;
