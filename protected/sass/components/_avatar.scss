@@ -1,7 +1,7 @@
 $avatar-body-margin-left: 36px;
 
 .avatar {
-	@include border-radius(4px, 4px);
+	@include border-radius(4px);
 	margin-right: $base-margin;
 	float: left;
 	height: 20px; // match(ish) heading text height
