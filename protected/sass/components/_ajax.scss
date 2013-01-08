@@ -9,12 +9,11 @@
 }
 
 .ajax-loading .ajax-flag {
-	@include animation(fade-in .2s);
 	@extend .icon;
 	@extend .icon-spinner;
-	@extend .icon-spin;
+	@extend .icon-spin; // spins the icon
 	
-	color: $orange;
+	color: $gallery;
 	display: block;
 	position: fixed;
 	right: 0;
