@@ -52,6 +52,7 @@ return CMap::mergeArray(
 							'DateInputPolyfill.js',
 							'DateTimePicker.js',
 							'DropDown.js',
+							'ReloadWindowButton.js',
 							'SmoothScroll.js',
 							'TargetHeaderFix.js',
 							'Pjax.js',
