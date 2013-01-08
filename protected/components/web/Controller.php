@@ -14,6 +14,8 @@ class Controller extends CController
 	 */
 	public $layout='//layouts/defaultlayout';
 
+	public $layoutIncludesHead = true;
+
 	/**
 	 * @return array action filters
 	 */
@@ -55,8 +57,11 @@ class Controller extends CController
 	}
 
 	public function renderPjaxResponse($view, $data) {
-		$this->layout = "//layouts/headlesslayout";
-		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>';
+		$this->disableWebLogging();
+		
+		$this->layoutIncludesHead = false;
+		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>' . PHP_EOL;
+
 		return parent::render($view, $data);
 	}
 	
@@ -71,6 +76,18 @@ class Controller extends CController
 
 		echo $this->renderPartial($view, $data, false, true);
 		Yii::app()->end();
+	}
+
+	public function beginLayout($view=null, $data=array()) {
+		if($this->layoutIncludesHead) {
+			return $this->beginContent($view, $data);
+		}
+	}
+
+	public function endLayout() {
+		if($this->layoutIncludesHead) {
+			return $this->endContent();
+		}
 	}
 
 	/**
