@@ -1,3 +1,5 @@
+// This component is for general ajax stylings if a big ajax style is required
+// currently replaced with header ajax spinner
 
 // Ajax prettification
 .ajax-loading {
@@ -9,14 +11,16 @@
 }
 
 .ajax-loading .ajax-flag {
+	display: block;
+}
+
+.ajax-flag i {
 	@extend .icon;
 	@extend .icon-spinner;
 	@extend .icon-spin; // spins the icon
 	
-	color: $gallery;
-	display: block;
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: 10000000; // in front!
+	// position: fixed;
+	// right: 0;
+	// top: 0;
+	// z-index: 10000000; // in front!
 }
