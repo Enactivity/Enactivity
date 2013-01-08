@@ -1,66 +1,63 @@
+$icon-only-width: $base-padding * 3;
+$logo-width: 105px;
+
 .application-header {
 	@include grid-row;
 	background-color: $cerulean;
 	position: fixed;
+	height: $application-header-fixed-height;
 	top: 0;
 	width: 100%;
 	z-index: 1000;
 
-	div {
-		max-width: $base-max-page-width;
+	.application-header-wrapper {
+		height: $application-header-fixed-height;
 		margin: auto;
+		max-width: $base-max-page-width;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		width: 100%;
 	}
 
-	a, a:active, a:visited {
+	.application-header-wrapper > :last-child {
+		border-right: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	a, a:active, a:visited, span {
+		@include ellipsis();
 		@include unstyled-link;
-		padding: $base-padding;
+
+		border-left: 1px solid rgba(255, 255, 255, 0.1);
 		color: $white;
+		display: block;
+		float: left;
+		padding: $base-padding;
+		position: absolute;
+		top: 0;
 	}
 
 	.logo {
-		@include grid-column-1-of-3;
-		@include ellipsis();
-		
-		border-right: 1px solid rgba(255, 255, 255, .25);
-
-		@include respond-to(wide-phone) {
-			@include grid-column-1-of-4;
-		}
-		@include respond-to(thin-tablet) {
-			@include grid-column-1-of-6;
-		}
-		@include respond-to(desktop) {
-			@include grid-column-1-of-6;
-		}
+		width: $logo-width;
 	}
 
 	.page-title {
-		@include grid-column-1-of-3;
-		@include ellipsis();
-
-		border-left: 1px solid rgba(255, 255, 255, .1);
-
-		@include respond-to(thin-phone) {
-			@include grid-column-2-of-3;
-		}
-		@include respond-to(wide-phone) {
-			@include grid-column-3-of-4;
-		}
-		@include respond-to(thin-tablet) {
-			@include grid-column-5-of-6;
-		}
-		@include respond-to(desktop) {
-			@include grid-column-5-of-6;
-		}
+		left: $logo-width;
+		right: $icon-only-width;
 	}
 
-	// The show menu button is only for really small phones when nav is at the bottom
-	.show-menu {
-		@include grid-column-1-of-3;
-		border-left: 1px solid rgba(255, 255, 255, .1);
+	.refresh {
+		right: 0;
+		width: $icon-only-width;
 
-		@include respond-to(thin-phone) {
-			display: none;
+		i {
+			@extend .icon;
+			@extend .icon-refresh;
 		}
 	}
+}
+
+.ajax-loading .refresh i {
+	@extend .icon-spinner;
+	@extend .icon-spin; // spins the icon
 }

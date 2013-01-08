@@ -4,11 +4,9 @@
 		<header class="application-header" id="application-header">
 			<div class="application-header-wrapper">
 				<a href="/" class="logo">Enactivity</a>
-				<? if($this->pageTitle): ?>
 				<a href="#" class="page-title"><?= PHtml::encode($this->pageTitle); ?></a>
-				<? endif; ?>
-				<a id="show-menu" class="show-menu" href="#application-navigation">Menu</a>
-			<div>
+				<a href="<?= PHtml::encode(Yii::app()->request->url); ?>" class="refresh" data-type="refresh-button"><i></i></a>
+			</div>
 		</header>
 		
 		<!-- flash notices -->
@@ -51,8 +49,6 @@
 				<?= PHtml::link("Logout", '/site/logout'); ?>
 			<? endif; ?>
 		</footer>
-
-		<aside class="ajax-flag"></aside>
 	</div>
 </body>
 <? $this->endLayout(); ?>

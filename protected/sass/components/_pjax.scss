@@ -1,5 +1,6 @@
 
 // Pjax prettification
 .pjax-loading {
-	opacity: .5;
+	@include transition(opacity 1s ease-in-out);
+	opacity: 0.5;
 }
