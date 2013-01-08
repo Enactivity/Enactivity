@@ -57,8 +57,11 @@ class Controller extends CController
 	}
 
 	public function renderPjaxResponse($view, $data) {
+		$this->disableWebLogging();
+		
 		$this->layoutIncludesHead = false;
 		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>' . PHP_EOL;
+
 		return parent::render($view, $data);
 	}
 	
