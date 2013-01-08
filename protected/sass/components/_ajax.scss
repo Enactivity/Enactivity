@@ -11,7 +11,8 @@
 .ajax-loading .ajax-flag {
 	@include animation(fade-in .2s);
 	@extend .icon;
-	@extend .icon-cogs;
+	@extend .icon-spinner;
+	@extend .icon-spin;
 	
 	color: $orange;
 	display: block;
