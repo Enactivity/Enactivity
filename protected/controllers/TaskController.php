@@ -58,6 +58,8 @@ class TaskController extends Controller
 		// Comments
 		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
+
+		$this->pageTitle = $model->name;
 		
 		$this->render(
 			'view',
@@ -76,6 +78,8 @@ class TaskController extends Controller
 
 		// Feed
 		$feedDataProvider = new CArrayDataProvider($model->feed);
+
+		$this->pageTitle = 'Timeline for ' . $model->name;
 
 		$this->render(
 			'feed', 
@@ -104,6 +108,8 @@ class TaskController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
+
+		$this->pageTitle = 'Edit Task';
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -349,6 +355,8 @@ class TaskController extends Controller
 		// Get list of user drafts
 		$draftsCount = Yii::app()->user->model->draftsCount;
 
+		$this->pageTitle = 'Next';
+
 		$this->render('next', array(
 			'calendar'=>$calendar,
 			'draftsCount'=>$draftsCount,
@@ -363,6 +371,8 @@ class TaskController extends Controller
 		$month = new Month($month, $year);
 		$taskCalendar = TaskCalendar::loadCalendarByMonth(Yii::app()->user->model, $month);
 		
+		$this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
+
 		$this->render('calendar', array(
 				'calendar'=>$taskCalendar,
 				'newTask'=>$newTask,
@@ -376,6 +386,8 @@ class TaskController extends Controller
 	 **/
 	public function actionSomeday() {
 		$taskCalendar = TaskCalendar::loadCalendarWithNoStart(Yii::app()->user->model);
+
+		$this->pageTitle = 'Someday';
 
 		$this->render('someday', array(
 				'calendar'=>$taskCalendar,
@@ -393,6 +405,8 @@ class TaskController extends Controller
 		if(isset($_GET['Task'])) {
 			$model->attributes=$_GET['Task'];
 		}
+
+		$this->pageTitle = 'Manage Tasks';
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -412,9 +426,7 @@ class TaskController extends Controller
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		
-
 		return $model;
 	}
 	

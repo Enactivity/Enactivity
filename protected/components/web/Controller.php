@@ -65,7 +65,7 @@ class Controller extends CController
 		$this->disableWebLogging();
 		
 		$this->layoutIncludesHead = false;
-		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>' . PHP_EOL;
+		echo '<title>' . PHtml::encode($this->pageTitleWithBranding) .'</title>' . PHP_EOL;
 
 		return parent::render($view, $data);
 	}
@@ -105,7 +105,11 @@ class Controller extends CController
 				$this->_pageTitle = ucfirst($this->getAction()->getId())  . ' ' . $name;
 			}
 		}
-		return $this->_pageTitle . ' | ' . Yii::app()->name;
+		return $this->_pageTitle;
+	}
+
+	public function getPageTitleWithBranding() {
+		return $this->pageTitle . ' - ' . Yii::app()->name;
 	}
 
 	/** 
@@ -113,7 +117,7 @@ class Controller extends CController
 	 */
 	public function setPageTitle($value)
 	{
-	    $this->_pageTitle=$value;
+	    $this->_pageTitle = $value;
 	}
 
 	/**

@@ -3,8 +3,6 @@
  * Lists tasks with no start time
  * @uses calendar
  */
-
-$this->pageTitle = 'Someday';
 ?>
 <section class="tasks content">
 	<?
