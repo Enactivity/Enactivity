@@ -14,6 +14,10 @@ form {
 	position: relative;
 }
 
+.buttons {
+	margin-top: $base-margin;
+}
+
 .field.buttons > * { // multple submit buttons can use some spacing
 	display: inline-block;
 	margin-bottom: $base-margin;
