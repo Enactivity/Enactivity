@@ -155,9 +155,10 @@ abstract class ActiveRecord extends CActiveRecord {
 	}
 
 	public function findByPk($pk, $condition='', $params=array()) {
-		if($cachedFind = $this->findInCacheByPk($pk)) {
-			return $cachedFind;
-		}
+		// FIXME: decomment when ready for caching records
+		// if($cachedFind = $this->findInCacheByPk($pk)) {
+		// 	return $cachedFind;
+		// }
 		return parent::findByPk($pk, $condition, $params);
 	}
 
