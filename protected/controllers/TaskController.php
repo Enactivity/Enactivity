@@ -351,7 +351,7 @@ class TaskController extends Controller
 		$draftsCount = Yii::app()->user->model->draftsCount;
 
 		// Generate an intro activity for first time users
-		$introActvity = TutorialActivityGenerator::generateIntroActivity();
+		$introActvity = TutorialActivityGenerator::generateIntroActivity(Yii::app()->user->model);
 
 		$this->render('next', array(
 			'calendar'=>$calendar,
