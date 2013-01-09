@@ -17,13 +17,15 @@ $this->pageTitle = 'Feedback';
 	)); ?>
 	
 	<?= $form->errorSummary($model); ?>
-		<div class="field">
-			<?= $form->labelEx($model,'message'); ?>
-			<?= $form->textArea($model,'message', array(
-				'placeholder'=>'How can we make ' . PHtml::encode(Yii::app()->name) . ' better today?'
-			)); ?>
-			<?= $form->error($model,'message'); ?>
-		</div>
+		<fieldset>
+			<div class="field">
+				<?= $form->labelEx($model,'message'); ?>
+				<?= $form->textArea($model,'message', array(
+					'placeholder'=>'How can we make ' . PHtml::encode(Yii::app()->name) . ' better today?'
+				)); ?>
+				<?= $form->error($model,'message'); ?>
+			</div>
+		</fieldset>
 
 		<div class="field buttons">
 			<?= PHtml::submitButton('Submit'); ?>

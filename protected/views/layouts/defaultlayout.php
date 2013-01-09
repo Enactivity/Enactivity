@@ -42,7 +42,7 @@
 			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/EnactivityCommunity"); ?> &copy; <?= date('Y'); ?> 
 				All Rights Reserved.
 			</p>
-			<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/EnactivityCommunity"); ?>.</p>
+			<p class="feedback"><?= PHtml::link("Talk to us on Facebook", "http://facebook.com/EnactivityCommunity"); ?>.</p>
 
 			<? if(Yii::app()->user->isAuthenticated): ?>
 			<p class="logout">
