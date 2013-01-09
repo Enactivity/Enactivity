@@ -31,7 +31,8 @@ return array(
         ),
 
         'cache'=>array(
-        	'class' => 'CDummyCache',
+        	'class'=>'CMemCache',
+        	'useMemcached'=>true,
         ),
 
         'FB'=>array(

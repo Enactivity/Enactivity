@@ -49,12 +49,12 @@ class Controller extends CController
 	}
 
 	protected function beforeAction($action) {
-		Yii::beginProfile('Controller: ' . $this->id . '-' . $action->id);
+		Yii::beginProfile("Controller: {$this->id}/{$action->id}", get_class($this));
 	    return parent::beforeAction($action);
 	}
 
 	protected function afterAction($action) {
-		Yii::endProfile('Controller: ' . $this->id . '-' . $action->id);
+		Yii::endProfile("Controller: {$this->id}/{$action->id}", get_class($this));
 		return parent::afterAction($action);
 	}
 
