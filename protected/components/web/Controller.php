@@ -48,23 +48,39 @@ class Controller extends CController
 		}
 	}
 
+	/** 
+	 * Helper function that maps to Yii::beginProfile
+	 * @return null
+	 **/
+	protected function beginProfile($token) {
+		return Yii::beginProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
+	/** 
+	 * Helper function that maps to Yii::endProfile
+	 * @return null
+	 **/
+	protected function endProfile($token) {
+		return Yii::endProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
 	protected function beforeAction($action) {
-		Yii::beginProfile("Controller action {$this->id}/{$action->id}", get_class($this));
+		$this->beginProfile("Before action to after action");
 	    return parent::beforeAction($action);
 	}
 
 	protected function afterAction($action) {
-		Yii::endProfile("Controller action {$this->id}/{$action->id}", get_class($this));
+		$this->endProfile("Before action to after action");
 		return parent::afterAction($action);
 	}
 
 	protected function beforeRender($view) {
-		Yii::beginProfile("Controller render of {$this->id}/{$this->action->id}", get_class($this));
+		$this->beginProfile("Before render to after render");
 	    return parent::beforeRender($view);
 	}
 
 	protected function afterRender($view, &$output) {
-		Yii::endProfile("Controller render of {$this->id}/{$this->action->id}", get_class($this));
+		$this->endProfile("Before render to after render");
 	    return parent::afterRender($view, $output);	
 	}
 
