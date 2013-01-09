@@ -30,6 +30,10 @@ return array(
             'class' => 'CPhpAuthManager',
         ),
 
+        'cache'=>array(
+        	'class' => 'CDummyCache'
+        ),
+
         'FB'=>array(
         	'class'=>'ext.facebook.FB',
 			'appID' => '284699434983364',
