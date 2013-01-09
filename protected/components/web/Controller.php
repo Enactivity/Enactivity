@@ -29,7 +29,7 @@ class Controller extends CController
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'ensureAtLeastOneActiveMembershipForUser', // perform access control for CRUD operations
-			);
+		);
 	}
 
 	/** 
@@ -46,6 +46,16 @@ class Controller extends CController
 		else {
 			$filterChain->run();
 		}
+	}
+
+	protected function beforeAction($action) {
+		Yii::beginProfile('Controller: ' . $this->id . '-' . $action->id);
+	    return parent::beforeAction($action);
+	}
+
+	protected function afterAction($action) {
+		Yii::endProfile('Controller: ' . $this->id . '-' . $action->id);
+		return parent::afterAction($action);
 	}
 
 	public function render($view, $data=null, $return=false) {
