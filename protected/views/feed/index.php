@@ -2,7 +2,6 @@
 /**
  *
  **/
-$this->pageTitle = 'Timeline';
 ?>
 
 <section class="feed content">
