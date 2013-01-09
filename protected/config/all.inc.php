@@ -31,7 +31,7 @@ return array(
         ),
 
         'cache'=>array(
-        	'class' => 'CDummyCache'
+        	'class' => 'CDummyCache',
         ),
 
         'FB'=>array(

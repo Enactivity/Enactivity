@@ -44,12 +44,21 @@ abstract class ActiveRecord extends CActiveRecord {
 	}
 
 	/** 
-	 * Delete cache before calling parent afterSave
+	 * Delete cache before calling parent function
 	 * @override
 	 */
 	protected function afterSave() {
 		$this->deleteCacheByPk($this->id);
 		parent::afterSave();
+	}
+
+	/** 
+	 * Delete cache before calling parent function
+	 * @override
+	 */
+	public function saveCounters($counters) {
+		$this->deleteCacheByPk($this->id);
+		parent::saveCounters($counters);
 	}
 
 	/**
