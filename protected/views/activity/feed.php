@@ -3,7 +3,6 @@
  * @uses $model 
  * @uses $feedDataProvider
  */
-$this->pageTitle = 'Timeline for ' . $model->name;
 ?>
 
 <header class="content-header">

@@ -1,8 +1,6 @@
 <?php
 /* @var $this ActivityController */
 /* @var $model Activity */
-
-$this->pageTitle = 'Create a New Activity';
 ?>
 
 <section class="content">
