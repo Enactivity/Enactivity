@@ -14,7 +14,12 @@ class Controller extends CController
 	 */
 	public $layout='//layouts/defaultlayout';
 
+	/**
+	 * @var boolean whether to include <head> in layout render 
+	 */
 	public $layoutIncludesHead = true;
+
+	private $_pageTitle;
 
 	/**
 	 * @return array action filters
@@ -24,7 +29,7 @@ class Controller extends CController
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'ensureAtLeastOneActiveMembershipForUser', // perform access control for CRUD operations
-		);
+			);
 	}
 
 	/** 
@@ -45,15 +50,15 @@ class Controller extends CController
 
 	public function render($view, $data=null, $return=false) {
 
-	    if(!isset($data['appUser'])) {
-	    	$data['appUser'] = Yii::app()->user;
-	    }
+		if(!isset($data['appUser'])) {
+			$data['appUser'] = Yii::app()->user;
+		}
 
-	    if(Yii::app()->request->isPjaxRequest) {
+		if(Yii::app()->request->isPjaxRequest) {
 			return $this->renderPjaxResponse($view, $data);
 		}
 
-	    return parent::render($view, $data, $return);
+		return parent::render($view, $data, $return);
 	}
 
 	public function renderPjaxResponse($view, $data) {
@@ -88,6 +93,35 @@ class Controller extends CController
 		if($this->layoutIncludesHead) {
 			return $this->endContent();
 		}
+	}
+
+	/** 
+	 * @override
+	 */
+	public function getPageTitle() {
+		if($this->_pageTitle !== null) {
+			return $this->_pageTitle;
+		}
+		else
+		{
+			$name = ucfirst(basename($this->getId()));
+			if($this->getAction() !== null && strcasecmp($this->getAction()->getId(), $this->defaultAction)) {
+				return ucfirst($this->getAction()->getId()) 
+					. ' ' . $name  
+					. ' | ' . $this->_pageTitle=Yii::app()->name;;
+			}
+			else {
+				return $name . ' | ' . $this->_pageTitle=Yii::app()->name;
+			}
+		}
+	}
+
+	/** 
+	 * @override
+	 */
+	public function setPageTitle($value)
+	{
+	    $this->_pageTitle=$value;
 	}
 
 	/**
@@ -189,9 +223,9 @@ class Controller extends CController
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);
-	
+
 		if(isset($_POST['Comment'])) {
-	
+
 			if($comment->publishComment($model, $_POST['Comment'])) {
 				$this->redirect(array('view','id'=>$model->id, '#'=>'comment-' . $comment->id));
 			}
