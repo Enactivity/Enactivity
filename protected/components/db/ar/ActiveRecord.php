@@ -49,7 +49,7 @@ abstract class ActiveRecord extends CActiveRecord {
 	 */
 	protected function afterSave() {
 		$this->deleteCacheByPk($this->id);
-		parent::afterSave();
+		return parent::afterSave();
 	}
 
 	/** 
@@ -58,7 +58,7 @@ abstract class ActiveRecord extends CActiveRecord {
 	 */
 	public function saveCounters($counters) {
 		$this->deleteCacheByPk($this->id);
-		parent::saveCounters($counters);
+		return parent::saveCounters($counters);
 	}
 
 	/**
