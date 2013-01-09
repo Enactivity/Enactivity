@@ -233,6 +233,55 @@ class ActivityController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionTasks($id, $year = null, $month = null, $day = null, $time = null)
+	{
+		$activity = $this->loadActivityModel($id);
+
+		$task = new Task();
+		$task->activityId = $activity->id;
+		$task->groupId = $activity->groupId;
+
+		if(StringUtils::isNotBlank($year) 
+		&& StringUtils::isNotBlank($month)
+		&& StringUtils::isNotBlank($day)) {
+			$task->startDate = $month . "/" . $day . "/" . $year;
+		}
+
+		if(StringUtils::isNotBlank($time)) {
+			$task->startTime = $time;
+		}
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($task);
+
+		if(isset($_POST['Task'])) {
+			if($task->publish($_POST['Task'])) {
+				Yii::app()->user->setFlash('success', $task->name . ' was created');
+				if($_POST['add_more']) {
+					$this->redirect(array('create',
+						'activityId'=>$activity->id, 
+						'year' => $task->startYear, 
+						'month' => $task->startMonth, 
+						'day' => $task->startDay,
+						'time' => $task->startTime,
+					));	
+				}
+				$this->redirect(array('/activity/view','id'=>$activity->id, '#'=>'task-' . $task->id));
+			}
+		}
+
+		$this->pageTitle = 'Create a New Task for ' . PHtml::encode($activity->name);
+
+		$this->render('/task/create',array(
+			'model'=>$task,
+			'activity'=>$activity,
+		));
+	}
+
 	public function actionFeed($id) {
 		// load model
 		$model = $this->loadActivityModel($id);

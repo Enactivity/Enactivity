@@ -1,6 +1,6 @@
 <? $this->beginLayout('//layouts/main'); ?>
 <body>
-	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
+	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
 		<header class="application-header" id="application-header">
 			<div class="application-header-wrapper">
 				<a href="/" class="logo">Enactivity</a>
