@@ -29,7 +29,7 @@ class Controller extends CController
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'ensureAtLeastOneActiveMembershipForUser', // perform access control for CRUD operations
-			);
+		);
 	}
 
 	/** 
@@ -46,6 +46,42 @@ class Controller extends CController
 		else {
 			$filterChain->run();
 		}
+	}
+
+	/** 
+	 * Helper function that maps to Yii::beginProfile
+	 * @return null
+	 **/
+	protected function beginProfile($token) {
+		return Yii::beginProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
+	/** 
+	 * Helper function that maps to Yii::endProfile
+	 * @return null
+	 **/
+	protected function endProfile($token) {
+		return Yii::endProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
+	protected function beforeAction($action) {
+		$this->beginProfile("Before action to after action");
+	    return parent::beforeAction($action);
+	}
+
+	protected function afterAction($action) {
+		$this->endProfile("Before action to after action");
+		return parent::afterAction($action);
+	}
+
+	protected function beforeRender($view) {
+		$this->beginProfile("Before render to after render");
+	    return parent::beforeRender($view);
+	}
+
+	protected function afterRender($view, &$output) {
+		$this->endProfile("Before render to after render");
+	    return parent::afterRender($view, $output);	
 	}
 
 	public function render($view, $data=null, $return=false) {
