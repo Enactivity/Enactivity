@@ -49,13 +49,23 @@ class Controller extends CController
 	}
 
 	protected function beforeAction($action) {
-		Yii::beginProfile("Controller: {$this->id}/{$action->id}", get_class($this));
+		Yii::beginProfile("Controller action {$this->id}/{$action->id}", get_class($this));
 	    return parent::beforeAction($action);
 	}
 
 	protected function afterAction($action) {
-		Yii::endProfile("Controller: {$this->id}/{$action->id}", get_class($this));
+		Yii::endProfile("Controller action {$this->id}/{$action->id}", get_class($this));
 		return parent::afterAction($action);
+	}
+
+	protected function beforeRender($view) {
+		Yii::beginProfile("Controller render of {$this->id}/{$this->action->id}", get_class($this));
+	    return parent::beforeRender($view);
+	}
+
+	protected function afterRender($view, &$output) {
+		Yii::endProfile("Controller render of {$this->id}/{$this->action->id}", get_class($this));
+	    return parent::afterRender($view, $output);	
 	}
 
 	public function render($view, $data=null, $return=false) {
