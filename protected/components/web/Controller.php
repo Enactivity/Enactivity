@@ -99,21 +99,13 @@ class Controller extends CController
 	 * @override
 	 */
 	public function getPageTitle() {
-		if($this->_pageTitle !== null) {
-			return $this->_pageTitle;
-		}
-		else
-		{
-			$name = ucfirst(basename($this->getId()));
+		if(is_null($this->_pageTitle)) {
+			$this->_pageTitle = ucfirst(basename($this->getId()));
 			if($this->getAction() !== null && strcasecmp($this->getAction()->getId(), $this->defaultAction)) {
-				return ucfirst($this->getAction()->getId()) 
-					. ' ' . $name  
-					. ' | ' . $this->_pageTitle=Yii::app()->name;;
-			}
-			else {
-				return $name . ' | ' . $this->_pageTitle=Yii::app()->name;
+				$this->_pageTitle = ucfirst($this->getAction()->getId())  . ' ' . $name;
 			}
 		}
+		return $this->_pageTitle . ' | ' . Yii::app()->name;
 	}
 
 	/** 
