@@ -12,17 +12,23 @@
 		<!-- flash notices -->
 		<? if(Yii::app()->user->hasFlash('error')):?>
 		<aside class="flash flash-error">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('notice')):?>
 		<aside class="flash flash-notice">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('success')):?>
 		<aside class="flash flash-success">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 
