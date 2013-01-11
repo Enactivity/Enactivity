@@ -33,16 +33,20 @@ class TutorialActivityGenerator extends CComponent
 		Response::signUp($form->tasks[0]->id, $user->id);
 		Response::start($form->tasks[0]->id, $user->id);
 		Response::complete($form->tasks[0]->id, $user->id);
+		Comment::publishComment($taskdummy, array('content' => 'This is signing up'));
 
 		//Setting respones for Read about Enactivity
 		Response::signUp($form->tasks[1]->id, $user->id);
 		Response::start($form->tasks[1]->id, $user->id);
+		Comment::publishComment($taskdummy, array('content' => 'This is reading'));
 
 		//Setting respones for Create a new Activity		
 		Response::signUp($form->tasks[2]->id, $user->id);
+		Comment::publishComment($taskdummy, array('content' => 'This is creating'));
 
 		//Setting respones for Create a new Task
 		Response::signUp($form->tasks[3]->id, $user->id);
+		Comment::publishComment($taskdummy, array('content' => 'This is creating number 2'));
 	}
 	
 }
