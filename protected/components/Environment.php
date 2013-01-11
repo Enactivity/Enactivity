@@ -138,7 +138,7 @@
  *
  * ===Create mode-specific config files===
  *
- * Create `config/mode_<mode>.php` files for the different modes
+ * Create `config/<mode>.php` files for the different modes
  * These will override or merge attributes that exist in the main config.
  * Optional: also create a `config/local.php` file for local overrides
  *

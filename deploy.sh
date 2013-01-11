@@ -22,11 +22,7 @@ set -e
 ###
 cd protected
 
-# DEPLOY>> config files
-# echo " DEPLOY>> Setting up config"
-# php yiic.php system config --env=${arguments[0]}
-# echo " DEPLOY>> Done"
-
+# Set environment
 echo " DEPLOY>> Setting up environment mode"
 echo {arguments[0]} > config/local.mode
 echo " DEPLOY>> Done"

@@ -35,7 +35,7 @@ return array(
 				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
 				'class'=>'ext.minscript.components.ExtMinScript', 
 				'minScriptControllerId'=>'min',
-				'minScriptLmCache'=>3600, // cache for an hour
+				'minScriptLmCache'=>3600, // ignored if YII_DEBUG = true
 				'packages'=>array(
 					'jquery'=>array(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.8/',
@@ -338,6 +338,8 @@ return array(
 		),
 	),
 
+	'yiiDebug' => false,
+	'yiiTraceLevel' => 0,
 
 	// Set yiiPath (relative to Environment.php)
 	'yiiPath'  => dirname(__FILE__) . '/../../yii_framework/yii.php',
@@ -346,7 +348,7 @@ return array(
 
 	// Static function Yii::setPathOfAlias()
     'yiiSetPathOfAlias' => array(
-            // uncomment the following to define a path alias
-            //'local' => 'path/to/local-folder'
+        // uncomment the following to define a path alias
+        //'local' => 'path/to/local-folder'
     ),
 );
