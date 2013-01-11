@@ -4,7 +4,9 @@ return array(
 	'consoleApplicationConfig' => array(
 		'basePath'=>'inherit',
 		'components'=>'inherit',
+		'import'=>'inherit',
 		'name'=>'inherit',
+		'preload'=>'inherit',
 	),
 
 	'webApplicationConfig' => array( // CWebApplication properties
