@@ -1,32 +1,17 @@
 <?php
+return array(
 
-// debug mode on
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+	'webApplicationConfig' => array(
 
-// specify how many levels of call stack should be shown in each log message
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
-
-// This is the test Web application configuration. Any writable
-// CWebApplication properties can be configured here.
-// Overrides any settings from main.inc.php
-return CMap::mergeArray(
-	require(dirname(__FILE__).'/web.php'),
-	array(
 		'components'=>array(
 
 			'clientScript'=>array(
 				'minScriptLmCache'=>false, // don't cache in development
 			),
 
-	
 			'db'=>array(
-				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
-				'emulatePrepare' => true,
-				'enableProfiling'=>true,
-				'username' => 'poncla_alpha',
-				'password' => 'alpha123',
-				'charset' => 'utf8',
 				'enableParamLogging'=>true,
+				'enableProfiling' => true,
 			),
 
 			'FB'=>array(
@@ -38,19 +23,8 @@ return CMap::mergeArray(
 			'log'=>array(
 				'class'=>'CLogRouter',
 				'routes'=>array(
-					// output errors and warning to runtime file
-					array(
-						'class'=>'CFileLogRoute',
-						'filter' => array(
-							'class' => 'CLogFilter',
-							'logUser' => true,
-							'prefixSession' => true,
-							'prefixUser' => true,
-						),
-						'levels'=>'error, warning',
-					),
 					// show log messages on web pages
-					array(
+					'CWebLogRoute' => array(
 						'class'=>'CWebLogRoute',
 						'filter' => array(
 							'class' => 'CLogFilter',
@@ -59,7 +33,7 @@ return CMap::mergeArray(
 							'prefixUser' => true,
 						),
 					),
-					array(
+					'CProfileLogRoute' => array(
 	                    'class'=>'CProfileLogRoute',
 	                    'report'=>'summary',
 	                ),
@@ -80,5 +54,13 @@ return CMap::mergeArray(
 				// 'ipFilters'=>false,
 			),
 		),
-	)
+
+		'params'=>array(
+			'googleAnalyticsOn'=>false,
+		),
+	),
+
+	// Set YII_DEBUG and YII_TRACE_LEVEL flags
+	'yiiDebug' => true,
+	'yiiTraceLevel' => 3,
 );

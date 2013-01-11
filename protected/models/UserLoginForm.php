@@ -10,7 +10,6 @@ Yii::import("application.components.auth.UserIdentity");
 class UserLoginForm extends CFormModel
 {
 	public $code;
-	public $state;
 
 	/**
 	 * @var UserIdentity
