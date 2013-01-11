@@ -76,10 +76,10 @@ return array(
 
 			'db'=>array(
 				'charset' => 'utf8',
-				'connectionString' => '',
+				'connectionString' => '', // set in local
 				'emulatePrepare' => true,
-				'password' => '',
-				'username' => '',
+				'password' => '', // set in local
+				'username' => '', // set in local
 			),
 		
 			// Set the error handler
@@ -311,10 +311,10 @@ return array(
 		'params'=>array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
-			//flag to control whether or not email notification emails should be sent
-			'emailNotificationsOn'=>false,
+			// flag to control whether or not email notification emails should be sent
+			'emailNotificationsOn' => false,
 			'feedbackEmail' => 'team@poncla.com',
-			'googleAnalyticsOn'=>false,
+			'googleAnalyticsOn' => true,
 		),
 
 		// preloading 'log' component

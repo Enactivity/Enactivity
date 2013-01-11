@@ -10,11 +10,8 @@ return array(
 			),
 
 			'db'=>array(
-				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
 				'enableParamLogging'=>true,
 				'enableProfiling' => true,
-				'password' => 'alpha123',
-				'username' => 'poncla_alpha',
 			),
 
 			'FB'=>array(
@@ -56,6 +53,10 @@ return array(
 				'password'=>'notsochewy',
 				// 'ipFilters'=>false,
 			),
+		),
+
+		'params'=>array(
+			'googleAnalyticsOn'=>false,
 		),
 	),
 
