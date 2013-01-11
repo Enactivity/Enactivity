@@ -1,28 +1,18 @@
 <?php
+return array(
 
-// debug mode on
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+	'webApplicationConfig' => array(
 
-// specify how many levels of call stack should be shown in each log message
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
-
-// This is the test Web application configuration. Any writable
-// CWebApplication properties can be configured here.
-// Overrides any settings from main.inc.php
-return CMap::mergeArray(
-	require(dirname(__FILE__).'/web.php'),
-	array(
 		'components'=>array(
 
 			'clientScript'=>array(
 				'minScriptLmCache'=>false, // don't cache in development
 			),
 
-	
 			'db'=>array(
 				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
 				'emulatePrepare' => true,
-				'enableProfiling'=>true,
+				'enableProfiling' => true,
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
 				'charset' => 'utf8',
@@ -80,5 +70,9 @@ return CMap::mergeArray(
 				// 'ipFilters'=>false,
 			),
 		),
-	)
+	),
+
+	// Set YII_DEBUG and YII_TRACE_LEVEL flags
+	'yiiDebug' => true,
+	'yiiTraceLevel' => 3,
 );

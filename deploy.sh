@@ -23,8 +23,12 @@ set -e
 cd protected
 
 # DEPLOY>> config files
-echo " DEPLOY>> Setting up config"
-php yiic.php system config --env=${arguments[0]}
+# echo " DEPLOY>> Setting up config"
+# php yiic.php system config --env=${arguments[0]}
+# echo " DEPLOY>> Done"
+
+echo " DEPLOY>> Setting up environment mode"
+echo {arguments[0]} > config/local.mode
 echo " DEPLOY>> Done"
 
 # Migrate db as needed
@@ -34,17 +38,15 @@ echo " DEPLOY>> Database migrations done"
 
 # Clean out assets
 echo " DEPLOY>> Cleaning out assets"
-cd ../www/assets
-rm -rf *
-cd ../../protected
+rm -rf ../www/assets/*
 echo " DEPLOY>> Assets are cleaned"
 
 echo " DEPLOY>> Cleaning out minified files"
-rm -rf runtime/minScript/
+rm -rf runtime/minScript/*
 echo " DEPLOY>> Minified files are deleted"
 
 echo " DEPLOY>> Cleaning out mustache cache"
-rm -rf runtime/Mustache/
+rm -rf runtime/Mustache/*
 echo " DEPLOY>> Mustache files are deleted"
 
 # Run compass once to update stylesheets
