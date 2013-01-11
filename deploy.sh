@@ -24,7 +24,7 @@ cd protected
 
 # Set environment
 echo " DEPLOY>> Setting up environment mode"
-echo {arguments[0]} > config/local.mode
+echo ${arguments[0]} > config/local.mode
 echo " DEPLOY>> Done"
 
 # Migrate db as needed
