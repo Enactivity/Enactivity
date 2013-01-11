@@ -3,8 +3,8 @@ www/assets/*
 protected/runtime/*
 protected/tests/report/*
 
-# Local config files
-protected/config/*.local.php
+# Ignore all local config files
+protected/config/*local*
 
 # SASS
 .sass-cache
