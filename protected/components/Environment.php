@@ -11,10 +11,10 @@
  *
  * Simple class used to set configuration and debugging depending on environment.
  * Using this you can predefine configurations for use in different environments,
- * like _development, testing, staging and production_.
+ * like development, staging and production.
  *
- * The main config (main.php) is extended to include the Yii paths and debug flags.
- * There are mode_<environment>.php files for overriding and extending main.php for specific environments.
+ * The main config (global.php) is extended to include the Yii paths and debug flags.
+ * There are <environment>.php files for overriding and extending global.php for specific environments.
  * Additionally, you can overrride the resulting config by using a local.php config, to make
  * changes that will only apply to your specific installation.
  *
