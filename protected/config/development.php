@@ -11,12 +11,10 @@ return array(
 
 			'db'=>array(
 				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
-				'emulatePrepare' => true,
-				'enableProfiling' => true,
-				'username' => 'poncla_alpha',
-				'password' => 'alpha123',
-				'charset' => 'utf8',
 				'enableParamLogging'=>true,
+				'enableProfiling' => true,
+				'password' => 'alpha123',
+				'username' => 'poncla_alpha',
 			),
 
 			'FB'=>array(
@@ -28,19 +26,8 @@ return array(
 			'log'=>array(
 				'class'=>'CLogRouter',
 				'routes'=>array(
-					// output errors and warning to runtime file
-					array(
-						'class'=>'CFileLogRoute',
-						'filter' => array(
-							'class' => 'CLogFilter',
-							'logUser' => true,
-							'prefixSession' => true,
-							'prefixUser' => true,
-						),
-						'levels'=>'error, warning',
-					),
 					// show log messages on web pages
-					array(
+					'CWebLogRoute' => array(
 						'class'=>'CWebLogRoute',
 						'filter' => array(
 							'class' => 'CLogFilter',
@@ -49,7 +36,7 @@ return array(
 							'prefixUser' => true,
 						),
 					),
-					array(
+					'CProfileLogRoute' => array(
 	                    'class'=>'CProfileLogRoute',
 	                    'report'=>'summary',
 	                ),

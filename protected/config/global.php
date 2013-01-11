@@ -73,6 +73,14 @@ return array(
 					)
 				),
 			),
+
+			'db'=>array(
+				'charset' => 'utf8',
+				'connectionString' => '',
+				'emulatePrepare' => true,
+				'password' => '',
+				'username' => '',
+			),
 		
 			// Set the error handler
 			'errorHandler'=>array(
@@ -108,7 +116,7 @@ return array(
 				'class'=>'CLogRouter',
 				'routes'=>array(
 					// output errors and warning to runtime file
-					array(
+					'CFileLogRoute' => array(
 						'class'=>'CFileLogRoute',
 						'filter' => array(
 							'class' => 'CLogFilter',
@@ -118,7 +126,7 @@ return array(
 						),
 						'levels'=>'error, warning',
 					),
-					array(
+					'CEmailLogRoute' => array(
 						'class'=>'CEmailLogRoute',
 						'emails'=>'support-message-log@poncla.com',
 						'filter' => array(
@@ -136,17 +144,17 @@ return array(
 			),
 
 			'mail' => array(
-					'class' => 'ext.YiiMail',
-					'transportType' => 'php',
-					'viewPath' => 'application.views.mail',
-					'logging' => false,
-					'dryRun' => false,
+				'class' => 'ext.YiiMail',
+				'transportType' => 'php',
+				'viewPath' => 'application.views.mail',
+				'logging' => false,
+				'dryRun' => false,
 			),
 		
 			'mailer'=>array(
-	        		'class'=>'application.extensions.mailer.Mailer',
-	        		'mailTransferAgent'=>'php',
-					'shouldEmail'=>false,  
+        		'class'=>'application.extensions.mailer.Mailer',
+        		'mailTransferAgent'=>'php',
+				'shouldEmail'=>false,  
 			),
 			
 			'request'=>array(
