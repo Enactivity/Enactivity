@@ -52,22 +52,22 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
-			array(
-				'label'=>'Admin',
-				'linkOptions'=>array(
-					'id'=>'application-navigation-site-admin',
-				),
-				'url'=>array('site/admin'),
-				'visible'=>Yii::app()->user->isAdmin
-			),
-			array(
-				'label'=>'<i></i> Sign in with Facebook',
-				'linkOptions'=>array(
-					'id'=>'application-navigation-facebook-login',
-				),
-				'url'=>Yii::app()->FB->loginUrl,
-				'visible'=>Yii::app()->user->isGuest
-			),
+			// array(
+			// 	'label'=>'Admin',
+			// 	'linkOptions'=>array(
+			// 		'id'=>'application-navigation-site-admin',
+			// 	),
+			// 	'url'=>array('site/admin'),
+			// 	'visible'=>Yii::app()->user->isAdmin
+			// ),
+			// array(
+			// 	'label'=>'<i></i> Sign in with Facebook',
+			// 	'linkOptions'=>array(
+			// 		'id'=>'application-navigation-facebook-login',
+			// 	),
+			// 	'url'=>Yii::app()->FB->loginUrl,
+			// 	'visible'=>Yii::app()->user->isGuest
+			// ),
 		);
 	}
 	
