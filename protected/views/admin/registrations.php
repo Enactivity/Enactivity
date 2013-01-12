@@ -9,5 +9,5 @@
 			<?= PHtml::mailto(PHtml::encode($user->email), PHtml::encode($user->email)); ?>
 		</li>
 		<? endforeach; ?>
-	<ol>
+	</ol>
 </section>
