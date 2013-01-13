@@ -100,6 +100,8 @@ class ActivityAndTasksForm extends CFormModel
 				$task->groupId = $this->activity->groupId;
 				$task->activityId = $this->activity->id;
 				$task->draft();
+				var_dump($task->id);
+				exit();
 			}
 
 			return true;

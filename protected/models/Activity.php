@@ -79,9 +79,10 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'setUpdateOnCreate' => true,
 			),
 			// Set the groupId automatically when user is in only one group
+			/*
 			'DefaultGroupBehavior'=>array(
 				'class' => 'ext.behaviors.DefaultGroupBehavior',
-			),
+			),*/
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),

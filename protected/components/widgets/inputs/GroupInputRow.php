@@ -48,23 +48,21 @@ class GroupInputRow extends CWidget {
 	}
 	
 	protected function renderRow() {
-		if(count($this->groups) != 1) {
-			echo CHtml::openTag('div', array('class' => 'field'));
-			
-			echo CHtml::openTag('div', array('class' => 'formlabel'));
-			echo $this->form->labelEx($this->model, 'groupId');
-			echo CHtml::closeTag('div');
-			
-			echo CHtml::openTag('div', array('class' => 'forminput'));
-			echo $this->form->dropDownList($this->model, 'groupId', 
-					PHtml::listData($this->groups, 'id', 'name'));
-			echo CHtml::closeTag('div');
-			
-			echo CHtml::openTag('div', array('class' => 'formerrors'));
-			echo $this->form->error($this->model,'groupId');
-			echo CHtml::closeTag('div');
-			
-			echo CHtml::closeTag('div');
-		}
+		echo CHtml::openTag('div', array('class' => 'field'));
+		
+		echo CHtml::openTag('div', array('class' => 'formlabel'));
+		echo $this->form->labelEx($this->model, 'groupId');
+		echo CHtml::closeTag('div');
+		
+		echo CHtml::openTag('div', array('class' => 'forminput'));
+		echo $this->form->dropDownList($this->model, 'groupId', 
+				PHtml::listData($this->groups, 'id', 'name'));
+		echo CHtml::closeTag('div');
+		
+		echo CHtml::openTag('div', array('class' => 'formerrors'));
+		echo $this->form->error($this->model,'groupId');
+		echo CHtml::closeTag('div');
+		
+		echo CHtml::closeTag('div');
 	}
 }

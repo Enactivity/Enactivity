@@ -5,8 +5,6 @@ class TutorialActivityGenerator extends CComponent
 	public static function generateIntroActivity(User $user)
 	{
 		$activityAttributes = array(
-			/*fix me: should be groupless*/
-			'groupId' => 10,
 			'name' => 'Banana2',
 			'description' => 'Welcome to Enactivity! This is a sample activity to help guide you through the process of creating, sharing, and participating in activities and tasks.',
 		);
