@@ -82,6 +82,9 @@ class ActivityAndTasksForm extends CFormModel
 	public function draft($activityAttributes = array(), $taskAttributesList = array()) {
 		$this->scenario = self::SCENARIO_DRAFT;
 
+		// hacky way to ensure correct activity status
+		$this->activity->scenario = Activity::SCENARIO_DRAFT;
+
 		$this->attributes = array(
 			'activity' => $activityAttributes,
 			'tasks' => $taskAttributesList,
@@ -96,12 +99,11 @@ class ActivityAndTasksForm extends CFormModel
 
 		if($this->validate()) {
 			$this->activity->draft();
+
 			foreach($this->tasks as &$task) {
 				$task->groupId = $this->activity->groupId;
 				$task->activityId = $this->activity->id;
 				$task->draft();
-				var_dump($task->id);
-				exit();
 			}
 
 			return true;
@@ -114,6 +116,14 @@ class ActivityAndTasksForm extends CFormModel
 		if($this->draft($activityAttributes, $taskAttributesList)) {
 			$this->scenario = self::SCENARIO_PUBLISH;
 			return $this->activity->publish($this->activity->attributes);
+		}
+		return false;
+	}
+
+	public function publishWithoutGroup($activityAttributes = array(), $taskAttributesList = array()) {
+		if($this->draft($activityAttributes, $taskAttributesList)) {
+			$this->scenario = self::SCENARIO_PUBLISH;
+			return $this->activity->publishWithoutGroup($this->activity->attributes);
 		}
 		return false;
 	}

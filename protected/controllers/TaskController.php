@@ -14,15 +14,6 @@ class TaskController extends Controller
 	 */
 	public function accessRules()
 	{
-		// get the group assigned to the event
-		if(!empty($_GET['id'])) {
-			$task = $this->loadTaskModel($_GET['id']);
-			$groupId = $task->groupId;
-		}
-		else {
-			$groupId = null;
-		}
-
 		return array(
 			array('allow',
 				'actions'=>array('next','calendar','someday'),
@@ -34,7 +25,7 @@ class TaskController extends Controller
 					'signup','start','resume',
 					'complete','quit','ignore','feed',
 				),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+				'expression'=>'Yii::app()->controller->isParticipantOrGroupMember',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin'),
@@ -44,6 +35,25 @@ class TaskController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function getIsParticipantOrGroupMember() {
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$task = $this->loadTaskModel($_GET['id']);
+
+			if(StringUtils::isNotBlank($task->groupId)) {
+				return Yii::app()->user->isGroupMember($task->groupId);
+			}
+
+			$response = Response::model()->findByAttributes(array(
+				'taskId' => $task->id,
+				'userId' => Yii::app()->user->id,
+			));
+
+			return !is_null($response);
+		}
+		return false;
 	}
 
 	/**
@@ -350,13 +360,9 @@ class TaskController extends Controller
 		// Get list of user drafts
 		$draftsCount = Yii::app()->user->model->draftsCount;
 
-		// Generate an intro activity for first time users
-		$introActvity = TutorialActivityGenerator::generateIntroActivity(Yii::app()->user->model);
-
 		$this->render('next', array(
 			'calendar'=>$calendar,
 			'draftsCount'=>$draftsCount,
-			'introActvity'=>$introActvity,
 		));
 	}
 

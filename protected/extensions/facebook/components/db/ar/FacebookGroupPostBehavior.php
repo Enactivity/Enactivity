@@ -43,8 +43,7 @@ class FacebookGroupPostBehavior extends CActiveRecordBehavior
 	}
 
 	public function recordChanges() {
-		if(isset(Yii::app()->user))
-		{
+		if(isset(Yii::app()->user) && StringUtils::isNotBlank($this->owner->group)) {
 			$scenarioLabel = $this->owner->getScenarioLabel($this->owner->scenario);
 			$name = $this->owner->facebookGroupPostName;
 			$message = ucfirst($scenarioLabel . " " . "\"" . $name . "\"");

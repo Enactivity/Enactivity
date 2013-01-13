@@ -26,14 +26,7 @@ class ActivityController extends Controller
 	 */
 	public function accessRules()
 	{
-		// get the group assigned to the event
-		if(!empty($_GET['id'])) {
-			$task = $this->loadActivityModel($_GET['id']);
-			$groupId = $task->groupId;
-		}
-		else {
-			$groupId = null;
-		}
+		// TODO: if no groupId, check if user = author
 
 		return array(
 			array('allow',
@@ -48,7 +41,7 @@ class ActivityController extends Controller
 					'feed','publish',
 					'tasks',
 				),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+				'expression'=>'Yii::app()->controller->isActivityAuthorOrGroupMember',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin'),
@@ -58,6 +51,19 @@ class ActivityController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function getIsActivityAuthorOrGroupMember() {
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$activity = $this->loadActivityModel($_GET['id']);
+
+			if(StringUtils::isNotBlank($activity->groupId)) {
+				return Yii::app()->user->isGroupMember($activity->groupId);
+			}
+			return strcasecmp(Yii::app()->user->id, $activity->authorId) == 0;
+		}
+		return false;
 	}
 
 	/**
@@ -99,6 +105,7 @@ class ActivityController extends Controller
 			}
 			elseif($_POST['draft']) {
 				if($form->draft($_POST['Activity'], $_POST['Task'])) {
+					Yii::app()->user->setFlash('notice', 'A draft of ' . $activity->name  . ' has been saved.');
 					$this->redirect(array('activity/view','id'=>$form->activity->id));
 				}
 			}
