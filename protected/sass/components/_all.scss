@@ -14,13 +14,15 @@
 
 // Ajax helpers
 @import "ajax";
+@import "pjax";
 
 // Actual things
 @import "application-header";
 @import "application-navigation";
 @import "application-footer";
 @import "application-content";
-@import "application-content-nav";
+@import "application-content-navigation";
+@import "page";
 @import "content";
 @import "content-header";
 @import "content-footer";

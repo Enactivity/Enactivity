@@ -43,23 +43,41 @@ abstract class ActiveRecord extends CActiveRecord {
 		$this->_oldAttributes = $this->attributes;
 	}
 
+	/** 
+	 * Delete cache before calling parent function
+	 * @override
+	 */
+	protected function afterSave() {
+		$this->deleteCacheByPk($this->id);
+		return parent::afterSave();
+	}
+
+	/** 
+	 * Delete cache before calling parent function
+	 * @override
+	 */
+	public function saveCounters($counters) {
+		$this->deleteCacheByPk($this->id);
+		return parent::saveCounters($counters);
+	}
+
 	/**
 	 * @return array of labels
 	 **/
 	public function getAttributeLabels() {
 		return $this->attributeLabels();
 	}
- 
+
  	/**
  	 * Get the old attribute for the current owner
  	**/
-	public function getOldAttributes() {
-		if($this->isNewRecord) {
-			throw new CException("Record is new and has no old values.");
-		}
+ 	public function getOldAttributes() {
+ 		if($this->isNewRecord) {
+ 			throw new CException("Record is new and has no old values.");
+ 		}
 
-		return $this->_oldAttributes;
-	}
+ 		return $this->_oldAttributes;
+ 	}
 
 	/** 
 	 * @return array in form of:
@@ -78,19 +96,19 @@ abstract class ActiveRecord extends CActiveRecord {
 			// check that if the attribute should be ignored
 			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
 
- 			if ($currentValue != $oldValue) {
- 				if(!in_array($name, $ignoreAttributes) 
- 					&& array_key_exists($name, $oldAttributes)
- 					&& array_key_exists($name, $currentAttributes)
- 				)
- 				{
+			if ($currentValue != $oldValue) {
+				if(!in_array($name, $ignoreAttributes) 
+					&& array_key_exists($name, $oldAttributes)
+					&& array_key_exists($name, $currentAttributes)
+					)
+				{
  					// Hack: Format the datetimes into readable strings
- 					if ($this->metadata->columns[$name]->dbType == 'datetime') {
+					if ($this->metadata->columns[$name]->dbType == 'datetime') {
 						$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
 						$currentAttributes[$name] = isset($currentAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($currentAttributes[$name])) : '';
 					}
- 					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$currentAttributes[$name]);
- 				}
+					$changes[$name] = array('old'=>$oldAttributes[$name], 'new'=>$currentAttributes[$name]);
+				}
 			}
 		}
 
@@ -114,27 +132,69 @@ abstract class ActiveRecord extends CActiveRecord {
 			// check that if the attribute should be ignored
 			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
 
- 			if ($currentValue != $oldValue) {
- 				if(in_array($name, $attributeNames) 
- 					&& array_key_exists($name, $oldAttributes)
- 					&& array_key_exists($name, $currentAttributes)
- 				)
- 				{
+			if ($currentValue != $oldValue) {
+				if(in_array($name, $attributeNames) 
+					&& array_key_exists($name, $oldAttributes)
+					&& array_key_exists($name, $currentAttributes)
+					)
+				{
  					// Hack: Format the datetimes into readable strings
- 					if ($this->metadata->columns[$name]->dbType == 'datetime') {
+					if ($this->metadata->columns[$name]->dbType == 'datetime') {
 						$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
 						$currentAttributes[$name] = isset($currentAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($currentAttributes[$name])) : '';
 					}
- 					$changes[$name] = array(
- 						'old'=>$oldAttributes[$name], 
- 						'new'=>$currentAttributes[$name]
- 					);
- 				}
+					$changes[$name] = array(
+						'old'=>$oldAttributes[$name], 
+						'new'=>$currentAttributes[$name]
+						);
+				}
 			}
 		}
 
 		return $changes;
 	}
 
+	public function findByPk($pk, $condition='', $params=array()) {
+		// FIXME: decomment when ready for caching records
+		// if($cachedFind = $this->findInCacheByPk($pk)) {
+		// 	return $cachedFind;
+		// }
+		return parent::findByPk($pk, $condition, $params);
+	}
 
+	/** 
+	 * Looks for the record in the cache based on the primary key
+	 * @return ActiveRecord
+	 */
+	public function findInCacheByPk($pk) {
+		$cacheId = self::getCacheIdByPk($pk);
+		return Yii::app()->cache->get($cacheId);
+	}
+
+	/**
+	 * Unset the record in the cache
+	 * @return ActiveRecord
+	 **/
+	public function deleteCacheByPk($pk) {
+		$cacheId = self::getCacheIdByPk($pk);
+		return Yii::app()->cache->delete($cacheId);	
+	}
+
+	/**
+	 * @return string the cache id for the model/primary-key
+	 **/
+	public static function getCacheIdByPk($pk) {
+		return self::generateCacheId(array(
+			get_class($this),
+			$pk
+		));
+	}
+
+	/**
+	 * @param $params the unique identifiers to 
+	 * @return string imploded identifiers
+	**/
+	public static function generateCacheId($params = array()) {
+		return implode('/', $params);
+	}
 }

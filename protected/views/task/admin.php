@@ -1,6 +1,4 @@
 <?
-$this->pageTitle = 'Manage Tasks';
-
 $this->menu = MenuDefinitions::adminMenu();
 
 Yii::app()->clientScript->registerScript('search', "

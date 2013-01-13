@@ -8,7 +8,6 @@
  * @uses $commentsDataProvider
  * @uses $feedDataProvider
  */
-$this->pageTitle = $model->name;
 ?>
 
 <header class="content-header">

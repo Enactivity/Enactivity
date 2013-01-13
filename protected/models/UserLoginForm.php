@@ -12,7 +12,6 @@ Yii::import("application.components.introduction.TutorialActivityGenerator");
 class UserLoginForm extends CFormModel
 {
 	public $code;
-	public $state;
 
 	/**
 	 * @var UserIdentity

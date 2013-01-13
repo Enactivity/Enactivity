@@ -21,7 +21,7 @@
 	    <link rel="apple-touch-icon" sizes="72x72" href="<?= Yii::app()->theme->baseUrl; ?>/images/favicon-72x72.png">
 	    <link rel="apple-touch-icon" sizes="114x114" href="<?= Yii::app()->theme->baseUrl; ?>/images/favicon-114x114.png"> 
 
-		<title><?= CHtml::encode($this->pageTitle) . ' - ' . Yii::app()->name; ?></title>
+		<title><?= PHtml::encode($this->pageTitleWithBranding); ?></title>
 		
 	<? 
 	// Include Google Analytics widget

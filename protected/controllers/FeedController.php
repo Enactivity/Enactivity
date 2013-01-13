@@ -36,9 +36,10 @@ class FeedController extends Controller
 		$feedModel = new ActiveRecordLog();
 		$feedDataProvider = new CActiveDataProvider(
 			$feedModel->scopeUsersGroups(Yii::app()->user->id),
-			array(
-			)
+			array()
 		);
+
+		$this->pageTitle = 'Timeline';
 
 		$this->render('index', array(
 			'dataProvider'=>$feedDataProvider,

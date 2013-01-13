@@ -1,5 +1,11 @@
 aside.flash {
 	@include grid-row;
+
+	div {
+		margin: auto;
+		max-width: $base-max-page-width;
+		padding: 0 $base-padding;
+	}
 }
 
 .flash-error {

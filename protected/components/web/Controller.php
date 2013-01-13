@@ -15,6 +15,13 @@ class Controller extends CController
 	public $layout='//layouts/defaultlayout';
 
 	/**
+	 * @var boolean whether to include <head> in layout render 
+	 */
+	public $layoutIncludesHead = true;
+
+	private $_pageTitle;
+
+	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -41,22 +48,61 @@ class Controller extends CController
 		}
 	}
 
+	/** 
+	 * Helper function that maps to Yii::beginProfile
+	 * @return null
+	 **/
+	protected function beginProfile($token) {
+		return Yii::beginProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
+	/** 
+	 * Helper function that maps to Yii::endProfile
+	 * @return null
+	 **/
+	protected function endProfile($token) {
+		return Yii::endProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
+	}
+
+	protected function beforeAction($action) {
+		$this->beginProfile("Before action to after action");
+	    return parent::beforeAction($action);
+	}
+
+	protected function afterAction($action) {
+		$this->endProfile("Before action to after action");
+		return parent::afterAction($action);
+	}
+
+	protected function beforeRender($view) {
+		$this->beginProfile("Before render to after render");
+	    return parent::beforeRender($view);
+	}
+
+	protected function afterRender($view, &$output) {
+		$this->endProfile("Before render to after render");
+	    return parent::afterRender($view, $output);	
+	}
+
 	public function render($view, $data=null, $return=false) {
 
-	    if(!isset($data['appUser'])) {
-	    	$data['appUser'] = Yii::app()->user;
-	    }
+		if(!isset($data['appUser'])) {
+			$data['appUser'] = Yii::app()->user;
+		}
 
-	    if(Yii::app()->request->isPjaxRequest) {
+		if(Yii::app()->request->isPjaxRequest) {
 			return $this->renderPjaxResponse($view, $data);
 		}
 
-	    return parent::render($view, $data, $return);
+		return parent::render($view, $data, $return);
 	}
 
 	public function renderPjaxResponse($view, $data) {
-		$this->layout = "//layouts/headlesslayout";
-		echo '<title>' . PHtml::encode($this->pageTitle) .'</title>';
+		$this->disableWebLogging();
+		
+		$this->layoutIncludesHead = false;
+		echo '<title>' . PHtml::encode($this->pageTitleWithBranding) .'</title>' . PHP_EOL;
+
 		return parent::render($view, $data);
 	}
 	
@@ -71,6 +117,43 @@ class Controller extends CController
 
 		echo $this->renderPartial($view, $data, false, true);
 		Yii::app()->end();
+	}
+
+	public function beginLayout($view=null, $data=array()) {
+		if($this->layoutIncludesHead) {
+			return $this->beginContent($view, $data);
+		}
+	}
+
+	public function endLayout() {
+		if($this->layoutIncludesHead) {
+			return $this->endContent();
+		}
+	}
+
+	/** 
+	 * @override
+	 */
+	public function getPageTitle() {
+		if(is_null($this->_pageTitle)) {
+			$this->_pageTitle = ucfirst(basename($this->getId()));
+			if($this->getAction() !== null && strcasecmp($this->getAction()->getId(), $this->defaultAction)) {
+				$this->_pageTitle = ucfirst($this->getAction()->getId())  . ' ' . $name;
+			}
+		}
+		return $this->_pageTitle;
+	}
+
+	public function getPageTitleWithBranding() {
+		return $this->pageTitle . ' - ' . Yii::app()->name;
+	}
+
+	/** 
+	 * @override
+	 */
+	public function setPageTitle($value)
+	{
+	    $this->_pageTitle = $value;
 	}
 
 	/**
@@ -172,9 +255,9 @@ class Controller extends CController
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performCommentAjaxValidation($comment);
-	
+
 		if(isset($_POST['Comment'])) {
-	
+
 			if($comment->publishComment($model, $_POST['Comment'])) {
 				$this->redirect(array('view','id'=>$model->id, '#'=>'comment-' . $comment->id));
 			}

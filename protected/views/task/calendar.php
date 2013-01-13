@@ -5,7 +5,6 @@
  * @uses $month
  *
  **/
-$this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
 ?>
 
 <header class="content-header">

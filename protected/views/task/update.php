@@ -1,7 +1,3 @@
-<? 
-$this->pageTitle = 'Edit Task';
-?>
-
 <header class="content-header">
 	<nav class="content-header-nav">
 		<ul>

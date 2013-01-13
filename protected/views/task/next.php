@@ -4,8 +4,6 @@
  * @uses calendar
  * @uses newTask
  */
-
-$this->pageTitle = 'Next';
 ?>
 
 <header class="content-header">

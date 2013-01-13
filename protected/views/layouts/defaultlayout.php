@@ -1,30 +1,34 @@
-<? $this->beginContent('//layouts/main'); ?>
+<? $this->beginLayout('//layouts/main'); ?>
 <body>
-	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
+	<div id="page-<?= $this->id . '-' . $this->action->id; ?>" class="page page-<?= $this->id . '-' . $this->action->id; ?> page-controller-<?= $this->id; ?> page-action-<?= $this->action->id; ?>">
 		<header class="application-header" id="application-header">
 			<div class="application-header-wrapper">
 				<a href="/" class="logo">Enactivity</a>
-				<? if($this->pageTitle): ?>
 				<a href="#" class="page-title"><?= PHtml::encode($this->pageTitle); ?></a>
-				<? endif; ?>
-				<a id="show-menu" class="show-menu" href="#application-navigation">Menu</a>
-			<div>
+				<a href="<?= PHtml::encode(Yii::app()->request->url); ?>" class="refresh" data-type="refresh-button"><i></i></a>
+			</div>
 		</header>
 		
 		<!-- flash notices -->
 		<? if(Yii::app()->user->hasFlash('error')):?>
 		<aside class="flash flash-error">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('error')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('notice')):?>
 		<aside class="flash flash-notice">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('notice')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 		<? if(Yii::app()->user->hasFlash('success')):?>
 		<aside class="flash flash-success">
-			<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
+			<div>
+				<span><?= PHtml::encode(Yii::app()->user->getFlash('success')); ?></span>
+			</div>
 		</aside>
 		<? endif; ?>
 
@@ -44,15 +48,13 @@
 			<p class="copyright"><?= PHtml::link(Yii::app()->name, "http://facebook.com/EnactivityCommunity"); ?> &copy; <?= date('Y'); ?> 
 				All Rights Reserved.
 			</p>
-			<p class="feedback">Talk to us on <?= PHtml::link("Facebook", "http://facebook.com/EnactivityCommunity"); ?>.</p>
+			<p class="feedback"><?= PHtml::link("Talk to us on Facebook", "http://facebook.com/EnactivityCommunity"); ?>.</p>
 
 			<? if(Yii::app()->user->isAuthenticated): ?>
 			<p class="logout">
 				<?= PHtml::link("Logout", '/site/logout'); ?>
 			<? endif; ?>
 		</footer>
-
-		<aside class="ajax-flag"></aside>
 	</div>
 </body>
-<? $this->endContent(); ?>
+<? $this->endLayout(); ?>

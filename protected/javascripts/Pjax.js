@@ -692,7 +692,7 @@
     $.pjax.submit = handleSubmit
     $.pjax.reload = pjaxReload
     $.pjax.defaults = {
-      timeout: 3000, // 3 second timeout
+      timeout: 1300,
       push: true,
       replace: false,
       type: 'GET',
@@ -745,8 +745,14 @@
 // Enable PJax for wrapper container
 $(document).pjax('body a', 'body');
 
+// Add/remove pjax loading class
 $(document).on('pjax:start', function(){
-  $('#application-content').fadeTo(200, .8); // Fixme: add class to wrapper instead
+  $('#application-content').addClass('pjax-loading');
 }).on('pjax:end', function(){
-  $('#application-content').fadeTo(200, 1);
+  $('#application-content').removeClass('pjax-loading');
 });
+
+// Prevent default timeout redirection behavior
+$(document).on('pjax:timeout', function(event) {
+  event.preventDefault()
+})

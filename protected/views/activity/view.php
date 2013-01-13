@@ -4,7 +4,6 @@
  * @uses $comment
  * @uses $commentsDataProvider
  */
-$this->pageTitle = $model->name;
 ?>
 
 <header class="content-header">

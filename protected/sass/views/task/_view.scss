@@ -1,5 +1,11 @@
 .page-task-view {
 
+	.content-header-nav li {
+		@include respond-to(desktop){
+			@include grid-column-1-of-3;
+		}
+	}
+
 	.menu {
 		margin-bottom: 0; // override the default to reduce spacing
 	}
@@ -7,7 +13,7 @@
 	.task-activity-menu-item {
 		i {
 			@extend .icon;
-			@extend .icon-arrow-up;
+			@extend .icon-chevron-left;
 		}
 	}
 

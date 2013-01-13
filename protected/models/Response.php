@@ -236,48 +236,49 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanPend() {
-
 		return !$this->isNewRecord;
 	}
 
 	public function getCanSignUp() {
-		if($this->activity->isRespondable
-		&& ($this->isPending || $this->isIgnored)) {
+		if($this->task->isRespondable 
+			&& ($this->isPending || $this->isIgnored)
+			) {
+			
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanStart() {
-		if($this->activity->isRespondable && $this->isSignedUp) {
+		if($this->task->isRespondable && $this->isSignedUp) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanStop() {
-		if($this->isStarted) {
+		if($this->task->isRespondable && $this->isStarted) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanComplete() {
-		if($this->isStarted) {
+		if($this->task->isRespondable && $this->isStarted) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanResume() {
-		if($this->activity->isRespondable && $this->isCompleted) {
+		if($this->task->isRespondable && $this->isCompleted) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getCanQuit() {
-		if($this->isSignedUp || $this->isStarted) {
+		if($this->task->isRespondable && ($this->isSignedUp || $this->isStarted)) {
 			return true;
 		}
 		return false;

@@ -79,6 +79,8 @@ class ActivityController extends Controller
 		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
 
+		$this->pageTitle = $model->name;
+
 		$this->render('view',array(
 			'model'=>$model,
 			'calendar'=>$calendar,
@@ -116,6 +118,8 @@ class ActivityController extends Controller
 			}
 		}
 
+		$this->pageTitle = 'Create a New Activity';
+
 		$this->render('create', array(
 			'model' => $form,
 		));
@@ -139,6 +143,8 @@ class ActivityController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
+
+		$this->pageTitle = 'Edit Activity';
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -245,7 +251,7 @@ class ActivityController extends Controller
 		$task = new Task();
 		$task->activityId = $activity->id;
 		$task->groupId = $activity->groupId;
-		
+
 		if(StringUtils::isNotBlank($year) 
 		&& StringUtils::isNotBlank($month)
 		&& StringUtils::isNotBlank($day)) {
@@ -255,7 +261,7 @@ class ActivityController extends Controller
 		if(StringUtils::isNotBlank($time)) {
 			$task->startTime = $time;
 		}
-		
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($task);
 
@@ -275,12 +281,13 @@ class ActivityController extends Controller
 			}
 		}
 
+		$this->pageTitle = 'Create a New Task for ' . PHtml::encode($activity->name);
+
 		$this->render('/task/create',array(
 			'model'=>$task,
 			'activity'=>$activity,
 		));
 	}
-
 
 	public function actionFeed($id) {
 		// load model
@@ -288,6 +295,8 @@ class ActivityController extends Controller
 
 		// Feed
 		$feedDataProvider = new CArrayDataProvider($model->feed);
+
+		$this->pageTitle = 'Timeline for ' . $model->name;
 
 		$this->render(
 			'feed', 
@@ -300,6 +309,8 @@ class ActivityController extends Controller
 
 	public function actionDrafts() {
 		$drafts = Yii::app()->user->model->drafts;
+
+		$this->pageTitle = 'Drafts';
 
 		$this->render(
 			'index',
@@ -318,6 +329,8 @@ class ActivityController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Activity']))
 			$model->attributes=$_GET['Activity'];
+
+		$this->pageTitle = 'Manage Activities';
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -354,29 +367,5 @@ class ActivityController extends Controller
 			isset($_POST['returnUrl'])
 			? $_POST['returnUrl']
 			: array('activity/view', 'id'=>$activity->id,));
-	}
-
-	/**
-	 * Return a new activity comment based on post data
-	 * @param Activit $activity Activity the user is commenting on
-	 * @param Comment $comment
-	 * @return Comment
-	 */
-	public function handleNewActivityComment($activity, $comment = null) {
-		if(is_null($comment)) {
-			$comment = new ActivityComment();
-		}
-		
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performCommentAjaxValidation($comment);
-	
-		if(isset($_POST['ActivityComment'])) {
-	
-			if($comment->publishComment($activity, $_POST['ActivityComment'])) {
-				$this->redirect(array('view','id'=>$activity->id, '#'=>'comment-' . $comment->id));
-			}
-		}
-	
-		return $comment;
 	}
 }

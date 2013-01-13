@@ -1,8 +1,6 @@
 <?php
 /* @var $this ActivityController */
 /* @var $model Activity */
- 
-$this->pageTitle = 'Edit Activity';
 ?>
 
 <header class="content-header">

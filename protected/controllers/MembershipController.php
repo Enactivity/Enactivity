@@ -42,6 +42,8 @@ class MembershipController extends Controller
 			'allMemberships'=>array(),
 		))->findByPk(Yii::app()->user->id)->allMemberships;
 
+		$this->pageTitle = 'Groups';
+
 		$this->render('index', array(
 		    'memberships'=>$memberships,
 		));

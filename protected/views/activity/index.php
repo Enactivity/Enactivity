@@ -1,8 +1,6 @@
 <?php
 /* @var $this ActivityController */
 /* @var $dataProvider CActiveDataProvider */
-
-$this->pageTitle = 'Activities';
 ?>
 
 <section class="activities content">

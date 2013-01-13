@@ -7,11 +7,12 @@
 	}
 }
 
-/* makes the font 33% larger relative to the icon container */
-.icon-large {
+/* makes the icon large and adds a little space under it */
+.icon-hero {
 	@extend .icon;
 	&:before {
-		font-size: 27px;
+		font-size: 23px;
+		line-height: 27px; // line-height provides gap under icon
 		vertical-align: middle;
 	}
 }
