@@ -4,6 +4,7 @@ $logo-width: 105px;
 .application-header {
 	@include grid-row;
 	background-color: $cerulean;
+	@include background-image(radial-gradient(circle, $scooter, $cerulean));
 	position: fixed;
 	height: $application-header-fixed-height;
 	top: 0;
