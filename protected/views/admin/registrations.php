@@ -3,7 +3,7 @@
 
 	<table>
 		<tbody>
-			<? foreach($userDataProvider->data as $user): ?>
+			<? foreach($users as $user): ?>
 			<tr>
 				<td><?= PHtml::encode($user->created); ?></td>
 				<td><?= PHtml::encode($user->fullName); ?></td>
@@ -12,4 +12,9 @@
 			<? endforeach; ?>
 		</tbody>
 	</table>
+
+	<div class="pager">
+		<ul>
+			<li class="previous"><a href="<?= $previousPageUrl ?>">Previous</a></li>
+			<li class="next"><a href="<?= $nextPageUrl ?>">Next</a></li>
 </section>

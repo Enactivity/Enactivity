@@ -51,10 +51,22 @@ class AdminController extends Controller
 		    ),
 		));
 
+		$previousPageUrl = $this->createUrl('', array(
+			'user_page' => max(0, $dataProvider->pagination->currentPage - 1)
+		));
+		$nextPageUrl = $this->createUrl('', array(
+			'user_page' => min(
+				$dataProvider->pagination->pageCount, 
+				$dataProvider->pagination->currentPage + 1
+			)
+		));
+
 		$this->pageTitle = 'Registrations';
 
 		$this->render('registrations',array(
-			'userDataProvider' => $dataProvider,
+			'previousPageUrl' => $previousPageUrl,
+			'nextPageUrl' => $nextPageUrl,
+			'users' => $dataProvider->data,
 		));
 	}
 }
