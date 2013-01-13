@@ -17,4 +17,6 @@
 		<ul>
 			<li class="previous"><a href="<?= $previousPageUrl ?>">Previous</a></li>
 			<li class="next"><a href="<?= $nextPageUrl ?>">Next</a></li>
+		</ul>
+	</div>
 </section>
