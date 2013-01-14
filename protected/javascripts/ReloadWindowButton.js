@@ -23,6 +23,6 @@ $(function() {
 
 	/* Apply button to html elements */
 	$(function() {
-		$('body').ReloadWindowButton(buttonSelector);
+		$(document).ReloadWindowButton(buttonSelector);
 	});
 });

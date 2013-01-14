@@ -38,6 +38,6 @@ $(function() {
 
 	/* Apply dropdown to html elements */
 	$(function() {
-		$('body').AjaxButton(buttonSelector);
+		$(document).AjaxButton(buttonSelector);
 	});
 });
