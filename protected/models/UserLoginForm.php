@@ -10,6 +10,7 @@ Yii::import("application.components.auth.UserIdentity");
 class UserLoginForm extends CFormModel
 {
 	public $code;
+	public $state; // not used, but available to handle OAuth states
 
 	/**
 	 * @var UserIdentity
@@ -24,7 +25,7 @@ class UserLoginForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('code', 'safe'),
+			array('code, state', 'safe'),
 		);
 	}
 
