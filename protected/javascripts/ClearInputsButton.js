@@ -40,6 +40,6 @@ $(function() {
 
 	/* Apply button to html elements */
 	$(function() {
-		$('body').ClearInputsButton(buttonSelector);
+		$(document).ClearInputsButton(buttonSelector);
 	});
 });

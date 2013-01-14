@@ -5,10 +5,6 @@ return array(
 
 		'components'=>array(
 
-			'clientScript'=>array(
-				'minScriptLmCache'=>false, // don't cache in development
-			),
-
 			'db'=>array(
 				'enableParamLogging'=>true,
 				'enableProfiling' => true,

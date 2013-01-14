@@ -31,7 +31,7 @@
 	
 	/* Apply button to html elements */
 	$(function() {
-		$('body').DateInputPolyfill(dateInputSelector); // apply to JQuery UI datepicker
+		$(document).DateInputPolyfill(dateInputSelector); // apply to JQuery UI datepicker
 	});
 
 })(jQuery);
