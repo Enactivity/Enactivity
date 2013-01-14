@@ -17,16 +17,16 @@
 		</h1>
 
 		<? foreach($times as $time => $activities): ?>
-		<? foreach($activities as $activityId => $activityInfo): ?>
+		<? foreach($activities as $activityId => $activityEntry): ?>
 		<article class="activity">
 			<h1 class="activity-name">
 				<i></i>
-				<?= PHtml::link(PHtml::encode($activityInfo['activity']->name),
-					array('activity/view', 'id'=>$activityInfo['activity']->id)
+				<?= PHtml::link(PHtml::encode($activityEntry['activity']->name),
+					array('activity/view', 'id'=>$activityEntry['activity']->id)
 				); ?>
 			</h1>
 			<ol>
-			<? foreach($activityInfo['tasks'] as $task): ?>
+			<? foreach($activityEntry['tasks'] as $task): ?>
 				<li>
 					<?= $this->renderPartial('/task/_view', array(
 						'data'=>$task,
@@ -50,17 +50,17 @@
 			<i></i>
 			Someday
 		</h1>
-		<? foreach($calendar->somedayTasks as $activityId => $activityInfo): ?>
+		<? foreach($calendar->somedayTasks as $activityId => $activityEntry): ?>
 		<article class="activity">
 			<h1 class='activity-name'>
 				<i></i>
 				<?= PHtml::link(
-					PHtml::encode($activityInfo['activity']->name),
-					array('activity/view', 'id'=>$activityInfo['activity']->id)
+					PHtml::encode($activityEntry['activity']->name),
+					array('activity/view', 'id'=>$activityEntry['activity']->id)
 				); ?>
 			</h1>
 			<ol>
-				<? foreach($activityInfo['tasks'] as $task): ?>
+				<? foreach($activityEntry['tasks'] as $task): ?>
 				<li>
 					<?= $this->renderPartial('/task/_view', array(
 						'data'=>$task,

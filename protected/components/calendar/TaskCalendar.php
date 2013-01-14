@@ -124,7 +124,7 @@ class TaskCalendar extends CComponent {
 				$this->dates[$date][$time][$activityId]['more'] = 0;
 			}
 
-			$this->dates[$date][$time][$activityId]['tasks'][] = $task;
+			$this->dates[$date][$time][$activityId]['tasks'] = self::addTaskToList($task, $this->dates[$date][$time][$activityId]['tasks']);
 
 		}
 		else {
@@ -145,7 +145,8 @@ class TaskCalendar extends CComponent {
 				$this->someday[$task->activityId]['more'] = 0;
 			}
 
-			$this->someday[$task->activityId]['tasks'][] = $task;
+			$this->someday[$task->activityId]['tasks'] = self::addTaskToList($task, $this->someday[$task->activityId]['tasks']);
+
 		}
 		else {
 			throw new CException("Attempting to add a task with no start time, but task has a start time");
@@ -188,7 +189,7 @@ class TaskCalendar extends CComponent {
 						}
 					}
 					else {
-						unset($this->dates[$date][$time][$activityId]['tasks']);
+						$this->dates[$date][$time][$activityId]['tasks'] = self::removeTaskFromList($task, $this->dates[$date][$time][$activityId]['tasks']);
 					}
 				}
 			}
@@ -211,7 +212,7 @@ class TaskCalendar extends CComponent {
 					unset($this->someday[$task->activityId]);
 				}
 				else {
-					unset($this->someday[$task->activityId]['tasks'][$task->id]);
+					$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
 				}
 			}
 
@@ -322,6 +323,9 @@ class TaskCalendar extends CComponent {
 	 * @return int|null
 	 */
 	private static function getIndexOfTask($task, $list) {
+
+		$list = is_array($list) ? $list : array();
+
 		foreach ($list as $key => $storedTask) {
 			if(strcasecmp($storedTask->id, $task->id) == 0) {
 				return $key;
@@ -334,10 +338,11 @@ class TaskCalendar extends CComponent {
 	/** 
 	 * Adds a task to a list, only if the task is not already in the list
 	 * @param task to add
-	 * @param array list of tasks
+	 * @param array list of tasks, generates new array if none exists
 	 * @return array updated list
 	 **/
 	private static function addTaskToList($task, $list) {
+
 		$index = self::getIndexOfTask($task, $list);
 		
 		if(is_null($index)) {
