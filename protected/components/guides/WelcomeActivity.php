@@ -10,11 +10,11 @@ class WelcomeActivity extends CComponent {
 	 * Publishes a tutorial activity & tasks for the user to interact with
 	 * @param int $userId
 	 * @return null
-	 * @uses Yii::app()->params[application.components.introduction.Tutorial.enabled]
+	 * @uses Yii::app()->params[application.components.guides.WelcomeActivity.enabled]
 	 **/
 	public static function publish($userId)
 	{
-		if(!Yii::app()->params['application.components.introduction.Tutorial.enabled']) {
+		if(!Yii::app()->params['application.components.guides.WelcomeActivity.enabled']) {
 			return;
 		}
 
