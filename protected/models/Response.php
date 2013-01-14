@@ -355,10 +355,6 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function pend($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isPending) {
-			return true;
-		}
-
 		if(!$response->isNewRecord) {
 			throw new CHttpException("Response already exists");
 		}
