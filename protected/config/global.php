@@ -317,6 +317,7 @@ return array(
 			'emailNotificationsOn' => false,
 			'feedbackEmail' => 'team@poncla.com',
 			'googleAnalyticsOn' => true,
+			'application.components.introduction.Tutorial.enabled' = true,
 		),
 
 		// preloading 'log' component

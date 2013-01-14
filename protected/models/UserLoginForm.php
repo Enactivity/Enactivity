@@ -2,7 +2,7 @@
 
 Yii::import("application.components.auth.UserIdentity");
 
-Yii::import("application.components.introduction.TutorialActivityGenerator");
+Yii::import("application.components.guides.WelcomeActivity");
 
 /**
  * UserLoginForm class.

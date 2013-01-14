@@ -1,9 +1,23 @@
 <?php
 
-class TutorialActivityGenerator extends CComponent
-{
-	public static function generateIntroActivity($userId)
+/**
+ * The welcome activity is the initial activity we provide to the user guide
+ * them through the basics of the app.
+ **/
+class WelcomeActivity extends CComponent {
+
+	/** 
+	 * Publishes a tutorial activity & tasks for the user to interact with
+	 * @param int $userId
+	 * @return null
+	 * @uses Yii::app()->params[application.components.introduction.Tutorial.enabled]
+	 **/
+	public static function publish($userId)
 	{
+		if(!Yii::app()->params['application.components.introduction.Tutorial.enabled']) {
+			return;
+		}
+
 		$applicationName = Yii::app()->name;
 
 		$activityAttributes = array(
