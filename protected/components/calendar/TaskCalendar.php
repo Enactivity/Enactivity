@@ -34,26 +34,6 @@ class TaskCalendar extends CComponent {
 		$ignorableSomedayTasks = $user->ignoredOrCompletedSomedayTasks;
 		$calendar->removeTasks($ignorableSomedayTasks);
 
-		// echo '<pre>';
-		// // CVarDumper::dump($nextTasks, 3);
-		// // echo '<hr>';
-		// // CVarDumper::dump($futureTasks, 3);
-		// // echo '<hr>';
-		// // CVarDumper::dump($somedayTasks, 3);
-		// // echo '<hr>';
-		// // CVarDumper::dump($ignorableTasks, 3);
-		// // echo '<hr>';
-		// CVarDumper::dump($user->ignoredOrCompletedResponses, 3);
-		// echo '<hr>';
-		// CVarDumper::dump($ignorableSomedayTasks, 3);
-		// // echo '</pre>';
-		// // echo '<pre>';
-		// // CVarDumper::dump($calendar->days, 3);
-		// // echo '<hr>';
-		// // CVarDumper::dump($calendar->someday, 3);
-		// echo '</pre>';
-		// exit;
-
 		return $calendar;
 	}
 
@@ -115,6 +95,8 @@ class TaskCalendar extends CComponent {
 	 * @return null
 	 **/
 	public function addTask(Task $task) {
+		Yii::trace("Adding task {$task->id}", get_class($this));
+
 		if($task->hasStarts) {
 			$this->addTaskWithStartTime($task);
 		}
@@ -165,6 +147,8 @@ class TaskCalendar extends CComponent {
 	}
 
 	public function removeTask($task) {
+		Yii::trace("Removing task {$task->id}", get_class($this));
+
 		if($task->hasStarts) {
 			$this->removeTaskWithStartTime($task);
 		}
