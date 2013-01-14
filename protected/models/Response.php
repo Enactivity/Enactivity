@@ -191,7 +191,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $this;
 	}
 
-	public function scopeIgnoredOrCompletedStatuses() {
+	public function scopeIgnoredOrCompletedResponses() {
 		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIgnoredOrCompletedStatuses()) . '\'';
 
 		$this->getDbCriteria()->mergeWith(array(
@@ -296,6 +296,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function getIncompleteStatuses() {
 		return array(
+			Response::STATUS_PENDING,
 			Response::STATUS_SIGNED_UP,
 			Response::STATUS_STARTED,
 		);
@@ -362,22 +363,14 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			throw new CHttpException("Response already exists");
 		}
 
-		if($response->isPending) {
-			throw new CHttpException("User is already pending");
-		}
-
 		// scenario will be insert since it's new
+		$response->scenario = self::SCENARIO_INSERT;
+		$response->status = self::STATUS_PENDING;
 
-		if($response->isNewRecord) {
-			$response->scenario = self::SCENARIO_INSERT;
-			$response->status = self::STATUS_PENDING;
-
-			if($response->save()) {
-				return true;
-			}
-			throw new ModelValidationException("There was an error setting up the pending response", $response);
+		if($response->save()) {
+			return true;
 		}
-		throw new CException("Response already exists");
+		throw new ModelValidationException("There was an error setting up the pending response", $response);
 	}
 	
 	/**

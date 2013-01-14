@@ -21,6 +21,7 @@ class TaskCalendar extends CComponent {
 		$nextTasks = $user->incompleteTasks;
 		$futureTasks = $user->futureTasks;
 		$somedayTasks = $user->somedayTasks;
+
 		$calendar = new TaskCalendar(array(
 			$nextTasks, 
 			$futureTasks,
@@ -32,6 +33,26 @@ class TaskCalendar extends CComponent {
 
 		$ignorableSomedayTasks = $user->ignoredOrCompletedSomedayTasks;
 		$calendar->removeTasks($ignorableSomedayTasks);
+
+		// echo '<pre>';
+		// // CVarDumper::dump($nextTasks, 3);
+		// // echo '<hr>';
+		// // CVarDumper::dump($futureTasks, 3);
+		// // echo '<hr>';
+		// // CVarDumper::dump($somedayTasks, 3);
+		// // echo '<hr>';
+		// // CVarDumper::dump($ignorableTasks, 3);
+		// // echo '<hr>';
+		// CVarDumper::dump($user->ignoredOrCompletedResponses, 3);
+		// echo '<hr>';
+		// CVarDumper::dump($ignorableSomedayTasks, 3);
+		// // echo '</pre>';
+		// // echo '<pre>';
+		// // CVarDumper::dump($calendar->days, 3);
+		// // echo '<hr>';
+		// // CVarDumper::dump($calendar->someday, 3);
+		// echo '</pre>';
+		// exit;
 
 		return $calendar;
 	}
@@ -155,21 +176,25 @@ class TaskCalendar extends CComponent {
 	protected function removeTaskWithStartTime($task) {
 		if($task->hasStarts) {
 			// [date][time][activityId]['tasks'][]
-			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
+			if($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]) {
 
-			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']--;
+				if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
+					$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
+					$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']--;
 
-				if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
-					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
+					if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
+						unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
 
-					if(empty($this->days[$task->startDate][$task->formattedStartTime])) {
-						unset($this->days[$task->startDate][$task->formattedStartTime]);
+						if(empty($this->days[$task->startDate][$task->formattedStartTime])) {
+							unset($this->days[$task->startDate][$task->formattedStartTime]);
+						}
+
+						if(empty($this->days[$task->startDate])) {
+							unset($this->days[$task->startDate]);
+						}
 					}
-
-					if(empty($this->days[$task->startDate])) {
-						unset($this->days[$task->startDate]);
+					else {
+						unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
 					}
 				}
 			}
@@ -182,15 +207,20 @@ class TaskCalendar extends CComponent {
 	protected function removeTaskWithNoStartTime($task) {
 		if(!$task->hasStarts) {
 			// [activityId]['tasks']
-			unset($this->someday[$task->activityId]['tasks'][$task->id]);
+			if(isset($this->someday[$task->activityId]['tasks'][$task->id])) { // if record exists in hash
 
-			if(isset($this->someday[$task->activityId]['activity'])) {
+			if(isset($this->someday[$task->activityId]['activity'])) { // drop activity count
 				$this->someday[$task->activityId]['taskCount']--;
 				$this->someday[$task->activityId]['more']--;
 
-				if($this->someday[$task->activityId]['taskCount'] <= 0) {
+				if($this->someday[$task->activityId]['taskCount'] <= 0) { // if was last task in hash for activity
 					unset($this->someday[$task->activityId]);
 				}
+				else {
+					unset($this->someday[$task->activityId]['tasks'][$task->id]);
+				}
+			}
+
 			}
 		}
 		else {

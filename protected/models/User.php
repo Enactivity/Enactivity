@@ -233,12 +233,12 @@ class User extends ActiveRecord
 			),
 
 			'ignoredOrCompletedResponses' => array(self::HAS_MANY, 'Response', 'userId',
-				'scopes' => array('scopeIgnoredOrCompletedStatuses'),
+				'scopes' => array('scopeIgnoredOrCompletedResponses'),
 			),
 
 			'ignoredOrCompletedTasks' => array(self::HAS_MANY, 'Task', 'taskId', 
 				'through' => 'ignoredOrCompletedResponses',
-				'scopes' => array('scopeNotTrash'),
+				'scopes' => array('scopeNotTrash','scopeFuture'),
 			),
 			'ignoredOrCompletedSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
 				'through' => 'ignoredOrCompletedResponses',

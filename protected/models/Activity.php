@@ -129,6 +129,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'except'=>self::SCENARIO_DRAFT,
 			),
 
+			array('groupId',
+				'safe',
+				'on'=>self::SCENARIO_DRAFT,
+			),
+
 			array('name', 'required'),
 
 			array('name',
