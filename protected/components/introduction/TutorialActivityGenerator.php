@@ -5,16 +5,16 @@ class TutorialActivityGenerator extends CComponent
 	public static function generateIntroActivity($userId)
 	{
 		$activityAttributes = array(
-			'name' => 'Banana2',
-			'description' => 'Welcome to Enactivity! This is a sample activity to help guide you through the process of creating, sharing, and participating in activities and tasks.',
+			'name' => "Meet {Yii::app()->name}",
+			'description' => "Welcome to {Yii::app()->name}! This is a sample activity to help guide you through the process of creating, sharing, and participating in activities and tasks.",
 		);
 
 		$tasksAttributesList = array(
 			array(
-				'name' => 'Sign up for Enactivity',
+				'name' => 'Sign up for {Yii::app()->name}',
 			),
 			array(
-				'name' => 'Read about Enactivity',
+				'name' => 'Read about {Yii::app()->name}',
 			),
 			array(
 				'name' => 'Create a new Activity',
@@ -27,14 +27,14 @@ class TutorialActivityGenerator extends CComponent
 		$form = new ActivityAndTasksForm();
 		$form->publishWithoutGroup($activityAttributes, $tasksAttributesList);
 
-		//Setting responses for Sign up for Enactivity
+		//Setting responses for Sign up
 		Response::signUp($form->tasks[0]->id, $userId);
 		Response::start($form->tasks[0]->id, $userId);
 		Response::complete($form->tasks[0]->id, $userId);
 		$signComment = new Comment();
 		$signComment ->publishComment($form->tasks[0], array('content' => 'Sign up for an Activity'));
 
-		//Setting respones for Read about Enactivity
+		//Setting respones for Read about
 		Response::signUp($form->tasks[1]->id, $userId);
 		Response::start($form->tasks[1]->id, $userId);
 		$readComment = new Comment();
