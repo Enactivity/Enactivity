@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 		<meta name="<?= Yii::app()->request->csrfTokenName; ?>" content="<?= Yii::app()->request->csrfToken; ?>">
 		<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 
