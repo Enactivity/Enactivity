@@ -27,7 +27,7 @@ class WelcomeActivity extends CComponent {
 
 		$tasksAttributesList = array(
 			array(
-				"name" => "Sign up for {Yii::app()->name}",
+				"name" => "Sign up for {$applicationName}",
 			),
 			array(
 				"name" => "Read about {$applicationName}",
