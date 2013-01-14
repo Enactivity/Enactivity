@@ -3,9 +3,7 @@
 Yii::import("application.components.calendar.Month");
 
 class TaskCalendar extends CComponent {
-	
-	private $months = array();
-	private $weeks = array();
+
 	private $dates = array();
 	private $someday = array();
 	

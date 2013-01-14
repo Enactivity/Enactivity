@@ -22,7 +22,7 @@
 			<h1 class="activity-name">
 				<i></i>
 				<?= PHtml::link(PHtml::encode($activityInfo['activity']->name),
-					array('activity/view', 'id'=>$activityId)
+					array('activity/view', 'id'=>$activityInfo['activity']->id)
 				); ?>
 			</h1>
 			<ol>
@@ -56,7 +56,7 @@
 				<i></i>
 				<?= PHtml::link(
 					PHtml::encode($activityInfo['activity']->name),
-					array('activity/view', 'id'=>$activityId)
+					array('activity/view', 'id'=>$activityInfo['activity']->id)
 				); ?>
 			</h1>
 			<ol>
