@@ -17,7 +17,7 @@
 		</h1>
 
 		<? foreach($times as $time => $activities): ?>
-		<? foreach($activities as $activityId => $activityEntry): ?>
+		<? foreach($activities as $activityEntry): ?>
 		<article class="activity">
 			<h1 class="activity-name">
 				<i></i>
@@ -50,7 +50,7 @@
 			<i></i>
 			Someday
 		</h1>
-		<? foreach($calendar->somedayTasks as $activityId => $activityEntry): ?>
+		<? foreach($calendar->somedayTasks as $activityEntry): ?>
 		<article class="activity">
 			<h1 class='activity-name'>
 				<i></i>
