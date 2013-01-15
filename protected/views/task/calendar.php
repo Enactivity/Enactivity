@@ -53,7 +53,7 @@
 					<span class="weekday-shorthand-name"><?= PHtml::encode($month->currentWeekdayShorthand); ?></span>
 				</header>
 				<? foreach ($calendar->getTasksByDate($month->currentDate) as $time => $activities): ?>
-				<? foreach ($activities as $activityIndex => $activityInfo): ?>
+				<? foreach ($activities as $activityInfo): ?>
 				<article class="calendar-activity">
 					<time>
 						<?= PHtml::encode($time); ?>
@@ -75,7 +75,7 @@
 						<span class="more">
 							<?= PHtml::link(
 								'+ ' . PHtml::encode($activityInfo['more']) . ' more',
-								array('activity/view', 'id'=>$activityIndex, '#'=>'day-' . $month->currentDate)
+								array('activity/view', 'id'=>$activityInfo['activity']->id, '#'=>'day-' . $month->currentDate)
 							); ?>
 						</span>
 						<? endif; ?>
