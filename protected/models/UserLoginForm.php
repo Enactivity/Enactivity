@@ -65,7 +65,7 @@ class UserLoginForm extends CFormModel
 
 		// Generate an intro activity for first time users
 		if($this->_identity->isNewUser) {
-			TutorialActivityGenerator::generateIntroActivity(Yii::app()->user->id);
+			WelcomeActivity::publish(Yii::app()->user->id);
 		}
 	}
 }
