@@ -64,10 +64,15 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
 			$this->layout = "//layouts/splashlayout";
-			$this->render('index', array('model'=>$model));
+			$this->pageTitle = 'Hallo'; 
+			$this->render('index', array(
+				'model'=>$model,
+			));
 		} 
 		else {
-			$this->redirect(array('task/next'));
+			$this->redirect(array(
+				'task/next'
+			));
 		}
 	}
 
@@ -138,6 +143,10 @@ class SiteController extends Controller
 				$this->redirect(Yii::app()->homeUrl);
 			}
 		}
-		$this->render('feedback', array('model'=>$model));
+
+		$this->pageTitle = 'Feedback';
+		$this->render('feedback', array(
+			'model'=>$model,
+		));
 	}
 }
