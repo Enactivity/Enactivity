@@ -3,10 +3,8 @@
 Yii::import("application.components.calendar.Month");
 
 class TaskCalendar extends CComponent {
-	
-	private $months = array();
-	private $weeks = array();
-	private $days = array();
+
+	private $dates = array();
 	private $someday = array();
 	
 	/**
@@ -21,6 +19,7 @@ class TaskCalendar extends CComponent {
 		$nextTasks = $user->incompleteTasks;
 		$futureTasks = $user->futureTasks;
 		$somedayTasks = $user->somedayTasks;
+
 		$calendar = new TaskCalendar(array(
 			$nextTasks, 
 			$futureTasks,
@@ -62,7 +61,7 @@ class TaskCalendar extends CComponent {
 
 	/**
 	 * Load a list of tasks into a calendar
-	 * @param array $tasks list of tasks, allows for arrays of arrays too
+	 * @param array $tasks list of tasks, allows for nested arrays too
 	 */
 	public function addTasks($tasks) {
 		/** @var $task Task **/
@@ -76,6 +75,10 @@ class TaskCalendar extends CComponent {
 		}
 	}
 
+	/**
+	 * Removes a list of tasks from the calendar
+	 * @param array $tasks list of tasks, allows for nested arrays too
+	 **/
 	public function removeTasks($tasks) {
 		/** @var $task Task **/
 		foreach ($tasks as $task) {
@@ -94,6 +97,8 @@ class TaskCalendar extends CComponent {
 	 * @return null
 	 **/
 	public function addTask(Task $task) {
+		Yii::trace("Adding task {$task->id}", get_class($this));
+
 		if($task->hasStarts) {
 			$this->addTaskWithStartTime($task);
 		}
@@ -104,18 +109,22 @@ class TaskCalendar extends CComponent {
 
 	protected function addTaskWithStartTime($task) {
 		if($task->hasStarts) {
-			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'])) {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']++;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']++;
+			$date = $task->startDate;
+			$time = $task->formattedStartTime;
+			$activityId = $task->activityId;
+
+			if(isset($this->dates[$date][$time][$activityId]['activity'])) {
+				$this->dates[$date][$time][$activityId]['taskCount']++;
+				$this->dates[$date][$time][$activityId]['more']++;
 			}
 			else {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['activity'] = $task->activity;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['firstTask'] = $task;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount'] = 1;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more'] = 0;
+				$this->dates[$date][$time][$activityId]['activity'] = $task->activity;
+				$this->dates[$date][$time][$activityId]['firstTask'] = $task;
+				$this->dates[$date][$time][$activityId]['taskCount'] = 1;
+				$this->dates[$date][$time][$activityId]['more'] = 0;
 			}
 
-			$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id] = $task;
+			$this->dates[$date][$time][$activityId]['tasks'] = self::addTaskToList($task, $this->dates[$date][$time][$activityId]['tasks']);
 
 		}
 		else {
@@ -136,7 +145,8 @@ class TaskCalendar extends CComponent {
 				$this->someday[$task->activityId]['more'] = 0;
 			}
 
-			$this->someday[$task->activityId]['tasks'][$task->id] = $task;
+			$this->someday[$task->activityId]['tasks'] = self::addTaskToList($task, $this->someday[$task->activityId]['tasks']);
+
 		}
 		else {
 			throw new CException("Attempting to add a task with no start time, but task has a start time");
@@ -144,6 +154,8 @@ class TaskCalendar extends CComponent {
 	}
 
 	public function removeTask($task) {
+		Yii::trace("Removing task {$task->id}", get_class($this));
+
 		if($task->hasStarts) {
 			$this->removeTaskWithStartTime($task);
 		}
@@ -154,22 +166,30 @@ class TaskCalendar extends CComponent {
 
 	protected function removeTaskWithStartTime($task) {
 		if($task->hasStarts) {
-			// [date][time][activityId]['tasks'][]
-			unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'][$task->id]);
 
-			if(isset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId])) {
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['taskCount']--;
-				$this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['more']--;
+			$date = $task->startDate;
+			$time = $task->formattedStartTime;
+			$activityId = $task->activityId;
 
-				if(empty($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]['tasks'])) {
-					unset($this->days[$task->startDate][$task->formattedStartTime][$task->activityId]);
+			if($this->dates[$date][$time][$activityId]['tasks'][$task->id]) {
 
-					if(empty($this->days[$task->startDate][$task->formattedStartTime])) {
-						unset($this->days[$task->startDate][$task->formattedStartTime]);
+				if(isset($this->dates[$date][$time][$activityId])) {
+					$this->dates[$date][$time][$activityId]['taskCount']--;
+					$this->dates[$date][$time][$activityId]['more']--;
+
+					if(empty($this->dates[$date][$time][$activityId]['tasks'])) {
+						unset($this->dates[$date][$time][$activityId]);
+
+						if(empty($this->dates[$task->startDate][$task->formattedStartTime])) {
+							unset($this->dates[$task->startDate][$task->formattedStartTime]);
+						}
+
+						if(empty($this->dates[$task->startDate])) {
+							unset($this->dates[$task->startDate]);
+						}
 					}
-
-					if(empty($this->days[$task->startDate])) {
-						unset($this->days[$task->startDate]);
+					else {
+						$this->dates[$date][$time][$activityId]['tasks'] = self::removeTaskFromList($task, $this->dates[$date][$time][$activityId]['tasks']);
 					}
 				}
 			}
@@ -182,15 +202,20 @@ class TaskCalendar extends CComponent {
 	protected function removeTaskWithNoStartTime($task) {
 		if(!$task->hasStarts) {
 			// [activityId]['tasks']
-			unset($this->someday[$task->activityId]['tasks'][$task->id]);
+			if(isset($this->someday[$task->activityId]['tasks'][$task->id])) { // if record exists in hash
 
-			if(isset($this->someday[$task->activityId]['activity'])) {
+			if(isset($this->someday[$task->activityId]['activity'])) { // drop activity count
 				$this->someday[$task->activityId]['taskCount']--;
 				$this->someday[$task->activityId]['more']--;
 
-				if($this->someday[$task->activityId]['taskCount'] <= 0) {
+				if($this->someday[$task->activityId]['taskCount'] <= 0) { // if was last task in hash for activity
 					unset($this->someday[$task->activityId]);
 				}
+				else {
+					$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
+				}
+			}
+
 			}
 		}
 		else {
@@ -202,7 +227,7 @@ class TaskCalendar extends CComponent {
 	 * @return array of Tasks in form $date => $time => {array of Tasks}
 	 */
 	public function getDatedTasks() {
-		return $this->days;
+		return $this->dates;
 	}
 	
 	/**
@@ -219,8 +244,8 @@ class TaskCalendar extends CComponent {
 	 */
 	public function getTasksByDate($date) {
 		$date = date(Task::DATE_FORMAT, strtotime($date));
-		if(isset($this->days[$date])) {
-			return $this->days[$date];
+		if(isset($this->dates[$date])) {
+			return $this->dates[$date];
 		}
 		return array();
 	}
@@ -230,7 +255,7 @@ class TaskCalendar extends CComponent {
 	 * @return boolean
 	 **/
 	public function getHasTasks() {
-		foreach ($this->days as $date => $times) {
+		foreach ($this->dates as $date => $times) {
 			foreach ($times as $time => $tasks) {
 				if(isset($time[$task])) {
 					return true;
@@ -248,7 +273,7 @@ class TaskCalendar extends CComponent {
 	*/
 	public function hasTasksOnDate($date) {
 		$date = date(Task::DATE_FORMAT, strtotime($date));
-		return isset($this->days[$date]) && !empty($this->days[$date]);
+		return isset($this->dates[$date]) && !empty($this->dates[$date]);
 	}
 	
 	/** 
@@ -264,7 +289,7 @@ class TaskCalendar extends CComponent {
 	public function getDatedTaskCount() {
 		$taskCount = 0;
 
-		foreach ($this->days as $date => $times) {
+		foreach ($this->dates as $date => $times) {
 			foreach ($times as $time => $tasks) {
 				$taskCount += sizeof($tasks);
 			}
@@ -291,5 +316,55 @@ class TaskCalendar extends CComponent {
 	 **/
 	public function getItemCount() {
 		return $this->taskCount;
+	}
+
+	/**
+	 * Returns the key for task if it is found in the list, null otherwise.
+	 * @return int|null
+	 */
+	private static function getIndexOfTask($task, $list) {
+
+		$list = is_array($list) ? $list : array();
+
+		foreach ($list as $key => $storedTask) {
+			if(strcasecmp($storedTask->id, $task->id) == 0) {
+				return $key;
+			}
+		}
+
+		return null;
+	}
+
+	/** 
+	 * Adds a task to a list, only if the task is not already in the list
+	 * @param task to add
+	 * @param array list of tasks, generates new array if none exists
+	 * @return array updated list
+	 **/
+	private static function addTaskToList($task, $list) {
+
+		$index = self::getIndexOfTask($task, $list);
+		
+		if(is_null($index)) {
+			$list[] = $task;
+		}
+		
+		return $list;
+	}
+
+	/** 
+	 * Removes the first instance of a task from a list of tasks
+ 	 * @param Task task to remove
+	 * @param array list of tasks
+	 * @return array updated list
+	 */
+	private static function removeTaskFromList($task, $list) {
+		$index = self::getIndexOfTask($task, $list);
+		
+		if(isset($index)) {
+			unset($list[$index]);
+		}
+
+		return $list;
 	}
 }
