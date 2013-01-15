@@ -478,6 +478,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			&& StringUtils::isBlank($this->startTime);
 	}
 
+	public function getIsTrashable() {
+		return !$this->isNewRecord && !$this->isTrash;
+	}
+
+	public function getIsUntrashable() {
+		return !$this->isNewRecord && $this->isTrash;
+	}
+
 	/**
 	 * @return boolean should user be able to respond to task
 	 */

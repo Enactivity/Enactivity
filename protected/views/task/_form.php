@@ -63,9 +63,26 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</fieldset>
 
 	<div class="field buttons">
-		<? if($model->isNewRecord): ?>
-		<?= PHtml::submitButton($model->isNewRecord ? 'Create and Add Another Task' : 'Update and Add Another Task', 
-			array('name'=>'add_more')
+		<? if($model->isTrashable): ?>
+		<?= PHtml::button(
+			PHtml::encode('Trash'), array( //html
+				'submit'=>array('task/trash', 'id'=>$model->id),
+				'csrf'=>true,
+				'id'=>'task-trash-menu-item-' . $model->id,
+				'class'=>'neutral task-trash-menu-item',
+				'title'=>'Trash this task',
+			)
+		); ?>
+		<? endif; ?>
+		<? if($model->isUntrashable): ?>
+		<?= PHtml::button(
+			PHtml::encode('Restore'), array( //html
+				'submit'=>array('task/untrash', 'id'=>$model->id),
+				'csrf'=>true,
+				'id'=>'task-untrash-menu-item-' . $model->id,
+				'class'=>'positive task-untrash-menu-item',
+				'title'=>'Restore this task',
+			)
 		); ?>
 		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? "Create" : 'Update', 

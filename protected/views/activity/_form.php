@@ -15,8 +15,6 @@
 	),
 )); ?>
 
-	<p>First, create a new activity, next we'll add some tasks that people can sign up for.</p>
-
 	<?= $form->errorSummary($model); ?>
 
 	<fieldset>
@@ -52,6 +50,26 @@
 	</fieldset>
 
 	<div class="field buttons">
+		<? if($model->isTrashable): ?>
+		<?= PHtml::button(
+			PHtml::encode('Trash'), array( //html				
+				'submit'=>array('activity/trash', 'id'=>$model->id),
+				'csrf'=>true,
+				'id'=>'activity-trash-menu-item-' . $model->id,
+				'class'=>'neutral activity-trash-menu-item',
+				'title'=>'Trash this activity',
+			)); ?>
+		<? endif; ?>
+		<? if($model->isUntrashable): ?>
+		<?= PHtml::button(
+			PHtml::encode('Restore'), array( //html
+				'submit'=>array('activity/untrash', 'id'=>$model->id),
+				'csrf'=>true,
+				'id'=>'activity-untrash-menu-item-' . $model->id,
+				'class'=>'positive activity-untrash-menu-item',
+				'title'=>'Restore this activity',
+			)); ?>
+		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? 'I\'m ready to add some tasks' : 'Update'); ?>
 	</div>
 
