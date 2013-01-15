@@ -88,7 +88,7 @@
 	)); ?>
 	<? endforeach; ?>
 	<? elseif($model->isCommentable): ?>
-	<p class="blurb">No one has written any comments yet, be the first!</p>
+	
 	<? else: ?>
 	<p class="blurb">Sorry, comments have been disabled for this activity</p>
 	<? endif; ?>
