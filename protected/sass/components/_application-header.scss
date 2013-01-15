@@ -1,5 +1,5 @@
 $icon-only-width: $base-padding * 3;
-$logo-width: 105px;
+$logo-width: 104px;
 
 .application-header {
 	@include grid-row;
@@ -19,42 +19,49 @@ $logo-width: 105px;
 		position: relative;
 		white-space: nowrap;
 		width: 100%;
+
+		a, a:active, a:visited, span {
+			@include ellipsis();
+			@include unstyled-link;
+
+			border-left: 1px solid rgba(255, 255, 255, 0.1);
+			color: $white;
+			display: block;
+			float: left;
+			padding: $base-padding;
+			position: absolute;
+		}
+
+		.logo {
+			@include text-shadow(1px 2px 2px rgba(0, 0, 0, .25));
+
+			font-size: $logo-width;
+			overflow: visible;
+			text-align: center;
+			width: $logo-width;
+			top: -1 * $logo-width / 2;
+		}
+
+		.page-title {
+			left: $logo-width;
+			right: $icon-only-width;
+			top: 0;
+		}
+
+		.refresh {
+			right: 0;
+			width: $icon-only-width;
+			top: 0;
+
+			i {
+				@extend .icon;
+				@extend .icon-refresh;
+			}
+		}
 	}
 
 	.application-header-wrapper > :last-child {
 		border-right: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	a, a:active, a:visited, span {
-		@include ellipsis();
-		@include unstyled-link;
-
-		border-left: 1px solid rgba(255, 255, 255, 0.1);
-		color: $white;
-		display: block;
-		float: left;
-		padding: $base-padding;
-		position: absolute;
-		top: 0;
-	}
-
-	.logo {
-		width: $logo-width;
-	}
-
-	.page-title {
-		left: $logo-width;
-		right: $icon-only-width;
-	}
-
-	.refresh {
-		right: 0;
-		width: $icon-only-width;
-
-		i {
-			@extend .icon;
-			@extend .icon-refresh;
-		}
 	}
 }
 
