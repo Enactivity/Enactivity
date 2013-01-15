@@ -48,7 +48,7 @@ class ActivityAndTasksForm extends CFormModel
 	}
 
 	public function addTask() {
-		$index = sizeof($this->tasks) + 1; // start at 1 instead of 0 for user counting
+		$index = sizeof($this->tasks);
 		$this->tasks[$index] = new Task();
 	}
 
@@ -61,9 +61,13 @@ class ActivityAndTasksForm extends CFormModel
 
 		// Load in the new tasks
 		foreach($values['tasks'] as $i => $taskAttributes) {
-			$this->tasks[$i] = new Task();
-			$this->tasks[$i]->attributes = $taskAttributes;
+			Yii::trace("Setting attr {$i}: {$taskAttributes['name']}", 'aatf');
+			$task = new Task();
+			$task->attributes = $taskAttributes;
+			$this->tasks[$i] = $task;
 		}
+
+		ksort($this->tasks);
 	}
 
 	public function validate() {
@@ -72,7 +76,8 @@ class ActivityAndTasksForm extends CFormModel
 
 		$isValid = $this->activity->validate() && $isValid;
 
-		foreach($this->tasks as &$task) {
+		foreach($this->tasks as $id => &$task) {
+			Yii::trace("Validating {$i}: {$task->name}", 'aatf');
 			$isValid = $task->validate() && $isValid;
 		}
 
@@ -92,6 +97,7 @@ class ActivityAndTasksForm extends CFormModel
 
 		// Remove the tasks with no attributes
 		foreach ($this->tasks as $i => $task) {
+			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');
 			if($task->isBlank) {
 				unset($this->tasks[$i]);
 			}
@@ -100,7 +106,8 @@ class ActivityAndTasksForm extends CFormModel
 		if($this->validate()) {
 			$this->activity->draft();
 
-			foreach($this->tasks as &$task) {
+			foreach($this->tasks as $i => &$task) {
+				Yii::trace("drafting at {$i}: {$task->name}", 'aatf');
 				$task->groupId = $this->activity->groupId;
 				$task->activityId = $this->activity->id;
 				$task->draft();
