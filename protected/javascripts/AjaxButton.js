@@ -2,7 +2,7 @@
  * Unobtrusive formless submit button
  * Ajax buttons should have 2 attributes:
  * 'data-ajax-url' - the url that the query should point to 
- * 'data-container-id' - the id attribute of the object that should be replaced
+ * 'data-container-id' - the id attribute of the object that should be replaced, reloads entire page otherwise
  * @requires jquery.ajax for submitting
 **/
 $(function() {
@@ -28,7 +28,12 @@ $(function() {
 					'url':button.data('ajax-url'),
 					'cache':false,
 					'success':function(responseHtml) {
-						$(button.data('container-id')).replaceWith(responseHtml);
+						if(button.data('container-id')) {
+							$(button.data('container-id')).replaceWith(responseHtml);
+						}
+						else {
+							location.reload();
+						}
 					}
 				});
 				return false; /* prevent bubbles */

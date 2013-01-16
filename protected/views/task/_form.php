@@ -66,9 +66,10 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<? if($model->isTrashable): ?>
 		<?= PHtml::button(
 			PHtml::encode('Trash'), array( //html
-				'submit'=>array('task/trash', 'id'=>$model->id),
-				'csrf'=>true,
+				'data-ajax-url'=>$model->trashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'task-trash-menu-item-' . $model->id,
+				'name'=>'task-trash-menu-item-' . $model->id,
 				'class'=>'neutral task-trash-menu-item',
 				'title'=>'Trash this task',
 			)
@@ -77,10 +78,11 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		<? if($model->isUntrashable): ?>
 		<?= PHtml::button(
 			PHtml::encode('Restore'), array( //html
-				'submit'=>array('task/untrash', 'id'=>$model->id),
-				'csrf'=>true,
+				'data-ajax-url'=>$model->untrashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'task-untrash-menu-item-' . $model->id,
-				'class'=>'positive task-untrash-menu-item',
+				'name'=>'task-untrash-menu-item-' . $model->id,
+				'class'=>'neutral task-untrash-menu-item',
 				'title'=>'Restore this task',
 			)
 		); ?>
