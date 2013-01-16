@@ -77,7 +77,7 @@
 					'maxlength'=>255,
 				)); ?>
 			<?= $form->timeDropDownList($task,"[$index]startTime",array()); ?>
-			<?= PHtml::link("<i></i> <span>Remove</span>",null,
+			<?= PHtml::htmlButton("<i></i> <span>Remove</span>",
 				array(
 					'class' => 'clear-field clear-date-time neutral',
 					'data-type' => 'clear-button',

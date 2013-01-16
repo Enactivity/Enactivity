@@ -50,7 +50,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 					'maxlength'=>255,
 				)); ?>
 			<?= $form->timeDropDownList($model,"startTime",array()); ?>
-			<?= PHtml::link("<i></i> <span>Remove</span>",null,
+			<?= PHtml::htmlButton("<i></i> <span>Remove</span>",
 				array(
 					'class' => 'clear-field clear-date-time neutral',
 					'data-type' => 'clear-button',
@@ -64,8 +64,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 
 	<div class="field buttons">
 		<? if($model->isTrashable): ?>
-		<?= PHtml::button(
-			PHtml::encode('Trash'), array( //html
+		<?= PHtml::htmlButton("<i></i> Trash", array( //html
 				'data-ajax-url'=>$model->trashUrl,
 				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'task-trash-menu-item-' . $model->id,
@@ -76,8 +75,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 		); ?>
 		<? endif; ?>
 		<? if($model->isUntrashable): ?>
-		<?= PHtml::button(
-			PHtml::encode('Restore'), array( //html
+		<?= PHtml::htmlButton("<i></i> Restore", array( //html
 				'data-ajax-url'=>$model->untrashUrl,
 				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'task-untrash-menu-item-' . $model->id,

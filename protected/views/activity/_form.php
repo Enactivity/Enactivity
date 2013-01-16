@@ -51,8 +51,7 @@
 
 	<div class="field buttons">
 		<? if($model->isTrashable): ?>
-		<?= PHtml::button(
-			PHtml::encode('Trash'), array( //html				
+		<?= PHtml::htmlButton("<i></i> Trash", array( //html				
 				'data-ajax-url'=>$model->trashUrl,
 				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'activity-trash-menu-item-' . $model->id,
@@ -62,8 +61,7 @@
 			)); ?>
 		<? endif; ?>
 		<? if($model->isUntrashable): ?>
-		<?= PHtml::button(
-			PHtml::encode('Restore'), array( //html
+		<?= PHtml::htmlButton("<i></i> Restore", array( //html
 				'data-ajax-url'=>$model->untrashUrl,
 				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'activity-untrash-menu-item-' . $model->id,
