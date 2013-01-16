@@ -399,6 +399,15 @@ class PHtml extends CHtml {
 		return '<p>'.preg_replace("/([\n]{1,})/i", "</p>\n<p>", trim($value)).'</p>';
 	}
 
+	/** 
+	 * Generates html <button> tag, in addition adds a <i> and <span> tag to label
+	 * @see CHtml::htmlButton
+	 **/
+	public static function htmlButton($label='button',$htmlOptions=array()) {
+		$label = "<i></i> <span>{$label}</span>";
+		return parent::htmlButton($label, $htmlOptions);
+	}
+
 	/**
 	 * Replaces plain text links with formatted that contains
 	 * <a hrefs>.
