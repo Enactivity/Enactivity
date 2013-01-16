@@ -17,6 +17,7 @@
 		background: $alto;
 		padding-bottom: 0;
 		margin-bottom: $base-margin;
+		overflow: hidden; // to ensure border radius maintained
 
 		.activity-name {
 			@extend .heading4;
