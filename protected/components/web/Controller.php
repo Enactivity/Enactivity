@@ -91,19 +91,19 @@ class Controller extends CController
 		}
 
 		if(Yii::app()->request->isPjaxRequest) {
-			return $this->renderPjaxResponse($view, $data);
+			return $this->renderPjaxResponse($view, $data, $return);
 		}
 
 		return parent::render($view, $data, $return);
 	}
 
-	public function renderPjaxResponse($view, $data) {
+	public function renderPjaxResponse($view, $data, $return) {
 		$this->disableWebLogging();
 		
 		$this->layoutIncludesHead = false;
 		echo '<title>' . PHtml::encode($this->pageTitleWithBranding) .'</title>' . PHP_EOL;
 
-		return parent::render($view, $data);
+		return parent::render($view, $data, $return);
 	}
 	
 	/**
