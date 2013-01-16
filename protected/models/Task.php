@@ -774,6 +774,22 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		);
     }
 
+    public function getTrashURL() {
+    	return Yii::app()->createAbsoluteUrl('task/trash',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getUntrashURL() {
+    	return Yii::app()->createAbsoluteUrl('task/untrash',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
     public function getSignupURL() {
     	return Yii::app()->createAbsoluteUrl('task/signup',
 			array(

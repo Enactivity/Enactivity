@@ -53,9 +53,10 @@
 		<? if($model->isTrashable): ?>
 		<?= PHtml::button(
 			PHtml::encode('Trash'), array( //html				
-				'submit'=>array('activity/trash', 'id'=>$model->id),
-				'csrf'=>true,
+				'data-ajax-url'=>$model->trashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'activity-trash-menu-item-' . $model->id,
+				'name'=>'activity-trash-menu-item-' . $model->id,
 				'class'=>'neutral activity-trash-menu-item',
 				'title'=>'Trash this activity',
 			)); ?>
@@ -63,10 +64,11 @@
 		<? if($model->isUntrashable): ?>
 		<?= PHtml::button(
 			PHtml::encode('Restore'), array( //html
-				'submit'=>array('activity/untrash', 'id'=>$model->id),
-				'csrf'=>true,
+				'data-ajax-url'=>$model->untrashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
 				'id'=>'activity-untrash-menu-item-' . $model->id,
-				'class'=>'positive activity-untrash-menu-item',
+				'name'=>'activity-untrash-menu-item-' . $model->id,
+				'class'=>'postive activity-untrash-menu-item',
 				'title'=>'Restore this activity',
 			)); ?>
 		<? endif; ?>
