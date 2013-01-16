@@ -159,8 +159,8 @@
 	</div>
 </section>
 
-<? if($model->starts): ?>
 <section class="details content">
+	<? if($model->starts): ?>
 	<div class="start-date">
 		<h1><i></i> Date</h1>
 		<p class="date"><i></i> <?= PHtml::encode($model->startDate); ?></p>
@@ -169,6 +169,7 @@
 		<h1><i></i> Time</h1>
 		<p class="time"><i></i> <?= PHtml::encode($model->formattedStartTime); ?></p>
 	</div>
+	<? endif; ?>
 	<div class="participant-count">
 		<h1><i></i> Signed up</h1>
 		<p class="count"><?= PHtml::encode($model->participantsCount); ?></p>
@@ -178,7 +179,6 @@
 		<p class="count"><?= PHtml::encode($model->participantsCompletedCount); ?></p>
 	</div>
 </section>
-<? endif; ?>
 
 <section id="participating" class="content">
 	<? foreach($model->participatingresponses as $usertask) {
