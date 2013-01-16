@@ -50,7 +50,7 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 					'maxlength'=>255,
 				)); ?>
 			<?= $form->timeDropDownList($model,"startTime",array()); ?>
-			<?= PHtml::link("<i></i> <span>Remove</span>",null,
+			<?= PHtml::htmlButton("Remove",
 				array(
 					'class' => 'clear-field clear-date-time neutral',
 					'data-type' => 'clear-button',
@@ -63,9 +63,26 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 	</fieldset>
 
 	<div class="field buttons">
-		<? if($model->isNewRecord): ?>
-		<?= PHtml::submitButton($model->isNewRecord ? 'Create and Add Another Task' : 'Update and Add Another Task', 
-			array('name'=>'add_more')
+		<? if($model->isTrashable): ?>
+		<?= PHtml::htmlButton("Trash", array( //html
+				'data-ajax-url'=>$model->trashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
+				'id'=>'task-trash-menu-item-' . $model->id,
+				'name'=>'task-trash-menu-item-' . $model->id,
+				'class'=>'neutral task-trash-menu-item',
+				'title'=>'Trash this task',
+			)
+		); ?>
+		<? endif; ?>
+		<? if($model->isUntrashable): ?>
+		<?= PHtml::htmlButton("Restore", array( //html
+				'data-ajax-url'=>$model->untrashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
+				'id'=>'task-untrash-menu-item-' . $model->id,
+				'name'=>'task-untrash-menu-item-' . $model->id,
+				'class'=>'neutral task-untrash-menu-item',
+				'title'=>'Restore this task',
+			)
 		); ?>
 		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? "Create" : 'Update', 

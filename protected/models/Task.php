@@ -478,6 +478,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			&& StringUtils::isBlank($this->startTime);
 	}
 
+	public function getIsTrashable() {
+		return !$this->isNewRecord && !$this->isTrash;
+	}
+
+	public function getIsUntrashable() {
+		return !$this->isNewRecord && $this->isTrash;
+	}
+
 	/**
 	 * @return boolean should user be able to respond to task
 	 */
@@ -674,9 +682,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Named scope. Tasks which are not completed
 	 */
 	public function scopeNotCompleted() {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>'(participantsCount = 0' 
-			. ' OR (participantsCount != participantsCompletedCount))',
+			'condition'=>"({$table}.participantsCount = 0 OR ({$table}.participantsCount != {$table}.participantsCompletedCount))",
 		));
 		return $this;
 	}
@@ -768,6 +777,22 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 
     public function getFeedURL() {
 		return Yii::app()->createAbsoluteUrl('task/feed',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getTrashURL() {
+    	return Yii::app()->createAbsoluteUrl('task/trash',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getUntrashURL() {
+    	return Yii::app()->createAbsoluteUrl('task/untrash',
 			array(
 				'id'=>$this->id,
 			)

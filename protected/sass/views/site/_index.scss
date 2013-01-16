@@ -14,6 +14,11 @@
 		h1 {
 			@include animation(fade-down 1s);
 			font-size: 36px;
+
+			.big-e {
+				font-size: 104px;
+				text-transform: lowercase;
+			}
 		}
 
 		a {

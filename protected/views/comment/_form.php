@@ -9,7 +9,7 @@
 	<div class="field">
 		<?= $form->textArea($model,'content',array(
 			// 'maxlength'=>Comment::CONTENT_MAX_LENGTH,
-			'placeholder'=>'What\'s up?',
+			'placeholder'=>'Thoughts?',
 		)); ?>
 		<?= $form->error($model,'content'); ?>
 	</div>

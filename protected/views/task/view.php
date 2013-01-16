@@ -61,13 +61,14 @@
 	<div class="menu controls">
 		<ul>
 			<? if($response->canSignUp): ?>
-			<li>
-				<?= PHtml::button(
-					"I'll do this", 
-					array( //html
-						'submit'=>array('task/signup', 'id'=>$model->id),
-						'csrf'=>true,
+			<li> 
+				<?= PHtml::htmlButton(
+					"I'll do this",
+					array( // html
+						'data-ajax-url'=>$model->signUpUrl,
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-sign-up-menu-item-' . $model->id,
+						'name'=>'task-sign-up-menu-item-' . $model->id,
 						'class'=>'positive task-sign-up-menu-item',
 						'title'=>'Sign up for task',
 					)
@@ -77,12 +78,13 @@
 
 			<? if($response->canStart): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I'm doing this", 
-					array( //html
-						'submit'=>array('task/start', 'id'=>$model->id),
-						'csrf'=>true,
+					array( // html
+						'data-ajax-url'=>$model->startUrl, 
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-start-menu-item-' . $model->id,
+						'name'=>'task-start-menu-item-' . $model->id,
 						'class'=>'positive task-start-menu-item',
 						'title'=>'Show that you\'ve started working on this task',
 					)
@@ -92,12 +94,13 @@
 
 			<? if($response->canComplete): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I've done this",
-					array( //html
-						'submit'=>array('/task/complete', 'id'=>$model->id),
-						'csrf'=>true,
+					array( // html
+						'data-ajax-url'=>$model->completeUrl,
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-complete-menu-item-' . $model->id,
+						'name'=>'task-complete-menu-item-' . $model->id,
 						'class'=>'positive task-complete-menu-item',
 						'title'=>'Finish working on this task',
 					)
@@ -107,12 +110,13 @@
 
 			<? if($response->canResume): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I've got more to do",
-					array( //html
-						'submit'=>array('/task/resume', 'id'=>$model->id),
-						'csrf'=>true,
+					array( // html
+						'data-ajax-url'=>$model->resumeUrl,
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-resume-menu-item-' . $model->id,
+						'name'=>'task-resume-menu-item-' . $model->id,
 						'class'=>'neutral task-resume-menu-item',
 						'title'=>'Resume work on this task',
 					)
@@ -122,12 +126,13 @@
 
 			<? if($response->canQuit): ?>
 			<li>
-				<?= PHtml::button(
-					"Quit", 
-					array( //html
-						'submit' => array('task/quit', 'id'=>$model->id),
-						'csrf' => true,
+				<?= PHtml::htmlButton(
+					"Quit",
+					array( // html
+						'data-ajax-url'=>$model->quitUrl,
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-quit-menu-item-' . $model->id,
+						'name'=>'task-quit-menu-item-' . $model->id,
 						'class'=>'neutral task-quit-menu-item',
 						'title'=>'Quit this task',
 					)
@@ -137,12 +142,13 @@
 
 			<? if($response->canIgnore): ?>
 			<li>
-				<?= PHtml::button(
-					"Ignore", 
-					array( //html
-						'submit'=>array('task/ignore', 'id'=>$model->id),
-						'csrf'=>true,
+				<?= PHtml::htmlButton(
+					"Ignore",
+					array( // html
+						'data-ajax-url'=>$model->ignoreUrl,
+						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-ignore-menu-item-' . $model->id,
+						'name'=>'task-ignore-menu-item-' . $model->id,
 						'class'=>'neutral task-ignore-menu-item',
 						'title'=>'Ignore this task',
 					)
@@ -192,7 +198,7 @@
 	)); ?>
 	<? endforeach; ?>
 	<? elseif($model->isCommentable): ?>
-	<p class="blurb">No one has written any comments yet, be the first!</p>
+	
 	<? else: ?>
 	<p class="blurb">Sorry, comments have been disabled for this activity</p>
 	<? endif; ?>

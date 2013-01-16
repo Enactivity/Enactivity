@@ -3,8 +3,6 @@
 * Partial view to display the easy feedback form for users
 * @author Harrison Vuong
 **/
-
-$this->pageTitle = 'Feedback';
 ?>
 
 <section class="content">

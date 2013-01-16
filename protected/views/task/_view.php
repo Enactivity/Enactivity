@@ -38,7 +38,7 @@
 		<ul>
 			<? if($data->currentresponse->canSignUp): ?>
 			<li> 
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I'll do this",
 					array( // html
 						'data-ajax-url'=>$data->signUpUrl,
@@ -55,7 +55,7 @@
 
 			<? if($data->currentresponse->canStart): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I'm doing this", 
 					array( // html
 						'data-ajax-url'=>$data->startUrl,
@@ -72,7 +72,7 @@
 
 			<? if($data->currentresponse->canComplete): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I've done this",
 					array( // html
 						'data-ajax-url'=>$data->completeUrl,
@@ -89,7 +89,7 @@
 
 			<? if($data->currentresponse->canResume): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"I've got more to do",
 					array( // html
 						'data-ajax-url'=>$data->resumeUrl,
@@ -99,7 +99,6 @@
 						'name'=>'task-resume-menu-item-' . $data->id,
 						'class'=>'neutral task-resume-menu-item',
 						'title'=>'Resume work on this task',
-
 					)
 				); ?>
 			</li>
@@ -107,7 +106,7 @@
 
 			<? if($data->currentresponse->canQuit): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"Quit",
 					array( // html
 						'data-ajax-url'=>$data->quitUrl,
@@ -117,7 +116,6 @@
 						'name'=>'task-quit-menu-item-' . $data->id,
 						'class'=>'neutral task-quit-menu-item',
 						'title'=>'Quit this task',
-
 					)
 				); ?>
 			</li>
@@ -125,7 +123,7 @@
 
 			<? if($data->currentresponse->canIgnore): ?>
 			<li>
-				<?= PHtml::button(
+				<?= PHtml::htmlButton(
 					"Ignore",
 					array( // html
 						'data-ajax-url'=>$data->ignoreUrl,
@@ -135,7 +133,6 @@
 						'name'=>'task-ignore-menu-item-' . $data->id,
 						'class'=>'neutral task-ignore-menu-item',
 						'title'=>'Ignore this task',
-
 					)
 				); ?>
 			</li>

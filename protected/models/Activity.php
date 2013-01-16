@@ -394,15 +394,13 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return sizeof($this->tasks);
 	}
 
-	// /** 
-	//  * Get comments about this Activity
-	//  **/
-	// public function getComments() {
-	// 	if(StringUtils::isNotBlank($this->facebookId)) {
-	// 		return Yii::app()->FB->getPostComments($this->facebookPostId);
-	// 	}
-	// 	return array();
-	// }
+	public function getIsTrashable() {
+		return !$this->isNewRecord && !$this->isTrash;
+	}
+
+	public function getIsUntrashable() {
+		return !$this->isNewRecord && $this->isTrash;
+	}
 
 	public function getIsCommentable() {
 		return !$this->isDraft
@@ -462,4 +460,20 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	public function getViewURL() {
 		return PHtml::activityURL($this);
 	}
+
+    public function getTrashURL() {
+    	return Yii::app()->createAbsoluteUrl('activity/trash',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
+
+    public function getUntrashURL() {
+    	return Yii::app()->createAbsoluteUrl('activity/untrash',
+			array(
+				'id'=>$this->id,
+			)
+		);
+    }
 }

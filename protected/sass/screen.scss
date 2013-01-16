@@ -21,7 +21,3 @@
 // various imports
 @import "components/all";
 @import "views/all";
-
-:target {
-	@include animation(fade-in-with-highlighted-background 3s);
-}

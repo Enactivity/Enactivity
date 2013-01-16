@@ -24,9 +24,9 @@
 			@include inline-block; // provides innate spacing between items
 
 			border-right: 1px solid $silver-chalice; // divider line
+			line-height: 1.25;
 			padding-right: .5em; // match the inline block innate 'padding'
 			margin-bottom: $base-margin;
-			margin-top: $base-margin;
 
 			&:last-child {
 				border: none; // no divider line

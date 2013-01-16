@@ -15,8 +15,6 @@
 	),
 )); ?>
 
-	<p>First, create a new activity, next we'll add some tasks that people can sign up for.</p>
-
 	<?= $form->errorSummary($model); ?>
 
 	<fieldset>
@@ -52,6 +50,26 @@
 	</fieldset>
 
 	<div class="field buttons">
+		<? if($model->isTrashable): ?>
+		<?= PHtml::htmlButton("Trash", array( //html				
+				'data-ajax-url'=>$model->trashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
+				'id'=>'activity-trash-menu-item-' . $model->id,
+				'name'=>'activity-trash-menu-item-' . $model->id,
+				'class'=>'neutral activity-trash-menu-item',
+				'title'=>'Trash this activity',
+			)); ?>
+		<? endif; ?>
+		<? if($model->isUntrashable): ?>
+		<?= PHtml::htmlButton("Restore", array( //html
+				'data-ajax-url'=>$model->untrashUrl,
+				'data-csrf-token'=>Yii::app()->request->csrfToken,
+				'id'=>'activity-untrash-menu-item-' . $model->id,
+				'name'=>'activity-untrash-menu-item-' . $model->id,
+				'class'=>'postive activity-untrash-menu-item',
+				'title'=>'Restore this activity',
+			)); ?>
+		<? endif; ?>
 		<?= PHtml::submitButton($model->isNewRecord ? 'I\'m ready to add some tasks' : 'Update'); ?>
 	</div>
 

@@ -1,0 +1,28 @@
+.task-complete-menu-item {
+	i {
+		@extend .icon;
+		@extend .icon-ok;
+	}
+}
+
+.task-quit-menu-item,
+.task-ignore-menu-item {
+	i {
+		@extend .icon;
+		@extend .icon-remove;	
+	}
+}
+
+.task-sign-up-menu-item {
+	i {
+		@extend .icon;
+		@extend .icon-plus;
+	}
+}
+
+.task-resume-menu-item {
+	i {
+		@extend .icon;
+		@extend .icon-ok-sign;
+	}
+}
