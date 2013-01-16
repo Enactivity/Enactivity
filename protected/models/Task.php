@@ -674,9 +674,10 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * Named scope. Tasks which are not completed
 	 */
 	public function scopeNotCompleted() {
+		$table = $this->getTableAlias(false);
+
 		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>'(participantsCount = 0' 
-			. ' OR (participantsCount != participantsCompletedCount))',
+			'condition'=>"({$table}.participantsCount = 0 OR ({$table}.participantsCount != {$table}.participantsCompletedCount))",
 		));
 		return $this;
 	}
