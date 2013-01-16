@@ -54,14 +54,14 @@ class WelcomeActivity extends CComponent {
 		Response::signUp($form->tasks[1]->id, $userId);
 		Response::start($form->tasks[1]->id, $userId);
 		$readComment = new Comment();
-		$readComment->publishComment($form->tasks[1], array("content" => "I'm going to learn more about {$applicationName}. I should mark this task as completed once I feel comfortable."));
+		$readComment->publishComment($form->tasks[1], array("content" => "I'm going to learn more about {$applicationName}. I should mark this task as completed once I feel more comfortable."));
 
 		// Setting respones for Create a new Activity
 		Response::pend($form->tasks[2]->id, $userId);
 		$newActivityComment = new Comment();
-		$newActivityComment->publishComment($form->tasks[2], array("content" => "Great. I should create my own Activity for my group and mark this task as complete after."));
+		$newActivityComment->publishComment($form->tasks[2], array("content" => "Great! I will my own Activity for this group then mark this task as complete afterwards."));
 
-		// Setting respones for Create a new Task
+		// Setting respones for Create a new Taskwar
 		Response::pend($form->tasks[3]->id, $userId);
 		$newTaskComment = new Comment();
 		$newTaskComment->publishComment($form->tasks[3], array("content" => "What things need to be done for this Activity? I should create my first task for it."));
