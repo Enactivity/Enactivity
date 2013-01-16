@@ -48,23 +48,23 @@ class WelcomeActivity extends CComponent {
 		Response::start($form->tasks[0]->id, $userId);
 		Response::complete($form->tasks[0]->id, $userId);
 		$signComment = new Comment();
-		$signComment ->publishComment($form->tasks[0], array("content" => "Sign up for an Activity"));
+		$signComment ->publishComment($form->tasks[0], array("content" => "I did it! I completed my first task and notified the group by using these nifty interactive buttons."));
 
 		// Setting respones for Read about
 		Response::signUp($form->tasks[1]->id, $userId);
 		Response::start($form->tasks[1]->id, $userId);
 		$readComment = new Comment();
-		$readComment->publishComment($form->tasks[1], array("content" => "Read more about us!"));
+		$readComment->publishComment($form->tasks[1], array("content" => "I'm going to learn more about {$applicationName}. I should mark this task as completed once I feel comfortable."));
 
 		// Setting respones for Create a new Activity
 		Response::pend($form->tasks[2]->id, $userId);
 		$newActivityComment = new Comment();
-		$newActivityComment->publishComment($form->tasks[2], array("content" => "Creating an Activity"));
+		$newActivityComment->publishComment($form->tasks[2], array("content" => "Great. I should create my own Activity for my group and mark this task as complete after."));
 
 		// Setting respones for Create a new Task
 		Response::pend($form->tasks[3]->id, $userId);
 		$newTaskComment = new Comment();
-		$newTaskComment->publishComment($form->tasks[3], array("content" => "Creating a Task"));
+		$newTaskComment->publishComment($form->tasks[3], array("content" => "What things need to be done for this Activity? I should create my first task for it."));
 	}
 	
 }
