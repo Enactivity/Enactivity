@@ -399,7 +399,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		if($this->isNotCompleted && (strcasecmp($status, self::STATUS_COMPLETED) == 0)) {
 			$incrementCompletedCount++;
 		}
-		elseif($this->isCompleted && (strcasecmp($status, self::STATUS_COMPLETED) != 0))
+		elseif($this->isCompleted && (strcasecmp($status, self::STATUS_COMPLETED) != 0)) {
 			$incrementCompletedCount--;
 		}
 		
@@ -458,7 +458,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 		if($response->canSignUp) {
 			$response->scenario = self::SCENARIO_SIGN_UP;
-			return $response->updateStatus($response, self::STATUS_SIGNED_UP);
+			return $response->updateStatus(self::STATUS_SIGNED_UP);
 		}
 
 		throw new CHttpException("User cannot sign up for this task.");
