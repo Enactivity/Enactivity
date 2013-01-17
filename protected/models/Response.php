@@ -231,18 +231,34 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return strcasecmp($this->status, self::STATUS_COMPLETED) == 0;
 	}
 
+	public function getIsNotCompleted() {
+		return !$this->isCompleted;
+	}
+
 	public function getIsIgnored() {
 		return strcasecmp($this->status, self::STATUS_IGNORED) == 0;
 	}
 
+	/** 
+	 * @return boolean true if the user is participating in some way
+	 **/
+	public function getIsParticipating() {
+		return $this->isExistingRecord && in_array($this->status, self::getParticipatingStatuses());
+	}
+
+	/** 
+	 * @return boolean true if the user not is participating in any way
+	 **/
+	public function getIsNotParticipating() {
+		return !$this->isParticipating;
+	}
+
 	public function getCanPend() {
-		return !$this->isNewRecord;
+		return $this->isExistingRecord;
 	}
 
 	public function getCanSignUp() {
-		if($this->task->isRespondable 
-			&& ($this->isPending || $this->isIgnored)
-			) {
+		if($this->task->isRespondable && ($this->isPending || $this->isIgnored)) {
 			
 			return true;
 		}
@@ -351,6 +367,63 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $response;
 	}
 
+	/** 
+	 * Changes the status of a response and updates counters 
+	 * of appropriate task
+	 * @param string the status string
+	 * @return boolean true if saved 
+	 * @throws Exception if any failures during transaction
+	 **/
+	protected function updateStatus($status) {
+
+		Yii::trace("Updating response \"{$this->id}\" to \"{$status}\"", get_class($this));
+		
+		// don't update if already changed
+		if(strcasecmp($this->status, $status) == 0) {
+			return true;
+		}
+
+		// calculate Task count incrementations to ensure they are correct
+		$incrementCount = 0;
+		$incrementCompletedCount = 0;
+
+		// Handle going from notParticipating -> Participating, Participating -> notParticipating or Participating -> Participating
+		if($this->isNotParticipating && in_array($status, self::getParticipatingStatuses())) {
+			$incrementCount++;
+		}
+		elseif($this->isParticipating && !in_array($status, self::getParticipatingStatuses())) {
+			$incrementCount--;	
+		}
+
+		// Handle going from notComplete -> Complete, Complete -> notComplete or Complete -> Complete
+		if($this->isNotCompleted && (strcasecmp($status, self::STATUS_COMPLETED) == 0)) {
+			$incrementCompletedCount++;
+		}
+		elseif($this->isCompleted && (strcasecmp($status, self::STATUS_COMPLETED) != 0)) {
+			$incrementCompletedCount--;
+		}
+		
+		$transaction = $this->getDbConnection()->beginTransaction();
+		try {
+			$task = Task::model()->findByPk($this->taskId);
+			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
+		
+			$this->status = $status;
+		
+			if($this->save()) {
+				$transaction->commit();
+				return true;
+			}
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			throw $e;
+		}
+		
+		$transaction->rollback();
+		throw new CHttpException(400, "There was an error quitting this task");
+	}
+
 	public static function pend($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
@@ -358,28 +431,14 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->isNewRecord) {
-			throw new CHttpException("Response already exists");
-		}
-
-		if($response->isPending) {
-			throw new CHttpException("User is already pending");
-		}
-
-		// scenario will be insert since it's new
-
-		if($response->isNewRecord) {
+		if($response->canPend) {
 			$response->scenario = self::SCENARIO_INSERT;
-			$response->status = self::STATUS_PENDING;
-
-			if($response->save()) {
-				return true;
-			}
-			throw new ModelValidationException("There was an error setting up the pending response", $response);
+			return $response->updateStatus(self::STATUS_PENDING);
 		}
-		throw new CException("Response already exists");
+
+		throw new CHttpException("User cannot respond to this task.");
 	}
-	
+
 	/**
 	 * User signs up for task, if user is already
 	 * signed up for the task in some form, their
@@ -397,48 +456,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canSignUp) {
-			throw new CHttpException("User cannot sign up for this task.");
-		}
-
-		// Set scenario
-		if($response->isCompleted) {
-			$response->scenario = self::SCENARIO_RESUME;
-		}
-		else {
+		if($response->canSignUp) {
 			$response->scenario = self::SCENARIO_SIGN_UP;
+			return $response->updateStatus(self::STATUS_SIGNED_UP);
 		}
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-		 
-		if($response->isNewRecord || $response->isPending || $response->isIgnored) {
-			$incrementCount++;
-		}
-		if($response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
 
-			$response->status = self::STATUS_SIGNED_UP;
-	
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e; 
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException("There was an error signing up for this task");
+		throw new CHttpException("User cannot sign up for this task.");
 	}
 
 	public static function start($taskId, $userId) {
@@ -448,43 +471,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canStart) {
-			throw new CHttpException("User cannot start this task.");
+		if($response->canStart) {
+			$response->scenario = self::SCENARIO_START;
+			return $response->updateStatus(self::STATUS_STARTED);	
 		}
 
-		$response->scenario = self::SCENARIO_START;
-
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-
-		if($response->isNewRecord || $response->isPending || $response->isIgnored) {
-			$incrementCount++;
-		}
-		if($response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_STARTED;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error starting this task");
-
+		throw new CHttpException("User cannot start this task.");
 	}
 
 	/**
@@ -500,42 +492,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canResume) {
-			throw new CHttpException("User cannot resume this task.");
+		if($response->canResume) {
+			$response->scenario = self::SCENARIO_RESUME;
+			return $response->updateStatus(self::STATUS_STARTED);
 		}
 
-		$response->scenario = self::SCENARIO_RESUME;
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-			
-		if($response->isNewRecord || $response->isPending || $response->isIgnored) {
-			$incrementCount++;
-		}
-		if($response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_STARTED;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error quitting this task");
+		throw new CHttpException("User cannot resume this task.");
 	}
 	
 	/**
@@ -551,42 +513,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canQuit) {
-			throw new CHttpException("User cannot quit this task.");
+		if($response->canQuit) {
+			$response->scenario = self::SCENARIO_QUIT;
+			return $response->updateStatus(self::STATUS_PENDING);
 		}
 
-		$response->scenario = self::SCENARIO_QUIT;
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-			
-		if($response->isSignedUp || $response->isStarted || $response->isCompleted) {
-			$incrementCount--;
-		}
-		if($response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_PENDING;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error quitting this task");
+		throw new CHttpException("User cannot quit this task.");
 	}
 
 	/**
@@ -602,42 +534,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canIgnore) {
-			throw new CHttpException("User cannot ignore this task.");
+		if($response->canIgnore) {
+			$response->scenario = self::SCENARIO_IGNORE;
+			return $response->updateStatus(self::STATUS_IGNORED);
 		}
 
-		$response->scenario = self::SCENARIO_IGNORE;
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-			
-		if($response->isSignedUp || $response->isStarted || $response->isCompleted) {
-			$incrementCount--;
-		}
-		if($response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_IGNORED;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error quitting this task");
+		throw new CHttpException("User cannot ignore this task.");
 	}
 
 	/**
@@ -654,43 +556,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canStop) {
-			throw new CHttpException("User cannot stop working on this task.");
+		if($response->canStop) {
+			$response->scenario = self::SCENARIO_STOP;
+			return $response->updateStatus(self::STATUS_SIGNED_UP);
 		}
 
-		$response->scenario = self::SCENARIO_STOP;
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-			
-		if($response->isNewRecord || $response->isPending || $response->isIgnored) {
-			$incrementCount++;
-		}
-		if(!$response->isCompleted) {
-			$incrementCompletedCount--;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			/* @var $task Task */
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_SIGNED_UP;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error completing this task");
+		throw new CHttpException("User cannot stop working on this task.");
 	}
 
 	/**
@@ -707,43 +578,12 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 			return true;
 		}
 
-		if(!$response->canComplete) {
-			throw new CHttpException("User cannot complete this task.");
+		if($response->canComplete) {
+			$response->scenario = self::SCENARIO_COMPLETE;
+			return $response->updateStatus(self::STATUS_COMPLETED);
 		}
 
-		$response->scenario = self::SCENARIO_COMPLETE;
-		
-		// calculate Task count incrementations to ensure they are correct
-		$incrementCount = 0;
-		$incrementCompletedCount = 0;
-			
-		if($response->isNewRecord || $response->isPending || $response->isIgnored) {
-			$incrementCount++;
-		}
-		if(!$response->isCompleted) {
-			$incrementCompletedCount++;
-		}
-		
-		$transaction = $response->getDbConnection()->beginTransaction();
-		try {
-			/* @var $task Task */
-			$task = Task::model()->findByPk($taskId);
-			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
-		
-			$response->status = self::STATUS_COMPLETED;
-		
-			if($response->save()) {
-				$transaction->commit();
-				return true;
-			}
-		}
-		catch (Exception $e) {
-			$transaction->rollback();
-			throw $e;
-		}
-		
-		$transaction->rollback();
-		throw new CHttpException(400, "There was an error completing this task");
+		throw new CHttpException("User cannot complete this task.");
 	}
 
 	/**

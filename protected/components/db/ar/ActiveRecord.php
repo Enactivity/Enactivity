@@ -17,6 +17,13 @@ abstract class ActiveRecord extends CActiveRecord {
 		throw new Exception("scenarioLabels() has not been implemented for this class");
 	}
 
+	/** 
+	 * @return boolean whether the record is not new
+	 **/
+	public function getIsExistingRecord() {
+		return !$this->isNewRecord;
+	}
+
 	/**
 	 * Returns the text label for the specified scenario.
 	 * @param string $scenario the scenario name
