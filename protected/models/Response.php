@@ -235,6 +235,13 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return strcasecmp($this->status, self::STATUS_IGNORED) == 0;
 	}
 
+	/** 
+	 * @return boolean true if the user is participating in some way
+	 **/
+	public function getIsParticipating() {
+		return !$this->isNewRecord && ($this->isSignedUp || $this->isStarted || $this->isCompleted);
+	}
+
 	public function getCanPend() {
 		return !$this->isNewRecord;
 	}
@@ -379,7 +386,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		}
 		throw new CException("Response already exists");
 	}
-	
+
 	/**
 	 * User signs up for task, if user is already
 	 * signed up for the task in some form, their
