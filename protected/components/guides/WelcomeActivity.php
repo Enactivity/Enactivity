@@ -33,6 +33,9 @@ class WelcomeActivity extends CComponent {
 				"name" => "Sign up for {$applicationName}",
 			),
 			array(
+				"name" => "Learn about the Next page",
+			),
+			array(
 				"name" => "Start planning a new Activity",
 			),
 			array(
@@ -52,17 +55,27 @@ class WelcomeActivity extends CComponent {
 			)
 		);
 
-		Response::pend($form->tasks[1]->id, $userId);
+		Response::start($form->tasks[1]->id, $userId);
 		$newActivityComment = new Comment();
 		$newActivityComment->publishComment($form->tasks[1], array(
+			"content" => "The \"next\" page is your home page for {$applicationName}."
+				. "\nThere you will find tasks for activities that you have been"
+				. " invited to participate in, but have not yet responded to, completed,"
+				. " or ignored."
+			)
+		);
+
+		Response::pend($form->tasks[2]->id, $userId);
+		$newActivityComment = new Comment();
+		$newActivityComment->publishComment($form->tasks[2], array(
 			"content" => "Activities are great for coordinating what needs to be"
 				. " done with groups.\nCreate tasks for people to participate in.",
 			)
 		);
 
-		Response::pend($form->tasks[2]->id, $userId);
+		Response::pend($form->tasks[3]->id, $userId);
 		$readComment = new Comment();
-		$readComment->publishComment($form->tasks[2], array(
+		$readComment->publishComment($form->tasks[3], array(
 			"content" => "The calendar can be found at " . Yii::app()->createAbsoluteUrl('calendar')
 				. " All tasks with start times will show up here.",
 			)
