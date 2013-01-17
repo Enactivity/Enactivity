@@ -587,25 +587,6 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		throw new CHttpException("User cannot complete this task.");
 	}
 
-	public static function setGuideSignUp($taskId, $userId)
-	{
-		self::signUp($taskId, $userId);
-		self::start($taskId, $userId);
-		self::complete($taskId, $userId);
-
-	}
-
-	public static function setGuidePlanning($taskId, $userId)
-	{
-		self::signUp($taskId, $userId);
-		self::start($taskId, $userId);
-	}
-
-	public static function setGuideExplore($taskId, $userId)
-	{
-		self::pend($taskId, $userId);
-	}
-
 	/**
 	 * @see LoggableRecord
 	 **/
