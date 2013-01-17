@@ -13,8 +13,8 @@
 		@include grid-column-1-of-1;
 		@include border-radius($base-border-radius);
 
-		border: 1px solid $alto;
-		background: $alto;
+		border: 1px solid $silverish;
+		background: $gallery;
 		padding-bottom: 0;
 		margin-bottom: $base-margin;
 		overflow: hidden; // to ensure border radius maintained
@@ -23,15 +23,10 @@
 			@extend .heading4;
 			// @include ellipsis();
 
+			border-bottom: 1px solid $silverish; //match border around article
 			color: $mine-shaft;
 			margin: 0;
 			padding: $base-padding;
-
-			// i {
-			// 	@extend .icon;
-			// 	@extend .icon-chevron-right;
-			// 	float: right;
-			// }
 
 			a {
 				color: $mine-shaft;
