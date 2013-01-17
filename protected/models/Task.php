@@ -519,6 +519,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		if(!is_numeric($participantsIncrement) || !is_numeric($participantsCompletedIncrement)) {
 			throw new CDbException("Arguments must be numeric for increment participants counts");
 		}
+
+		Yii::trace("Incrementing participants by \"{$participantsIncrement}\" and \"{$participantsCompletedIncrement}\"", get_class($this));
 		
 		if(($participantsIncrement == 0) && ($participantsCompletedIncrement == 0)) {
 			return true;
