@@ -350,7 +350,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	 * @return boolean
 	 */
 	public function updateActivity($attributes=null) {
-		if(!$this->isNewRecord) {
+		if($this->isExistingRecord) {
 			$this->attributes = $attributes;
 			return $this->save();
 		}
@@ -395,11 +395,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	}
 
 	public function getIsTrashable() {
-		return !$this->isNewRecord && !$this->isTrash;
+		return $this->isExistingRecord && !$this->isTrash;
 	}
 
 	public function getIsUntrashable() {
-		return !$this->isNewRecord && $this->isTrash;
+		return $this->isExistingRecord && $this->isTrash;
 	}
 
 	public function getIsCommentable() {
