@@ -303,7 +303,7 @@ class User extends ActiveRecord
 	 */
 	public function updateCheckOutInfo($attributes = null) {
 		$this->scenario = self::SCENARIO_CHECKOUT;
-		if(!$this->isNewRecord) {
+		if($this->isExistingRecord) {
 			if(is_array($attributes)) {
 				$this->attributes = $attributes;
 				return $this->save();
@@ -447,7 +447,7 @@ class User extends ActiveRecord
 	 */
 	public function updateUser($attributes = null) {
 		$this->scenario = self::SCENARIO_UPDATE;
-		if(!$this->isNewRecord) {
+		if($this->isExistingRecord) {
 			if(is_array($attributes)) {
 				$this->attributes = $attributes;
 				return $this->save();
