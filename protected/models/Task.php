@@ -288,7 +288,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return boolean
 	 */
 	public function updateTask($attributes=null) {
-		if(!$this->isNewRecord) {
+		if($this->isExistingRecord) {
 			$this->attributes = $attributes;
 			return $this->save();
 		}
@@ -479,11 +479,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	}
 
 	public function getIsTrashable() {
-		return !$this->isNewRecord && !$this->isTrash;
+		return $this->isExistingRecord && !$this->isTrash;
 	}
 
 	public function getIsUntrashable() {
-		return !$this->isNewRecord && $this->isTrash;
+		return $this->isExistingRecord && $this->isTrash;
 	}
 
 	/**
@@ -519,6 +519,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		if(!is_numeric($participantsIncrement) || !is_numeric($participantsCompletedIncrement)) {
 			throw new CDbException("Arguments must be numeric for increment participants counts");
 		}
+
+		Yii::trace("Incrementing participants by \"{$participantsIncrement}\" and \"{$participantsCompletedIncrement}\"", get_class($this));
 		
 		if(($participantsIncrement == 0) && ($participantsCompletedIncrement == 0)) {
 			return true;
