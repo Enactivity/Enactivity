@@ -43,10 +43,7 @@ class WelcomeActivity extends CComponent {
 		$form = new ActivityAndTasksForm();
 		$form->publishWithoutGroup($activityAttributes, $tasksAttributesList);
 
-		// Setting responses for Sign up
-		Response::signUp($form->tasks[0]->id, $userId);
-		Response::start($form->tasks[0]->id, $userId);
-		Response::complete($form->tasks[0]->id, $userId);
+		Response::setGuideSignUp($form->tasks[0]->id, $userId);
 		$signComment = new Comment();
 		$signComment ->publishComment($form->tasks[0], array(
 			"content" => "I did it! I completed my first" 
@@ -55,9 +52,7 @@ class WelcomeActivity extends CComponent {
 			)
 		);
 
-		// Setting respones for Read about
-		Response::signUp($form->tasks[1]->id, $userId);
-		Response::start($form->tasks[1]->id, $userId);
+		Response::setGuidePlanning($form->tasks[1]->id, $userId);
 		$newActivityComment = new Comment();
 		$newActivityComment->publishComment($form->tasks[1], array(
 			"content" => "Activities are great for coordinating what needs to be"
@@ -65,8 +60,7 @@ class WelcomeActivity extends CComponent {
 			)
 		);
 
-		// Setting respones for Create a new Activity
-		Response::pend($form->tasks[2]->id, $userId);
+		Response::setGuideExplore($form->tasks[2]->id, $userId);
 		$readComment = new Comment();
 		$readComment->publishComment($form->tasks[2], array(
 			"content" => "The calendar can be found at " . Yii::app()->createAbsoluteUrl('calendar')
