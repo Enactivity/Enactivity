@@ -33,13 +33,10 @@ class WelcomeActivity extends CComponent {
 				"name" => "Sign up for {$applicationName}",
 			),
 			array(
-				"name" => "Read about {$applicationName}",
+				"name" => "Start planning a new Activity",
 			),
 			array(
-				"name" => "Create a new Activity",
-			),
-			array(
-				"name" => "Create a new Task",
+				"name" => "Explore the calendar",
 			),
 		);
 
@@ -53,39 +50,30 @@ class WelcomeActivity extends CComponent {
 		$signComment = new Comment();
 		$signComment ->publishComment($form->tasks[0], array(
 			"content" => "I did it! I completed my first" 
-				. " task and notified the group by using"
-				. " these nifty interactive buttons."
+				. " {$applicationName} task.  Normally, that would mean anyone"
+				. " else I invited to participate would also be notified.",
 			)
 		);
 
 		// Setting respones for Read about
 		Response::signUp($form->tasks[1]->id, $userId);
 		Response::start($form->tasks[1]->id, $userId);
-		$readComment = new Comment();
-		$readComment->publishComment($form->tasks[1], array(
-			"content" => "I'm going to learn more about {$applicationName}."
-				. " I should mark this task as completed once"
-				. " I feel more comfortable."
+		$newActivityComment = new Comment();
+		$newActivityComment->publishComment($form->tasks[1], array(
+			"content" => "Activities are great for coordinating what needs to be"
+				. " done with groups.\nCreate tasks for people to participate in.",
 			)
 		);
 
 		// Setting respones for Create a new Activity
 		Response::pend($form->tasks[2]->id, $userId);
-		$newActivityComment = new Comment();
-		$newActivityComment->publishComment($form->tasks[2], array(
-			"content" => "Great! I will my own Activity for this group"
-				. " then mark this task as complete afterwards."
+		$readComment = new Comment();
+		$readComment->publishComment($form->tasks[2], array(
+			"content" => "The calendar can be found at " . Yii::app()->createAbsoluteUrl('calendar')
+				. " All tasks with start times will show up here.",
 			)
 		);
-
-		// Setting respones for Create a new Taskwar
-		Response::pend($form->tasks[3]->id, $userId);
-		$newTaskComment = new Comment();
-		$newTaskComment->publishComment($form->tasks[3], array(
-			"content" => "What things need to be done for this" 
-				. " Activity? I should create my first task for it."
-			)
-		);
+		
 	}
 }
 
