@@ -258,9 +258,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	}
 
 	public function getCanSignUp() {
-		if($this->task->isRespondable 
-			&& ($this->isPending || $this->isIgnored)
-			) {
+		if($this->task->isRespondable && ($this->isPending || $this->isIgnored)) {
 			
 			return true;
 		}
@@ -377,6 +375,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @throws Exception if any failures during transaction
 	 **/
 	protected function updateStatus($status) {
+
+		Yii::trace("Updating response \"{$this->id}\" to \"{$status}\"", get_class($this));
 		
 		// don't update if already changed
 		if(strcasecmp($this->status, $status) == 0) {
@@ -405,7 +405,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		
 		$transaction = $this->getDbConnection()->beginTransaction();
 		try {
-			$task = Task::model()->findByPk($taskId);
+			$task = Task::model()->findByPk($this->taskId);
 			$task->incrementParticipantCounts($incrementCount, $incrementCompletedCount);
 		
 			$this->status = $status;
