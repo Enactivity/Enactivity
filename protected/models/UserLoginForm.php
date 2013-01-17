@@ -2,6 +2,8 @@
 
 Yii::import("application.components.auth.UserIdentity");
 
+Yii::import("application.components.guides.WelcomeActivity");
+
 /**
  * UserLoginForm class.
  * UserLoginForm is the data structure for keeping
@@ -49,10 +51,21 @@ class UserLoginForm extends CFormModel
 			$duration = 3600*24*1; // 1 days
 			Yii::app()->user->login($this->_identity, $duration);
 			//TODO: update last login of user
+
+			$this->afterLogin();
+
 			return true;
 		}
 		else {
 			return false;
+		}
+	}
+
+	public function afterLogin() {
+
+		// Generate an intro activity for first time users
+		if($this->_identity->isNewUser) {
+			WelcomeActivity::publish(Yii::app()->user->id);
 		}
 	}
 }

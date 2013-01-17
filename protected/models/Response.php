@@ -191,7 +191,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $this;
 	}
 
-	public function scopeIgnoredOrCompletedStatuses() {
+	public function scopeIgnoredOrCompletedResponses() {
 		$commaSeparatedStatuses = '\'' . implode('\', \'', self::getIgnoredOrCompletedStatuses()) . '\'';
 
 		$this->getDbCriteria()->mergeWith(array(
@@ -312,6 +312,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 */
 	public static function getIncompleteStatuses() {
 		return array(
+			Response::STATUS_PENDING,
 			Response::STATUS_SIGNED_UP,
 			Response::STATUS_STARTED,
 		);
@@ -378,8 +379,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 
 		Yii::trace("Updating response \"{$this->id}\" to \"{$status}\"", get_class($this));
 		
-		// don't update if already changed
-		if(strcasecmp($this->status, $status) == 0) {
+		// don't update if not changing, unless it's a new record
+		if((strcasecmp($this->status, $status) == 0) && $this->isExistingRecord) {
 			return true;
 		}
 
@@ -427,16 +428,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function pend($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isPending) {
-			return true;
-		}
-
-		if($response->canPend) {
-			$response->scenario = self::SCENARIO_INSERT;
-			return $response->updateStatus(self::STATUS_PENDING);
-		}
-
-		throw new CHttpException("User cannot respond to this task.");
+		$response->scenario = self::SCENARIO_INSERT;
+		return $response->updateStatus(self::STATUS_PENDING);
 	}
 
 	/**
@@ -452,31 +445,15 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function signUp($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isSignedUp) {
-			return true;
-		}
-
-		if($response->canSignUp) {
-			$response->scenario = self::SCENARIO_SIGN_UP;
-			return $response->updateStatus(self::STATUS_SIGNED_UP);
-		}
-
-		throw new CHttpException("User cannot sign up for this task.");
+		$response->scenario = self::SCENARIO_SIGN_UP;
+		return $response->updateStatus(self::STATUS_SIGNED_UP);
 	}
 
 	public static function start($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isStarted) {
-			return true;
-		}
-
-		if($response->canStart) {
-			$response->scenario = self::SCENARIO_START;
-			return $response->updateStatus(self::STATUS_STARTED);	
-		}
-
-		throw new CHttpException("User cannot start this task.");
+		$response->scenario = self::SCENARIO_START;
+		return $response->updateStatus(self::STATUS_STARTED);	
 	}
 
 	/**
@@ -488,16 +465,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function resume($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isStarted) {
-			return true;
-		}
-
-		if($response->canResume) {
-			$response->scenario = self::SCENARIO_RESUME;
-			return $response->updateStatus(self::STATUS_STARTED);
-		}
-
-		throw new CHttpException("User cannot resume this task.");
+		$response->scenario = self::SCENARIO_RESUME;
+		return $response->updateStatus(self::STATUS_STARTED);
 	}
 	
 	/**
@@ -509,16 +478,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function quit($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isPending) {
-			return true;
-		}
-
-		if($response->canQuit) {
-			$response->scenario = self::SCENARIO_QUIT;
-			return $response->updateStatus(self::STATUS_PENDING);
-		}
-
-		throw new CHttpException("User cannot quit this task.");
+		$response->scenario = self::SCENARIO_QUIT;
+		return $response->updateStatus(self::STATUS_PENDING);
 	}
 
 	/**
@@ -530,16 +491,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function ignore($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isIgnored) {
-			return true;
-		}
-
-		if($response->canIgnore) {
-			$response->scenario = self::SCENARIO_IGNORE;
-			return $response->updateStatus(self::STATUS_IGNORED);
-		}
-
-		throw new CHttpException("User cannot ignore this task.");
+		$response->scenario = self::SCENARIO_IGNORE;
+		return $response->updateStatus(self::STATUS_IGNORED);
 	}
 
 	/**
@@ -552,16 +505,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function stop($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isSignedUp || $response->isIgnored) {
-			return true;
-		}
-
-		if($response->canStop) {
-			$response->scenario = self::SCENARIO_STOP;
-			return $response->updateStatus(self::STATUS_SIGNED_UP);
-		}
-
-		throw new CHttpException("User cannot stop working on this task.");
+		$response->scenario = self::SCENARIO_STOP;
+		return $response->updateStatus(self::STATUS_SIGNED_UP);
 	}
 
 	/**
@@ -574,16 +519,8 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	public static function complete($taskId, $userId) {
 		$response = self::loadResponse($taskId, $userId);
 
-		if($response->isCompleted) {
-			return true;
-		}
-
-		if($response->canComplete) {
-			$response->scenario = self::SCENARIO_COMPLETE;
-			return $response->updateStatus(self::STATUS_COMPLETED);
-		}
-
-		throw new CHttpException("User cannot complete this task.");
+		$response->scenario = self::SCENARIO_COMPLETE;
+		return $response->updateStatus(self::STATUS_COMPLETED);
 	}
 
 	/**

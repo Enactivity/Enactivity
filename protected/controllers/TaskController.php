@@ -3,6 +3,7 @@
 Yii::import("application.components.calendar.Month");
 Yii::import("application.components.calendar.TaskCalendar");
 Yii::import("application.components.web.Controller");
+Yii::import("application.components.introduction.TutorialActivityGenerator");
 
 class TaskController extends Controller
 {
@@ -13,15 +14,6 @@ class TaskController extends Controller
 	 */
 	public function accessRules()
 	{
-		// get the group assigned to the event
-		if(!empty($_GET['id'])) {
-			$task = $this->loadTaskModel($_GET['id']);
-			$groupId = $task->groupId;
-		}
-		else {
-			$groupId = null;
-		}
-
 		return array(
 			array('allow',
 				'actions'=>array('next','calendar','someday'),
@@ -33,7 +25,7 @@ class TaskController extends Controller
 					'signup','start','resume',
 					'complete','quit','ignore','feed',
 				),
-				'expression'=>'$user->isGroupMember(' . $groupId . ')',
+				'expression'=>'Yii::app()->controller->isParticipantOrGroupMember',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin'),
@@ -43,6 +35,25 @@ class TaskController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function getIsParticipantOrGroupMember() {
+		// get the group assigned to the event
+		if(!empty($_GET['id'])) {
+			$task = $this->loadTaskModel($_GET['id']);
+
+			if(StringUtils::isNotBlank($task->groupId)) {
+				return Yii::app()->user->isGroupMember($task->groupId);
+			}
+
+			$response = Response::model()->findByAttributes(array(
+				'taskId' => $task->id,
+				'userId' => Yii::app()->user->id,
+			));
+
+			return !is_null($response);
+		}
+		return false;
 	}
 
 	/**
