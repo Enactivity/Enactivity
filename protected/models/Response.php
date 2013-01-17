@@ -239,7 +239,14 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 	 * @return boolean true if the user is participating in some way
 	 **/
 	public function getIsParticipating() {
-		return $this->isExistingRecord && ($this->isSignedUp || $this->isStarted || $this->isCompleted);
+		return $this->isExistingRecord && in_array($this->status, self::participatingStatuses());
+	}
+
+	/** 
+	 * @return boolean true if the user not is participating in any way
+	 **/
+	public function getIsNotParticipating() {
+		return !$this->isParticipating;
 	}
 
 	public function getCanPend() {
