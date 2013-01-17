@@ -52,23 +52,27 @@ class ActiveRecordLogBehavior extends CActiveRecordBehavior
 	}
 
 	protected function recordScenario() {
-		$log = new ActiveRecordLog();
-		$log->attributes = array(
-			"groupId" => $this->Owner->groupId,
-			"action" => $this->Owner->scenario,
-			"focalModel" => $this->Owner->focalModelClassForLog,
-			"focalModelId" => $this->Owner->focalModelIdForLog,
-			"focalModelName" => $this->Owner->focalModelNameForLog,
-			"model" => get_class($this->Owner),
-			"modelId" => $this->Owner->getPrimaryKey(),
-			"modelAttribute" => null,
-			"userId" => Yii::app()->user->id,
-		);
 
-		if($log->save()) {
-			return true;
+		if(StringUtils::isNotBlank($this->Owner->groupId)) {
+			$log = new ActiveRecordLog();
+			$log->attributes = array(
+				"groupId" => $this->Owner->groupId,
+				"action" => $this->Owner->scenario,
+				"focalModel" => $this->Owner->focalModelClassForLog,
+				"focalModelId" => $this->Owner->focalModelIdForLog,
+				"focalModelName" => $this->Owner->focalModelNameForLog,
+				"model" => get_class($this->Owner),
+				"modelId" => $this->Owner->getPrimaryKey(),
+				"modelAttribute" => null,
+				"userId" => Yii::app()->user->id,
+			);
+
+			if($log->save()) {
+				return true;
+			}
+			throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
 		}
-		throw new CException("Log was not saved: " . CVarDumper::dumpAsString($log->errors));
+		return true;
 	}
 
 	protected function recordChanges() {

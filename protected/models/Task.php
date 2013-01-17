@@ -660,6 +660,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return $this;
 	}
 
+	public function scopeHasStarts() {
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>'starts IS NOT NULL',
+			)
+		);
+		return $this;
+	}
+
 	/**
 	 * Named scope. Gets the nodes that have no start value.
 	 * @return ActiveRecord the Task

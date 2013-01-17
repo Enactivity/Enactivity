@@ -79,9 +79,10 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'setUpdateOnCreate' => true,
 			),
 			// Set the groupId automatically when user is in only one group
+			/*
 			'DefaultGroupBehavior'=>array(
 				'class' => 'ext.behaviors.DefaultGroupBehavior',
-			),
+			),*/
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
@@ -115,14 +116,25 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('groupId, name', 'required'),
+			array('groupId', 
+				'required', 
+				'except'=>self::SCENARIO_DRAFT,
+			),
 
 			// groupId can be any integer > 0 when set by user
 			array('groupId',
 				'numerical',
 				'min' => 1,
-				'integerOnly'=>true
+				'integerOnly'=>true,
+				'except'=>self::SCENARIO_DRAFT,
 			),
+
+			array('groupId',
+				'safe',
+				'on'=>self::SCENARIO_DRAFT,
+			),
+
+			array('name', 'required'),
 
 			array('name',
 				'length', 
@@ -141,7 +153,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, groupId, authorId, facebookId, name, description, status, participantsCount, participantsCompletedCount, created, modified', 'safe', 'on'=>'search'),
+			// array('id, groupId, authorId, facebookId, name, description, status, participantsCount, participantsCompletedCount, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -293,9 +305,6 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		$this->status = self::STATUS_PENDING;
 
 		if($this->save()) {
-			Yii::app()->user->setFlash('success', 'A draft of ' 
-				. $this->name 
-				. ' has been saved.');
 			return true;
 		}
 		return false;
@@ -317,6 +326,19 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 			Yii::app()->user->setFlash('success',  
 				PHtml::encode($this->name) 
 				. ' is now available for your group to view.');
+			return true;
+		}
+		return false;
+	}
+
+	public function publishWithoutGroup($attributes = null) {
+		$this->draft($attributes); // to generate new id
+
+		$this->scenario = self::SCENARIO_PUBLISH;
+		$this->attributes = $attributes;
+		$this->status = self::STATUS_ACTIVE;
+
+		if($this->save(false)) {
 			return true;
 		}
 		return false;

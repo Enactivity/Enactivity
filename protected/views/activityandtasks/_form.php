@@ -53,8 +53,8 @@
 
 	<? foreach($model->tasks as $index => $task): ?>
 	<fieldset class="new-task-form">
-		<? if($index): ?>
-		<h1>Task #<?= PHtml::encode($index); ?></h1>
+		<? if($index + 1): ?>
+		<h1>Task #<?= PHtml::encode($index + 1); ?></h1>
 		<? endif ?>
 
 		<div class="field">

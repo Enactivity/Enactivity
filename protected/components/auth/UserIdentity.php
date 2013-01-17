@@ -16,6 +16,8 @@ class UserIdentity extends CUserIdentity
 	private $_code;
 	private $_access_token;
 
+	public $isNewUser = false;
+
 	public function __construct($code) {
 		$this->_code = $code;
 	}
@@ -36,6 +38,8 @@ class UserIdentity extends CUserIdentity
 				$user = User::register(array(
 					'facebookId' => $facebookId
 				));
+
+				$this->isNewUser = true;
 			}
 
 			// check user status, re-activate inactive user

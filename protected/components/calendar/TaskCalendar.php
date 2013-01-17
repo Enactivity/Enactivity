@@ -166,7 +166,6 @@ class TaskCalendar extends CComponent {
 
 	protected function removeTaskWithStartTime($task) {
 		if($task->hasStarts) {
-
 			$date = $task->startDate;
 			$time = $task->formattedStartTime;
 			$activityId = $task->activityId;
