@@ -31,7 +31,7 @@ fieldset {
 
 input, textarea, select, button, .button {
 	border: 1px solid $gainsboro;
-	@include border-radius($base-border-radius);
+	@include border-radius(0);
 	@include box-sizing(border-box); /* Border box ensures that inputs fill containers without border overlap */
 	font: inherit; /* Match overall font settings */
 	font-size: $input-font-size;
