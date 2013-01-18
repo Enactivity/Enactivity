@@ -97,6 +97,7 @@ class TaskCalendar extends CComponent {
 	 * @return null
 	 **/
 	public function addTask(Task $task) {
+		Yii::beginProfile('Adding task', get_class($this));
 		Yii::trace("Adding task {$task->id}", get_class($this));
 
 		if($task->hasStarts) {
@@ -105,6 +106,7 @@ class TaskCalendar extends CComponent {
 		else {
 			$this->addTaskWithNoStartTime($task);	
 		}
+		Yii::endProfile('Adding task', get_class($this));
 	}
 
 	protected function addTaskWithStartTime($task) {
