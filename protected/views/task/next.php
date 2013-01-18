@@ -8,34 +8,10 @@
 
 <header class="content-header">
 	<nav>
-		<ul>
-			<li>
-				<?= PHtml::link(
-					PHtml::encode('Timeline'), 
-					array('feed/index'),
-					array(
-						'id'=>'feed-index-menu-item',
-						'class'=>'neutral feed-index-menu-item',
-						'title'=>'View recent history in your group',
-					)
-				);
-				?>
-			</li>
-			<? if($draftsCount): ?>
-			<li>
-				<?= PHtml::link(
-					'Drafts <span class="draft-count">(' . PHtml::encode($draftsCount) . ')</span>', 
-					array('activity/drafts'),
-					array(
-						'id'=>'activity-drafts-menu-item',
-						'class'=>'neutral activity-drafts-menu-item',
-						'title'=>'View your activities that have yet to be published',
-					)
-				);
-				?>
-			</li>
-			<? endif; ?>
-		</ul>
+		<? $this->widget('zii.widgets.CMenu', array(
+			'encodeLabel'=>false,
+			'items'=>MenuDefinitions::siteMenu()
+		));?>
 	</nav>
 </header>
 

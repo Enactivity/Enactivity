@@ -461,6 +461,14 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		return PHtml::activityURL($this);
 	}
 
+	public function getPublishURL() {
+		return Yii::app()->createAbsoluteUrl('activity/publish',
+			array(
+				'id'=>$this->id,
+			)
+		);
+	}
+
     public function getTrashURL() {
     	return Yii::app()->createAbsoluteUrl('activity/trash',
 			array(

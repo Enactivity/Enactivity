@@ -53,11 +53,9 @@
 <? if($model->isDraft): ?>
 <section id="publish" class="publish content">
 	<p class="blurb">Publish this activity to allow group members to participate.</p>
-	<?= PHtml::button(
-		"Publish", 
-		array( //html
-			'submit'=>array('activity/publish', 'id'=>$model->id),
-			'csrf'=>true,
+	<?= PHtml::htmlButton("Publish", array( //html
+			'data-ajax-url'=>$model->publishUrl,
+			'data-csrf-token'=>Yii::app()->request->csrfToken,
 			'id'=>'activity-publish-menu-item-' . $model->id,
 			'class'=>'positive activity-publish-menu-item',
 			'title'=>'Show this activity to the rest of the team',

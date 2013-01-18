@@ -313,7 +313,7 @@ class ActivityController extends Controller
 		$this->pageTitle = 'Drafts';
 
 		$this->render(
-			'index',
+			'drafts',
 			array(
 				'activities' => $drafts,
 			)

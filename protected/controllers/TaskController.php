@@ -362,15 +362,11 @@ class TaskController extends Controller
 	{
 		// Get next tasks
 		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
-
-		// Get list of user drafts
-		$draftsCount = Yii::app()->user->model->draftsCount;
-
+		
 		$this->pageTitle = 'Next';
 
 		$this->render('next', array(
 			'calendar'=>$calendar,
-			'draftsCount'=>$draftsCount,
 		));
 	}
 
