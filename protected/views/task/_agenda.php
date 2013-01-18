@@ -20,9 +20,8 @@
 		<? foreach($activities as $activityEntry): ?>
 		<article class="activity">
 			<h1 class="activity-name">
-				<i></i>
-				<?= PHtml::link(PHtml::encode($activityEntry['activity']->name),
-					array('activity/view', 'id'=>$activityEntry['activity']->id)
+				<?= PHtml::link("<i></i> " . PHtml::encode($activityEntry['activity']->name),
+					$activityEntry['activity']->viewUrl
 				); ?>
 			</h1>
 			<ol>
@@ -56,7 +55,7 @@
 				<i></i>
 				<?= PHtml::link(
 					PHtml::encode($activityEntry['activity']->name),
-					array('activity/view', 'id'=>$activityEntry['activity']->id)
+					$activityEntry['activity']->viewUrl)
 				); ?>
 			</h1>
 			<ol>
