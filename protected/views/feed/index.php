@@ -17,5 +17,9 @@
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_view',
+		'emptyText'=>'',
 	)); ?>
+	<? if(!$dataProvider->data): ?>
+		<p class="blurb">Nothing new has happened, once you start creating and participating in activities, things will be here.</p>
+	<? endif; ?>
 </section>
