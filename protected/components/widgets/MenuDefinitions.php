@@ -21,9 +21,9 @@ class MenuDefinitions extends CComponent {
 	public static function applicationMenu() {
 		return array(
 			array(
-				'label'=>'<i></i> Next', 
+				'label'=>'<i></i> Dashboard', 
 				'linkOptions'=>array(
-					'id'=>'application-navigation-task-next',
+					'id'=>'application-navigation-site-dashboard',
 				),
 				'url'=>array('/task/next'), 
 				'visible'=>!Yii::app()->user->isGuest
@@ -52,95 +52,35 @@ class MenuDefinitions extends CComponent {
 				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
-			// array(
-			// 	'label'=>'Admin',
-			// 	'linkOptions'=>array(
-			// 		'id'=>'application-navigation-site-admin',
-			// 	),
-			// 	'url'=>array('site/admin'),
-			// 	'visible'=>Yii::app()->user->isAdmin
-			// ),
-			// array(
-			// 	'label'=>'<i></i> Sign in with Facebook',
-			// 	'linkOptions'=>array(
-			// 		'id'=>'application-navigation-facebook-login',
-			// 	),
-			// 	'url'=>Yii::app()->FB->loginUrl,
-			// 	'visible'=>Yii::app()->user->isGuest
-			// ),
 		);
 	}
-	
+
 	/**
-	 * @return array of menu items for admins
+	 * @return array main menu items
 	 */
-	public static function adminMenu() {
+	public static function siteMenu() {
 		return array(
 			array(
-				'label'=>'Create Group', 
-				'url'=>array('group/create'),
-				'linkOptions'=>array('id'=>'group-create-nav-item'), 
-				'visible'=>Yii::app()->user->isAdmin
+				'label'=>'<i></i> Next', 
+				'linkOptions'=>array(
+					'id'=>'task-next-menu-item',
+				),
+				'url'=>array('task/next'),
 			),
 			array(
-				'label'=>'Manage Groups', 
-				'url'=>array('group/admin'), 
-				'linkOptions'=>array('id'=>'group-manage-nav-item'),
-				'visible'=>Yii::app()->user->isAdmin,
+				'label'=>'<i></i> Timeline', 
+				'linkOptions'=>array(
+					'id'=>'feed-index-menu-item',
+				),
+				'url'=>array('feed/index'),
 			),
 			array(
-				'label'=>'Manage Store', 
-				'url'=>array('store/admin'), 
-				'linkOptions'=>array('id'=>'store-manage-nav-item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage Users', 
-				'url'=>array('user/admin'),
-				'linkOptions'=>array('id'=>'user-admin-nav-item'), 
-				'visible'=>Yii::app()->user->isAdmin
-			),
-			array(
-				'label'=>'Manage Tasks', 
-				'url'=>array('task/admin'), 
-				'linkOptions'=>array('id'=>'task-admin-nav-item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage Comments', 
-				'url'=>array('comment/admin'), 	
-				'linkOptions'=>array('id'=>'comment-admin-nav-item'),
-				'visible'=>Yii::app()->user->isAdmin,
-			),
-			array(
-				'label'=>'Manage Feed', 
-				'url'=>array('feed/admin'), 	
-				'linkOptions'=>array('id'=>'feed-admin-nav-item'),
-				'visible'=>Yii::app()->user->isAdmin,
+				'label'=>'<i></i> Drafts', 
+				'linkOptions'=>array(
+					'id'=>'activity-drafts-menu-item',
+				),
+				'url'=>array('activity/drafts'),
 			),
 		);
-	}
-	
-	public static function comment() {
-		return null;
-	}
-	
-	public static function feed() {
-		return null;
-	}
-	
-	/**
-	 * @return array of menu items
-	 */
-	public static function task() {
-		return null;
-	}
-	
-	/**
-	 * @param User $model User current under scrutiny
-	 * @return array of menu items for user controller
-	 */
-	public static function user() {
-		return null;
 	}
 }

@@ -1,7 +1,3 @@
 .content-header {
 	@include grid-row;
-
-	a:hover, a:active {
-		background: $silverish;
-	}
 }

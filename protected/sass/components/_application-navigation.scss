@@ -80,8 +80,8 @@ $nav-bar-color: $white;
 	}
 }
 
-#application-navigation-task-next i {
-	@extend .icon-list-ul;
+#application-navigation-site-dashboard i {
+	@extend .icon-dashboard;
 }
 
 #application-navigation-task-calendar i {
