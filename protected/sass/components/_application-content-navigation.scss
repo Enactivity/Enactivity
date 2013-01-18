@@ -45,6 +45,7 @@ $application-content-font-size: 16px;
 		.active a, a:active, 
 		a:focus, a:hover {
 			border-bottom: 3px solid $cerulean;
+			padding-bottom: $base-padding - 3px;
 		}
 	}
 }
