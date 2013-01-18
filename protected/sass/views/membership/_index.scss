@@ -1,21 +1,8 @@
 .page-membership-index {
 
-	// override default to allow space
-	.application-content nav li {
-		@include grid-column-1-of-1;
-
-		// these should be overriden on a case by case for each menu
-		@include respond-to(thin-phone){
-			@include grid-column-1-of-1;
-		}
-		@include respond-to(desktop){
-			@include grid-column-1-of-3;
-		}
-	}
-
 }
 
 .membership-sync-menu-item {
 	@extend .icon;
-	@extend .icon-refresh;
+	@extend .icon-facebook-sign;
 }

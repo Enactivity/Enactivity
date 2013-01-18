@@ -1,22 +1,20 @@
 <header class="content-header">
 	<nav class="content-header-nav">
-		<ul>
-			<li>
-				<?=
-				PHtml::link(
-					'<i></i> Sync with Facebook', 
-					array('membership/syncWithFacebook'),
-					array(
-						'id'=>'membership-sync-with-facebook-menu-item',
-						'class'=>'neutral membership-sync-menu-item',
-						'title'=>'Get the latest list of your groups from Facebook',
-					)
-				);
-				?>
-			</li>
-		</ul>
 	</nav>
 </header>
+
+<section id="sync" class="content">
+	<p class="blurb">Synchronize your group listings with Facebook to invite more
+		people to your activities.</p>
+	<?= PHtml::htmlButton("Synchronize", array( //html
+			'data-ajax-url'=>Yii::app()->createAbsoluteUrl('membership/syncWithFacebook'),
+			'data-csrf-token'=>Yii::app()->request->csrfToken,
+			'id'=>'membership-sync-with-facebook-menu-item',
+			'class'=>'neutral membership-sync-menu-item button',
+			'title'=>'Get the latest list of your groups from Facebook',
+		)
+	); ?>
+</section>
 
 <? if(sizeof($memberships) > 0): ?>
 <section class="content">
