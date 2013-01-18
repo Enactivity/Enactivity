@@ -55,7 +55,7 @@
 				<i></i>
 				<?= PHtml::link(
 					PHtml::encode($activityEntry['activity']->name),
-					$activityEntry['activity']->viewUrl)
+					$activityEntry['activity']->viewUrl
 				); ?>
 			</h1>
 			<ol>
