@@ -35,7 +35,7 @@ return array(
 				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
 				'class'=>'ext.minscript.components.ExtMinScript', 
 				'minScriptControllerId'=>'min',
-				'minScriptLmCache'=>3600, // ignored if YII_DEBUG = true
+				'minScriptLmCache'=>false, // ignored if YII_DEBUG = true
 				'packages'=>array(
 					'jquery'=>array(
 						'baseUrl'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.8/',
