@@ -1,7 +1,7 @@
 /*
  * Drop down plugin
  */
-$(function() {
+(function($) {
 
 	"use strict";
 
@@ -40,4 +40,4 @@ $(function() {
 		$('body').DropDown(dropdownSelector);
 	});
 
-});
+})(jQuery);

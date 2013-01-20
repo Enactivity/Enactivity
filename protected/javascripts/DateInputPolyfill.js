@@ -5,8 +5,7 @@
  *	jquery.ui.datepicker.js
  *  Modernizr
  */
-(function( $, undefined ) {
-
+(function($) {
 
 	"use strict";
 

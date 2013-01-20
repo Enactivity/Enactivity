@@ -5,7 +5,7 @@
  * 'data-container-id' - the id attribute of the object that should be replaced, reloads entire page otherwise
  * @requires jquery.ajax for submitting
 **/
-$(function() {
+(function($) {
 
 	"use strict";
 
@@ -45,4 +45,4 @@ $(function() {
 	$(function() {
 		$(document).AjaxButton(buttonSelector);
 	});
-});
+})(jQuery);

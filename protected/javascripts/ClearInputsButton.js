@@ -5,7 +5,7 @@
  * @param 'data-inputs' selector or array of selectors that clicking the button should clear
  *   if array, be sure to use double quotes: ["#id1","#id2"]
  **/
-$(function() {
+(function($) {
 
 	"use strict";
 
@@ -42,4 +42,4 @@ $(function() {
 	$(function() {
 		$(document).ClearInputsButton(buttonSelector);
 	});
-});
+})(jQuery);

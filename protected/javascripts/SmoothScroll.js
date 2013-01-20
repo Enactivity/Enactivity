@@ -1,7 +1,7 @@
 /*
  * Smooth scrolling plugin @requires JQuery 1.7
  */
-$(function() {
+(function($) {
 
 	"use strict";
 
@@ -16,4 +16,4 @@ $(function() {
 			});
 		}
 	});
-});
+})(jQuery);

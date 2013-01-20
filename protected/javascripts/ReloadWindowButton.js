@@ -1,7 +1,7 @@
 /**
  * Creates a button that will refresh the page from the server
  **/
-$(function() {
+(function($) {
 
 	"use strict";
 
@@ -25,4 +25,4 @@ $(function() {
 	$(function() {
 		$(document).ReloadWindowButton(buttonSelector);
 	});
-});
+})(jQuery);
