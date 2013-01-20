@@ -18,6 +18,14 @@
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
+		<ul class="participants">
+			<? foreach($data->participants as $index => $user): ?>
+			<? if($index >= 10) { break; } ?>
+				<li>
+					<?= PHtml::image($user->pictureUrl); ?>
+				</li>
+			<? endforeach; ?>
+		</ul>
 		<ul class="details">
 			<li>
 				<i></i><span class="count"><?= PHtml::encode($data->participantsCount); ?></span> signed up

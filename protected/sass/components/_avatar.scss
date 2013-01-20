@@ -1,11 +1,11 @@
-$avatar-body-margin-left: 36px;
+$avatar-body-margin-left: $base-avatar-size + $base-margin;
 
 .avatar {
 	@include border-radius(4px);
 	margin-right: $base-margin;
 	float: left;
-	height: 20px; // match(ish) heading text height
-	width: 20px;
+	height: $base-avatar-size; // match(ish) heading text height
+	width: $base-avatar-size;
 	overflow: hidden;
 
 	img {
