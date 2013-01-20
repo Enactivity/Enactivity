@@ -20,7 +20,7 @@
 		</h1>
 		<ul class="details">
 			<li>
-				<i></i><span class="count"><?= PHtml::encode($data->participantsCount); ?></span> participants
+				<i></i><span class="count"><?= PHtml::encode($data->participantsCount); ?></span> signed up
 				<? if($data->isUserParticipating): ?>
 				<span class="user-participating">(Including you!)</span>
 				<? endif; ?>
