@@ -15,6 +15,17 @@
 		white-space: nowrap;
 	}
 
+	.participants {
+		li {
+			@include inline-block; // provides innate spacing between items
+
+			img {
+				height: $base-avatar-size; // match(ish) heading text height
+				width: $base-avatar-size;
+			}
+		}
+	}
+
 	.details {
 		@include grid-row;
 
