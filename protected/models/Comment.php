@@ -60,6 +60,12 @@ class Comment extends ActiveRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
+            'EmailNotificationBehavior'=>array(
+                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+                'scenarios' => array(
+                    self::SCENARIO_INSERT => array(),
+                ),
+            ),
     	);
     }
 

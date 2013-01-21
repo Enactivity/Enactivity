@@ -101,18 +101,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 					self::SCENARIO_UNTRASH => array(),
 				),
 			),
-			// Record C-UD operations to this record
 			'EmailNotificationBehavior'=>array(
 				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                //flag to enable or disable notification emails for EmailNotificationBehavior
-				'enabled' => Yii::app()->params['emailNotificationsOn'],
-				'ignoreAttributes' => array('modified'),
+				'scenarios' => array(
+					self::SCENARIO_INSERT => array(),
+					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UNTRASH => array(),
+					self::SCENARIO_UPDATE => array(),
+				),
 			),
-			// 'FacebookGroupPostBehavior'=>array(
-			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// 	'scenarios' => array('insert', 'trash', 'untrash', 'update'),
-			// ),
 		);
 	}
 
