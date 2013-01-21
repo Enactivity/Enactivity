@@ -26,3 +26,10 @@
 		@extend .icon-ok-sign;
 	}
 }
+
+.task .menu {
+
+	select {
+		@extend button
+	}
+}
