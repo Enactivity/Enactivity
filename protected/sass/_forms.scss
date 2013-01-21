@@ -36,7 +36,8 @@ input, textarea, select, button, .button {
 	font: inherit; /* Match overall font settings */
 	font-size: $input-font-size;
 	height: ($base-padding * 2) + 16px; // needs to match nav sizing
-	padding: $base-padding;
+	line-height: 1.2; // prevents cut off of text tails (e.g. "g", "y", etc.)
+	padding: 0 $base-padding;
 	width: 100%;
 }
 
@@ -46,6 +47,8 @@ select {
 
 textarea  {
 	height: 6em;
+	padding-bottom: $base-padding;
+	padding-top: $base-padding;
 }
 
 input[type="submit"], 
