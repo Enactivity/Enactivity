@@ -3,57 +3,38 @@
  * Class file for EmailNotificationBehavior
  */
 
-Yii::import("applications.components.ar.db.EmailableRecord");
+Yii::import("application.components.ar.db.EmailableRecord");
+Yii::import("application.components.notifications.NotificationBehavior");
 
 /**
  * This is the behavior class for behavior "EmailNotificationBehavior".
  * The EmailNotificationBehavior implements EmailRecord Model
  */
-class EmailNotificationBehavior extends CActiveRecordBehavior
-{
-
-	/**
-	 * Whether the behavior should send emails
-	 * @var boolean
-	 **/
-	public $enabled = false;
-
-	/**
-	 * List of attributes that should be ignored by the log
-	 * when the ActiveRecord is updated.
-	 * @var array
-	 */
-	public $ignoreAttributes = array();
-	
+class EmailNotificationBehavior extends NotificationBehavior
+{	
 	/**
 	* After the model saves, record the attributes
 	* @param CEvent $event
 	*/
-
-	public function createSubject($model, $currentUser)
+	public function composeSubject($model, $currentUser)
 	{
 		// based on the given scenario, construct the appropriate subject
 		$label = $model->getScenarioLabel($model->scenario);
 		$name = $model->emailName;
 		$userName = $currentUser->fullName;
 		return $userName . " " . $label . " " . $name;
-
 	}
 
 	public function afterSave($event)
 	{
-		if(!$this->enabled) {
-			return;
-		}
-
-		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
+		if($this->enabled && $this->Owner->shouldEmail() && isset(Yii::app()->user))
 		{
 			// store the changes 
 			$changes = array();
 
 			// calculate changes
 			if (!$this->Owner->isNewRecord) {
-				$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
+				$changes = $this->Owner->getChangedAttributes($this->scenarioAttributes);
 			}
 
 			$currentUser = Yii::app()->user->model;
@@ -61,7 +42,7 @@ class EmailNotificationBehavior extends CActiveRecordBehavior
 			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
 			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 
-			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
+			$message->setSubject(self::composeSubject($this->Owner, $currentUser));	
 			$message->from = 'notifications@' . CHttpRequest::getServerName();
 
 			$users = $this->Owner->whoToNotifyByEmail();
