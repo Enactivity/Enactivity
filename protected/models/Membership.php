@@ -397,22 +397,6 @@ class Membership extends ActiveRecord implements EmailableRecord
 			}
 		}
 	}
-
-	/**
-	 * Returns a boolean whether user should be emailed or not
-	 * @return boolean
-	 */
-	
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_JOIN) == 0)
-		{
-			return true;
-		}
-		
-		return false;
-	}
 	
 	public function whoToNotifyByEmail()
 	{

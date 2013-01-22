@@ -712,21 +712,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function getFocalModelNameForLog() {
 		return $this->name;
 	}
-	
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UPDATE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_TRASH) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UNTRASH) == 0)
-		{
-			return true;
-		}
 		
-		return false;
-	}
-	
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users

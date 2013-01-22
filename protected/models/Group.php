@@ -271,21 +271,6 @@ class Group extends ActiveRecord implements EmailableRecord
 	public function getPictureURL() {
 		return Yii::app()->FB->getGroupPictureURL($this->facebookId);
 	}
-
-	/**
-	 * Returns a boolean whether user should be emailed or not
-	 * @return boolean
-	 */
-	
-	public function shouldEmail()
-	{
-		if(strcmp($this->scenario, self::SCENARIO_UPDATE) == 0)
-		{
-			return true;
-		}else{
-			return false;
-		}
-	}
 	
 	/**
 	 * Returns an array of users to be emailed

@@ -197,18 +197,7 @@ class Comment extends ActiveRecord
             )
         );
     }
-    
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_REPLY) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0)
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
+    	
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users

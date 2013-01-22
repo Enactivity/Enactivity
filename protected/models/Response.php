@@ -549,20 +549,6 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $this->task->name;
 	}
 	
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_COMPLETE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
-
-		   )
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
