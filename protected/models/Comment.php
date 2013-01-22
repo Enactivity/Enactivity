@@ -1,6 +1,7 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
+Yii::import("application.components.db.ar.EmailableRecord");
 
 /**
  * This is the model class for table "comment".
@@ -19,7 +20,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property Group $group
  * @property User $creator
  */
-class Comment extends ActiveRecord
+class Comment extends ActiveRecord implements EmailableRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	
@@ -206,4 +207,8 @@ class Comment extends ActiveRecord
 		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $users;
 	}
+
+    public function getEmailName() {
+        return $this->modelObject->emailName;
+    }
 }

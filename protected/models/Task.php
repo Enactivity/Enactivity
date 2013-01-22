@@ -92,13 +92,13 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'scenarios' => array(
-					self::SCENARIO_INSERT => array(),
-					self::SCENARIO_TRASH => array(),
+					// self::SCENARIO_INSERT => array(),
+					// self::SCENARIO_TRASH => array(),
 					self::SCENARIO_UPDATE => array(
 						'name',
 						'starts',
 					),
-					self::SCENARIO_UNTRASH => array(),
+					// self::SCENARIO_UNTRASH => array(),
 				),
 			),
 			'EmailNotificationBehavior'=>array(
