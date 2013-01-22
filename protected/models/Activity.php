@@ -1,6 +1,7 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
+Yii::import("application.components.db.ar.EmailableRecord");
 Yii::import("application.components.db.ar.LoggableRecord");
 
 Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
@@ -26,7 +27,7 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
  * @property Group $group
  * @property User $author
  */
-class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord
+class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPostableRecord, EmailableRecord
 {
 	const NAME_MAX_LENGTH = 255;
 	const DESCRIPTION_MAX_LENGTH = 10000;
@@ -502,5 +503,16 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 				'id'=>$this->id,
 			)
 		);
+    }
+
+    public function whoToNotifyByEmail()
+	{
+		$group = Group::model()->findByPk($this->groupId);
+		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $users;
+	}
+
+    public function getEmailName() {
+        return $this->name;
     }
 }
