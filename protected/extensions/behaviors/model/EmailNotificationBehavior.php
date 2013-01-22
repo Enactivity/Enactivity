@@ -17,7 +17,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 	public function afterSave($event)
 	{
-		if($this->enabled && $this->owner->shouldEmail() && isset(Yii::app()->user)) {
+		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 
 			$message = Yii::app()->mail->constructMessage();
 
@@ -41,7 +41,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 	public function afterDelete($event) {
 
-		if($this->enabled && $this->owner->shouldEmail() && isset(Yii::app()->user)) {
+		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 			
 			$message = Yii::app()->mail->constructMessage();
 			$message->view = strtolower(get_class($this->owner)). '/delete';

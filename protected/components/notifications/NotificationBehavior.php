@@ -45,6 +45,13 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 **/
 	public $viewPath = '';
  
+	/**
+	 * @return boolean if the owner's save should be treated as notification event
+	 **/
+	protected function getIsNotifiableScenario() {
+		return array_key_exists($this->owner->scenario, $this->scenarios);
+	} 
+
     /**
 	 * @return boolean if the owner's save should be treated as single insert/change
 	 **/
