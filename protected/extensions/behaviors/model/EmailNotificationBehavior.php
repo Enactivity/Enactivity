@@ -11,9 +11,11 @@ Yii::import("application.components.notifications.NotificationBehavior");
  * The EmailNotificationBehavior implements EmailRecord Model
  */
 class EmailNotificationBehavior extends NotificationBehavior
-{	
+{
+	public function getEnabled() {
+		return Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.enabled'];
+	}
 
-	public $notifyCurrentUser = true;
 
 	public function afterSave($event)
 	{
@@ -82,7 +84,8 @@ class EmailNotificationBehavior extends NotificationBehavior
 	 */
 	public function sendMessage($message, $users) {
 		foreach($users as $user) {
-			if($this->notifyCurrentUser || strcasecmp($user->id, Yii::app()->user->id) != 0) {
+			if(Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser']
+			 || strcasecmp($user->id, Yii::app()->user->id) != 0) {
 				$message->addTo($user->email);
 			}
 		}

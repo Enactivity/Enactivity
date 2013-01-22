@@ -3,25 +3,11 @@
  * Class file for NotificationBehavior
  */
 
-
-
 /**
  * This is the behavior class for behavior "NotificationBehavior".
  */
 abstract class NotificationBehavior extends CActiveRecordBehavior
-{
-	/**
-	 * Whether the behavior should send emails
-	 * @var boolean
-	 **/
-	public $enabled = true;
-
-	/** 
-	 * Whether the behavior should notify current user as well.
-	 * @var boolean
-	 **/
-	public $notifyCurrentUser = false;
-	
+{	
 	/**
 	 * List of scenarios that should be treated as a record change
 	 * format: 
@@ -40,11 +26,7 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 **/
 	public $shouldLogDeletions = false;
 
-	/** 
-	 * @var string path to view files for mails
-	 **/
-	public $viewPath = '';
- 
+
 	/**
 	 * @return boolean if the owner's save should be treated as notification event
 	 **/

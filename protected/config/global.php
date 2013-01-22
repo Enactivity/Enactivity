@@ -308,15 +308,14 @@ return array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
 			
-			
 			'feedbackEmail' => 'team@poncla.com',
 			'googleAnalyticsOn' => true,
 
 			'application.components.guides.WelcomeActivity.enabled' => true,
 
 			// flag to control whether or not email notification emails should be sent
-			'application.components.notifications.mail.enabled' => false,
-			'application.components.notifications.mail.notifySelf' => false,
+			'ext.behaviors.model.EmailNotificationBehavior.enabled' => true,
+			'ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser' => false,
 		),
 
 		// preloading 'log' component
