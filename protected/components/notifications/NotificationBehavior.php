@@ -43,7 +43,7 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 * @return boolean if the owner's save should be treated as single insert/change
 	 **/
 	protected function getIsIndivisibleScenario() {
-		return array_key_exists($this->Owner->scenario, $this->scenarios)
+		return array_key_exists($this->owner->scenario, $this->scenarios)
 			&& empty($this->scenarioAttributes);
 	} 
 
@@ -51,7 +51,7 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 * @return boolean if the owner's save should be treated as a change of multiple parts
 	 **/
 	protected function getIsDivisibleScenario() {
-		return array_key_exists($this->Owner->scenario, $this->scenarios)
+		return array_key_exists($this->owner->scenario, $this->scenarios)
 			&& !empty($this->scenarioAttributes);
 	}
 
@@ -59,6 +59,6 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 * @return array of attributes to record changes to for owner's current scenario
 	**/
 	protected function getScenarioAttributes() {
-		return $this->scenarios[$this->Owner->scenario];
+		return $this->scenarios[$this->owner->scenario];
 	}
 }

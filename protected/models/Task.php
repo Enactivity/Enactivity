@@ -93,11 +93,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'scenarios' => array(
 					self::SCENARIO_INSERT => array(),
+					self::SCENARIO_TRASH => array(),
 					self::SCENARIO_UPDATE => array(
 						'name',
 						'starts',
 					),
-					self::SCENARIO_TRASH => array(),
 					self::SCENARIO_UNTRASH => array(),
 				),
 			),
@@ -106,8 +106,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 				'scenarios' => array(
 					self::SCENARIO_INSERT => array(),
 					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'starts',
+					),
 					self::SCENARIO_UNTRASH => array(),
-					self::SCENARIO_UPDATE => array(),
 				),
 			),
 		);
@@ -729,8 +732,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		//go through group and store in array with all active users
 		//return array
 		$group = Group::model()->findByPk($this->groupId);
-		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
-		return $emails;
+		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $users;
 	}
 
     public function getEmailName() {

@@ -316,6 +316,7 @@ return array(
 
 			// flag to control whether or not email notification emails should be sent
 			'application.components.notifications.mail.enabled' => false,
+			'application.components.notifications.mail.notifySelf' => false,
 		),
 
 		// preloading 'log' component
