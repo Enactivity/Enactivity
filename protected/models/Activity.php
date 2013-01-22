@@ -111,6 +111,19 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 					self::SCENARIO_UNTRASH => array(),
 				),
 			),
+			'FacebookGroupPostBehavior'=>array(
+				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+				'scenarios' => array(
+					self::SCENARIO_PUBLISH => array(),
+					// FIXME: implement views
+					// self::SCENARIO_UPDATE => array(
+					// 	'name',
+					// 	'description',
+					// ),
+					// self::SCENARIO_TRASH => array(),
+					// self::SCENARIO_UNTRASH => array(),
+				),
+			),
 		);
 	}
 

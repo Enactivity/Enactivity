@@ -12,12 +12,12 @@ Yii::import("application.components.notifications.NotificationBehavior");
  */
 class EmailNotificationBehavior extends NotificationBehavior
 {	
+
+	public $notifyCurrentUser = true;
+
 	public function afterSave($event)
 	{
 		if($this->enabled && $this->owner->shouldEmail() && isset(Yii::app()->user)) {
-			
-			// store the changes 
-			$changes = $this->owner->getChangedAttributes($this->scenarioAttributes);
 
 			$message = Yii::app()->mail->constructMessage();
 
@@ -25,13 +25,13 @@ class EmailNotificationBehavior extends NotificationBehavior
 			
 			$message->setBody(array(
 				'data'=>$this->owner, 
-				'changedAttributes'=>$changes,
+				'changedAttributes'=>$this->owner->getChangedAttributes($this->scenarioAttributes),
 				'user'=>Yii::app()->user->model
 				), 'text/html');
 
 			$message->setSubject($this->composeSubject());	
 			
-			$message->from = 'notifications@' . CHttpRequest::getServerName();
+			$message->from = $this->composeFrom();
 
 			$users = $this->owner->whoToNotifyByEmail();
 			
@@ -51,7 +51,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 				), 'text/html');
 
 			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' something was deleted on ' . Yii::app()->name . '!');
-			$message->from = 'notifications@' . CHttpRequest::getServerName();
+			$message->from = $this->composeFrom();
 
 			$users = $this->owner->whoToNotifyByEmail();
 			
@@ -59,10 +59,14 @@ class EmailNotificationBehavior extends NotificationBehavior
 		}
 	}
 
+	public function composeFrom() {
+		return 'notifications@' . CHttpRequest::getServerName();
+	}
+
 	/**
  	 * After the model saves, record the attributes
 	 * @param CEvent $event
-	*/
+	 */
 	public function composeSubject() {
 		// based on the given scenario, construct the appropriate subject
 		$label = $this->owner->getScenarioLabel($this->owner->scenario);
@@ -71,13 +75,17 @@ class EmailNotificationBehavior extends NotificationBehavior
 		return $userName . " " . $label . " " . $name;
 	}
 
+	/** 
+	 * Send the email to all users
+	 * @param MailMessage
+	 * @param array of Users
+	 */
 	public function sendMessage($message, $users) {
-		foreach($users as $user)
-		{
-			if(strcasecmp($user->id, Yii::app()->user->id) != 0) {
-				$message->setTo($user->email);
-				Yii::app()->mail->send($message); 
+		foreach($users as $user) {
+			if($this->notifyCurrentUser || strcasecmp($user->id, Yii::app()->user->id) != 0) {
+				$message->addTo($user->email);
 			}
 		}
+		Yii::app()->mail->batchSend($message); 
 	}
 }

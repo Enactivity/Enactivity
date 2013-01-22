@@ -153,7 +153,7 @@ abstract class ActiveRecord extends CActiveRecord {
 					$changes[$name] = array(
 						'old'=>$oldAttributes[$name], 
 						'new'=>$currentAttributes[$name]
-						);
+					);
 				}
 			}
 		}

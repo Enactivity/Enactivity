@@ -14,7 +14,13 @@ abstract class NotificationBehavior extends CActiveRecordBehavior
 	 * Whether the behavior should send emails
 	 * @var boolean
 	 **/
-	public $enabled = false;
+	public $enabled = true;
+
+	/** 
+	 * Whether the behavior should notify current user as well.
+	 * @var boolean
+	 **/
+	public $notifyCurrentUser = false;
 	
 	/**
 	 * List of scenarios that should be treated as a record change
