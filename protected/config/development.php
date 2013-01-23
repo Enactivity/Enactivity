@@ -53,6 +53,8 @@ return array(
 
 		'params'=>array(
 			'googleAnalyticsOn'=>false,
+
+			'ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser' => true,
 		),
 	),
 
