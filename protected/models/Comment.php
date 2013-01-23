@@ -1,6 +1,7 @@
 <?php
 
 Yii::import("application.components.db.ar.ActiveRecord");
+Yii::import("application.components.db.ar.EmailableRecord");
 
 /**
  * This is the model class for table "comment".
@@ -19,7 +20,7 @@ Yii::import("application.components.db.ar.ActiveRecord");
  * @property Group $group
  * @property User $creator
  */
-class Comment extends ActiveRecord
+class Comment extends ActiveRecord implements EmailableRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	
@@ -60,6 +61,12 @@ class Comment extends ActiveRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
+            'EmailNotificationBehavior'=>array(
+                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+                'scenarios' => array(
+                    self::SCENARIO_INSERT => array(),
+                ),
+            ),
     	);
     }
 
@@ -191,18 +198,7 @@ class Comment extends ActiveRecord
             )
         );
     }
-    
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_REPLY) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0)
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
+    	
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
@@ -211,4 +207,8 @@ class Comment extends ActiveRecord
 		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
 		return $users;
 	}
+
+    public function getEmailName() {
+        return $this->modelObject->emailName;
+    }
 }

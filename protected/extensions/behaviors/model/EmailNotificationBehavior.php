@@ -3,103 +3,92 @@
  * Class file for EmailNotificationBehavior
  */
 
-Yii::import("applications.components.ar.db.EmailableRecord");
+Yii::import("application.components.ar.db.EmailableRecord");
+Yii::import("application.components.notifications.NotificationBehavior");
 
 /**
  * This is the behavior class for behavior "EmailNotificationBehavior".
  * The EmailNotificationBehavior implements EmailRecord Model
  */
-class EmailNotificationBehavior extends CActiveRecordBehavior
+class EmailNotificationBehavior extends NotificationBehavior
 {
-
-	/**
-	 * Whether the behavior should send emails
-	 * @var boolean
-	 **/
-	public $enabled = false;
-
-	/**
-	 * List of attributes that should be ignored by the log
-	 * when the ActiveRecord is updated.
-	 * @var array
-	 */
-	public $ignoreAttributes = array();
-	
-	/**
-	* After the model saves, record the attributes
-	* @param CEvent $event
-	*/
-
-	public function createSubject($model, $currentUser)
-	{
-		// based on the given scenario, construct the appropriate subject
-		$label = $model->getScenarioLabel($model->scenario);
-		$name = $model->emailName;
-		$userName = $currentUser->fullName;
-		return $userName . " " . $label . " " . $name;
-
+	public function getEnabled() {
+		return Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.enabled'];
 	}
+
 
 	public function afterSave($event)
 	{
-		if(!$this->enabled) {
-			return;
-		}
+		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 
-		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
-		{
-			// store the changes 
-			$changes = array();
-
-			// calculate changes
-			if (!$this->Owner->isNewRecord) {
-				$changes = $this->Owner->getChangedAttributesExcept($this->ignoreAttributes);
-			}
-
-			$currentUser = Yii::app()->user->model;
 			$message = Yii::app()->mail->constructMessage();
-			$message->view = strtolower(get_class($this->Owner)). '/' . $this->Owner->scenario;
-			$message->setBody(array('data'=>$this->Owner, 'changedAttributes'=>$changes ,'user'=>$currentUser), 'text/html');
 
-			$message->setSubject(self::createSubject($this->Owner, $currentUser));	
-			$message->from = 'notifications@' . CHttpRequest::getServerName();
+			$message->view = strtolower(get_class($this->owner)). '/' . $this->owner->scenario;
+			
+			$message->setBody(array(
+				'data'=>$this->owner, 
+				'changedAttributes'=>$this->owner->getChangedAttributes($this->scenarioAttributes),
+				'user'=>Yii::app()->user->model
+				), 'text/html');
 
-			$users = $this->Owner->whoToNotifyByEmail();
-			foreach($users->data as $user)
-			{
-				if(strcasecmp($user->id, $currentUser->id) != 0) {
-					$message->setTo($user->email);
-					Yii::app()->mail->send($message); 
-				}
-			}
+			$message->setSubject($this->composeSubject());	
+			
+			$message->from = $this->composeFrom();
+
+			$users = $this->owner->whoToNotifyByEmail();
+			
+			$this->sendMessage($message, $users->data);
 		}
 	}
 
 	public function afterDelete($event) {
 
-		if(!$this->enabled) {
-			return;
-		}
-
-		if($this->Owner->shouldEmail() && isset(Yii::app()->user))
-		{
-			// store the changes 
-			$currentUser = Yii::app()->user->model;
+		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
+			
 			$message = Yii::app()->mail->constructMessage();
-			$message->view = strtolower(get_class($this->Owner)). '/delete';
-			$message->setBody(array('data'=>$this->Owner, 'user'=>$currentUser), 'text/html');
+			$message->view = strtolower(get_class($this->owner)). '/delete';
+			$message->setBody(array(
+				'data'=>$this->owner, 
+				'user'=>Yii::app()->user->model
+				), 'text/html');
 
 			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' something was deleted on ' . Yii::app()->name . '!');
-			$message->from = 'notifications@' . CHttpRequest::getServerName();
+			$message->from = $this->composeFrom();
 
-			$users = $this->Owner->whoToNotifyByEmail();
-			foreach($users->data as $user)
-			{
-				if(strcasecmp($user->id, $currentUser->id) != 0) {
-					$message->setTo($user->email);
-					Yii::app()->mail->send($message); 
-				}
+			$users = $this->owner->whoToNotifyByEmail();
+			
+			$this->sendMessage($message, $users->data);
+		}
+	}
+
+	public function composeFrom() {
+		return 'notifications@' . CHttpRequest::getServerName();
+	}
+
+	/**
+ 	 * After the model saves, record the attributes
+	 * @param CEvent $event
+	 */
+	public function composeSubject() {
+		// based on the given scenario, construct the appropriate subject
+		$label = $this->owner->getScenarioLabel($this->owner->scenario);
+		$name = $this->owner->emailName;
+		$userName = Yii::app()->user->model->fullName;
+		return $userName . " " . $label . " " . $name;
+	}
+
+	/** 
+	 * Send the email to all users
+	 * @param MailMessage
+	 * @param array of Users
+	 */
+	public function sendMessage($message, $users) {
+		foreach($users as $user) {
+			if(Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser']
+			 || strcasecmp($user->id, Yii::app()->user->id) != 0) {
+				$message->addTo($user->email);
 			}
 		}
+		Yii::app()->mail->batchSend($message); 
 	}
 }

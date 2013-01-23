@@ -128,7 +128,7 @@ class Swift_Mailer
         $sent += $this->send($message, $failedRecipients);
       }
     }
-    else
+    elseif($to)
     {
       foreach ($to as $address => $name)
       {

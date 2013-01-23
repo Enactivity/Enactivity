@@ -92,27 +92,27 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			'ActiveRecordLogBehavior'=>array(
 				'class' => 'ext.behaviors.ActiveRecordLogBehavior',
 				'scenarios' => array(
-					self::SCENARIO_INSERT => array(),
+					// self::SCENARIO_INSERT => array(),
+					// self::SCENARIO_TRASH => array(),
 					self::SCENARIO_UPDATE => array(
 						'name',
 						'starts',
 					),
+					// self::SCENARIO_UNTRASH => array(),
+				),
+			),
+			'EmailNotificationBehavior'=>array(
+				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+				'scenarios' => array(
+					self::SCENARIO_INSERT => array(),
 					self::SCENARIO_TRASH => array(),
+					self::SCENARIO_UPDATE => array(
+						'name',
+						'starts',
+					),
 					self::SCENARIO_UNTRASH => array(),
 				),
 			),
-			// Record C-UD operations to this record
-			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                //flag to enable or disable notification emails for EmailNotificationBehavior
-				'enabled' => Yii::app()->params['emailNotificationsOn'],
-				'ignoreAttributes' => array('modified'),
-			),
-			// 'FacebookGroupPostBehavior'=>array(
-			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-			// 	'ignoreAttributes' => array('modified'),
-			// 	'scenarios' => array('insert', 'trash', 'untrash', 'update'),
-			// ),
 		);
 	}
 
@@ -712,28 +712,14 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function getFocalModelNameForLog() {
 		return $this->name;
 	}
-	
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_DELETE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_INSERT) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UPDATE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_TRASH) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_UNTRASH) == 0)
-		{
-			return true;
-		}
 		
-		return false;
-	}
-	
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
 		//return array
 		$group = Group::model()->findByPk($this->groupId);
-		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
-		return $emails;
+		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+		return $users;
 	}
 
     public function getEmailName() {
