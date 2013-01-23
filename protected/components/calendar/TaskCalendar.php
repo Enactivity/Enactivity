@@ -48,15 +48,18 @@ class TaskCalendar extends CComponent {
 	}
 
 	public static function loadCalendarWithNoStart($user) {
-		$tasks = User::model()->with(array(
-			'tasks'=>array(
-				'scopes'=>array(
-					'scopeSomeday' => array(),
-				),
-			),
-		))->findByPk($user->id)->tasks;
+		$incompleteSomedayTasks = $user->incompleteSomedayTasks;
+		$somedayTasks = $user->somedayNotCompletedTasks;
 
-		return new TaskCalendar($tasks);
+		$calendar = new TaskCalendar(array(
+			$incompleteSomedayTasks,
+			$somedayTasks,
+		));
+
+		$ignorableSomedayTasks = $user->ignoredOrCompletedSomedayTasks;
+		$calendar->removeTasks($ignorableSomedayTasks);
+		
+		return $calendar;
 	}
 
 	/**
