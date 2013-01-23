@@ -83,17 +83,17 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 					self::SCENARIO_RESUME => array(),
 				),
 			),
-			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'scenarios' => array(
-					self::SCENARIO_SIGN_UP => array(),
-					self::SCENARIO_START => array(),
-					self::SCENARIO_QUIT => array(),
-					self::SCENARIO_STOP => array(),
-					self::SCENARIO_COMPLETE => array(),
-					self::SCENARIO_RESUME => array(),
-				),
-			),
+			// 'EmailNotificationBehavior'=>array(
+			// 	'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+			// 	'scenarios' => array(
+			// 		self::SCENARIO_SIGN_UP => array(),
+			// 		self::SCENARIO_START => array(),
+			// 		self::SCENARIO_QUIT => array(),
+			// 		self::SCENARIO_STOP => array(),
+			// 		self::SCENARIO_COMPLETE => array(),
+			// 		self::SCENARIO_RESUME => array(),
+			// 	),
+			// ),
 		);
 	}
 
