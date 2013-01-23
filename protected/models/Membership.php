@@ -69,13 +69,6 @@ class Membership extends ActiveRecord implements EmailableRecord
 			'DateTimeZoneBehavior'=>array(
 				'class' => 'ext.behaviors.DateTimeZoneBehavior',
 			),
-			// Record C-UD operations to this record
-			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                //flag to enable or disable notification emails for EmailNotificationBehavior
-				'enabled' => Yii::app()->params['emailNotificationsOn'],
-				'ignoreAttributes' => array('modified', 'starts'),
-			),
 		);
 	}
 
@@ -403,22 +396,6 @@ class Membership extends ActiveRecord implements EmailableRecord
 				$user->sendInvitation(Yii::app()->user->model->fullName, $group->name);
 			}
 		}
-	}
-
-	/**
-	 * Returns a boolean whether user should be emailed or not
-	 * @return boolean
-	 */
-	
-	public function shouldEmail()
-	{
-		if(strcasecmp($this->scenario, self::SCENARIO_INVITE) == 0
-		   || strcasecmp($this->scenario, self::SCENARIO_JOIN) == 0)
-		{
-			return true;
-		}
-		
-		return false;
 	}
 	
 	public function whoToNotifyByEmail()

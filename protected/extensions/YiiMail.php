@@ -25,7 +25,7 @@
 * 			'transportType' => 'php',
 * 			'viewPath' => 'application.views.mail',
 * 			'logging' => true,
-* 			'dryRun' => false
+* 			'enabled' => false
 * 		),
 * 		...
 * 	)
@@ -54,7 +54,7 @@ class YiiMail extends CApplicationComponent
 	* @var bool whether to disable actually sending mail.
 	* Defaults to false.
 	*/
-	public $dryRun = false;
+	public $enabled = true;
 	
 	/**
 	* @var string the delivery type.  Can be either 'php' or 'smtp'.  When 
@@ -128,9 +128,16 @@ class YiiMail extends CApplicationComponent
 	* @see batchSend()
 	*/
 	public function send($message, &$failedRecipients = null) {
-		if ($this->logging===true) self::log($message);
-		if ($this->dryRun===true) return count($message->to);
-		else return $this->getMailer()->send($message->message, $failedRecipients);
+		if ($this->logging) {
+			self::log($message);
+		}
+		
+		if ($this->enabled) {
+			return $this->getMailer()->send($message->message, $failedRecipients);
+		}
+		
+		return count($message->to);
+
 	}
 
 	/**
@@ -156,9 +163,13 @@ class YiiMail extends CApplicationComponent
 	* @see send()
 	*/
 	public function batchSend(YiiMailMessage $message, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null) {
-		if ($this->logging===true) self::log($message);
-		if ($this->dryRun===true) return count($message->to);
-		else return $this->getMailer()->batchSend($message->message, $failedRecipients, $it);
+		if ($this->logging) {
+			self::log($message);
+		}
+		if ($this->enabled) {
+			return $this->getMailer()->batchSend($message->message, $failedRecipients, $it);
+		}
+		return count($message->to);
 	}
 	
 	/**
@@ -176,9 +187,13 @@ class YiiMail extends CApplicationComponent
 			->setTo($to)
 			->setBody($body, 'text/html');
 		
-		if ($this->logging===true) self::log($message);
-		if ($this->dryRun===true) return count($message->to);
-		else return $this->getMailer()->send($message);
+		if ($this->logging) {
+			self::log($message);
+		}
+		if ($this->enabled) {
+			return $this->getMailer()->send($message);
+		}
+		return count($message->to);
 	}
 
 	/**
@@ -241,9 +256,9 @@ class YiiMail extends CApplicationComponent
 	}
 	
 	public function constructMessage() {
-		if($this->dryRun===true) {
-			return new PMailMessage();
+		if($this->enabled) {
+			return new YiiMailMessage();	
 		}
-		return new YiiMailMessage();
+		return new PMailMessage();
 	}
 }

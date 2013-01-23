@@ -147,16 +147,10 @@ return array(
 
 			'mail' => array(
 				'class' => 'ext.YiiMail',
+				'enabled' => true,
+				'logging' => false,
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
-				'logging' => false,
-				'dryRun' => false,
-			),
-		
-			'mailer'=>array(
-        		'class'=>'application.extensions.mailer.Mailer',
-        		'mailTransferAgent'=>'php',
-				'shouldEmail'=>false,  
 			),
 			
 			'request'=>array(
@@ -313,11 +307,15 @@ return array(
 		'params'=>array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
-			// flag to control whether or not email notification emails should be sent
-			'emailNotificationsOn' => false,
+			
 			'feedbackEmail' => 'team@poncla.com',
 			'googleAnalyticsOn' => true,
+
 			'application.components.guides.WelcomeActivity.enabled' => true,
+
+			// flag to control whether or not email notification emails should be sent
+			'ext.behaviors.model.EmailNotificationBehavior.enabled' => true,
+			'ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser' => false,
 		),
 
 		// preloading 'log' component
