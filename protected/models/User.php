@@ -237,6 +237,11 @@ class User extends ActiveRecord
 				'scopes' => array('scopeNotTrash'),
 			),
 
+			'incompleteSomedayTasks' => array(self::HAS_MANY, 'Task', 'taskId',
+				'through' => 'incompleteResponses',
+				'scopes' => array('scopeNotTrash','scopeSomeday'),
+			),
+
 			'ignoredOrCompletedResponses' => array(self::HAS_MANY, 'Response', 'userId',
 				'scopes' => array('scopeIgnoredOrCompletedResponses'),
 			),
