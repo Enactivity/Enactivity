@@ -28,15 +28,17 @@
 		</ul>
 		<ul class="details">
 			<li>
-				<i></i><span class="count"><?= PHtml::encode($data->participantsCount); ?></span> signed up
-				<? if($data->isUserParticipating): ?>
-				<span class="user-participating">(Including you!)</span>
-				<? endif; ?>
-			</li>
-			<li>
-				<i></i><span class="count"><?= PHtml::encode($data->participantsCompletedCount); ?></span> completed
-				<? if($data->isUserComplete): ?>
-				<span class="user-participating">(Including you!)</span>
+				<i></i>
+				<? if($data->participantsCompletedCount): ?>
+				<span class="count"><?= PHtml::encode($data->participantsCompletedCount); ?></span> 
+				of
+				<span class="count"><?= PHtml::encode($data->participantsCount); ?></span>				
+				participants have done this
+				<? elseif($data->participantsCount): ?>
+				<span class="count"><?= PHtml::encode($data->participantsCount); ?></span>
+				participants
+				<? else: ?>
+				No one has signed up yet
 				<? endif; ?>
 			</li>
 		</ul>
