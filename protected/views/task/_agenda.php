@@ -19,11 +19,11 @@
 		<? foreach($times as $time => $activities): ?>
 		<? foreach($activities as $activityEntry): ?>
 		<article class="activity">
-			<h1 class="activity-name">
-				<?= PHtml::link("<i></i> " . PHtml::encode($activityEntry['activity']->name),
-					$activityEntry['activity']->viewUrl
-				); ?>
-			</h1>
+			<a class="activity-name" href="<?= PHtml::encode($activityEntry['activity']->viewUrl); ?>">
+				<h1>
+					<i></i> <?= PHtml::encode($activityEntry['activity']->name); ?>
+				</h1>
+			</a>
 			<ol>
 			<? foreach($activityEntry['tasks'] as $task): ?>
 				<li>
@@ -51,13 +51,11 @@
 		</h1>
 		<? foreach($calendar->somedayTasks as $activityEntry): ?>
 		<article class="activity">
-			<h1 class='activity-name'>
-				<i></i>
-				<?= PHtml::link(
-					PHtml::encode($activityEntry['activity']->name),
-					$activityEntry['activity']->viewUrl
-				); ?>
-			</h1>
+			<a class="activity-name" href="<?= PHtml::encode($activityEntry['activity']->viewUrl); ?>">
+				<h1>
+					<i></i> <?= PHtml::encode($activityEntry['activity']->name); ?>
+				</h1>
+			</a>
 			<ol>
 				<? foreach($activityEntry['tasks'] as $task): ?>
 				<li>
