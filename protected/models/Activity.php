@@ -507,9 +507,12 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 
     public function whoToNotifyByEmail()
 	{
-		$group = Group::model()->findByPk($this->groupId);
-		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
-		return $users;
+		if($this->groupId) {
+            $group = Group::model()->findByPk($this->groupId);
+            $users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+            return $users->data;
+        }
+        return array();
 	}
 
     public function getEmailName() {

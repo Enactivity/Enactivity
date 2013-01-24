@@ -716,10 +716,12 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	public function whoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
-		//return array
-		$group = Group::model()->findByPk($this->groupId);
-		$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
-		return $users;
+		if($this->groupId) {
+			$group = Group::model()->findByPk($this->groupId);
+			$users = $group->getMembersByStatus(User::STATUS_ACTIVE);
+			return $users->data;
+		}
+		return array();
 	}
 
     public function getEmailName() {

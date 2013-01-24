@@ -555,7 +555,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		//return array
 		$group = Group::model()->findByPk($this->groupId);
 		$emails = $group->getMembersByStatus(User::STATUS_ACTIVE);
-		return $emails;
+		return $emails->data;
 	}
 
     public function getEmailName() {

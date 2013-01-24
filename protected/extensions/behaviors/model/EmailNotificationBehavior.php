@@ -37,7 +37,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 			$users = $this->owner->whoToNotifyByEmail();
 			
-			$this->sendMessage($message, $users->data);
+			$this->sendMessage($message, $users);
 		}
 	}
 
@@ -57,7 +57,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 			$users = $this->owner->whoToNotifyByEmail();
 			
-			$this->sendMessage($message, $users->data);
+			$this->sendMessage($message, $users);
 		}
 	}
 
@@ -82,7 +82,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 	 * @param MailMessage
 	 * @param array of Users
 	 */
-	public function sendMessage($message, $users) {
+	public function sendMessage($message, $users = array()) {
 		foreach($users as $user) {
 			if(Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser']
 			 || strcasecmp($user->id, Yii::app()->user->id) != 0) {

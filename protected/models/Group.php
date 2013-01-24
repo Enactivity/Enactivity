@@ -279,7 +279,7 @@ class Group extends ActiveRecord implements EmailableRecord
 	
 	public function whoToNotifyByEmail()
 	{
-		return $this->getMembersByStatus(User::STATUS_ACTIVE);
+		return $this->getMembersByStatus(User::STATUS_ACTIVE)->data;
 	}
 
     public function getEmailName() {

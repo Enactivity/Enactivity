@@ -404,7 +404,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 		//return array
 		$group = Group::model()->findByPk($this->groupId);
 		$emails = $group->getMembersByStatus(self::STATUS_ACTIVE);
-		return $emails;
+		return $emails->data;
 	}
 
     public function getEmailName() {
