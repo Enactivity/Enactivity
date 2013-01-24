@@ -1,5 +1,10 @@
 
 .page-activity-view {
+
+	// Hide name on current page
+	.activity-name {
+		display: hidden;
+	}
 	
 	.task {
 		@include grid-column-1-of-1;
