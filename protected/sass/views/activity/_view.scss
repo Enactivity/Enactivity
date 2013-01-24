@@ -1,18 +1,11 @@
 
 .page-activity-view {
 
-	// Hide name on current page
-	.activity-name {
-		display: hidden;
-	}
-	
-	.task {
-		@include grid-column-1-of-1;
-		background: $white;
-		margin-bottom: 1px; // mimic a border
+	.agenda {
 
-		.status {
-			@extend .metadata;
+		// Hide name on current page
+		.activity-name {
+			display: none;
 		}
 	}
 }
