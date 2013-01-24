@@ -20,33 +20,19 @@
 		overflow: hidden; // to ensure border radius maintained
 
 		.activity-name {
-			@extend .heading4;
-			// @include ellipsis();
-
 			border-bottom: 1px solid $silverish; //match border around article
-			color: $mine-shaft;
-			margin: 0;
-			padding: $base-padding;
+			display: block;
 
-			a {
+			&:active, &:focus, &:hover {
+				color: $mine-shaft; // maintain under line color
+			}
+
+			h1 {
+				@extend .heading4;
 				color: $mine-shaft;
+				margin: 0;
+				padding: $base-padding;
 			}
-		}
-
-		ol {
-			li {
-				&:first-child {
-					// border-top: 3px solid $gallery;
-				}
-
-				&:last-child {
-					// border-bottom: none;
-				}
-			}
-		}
-
-		.task {
-			
 		}
 	}
 }

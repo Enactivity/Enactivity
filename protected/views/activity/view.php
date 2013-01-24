@@ -71,7 +71,7 @@
 <? endif; ?>
 
 <section id="tasks" class="tasks content">
-	<?= $this->renderPartial('_tasksagenda', array(
+	<?= $this->renderPartial('/task/_agenda', array(
 		'calendar'=>$calendar,
 	)); ?>
 </section>
