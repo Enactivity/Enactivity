@@ -23,7 +23,9 @@
 
 		a {
 			@include animation(fade-down 2s);
+			display: block;
 			color: $white;
+			text-align: right;
 		}
 	}
 }
