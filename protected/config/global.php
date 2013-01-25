@@ -308,7 +308,9 @@ return array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
 			
-			'feedbackEmail' => 'team@poncla.com',
+			'application.models.FeedbackForm.to' => 'team@poncla.com',
+			'application.models.FeedbackForm.from' => 'no-reply-feedback@' . $_SERVER['SERVER_NAME'],
+			
 			'googleAnalyticsOn' => true,
 
 			'application.components.guides.WelcomeActivity.enabled' => true,

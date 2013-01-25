@@ -36,12 +36,12 @@ Yii::import("application.components.mail.Email");
 * 
 * Example usage:
 * <pre>
-* $message = new MailerMessage;
-* $message->setBody('Message content here with HTML', 'text/html');
-* $message->subject = 'My Subject';
-* $message->addTo('johnDoe@domain.com');
-* $message->from = Yii::app()->params['adminEmail'];
-* Yii::app()->mail->send($message);
+* $email = new Email;
+* $email->setBody('Message content here with HTML', 'text/html');
+* $email->subject = 'My Subject';
+* $email->addTo('johnDoe@domain.com');
+* $email->from = Yii::app()->params['adminEmail'];
+* Yii::app()->mail->send($email);
 * </pre>
 */
 class Mailer extends CApplicationComponent
@@ -107,7 +107,7 @@ class Mailer extends CApplicationComponent
 	/**
 	* @var mixed Holds the SwiftMailer mailer
 	*/
-	protected $mailer;
+	protected $swiftMailer;
 
 	/** 
 	 * @var boolean whether scripts are registered or not
@@ -137,22 +137,20 @@ class Mailer extends CApplicationComponent
 	* The return value is the number of recipients who were accepted for
 	* delivery.
 	* 
-	* @param MailMessage $message
+	* @param MailMessage $email
 	* @param array &$failedRecipients, optional
 	* @return int
 	* @see batchSend()
 	*/
-	public function send($message, &$failedRecipients = null) {
+	public function send($email, &$failedRecipients = null) {
 		if ($this->logging) {
-			self::log($message);
+			self::log($email);
 		}
 		
 		if ($this->enabled) {
-			return $this->getMailer()->send($message->message, $failedRecipients);
+			return $this->getMailer()->send($email->swiftMessage, $failedRecipients);
 		}
-		
-		return count($message->to);
-
+		return count($email->to);
 	}
 
 	/**
@@ -171,54 +169,41 @@ class Mailer extends CApplicationComponent
 	* The return value is the number of recipients who were accepted for 
 	* delivery.
 	* 
-	* @param MailerMessage $message
+	* @param MailerMessage $email
 	* @param array &$failedRecipients, optional
 	* @param Swift_Mailer_RecipientIterator $it, optional
 	* @return int
 	* @see send()
 	*/
-	public function batchSend($message, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null) {
+	protected function batchSendEmail($email, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null) {
 		if ($this->logging) {
-			self::log($message);
+			self::log($email);
 		}
 		if ($this->enabled) {
-			return $this->getMailer()->batchSend($message->message, $failedRecipients, $it);
+			return $this->getMailer()->batchSend($email->swiftMessage, $failedRecipients, $it);
 		}
-		return count($message->to);
+		return count($email->to);
 	}
-	
-	/**
-	* Sends a message in an extremly simple but less extensive way.
-	* 
-	* @param mixed from address, string or array of the form $address => $name
-	* @param mixed to address, string or array of the form $address => $name
-	* @param string subject
-	* @param string body
-	*/
-	public function sendSimple($from, $to, $subject, $body) {
-		$message = new MailerMessage;
-		$message->setSubject($subject)
-			->setFrom($from)
-			->setTo($to)
-			->setBody($body, 'text/html');
-		
-		if ($this->logging) {
-			self::log($message);
-		}
-		if ($this->enabled) {
-			return $this->getMailer()->send($message);
-		}
-		return count($message->to);
+
+	public function batchSend($to, $subject, $view, $data, $from) {
+
+		$email = new Email();
+		$email->to = $to;
+		$email->subject = $subject;
+		$email->setBody($view, $data);
+		$email->from = $from;
+
+		return $this->batchSendEmail($email);
 	}
 
 	/**
 	* Logs a MailerMessage in a (hopefully) readable way using Yii::log.
 	* @return string log message
 	*/
-	public static function log(MailMessage $message) {
-		$msg = 'Sending email to '.implode(', ', array_keys($message->to))."\n".
-			implode('', $message->headers->getAll())."\n".
-			$message->body
+	public static function log($email) {
+		$msg = 'Sending email to '.implode(', ', array_keys($email->to))."\n".
+			implode('', $email->headers->getAll())."\n".
+			$email->body
 		;
 		Yii::log($msg, CLogger::LEVEL_INFO, 'ext.yii-mail.Mailer'); // TODO: attempt to determine alias/category at runtime
 		return $msg;
@@ -253,28 +238,24 @@ class Mailer extends CApplicationComponent
 	* @return Swift_Mailer
 	*/
 	public function getMailer() {
-		if ($this->mailer===null)
-			$this->mailer = Swift_Mailer::newInstance($this->getTransport());
+		if (is_null($this->swiftMailer)) {
+			$this->swiftMailer = Swift_Mailer::newInstance($this->getTransport());
+		}
 			
-		return $this->mailer;
+		return $this->swiftMailer;
 	}
 	
     /**
     * Registers swiftMailer autoloader and includes the required files
     */
     public function registerScripts() {
-    	if (self::$registeredScripts) return;
+    	if (self::$registeredScripts) {
+    		return;
+    	}
     	self::$registeredScripts = true;
     	
 		Yii::import($this->swift, true);
 		Yii::registerAutoloader(array('Swift','autoload'));
 		Yii::import($this->swiftInit, true);
-	}
-	
-	public function constructMessage() {
-		if($this->enabled) {
-			return new Email();	
-		}
-		return new PMail();
 	}
 }

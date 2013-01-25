@@ -23,13 +23,13 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 			$message = Yii::app()->mailer->constructMessage();
 
-			$message->view = strtolower(get_class($this->owner)). '/' . $this->owner->scenario;
+			$view = strtolower(get_class($this->owner)). '/' . $this->owner->scenario;
 			
-			$message->setBody(array(
+			$message->setBody($view, array(
 				'data'=>$this->owner, 
 				'changedAttributes'=>$this->owner->getChangedAttributes($this->scenarioAttributes),
 				'user'=>Yii::app()->user->model
-				), 'text/html');
+			));
 
 			$message->setSubject($this->composeSubject());	
 			
@@ -46,11 +46,11 @@ class EmailNotificationBehavior extends NotificationBehavior
 		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 			
 			$message = Yii::app()->mailer->constructMessage();
-			$message->view = strtolower(get_class($this->owner)). '/delete';
-			$message->setBody(array(
+			$view = strtolower(get_class($this->owner)). '/delete';
+			$message->setBody($view, array(
 				'data'=>$this->owner, 
 				'user'=>Yii::app()->user->model
-				), 'text/html');
+			));
 
 			$message->setSubject(PHtml::encode(Yii::app()->format->formatDateTime(time())) . ' something was deleted on ' . Yii::app()->name . '!');
 			$message->from = $this->composeFrom();
