@@ -35,7 +35,6 @@ class FeedbackForm extends CFormModel
 		$subject = 'Feedback from ' . Yii::app()->user->model->email;	
 		
 		$viewPath = 'feedback/feedback';
-
 		$viewData = array(
 			'feedbackForm' => $this, 
 			'user' => Yii::app()->user->model
@@ -43,7 +42,6 @@ class FeedbackForm extends CFormModel
 		
 		return Yii::app()->mailer->batchSend($to, $subject, $viewPath, $viewData, $from);
 	}
-
 }
 
 ?>
