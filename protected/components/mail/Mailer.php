@@ -1,14 +1,16 @@
 <?php
 /**
-* YiiMail class file.
+* Mailer class file.
 *
 * @author Jonah Turnquist <poppitypop@gmail.com>
 * @link https://code.google.com/p/yii-mail/
 * @package Yii-Mail
 */
 
+Yii::import("application.components.mail.Email");
+
 /**
-* YiiMail is an application component used for sending email.
+* Mailer is an application component used for sending email.
 *
 * You may configure it as below.  Check the public attributes and setter
 * methods of this class for more options.
@@ -17,11 +19,11 @@
 * 	...
 * 	'import => array(
 * 		...
-* 		'ext.mail.YiiMailMessage',
+* 		'ext.mail.MailerMessage',
 * 	),
 * 	'components' => array(
 * 		'mail' => array(
-* 			'class' => 'ext.yii-mail.YiiMail',
+* 			'class' => 'ext.yii-mail.Mailer',
 * 			'transportType' => 'php',
 * 			'viewPath' => 'application.views.mail',
 * 			'logging' => true,
@@ -34,7 +36,7 @@
 * 
 * Example usage:
 * <pre>
-* $message = new YiiMailMessage;
+* $message = new MailerMessage;
 * $message->setBody('Message content here with HTML', 'text/html');
 * $message->subject = 'My Subject';
 * $message->addTo('johnDoe@domain.com');
@@ -42,7 +44,7 @@
 * Yii::app()->mail->send($message);
 * </pre>
 */
-class YiiMail extends CApplicationComponent
+class Mailer extends CApplicationComponent
 {
 	/**
 	* @var bool whether to log messages using Yii::log().
@@ -68,6 +70,16 @@ class YiiMail extends CApplicationComponent
 	* Defaults to 'application.views.mail'.
 	*/
 	public $viewPath = 'application.views.mail';
+
+	/** 
+	 * @var string path to location of main Swift autoloader file
+	 **/
+	public $swift = 'ext.vendors.swiftMailer.classes.Swift';
+
+	/** 
+	 * @var string path to location of SwiftMailer's init 
+	 **/ 
+	public $swiftInit = 'ext.vendors.swiftMailer.swift_init';
 	
 	/**
 	* @var string options specific to the transport type being used.
@@ -97,6 +109,9 @@ class YiiMail extends CApplicationComponent
 	*/
 	protected $mailer;
 
+	/** 
+	 * @var boolean whether scripts are registered or not
+	 */
 	private static $registeredScripts = false;
 
 	/**
@@ -108,7 +123,7 @@ class YiiMail extends CApplicationComponent
 	}
 	
 	/**
-	* Send a {@link YiiMailMessage} as it would be sent in a mail client.
+	* Send a {@link MailerMessage} as it would be sent in a mail client.
 	* 
 	* All recipients (with the exception of Bcc) will be able to see the other
 	* recipients this message was sent to.
@@ -116,7 +131,7 @@ class YiiMail extends CApplicationComponent
 	* If you need to send to each recipient without disclosing details about the
 	* other recipients see {@link batchSend()}.
 	* 
-	* Recipient/sender data will be retreived from the {@link YiiMailMessage} 
+	* Recipient/sender data will be retreived from the {@link MailerMessage} 
 	* object.
 	* 
 	* The return value is the number of recipients who were accepted for
@@ -141,7 +156,7 @@ class YiiMail extends CApplicationComponent
 	}
 
 	/**
-	* Send the given {@link YiiMailMessage} to all recipients individually.
+	* Send the given {@link MailerMessage} to all recipients individually.
 	* 
 	* This differs from {@link send()} in the way headers are presented to the 
 	* recipient.  The only recipient in the "To:" field will be the individual 
@@ -149,20 +164,20 @@ class YiiMail extends CApplicationComponent
 	* 
 	* If an iterator is provided, recipients will be read from the iterator 
 	* one-by-one, otherwise recipient data will be retreived from the 
-	* {@link YiiMailMessage} object.
+	* {@link MailerMessage} object.
 	* 
-	* Sender information is always read from the {@link YiiMailMessage} object.
+	* Sender information is always read from the {@link MailerMessage} object.
 	* 
 	* The return value is the number of recipients who were accepted for 
 	* delivery.
 	* 
-	* @param YiiMailMessage $message
+	* @param MailerMessage $message
 	* @param array &$failedRecipients, optional
 	* @param Swift_Mailer_RecipientIterator $it, optional
 	* @return int
 	* @see send()
 	*/
-	public function batchSend(YiiMailMessage $message, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null) {
+	public function batchSend($message, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null) {
 		if ($this->logging) {
 			self::log($message);
 		}
@@ -181,7 +196,7 @@ class YiiMail extends CApplicationComponent
 	* @param string body
 	*/
 	public function sendSimple($from, $to, $subject, $body) {
-		$message = new YiiMailMessage;
+		$message = new MailerMessage;
 		$message->setSubject($subject)
 			->setFrom($from)
 			->setTo($to)
@@ -197,7 +212,7 @@ class YiiMail extends CApplicationComponent
 	}
 
 	/**
-	* Logs a YiiMailMessage in a (hopefully) readable way using Yii::log.
+	* Logs a MailerMessage in a (hopefully) readable way using Yii::log.
 	* @return string log message
 	*/
 	public static function log(MailMessage $message) {
@@ -205,7 +220,7 @@ class YiiMail extends CApplicationComponent
 			implode('', $message->headers->getAll())."\n".
 			$message->body
 		;
-		Yii::log($msg, CLogger::LEVEL_INFO, 'ext.yii-mail.YiiMail'); // TODO: attempt to determine alias/category at runtime
+		Yii::log($msg, CLogger::LEVEL_INFO, 'ext.yii-mail.Mailer'); // TODO: attempt to determine alias/category at runtime
 		return $msg;
 	}
 
@@ -250,15 +265,16 @@ class YiiMail extends CApplicationComponent
     public function registerScripts() {
     	if (self::$registeredScripts) return;
     	self::$registeredScripts = true;
-		require dirname(__FILE__).'/vendors/swiftMailer/classes/Swift.php';
+    	
+		Yii::import($this->swift, true);
 		Yii::registerAutoloader(array('Swift','autoload'));
-		require dirname(__FILE__).'/vendors/swiftMailer/swift_init.php';
+		Yii::import($this->swiftInit, true);
 	}
 	
 	public function constructMessage() {
 		if($this->enabled) {
-			return new YiiMailMessage();	
+			return new Email();	
 		}
-		return new PMailMessage();
+		return new PMail();
 	}
 }

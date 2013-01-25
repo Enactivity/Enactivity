@@ -145,8 +145,8 @@ return array(
 				),
 			),
 
-			'mail' => array(
-				'class' => 'ext.YiiMail',
+			'mailer' => array(
+				'class' => 'application.components.mail.Mailer',
 				'enabled' => true,
 				'logging' => false,
 				'transportType' => 'php',

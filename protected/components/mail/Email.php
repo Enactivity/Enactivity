@@ -1,6 +1,6 @@
 <?php
 /**
-* YiiMailMessage class file.
+* Email class file.
 *
 * @author Jonah Turnquist <poppitypop@gmail.com>
 * @link https://code.google.com/p/yii-mail/
@@ -20,7 +20,7 @@
 * Documentation for the most important methods can be found at 
 * {@link http://swiftmailer.org/docs/messages}
 * 
-* The YiiMailMessage component also allows using a shorthand for methods in 
+* The Email component also allows using a shorthand for methods in 
 * {@link Swift_Mime_Message} that start with set* or get*
 * For instance, instead of calling $message->setFrom('...') you can use 
 * $message->from = '...'.
@@ -33,7 +33,7 @@
 * 	<li>attach(Swift_Attachment::fromPath('my-document.pdf'))</li>
 * </ul>
 */
-class YiiMailMessage extends CComponent {
+class Email extends CComponent {
 	
 	/**
 	* @var string the view to use for rendering the body, null if no view is 
@@ -109,7 +109,7 @@ class YiiMailMessage extends CComponent {
 	* @return Swift_Mime_Message
 	*/
 	public function __construct($subject = null, $body = null, $contentType = null, $charset = null) {
-		Yii::app()->mail->registerScripts();
+		Yii::app()->mailer->registerScripts();
 		$this->message = Swift_Message::newInstance($subject, $body, $contentType, $charset);
 	}
 
@@ -134,12 +134,12 @@ class YiiMailMessage extends CComponent {
 			if(isset(Yii::app()->controller))
 				$controller = Yii::app()->controller;
 			else
-				$controller = new CController('YiiMail');
+				$controller = new CController('Mailer');
 			
 			// renderPartial won't work with CConsoleApplication, so use 
 			// renderInternal - this requires that we use an actual path to the 
 			// view rather than the usual alias
-			$viewPath = Yii::getPathOfAlias(Yii::app()->mail->viewPath.'.'.$this->view).'.php';
+			$viewPath = Yii::getPathOfAlias(Yii::app()->mailer->viewPath.'.'.$this->view).'.php';
 			$body = $controller->renderInternal($viewPath, array_merge($body, array('mail'=>$this)), true);	
 		}
 		return $this->message->setBody($body, $contentType, $charset);

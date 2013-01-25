@@ -21,7 +21,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 	{
 		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 
-			$message = Yii::app()->mail->constructMessage();
+			$message = Yii::app()->mailer->constructMessage();
 
 			$message->view = strtolower(get_class($this->owner)). '/' . $this->owner->scenario;
 			
@@ -45,7 +45,7 @@ class EmailNotificationBehavior extends NotificationBehavior
 
 		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {
 			
-			$message = Yii::app()->mail->constructMessage();
+			$message = Yii::app()->mailer->constructMessage();
 			$message->view = strtolower(get_class($this->owner)). '/delete';
 			$message->setBody(array(
 				'data'=>$this->owner, 
@@ -89,6 +89,6 @@ class EmailNotificationBehavior extends NotificationBehavior
 				$message->addTo($user->email);
 			}
 		}
-		Yii::app()->mail->batchSend($message); 
+		Yii::app()->mailer->batchSend($message); 
 	}
 }
