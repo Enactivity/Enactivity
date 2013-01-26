@@ -20,12 +20,11 @@ Yii::import("application.components.db.ar.EmailableRecord");
  * @property Group $group
  * @property User $creator
  */
-class Comment extends ActiveRecord implements EmailableRecord
+class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
 {
 	const CONTENT_MAX_LENGTH = 4000;
 	
 	const SCENARIO_INSERT = 'insert';
-	const SCENARIO_REPLY = 'reply';
 
     private $_modelObject;
 	
@@ -61,6 +60,12 @@ class Comment extends ActiveRecord implements EmailableRecord
     		'DateTimeZoneBehavior'=>array(
     			'class' => 'ext.behaviors.DateTimeZoneBehavior',
     		),
+            'ActiveRecordLogBehavior'=>array(
+                'class' => 'ext.behaviors.ActiveRecordLogBehavior',
+                'scenarios' => array(
+                    self::SCENARIO_INSERT => array(),
+                ),
+            ),
             'EmailNotificationBehavior'=>array(
                 'class' => 'ext.behaviors.model.EmailNotificationBehavior',
                 'scenarios' => array(
@@ -134,7 +139,6 @@ class Comment extends ActiveRecord implements EmailableRecord
     public function scenarioLabels() {
     	return array(
     		self::SCENARIO_INSERT => 'commented on',
-	    	self::SCENARIO_REPLY => 'replied to',
     	);
     }
 
@@ -197,6 +201,18 @@ class Comment extends ActiveRecord implements EmailableRecord
                 '#'=>$this->id
             )
         );
+    }
+
+    public function getFocalModelClassForLog() {
+        return $this->modelObject->focalModelClassForLog;
+    }
+
+    public function getFocalModelIdForLog() {
+        return $this->modelObject->focalModelIdForLog;
+    }
+
+    public function getFocalModelNameForLog() {
+        return $this->modelObject->focalModelNameForLog;
     }
     	
 	public function whoToNotifyByEmail()
