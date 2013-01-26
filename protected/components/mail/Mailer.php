@@ -185,6 +185,13 @@ class Mailer extends CApplicationComponent
 		return count($email->to);
 	}
 
+	/** 
+	 * @param array emails
+	 * @param string
+	 * @param string 
+	 * @param array data
+	 * @param string
+	 **/
 	public function batchSend($to, $subject, $view, $data, $from) {
 
 		$email = new Email();

@@ -152,6 +152,11 @@ return array(
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
 			),
+
+			'notifier' => array(
+				'class' => 'application.components.notifications.Notifier',
+				'defaultFromEmailAddress' => 'notifications@' . $_SERVER['SERVER_NAME'],
+			),
 			
 			'request'=>array(
 				'class' => 'application.components.web.HttpRequest',
