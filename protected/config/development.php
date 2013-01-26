@@ -35,6 +35,10 @@ return array(
 	                ),
 				),
 			),
+
+			'notifier' => array(
+				'skipCurrentUser' => false,
+			),
 		
 			// 'urlManager'=>array(
 			// 	'rules'=>null, //to allow gii

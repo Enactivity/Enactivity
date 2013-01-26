@@ -4,7 +4,7 @@ class Notifier extends CApplicationComponent {
 	public $emailEnabled = true;
 	public $facebookGroupEnabled = true;
 
-	public $notifyCurrentUser = false;
+	public $skipCurrentUser = true;
 
 	/** 
 	 * @var string the default email to notifications from
@@ -29,6 +29,11 @@ class Notifier extends CApplicationComponent {
 		if($this->emailEnabled) {
 
 			$emails = ArrayUtils::extractProperty($to, 'email');
+
+			if($this->skipCurrentUser) {
+				$emails = ArrayUtils::unsetByValue($emails, Yii::app()->user->model->email);
+			}
+
 			$from = $from ? $from : $this->defaultFromEmailAddress;
 
 			return Yii::app()->mailer->batchSend($emails, $subject, $view, $data, $from);
@@ -58,22 +63,6 @@ class Notifier extends CApplicationComponent {
 			'data'=>$model, 
 			'changedAttributes'=>$model->publicChangedAttributes,
 			'user'=>Yii::app()->user->model
-		);
-
-		// Can notify by multiple methods (facebook, facebookGroupPost, etc.)
-		$this->notifyByEmail($to, $subject, $view, $data);
-	}
-
-	/** 
-	 * Probably don't use this
-	 *
-	 **/
-	public static function taskPublished($task, $to) {
-		// Construct email params
-		$subject = "Task name blah";
-		$view = "task/publish";
-		$data = array(
-			'data' => $task
 		);
 
 		// Can notify by multiple methods (facebook, facebookGroupPost, etc.)

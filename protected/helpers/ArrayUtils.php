@@ -19,4 +19,15 @@ class ArrayUtils {
 		return $properties;
 	}
 
+	/** 
+	 * @param array
+	 * @param mixed value to pop out
+	 * @return array
+	 **/
+	public static function unsetByValue($array, $value) {
+		if(($key = array_search($del_val, $array)) !== false) {
+			unset($array[$key]);
+		}
+		return $array;
+	}
 }
