@@ -25,7 +25,7 @@ class ArrayUtils {
 	 * @return array
 	 **/
 	public static function unsetByValue($array, $value) {
-		if(($key = array_search($del_val, $array)) !== false) {
+		if(($key = array_search($value, $array)) !== false) {
 			unset($array[$key]);
 		}
 		return $array;
