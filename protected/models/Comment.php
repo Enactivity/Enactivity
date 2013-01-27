@@ -2,6 +2,7 @@
 
 Yii::import("application.components.db.ar.ActiveRecord");
 Yii::import("application.components.db.ar.EmailableRecord");
+Yii::import("application.components.db.ar.LoggableRecord");
 
 /**
  * This is the model class for table "comment".
