@@ -47,27 +47,37 @@ Yii::import("application.components.mail.Email");
 class Mailer extends CApplicationComponent
 {
 	/**
-	* @var bool whether to log messages using Yii::log().
-	* Defaults to true.
+	 * @var bool whether to log messages using Yii::log().
+	 * Defaults to true.
 	*/
 	public $logging = true;
 	
 	/**
-	* @var bool whether to disable actually sending mail.
-	* Defaults to false.
+	 * @var bool whether to disable actually sending mail.
+	 * Defaults to false.
 	*/
 	public $enabled = true;
 	
 	/**
-	* @var string the delivery type.  Can be either 'php' or 'smtp'.  When 
-	* using 'php', PHP's {@link mail()} function will be used.
-	* Defaults to 'php'.
+	 * @var string the delivery type.  Can be either 'php' or 'smtp'.  When 
+	 * using 'php', PHP's {@link mail()} function will be used.
+	 * Defaults to 'php'.
 	*/
 	public $transportType = 'php';
 	
+	/** 
+	 * @var string if set, will send emails to "{overrideLocal}+originalLocal"@domain.com
+	 */
+	public $overrideLocal = null;
+
 	/**
-	* @var string the path to the location where mail views are stored.
-	* Defaults to 'application.views.mail'.
+	 * @var string if set, will override domain of all emails
+	 **/
+	public $overrideDomain = null;
+
+	/**
+	 * @var string the path to the location where mail views are stored.
+	 * Defaults to 'application.views.mail'.
 	*/
 	public $viewPath = 'application.views.mail';
 
@@ -143,12 +153,17 @@ class Mailer extends CApplicationComponent
 	* @see batchSend()
 	*/
 	public function send($email, &$failedRecipients = null) {
+
 		if ($this->logging) {
 			self::log($email);
 		}
+
+		if($this->overrideEnabled) {
+			$email->to = $this->overrideEmails($email->to);
+		}
 		
 		if ($this->enabled) {
-			return $this->getMailer()->send($email->swiftMessage, $failedRecipients);
+			return $this->mailer->send($email->swiftMessage, $failedRecipients);
 		}
 		return count($email->to);
 	}
@@ -179,14 +194,19 @@ class Mailer extends CApplicationComponent
 		if ($this->logging) {
 			self::log($email);
 		}
+
+		if($this->overrideEnabled) {
+			$email->to = $this->overrideEmails($email->to);
+		}
+
 		if ($this->enabled) {
-			return $this->getMailer()->batchSend($email->swiftMessage, $failedRecipients, $it);
+			return $this->mailer->batchSend($email->swiftMessage, $failedRecipients, $it);
 		}
 		return count($email->to);
 	}
 
 	/** 
-	 * @param array emails
+	 * @param array of email strings
 	 * @param string
 	 * @param string 
 	 * @param array data
@@ -264,5 +284,48 @@ class Mailer extends CApplicationComponent
 		Yii::import($this->swift, true);
 		Yii::registerAutoloader(array('Swift','autoload'));
 		Yii::import($this->swiftInit, true);
+	}
+
+	public function getOverrideEnabled() {
+		return $this->overrideLocal || $this->overrideDomain;
+	}
+
+	/** 
+	 * Override the email with class settings
+	 * Example: 'test@example.com' becomes 'ajsharma+test@poncla.com'
+	 * @return string new email address
+	 **/
+	public function overrideEmail($email) {
+
+		list($local, $domain) = explode('@', $email);
+
+		if($this->overrideLocal) {
+			$local = $this->overrideLocal . '+' . $local;
+		}
+
+		if($this->overrideDomain) {
+			$domain = $this->overrideDomain;
+		}
+
+		return implode('@', array($local, $domain));
+	}
+
+	/**
+	 * @param string|array one or many email addresses strings
+	 * @return array of overridden email addresses
+	 **/
+	public function overrideEmails($emails) {
+		$overriddenEmails = array();
+
+		if(is_string($emails)) {
+			$overriddenEmails[] = $this->overrideEmail($emails);
+		}
+		else {
+			foreach($emails as $email => $value) {
+				$overriddenEmails[] = $this->overrideEmail($email);
+			}	
+		}
+
+		return $overriddenEmails;
 	}
 }

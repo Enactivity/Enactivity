@@ -36,6 +36,11 @@ return array(
 				),
 			),
 
+			'mailer' => array(
+				'overrideLocal' => 'eng',
+				'overrideDomain' => 'poncla.com',
+			),
+
 			'notifier' => array(
 				'skipCurrentUser' => false,
 			),
