@@ -29,16 +29,19 @@ class FeedbackForm extends CFormModel
 
 	protected function sendEmail()
 	{
-		$mail = Yii::app()->mail->constructMessage();
-		$mail->view = 'feedback/feedback';
-		$mail->setBody(array('feedbackForm' => $this, 'user' => Yii::app()->user->model,), 'text/html');
-		$mail->subject = 'Feedback from ' . Yii::app()->user->model->email;	
-		$mail->from = 'no-reply-feedback@' . CHttpRequest::getServerName();
-		$mail->to = Yii::app()->params['feedbackEmail'];
-		Yii::app()->mail->send($mail);
-		return true; 
-	}
+		$to = Yii::app()->params['application.models.FeedbackForm.to'];
+		$from = Yii::app()->params['application.models.FeedbackForm.from'];
 
+		$subject = 'Feedback from ' . Yii::app()->user->model->email;	
+		
+		$viewPath = 'feedback/feedback';
+		$viewData = array(
+			'feedbackForm' => $this, 
+			'user' => Yii::app()->user->model
+		);
+		
+		return Yii::app()->mailer->batchSend($to, $subject, $viewPath, $viewData, $from);
+	}
 }
 
 ?>

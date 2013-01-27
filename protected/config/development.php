@@ -35,6 +35,15 @@ return array(
 	                ),
 				),
 			),
+
+			'mailer' => array(
+				'overrideLocal' => 'eng',
+				'overrideDomain' => 'poncla.com',
+			),
+
+			'notifier' => array(
+				'skipCurrentUser' => false,
+			),
 		
 			// 'urlManager'=>array(
 			// 	'rules'=>null, //to allow gii

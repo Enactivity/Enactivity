@@ -10,6 +10,11 @@ abstract class ActiveRecord extends CActiveRecord {
 	 **/
 	private $_oldAttributes = array();
 
+	/** 
+	 * @var array attributes that can be exposed to user
+	 **/
+	public $publicAttributes = array();
+
 	/**
 	 * @return array scenario string => label string
 	 **/
@@ -156,6 +161,10 @@ abstract class ActiveRecord extends CActiveRecord {
 		}
 
 		return $changes;
+	}
+
+	public function getPublicChangedAttributes() {
+		return $this->getChangedAttributes($this->publicAttributes);
 	}
 
 	public function findByPk($pk, $condition='', $params=array()) {
