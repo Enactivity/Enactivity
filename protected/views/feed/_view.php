@@ -13,7 +13,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 ));?>
 	
 	<? $story->beginStoryContent(); ?>
-		<p class="story-title">
+		<h1 class="story-title">
 			<?
 			$this->widget('application.components.widgets.UserLink', array(
 				'userModel' => $data->user,
@@ -33,8 +33,12 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			<span class="created">@
 				<?= PHtml::encode(Yii::app()->format->formatDateTimeAsAgo(strtotime($data->created))); ?>
 			</span>
-		</p>
-			
+		</h1>
+		
+		<? if($data->isComment): ?>
+		<?= Yii::app()->format->formatStyledText($data->modelObject->content); ?>
+		<? endif; ?>
+
 		<? if($data->action == ActiveRecordLog::ACTION_UPDATED): ?>
 		<p class="feed-change">Changed
 		<? // if the referred to model was actually deleted then avoid the null pointer exception
@@ -54,7 +58,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			echo 'nothing';
 		}
 		elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
-			echo Yii::app()->format->formatDateTime(strtotime($data->oldAttributeValue));
+			echo Yii::app()->format->formatDateTimeAsAgo($data->oldAttributeValue);
 		}
 		else {
 			echo PHtml::encode($data->oldAttributeValue);
@@ -66,7 +70,7 @@ $story = $this->beginWidget('application.components.widgets.Story', array(
 			echo 'nothing';
 		}
 		elseif($data->modelObject->metadata->columns[$data->modelAttribute]->dbType == 'datetime') {
-			echo Yii::app()->format->formatDateTime(strtotime($data->newAttributeValue));
+			echo Yii::app()->format->formatDateTimeAsAgo($data->newAttributeValue);
 		}
 		else {
 			echo PHtml::encode($data->newAttributeValue);

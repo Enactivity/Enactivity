@@ -3,9 +3,8 @@
 		@extend .metadata;
 	}
 
-	.feed-change {
+	p {
 		background: $white;
-		color: $silver-chalice;
 		padding: $base-padding;
 
 		.feed-model-attribute {
@@ -16,5 +15,9 @@
 			color: $mine-shaft;
 			font-style: normal;
 		}
+	}
+
+	.feed-change {
+		color: $silver-chalice;
 	}
 }

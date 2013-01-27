@@ -151,11 +151,6 @@ abstract class ActiveRecord extends CActiveRecord {
 						&& array_key_exists($name, $currentAttributes)
 						)
 					{
-	 					// Hack: Format the datetimes into readable strings
-						if ($this->metadata->columns[$name]->dbType == 'datetime') {
-							$oldAttributes[$name] = isset($oldAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($oldAttributes[$name])) : '';
-							$currentAttributes[$name] = isset($currentAttributes[$name]) ? Yii::app()->format->formatDateTime(strtotime($currentAttributes[$name])) : '';
-						}
 						$changes[$name] = array(
 							'old'=>$oldAttributes[$name], 
 							'new'=>$currentAttributes[$name]

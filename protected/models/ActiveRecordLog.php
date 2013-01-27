@@ -247,6 +247,10 @@ class ActiveRecordLog extends ActiveRecord
 		return $model->getScenarioLabel($this->action);
 	}
 
+	public function getIsComment() {
+		return strcasecmp($this->model, 'Comment') == 0;
+	}
+
 	/**
 	 * Unset focal and model objects to clear memory
 	 * @return null
