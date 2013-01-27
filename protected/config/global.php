@@ -145,12 +145,17 @@ return array(
 				),
 			),
 
-			'mail' => array(
-				'class' => 'ext.YiiMail',
+			'mailer' => array(
+				'class' => 'application.components.mail.Mailer',
 				'enabled' => true,
 				'logging' => false,
 				'transportType' => 'php',
 				'viewPath' => 'application.views.mail',
+			),
+
+			'notifier' => array(
+				'class' => 'application.components.notifications.Notifier',
+				'defaultFromEmailAddress' => 'notifications@' . $_SERVER['SERVER_NAME'],
 			),
 			
 			'request'=>array(
@@ -308,7 +313,9 @@ return array(
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
 			
-			'feedbackEmail' => 'team@poncla.com',
+			'application.models.FeedbackForm.to' => 'team@poncla.com',
+			'application.models.FeedbackForm.from' => 'no-reply-feedback@' . $_SERVER['SERVER_NAME'],
+			
 			'googleAnalyticsOn' => true,
 
 			'application.components.guides.WelcomeActivity.enabled' => true,

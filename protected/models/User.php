@@ -628,23 +628,4 @@ class User extends ActiveRecord
 		self::STATUS_PENDING,
 		self::STATUS_BANNED);
 	}
-
-	/**
-	 * Invite a user to the web app
-	 *
-	 * @param string userName the name of the user sending the invite
-	 * @param string groupName the name of the group
-	 * @return boolean true if successfully emailed
-	 */
-	public function sendInvitation($userName, $groupName) {
-		//send invite email
-		Yii::import('application.extensions.mailer.InviteEmail');
-		$mail = new InviteEmail;
-		$mail->to = $this->email;
-		$mail->userName = $userName;
-		$mail->groupName = $groupName;
-		$mail->token = $this->token;
-		$mail->shouldEmail = true;
-		return Yii::app()->mailer->send($mail);
-	}
 }
