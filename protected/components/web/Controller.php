@@ -22,6 +22,17 @@ class Controller extends CController
 	private $_pageTitle;
 
 	/**
+	 * Initializes the controller.
+	 * This method is called by the application before the controller starts to execute.
+	 * You may override this method to perform the needed initialization for the controller.
+	 */
+	public function init()
+	{
+		$this->beginProfile("Controller init to beforeRender");
+		parent::init();
+	}
+
+	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -64,23 +75,14 @@ class Controller extends CController
 		return Yii::endProfile($token, get_class($this) . ": {$this->id}/{$action->id}");
 	}
 
-	protected function beforeAction($action) {
-		$this->beginProfile("Before action to after action");
-	    return parent::beforeAction($action);
-	}
-
-	protected function afterAction($action) {
-		$this->endProfile("Before action to after action");
-		return parent::afterAction($action);
-	}
-
 	protected function beforeRender($view) {
-		$this->beginProfile("Before render to after render");
+		$this->endProfile("Controller init to beforeRender");
+		$this->beginProfile("Controller beforeRender to afterRender");
 	    return parent::beforeRender($view);
 	}
 
 	protected function afterRender($view, &$output) {
-		$this->endProfile("Before render to after render");
+		$this->endProfile("Controller beforeRender to afterRender");
 	    return parent::afterRender($view, $output);	
 	}
 
