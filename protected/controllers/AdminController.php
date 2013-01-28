@@ -26,7 +26,7 @@ class AdminController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(
-					'registrations'
+					'phpinfo', 'registrations'
 				),
 				'expression'=>'$user->isAdmin',
 			),
@@ -34,6 +34,10 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionPhpInfo() {
+		echo phpinfo();
 	}
 
 	/**
