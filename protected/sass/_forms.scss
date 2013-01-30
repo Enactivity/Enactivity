@@ -135,29 +135,7 @@ button:disabled:hover,
 // Datetime pickers
 .datetime {
 	input, select {
-		@include grid-column-2-of-5;
-	}
-
-	.clear-field {
-		@include grid-column-1-of-5;	
-	}
-
-	.datepicker-container {
-		@include grid-column-1-of-1;
-		padding: 0;
-	}
-}
-
-.clear-field {
-	@extend button;
-
-	i {
-		@extend .icon;
-		@extend .icon-remove;
-	}
-
-	span {
-		display: none;
+		@include grid-column-1-of-2;
 	}
 }
 

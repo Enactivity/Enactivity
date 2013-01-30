@@ -50,11 +50,6 @@ $form=$this->beginWidget('application.components.widgets.ActiveForm', array(
 					'maxlength'=>255,
 				)); ?>
 			<?= $form->timeDropDownList($model,"startTime",array()); ?>
-			<?= PHtml::htmlButton("Remove",
-				array(
-					'class' => 'clear-field clear-date-time neutral',
-					'data-type' => 'clear-button',
-				)); ?>
 			<?= $form->error($model,'starts'); ?>
 			<?= $form->error($model,'startDate'); ?>
 			<?= $form->error($model,'startTime'); ?>
