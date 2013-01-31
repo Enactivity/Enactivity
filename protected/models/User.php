@@ -46,7 +46,8 @@ class User extends ActiveRecord
 
 	const SCENARIO_CHECKOUT = 'checkout';
 	const SCENARIO_INSERT = 'insert';
-	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
+	const SCENARIO_DEMOTE = 'demote';
+	const SCENARIO_PROMOTE = 'promote';
 	const SCENARIO_UPDATE = 'update';
 
 	/******************************************************
@@ -467,9 +468,20 @@ class User extends ActiveRecord
 	 * @return boolean
 	 * @see ActiveRecord::save();
 	 */
-	public function promoteToAdmin() {
-		$this->scenario = self::SCENARIO_PROMOTE_TO_ADMIN;
+	public function promote() {
+		$this->scenario = self::SCENARIO_PROMOTE;
 		$this->isAdmin = 1;
+		return $this->save();
+	}
+
+	/**
+	 * Demote the user to non-admin level
+	 * @return boolean
+	 * @see ActiveRecord::save();
+	 */
+	public function demote() {
+		$this->scenario = self::SCENARIO_DEMOTE;
+		$this->isAdmin = 0;
 		return $this->save();
 	}
 
