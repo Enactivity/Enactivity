@@ -46,7 +46,8 @@ class User extends ActiveRecord
 
 	const SCENARIO_CHECKOUT = 'checkout';
 	const SCENARIO_INSERT = 'insert';
-	const SCENARIO_PROMOTE_TO_ADMIN = 'promote to admin';
+	const SCENARIO_DEMOTE = 'demote';
+	const SCENARIO_PROMOTE = 'promote';
 	const SCENARIO_UPDATE = 'update';
 
 	/******************************************************
@@ -368,6 +369,18 @@ class User extends ActiveRecord
 	}
 
 	/**
+	 * Find a user by their facebook Id
+	 * @return User|null
+	 * @see User::findByAttributes
+	 **/
+	public static function findByEmail($email) {
+		return User::model()->findByAttributes(array(
+				'email' => $email,
+			)
+		);
+	}
+
+	/**
 	 * Register a new user with us
 	 * @return User
 	 * @throws CDbException if save fails
@@ -467,9 +480,20 @@ class User extends ActiveRecord
 	 * @return boolean
 	 * @see ActiveRecord::save();
 	 */
-	public function promoteToAdmin() {
-		$this->scenario = self::SCENARIO_PROMOTE_TO_ADMIN;
+	public function promote() {
+		$this->scenario = self::SCENARIO_PROMOTE;
 		$this->isAdmin = 1;
+		return $this->save();
+	}
+
+	/**
+	 * Demote the user to non-admin level
+	 * @return boolean
+	 * @see ActiveRecord::save();
+	 */
+	public function demote() {
+		$this->scenario = self::SCENARIO_DEMOTE;
+		$this->isAdmin = 0;
 		return $this->save();
 	}
 
