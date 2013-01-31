@@ -29,7 +29,6 @@
 				<li>
 					<?= $this->renderPartial('/task/_view', array(
 						'data'=>$task,
-						'showParent'=>$showParent,
 					)); ?>
 				</li>
 			<? endforeach; ?>
