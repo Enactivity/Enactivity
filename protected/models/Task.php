@@ -55,6 +55,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 
 	private $_startDate;
 	private $_startTime;
+
+	/**
+	 * @var Response
+	 **/
+	private $_applicationUserResponse = null;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -538,8 +543,15 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		throw new CDbException("Task counters were not incremented");
 	}
 	
-	public function getCurrentResponse() {
-		return Response::loadResponse($this->id, Yii::app()->user->id);
+	/** 
+	 * @return Response the current user's Response to the Task
+	 */
+	public function getApplicationUserResponse() {
+		if(is_null($this->_applicationUserResponse)) {
+			$this->_applicationUserResponse = Response::loadResponse($this->id, Yii::app()->user->id);
+		}
+
+		return $this->_applicationUserResponse;
 	}
 
 	/**
@@ -548,10 +560,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 * @return true if user is a participant, false if not
 	 */
 	public function getIsUserParticipating() {
-
-		$response = Response::loadResponse($this->id, Yii::app()->user->id);
 		
-		if($response->isSignedUp || $response->isStarted) {
+		if($this->applicationUserResponse->isSignedUp || $this->applicationUserResponse->isStarted) {
 			return true;
 		}
 		return false;
@@ -564,9 +574,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		$response = Response::loadResponse($this->id, Yii::app()->user->id);
-		
-		if($response->isCompleted) {
+		if($this->applicationUserResponse->isCompleted) {
 			return true;
 		}
 		return false;

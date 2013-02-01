@@ -12,7 +12,11 @@ class TaskCalendar extends CComponent {
 	 * @param array an array of Task models (allows nesting of arrays)
 	 **/
 	public function __construct($tasks = array()) {
+		Yii::beginProfile("TaskCalendar __construct", get_class($this));
+
 		$this->addTasks($tasks);
+		
+		Yii::endProfile("TaskCalendar __construct", get_class($this));
 	}
 
 	public static function loadCalendarNextTasks(User $user) {
