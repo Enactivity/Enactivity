@@ -16,9 +16,11 @@ $nav-bar-color: $white;
 		position: fixed;
 	}
 
-	@include respond-to(thin-tablet) {
-		bottom: auto;
+	@include respond-to(wide-tablet) {
+		height: 100%;
+		left: 0;
 		top: $application-header-fixed-height;
+		width: $application-navigation-fixed-width;
 	}
 
 	> ul {
@@ -48,9 +50,9 @@ $nav-bar-color: $white;
 		@include respond-to(thin-phone) {
 			@include grid-column-1-of-4;
 		}
-		// @include respond-to(thin-tablet) {
-		// 	@include grid-column-1-of-6;
-		// }
+		@include respond-to(wide-tablet) {
+			@include grid-column-1-of-1;
+		}
 
 		@include transition(all 0.4s ease-out);
 		color: $white;

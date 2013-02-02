@@ -7,6 +7,8 @@ $logo-width: 104px;
 	@include background-image(radial-gradient(circle, $scooter, $cerulean));
 	position: fixed;
 	height: $application-header-fixed-height;
+	left: 0;
+	right: 0;
 	top: 0;
 	width: 100%;
 	z-index: 1000;
@@ -19,6 +21,10 @@ $logo-width: 104px;
 		position: relative;
 		white-space: nowrap;
 		width: 100%;
+
+		@include respond-to(wide-tablet) { 
+			max-width: 100%; 
+		}
 
 		a, a:active, a:visited, span {
 			@include ellipsis();
@@ -40,12 +46,20 @@ $logo-width: 104px;
 			text-align: center;
 			width: $logo-width;
 			top: -1 * $logo-width / 2;
+
+			@include respond-to(wide-tablet) { 
+				width: $application-navigation-fixed-width;
+			}
 		}
 
 		.page-title {
 			left: $logo-width;
 			right: $icon-only-width;
 			top: 0;
+
+			@include respond-to(wide-tablet) { 
+				left: $application-navigation-fixed-width;
+			}
 		}
 
 		.refresh {

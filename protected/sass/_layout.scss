@@ -12,8 +12,8 @@ html, body {
 body {
 	padding-top: $application-header-fixed-height;
 
-	@include respond-to('thin-tablet') {
-		padding-top: $application-header-fixed-height + $application-navigation-fixed-height;
+	@include respond-to(wide-tablet) {
+		padding-left: $application-navigation-fixed-width;
 	}
 
 	&.splash { // reset padding for splash layouts
