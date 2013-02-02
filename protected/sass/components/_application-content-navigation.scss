@@ -1,6 +1,11 @@
 $application-content-font-size: 16px;
 
 .application-content {
+
+	@include respond-to(wide-tablet){
+		padding: $base-padding;
+	}
+
 	nav {
 		@include grid-row;
 		background: $alto;
