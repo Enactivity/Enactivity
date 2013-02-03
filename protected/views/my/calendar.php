@@ -13,10 +13,7 @@
 			'items'=>array(
 				array(
 					'label'=>"<i></i> " . PHtml::encode($month->nameOfPreviousMonth), 
-					'url'=>array('task/calendar',
-						'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
-						'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
-					),
+					'url'=>$calendar->previousMonthUrl,
 					'linkOptions'=>array(
 						'id'=>'task-previous-month-menu-item',
 						'class'=>'task-previous-month-menu-item',
@@ -24,10 +21,7 @@
 				),
 				array(
 					'label'=>PHtml::encode($month->nameOfNextMonth) . " <i></i>", 
-					'url'=>array('task/calendar',
-						'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
-						'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
-					),
+					'url'=>$calendar->nextMonthUrl,
 					'linkOptions'=>array(
 						'id'=>'task-next-month-menu-item',
 						'class'=>'task-next-month-menu-item',
@@ -102,10 +96,7 @@
 			'items'=>array(
 				array(
 					'label'=>"<i></i> " . PHtml::encode($month->nameOfPreviousMonth), 
-					'url'=>array('task/calendar',
-						'month' => $month->monthIndex - 1 < 1 ? 12 : $month->monthIndex - 1,
-						'year' => $month->monthIndex - 1 < 1 ? $month->year - 1 : $month->year,
-					),
+					'url'=>$calendar->previousMonthUrl,
 					'linkOptions'=>array(
 						'id'=>'task-previous-month-menu-item',
 						'class'=>'task-previous-month-menu-item',
@@ -121,10 +112,7 @@
 				),
 				array(
 					'label'=>PHtml::encode($month->nameOfNextMonth) . " <i></i>", 
-					'url'=>array('task/calendar',
-						'month' => $month->monthIndex + 1 > 12 ? 1 : $month->monthIndex + 1,
-						'year' => $month->monthIndex + 1 > 12 ? $month->year + 1 : $month->year,
-					),
+					'url'=>$calendar->nextMonthUrl,
 					'linkOptions'=>array(
 						'id'=>'task-next-month-menu-item',
 						'class'=>'task-next-month-menu-item',

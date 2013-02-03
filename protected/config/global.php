@@ -184,8 +184,6 @@ return array(
 					// 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 					// get rid of ? to ensure proxy caching
 					'min/<g:\w+>/<lm:\d+>/' => 'min/serve', 
-					'next'=>'task/next',
-					'calendar'=>'task/calendar',
 					'login'=>'site/login',
 					'logout'=>'site/logout',
 					'<controller:\w+>'=>'<controller>/index',

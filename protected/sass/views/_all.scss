@@ -19,10 +19,11 @@
 @import "membership/index";
 @import "membership/view";
 
+@import "my/dashboard";
+@import "my/calendar";
+
 @import "response/partial_view";
 
-@import "task/index";
-@import "task/calendar";
 @import "task/view"; 
 @import "task/partial_view"; 
 @import "task/feed";

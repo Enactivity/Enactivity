@@ -30,7 +30,7 @@ class ActivityController extends Controller
 
 		return array(
 			array('allow',
-				'actions'=>array('create','drafts'),
+				'actions'=>array('create'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -303,19 +303,6 @@ class ActivityController extends Controller
 			array(
 				'model' => $model,
 				'feedDataProvider' => $feedDataProvider,
-			)
-		);
-	}
-
-	public function actionDrafts() {
-		$drafts = Yii::app()->user->model->drafts;
-
-		$this->pageTitle = 'Drafts';
-
-		$this->render(
-			'drafts',
-			array(
-				'activities' => $drafts,
 			)
 		);
 	}
