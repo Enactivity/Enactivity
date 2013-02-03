@@ -1,7 +1,5 @@
 <?php
 
-Yii::import("application.components.calendar.Month");
-Yii::import("application.components.calendar.TaskCalendar");
 Yii::import("application.components.web.Controller");
 Yii::import("application.components.introduction.TutorialActivityGenerator");
 
@@ -16,7 +14,7 @@ class TaskController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('next','calendar','someday'),
+				'actions'=>array('calendar','someday'),
 				'users'=>array('@'),
 			),
 			array('allow', 
@@ -353,53 +351,6 @@ class TaskController extends Controller
 		else {
 			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');
 		}
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionNext()
-	{
-		// Get next tasks
-		$calendar = TaskCalendar::loadCalendarNextTasks(Yii::app()->user->model);
-		
-		$this->pageTitle = 'Next';
-
-		$this->render('next', array(
-			'calendar'=>$calendar,
-		));
-	}
-
-	/**
-	 * Lists all tasks in a calendar.
-	 */
-	public function actionCalendar($month=null, $year=null)
-	{
-		$month = new Month($month, $year);
-		$taskCalendar = TaskCalendar::loadCalendarByMonth(Yii::app()->user->model, $month);
-		
-		$this->pageTitle = Yii::app()->format->formatMonth($month->firstDayOfMonthTimestamp) . " " . $month->year;
-
-		$this->render('calendar', array(
-				'calendar'=>$taskCalendar,
-				'newTask'=>$newTask,
-				'month'=>$month,
-			)
-		);
-	}
-
-	/**
-	 * Lists all tasks with no start date
-	 **/
-	public function actionSomeday() {
-		$taskCalendar = TaskCalendar::loadCalendarWithNoStart(Yii::app()->user->model);
-
-		$this->pageTitle = 'Someday';
-
-		$this->render('someday', array(
-				'calendar'=>$taskCalendar,
-			)
-		);
 	}
 
 	/**

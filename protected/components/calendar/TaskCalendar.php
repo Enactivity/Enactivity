@@ -6,14 +6,17 @@ class TaskCalendar extends CComponent {
 
 	private $dates = array();
 	private $someday = array();
+
+	public $month = null;
 	
 	/**
 	 * Construct a new Task Calendar using the tasks 
 	 * @param array an array of Task models (allows nesting of arrays)
 	 **/
-	public function __construct($tasks = array()) {
+	public function __construct($tasks = array(), $month = null) {
 		Yii::beginProfile("TaskCalendar __construct", get_class($this));
 
+		$this->month = $month;
 		$this->addTasks($tasks);
 		
 		Yii::endProfile("TaskCalendar __construct", get_class($this));
@@ -40,6 +43,7 @@ class TaskCalendar extends CComponent {
 	}
 
 	public static function loadCalendarByMonth($user, $month) {
+
 		$tasks = User::model()->with(array(
 			'tasks'=>array(
 				'scopes'=>array(
@@ -48,7 +52,7 @@ class TaskCalendar extends CComponent {
 			),
 		))->findByPk($user->id)->tasks;
 		
-		return new TaskCalendar($tasks);
+		return new TaskCalendar($tasks, $month);
 	}
 
 	public static function loadCalendarWithNoStart($user) {
@@ -324,6 +328,21 @@ class TaskCalendar extends CComponent {
 	 **/
 	public function getItemCount() {
 		return $this->taskCount;
+	}
+
+	public function getNextMonthUrl() {
+		return Yii::app()->createAbsoluteUrl('my/calendar', array(
+			'month' => $this->month->monthIndex + 1 > 12 ? 1 : $this->month->monthIndex + 1,
+			'year' => $this->month->monthIndex + 1 > 12 ? $this->month->year + 1 : $this->month->year,
+		));
+	}
+
+
+	public function getPreviousMonthUrl() {
+		return Yii::app()->createAbsoluteUrl('my/calendar', array(
+			'month' => $this->month->monthIndex - 1 < 1 ? 12 : $this->month->monthIndex - 1,
+			'year' => $this->month->monthIndex - 1 < 1 ? $this->month->year - 1 : $this->month->year,
+		));
 	}
 
 	/**

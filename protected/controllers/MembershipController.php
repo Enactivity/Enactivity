@@ -24,29 +24,13 @@ class MembershipController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user
-				'actions'=>array('index', 'join', 'leave', 'syncWithFacebook'),
+				'actions'=>array('join', 'leave', 'syncWithFacebook'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
-	}
-
-	/**
-	 * Lists user's groups
-	 */
-	public function actionIndex()
-	{
-		$memberships = User::model()->with(array(
-			'allMemberships'=>array(),
-		))->findByPk(Yii::app()->user->id)->allMemberships;
-
-		$this->pageTitle = 'Groups';
-
-		$this->render('index', array(
-		    'memberships'=>$memberships,
-		));
 	}
 
 	/** 
@@ -65,7 +49,7 @@ class MembershipController extends Controller
 				$this->renderAjaxResponse('/membership/_view', array('data'=>$model));
 			}
 
-			$this->redirect(array('index'));
+			$this->redirect(array('/my/groups'));
 		}
 		
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -84,7 +68,7 @@ class MembershipController extends Controller
 				$this->renderAjaxResponse('/membership/_view', array('data'=>$model));
 			}
 
-			$this->redirect(array('index'));
+			$this->redirect(array('/my/groups'));
 		}
 		
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -98,7 +82,7 @@ class MembershipController extends Controller
 			Yii::app()->user->setFlash('notice', "Your Facebook groups have been updated.");
 		}
 
-		$this->redirect(array('membership/index'));
+		$this->redirect(array('/my/groups'));
 	}
 
 	/**

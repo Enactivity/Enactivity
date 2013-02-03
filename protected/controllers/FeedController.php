@@ -28,25 +28,6 @@ class FeedController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		
-		$feedModel = new ActiveRecordLog();
-		$feedDataProvider = new CActiveDataProvider(
-			$feedModel->scopeUsersGroups(Yii::app()->user->id),
-			array()
-		);
-
-		$this->pageTitle = 'Timeline';
-
-		$this->render('index', array(
-			'dataProvider'=>$feedDataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
