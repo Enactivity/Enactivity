@@ -16,7 +16,7 @@
 <section class="feed content">
 	<? $this->widget('zii.widgets.CListView', array(
 		'dataProvider'=>$dataProvider,
-		'itemView'=>'_view',
+		'itemView'=>'/feed/_view',
 		'emptyText'=>'',
 	)); ?>
 	<? if(!$dataProvider->data): ?>

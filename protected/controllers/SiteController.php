@@ -71,7 +71,7 @@ class SiteController extends Controller
 		} 
 		else {
 			$this->redirect(array(
-				'task/next'
+				'my/dashboard'
 			));
 		}
 	}

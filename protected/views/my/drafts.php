@@ -14,7 +14,7 @@
 
 <section class="activities content">
 	<? foreach($activities as $activity): ?>
-	<? $this->renderPartial('_view', array('data'=>$activity)); ?>
+	<? $this->renderPartial('/activity/_view', array('data'=>$activity)); ?>
 	<? endforeach; ?>
 	<? if(!$activities): ?>
 		<p class="blurb">You have no drafts at the moment.</p>

@@ -17,13 +17,13 @@
 
 <section id="tasks" class="tasks content">
 	<? if($calendar->itemCount > 0) : ?>
-	<?= $this->renderPartial('_agenda', array(
+	<?= $this->renderPartial('/task/_agenda', array(
 		'calendar'=>$calendar,
 		'showParent'=>true,
 	)); ?>
 	<? else: ?>
 	<p class="no-results-message blurb">
-		Groups are more fun when you're active!  Why not check out the <?= PHtml::link('calendar', array('task/calendar')); ?>
+		Groups are more fun when you're active!  Why not check out the <?= PHtml::link('calendar', array('my/calendar')); ?>
 		to see what is listed or <?= PHtml::link('create a new activity', array('activity/create')); ?>?
 	</p>
 	<? endif; ?>	

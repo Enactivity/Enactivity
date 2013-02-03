@@ -82,19 +82,19 @@ $nav-bar-color: $white;
 	}
 }
 
-#application-navigation-site-dashboard i {
+#application-navigation-my-dashboard i {
 	@extend .icon-dashboard;
 }
 
-#application-navigation-task-calendar i {
+#application-navigation-my-calendar i {
 	@extend .icon-calendar;
 }
 
-#application-navigation-membership-index i {
+#application-navigation-my-groups i {
 	@extend .icon-group;
 }
 
-#application-navigation-task-create i {
+#application-navigation-activity-create i {
 	@extend .icon-plus;
 }
 

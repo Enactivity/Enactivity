@@ -23,31 +23,31 @@ class MenuDefinitions extends CComponent {
 			array(
 				'label'=>'<i></i> Dashboard', 
 				'linkOptions'=>array(
-					'id'=>'application-navigation-site-dashboard',
+					'id'=>'application-navigation-my-dashboard',
 				),
-				'url'=>array('/task/next'), 
+				'url'=>array('/my/dashboard'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
 				'label'=>'<i></i> Calendar',
 				'linkOptions'=>array(
-					'id'=>'application-navigation-task-calendar',
+					'id'=>'application-navigation-my-calendar',
 				),
-				'url'=>array('/task/calendar'), 
+				'url'=>array('/my/calendar'), 
 				'visible'=>!Yii::app()->user->isGuest,
 			),
 			array(
 				'label'=>'<i></i> Groups', 
 				'linkOptions'=>array(
-					'id'=>'application-navigation-membership-index',
+					'id'=>'application-navigation-my-groups',
 				),
-				'url'=>array('/membership/index'), 
+				'url'=>array('/my/groups'), 
 				'visible'=>!Yii::app()->user->isGuest
 			),
 			array(
 				'label'=>'<i></i> New',
 				'linkOptions'=>array(
-					'id'=>'application-navigation-task-create',
+					'id'=>'application-navigation-activity-create',
 				),
 				'url'=>array('/activity/create'), 
 				'visible'=>!Yii::app()->user->isGuest,
@@ -61,25 +61,25 @@ class MenuDefinitions extends CComponent {
 	public static function siteMenu() {
 		return array(
 			array(
-				'label'=>'<i></i> Next', 
+				'label'=>'<i></i> Dashboard', 
 				'linkOptions'=>array(
-					'id'=>'task-next-menu-item',
+					'class'=>'my-dashboard-menu-item',
 				),
-				'url'=>array('task/next'),
+				'url'=>array('my/dashboard'),
 			),
 			array(
 				'label'=>'<i></i> Timeline', 
 				'linkOptions'=>array(
-					'id'=>'feed-index-menu-item',
+					'id'=>'my-timeline-menu-item',
 				),
-				'url'=>array('feed/index'),
+				'url'=>array('my/timeline'),
 			),
 			array(
 				'label'=>'<i></i> Drafts', 
 				'linkOptions'=>array(
-					'id'=>'activity-drafts-menu-item',
+					'id'=>'my-drafts-menu-item',
 				),
-				'url'=>array('activity/drafts'),
+				'url'=>array('my/drafts'),
 			),
 		);
 	}
