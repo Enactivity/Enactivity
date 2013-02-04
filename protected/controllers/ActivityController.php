@@ -105,10 +105,8 @@ class ActivityController extends Controller
 			if($_POST['add_more']) { // adding more tasks
 				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
 			}
-			else {
-				if($form->publish($_POST['Activity'], $_POST['Task'])) {
-					$this->redirect($form->activity->viewUrl);	
-				}
+			else if($form->publish($_POST['Activity'], $_POST['Task'])) {
+				$this->redirect($form->activity->viewUrl);	
 			}
 		}
 
@@ -134,7 +132,10 @@ class ActivityController extends Controller
 
 		if(isset($_POST['Activity']))
 		{
-			if($form->update($_POST['Activity'], $_POST['Task'])) {
+			if($_POST['add_more']) { // adding more tasks
+				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+			}
+			else if($form->update($_POST['Activity'], $_POST['Task'])) {
 				$this->redirect($form->activity->viewUrl);
 			}
 		}

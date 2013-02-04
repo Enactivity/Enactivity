@@ -48,7 +48,7 @@
 		} ?>
 	</fieldset>
 
-	<h2>Action Items</h2>
+	<h2>Tasks</h2>
 
 	<? if($model->activity->isNewRecord): ?>
 	<p>Now, let's add some tasks for your group to participate in.</p>
@@ -84,14 +84,12 @@
 	<? endforeach ?>
 
 	<div class="field buttons">
-		<? if($model->activity->isDraft): ?>
 		<?= PHtml::submitButton('Add More Tasks', 
 			array(
 				'name'=>'add_more',
 				'class'=>'neutral',
 			)
 		); ?>
-		<? endif; ?>
 		<?= PHtml::submitButton($model->activity->isNewRecord ? 'Publish' : 'Update',
 			array(
 				'name'=>'publish',

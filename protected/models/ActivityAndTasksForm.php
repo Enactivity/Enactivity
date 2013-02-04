@@ -80,6 +80,10 @@ class ActivityAndTasksForm extends CFormModel
 		$this->_tasks[] = new Task();
 	}
 
+	public function removeTask($index) {
+		unset($this->_tasks[$index]);
+	}
+
 	/**
 	 * Override of CModel::setAttributes
 	 * @param array ['activity', 'tasks' ]
@@ -129,7 +133,7 @@ class ActivityAndTasksForm extends CFormModel
 		foreach ($this->tasks as $i => $task) {
 			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');
 			if($task->isBlank) {
-				unset($this->tasks[$i]);
+				$this->removeTask($i);
 			}
 		}
 
@@ -157,28 +161,29 @@ class ActivityAndTasksForm extends CFormModel
 			'tasks' => $taskAttributesList,
 		);
 
-		if($this->validate()) {
-			$this->activity->updateActivity();
+		$isValid = true;
 
-			foreach($this->tasks as $i => &$task) {
+		$isValid = $isValid && $this->activity->updateActivity();
 
-				// TODO: handle deleting tasks with no attributes
-				// 	if($task->isBlank) {
-				// 		unset($this->tasks[$i]); //trash instead
-				// 	}
+		foreach($this->_tasks as $i => &$task) {
 
-				if($task->isNewRecord) {
-					$task->publish();
+			if($task->isNewRecord) {
+				if($task->isBlank) {
+					$this->removeTask($i);
 				}
 				else {
-					$task->updateTask();
+					$task->groupId = $this->activity->groupId;
+					$task->activityId = $this->activity->id;
+
+					$isValid = $isValid && $task->publish();
 				}
 			}
-
-			return true;
+			else {
+				$isValid = $isValid && $task->updateTask();
+			}
 		}
 
-		return false;
+		return $isValid;
 	}
 	
 
