@@ -8,12 +8,12 @@
 		<ul>
 			<li>
 				<?= PHtml::link(
-					"<i></i> " . PHtml::encode($model->name),
-					$model->viewUrl,
+					"<i></i> " . PHtml::encode($model->activity->name),
+					$model->activity->viewUrl,
 					array(
-						'id'=>'activity-view-menu-item-' . $model->id,
+						'id'=>'activity-view-menu-item-' . $model->activity->id,
 						'class'=>'neutral activity-view-menu-item',
-						'title'=>'View this ' . PHtml::encode($model->name),
+						'title'=>'View this ' . PHtml::encode($model->activity->name),
 				)); ?>
 			</li>
 		</ul>
@@ -21,5 +21,7 @@
 </header>
 
 <section class="content">
-	<?= $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?= $this->renderPartial('/activityandtasks/_form', array(
+		'model'=>$model,
+	)); ?>
 </section>
