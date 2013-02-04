@@ -41,7 +41,9 @@ Yii::import("ext.facebook.components.db.ar.FacebookGroupPostableRecord");
  */
 class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, FacebookGroupPostableRecord
 {
+	const DATE_FORMAT = 'Y-m-d';
 	const NAME_MAX_LENGTH = 255;
+	const PARTICIPANT_SUMMARY_SIZE = 10;
 	
 	const SCENARIO_DELETE = 'delete';
 	const SCENARIO_INSERT = 'insert'; // default set by Yii
@@ -50,8 +52,6 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	const SCENARIO_TRASH = 'trash';
 	const SCENARIO_UNTRASH = 'untrash';
 	const SCENARIO_UPDATE = 'update'; // default set by Yii
-
-	const DATE_FORMAT = 'Y-m-d';
 
 	private $_startDate;
 	private $_startTime;
@@ -436,6 +436,21 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 			return null;
 		}
 		return date('d', $this->startTimestamp);
+	}
+
+	/** 
+	 * @return array of Users limited to Task::PARTICIPANT_SUMMARY_SIZE
+	 **/
+	public function getParticipantsSummary() {
+		$participants = $this->participants;
+		return array_slice($participants, 0, self::PARTICIPANT_SUMMARY_SIZE);
+	}
+
+	/** 
+	 * @return int the number of additional users not included in participantsSummary
+	 **/
+	public function getParticipantsSummaryMoreCount() {
+		return min(0, $this->participantsCount - self::PARTICIPANT_SUMMARY_SIZE);
 	}
 
 	/**

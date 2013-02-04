@@ -19,8 +19,7 @@
 			); ?>
 		</h1>
 		<ul class="participants">
-			<? foreach($data->participants as $index => $user): ?>
-			<? if($index >= 10) { break; } ?>
+			<? foreach($data->participantsSummary as $index => $user): ?>
 				<li>
 					<?= PHtml::image($user->pictureUrl); ?>
 				</li>
