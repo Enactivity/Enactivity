@@ -45,7 +45,7 @@
 
 	<div class="menu controls">
 		<ul>
-			<? if($data->applicationUserResponse->canSignUp): ?>
+			<? if($data->myResponse->canSignUp): ?>
 			<li> 
 				<?= PHtml::htmlButton(
 					"I'll do this",
@@ -62,7 +62,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($data->applicationUserResponse->canStart): ?>
+			<? if($data->myResponse->canStart): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I'm doing this", 
@@ -79,7 +79,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($data->applicationUserResponse->canComplete): ?>
+			<? if($data->myResponse->canComplete): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I've done this",
@@ -96,7 +96,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($data->applicationUserResponse->canResume): ?>
+			<? if($data->myResponse->canResume): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I've got more to do",
@@ -113,7 +113,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($data->applicationUserResponse->canQuit): ?>
+			<? if($data->myResponse->canQuit): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"Quit",
@@ -130,7 +130,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($data->applicationUserResponse->canIgnore): ?>
+			<? if($data->myResponse->canIgnore): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"Ignore",

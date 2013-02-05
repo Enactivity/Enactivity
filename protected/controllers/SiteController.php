@@ -24,11 +24,11 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','error','index','login','feedback'),
+				'actions'=>array('contact','error','index','login'),
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions'=>array('logout'),
+				'actions'=>array('logout','feedback'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -64,7 +64,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php' if not logged-in
 		if(Yii::app()->user->isGuest) {
 			$this->layout = "//layouts/splashlayout";
-			$this->pageTitle = 'Hallo'; 
+			$this->pageTitle = 'Welcome'; 
 			$this->render('index', array(
 				'model'=>$model,
 			));

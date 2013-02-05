@@ -47,7 +47,7 @@
 		}
 	}
 	@else if $media == wide-desktop {
-		@media only screen and (min-width: 1280) { 
+		@media only screen and (min-width: 1280px) { 
 			@content; 
 		}
 	}

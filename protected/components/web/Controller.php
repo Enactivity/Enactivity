@@ -121,6 +121,13 @@ class Controller extends CController
 		Yii::app()->end();
 	}
 
+	public function renderPartial($view,$data=null,$return=false,$processOutput=false) {
+		$this->beginProfile("Partial render of {$view}");
+		$renderResult = parent::renderPartial($view, $data, $return, $processOutput);
+		$this->endProfile("Partial render of {$view}");
+		return $renderResult;
+	}
+
 	public function beginLayout($view=null, $data=array()) {
 		if($this->layoutIncludesHead) {
 			return $this->beginContent($view, $data);

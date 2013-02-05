@@ -1,15 +1,22 @@
 @import "compass/css3/animation";
 
 .page-site-index {
-	height: 100%;
 	background: $cerulean;
 	color: $white;
 	overflow: hidden;
 
+	.inner {
+		margin: auto;
+		max-width: 1024px;
+	}
+
 	.greetings {
-		position: absolute;
-		left: 10%;
-		top: 30%;
+		@include grid-row;
+		padding: $base-padding;
+
+		@include respond-to(thin-tablet) {
+			min-height: 600px;
+		}
 
 		h1 {
 			@include animation(fade-down 1s);
@@ -21,11 +28,122 @@
 			}
 		}
 
-		a {
-			@include animation(fade-down 2s);
+		a.login {
+			@extend .button;
+			@include animation(fade-in 3s);
+
+			background: $facebook-blue;
+			padding: $base-padding;
+
+			@include respond-to(wide-phone) {
+				max-width: 240px;
+				margin-top: $base-margin * 3;
+			}
+
+			i {
+				@extend .icon;
+				@extend .icon-chevron-right;
+			}
+		}
+
+		.subtext {
 			display: block;
-			color: $white;
-			text-align: right;
+			font-size: 10px;
+			opacity: .75;
+			padding: $base-padding / 2;
+		}
+		
+		p {
+			font-size: 24px;
+			font-weight: 100;
+			max-width: 450px;
+		}
+	}
+
+	.quotes {
+		@include grid-row;
+
+		background: $gallery;
+		color: $mine-shaft;
+		padding: $base-padding * 2 $base-padding;
+
+		blockquote {
+
+			&:before {
+				display: block;
+				float: left;
+				margin: (-1 * $base-padding) $base-margin 0 0;
+				font-size: 100px; 
+				content: open-quote; /* here we define our :before as a smart quote. It could be any content, even the HTML entity alternative to this opening quote, that is “ */
+				color: $shark;
+				text-shadow: 0 1px 1px #909090;
+			}
+
+			p {
+				font-size: 32px;
+			}
+
+			.cite {
+				color: $silver-chalice;
+				font-size: 10px;
+				margin-right: 3em;
+				margin-top: -20px;
+			}
+		}
+	}
+
+	.features {
+		@include grid-row;
+		background: $white;
+		color: $mine-shaft;
+		padding: $base-padding;
+
+		.inner {
+			div {
+				@include grid-column-1-of-1;
+				padding: $base-padding;
+
+				@include respond-to(wide-phone) {
+					@include grid-column-1-of-2;
+				}
+
+				@include respond-to(wide-tablet) {
+					@include grid-column-1-of-4;
+				}
+			}
+		}
+
+		h2 {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		p {
+			color: $dove-gray;
+			text-align: center;
+		}
+
+		i {
+			@extend .icon-super-hero;
+			display: block;
+			text-align: center;
+		}
+
+		.describe-responsive i {
+			@extend .icon-tablet;
+		}
+
+		.describe-dashboard i {
+			@extend .icon-dashboard;
+		}
+
+		.describe-calendar i {
+			@extend .icon-calendar;
+		}
+
+		.describe-facebook i {
+			@extend .icon-facebook-sign;
 		}
 	}
 }
