@@ -18,6 +18,10 @@ body {
 
 	&.splash { // reset padding for splash layouts
 		padding-top: 0;
+
+		@include respond-to(wide-tablet) {
+			padding-left: 0;
+		}
 	}
 }
 
