@@ -48,14 +48,14 @@
 		} ?>
 	</fieldset>
 
+	<h2>Tasks</h2>
+
 	<? if($model->activity->isNewRecord): ?>
 	<p>Now, let's add some tasks for your group to participate in.</p>
+	<? endif; ?>
 
 	<? foreach($model->tasks as $index => $task): ?>
-	<fieldset class="new-task-form">
-		<? if($index + 1): ?>
-		<h1>Task #<?= PHtml::encode($index + 1); ?></h1>
-		<? endif ?>
+	<fieldset class="task-form">
 
 		<div class="field">
 			<?= $form->labelEx($task,"[$index]name"); ?>
@@ -67,7 +67,6 @@
 				)); ?>
 			<?= $form->error($task,"[$index]name"); ?>
 		</div>
-	
 	
 		<div class="field datetime">
 			<?= $form->labelEx($task,"[$index]starts"); ?>
@@ -83,23 +82,14 @@
 		</div>
 	</fieldset>
 	<? endforeach ?>
-	<? endif; ?>
 
 	<div class="field buttons">
-		<? if($model->activity->isDraft): ?>
 		<?= PHtml::submitButton('Add More Tasks', 
 			array(
 				'name'=>'add_more',
 				'class'=>'neutral',
 			)
 		); ?>
-		<?= PHtml::submitButton('Save as Draft', 
-			array(
-				'name'=>'draft',
-				'class'=>'neutral',
-			)
-		); ?>
-		<? endif; ?>
 		<?= PHtml::submitButton($model->activity->isNewRecord ? 'Publish' : 'Update',
 			array(
 				'name'=>'publish',
