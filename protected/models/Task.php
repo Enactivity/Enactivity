@@ -56,6 +56,11 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	private $_startDate;
 	private $_startTime;
 
+	public $publicAttributes = array(
+		'name',
+		'starts',
+	);
+
 	/**
 	 * @var Response
 	 **/

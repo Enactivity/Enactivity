@@ -104,11 +104,11 @@ abstract class ActiveRecord extends CActiveRecord {
 		$changes = array();
 
 		// compare old and new
-		foreach ($currentAttributes as $name => $currentValue) {
+		foreach ($currentAttributes as $name => $newValue) {
 			// check that if the attribute should be ignored
 			$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
 
-			if ($currentValue != $oldValue) {
+			if ($newValue != $oldValue) {
 				if(!in_array($name, $ignoreAttributes) 
 					&& array_key_exists($name, $oldAttributes)
 					&& array_key_exists($name, $currentAttributes)
@@ -136,24 +136,20 @@ abstract class ActiveRecord extends CActiveRecord {
 		$changes = array();
 
 		if($this->isExistingRecord) {
-			// new attributes and old attributes
-			$currentAttributes = $this->attributes;
-			$oldAttributes = $this->oldAttributes;
 
 			// compare old and new
-			foreach ($currentAttributes as $name => $currentValue) {
-				// check that if the attribute should be ignored
-				$oldValue = empty($oldAttributes) ? '' : $oldAttributes[$name];
+			foreach ($this->attributes as $name => $newValue) {
 
-				if ($currentValue != $oldValue) {
-					if(in_array($name, $attributeNames) 
-						&& array_key_exists($name, $oldAttributes)
-						&& array_key_exists($name, $currentAttributes)
-						)
-					{
+				// check that if the attribute should be ignored
+				if(in_array($name, $attributeNames)) {
+
+					// provide an empty default value if not set
+					$oldValue = empty($this->oldAttributes) ? '' : $this->oldAttributes[$name];
+
+					if ($newValue != $oldValue) {
 						$changes[$name] = array(
-							'old'=>$oldAttributes[$name], 
-							'new'=>$currentAttributes[$name]
+							'old'=>$oldValue,
+							'new'=>$newValue,
 						);
 					}
 				}

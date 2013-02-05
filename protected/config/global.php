@@ -321,6 +321,8 @@ return array(
 			// flag to control whether or not email notification emails should be sent
 			'ext.behaviors.model.EmailNotificationBehavior.enabled' => true,
 			'ext.behaviors.model.EmailNotificationBehavior.notifyCurrentUser' => false,
+
+			'ext.facebook.components.db.ar.FacebookGroupPostBehavior.enabled' => true,
 		),
 
 		// preloading 'log' component

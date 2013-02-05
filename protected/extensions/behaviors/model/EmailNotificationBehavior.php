@@ -16,7 +16,6 @@ class EmailNotificationBehavior extends NotificationBehavior
 		return Yii::app()->params['ext.behaviors.model.EmailNotificationBehavior.enabled'];
 	}
 
-
 	public function afterSave($event)
 	{
 		if($this->enabled && $this->isNotifiableScenario && isset(Yii::app()->user)) {

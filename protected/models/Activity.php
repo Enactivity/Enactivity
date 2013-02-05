@@ -44,6 +44,11 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 	const STATUS_ACTIVE = 'Active';
 	const STATUS_DEACTIVATED = 'Trash';	
 
+	public $publicAttributes = array(
+		'name',
+		'description',
+	);
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

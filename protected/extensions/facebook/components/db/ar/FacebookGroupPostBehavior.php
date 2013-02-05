@@ -11,6 +11,10 @@ Yii::import("ext.facebook.components.FacebookGroupPost");
  */
 class FacebookGroupPostBehavior extends NotificationBehavior
 {
+	public function getEnabled() {
+		return Yii::app()->params['ext.facebook.components.db.ar.FacebookGroupPostBehavior.enabled'];
+	}
+
 	/**
 	* After the model saves, record the attributes
 	* @param CEvent $event
@@ -18,7 +22,7 @@ class FacebookGroupPostBehavior extends NotificationBehavior
 	public function beforeSave($event)
 	{
 		// is new record?
-		if ($this->isIndivisibleScenario || $this->isDivisibleScenario) {
+		if ($this->enabled && $this->isNotifiableScenario) {
 			$this->recordChanges(); //same handler for both case for now
 		}
 	}

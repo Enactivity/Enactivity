@@ -42,7 +42,7 @@ class Notifier extends CApplicationComponent {
 	}
 
 	// TODO: implement (params just guesses)
-	protected function notifyByFacebookGroup($to, $subject, $view, $data) {
+	protected function notifyByFacebookGroup($to, $subject = null, $view = null, $data = array()) {
 		
 	}
 
@@ -67,5 +67,6 @@ class Notifier extends CApplicationComponent {
 
 		// Can notify by multiple methods (facebook, facebookGroupPost, etc.)
 		$this->notifyByEmail($to, $subject, $view, $data);
+		$this->notifyByFacebookGroup($to, $subject, $view, $data);
 	}
 }
