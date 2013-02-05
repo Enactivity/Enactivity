@@ -40,7 +40,7 @@
 
 		<div class="describe-facebook">
 			<h2><i></i> Facebook Integration</h2>
-			<p>Enactivity works with Facebook, your groups are automaticly imported so you can start creating and sharing activities right away.</p>
+			<p>Enactivity works with Facebook, your groups are automatically imported so you can start creating and sharing activities right away.</p>
 			<p>Easy.</p>
 		</div>
 	</div>
