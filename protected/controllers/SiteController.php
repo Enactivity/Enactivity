@@ -24,11 +24,11 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('contact','error','index','login','feedback'),
+				'actions'=>array('contact','error','index','login'),
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions'=>array('logout'),
+				'actions'=>array('logout','feedback'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions

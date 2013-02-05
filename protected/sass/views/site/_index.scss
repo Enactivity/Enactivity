@@ -1,15 +1,15 @@
 @import "compass/css3/animation";
 
 .page-site-index {
-	height: 100%;
+	min-height: 100%;
 	background: $cerulean;
 	color: $white;
 	overflow: hidden;
 
 	.greetings {
-		position: absolute;
-		left: 10%;
-		top: 30%;
+		@include grid-row;
+		padding: $base-padding;
+		min-height: 100%;
 
 		h1 {
 			@include animation(fade-down 1s);
@@ -21,11 +21,84 @@
 			}
 		}
 
-		a {
-			@include animation(fade-down 2s);
+		a.login {
+			@extend .button;
+			@include animation(fade-in 3s);
+
+			background: $facebook-blue;
+			padding: $base-padding;
+
+			i {
+				@extend .icon;
+				@extend .icon-chevron-right;
+			}
+		}
+
+		.subtext {
 			display: block;
-			color: $white;
-			text-align: right;
+			font-size: 10px;
+			opacity: .75;
+			padding: $base-padding / 2;
+		}
+		
+		p {
+			font-size: 24px;
+			font-weight: 100;
+			max-width: 450px;
+		}
+
+	}
+
+	.features {
+		@include grid-row;
+		background: $white;
+		color: $mine-shaft;
+		padding: $base-padding;
+
+		div {
+			@include grid-column-1-of-1;
+			padding: $base-padding;
+
+			@include respond-to(wide-phone) {
+				@include grid-column-1-of-2;
+			}
+
+			@include respond-to(wide-tablet) {
+				@include grid-column-1-of-4;
+			}
+		}
+
+		h2 {
+			font-size: 18px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		p {
+			font-size: 16px;
+			text-align: center;
+		}
+
+		i {
+			@extend .icon-super-hero;
+			display: block;
+			text-align: center;
+		}
+
+		.describe-responsive i {
+			@extend .icon-tablet;
+		}
+
+		.describe-dashboard i {
+			@extend .icon-dashboard;
+		}
+
+		.describe-calendar i {
+			@extend .icon-calendar;
+		}
+
+		.describe-facebook i {
+			@extend .icon-facebook-sign;
 		}
 	}
 }
