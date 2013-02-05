@@ -62,9 +62,9 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	);
 
 	/**
-	 * @var Response
+	 * @var Response the current user's response
 	 **/
-	private $_applicationUserResponse = null;
+	private $_myResponse = null;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -566,12 +566,12 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	/** 
 	 * @return Response the current user's Response to the Task
 	 */
-	public function getApplicationUserResponse() {
-		if(is_null($this->_applicationUserResponse)) {
-			$this->_applicationUserResponse = Response::loadResponse($this->id, Yii::app()->user->id);
+	public function getMyResponse() {
+		if(is_null($this->_myResponse)) {
+			$this->_myResponse = Response::loadResponse($this->id, Yii::app()->user->id);
 		}
 
-		return $this->_applicationUserResponse;
+		return $this->_myResponse;
 	}
 
 	/**
@@ -581,7 +581,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserParticipating() {
 		
-		if($this->applicationUserResponse->isSignedUp || $this->applicationUserResponse->isStarted) {
+		if($this->myResponse->isSignedUp || $this->myResponse->isStarted) {
 			return true;
 		}
 		return false;
@@ -594,7 +594,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	 */
 	public function getIsUserComplete() {
 		
-		if($this->applicationUserResponse->isCompleted) {
+		if($this->myResponse->isCompleted) {
 			return true;
 		}
 		return false;
