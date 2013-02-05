@@ -23,7 +23,7 @@
 
 		<div class="describe-calendar">
 			<h2><i></i> Calendar</h2>
-			<p>Activities can easily be browsed on Enactivity's calendar.</p>
+			<p>Activities can be browsed at a glance on Enactivity's calendar.</p>
 		</div>
 
 		<div class="describe-facebook">
