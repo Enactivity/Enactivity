@@ -105,16 +105,8 @@ class ActivityController extends Controller
 			if($_POST['add_more']) { // adding more tasks
 				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
 			}
-			elseif($_POST['draft']) {
-				if($form->draft($_POST['Activity'], $_POST['Task'])) {
-					Yii::app()->user->setFlash('notice', 'A draft of ' . $activity->name  . ' has been saved.');
-					$this->redirect(array('activity/view','id'=>$form->activity->id));
-				}
-			}
-			else {
-				if($form->publish($_POST['Activity'], $_POST['Task'])) {
-					$this->redirect(array('activity/view','id'=>$form->activity->id));	
-				}
+			else if($form->publish($_POST['Activity'], $_POST['Task'])) {
+				$this->redirect($form->activity->viewUrl);	
 			}
 		}
 
@@ -132,22 +124,26 @@ class ActivityController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadActivityModel($id);
+		$form = new ActivityAndTasksForm();
+		$form->activity = $this->loadActivityModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Activity']))
 		{
-			if($model->updateActivity($_POST['Activity'])) {
-				$this->redirect(array('view','id'=>$model->id));
+			if($_POST['add_more']) { // adding more tasks
+				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+			}
+			else if($form->update($_POST['Activity'], $_POST['Task'])) {
+				$this->redirect($form->activity->viewUrl);
 			}
 		}
 
 		$this->pageTitle = 'Edit Activity';
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$form,
 		));
 	}
 

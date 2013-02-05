@@ -11,9 +11,10 @@ class ActivityAndTasksForm extends CFormModel
 
 	const SCENARIO_DRAFT = 'draft';
 	const SCENARIO_PUBLISH = 'publish';
+	const SCENARIO_UPDATE = 'update';
 
-	public $activity;
-	public $tasks = array();
+	private $_activity;
+	private $_tasks = array();
 
 	public function rules() {
 		return array(
@@ -29,7 +30,7 @@ class ActivityAndTasksForm extends CFormModel
 
 	public function init() {
 		$this->activity = new Activity();
-		$this->addTasks(self::STARTING_TASK_COUNT);
+		$this->addNewTasks(self::STARTING_TASK_COUNT);
 	}
 
 	public function getModels() {
@@ -37,19 +38,50 @@ class ActivityAndTasksForm extends CFormModel
 		return array_merge($models, $this->tasks);
 	}
 
+	public function getActivity() {
+		return $this->_activity;
+	}
+
+	public function setActivity($activity) {
+		$this->_activity = $activity;
+		$this->tasks = $activity->tasks;
+	}
+
+	public function getTasks() {
+		return $this->_tasks;
+	}
+
+	public function setTasks($tasks) {
+		$organizedTasks = array();
+		
+		foreach ($tasks as $task) {
+			if(isset($task->id)) {
+				$organizedTasks[$task->id] = $task;
+			}
+			else {
+				$organizedTasks[] = $task;
+			}
+		}
+
+		$this->_tasks = $organizedTasks;
+	}
+
 	public function getTaskCount() {
 		return sizeof($this->tasks);
 	}
 
-	public function addTasks($count) {
+	public function addNewTasks($count) {
 		for($i = 1; $i <= $count; $i++) {
-			$this->addTask();
+			$this->addNewTask();
 		}
 	}
 
-	public function addTask() {
-		$index = sizeof($this->tasks);
-		$this->tasks[$index] = new Task();
+	public function addNewTask() {
+		$this->_tasks[] = new Task();
+	}
+
+	public function removeTask($index) {
+		unset($this->_tasks[$index]);
 	}
 
 	/**
@@ -62,12 +94,14 @@ class ActivityAndTasksForm extends CFormModel
 		// Load in the new tasks
 		foreach($values['tasks'] as $i => $taskAttributes) {
 			Yii::trace("Setting attr {$i}: {$taskAttributes['name']}", 'aatf');
-			$task = new Task();
-			$task->attributes = $taskAttributes;
-			$this->tasks[$i] = $task;
+			if(!isset($this->_tasks[$i])) {
+				$this->_tasks[$i] = new Task();
+			}
+
+			$this->_tasks[$i]->attributes = $taskAttributes;
 		}
 
-		ksort($this->tasks);
+		ksort($this->tasks); // FIXME: Sort by date?
 	}
 
 	public function validate() {
@@ -99,7 +133,7 @@ class ActivityAndTasksForm extends CFormModel
 		foreach ($this->tasks as $i => $task) {
 			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');
 			if($task->isBlank) {
-				unset($this->tasks[$i]);
+				$this->removeTask($i);
 			}
 		}
 
@@ -118,6 +152,40 @@ class ActivityAndTasksForm extends CFormModel
 
 		return false;
 	}
+
+	public function update($activityAttributes = array(), $taskAttributesList = array()) {
+		$this->scenario = self::SCENARIO_UPDATE;
+
+		$this->attributes = array(
+			'activity' => $activityAttributes,
+			'tasks' => $taskAttributesList,
+		);
+
+		$isValid = true;
+
+		$isValid = $isValid && $this->activity->updateActivity();
+
+		foreach($this->_tasks as $i => &$task) {
+
+			if($task->isNewRecord) {
+				if($task->isBlank) {
+					$this->removeTask($i);
+				}
+				else {
+					$task->groupId = $this->activity->groupId;
+					$task->activityId = $this->activity->id;
+
+					$isValid = $isValid && $task->publish();
+				}
+			}
+			else {
+				$isValid = $isValid && $task->updateTask();
+			}
+		}
+
+		return $isValid;
+	}
+	
 
 	public function publish($activityAttributes = array(), $taskAttributesList = array()) {
 		if($this->draft($activityAttributes, $taskAttributesList)) {
@@ -142,7 +210,6 @@ class ActivityAndTasksForm extends CFormModel
 		);
 
 		$currentTaskCount = sizeof($taskAttributesList);
-		$this->addTasks($currentTaskCount); // double it!
-		return $drafted;
+		$this->addNewTasks($currentTaskCount); // double it!
 	}
 }
