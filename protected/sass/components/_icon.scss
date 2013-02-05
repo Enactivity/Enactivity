@@ -20,8 +20,8 @@
 .icon-super-hero {
 	@extend .icon-hero;
 	&:before {
-		font-size: 36px;
-		line-height: 42px; // line-height provides gap under icon
+		font-size: 48px;
+		line-height: 56px; // line-height provides gap under icon
 		vertical-align: middle;
 	}
 }

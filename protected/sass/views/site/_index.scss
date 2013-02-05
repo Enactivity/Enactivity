@@ -1,15 +1,22 @@
 @import "compass/css3/animation";
 
 .page-site-index {
-	min-height: 100%;
 	background: $cerulean;
 	color: $white;
 	overflow: hidden;
 
+	.inner {
+		margin: auto;
+		max-width: 1024px;
+	}
+
 	.greetings {
 		@include grid-row;
 		padding: $base-padding;
-		min-height: 100%;
+
+		@include respond-to(thin-tablet) {
+			min-height: 600px;
+		}
 
 		h1 {
 			@include animation(fade-down 1s);
@@ -27,6 +34,11 @@
 
 			background: $facebook-blue;
 			padding: $base-padding;
+
+			@include respond-to(wide-phone) {
+				max-width: 240px;
+				margin-top: $base-margin * 3;
+			}
 
 			i {
 				@extend .icon;
@@ -55,27 +67,28 @@
 		color: $mine-shaft;
 		padding: $base-padding;
 
-		div {
-			@include grid-column-1-of-1;
-			padding: $base-padding;
+		.inner {
+			div {
+				@include grid-column-1-of-1;
+				padding: $base-padding;
 
-			@include respond-to(wide-phone) {
-				@include grid-column-1-of-2;
-			}
+				@include respond-to(wide-phone) {
+					@include grid-column-1-of-2;
+				}
 
-			@include respond-to(wide-tablet) {
-				@include grid-column-1-of-4;
+				@include respond-to(wide-tablet) {
+					@include grid-column-1-of-4;
+				}
 			}
 		}
 
 		h2 {
-			font-size: 18px;
+			font-size: 24px;
 			font-weight: bold;
 			text-align: center;
 		}
 
 		p {
-			font-size: 16px;
 			text-align: center;
 		}
 
