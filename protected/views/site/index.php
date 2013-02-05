@@ -9,6 +9,15 @@
 	</div>
 </section>
 
+<section class="quotes">
+	<div class="inner">
+		<blockquote>
+			<p>What a great app, everyone should be using it!</p>
+			<p class="cite"><cite>say the guys who made Enactivity</cite></p>
+		</blockquote>
+	</div>
+</section>
+
 <section class="features">
 	<div class="inner">
 		<div class="describe-responsive">

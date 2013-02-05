@@ -58,7 +58,38 @@
 			font-weight: 100;
 			max-width: 450px;
 		}
+	}
 
+	.quotes {
+		@include grid-row;
+
+		background: $gallery;
+		color: $mine-shaft;
+		padding: $base-padding * 2 $base-padding;
+
+		blockquote {
+
+			&:before {
+				display: block;
+				float: left;
+				margin: (-1 * $base-padding) $base-margin 0 0;
+				font-size: 100px; 
+				content: open-quote; /* here we define our :before as a smart quote. It could be any content, even the HTML entity alternative to this opening quote, that is “ */
+				color: $shark;
+				text-shadow: 0 1px 1px #909090;
+			}
+
+			p {
+				font-size: 32px;
+			}
+
+			.cite {
+				color: $silver-chalice;
+				font-size: 10px;
+				margin-right: 3em;
+				margin-top: -20px;
+			}
+		}
 	}
 
 	.features {
@@ -89,6 +120,7 @@
 		}
 
 		p {
+			color: $dove-gray;
 			text-align: center;
 		}
 
