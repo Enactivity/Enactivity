@@ -167,6 +167,7 @@ class TaskCalendar extends CComponent {
 	}
 
 	public function removeTask($task) {
+		Yii::beginProfile('TaskCalendar removeTask', get_class($this));
 		Yii::trace("Removing task {$task->id}", get_class($this));
 
 		if($task->hasStarts) {
@@ -175,6 +176,7 @@ class TaskCalendar extends CComponent {
 		else {
 			$this->removeTaskWithNoStartTime($task);
 		}
+		Yii::endProfile('TaskCalendar removeTask', get_class($this));
 	}
 
 	protected function removeTaskWithStartTime($task) {
