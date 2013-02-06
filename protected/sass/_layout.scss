@@ -10,6 +10,9 @@ html, body {
 }
 
 body {
+	background-image: image-url('ajax-loader.gif', false, false);
+	background-position: center; 
+	background-repeat: no-repeat;
 	padding-top: $application-header-fixed-height;
 
 	@include respond-to(wide-tablet) {
