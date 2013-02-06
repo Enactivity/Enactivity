@@ -776,8 +776,8 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		);
     }
 
-    public function getExpandedViewURL() {
-    	return Yii::app()->createAbsoluteUrl('task/view',
+    public function getViewExpandedStoryURL() {
+    	return Yii::app()->createAbsoluteUrl('task/viewExpandedStory',
 			array(
 				'id'=>$this->id,
 			)

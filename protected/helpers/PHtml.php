@@ -631,7 +631,7 @@ class PHtml extends CHtml {
 	 * @param Task $task
 	 * @return string space-separated html class string
 	 */
-	public static function taskClass($task) {
+	public static function taskClass($task, $expand = false) {
 		$articleClass = array();
 
 		$articleClass[] = "task";
@@ -639,6 +639,7 @@ class PHtml extends CHtml {
 		$articleClass[] = $task->hasStarts ? "starts" : "";
 		$articleClass[] = $task->isCompleted ? "completed" : "not-completed";
 		$articleClass[] = $task->isUserParticipating ? "participating" : "not-participating";
+		$articleClass[] = $expand ? "expanded" : "";
 
 		return implode(" ", $articleClass);
 	}

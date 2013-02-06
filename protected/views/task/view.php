@@ -56,11 +56,11 @@
 
 <section class="user-response content">
 	<div class="task-response-status">
-		<p>Your current response: <span class="status"><?= PHtml::encode($response->statusLabel); ?></span></p>
+		<p>Your current response: <span class="status"><?= PHtml::encode($model->myResponse->statusLabel); ?></span></p>
 	</div>
 	<div class="menu controls">
 		<ul>
-			<? if($response->canSignUp): ?>
+			<? if($model->myResponse->canSignUp): ?>
 			<li> 
 				<?= PHtml::htmlButton(
 					"I'll do this",
@@ -76,7 +76,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($response->canStart): ?>
+			<? if($model->myResponse->canStart): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I'm doing this", 
@@ -92,7 +92,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($response->canComplete): ?>
+			<? if($model->myResponse->canComplete): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I've done this",
@@ -108,7 +108,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($response->canResume): ?>
+			<? if($model->myResponse->canResume): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"I've got more to do",
@@ -124,7 +124,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($response->canQuit): ?>
+			<? if($model->myResponse->canQuit): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"Quit",
@@ -140,7 +140,7 @@
 			</li>
 			<? endif; ?>
 
-			<? if($response->canIgnore): ?>
+			<? if($model->myResponse->canIgnore): ?>
 			<li>
 				<?= PHtml::htmlButton(
 					"Ignore",

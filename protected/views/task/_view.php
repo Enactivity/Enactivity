@@ -6,7 +6,7 @@
  * @param boolean $expand should show expanded view
  */
 ?>
-<article id="task-<?= PHtml::encode($data->id); ?>" class="<?= PHtml::taskClass($data); ?>">
+<article id="task-<?= PHtml::encode($data->id); ?>" class="<?= PHtml::taskClass($data, $expand); ?>">
 	<div class="task-time">
 		<? if($data->starts): ?>
 		<time><?= PHtml::encode($data->formattedStartTime); ?></time>
@@ -33,7 +33,7 @@
 		<ul class="details">
 			<? if(!$expand): ?>
 			<li>
-				<span data-get-url="<?= $data->viewUrl; ?>" data-container-selector="#task-<?= PHtml::encode($data->id); ?>">
+				<span data-get-url="<?= $data->viewExpandedStoryURL; ?>" data-container-selector="#task-<?= PHtml::encode($data->id); ?>">
 					<i></i> Expand
 				</span>
 			</li>

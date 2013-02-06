@@ -19,7 +19,7 @@ class TaskController extends Controller
 			),
 			array('allow', 
 				'actions'=>array(
-					'view','update','trash','untrash',
+					'view','viewExpandedStory','update','trash','untrash',
 					'signup','start','resume',
 					'complete','quit','ignore','feed',
 				),
@@ -62,15 +62,6 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadTaskModel($id);
-		$response = $model->myResponse;
-
-		if(Yii::app()->request->isAjaxRequest) {
-			$this->renderAjaxResponse('/task/_view', array(
-				'data'=>$model,
-				'expand'=>true,
-			));
-			return;
-		}
 
 		// Comments
 		$comment = $this->handleNewComment($model);
@@ -82,11 +73,26 @@ class TaskController extends Controller
 			'view',
 			array(
 				'model' => $model,
-				'response' => $response,
 				'comment' => $comment,
 				'comments' => $comments,
 			)
 		);
+	}
+
+	public function actionViewExpandedStory($id) {
+
+		// load model
+		$model = $this->loadTaskModel($id);
+
+		if(Yii::app()->request->isAjaxRequest) {
+			$this->renderAjaxResponse('/task/_view', array(
+				'data'=>$model,
+				'expand'=>true,
+			));
+		}
+		else {
+			$this->redirect('/task/view', array('id'=>$id));
+		}
 	}
 
 	public function actionFeed($id) {
@@ -148,7 +154,10 @@ class TaskController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -172,7 +181,10 @@ class TaskController extends Controller
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -196,7 +208,10 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -220,7 +235,10 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -244,7 +262,10 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -268,7 +289,10 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -292,7 +316,10 @@ class TaskController extends Controller
 
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
@@ -316,7 +343,10 @@ class TaskController extends Controller
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				$this->renderAjaxResponse('/task/_view', array(
+					'data'=>$task,
+					'expand'=>true,
+				));
 			}
 			$this->redirectReturnUrlOrView($task);
 		}
