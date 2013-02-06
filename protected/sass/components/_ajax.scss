@@ -3,7 +3,9 @@
 
 // Ajax prettification
 .ajax-loading {
-	// opacity: .5;
+	background-image: image-url('ajax-loader.gif', false, false);
+	background-position: center; 
+	background-repeat: no-repeat;
 }
 
 .ajax-flag {
