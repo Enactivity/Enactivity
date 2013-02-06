@@ -64,7 +64,7 @@
 					"I'll do this",
 					array( // html
 						'data-ajax-url'=>$data->signUpUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-sign-up-menu-item-' . $data->id,
 						'name'=>'task-sign-up-menu-item-' . $data->id,
@@ -81,7 +81,7 @@
 					"I'm doing this", 
 					array( // html
 						'data-ajax-url'=>$data->startUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-start-menu-item-' . $data->id,
 						'name'=>'task-start-menu-item-' . $data->id,
@@ -98,7 +98,7 @@
 					"I've done this",
 					array( // html
 						'data-ajax-url'=>$data->completeUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-complete-menu-item-' . $data->id,
 						'name'=>'task-complete-menu-item-' . $data->id,
@@ -115,7 +115,7 @@
 					"I've got more to do",
 					array( // html
 						'data-ajax-url'=>$data->resumeUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-resume-menu-item-' . $data->id,
 						'name'=>'task-resume-menu-item-' . $data->id,
@@ -132,7 +132,7 @@
 					"Quit",
 					array( // html
 						'data-ajax-url'=>$data->quitUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-quit-menu-item-' . $data->id,
 						'name'=>'task-quit-menu-item-' . $data->id,
@@ -149,7 +149,7 @@
 					"Ignore",
 					array( // html
 						'data-ajax-url'=>$data->ignoreUrl,
-						'data-container-id'=>"#task-" . PHtml::encode($data->id), 
+						'data-container-selector'=>"#task-" . PHtml::encode($data->id), 
 						'data-csrf-token'=>Yii::app()->request->csrfToken,
 						'id'=>'task-ignore-menu-item-' . $data->id,
 						'name'=>'task-ignore-menu-item-' . $data->id,
