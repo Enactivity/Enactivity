@@ -3,6 +3,7 @@
  * View for individual task models
  * 
  * @param Task $data model
+ * @param boolean $expand should show expanded view
  */
 ?>
 <article id="task-<?= PHtml::encode($data->id); ?>" class="<?= PHtml::taskClass($data); ?>">
@@ -18,6 +19,8 @@
 				array('/task/view', 'id'=>$data->id)
 			); ?>
 		</h1>
+		
+		<? if($expand): ?>
 		<ul class="participants">
 			<? foreach($data->participantsSummary as $index => $user): ?>
 				<li>
@@ -25,7 +28,16 @@
 				</li>
 			<? endforeach; ?>
 		</ul>
+		<? endif; ?>
+
 		<ul class="details">
+			<? if(!$expand): ?>
+			<li>
+				<span data-get-url="<?= $data->viewUrl; ?>" data-container-selector="#task-<?= PHtml::encode($data->id); ?>">
+					<i></i> Expand
+				</span>
+			</li>
+			<? endif; ?>
 			<li>
 				<i></i>
 				<? if($data->participantsCompletedCount): ?>
@@ -43,6 +55,7 @@
 		</ul>
 	</div>
 
+	<? if($expand): ?>
 	<div class="menu controls">
 		<ul>
 			<? if($data->myResponse->canSignUp): ?>
@@ -148,4 +161,5 @@
 			<? endif; ?>
 		</ul>
 	</div>
+	<? endif; ?>
 </article>

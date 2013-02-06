@@ -63,6 +63,7 @@ return array(
 							'jquery/offset/ScrollTop.js',
 							'AjaxLoader.js',
 							'AjaxButton.js',
+							'AjaxGetter.js',
 							'ClearInputsButton.js',
 							'DateInputPolyfill.js',
 							'DateTimePicker.js',

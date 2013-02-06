@@ -62,7 +62,15 @@ class TaskController extends Controller
 	{
 		// load model
 		$model = $this->loadTaskModel($id);
-		$response = Response::loadResponse($model->id, Yii::app()->user->id);
+		$response = $model->myResponse;
+
+		if(Yii::app()->request->isAjaxRequest) {
+			$this->renderAjaxResponse('/task/_view', array(
+				'data'=>$model,
+				'expand'=>true,
+			));
+			return;
+		}
 
 		// Comments
 		$comment = $this->handleNewComment($model);
