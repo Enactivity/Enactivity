@@ -12,9 +12,6 @@ html, body {
 
 body {
 	padding-top: $application-header-fixed-height;
-	
-	position: fixed; /* Keep the body centered for the loading image */
-	overflow: scroll;
 
 	@include respond-to(wide-tablet) {
 		padding-left: $application-navigation-fixed-width;

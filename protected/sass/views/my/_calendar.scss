@@ -21,7 +21,7 @@
 		@include respond-to(thin-phone){
 			@include grid-column-1-of-1;
 		}
-		@include respond-to(desktop){
+		@include respond-to(wide-phone){
 			@include grid-column-1-of-3;
 		}
 	}
