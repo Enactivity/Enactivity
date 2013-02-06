@@ -1,53 +1,46 @@
 $application-content-font-size: 16px;
 
-.application-content {
+.application-content nav {
+	@include grid-row;
+	background: $alto;
 
-	@include respond-to(wide-tablet){
+	ul {
+		max-width: $base-max-page-width;
+		margin: auto;
+		padding: 0;
+	}
+	
+	li {
+		@include ellipsis;
+		@include grid-column-1-of-1;
+
+		// these should be overriden on a case by case for each menu
+		@include respond-to(thin-phone){
+			@include grid-column-1-of-3;
+		}
+
+		border-left: 1px solid $faded-white;
+		height: 3 * $application-content-font-size;
+		text-align: center;
+	}
+
+	li:last-child {
+		border-right: 1px solid $faded-white;
+	}
+
+	a, a:visited, a:active,
+	a:hover, a:focus {
+		@include ellipsis;
+		@include unstyled-link;
+
+		height: 3 * $application-content-font-size;
+		display: block;
 		padding: $base-padding;
 	}
 
-	nav {
-		@include grid-row;
-		background: $alto;
-
-		ul {
-			max-width: $base-max-page-width;
-			margin: auto;
-			padding: 0;
-		}
-		
-		li {
-			@include ellipsis;
-			@include grid-column-1-of-1;
-
-			// these should be overriden on a case by case for each menu
-			@include respond-to(thin-phone){
-				@include grid-column-1-of-3;
-			}
-
-			border-left: 1px solid $faded-white;
-			height: 3 * $application-content-font-size;
-			text-align: center;
-		}
-
-		li:last-child {
-			border-right: 1px solid $faded-white;
-		}
-
-		a, a:visited, a:active,
-		a:hover, a:focus {
-			@include ellipsis;
-			@include unstyled-link;
-
-			height: 3 * $application-content-font-size;
-			display: block;
-			padding: $base-padding;
-		}
-
-		.active a, a:active, 
-		a:focus, a:hover {
-			border-bottom: 3px solid $cerulean;
-			padding-bottom: $base-padding - 3px;
-		}
+	.active a, a:active, 
+	a:focus, a:hover {
+		border-bottom: 3px solid $cerulean;
+		padding-bottom: $base-padding - 3px;
 	}
 }

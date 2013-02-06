@@ -3,7 +3,9 @@
 
 // Ajax prettification
 .ajax-loading {
-	// opacity: .5;
+	background-image: image-url('ajax-loader.gif', false, false);
+	background-position: center center; 
+	background-repeat: no-repeat;
 }
 
 .ajax-flag {
@@ -18,9 +20,4 @@
 	@extend .icon;
 	@extend .icon-spinner;
 	@extend .icon-spin; // spins the icon
-	
-	// position: fixed;
-	// right: 0;
-	// top: 0;
-	// z-index: 10000000; // in front!
 }
