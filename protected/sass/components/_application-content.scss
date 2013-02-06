@@ -3,4 +3,8 @@
 
  	background: $gallery;
  	min-height: 100%;
+
+	@include respond-to(wide-tablet){
+		padding: $base-padding;
+	}
 }
