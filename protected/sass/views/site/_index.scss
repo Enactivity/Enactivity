@@ -68,6 +68,11 @@
 		padding: $base-padding * 2 $base-padding;
 
 		blockquote {
+			text-align: right;
+
+			@include respond-to(wide-phone) {
+				text-align: left;
+			}
 
 			&:before {
 				display: block;
