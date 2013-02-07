@@ -10,17 +10,6 @@
 	<nav class="content-header-nav">
 		<ul>
 			<li>
-				<?= PHtml::link(
-					'<i></i> Add tasks', 
-					array('activity/tasks', 'id'=>$model->id),
-					array(
-						'id'=>'tasks-create-menu-item',
-						'class'=>'neutral tasks-create-menu-item',
-						'title'=>'Add new tasks to this activity',
-					)
-				); ?>
-			</li>
-			<li>
 				<?=
 				PHtml::link(
 					PHtml::encode('Edit'), 
