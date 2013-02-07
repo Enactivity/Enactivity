@@ -4,6 +4,7 @@
 	background: $mine-shaft;
 	border-top: 1px solid $faint-white;
 	color: $white;
+	padding-bottom: $application-navigation-fixed-height; // show last paragraph on small screen
 
 	p {
 	 	@include respond-to('thin-tablet') {
