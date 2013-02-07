@@ -104,7 +104,7 @@
 				),
 				array(
 					'label'=>'Someday', 
-					'url'=>array('task/someday'),
+					'url'=>array('my/someday'),
 					'linkOptions'=>array(
 						'id'=>'task-someday-menu-item',
 						'class'=>'task-someday-menu-item',
