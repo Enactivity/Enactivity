@@ -140,6 +140,10 @@ class Controller extends CController
 		}
 	}
 
+	public function getLogErrorUrl() {
+		return Yii::app()->createAbsoluteUrl('log/error');
+	}
+
 	/** 
 	 * @override
 	 */

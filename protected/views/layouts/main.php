@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 		<meta name="<?= Yii::app()->request->csrfTokenName; ?>" content="<?= Yii::app()->request->csrfToken; ?>">
+		<meta name="error-handler-url" content="<?= $this->logErrorUrl; ?>">
 
 		<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

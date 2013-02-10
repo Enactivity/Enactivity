@@ -60,6 +60,10 @@ return array(
 							'modernizr',
 						),
 						'js'=>array(
+							// Base
+							'base/ErrorHandler.js',
+
+							// Support
 							'jquery/offset/ScrollTop.js',
 							'AjaxLoader.js',
 							'AjaxButton.js',
