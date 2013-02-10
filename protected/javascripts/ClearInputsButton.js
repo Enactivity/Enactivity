@@ -13,7 +13,7 @@
 
 	var clearInput = function(selector) {
 		$(selector).val("");
-	}
+	};
 
 	/**
 	 * Add button behavior to selected items.
