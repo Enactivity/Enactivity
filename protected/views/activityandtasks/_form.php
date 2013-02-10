@@ -16,7 +16,7 @@
 
 	<p>Add some details about the overall activity.</p>
 
-	<?= $form->errorSummary($model->models); ?>
+	<?= $form->errorSummary($model); ?>
 
 	<fieldset class="new-activity-form">
 		<div class="field">

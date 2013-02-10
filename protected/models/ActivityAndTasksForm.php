@@ -23,7 +23,7 @@ class ActivityAndTasksForm extends CFormModel
 				'numerical',
 				'min' => 1,
 				'integerOnly'=>true,
-				'on' => self::SCENARIO_PUBLISH,
+				'tooSmall'=>"Activities must have at least one task."
 			),
 		);
 	}
@@ -106,14 +106,18 @@ class ActivityAndTasksForm extends CFormModel
 
 	public function validate() {
 
-		$isValid = parent::validate();
+		$isValid = true;
 
 		$isValid = $this->activity->validate() && $isValid;
+
+		$this->removeBlankTasks();
 
 		foreach($this->tasks as $id => &$task) {
 			Yii::trace("Validating {$i}: {$task->name}", 'aatf');
 			$isValid = $task->validate() && $isValid;
 		}
+
+		$isValid = parent::validate() && $isValid;
 
 		return $isValid;
 	}
@@ -130,12 +134,7 @@ class ActivityAndTasksForm extends CFormModel
 		);
 
 		// Remove the tasks with no attributes
-		foreach ($this->tasks as $i => $task) {
-			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');
-			if($task->isBlank) {
-				$this->removeTask($i);
-			}
-		}
+		$this->removeBlankTasks();
 
 		if($this->validate()) {
 			$this->activity->draft();
@@ -211,5 +210,14 @@ class ActivityAndTasksForm extends CFormModel
 
 		$currentTaskCount = sizeof($taskAttributesList);
 		$this->addNewTasks($currentTaskCount); // double it!
+	}
+
+	protected function removeBlankTasks() {
+		foreach ($this->tasks as $i => $task) {
+			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');
+			if($task->isBlank) {
+				$this->removeTask($i);
+			}
+		}
 	}
 }
