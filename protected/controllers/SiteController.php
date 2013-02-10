@@ -31,10 +31,6 @@ class SiteController extends Controller
 				'actions'=>array('logout','feedback'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
-				'expression'=>'$user->isAdmin',
-			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -124,15 +120,10 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
-	
-	public function actionAdmin() {
-		$this->render('admin', array());
-	}
 
 	/**
 	 * Displays the feedback page
 	 */
-
 	public function actionFeedback()
 	{
 		$model = new FeedbackForm;

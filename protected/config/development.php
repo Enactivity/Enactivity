@@ -5,6 +5,10 @@ return array(
 
 		'components'=>array(
 
+			'clientScript'=>array(
+				'minScriptDebug'=>true,
+			),
+
 			'db'=>array(
 				'enableParamLogging'=>true,
 				'enableProfiling' => true,
