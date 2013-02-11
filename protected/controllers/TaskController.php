@@ -68,8 +68,6 @@ class TaskController extends Controller
 		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
 
-		Yii::app()->metrics->
-
 		$this->pageTitle = $model->name;
 		
 		$this->render(
