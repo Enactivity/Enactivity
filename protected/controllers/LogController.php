@@ -41,18 +41,20 @@ class LogController extends Controller
 	 * @uses $_POST['navigator']
 	 */
 	public function actionError() {
-		// we only allow submitting via POST request
-		if(Yii::app()->request->isPostRequest) {
-			$message = print_r(array(
-				'message'=>$_POST['message'],
-				'url'=>$_POST['url'],
-				'line'=>$_POST['line'],
-				'userAgent'=>$_POST['userAgent'],
-			), true);
-			Yii::log($message,'error','client-side');
-		}
-		else {
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		if(Yii::app()->params['application.controllers.LogController.logErrors']) {
+			// we only allow submitting via POST request
+			if(Yii::app()->request->isPostRequest) {
+				$message = print_r(array(
+					'message'=>$_POST['message'],
+					'url'=>$_POST['url'],
+					'line'=>$_POST['line'],
+					'userAgent'=>$_POST['userAgent'],
+				), true);
+				Yii::log($message,'error','client-side');
+			}
+			else {
+				throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			}	
 		}
 	}
 }

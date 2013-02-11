@@ -327,6 +327,7 @@ return array(
 		'name'=>'Enactivity',
 
 		'params'=>array(
+
 			// this is used in contact page
 			'adminEmail'=>'ajsharma@poncla.com',
 			
@@ -336,6 +337,8 @@ return array(
 			'googleAnalyticsOn' => true,
 
 			'application.components.guides.WelcomeActivity.enabled' => true,
+
+			'application.controllers.LogController.logErrors' => false,
 
 			// flag to control whether or not email notification emails should be sent
 			'ext.behaviors.model.EmailNotificationBehavior.enabled' => true,
