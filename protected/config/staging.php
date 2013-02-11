@@ -13,6 +13,10 @@ return array(
 			),
 		),
 
+		'metrics' => array(
+			'enabled' => false,
+		),
+
 		'params'=>array(
 			'googleAnalyticsOn'=>false,
 		),

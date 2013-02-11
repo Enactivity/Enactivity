@@ -28,6 +28,10 @@
 	$this->widget('ext.analytics.AnalyticsWidget', array()); 
 	?>
 			
+	<? if(Yii::app()->metrics->enabled): ?>
+	<? Yii::app()->clientScript->registerCoreScript('metrics'); ?>
+	<? endif; ?>
+
 	</head>
 	<?= $content; ?>
 </html>
