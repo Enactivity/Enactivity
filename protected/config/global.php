@@ -157,6 +157,15 @@ return array(
 				'viewPath' => 'application.views.mail',
 			),
 
+			'metrics' => array(
+				'class' => 'ext.metrics.Metrics',
+				'enabled' => true,
+				'key' => "09f97d71e057cae4d58c2c29980a7a6b5cdf1475"
+				'log_dir' => dirname(__FILE__).DIRECTORY_SEPARATOR.'../runtime/',
+				'to_stderr' => true,
+				'use_cron' => false,
+			),
+
 			'notifier' => array(
 				'class' => 'application.components.notifications.Notifier',
 				'defaultFromEmailAddress' => 'notifications@' . $_SERVER['SERVER_NAME'],
