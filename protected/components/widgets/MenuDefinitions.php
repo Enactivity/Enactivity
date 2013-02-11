@@ -74,13 +74,6 @@ class MenuDefinitions extends CComponent {
 				),
 				'url'=>array('my/timeline'),
 			),
-			array(
-				'label'=>'<i></i> Drafts', 
-				'linkOptions'=>array(
-					'id'=>'my-drafts-menu-item',
-				),
-				'url'=>array('my/drafts'),
-			),
 		);
 	}
 }

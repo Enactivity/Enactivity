@@ -26,7 +26,7 @@ class MyController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('dashboard','calendar','someday','drafts','timeline','groups'),
+				'actions'=>array('dashboard','calendar','someday','timeline','groups'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -81,20 +81,6 @@ class MyController extends Controller
 			)
 		);
 	}
-
-	public function actionDrafts() {
-		$drafts = Yii::app()->user->model->drafts;
-
-		$this->pageTitle = 'Drafts';
-
-		$this->render(
-			'drafts',
-			array(
-				'activities' => $drafts,
-			)
-		);
-	}
-
 
 	/**
 	 * Lists all models.
