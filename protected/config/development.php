@@ -45,6 +45,10 @@ return array(
 				'overrideDomain' => 'poncla.com',
 			),
 
+			'metrics' => array(
+				'enabled' => false,
+			),
+
 			'notifier' => array(
 				'skipCurrentUser' => false,
 			),

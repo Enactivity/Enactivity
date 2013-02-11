@@ -186,6 +186,10 @@ class TaskController extends Controller
 			Response::signUp($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
+			Yii::app()->metrics->record('response/signup', array(
+				'taskId' => $task->id,
+			));
+
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
@@ -210,6 +214,10 @@ class TaskController extends Controller
 			Response::start($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
+			Yii::app()->metrics->record('response/start', array(
+				'taskId' => $task->id,
+			));
+
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
@@ -233,6 +241,10 @@ class TaskController extends Controller
 			// we only allow unparticipating via POST request
 			Response::quit($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
+
+			Yii::app()->metrics->record('response/quit', array(
+				'taskId' => $task->id,
+			));
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
@@ -257,6 +269,10 @@ class TaskController extends Controller
 			// we only allow unparticipating via POST request
 			Response::ignore($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
+
+			Yii::app()->metrics->record('response/ignore', array(
+				'taskId' => $task->id,
+			));
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
@@ -282,6 +298,10 @@ class TaskController extends Controller
 			Response::complete($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
 
+			Yii::app()->metrics->record('response/complete', array(
+				'taskId' => $task->id,
+			));
+
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
@@ -305,6 +325,10 @@ class TaskController extends Controller
 			// we only allow uncomplete via POST request
 			Response::resume($id, Yii::app()->user->id);
 			$task = $this->loadTaskModel($id);
+
+			Yii::app()->metrics->record('response/resume', array(
+				'taskId' => $task->id,
+			));
 				
 			// if AJAX request
 			if(Yii::app()->request->isAjaxRequest) {
@@ -388,31 +412,6 @@ class TaskController extends Controller
 		return $model;
 	}
 	
-	/**
-	 * Return a new task comment based on post data
-	 * @param Task $task Task the user is commenting on
-	 * @param Comment $comment
-	 * @return Comment
-	 */
-	public function handleNewTaskComment($task, $comment = null) {
-		if(is_null($comment)) {
-			$comment = new TaskComment(TaskComment::SCENARIO_INSERT);
-		}
-		
-		$comment->task = $task;
-		
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performCommentAjaxValidation($comment);
-	
-		if(isset($_POST['TaskComment'])) {
-			if($comment->publishComment($task, $_POST['TaskComment'])) {
-				$this->redirect(array('view','id'=>$task->id, '#'=>'comment-' . $comment->id));
-			}
-		}
-	
-		return $comment;
-	}
-
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
