@@ -272,6 +272,7 @@ class Controller extends CController
 		if(isset($_POST['Comment'])) {
 
 			if($comment->publishComment($model, $_POST['Comment'])) {
+				Yii::app()->metrics->record('commented', array('content type' => 'text'));
 				$this->redirect(array('view','id'=>$model->id, '#'=>'comment-' . $comment->id));
 			}
 		}

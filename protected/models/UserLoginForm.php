@@ -68,7 +68,7 @@ class UserLoginForm extends CFormModel
 			WelcomeActivity::publish(Yii::app()->user->id);
 
 			// Record metrics
-			Yii::app()->metrics->record('activated');
+			Yii::app()->metrics->record('signed up', array('plan level' => 'free'));
 		}
 		else {
 			Yii::app()->metrics->record('signed in');

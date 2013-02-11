@@ -105,6 +105,7 @@ class ActivityController extends Controller
 				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
 			}
 			else if($form->publish($_POST['Activity'], $_POST['Task'])) {
+				Yii::app()->metrics->record('posted content', array('content type' => 'Activity'));
 				$this->redirect($form->activity->viewUrl);	
 			}
 		}
