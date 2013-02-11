@@ -66,6 +66,12 @@ class UserLoginForm extends CFormModel
 		// Generate an intro activity for first time users
 		if($this->_identity->isNewUser) {
 			WelcomeActivity::publish(Yii::app()->user->id);
+
+			// Record metrics
+			Yii::app()->metrics->record('activated');
+		}
+		else {
+			Yii::app()->metrics->record('signed in');
 		}
 	}
 }
