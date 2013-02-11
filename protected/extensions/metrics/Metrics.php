@@ -49,6 +49,16 @@ class Metrics extends CApplicationComponent {
 		}
 	}
 
+	/**
+	 * Helper function to record model/scenario
+	 * @param CModel
+	 * @see record()
+	 **/
+	public function recordScenario($model, $props = array(), $userId = null) {
+		$action = strtolower(get_class($model) . '/' . $model->scenario);
+		return $this->record($action, $props, $userId);
+	}
+
 	private function events() {
 		// KM::record('activated');
 		// KM::record('Signed In');

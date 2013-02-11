@@ -78,6 +78,10 @@ class ActivityController extends Controller
 		$comment = $this->handleNewComment($model);
 		$comments = $model->comments;
 
+		Yii::app()->metrics->record('activity/view', array(
+			'id' => $model->id,
+		));
+
 		$this->pageTitle = $model->name;
 
 		$this->render('view',array(
@@ -103,9 +107,18 @@ class ActivityController extends Controller
 		{
 			if($_POST['add_more']) { // adding more tasks
 				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+				
+				Yii::app()->metrics->record('activity/addMoreTasks', array(
+					'id' => $form->taskCount,
+				));
 			}
 			else if($form->publish($_POST['Activity'], $_POST['Task'])) {
-				Yii::app()->metrics->record('posted content', array('content type' => 'Activity'));
+				
+				Yii::app()->metrics->record('activity/publish', array(
+					'id' => $form->activity->id,
+					'taskCount' => $form->taskCount,
+				));
+				
 				$this->redirect($form->activity->viewUrl);	
 			}
 		}
@@ -136,6 +149,11 @@ class ActivityController extends Controller
 				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
 			}
 			else if($form->update($_POST['Activity'], $_POST['Task'])) {
+
+				Yii::app()->metrics->record('activity/update', array(
+					'id' => $form->activity->id,
+				));
+
 				$this->redirect($form->activity->viewUrl);
 			}
 		}
@@ -185,6 +203,10 @@ class ActivityController extends Controller
 			$activity = $this->loadActivityModel($id);
 			$activity->trash();
 
+			Yii::app()->metrics->record('activity/trash', array(
+				'id' => $activity->id,
+			));
+
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
 				$this->renderPartial('/activity/_view', array('data'=>$activity), false, true);
@@ -209,6 +231,10 @@ class ActivityController extends Controller
 			// we only allow untrashing via POST request
 			$activity = $this->loadActivityModel($id);
 			$activity->untrash();
+
+			Yii::app()->metrics->record('activity/untrash', array(
+				'id' => $activity->id,
+			));
 				
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(Yii::app()->request->isAjaxRequest) {
