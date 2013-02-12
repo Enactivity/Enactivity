@@ -5,7 +5,7 @@
 ?>
 
 <header class="content-header">
-	<nav>
+	<nav class="content-header-nav">
 		<? $this->widget('zii.widgets.CMenu', array(
 			'encodeLabel'=>false,
 			'items'=>MenuDefinitions::siteMenu()
