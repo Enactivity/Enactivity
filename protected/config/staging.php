@@ -14,7 +14,7 @@ return array(
 		),
 
 		'metrics' => array(
-			'enabled' => false,
+			'reportingEnabled' => false,
 		),
 
 		'params'=>array(

@@ -46,7 +46,7 @@ return array(
 			),
 
 			'metrics' => array(
-				'enabled' => false,
+				'reportingEnabled' => false,
 			),
 
 			'notifier' => array(

@@ -25,7 +25,7 @@ require_once(Yii::getPathOfAlias('ext.metrics.kissmetrics') . '/KM.php');
  **/
 class Metrics extends CApplicationComponent {
 
-	public $enabled = true;
+	public $reportingEnabled = true;
 
 	public $key;
 
@@ -35,7 +35,7 @@ class Metrics extends CApplicationComponent {
 
 	public function init()
 	{	
-		if($this->enabled) {
+		if($this->reportingEnabled) {
 			return KM::init($this->key, array(
 				'log_dir' => $this->log_dir,
 				'use_cron' => $this->use_cron,
@@ -45,7 +45,7 @@ class Metrics extends CApplicationComponent {
 	}
 
 	public function identify($id) {
-		if($this->enabled) {
+		if($this->reportingEnabled) {
 			return KM::identify($id);
 		}
 	}
@@ -57,7 +57,7 @@ class Metrics extends CApplicationComponent {
 	 * @param int|string userId
 	 **/
 	public function record($action, $props = array(), $userId = null) {
-		if($this->enabled) {
+		if($this->reportingEnabled) {
 
 			if($userId) {
 				self::identify($userId);
