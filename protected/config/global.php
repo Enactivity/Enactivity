@@ -26,11 +26,6 @@ return array(
 	            'class' => 'CPhpAuthManager',
 	        ),
 
-	        'cache'=>array(
-	        	'class'=>'CMemCache',
-	        	'useMemcached'=>true,
-	        ),
-		
 			'clientScript'=>array(
 				//@see https://bitbucket.org/TeamTPG/minscript/wiki/Configuration
 				'class'=>'ext.minscript.components.ExtMinScript', 
