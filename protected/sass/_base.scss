@@ -19,58 +19,7 @@ $base-avatar-size: 32px;
 // page variables
 $application-header-fixed-height: $base-padding * 3;
 $application-navigation-fixed-height: $base-padding * 4.5;
-$application-navigation-fixed-width: $base-padding * 8;
-
-/**
- * color definitions
- * @see http://chir.ag/projects/name-that-color if stumped for names
- **/ 
-$allports:	#0076a3;
-$black:		#000000;
-$blue:      #268bd2;
-$cerulean: 	#00b6d5;
-$cyan:      #2aa198;
-$green:     #859900;
-$magenta:   #d33682;
-$orange:    #cb4b16;
-$red:       #dc322f;
-$scooter: 	#42C6DC;
-$violet:    #6c71c4;
-$white: 	#ffffff;
-$yellow:    #b58900;
-
-// colors
-$egg-white: #fff6bf;
-$metallic-bronze: #514721;
-$malachite: #00f34a;
-
-// grays
-
-$faint-white:		rgba(255, 255, 255, .1);
-$faded-white:		rgba(255, 255, 255, .25);
-$alto: 				#dddddd;
-$boulder: 			#777777;
-$cod-gray: 			#111111;
-$dark-gray: 		#a9a9a9;
-$dark-slate-gray: 	#2f4f4f;
-$dim-gray: 			#696969;
-$dove-gray: 		#666666;
-$dusty-gray: 		#999999;
-$emperor: 			#555555;
-$facebook-blue:		#3B5998;
-$gainsboro: 		#dcdcdc;
-$gallery: 			#eeeeee;
-$gray: 				#808080;
-$light-gray: 		#d3d3d3;
-$light-slate-gray:	#778899;
-$mine-shaft: 		#333333;
-$mine-shaft-light:	#2d2d2d;
-$shark:				#292d33;
-$silver-chalice: 	#aaaaaa;
-$silver: 			#bbbbbb;
-$silverish: 		#cccccc;
-$slate-gray: 		#708090;
-$tundora: 			#444444;
+$application-navigation-fixed-width: $base-padding * 8;	
 
 /** 
  * Mapping colors
@@ -90,18 +39,3 @@ $tundora: 			#444444;
 // mixins & functions
 @import "mixins/all";
 @import "functions/all";
-
-* {
-	@include box-sizing(border-box);
-}
-
-::-moz-selection,
-::selection {
-  background: $orange;
-  color: $white;
-}
-
-img::-moz-selection,
-img::selection {
-  background: transparent;
-}

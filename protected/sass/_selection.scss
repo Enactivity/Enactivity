@@ -1,0 +1,10 @@
+::-moz-selection,
+::selection {
+  background: $orange;
+  color: $white;
+}
+
+img::-moz-selection,
+img::selection {
+  background: transparent;
+}
