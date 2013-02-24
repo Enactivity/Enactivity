@@ -64,6 +64,7 @@ $nav-bar-color: $white;
 	}
 
 	.active > a, 
+	.active > a:visited,
 	a:hover, a:focus, a:active {
 		@include single-text-shadow($tundora, 1px, 1px, 3px);
 		background-color: $emperor;
