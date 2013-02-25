@@ -7,13 +7,10 @@ class ActivityNotification extends Notification {
 	 **/
 	public static function publish($activity, $user) {
 
-		// To
-		$to = $activity->whoToNotifyByEmail;
-
 		// Subject
 		$userName = $user->fullName;
 		$label = $activity->getScenarioLabel($activity->scenario);
-		$name = $activity->nameForEmails;
+		$name = $activity->name;
 		$subject = "{$userName} {$label} {$name}";
 		
 		// Data
@@ -22,7 +19,12 @@ class ActivityNotification extends Notification {
 			'user'=>$user,
 		);
 
-		Yii::app()->notifier->notifyByEmail($to, $subject, 'activityNotification/publish', $data);
-		// TODO: Yii::app()->notifier->notifyByFacebookGroup($to, $subject, 'activity/publish', $data);
+		Yii::app()->notifier->notifyByEmail($activity->whoToNotifyByEmail, $subject, 
+			'activityNotification/publish', $data
+		);
+		Yii::app()->notifier->notifyByFacebookGroup($activity->group, 
+			$activity->viewUrl, $name, $subject, 
+			'activityNotification/publish', $data
+		);
 	}
 }

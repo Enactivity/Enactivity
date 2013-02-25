@@ -110,6 +110,7 @@ return array(
 					'publish_stream',
 					'user_groups',
 				),
+				'viewPath' => 'application.views',
 	        ),
 			
 			'fixture'=>array(
