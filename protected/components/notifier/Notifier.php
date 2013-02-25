@@ -18,7 +18,7 @@ class Notifier extends CApplicationComponent {
 	 * @param $data data to pass to view for rendering
 	 * @param $from string the from email address
 	 */
-	protected function notifyByEmail($to, $subject = null, $view = null, $data = array(), $from = null) {
+	public function notifyByEmail($to, $subject = null, $view = null, $data = array(), $from = null) {
 
 		if(!is_array($to)) {
 			$to = array($to);
@@ -42,31 +42,31 @@ class Notifier extends CApplicationComponent {
 	}
 
 	// TODO: implement (params just guesses)
-	protected function notifyByFacebookGroup($to, $subject = null, $view = null, $data = array()) {
+	public function notifyByFacebookGroup($to, $subject = null, $view = null, $data = array()) {
 		
 	}
 
-	// Possible alternative to every object having it's own modelScenario function
-	public function modelUpdated($model, $to) {
+	// // Possible alternative to every object having it's own modelScenario function
+	// public function modelUpdated($model, $to) {
 
-		// Subject
-		$userName = Yii::app()->user->model->fullName;
-		$label = $model->getScenarioLabel($model->scenario);
-		$name = $model->emailName;
-		$subject = "{$userName} {$label} {$name}";
+	// 	// Subject
+	// 	$userName = Yii::app()->user->model->fullName;
+	// 	$label = $model->getScenarioLabel($model->scenario);
+	// 	$name = $model->emailName;
+	// 	$subject = "{$userName} {$label} {$name}";
 
-		// view
-		$view = strtolower(get_class($model)). '/' . $model->scenario;
+	// 	// view
+	// 	$view = strtolower(get_class($model)). '/' . $model->scenario;
 		
-		// $data
-		$data = array(
-			'data'=>$model, 
-			'changedAttributes'=>$model->publicChangedAttributes,
-			'user'=>Yii::app()->user->model
-		);
+	// 	// $data
+	// 	$data = array(
+	// 		'data'=>$model, 
+	// 		'changedAttributes'=>$model->publicChangedAttributes,
+	// 		'user'=>Yii::app()->user->model
+	// 	);
 
-		// Can notify by multiple methods (facebook, facebookGroupPost, etc.)
-		$this->notifyByEmail($to, $subject, $view, $data);
-		$this->notifyByFacebookGroup($to, $subject, $view, $data);
-	}
+	// 	// Can notify by multiple methods (facebook, facebookGroupPost, etc.)
+	// 	$this->notifyByEmail($to, $subject, $view, $data);
+	// 	$this->notifyByFacebookGroup($to, $subject, $view, $data);
+	// }
 }

@@ -114,6 +114,8 @@ class ActivityController extends Controller
 			}
 			else if($form->publish($_POST['Activity'], $_POST['Task'])) {
 				
+				ActivityNotification::publish($form->activity, Yii::app()->user->model);
+
 				Yii::app()->metrics->record('activity/publish', array(
 					'id' => $form->activity->id,
 					'taskCount' => $form->taskCount,
@@ -164,31 +166,6 @@ class ActivityController extends Controller
 			'model'=>$form,
 		));
 	}
-
-	/**
-	 * Publishes a particular model.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionPublish($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow trashing via POST request
-			$activity = $this->loadActivityModel($id);
-			$activity->publish();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderPartial('/activity/_view', array('data'=>$activity), false, true);
-				Yii::app()->end();
-			}
-			$this->redirectReturnUrlOrView($activity);
-		}
-		else {
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-		}
-	}
-
 
 	/**
 	 * Trashes a particular model.

@@ -398,7 +398,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 		}
 	}
 	
-	public function whoToNotifyByEmail()
+	public function getWhoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
 		//return array
@@ -407,7 +407,7 @@ class Membership extends ActiveRecord implements EmailableRecord
 		return $emails->data;
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return isset($this->group->name) ? $this->group->name : "";
     }
 

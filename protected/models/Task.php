@@ -741,7 +741,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return $this->name;
 	}
 		
-	public function whoToNotifyByEmail()
+	public function getWhoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
 		if($this->groupId) {
@@ -752,7 +752,7 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 		return array();
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return $this->name;
     }
 

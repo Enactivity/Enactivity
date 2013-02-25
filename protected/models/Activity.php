@@ -510,8 +510,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		);
     }
 
-    public function whoToNotifyByEmail()
-	{
+    public function getWhoToNotifyByEmail() {
 		if($this->groupId) {
             $group = Group::model()->findByPk($this->groupId);
             $users = $group->getMembersByStatus(User::STATUS_ACTIVE);
@@ -520,7 +519,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
         return array();
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return $this->name;
     }
 }

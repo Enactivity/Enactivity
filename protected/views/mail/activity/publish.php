@@ -5,8 +5,10 @@
 			Yii::app()->format->formatDateTime(time())
 		); ?></time></strong>
 	</p>
-	<p><?= PHtml::link(PHtml::encode($data->name), $data->viewUrl); ?> was published with <?= PHtml::encode($data->taskCount); ?> tasks.</p>
+	<p><?= PHtml::link(PHtml::encode($activity->name), $activity->viewUrl); ?> 
+		was published with <?= PHtml::encode($activity->taskCount); ?> tasks.
+	</p>
 	<blockquote>
-		<?= Yii::app()->format->formatStyledText($data->description); ?>
+		<?= Yii::app()->format->formatStyledText($activity->description); ?>
 	</blockquote>
 </article>

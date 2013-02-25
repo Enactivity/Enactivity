@@ -216,7 +216,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         return $this->modelObject->focalModelNameForLog;
     }
     	
-	public function whoToNotifyByEmail()
+	public function getWhoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
         if($this->groupId) {
@@ -227,7 +227,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         return array();
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return $this->modelObject->emailName;
     }
 }
