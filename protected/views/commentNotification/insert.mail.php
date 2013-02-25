@@ -12,10 +12,10 @@
 		); ?></time></strong>
 	</p>
 	<p><? PHtml::e($user->fullName); ?> just left a comment for
-		<?= PHtml::link(PHtml::encode($data->modelObject->name), 
-			$data->modelObject->viewUrl
+		<?= PHtml::link(PHtml::encode($comment->modelObject->name), 
+			$comment->modelObject->viewUrl
 			); ?>.</p>
 	<blockquote>
-		<?= Yii::app()->format->formatStyledText($data->content); ?>
+		<?= Yii::app()->format->formatStyledText($comment->content); ?>
 	</blockquote>
 </article>

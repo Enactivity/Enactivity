@@ -168,7 +168,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         ));
     }
 
-    public function publishComment($model, $attributes = null) {
+    public function insertComment($model, $attributes = null) {
         $this->scenario = self::SCENARIO_INSERT;
         
         $this->attributes = $attributes;

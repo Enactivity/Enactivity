@@ -271,11 +271,15 @@ class Controller extends CController
 
 		if(isset($_POST['Comment'])) {
 
-			if($comment->publishComment($model, $_POST['Comment'])) {
+			if($comment->insertComment($model, $_POST['Comment'])) {
+				
+				CommentNotification::insert($comment, $model, Yii::app()->user->model);
+
 				Yii::app()->metrics->recordScenario($comment, array(
 					'model type' => $comment->model,
 					'modelId' => $comment->modelId,
 				));
+
 				$this->redirect(array('view','id'=>$model->id, '#'=>'comment-' . $comment->id));
 			}
 		}
