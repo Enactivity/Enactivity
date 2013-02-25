@@ -42,6 +42,13 @@ class Notifier extends CApplicationComponent {
 	}
 
 	// TODO: implement (params just guesses)
+	/** 
+	 * @param $to Group|array of Groups to notify
+	 * @param $subject string subject of email
+	 * @param $view string alias to view path
+	 * @param $data data to pass to view for rendering
+	 * @param $from string the from email address
+	 */
 	public function notifyByFacebookGroup($to, $subject = null, $view = null, $data = array()) {
 		
 	}

@@ -22,7 +22,7 @@ class ActivityNotification extends Notification {
 			'user'=>$user,
 		);
 
-		Yii::app()->notifier->notifyByEmail($to, $subject, 'activity/publish', $data);
+		Yii::app()->notifier->notifyByEmail($to, $subject, 'activityNotification/publish', $data);
 		// TODO: Yii::app()->notifier->notifyByFacebookGroup($to, $subject, 'activity/publish', $data);
 	}
 }

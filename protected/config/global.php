@@ -159,7 +159,7 @@ return array(
 				'enabled' => true,
 				'logging' => false,
 				'transportType' => 'php',
-				'viewPath' => 'application.views.mail',
+				'viewPath' => 'application.views',
 			),
 
 			'metrics' => array(
