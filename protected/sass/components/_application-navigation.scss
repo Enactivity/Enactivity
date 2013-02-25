@@ -55,7 +55,7 @@ $nav-bar-color: $white;
 		}
 
 		@include transition(all 0.4s ease-out);
-		color: $white;
+		color: $nav-bar-color;
 		display: block;	
 		font-weight: normal;
 		padding: $base-padding 0; // no left/right padding to fit big words in small screens
@@ -64,10 +64,11 @@ $nav-bar-color: $white;
 	}
 
 	.active > a, 
+	.active > a:visited,
 	a:hover, a:focus, a:active {
 		@include single-text-shadow($tundora, 1px, 1px, 3px);
 		background-color: $emperor;
-		color: $white;
+		color: $nav-bar-color;
 	}
 
 	.secondary {
