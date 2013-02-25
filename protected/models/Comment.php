@@ -67,12 +67,12 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
                     self::SCENARIO_INSERT => array(),
                 ),
             ),
-            'EmailNotificationBehavior'=>array(
-                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                'scenarios' => array(
-                    self::SCENARIO_INSERT => array(),
-                ),
-            ),
+            // 'EmailNotificationBehavior'=>array(
+            //     'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+            //     'scenarios' => array(
+            //         self::SCENARIO_INSERT => array(),
+            //     ),
+            // ),
     	);
     }
 

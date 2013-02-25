@@ -172,7 +172,7 @@ return array(
 			),
 
 			'notifier' => array(
-				'class' => 'application.components.notifications.Notifier',
+				'class' => 'application.notifier.Notifier',
 				'defaultFromEmailAddress' => 'notifications@' . $_SERVER['SERVER_NAME'],
 			),
 			
