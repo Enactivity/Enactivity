@@ -145,10 +145,13 @@ class ActivityController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Activity']))
-		{
+		if(isset($_POST['Activity'])) {
 			if($_POST['add_more']) { // adding more tasks
-				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+				$form->attributes = array(
+					'activity' => $_POST['Activity'],
+					'tasks' => $_POST['Task'],
+				);
+				$form->addNewTasks(5);
 			}
 			else if($form->update($_POST['Activity'], $_POST['Task'])) {
 
