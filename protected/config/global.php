@@ -110,6 +110,7 @@ return array(
 					'publish_stream',
 					'user_groups',
 				),
+				'viewPath' => 'application.views',
 	        ),
 			
 			'fixture'=>array(
@@ -159,7 +160,7 @@ return array(
 				'enabled' => true,
 				'logging' => false,
 				'transportType' => 'php',
-				'viewPath' => 'application.views.mail',
+				'viewPath' => 'application.views',
 			),
 
 			'metrics' => array(
@@ -172,7 +173,7 @@ return array(
 			),
 
 			'notifier' => array(
-				'class' => 'application.components.notifications.Notifier',
+				'class' => 'application.components.notifier.Notifier',
 				'defaultFromEmailAddress' => 'notifications@' . $_SERVER['SERVER_NAME'],
 			),
 			
@@ -353,11 +354,11 @@ return array(
 
 		// autoloading model and component classes
 		'import'=>array(
-			'application.models.*',
 			'application.components.*',
-			'application.helpers.*',
 			'application.extensions.*',
-			'application.services.*',
+			'application.helpers.*',
+			'application.models.*',
+			'application.notifications.*',
 		),
 		
 		'modules'=>array(

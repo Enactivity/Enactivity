@@ -202,16 +202,6 @@ class ActivityAndTasksForm extends CFormModel
 		return false;
 	}
 
-	public function addMoreTasks($activityAttributes = array(), $taskAttributesList = array()) {
-		$this->attributes = array(
-			'activity' => $activityAttributes,
-			'tasks' => $taskAttributesList,
-		);
-
-		$currentTaskCount = sizeof($taskAttributesList);
-		$this->addNewTasks($currentTaskCount); // double it!
-	}
-
 	protected function removeBlankTasks() {
 		foreach ($this->tasks as $i => $task) {
 			Yii::trace("Checking for blank at {$i}: {$task->name}", 'aatf');

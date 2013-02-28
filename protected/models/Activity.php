@@ -105,31 +105,31 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 					self::SCENARIO_UNTRASH => array(),
 				),
 			),
-			'EmailNotificationBehavior'=>array(
-				'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-				'scenarios' => array(
-					self::SCENARIO_PUBLISH => array(),
-					// self::SCENARIO_UPDATE => array(
-					// 	'name',
-					// 	'description',
-					// ),
-					// self::SCENARIO_TRASH => array(),
-					// self::SCENARIO_UNTRASH => array(),
-				),
-			),
-			'FacebookGroupPostBehavior'=>array(
-				'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
-				'scenarios' => array(
-					self::SCENARIO_PUBLISH => array(),
-					// FIXME: implement views
-					// self::SCENARIO_UPDATE => array(
-					// 	'name',
-					// 	'description',
-					// ),
-					// self::SCENARIO_TRASH => array(),
-					// self::SCENARIO_UNTRASH => array(),
-				),
-			),
+			// 'EmailNotificationBehavior'=>array(
+			// 	'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+			// 	'scenarios' => array(
+			// 		self::SCENARIO_PUBLISH => array(),
+			// 		// self::SCENARIO_UPDATE => array(
+			// 		// 	'name',
+			// 		// 	'description',
+			// 		// ),
+			// 		// self::SCENARIO_TRASH => array(),
+			// 		// self::SCENARIO_UNTRASH => array(),
+			// 	),
+			// ),
+			// 'FacebookGroupPostBehavior'=>array(
+			// 	'class' => 'ext.facebook.components.db.ar.FacebookGroupPostBehavior',
+			// 	'scenarios' => array(
+			// 		self::SCENARIO_PUBLISH => array(),
+			// 		// FIXME: implement views
+			// 		// self::SCENARIO_UPDATE => array(
+			// 		// 	'name',
+			// 		// 	'description',
+			// 		// ),
+			// 		// self::SCENARIO_TRASH => array(),
+			// 		// self::SCENARIO_UNTRASH => array(),
+			// 	),
+			// ),
 		);
 	}
 
@@ -510,8 +510,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
 		);
     }
 
-    public function whoToNotifyByEmail()
-	{
+    public function getWhoToNotifyByEmail() {
 		if($this->groupId) {
             $group = Group::model()->findByPk($this->groupId);
             $users = $group->getMembersByStatus(User::STATUS_ACTIVE);
@@ -520,7 +519,7 @@ class Activity extends ActiveRecord implements LoggableRecord, FacebookGroupPost
         return array();
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return $this->name;
     }
 }

@@ -33,6 +33,12 @@ class FB extends CApplicationComponent {
 	 */
 	public $scope;
 
+	/**
+	 * @var string the path to the location where facebook views are stored.
+	 * Defaults to 'application.views.facebook'.
+	*/
+	public $viewPath = 'application.views.facebook';
+
 	protected $_facebook;
 
 	/**
@@ -155,6 +161,38 @@ class FB extends CApplicationComponent {
 
 	public function logout() {
 		$this->facebook->destroySession();
+	}
+
+	/**
+	* Renders a facebook view.  Facebook view files should end with '.facebook.php'
+	* 
+	* @param string view alias for body of view
+	* @param array the data of the message.  If a $view is set and this 
+	* is a string, this is passed to the view as $data.  If $view is set 
+	* and this is an array, the array values are passed to the view like in the 
+	* controller render() method
+	* @return string rendered view
+	*/
+	public function renderView($view, $data = null) {
+		
+		// if Yii::app()->controller doesn't exist create a dummy 
+		// controller to render the view (needed in the console app)
+		if(isset(Yii::app()->controller)) {
+			$controller = Yii::app()->controller;
+		}
+		else {
+			$controller = new CController('FB');
+		}
+
+		$data = array_merge($data, array('FB'=>$this)); // append email data to data
+		
+		// renderPartial won't work with CConsoleApplication, so use 
+		// renderInternal - this requires that we use an actual path to the 
+		// view rather than the usual alias
+		$viewPath = Yii::getPathOfAlias($this->viewPath.'.'.$view).'.facebook.php';
+		$output = $controller->renderInternal($viewPath, $data, true);	
+
+		return $output;
 	}
 
 	public function getLoginUrl() {

@@ -11,8 +11,11 @@
 			Yii::app()->format->formatDateTime(time())
 		); ?></time></strong>
 	</p>
-	<p>Yo! <? PHtml::e($user->fullName); ?> just left a comment for <?= PHtml::link(PHtml::encode($data->getModelObject()->name), PHtml::taskURL($data->getModelObject())); ?>.</p>
+	<p><? PHtml::e($user->fullName); ?> just left a comment for
+		<?= PHtml::link(PHtml::encode($comment->modelObject->name), 
+			$comment->modelObject->viewUrl
+			); ?>.</p>
 	<blockquote>
-		<?= Yii::app()->format->formatStyledText($data->content); ?>
+		<?= Yii::app()->format->formatStyledText($comment->content); ?>
 	</blockquote>
 </article>

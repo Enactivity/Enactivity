@@ -59,6 +59,7 @@
 
 		<div class="field">
 			<?= $form->labelEx($task,"[$index]name"); ?>
+			<?= $form->hiddenField($task, "[$index]id"); ?>
 			<?= $form->textField($task,"[$index]name",
 				array(
 					'size'=>60,
