@@ -1,16 +1,14 @@
 
 <h1>Quick Details</h1>
 
-<dl>
-	<dt><?= PHtml::encode($user->getAttributeLabel('id')); ?></dt>
-	<dd><?= PHtml::encode($user->id); ?></dd>
-	<dt><?= PHtml::encode($user->getAttributeLabel('facebookId')); ?></dt>
-	<dd><?= PHtml::encode($user->facebookId); ?></dd>
-	<dt><?= PHtml::encode($user->getAttributeLabel('fullName')); ?></dt>
-	<dd><?= PHtml::encode($user->fullName); ?></dd>
-	<dt><?= PHtml::encode($user->getAttributeLabel('email')); ?></dt>
-	<dd><?= PHtml::encode($user->email); ?></dd>
-</dl>
+<ul>
+	<? foreach(array('id', 'facebookId', 'fullName', 'email') as $attribute): ?>
+	<li>
+		<b><?= PHtml::encode($user->getAttributeLabel($attribute)); ?></b> :
+		<?= PHtml::encode($user->$attribute); ?>
+	</li>
+	<? endforeach; ?>
+</ul>
 
 
 <h2>Groups</h2>
