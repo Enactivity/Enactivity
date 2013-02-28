@@ -9,10 +9,10 @@ interface EmailableRecord
 	/**
 	 * @return string a name for the model as it should appear in emails
 	 **/
-	public function getEmailName();
+	public function getNameForEmails();
 
 	/**
 	 * @return array of emails that will be notified
 	 **/
-	public function whoToNotifyByEmail();
+	public function getWhoToNotifyByEmail();
 }

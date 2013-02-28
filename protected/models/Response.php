@@ -549,7 +549,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $this->task->name;
 	}
 	
-	public function whoToNotifyByEmail()
+	public function getWhoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
 		//return array
@@ -558,7 +558,7 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $emails->data;
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return isset($this->task->name) ? $this->task->name : "";
     }
 }

@@ -67,12 +67,12 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
                     self::SCENARIO_INSERT => array(),
                 ),
             ),
-            'EmailNotificationBehavior'=>array(
-                'class' => 'ext.behaviors.model.EmailNotificationBehavior',
-                'scenarios' => array(
-                    self::SCENARIO_INSERT => array(),
-                ),
-            ),
+            // 'EmailNotificationBehavior'=>array(
+            //     'class' => 'ext.behaviors.model.EmailNotificationBehavior',
+            //     'scenarios' => array(
+            //         self::SCENARIO_INSERT => array(),
+            //     ),
+            // ),
     	);
     }
 
@@ -168,7 +168,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         ));
     }
 
-    public function publishComment($model, $attributes = null) {
+    public function insertComment($model, $attributes = null) {
         $this->scenario = self::SCENARIO_INSERT;
         
         $this->attributes = $attributes;
@@ -216,7 +216,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         return $this->modelObject->focalModelNameForLog;
     }
     	
-	public function whoToNotifyByEmail()
+	public function getWhoToNotifyByEmail()
 	{
 		//go through group and store in array with all active users
         if($this->groupId) {
@@ -227,7 +227,7 @@ class Comment extends ActiveRecord implements EmailableRecord, LoggableRecord
         return array();
 	}
 
-    public function getEmailName() {
+    public function getNameForEmails() {
         return $this->modelObject->emailName;
     }
 }
