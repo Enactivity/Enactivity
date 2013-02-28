@@ -328,8 +328,7 @@ return array(
 
 		'params'=>array(
 
-			// this is used in contact page
-			'adminEmail'=>'ajsharma@poncla.com',
+			'adminEmail'=>'team@poncla.com',
 			
 			'application.models.FeedbackForm.to' => 'team@poncla.com',
 			'application.models.FeedbackForm.from' => 'no-reply-feedback@' . $_SERVER['SERVER_NAME'],
