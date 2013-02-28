@@ -15,7 +15,7 @@ class Notifier extends CApplicationComponent {
 	public $defaultFromEmailAddress;
 
 	/** 
-	 * @param $to User|array of Users to notify
+	 * @param $to User|string|array of Users|strings to notify
 	 * @param $subject string subject of email
 	 * @param $view string alias to view path
 	 * @param $data data to pass to view for rendering
@@ -29,7 +29,12 @@ class Notifier extends CApplicationComponent {
 
 		if($this->emailEnabled) {
 
-			$emails = ArrayUtils::extractProperty($to, 'email');
+			if(is_object($to[0])) {
+				$emails = ArrayUtils::extractProperty($to, 'email');
+			}
+			else {
+				$emails = $to;
+			}
 
 			if($this->skipCurrentUser) {
 				$emails = ArrayUtils::unsetByValue($emails, Yii::app()->user->model->email);
