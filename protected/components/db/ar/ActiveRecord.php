@@ -31,11 +31,15 @@ abstract class ActiveRecord extends CActiveRecord {
 
 	/**
 	 * Returns the text label for the specified scenario.
-	 * @param string $scenario the scenario name
+	 * @param string|null $scenario the scenario name, if null, uses current scenario
 	 * @return string the scenario label
 	 */
-	public function getScenarioLabel($scenario)
+	public function getScenarioLabel($scenario = null)
 	{
+		if(is_null($scenario)) {
+			$scenario = $this->scenario;
+		}
+
 		$labels = $this->scenarioLabels();
 		if(array_key_exists($scenario, $labels)) {
 			return $labels[$scenario];

@@ -56,7 +56,8 @@ class WelcomeActivity extends CComponent {
 				)
 			);
 
-			Response::start($form->tasks[1]->id, $userId);
+			$response = Response::loadResponse($form->tasks[1]->id, $userId);
+			$response->start();
 			$newActivityComment = new Comment();
 			$newActivityComment->insertComment($form->tasks[1], array(
 				"content" => "The \"next\" page is your home page for {$applicationName}."

@@ -210,19 +210,25 @@ class TaskController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+			$response = Response::loadResponse($id, Yii::app()->user->id);
+
 			// we only allow participating via POST request
-			Response::start($id, Yii::app()->user->id);
-			$task = $this->loadTaskModel($id);
+			if($response->start()) {
+				$task = $response->task;
 
-			Yii::app()->metrics->record('response/start', array(
-				'taskId' => $task->id,
-			));
+				ResponseNotification::start($response, $task, Yii::app()->user->model);
 
-			// if AJAX request
-			if(Yii::app()->request->isAjaxRequest) {
-				$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				Yii::app()->metrics->record('response/start', array(
+					'taskId' => $task->id,
+				));
+
+				// if AJAX request
+				if(Yii::app()->request->isAjaxRequest) {
+					$this->renderAjaxResponse('/task/_view', array('data'=>$task));
+				}
+				
+				$this->redirectReturnUrlOrView($task);	
 			}
-			$this->redirectReturnUrlOrView($task);
 		}
 		else {
 			throw new CHttpException(405,'Invalid request. Please do not repeat this request again.');

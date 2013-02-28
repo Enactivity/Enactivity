@@ -454,11 +454,9 @@ class Response extends ActiveRecord implements EmailableRecord, LoggableRecord
 		return $response->updateStatus(self::STATUS_SIGNED_UP);
 	}
 
-	public static function start($taskId, $userId) {
-		$response = self::loadResponse($taskId, $userId);
-
-		$response->scenario = self::SCENARIO_START;
-		return $response->updateStatus(self::STATUS_STARTED);	
+	public function start() {
+		$this->scenario = self::SCENARIO_START;
+		return $this->updateStatus(self::STATUS_STARTED);	
 	}
 
 	/**
