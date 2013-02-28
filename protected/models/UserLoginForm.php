@@ -52,8 +52,6 @@ class UserLoginForm extends CFormModel
 			Yii::app()->user->login($this->_identity, $duration);
 			//TODO: update last login of user
 
-			$this->afterLogin();
-
 			return true;
 		}
 		else {
@@ -61,17 +59,7 @@ class UserLoginForm extends CFormModel
 		}
 	}
 
-	public function afterLogin() {
-
-		// Generate an intro activity for first time users
-		if($this->_identity->isNewUser) {
-			WelcomeActivity::publish(Yii::app()->user->id);
-
-			// Record metrics
-			Yii::app()->metrics->record('user/register', array('plan level' => 'free'));
-		}
-		else {
-			Yii::app()->metrics->record('user/login');
-		}
+	public function getIsNewUser() {
+		return $this->_identity->isNewUser;
 	}
 }

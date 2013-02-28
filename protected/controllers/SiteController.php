@@ -99,6 +99,21 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			$model = new UserLoginForm();
 			if($model->login($_GET)) {
+
+				if($model->isNewUser) {
+					// Generate an intro activity for first time users
+					WelcomeActivity::publish(Yii::app()->user->id);
+
+					// Notify team about registration
+					AdminNotification::registered(Yii::app()->user->model);
+
+					// Record metrics
+					Yii::app()->metrics->record('user/register', array('plan level' => 'free'));
+				}
+				else {
+					Yii::app()->metrics->record('user/login');
+				}
+
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
