@@ -106,7 +106,11 @@ class ActivityController extends Controller
 		if(isset($_POST['Activity']) && isset($_POST['Task']))
 		{
 			if($_POST['add_more']) { // adding more tasks
-				$form->addMoreTasks($_POST['Activity'], $_POST['Task']);
+				$form->attributes = array(
+					'activity' => $_POST['Activity'],
+					'tasks' => $_POST['Task'],
+				);
+				$form->addNewTasks(5);
 				
 				Yii::app()->metrics->record('activity/addMoreTasks', array(
 					'id' => $form->taskCount,
