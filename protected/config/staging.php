@@ -7,7 +7,7 @@ return array(
 
 			// MySQL database settings for alpha
 			'db'=>array(
-				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=poncla_alpha',
+				'connectionString' => 'mysql:host=mysql.ajsharma.dev.enactivity.com;dbname=enactivity_alpha',
 				'username' => 'poncla_alpha',
 				'password' => 'alpha123',
 			),
