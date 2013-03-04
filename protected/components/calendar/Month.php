@@ -131,6 +131,41 @@ class Month extends CComponent implements Iterator {
 	public function getLastDayOfMonth() {
 		return getdate($this->lastDayOfMonthTimestamp);
 	}
+
+    /** 
+     * @return DateTime first DateTime, including filler
+     **/ 
+    public function getFirstDateTime() {
+    	$firstDate = $this->dates[0];
+    	return self::dateArrayToDateTime($firstDate);
+    }
+
+    /** 
+     * @return DateTime last moment DateTime, including filler
+     **/ 
+    public function getLastDateTime() {
+    	$lastDate = $this->dates[sizeof($this->dates) - 1];
+    	$datetime = self::dateArrayToDateTime($lastDate);
+    	$datetime->setTime(23, 59, 59);
+    	return $datetime;
+    }
+
+    /** 
+     * @param array $dateArray date array as created by getdate()
+     * @return DateTime object
+     **/
+    protected static function dateArrayToDateTime($dateArray) {
+    	$year = $dateArray['year'];
+    	$month = $dateArray['mon'];
+    	$day = $dateArray['mday'];
+
+    	// FIXME: account for user timezone
+    	$dateTime = new DateTime($year . '-' . $month . '-' . $day);
+		$dateTime->setTime(0, 0, 0);
+		
+    	return $dateTime;
+    }
+
 	
 	/**
 	 * Get the number of days preceeding in the week before the first
