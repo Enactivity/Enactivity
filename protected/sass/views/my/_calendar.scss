@@ -78,6 +78,8 @@
 				margin: $base-margin 0;
 				h1 {
 					@extend .heading1;
+					@include ellipsis;
+					color: $cerulean;
 					margin-bottom: 0;
 				}
 
