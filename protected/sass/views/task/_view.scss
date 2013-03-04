@@ -32,30 +32,4 @@
 			text-transform: lowercase;
 		}
 	}
-
-	.details {
-		@include grid-row;
-
-		div {
-			@include grid-column-1-of-1;
-
-			@include respond-to(thin-tablet) {
-				@include grid-column-1-of-4;
-				padding-left: $base-padding / 2;
-				padding-right: $base-padding / 2;
-			}
-		}
-
-		h1 {
-			border-bottom: 1px solid $silver-chalice;
-			color: $silver-chalice;
-			font-variant: small-caps;
-			text-transform: lowercase;
-		}
-
-		p {
-			@include ellipsis;
-			font-size: $base-font-size * 1.5;
-		}
-	}
 }

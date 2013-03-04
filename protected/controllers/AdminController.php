@@ -47,14 +47,18 @@ class AdminController extends Controller
 		
 		$commentCount = Comment::model()->count();
 
+		$counts = array(
+			'Users' => $userCount,
+			'Groups' => $groupCount,
+			'Activities' => $activityCount,
+			'Tasks' => $taskCount,
+			'Responses' => $responseCount,
+			'Comments' => $commentCount,
+		);
+
 
 		$this->render('summary',array(
-			'userCount' => $userCount,
-			'groupCount' => $groupCount,
-			'activityCount' => $activityCount,
-			'taskCount' => $taskCount,
-			'responseCount' => $responseCount,
-			'commentCount' => $commentCount,
+			'counts' => $counts,
 		));
 	}
 
