@@ -159,7 +159,7 @@
 	</div>
 </section>
 
-<section class="details content">
+<section class="briefs content">
 	<? if($model->starts): ?>
 	<div class="start-date">
 		<h1><i></i> Date</h1>
