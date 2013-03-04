@@ -625,27 +625,18 @@ class Task extends ActiveRecord implements EmailableRecord, LoggableRecord, Face
 	* @param mixed $month as integer (January = 1, Dec = 12)
 	* @param mixed $year as integer
 	*/
-	public function scopeByCalendarMonth($month, $year) {
+	public function scopeByMonth($month) {
+
+		$starts = $month->firstDateTime;
+		$ends = $month->lastDateTime;
 	
-		// convert params to integers
-		$month = intval($month);
-		$year = intval($year);
-	
-		// FIXME: account for user timezone
-		$monthStarts = new DateTime($year . "-" . $month . "-1");
-		$monthStarts->setTime(0, 0, 0);
-	
-		$monthEnds = new DateTime($year . "-" . ($month) . "-1");
-		$monthEnds->modify('+1 month');
-		$monthEnds->setTime(0, 0, 0);
-	
-		return $this->scopeStartsBetween($monthStarts, $monthEnds);
+		return $this->scopeStartsBetween($starts, $ends);
 	}
 	
 	/**
 	 * Scope for events taking place in a particular Month
-	 * @param int $starts unix timestamp of start time
-	 * @param int $ends unix timestamp of end time
+	 * @param DateTime $starts start time
+	 * @param DateTime $ends end time
 	 * @return ActiveRecord the Task
 	 */
 	public function scopeStartsBetween(DateTime $starts, DateTime $ends) {
