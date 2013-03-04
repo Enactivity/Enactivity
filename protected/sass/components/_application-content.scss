@@ -2,7 +2,7 @@
  	@include grid-row;
 
  	background: $gallery;
- 	min-height: 100%;
+ 	min-height: 400px;
 
 	@include respond-to(wide-tablet){
 		padding: $base-padding;
