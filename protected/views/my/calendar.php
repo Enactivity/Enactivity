@@ -54,22 +54,31 @@
 					</time>
 					<h1>
 						<?= PHtml::link(
-							PHtml::encode($activityInfo['activity']->shortName),
-							$activityInfo['firstTask']->activityURL
+							PHtml::encode($activityInfo['activity']->name),
+							$activityInfo['firstTask']->activityURL, 
+							array(
+								'title' => PHtml::encode($activityInfo['activity']->name),
+							)
 						); ?>
 					</h1>
 					<h2 class="calendar-tasks">
 						<span class="calendar-task">
 						<?= PHtml::link(
-							PHtml::encode($activityInfo['firstTask']->shortName),
-							$activityInfo['firstTask']->activityURL
+							PHtml::encode($activityInfo['firstTask']->name),
+							$activityInfo['firstTask']->activityURL, 
+							array(
+								'title' => PHtml::encode($activityInfo['firstTask']->name),
+							)
 						); ?>
 						</span>
 						<? if($activityInfo['more']): ?>
 						<span class="more">
 							<?= PHtml::link(
 								'+ ' . PHtml::encode($activityInfo['more']) . ' more',
-								array('activity/view', 'id'=>$activityInfo['activity']->id, '#'=>'day-' . $month->currentDate)
+								array('activity/view', 'id'=>$activityInfo['activity']->id, '#'=>'day-' . $month->currentDate), 
+								array(
+									'title' => PHtml::encode($activityInfo['more']) . ' more',
+								)
 							); ?>
 						</span>
 						<? endif; ?>
