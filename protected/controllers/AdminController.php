@@ -26,7 +26,7 @@ class AdminController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(
-					'phpinfo', 'registrations'
+					'summary', 'phpinfo', 'registrations'
 				),
 				'expression'=>'$user->isAdmin',
 			),
@@ -34,6 +34,19 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionSummary() {
+
+		$userCount = User::model()->count();
+		$groupCount = Group::model()->count();
+		$activityCount = Activity::model()->count();
+
+		$this->render('summary',array(
+			'userCount' => $userCount,
+			'groupCount' => $groupCount,
+			'activityCount' => $activityCount,
+		));
 	}
 
 	public function actionPhpInfo() {
