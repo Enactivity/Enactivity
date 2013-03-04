@@ -185,9 +185,11 @@ class TaskCalendar extends CComponent {
 			$time = $task->formattedStartTime;
 			$activityId = $task->activityId;
 
+			// FIXME: does not remove
 			if($this->dates[$date][$time][$activityId]['tasks'][$task->id]) {
 
 				if(isset($this->dates[$date][$time][$activityId])) {
+
 					$this->dates[$date][$time][$activityId]['taskCount']--;
 					$this->dates[$date][$time][$activityId]['more']--;
 
@@ -207,6 +209,9 @@ class TaskCalendar extends CComponent {
 					}
 				}
 			}
+			else {
+				Yii::trace("Task {$task->id} not in calendar", get_class($this));	
+			}
 		}
 		else {
 			throw new CException("Attempting to remove a task with start time, but task has no start time");
@@ -218,18 +223,20 @@ class TaskCalendar extends CComponent {
 			// [activityId]['tasks']
 			if(isset($this->someday[$task->activityId]['tasks'][$task->id])) { // if record exists in hash
 
-			if(isset($this->someday[$task->activityId]['activity'])) { // drop activity count
-				$this->someday[$task->activityId]['taskCount']--;
-				$this->someday[$task->activityId]['more']--;
+				if(isset($this->someday[$task->activityId]['activity'])) { // drop activity count
+					$this->someday[$task->activityId]['taskCount']--;
+					$this->someday[$task->activityId]['more']--;
 
-				if($this->someday[$task->activityId]['taskCount'] <= 0) { // if was last task in hash for activity
-					unset($this->someday[$task->activityId]);
-				}
-				else {
-					$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
+					if($this->someday[$task->activityId]['taskCount'] <= 0) { // if was last task in hash for activity
+						unset($this->someday[$task->activityId]);
+					}
+					else {
+						$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
+					}
 				}
 			}
-
+			else {
+				Yii::trace("Task {$task->id} not in calendar", get_class($this));	
 			}
 		}
 		else {
