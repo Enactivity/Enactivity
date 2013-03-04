@@ -186,9 +186,11 @@ class TaskCalendar extends CComponent {
 			$activityId = $task->activityId;
 
 			// FIXME: does not remove
-			if($this->dates[$date][$time][$activityId]['tasks'][$task->id]) {
+			if(self::getIsTaskInList($task, $this->dates[$date][$time][$activityId]['tasks'])) {
 
 				if(isset($this->dates[$date][$time][$activityId])) {
+
+					$this->dates[$date][$time][$activityId]['tasks'] = self::removeTaskFromList($task, $this->dates[$date][$time][$activityId]['tasks']);
 
 					$this->dates[$date][$time][$activityId]['taskCount']--;
 					$this->dates[$date][$time][$activityId]['more']--;
@@ -204,9 +206,6 @@ class TaskCalendar extends CComponent {
 							unset($this->dates[$task->startDate]);
 						}
 					}
-					else {
-						$this->dates[$date][$time][$activityId]['tasks'] = self::removeTaskFromList($task, $this->dates[$date][$time][$activityId]['tasks']);
-					}
 				}
 			}
 			else {
@@ -221,17 +220,17 @@ class TaskCalendar extends CComponent {
 	protected function removeTaskWithNoStartTime($task) {
 		if(!$task->hasStarts) {
 			// [activityId]['tasks']
-			if(isset($this->someday[$task->activityId]['tasks'][$task->id])) { // if record exists in hash
+			if(self::getIsTaskInList($task, $this->someday[$task->activityId]['tasks'])) { // if record exists in hash
 
 				if(isset($this->someday[$task->activityId]['activity'])) { // drop activity count
+
+					$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
+
 					$this->someday[$task->activityId]['taskCount']--;
 					$this->someday[$task->activityId]['more']--;
 
 					if($this->someday[$task->activityId]['taskCount'] <= 0) { // if was last task in hash for activity
 						unset($this->someday[$task->activityId]);
-					}
-					else {
-						$this->someday[$task->activityId]['tasks'] = self::removeTaskFromList($task, $this->someday[$task->activityId]['tasks']);
 					}
 				}
 			}
@@ -371,6 +370,13 @@ class TaskCalendar extends CComponent {
 		return null;
 	}
 
+	/**
+	 * @return boolean true if task is in list
+	 **/
+	private static function getIsTaskInList($task, $list) {
+		return is_int(self::getIndexOfTask($task, $list));
+	}
+
 	/** 
 	 * Adds a task to a list, only if the task is not already in the list
 	 * @param task to add
@@ -399,6 +405,7 @@ class TaskCalendar extends CComponent {
 		
 		if(isset($index)) {
 			unset($list[$index]);
+			Yii::trace("Task {$task->id} has been removed", get_class($this));	
 		}
 
 		return $list;
