@@ -47,7 +47,7 @@ class TaskCalendar extends CComponent {
 		$tasks = User::model()->with(array(
 			'tasks'=>array(
 				'scopes'=>array(
-					'scopeByCalendarMonth' => array($month->monthIndex, $month->year),
+					'scopeByMonth' => array($month),
 				),
 			),
 		))->findByPk($user->id)->tasks;
