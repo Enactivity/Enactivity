@@ -40,12 +40,21 @@ class AdminController extends Controller
 
 		$userCount = User::model()->count();
 		$groupCount = Group::model()->count();
+
 		$activityCount = Activity::model()->count();
+		$taskCount = Task::model()->count();
+		$responseCount = Response::model()->count();
+		
+		$commentCount = Comment::model()->count();
+
 
 		$this->render('summary',array(
 			'userCount' => $userCount,
 			'groupCount' => $groupCount,
 			'activityCount' => $activityCount,
+			'taskCount' => $taskCount,
+			'responseCount' => $responseCount,
+			'commentCount' => $commentCount,
 		));
 	}
 
