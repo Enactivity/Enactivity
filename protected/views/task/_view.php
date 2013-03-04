@@ -21,7 +21,11 @@
 		<ul class="participants">
 			<? foreach($data->participantsSummary as $index => $user): ?>
 				<li>
-					<?= PHtml::image($user->pictureUrl); ?>
+					<?= PHtml::image($user->pictureUrl, 
+						PHtml::encode($user->fullName), 
+						array(
+							'title' => PHtml::encode($user->fullName),
+						)); ?>
 				</li>
 			<? endforeach; ?>
 		</ul>
