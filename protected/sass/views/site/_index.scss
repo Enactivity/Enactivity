@@ -13,18 +13,48 @@
 	.greetings {
 		@include grid-row;
 
-		background-image: image-url('promotions/preview-1024x683.png', false, false);
-		background-position: center center; 
+		background: #00b7ea;
+		
+		@include background(
+			image-url('promotions/preview-200x175.png', false, false),
+			linear-gradient(135deg, #00b7ea 0%, #009ec3 100%)
+		);
+		background-position: bottom center; 
 		background-repeat: no-repeat;
-		background-size: auto 100%;
+		background-size: auto auto;
+
+		padding-bottom: 200px;
 
 		@include respond-to(wide-phone) {
-			background-size: 100% auto;
+			@include background(
+				image-url('promotions/preview-400x350.png', false, false),
+				linear-gradient(135deg, #00b7ea 0%, #009ec3 100%)
+			);
+			background-position: bottom center; 
+			background-repeat: no-repeat;
+			background-size: auto auto;
+			padding-bottom: 350px;
 		}
 
-		h1, p {
+		@include respond-to(thin-tablet) {
+			background-position: bottom right; 
+			padding-bottom: $base-padding;
+		}
+
+		@include respond-to(desktop) {
+			@include background(
+				image-url('promotions/preview-800x700.png', false, false),
+				linear-gradient(135deg, #00b7ea 0%, #009ec3 100%)
+			);
+			background-position: bottom right; 
+			background-repeat: no-repeat;
+			background-size: auto auto;
+		}
+
+		h1, h2, p {
 			@include text-shadow(1px 2px 2px rgba(0, 0, 0, 1));
 			padding: $base-padding;
+			max-width: 450px;
 		}
 
 		h1 {
@@ -37,10 +67,13 @@
 			}
 		}
 		
-		p {
+		h2 {
 			font-size: 24px;
 			font-weight: 100;
-			max-width: 450px;
+		}
+
+		p {
+
 		}
 
 		a.login {
@@ -54,13 +87,15 @@
 
 			@include respond-to(wide-phone) {
 				margin: $base-margin;
-				max-width: 240px;
+				max-width: 280px;
 			}
+		}
 
-			i {
-				@extend .icon;
-				@extend .icon-chevron-right;
-			}
+		.subtext {
+			display: block;
+			font-size: 10px;
+			opacity: .75;
+			padding: ($base-padding / 2) ($base-padding * 2);
 		}
 	}
 
@@ -104,6 +139,13 @@
 	.features {
 		@include grid-row;
 		background: $white;
+
+		background: #c9de96; /* Old browsers */
+
+		@include background(
+			linear-gradient(135deg, #c9de96 0%, #8ab66b 44%, #398235 100%)
+		);
+		
 		color: $mine-shaft;
 		padding: $base-padding;
 
@@ -129,7 +171,6 @@
 		}
 
 		p {
-			color: $dove-gray;
 			text-align: center;
 		}
 

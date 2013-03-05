@@ -2,9 +2,12 @@
 	<div class="inner">
 		<h1><span class="big-e">E</span>nactivity</h1>
 
-		<p>A new way to plan activities with your group.</p>
+		<h2>A new way to organize activities with your group.</h2>
 
-		<a href="<?=Yii::app()->FB->loginUrl;?>" class="login">Sign in with Facebook <i></i></a>
+		<p>Enactivity makes it easy to plan activities that people 
+			participate in, not just attend.</p>
+
+		<a href="<?=Yii::app()->FB->loginUrl;?>" class="login">Sign in with Facebook, it's free <i></i></a>
 	</div>
 </section>
 
