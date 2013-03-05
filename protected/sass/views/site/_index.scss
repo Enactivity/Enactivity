@@ -39,9 +39,12 @@
 		}
 		
 		p {
+			background-color: $cerulean;
+			border-radius: 50px; // half of height of p + padding
 			font-size: 24px;
 			font-weight: 100;
 			max-width: 450px;
+			padding: 24px;
 		}
 
 		a.login {
