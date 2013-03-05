@@ -13,13 +13,14 @@
 	.greetings {
 		@include grid-row;
 
-		background-image: image-url('promotions/ipad-preview-1024x621.png', false, false);
-		background-position: center bottom; 
+		background-image: image-url('promotions/preview-1024x683.png', false, false);
+		background-position: center center; 
 		background-repeat: no-repeat;
+		background-size: 100% auto;
 		padding: $base-padding $base-padding 600px $base-padding;
 
 		@include respond-to(thin-tablet) {
-			min-height: 600px;
+			min-height: 700px;
 			padding-bottom: $base-padding;
 		}
 
