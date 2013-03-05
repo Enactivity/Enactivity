@@ -1,7 +1,7 @@
 @import "compass/css3/animation";
 
 .page-site-index {
-	background: $cerulean;
+	background: $black;
 	color: $white;
 	overflow: hidden;
 
@@ -16,16 +16,15 @@
 		background-image: image-url('promotions/preview-1024x683.png', false, false);
 		background-position: center center; 
 		background-repeat: no-repeat;
-		background-size: 100% auto;
-		padding: $base-padding $base-padding 600px $base-padding;
+		background-size: auto 100%;
 
-		@include respond-to(thin-tablet) {
-			min-height: 700px;
-			padding-bottom: $base-padding;
+		@include respond-to(wide-phone) {
+			background-size: 100% auto;
 		}
 
 		h1, p {
-			@include text-shadow(1px 2px 2px rgba(0, 0, 0, .25));
+			@include text-shadow(1px 2px 2px rgba(0, 0, 0, 1));
+			padding: $base-padding;
 		}
 
 		h1 {
@@ -39,12 +38,9 @@
 		}
 		
 		p {
-			background-color: $cerulean;
-			border-radius: 50px; // half of height of p + padding
 			font-size: 24px;
 			font-weight: 100;
 			max-width: 450px;
-			padding: 24px 24px 24px 0;
 		}
 
 		a.login {
@@ -52,11 +48,13 @@
 			@include animation(fade-in 3s);
 
 			background: $facebook-blue;
+			margin: $base-margin 10%;
+			max-width: 80%;
 			padding: $base-padding;
 
 			@include respond-to(wide-phone) {
+				margin: $base-margin;
 				max-width: 240px;
-				margin-top: $base-margin * 3;
 			}
 
 			i {
