@@ -44,7 +44,7 @@
 			font-size: 24px;
 			font-weight: 100;
 			max-width: 450px;
-			padding: 24px;
+			padding: 24px 24px 24px 0;
 		}
 
 		a.login {
@@ -63,13 +63,6 @@
 				@extend .icon;
 				@extend .icon-chevron-right;
 			}
-		}
-
-		.subtext {
-			display: block;
-			font-size: 10px;
-			opacity: .75;
-			padding: $base-padding / 2;
 		}
 	}
 

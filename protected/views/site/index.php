@@ -5,7 +5,6 @@
 		<p>Easily plan, share, and participate in activities with your groups.</p>
 
 		<a href="<?=Yii::app()->FB->loginUrl;?>" class="login">Sign in with Facebook <i></i></a>
-		<span class="subtext">*it's free to get started now</span>
 	</div>
 </section>
 
