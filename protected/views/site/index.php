@@ -2,7 +2,7 @@
 	<div class="inner">
 		<h1><span class="big-e">E</span>nactivity</h1>
 
-		<p>Plan activities with your group.</p>
+		<p>A new way to plan activities with your group.</p>
 
 		<a href="<?=Yii::app()->FB->loginUrl;?>" class="login">Sign in with Facebook <i></i></a>
 	</div>
