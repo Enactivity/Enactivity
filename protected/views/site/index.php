@@ -20,31 +20,35 @@
 	</div>
 </section>
 
-<section class="features">
+<section class="feature describe-responsive">
 	<div class="inner">
-		<div class="describe-responsive">
-			<h2><i></i> Works Everywhere</h2>
-			<p>Enactivity's powerful web app works in all modern browsers, be they mobile devices, tablets, desktops, or laptops.</p>
-			<p>If you've got an internet connection, you've got Enactivity.</p>
-		</div>
+		<h2><i></i> Works Everywhere</h2>
+		<p>Enactivity's powerful web app works in all modern browsers, be they mobile devices, tablets, desktops, or laptops.</p>
+		<p>If you've got an internet connection, you've got Enactivity.</p>
+	</div>
+</section>
 
-		<div class="describe-dashboard">
-			<h2><i></i> Simple Dashboard</h2>
-			<p>Enactivity's dashboard shows the tasks you've signed up for and those still waiting for your response.</p>
-			<p>Never fall behind again.</p>
-		</div>
+<section class="feature describe-dashboard">
+	<div class="inner">
+		<h2><i></i> Simple Dashboard</h2>
+		<p>Enactivity's dashboard shows the tasks you've signed up for and those still waiting for your response.</p>
+		<p>Never fall behind again.</p>
+	</div>
+</section>
 
-		<div class="describe-calendar">
-			<h2><i></i> Calendar</h2>
-			<p>All your groups' activities can be browsed at a glance on Enactivity's calendar.</p>
-			<p>Stay organized.</p>
-		</div>
+<section class="feature describe-calendar">
+	<div class="inner">
+		<h2><i></i> Calendar</h2>
+		<p>All your groups' activities can be browsed at a glance on Enactivity's calendar.</p>
+		<p>Stay organized.</p>
+	</div>
+</section>
 
-		<div class="describe-facebook">
-			<h2><i></i> Facebook Integration</h2>
-			<p>Enactivity works with Facebook, your groups are automatically imported so you can start creating and sharing activities right away.</p>
-			<p>Easy.</p>
-		</div>
+<section class="feature describe-facebook">
+	<div class="inner">
+		<h2><i></i> Facebook Integration</h2>
+		<p>Enactivity works with Facebook, your groups are automatically imported so you can start creating and sharing activities right away.</p>
+		<p>Easy.</p>
 	</div>
 </section>
 

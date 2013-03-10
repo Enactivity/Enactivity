@@ -136,33 +136,12 @@
 		}
 	}
 
-	.features {
+	.feature {
 		@include grid-row;
-		background: $white;
-
-		background: #c9de96; /* Old browsers */
-
-		@include background(
-			linear-gradient(135deg, #c9de96 0%, #8ab66b 44%, #398235 100%)
-		);
 		
+		background: $white;		
 		color: $mine-shaft;
 		padding: $base-padding;
-
-		.inner {
-			div {
-				@include grid-column-1-of-1;
-				padding: $base-padding;
-
-				@include respond-to(wide-phone) {
-					@include grid-column-1-of-2;
-				}
-
-				@include respond-to(wide-tablet) {
-					@include grid-column-1-of-4;
-				}
-			}
-		}
 
 		h2 {
 			font-size: 24px;
@@ -171,6 +150,9 @@
 		}
 
 		p {
+			font-size: $base-font-size;
+			margin-left: auto;
+			margin-right: auto;
 			text-align: center;
 		}
 
@@ -180,20 +162,24 @@
 			text-align: center;
 		}
 
-		.describe-responsive i {
-			@extend .icon-tablet;
+		&:nth-child(even) {
+			background: $gallery;
 		}
+	}
 
-		.describe-dashboard i {
-			@extend .icon-dashboard;
-		}
+	.describe-responsive i {
+		@extend .icon-tablet;
+	}
 
-		.describe-calendar i {
-			@extend .icon-calendar;
-		}
+	.describe-dashboard i {
+		@extend .icon-dashboard;
+	}
 
-		.describe-facebook i {
-			@extend .icon-facebook-sign;
-		}
+	.describe-calendar i {
+		@extend .icon-calendar;
+	}
+
+	.describe-facebook i {
+		@extend .icon-facebook-sign;
 	}
 }
