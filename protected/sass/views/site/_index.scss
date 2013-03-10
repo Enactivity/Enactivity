@@ -143,43 +143,25 @@
 		color: $mine-shaft;
 		padding: $base-padding;
 
+		&:nth-child(even) {
+			background: $gallery;
+
+			.feature-blurb {
+				float: right;
+			}
+		}
+
+		.feature-blurb  {
+			max-width: $base-max-readability-width / 2;
+		}
+
 		h2 {
 			font-size: 24px;
 			font-weight: bold;
-			text-align: center;
 		}
 
 		p {
-			font-size: $base-font-size;
-			margin-left: auto;
-			margin-right: auto;
-			text-align: center;
+			font-size: 16px;
 		}
-
-		i {
-			@extend .icon-super-hero;
-			display: block;
-			text-align: center;
-		}
-
-		&:nth-child(even) {
-			background: $gallery;
-		}
-	}
-
-	.describe-responsive i {
-		@extend .icon-tablet;
-	}
-
-	.describe-dashboard i {
-		@extend .icon-dashboard;
-	}
-
-	.describe-calendar i {
-		@extend .icon-calendar;
-	}
-
-	.describe-facebook i {
-		@extend .icon-facebook-sign;
 	}
 }
