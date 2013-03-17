@@ -213,10 +213,6 @@ return array(
 				'showScriptName'=>false,
 				'urlFormat'=>'path', //enabled to allow for slugs
 			),
-
-			'viewRenderer' => array(
-				'class' => 'ext.mustache.MustacheViewRenderer',
-			),
 			
 			'widgetFactory'=>array(
 				'widgets'=>array(
