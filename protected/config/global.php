@@ -328,9 +328,9 @@ return array(
 
 		'params'=>array(
 
-			'adminEmail'=>'team@poncla.com',
+			'adminEmail'=>'team@' . $_SERVER['SERVER_NAME'],
 			
-			'application.models.FeedbackForm.to' => 'team@poncla.com',
+			'application.models.FeedbackForm.to' => 'team@' . $_SERVER['SERVER_NAME'],
 			'application.models.FeedbackForm.from' => 'no-reply-feedback@' . $_SERVER['SERVER_NAME'],
 			
 			'googleAnalyticsOn' => true,
