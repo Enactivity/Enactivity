@@ -166,7 +166,7 @@ return array(
 			'metrics' => array(
 				'class' => 'ext.metrics.Metrics',
 				'enabled' => true,
-				'key' => "09f97d71e057cae4d58c2c29980a7a6b5cdf1475",
+				'key' => "", // set in local or environment
 				'log_dir' => dirname(__FILE__).DIRECTORY_SEPARATOR.'../runtime/',
 				'to_stderr' => true,
 				'use_cron' => false,

@@ -9,6 +9,10 @@ return array(
 			'db'=>array(
 
 			),
+
+            'metrics' => array(
+                'key' => "my_km_key",
+            ),
 		),
 	),
 );
