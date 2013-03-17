@@ -140,7 +140,7 @@ return array(
 					),
 					'CEmailLogRoute' => array(
 						'class'=>'CEmailLogRoute',
-						'emails'=>'support-message-log@poncla.com',
+						'emails'=>'support-message-log@' . $_SERVER['SERVER_NAME'],
 						'filter' => array(
 							'class' => 'CLogFilter',
 							'logUser' => true,
