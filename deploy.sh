@@ -27,6 +27,11 @@ echo " DEPLOY>> Setting up environment mode"
 echo ${arguments[0]} > config/local.mode
 echo " DEPLOY>> Done"
 
+# Create local environment file
+echo " DEPLOY>> Creating local environment file if it does not exist"
+touch config/local.php
+echo " DEPLOY>> Done"
+
 # Migrate db as needed
 echo " DEPLOY>> Migrating database if needed"
 php yiic.php migrate --interactive=0
@@ -40,10 +45,6 @@ echo " DEPLOY>> Assets are cleaned"
 echo " DEPLOY>> Cleaning out minified files"
 rm -rf runtime/minScript/*
 echo " DEPLOY>> Minified files are deleted"
-
-echo " DEPLOY>> Cleaning out mustache cache"
-rm -rf runtime/Mustache/*
-echo " DEPLOY>> Mustache files are deleted"
 
 # Run compass once to update stylesheets
 echo " DEPLOY>> Compiling sass files"

@@ -13,12 +13,6 @@ return array(
 				'enableParamLogging'=>true,
 				'enableProfiling' => true,
 			),
-
-			'FB'=>array(
-				'appID' => '163029810507491',
-				'appSecret' => 'e00d0f1d1353df24d6ff3c86cb4766b5',
-				'appNamespace' => 'enactivity_test',
-	        ),
 			
 			'log'=>array(
 				'class'=>'CLogRouter',
@@ -41,8 +35,8 @@ return array(
 			),
 
 			'mailer' => array(
-				'overrideLocal' => 'eng',
-				'overrideDomain' => 'poncla.com',
+				'overrideLocal' => 'dev',
+				'overrideDomain' => $_SERVER['SERVER_NAME'],
 			),
 
 			'metrics' => array(

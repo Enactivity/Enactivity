@@ -101,9 +101,9 @@ return array(
 
 			'FB'=>array(
 	        	'class'=>'ext.facebook.FB',
-				'appID' => '284699434983364',
-				'appSecret' => '53924a0540f0e41b7ea4befcfc09a1b9',
-				'appNamespace' => 'enactivity',
+				'appID' => '', // set in local
+				'appSecret' => '', // set in local
+				'appNamespace' => '', // set in local
 				'isFileUploadEnabled' => false,
 				'scope' => array(
 					'email',
@@ -140,7 +140,7 @@ return array(
 					),
 					'CEmailLogRoute' => array(
 						'class'=>'CEmailLogRoute',
-						'emails'=>'support-message-log@poncla.com',
+						'emails'=>'support-message-log@' . $_SERVER['SERVER_NAME'],
 						'filter' => array(
 							'class' => 'CLogFilter',
 							'logUser' => true,
@@ -166,7 +166,7 @@ return array(
 			'metrics' => array(
 				'class' => 'ext.metrics.Metrics',
 				'enabled' => true,
-				'key' => "09f97d71e057cae4d58c2c29980a7a6b5cdf1475",
+				'key' => "", // set in local or environment
 				'log_dir' => dirname(__FILE__).DIRECTORY_SEPARATOR.'../runtime/',
 				'to_stderr' => true,
 				'use_cron' => false,
@@ -212,10 +212,6 @@ return array(
 				),
 				'showScriptName'=>false,
 				'urlFormat'=>'path', //enabled to allow for slugs
-			),
-
-			'viewRenderer' => array(
-				'class' => 'ext.mustache.MustacheViewRenderer',
 			),
 			
 			'widgetFactory'=>array(
@@ -328,9 +324,9 @@ return array(
 
 		'params'=>array(
 
-			'adminEmail'=>'team@poncla.com',
+			'adminEmail'=>'team@' . $_SERVER['SERVER_NAME'],
 			
-			'application.models.FeedbackForm.to' => 'team@poncla.com',
+			'application.models.FeedbackForm.to' => 'team@' . $_SERVER['SERVER_NAME'],
 			'application.models.FeedbackForm.from' => 'no-reply-feedback@' . $_SERVER['SERVER_NAME'],
 			
 			'googleAnalyticsOn' => true,
