@@ -4,7 +4,7 @@
  3. Unix server
  4. PHP 5.3+ (developed/tested with 5.3)
  5. Memcached
- 6. Rails (for compass)
+ 6. Ruby (for compass)
 
 # Installation
  1.`gem install compass`
